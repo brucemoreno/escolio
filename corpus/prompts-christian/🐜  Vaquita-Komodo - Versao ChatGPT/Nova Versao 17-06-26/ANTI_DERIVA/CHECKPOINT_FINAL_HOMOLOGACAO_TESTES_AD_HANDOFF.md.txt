@@ -1,0 +1,431 @@
+INICIO_DO_ARQUIVO
+
+# CHECKPOINT_FINAL_HOMOLOGACAO_TESTES_AD_HANDOFF
+
+## 1. Identificação
+
+NOME_DO_CHECKPOINT:
+CHECKPOINT_FINAL_HOMOLOGACAO_TESTES_AD_HANDOFF
+
+FUNÇÃO:
+Registrar a homologação documental final dos TESTES_AD_HANDOFF mínimos aplicados ao HANDOFF_PROMPT_v1.1-RC.txt.
+
+MÓDULO:
+HANDOFF
+
+STATUS:
+checkpoint final de homologação documental;
+não reexporta arquivo;
+não cria patch;
+não altera arquitetura;
+não executa testes complementares/regressivos;
+não declara substituição operacional definitiva nesta etapa.
+
+---
+
+## 2. Arquivo homologado como candidato
+
+ARQUIVO HOMOLOGADO COMO CANDIDATO:
+HANDOFF_PROMPT_v1.1-RC.txt
+
+STATUS DO ARQUIVO:
+candidato operacional;
+aprovado como candidato para testes;
+aprovado nos TESTES_AD_HANDOFF mínimos;
+validado externamente nos TESTES_AD_HANDOFF mínimos;
+ainda não declarado como substituto operacional definitivo do HANDOFF_PROMPT_v1RC.txt.
+
+CONDIÇÃO MATERIAL:
+arquivo candidato gerado a partir do HANDOFF_PROMPT_v1RC.txt, com aplicação localizada e conservadora do PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1.md.
+
+---
+
+## 3. Arquivo-base
+
+ARQUIVO-BASE:
+HANDOFF_PROMPT_v1RC.txt
+
+STATUS DO ARQUIVO-BASE:
+versão anterior/base operacional vigente até salvamento humano controlado e promoção operacional do HANDOFF_PROMPT_v1.1-RC.txt.
+
+REGRA DE PRESERVAÇÃO:
+HANDOFF_PROMPT_v1RC.txt deve ser preservado como versão anterior/base arquivada, mesmo após eventual promoção operacional da v1.1-RC.
+
+---
+
+## 4. Pasta de salvamento
+
+PASTA DE SALVAMENTO DO HANDOFF CANDIDATO:
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/HANDOFF/
+
+ARQUIVO A SALVAR:
+HANDOFF_PROMPT_v1.1-RC.txt
+
+PASTA DE SALVAMENTO DESTE CHECKPOINT:
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/ANTI_DERIVA/
+
+ARQUIVO DE CHECKPOINT A SALVAR:
+CHECKPOINT_FINAL_HOMOLOGACAO_TESTES_AD_HANDOFF.md
+
+---
+
+## 5. Escopo da homologação
+
+ESCOPO:
+homologação documental dos seis TESTES_AD_HANDOFF mínimos aplicados ao HANDOFF_PROMPT_v1.1-RC.txt.
+
+TESTES COBERTOS:
+TESTE_AD_HANDOFF_01;
+TESTE_AD_HANDOFF_02;
+TESTE_AD_HANDOFF_03;
+TESTE_AD_HANDOFF_04;
+TESTE_AD_HANDOFF_05;
+TESTE_AD_HANDOFF_06.
+
+TESTES NÃO EXECUTADOS NESTA ETAPA:
+TESTES_AD_HANDOFF_REGRESSIVOS;
+TESTES_AD_HANDOFF_COMPLEMENTARES;
+testes operacionais em cadeia real;
+testes de longa duração;
+testes de migração real entre chats.
+
+NÃO ALTERA:
+Vaquita;
+Brasinha;
+Komodo;
+BVAA;
+Jararaca;
+Baleia Deriva.
+
+NÃO EXECUTA:
+reexportação do Handoff;
+nova versão enxuta;
+novo patch;
+reescrita arquitetural;
+substituição operacional definitiva.
+
+---
+
+## 6. Testes executados e resultados
+
+### TESTE_AD_HANDOFF_01
+
+RESULTADO:
+APROVADO
+
+VALIDAÇÃO EXTERNA:
+APROVADO
+
+OBJETO:
+Preservação material de ANTI_DERIVA_ESCALONADA no pacote de saída, sem renomeação e sem resumo destrutivo.
+
+FALHA BLOQUEANTE:
+nenhuma.
+
+CORREÇÃO NECESSÁRIA:
+nenhuma.
+
+---
+
+### TESTE_AD_HANDOFF_02
+
+RESULTADO:
+APROVADO
+
+VALIDAÇÃO EXTERNA:
+APROVADO
+
+OBJETO:
+Preservação dos seis contadores principais do protocolo anti-deriva escalonado.
+
+CONTADORES VERIFICADOS:
+PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF.
+
+FALHA BLOQUEANTE:
+nenhuma.
+
+CORREÇÃO NECESSÁRIA:
+nenhuma.
+
+---
+
+### TESTE_AD_HANDOFF_03
+
+RESULTADO:
+APROVADO
+
+VALIDAÇÃO EXTERNA:
+APROVADO
+
+OBJETO:
+Retomada em novo chat sem zeragem destrutiva de contadores persistentes.
+
+RESULTADO VALIDADO:
+o HANDOFF_PROMPT_v1.1-RC candidato distingue o contador do novo chat dos contadores persistentes e impede zeragem destrutiva de estado anti-deriva em retomada.
+
+RESSALVA METODOLÓGICA:
+em teste operacional futuro, será importante observar se o Handoff declara claramente quando PARÁGRAFOS_REVISADOS_NESTE_CHAT passa a 0 no novo chat e quais contadores permanecem preservados.
+
+FALHA BLOQUEANTE:
+nenhuma.
+
+CORREÇÃO NECESSÁRIA:
+nenhuma.
+
+---
+
+### TESTE_AD_HANDOFF_04
+
+RESULTADO:
+APROVADO
+
+VALIDAÇÃO EXTERNA:
+APROVADO
+
+OBJETO:
+Preservação material de ENCAMINHAMENTO_ANTI_DERIVA, STATUS, PRÓXIMO_COMANDO_SEGURO e MOTIVO.
+
+RESULTADO VALIDADO:
+o HANDOFF_PROMPT_v1.1-RC candidato preserva os quatro campos e não substitui PRÓXIMO_COMANDO_SEGURO por comando mais permissivo.
+
+FALHA BLOQUEANTE:
+nenhuma.
+
+CORREÇÃO NECESSÁRIA:
+nenhuma.
+
+---
+
+### TESTE_AD_HANDOFF_05
+
+RESULTADO:
+APROVADO
+
+VALIDAÇÃO EXTERNA:
+APROVADO
+
+OBJETO:
+PACOTE_HANDOFF_PREVENTIVO não conclui etapa.
+
+RESULTADO VALIDADO:
+PACOTE_HANDOFF_PREVENTIVO preserva estado, mas não declara fase, seção ou capítulo concluído sem declaração explícita no pacote de origem ou decisão humana registrada.
+
+FALHA BLOQUEANTE:
+nenhuma.
+
+CORREÇÃO NECESSÁRIA:
+nenhuma.
+
+---
+
+### TESTE_AD_HANDOFF_06
+
+RESULTADO:
+APROVADO
+
+VALIDAÇÃO EXTERNA:
+APROVADO
+
+OBJETO:
+PACOTE_HANDOFF_VAQUITA obrigatório.
+
+RESULTADO VALIDADO:
+PACOTE_HANDOFF_VAQUITA é tratado como preservação formal obrigatória em fim de capítulo, mudança de capítulo, risco crítico ou perda de estado confiável, sem ser convertido em recomendação opcional e sem liberação automática de PROXIMO.
+
+FALHA BLOQUEANTE:
+nenhuma.
+
+CORREÇÃO NECESSÁRIA:
+nenhuma.
+
+---
+
+## 7. Resultado consolidado dos testes
+
+TOTAL DE TESTES DOCUMENTAIS MÍNIMOS:
+6
+
+TESTES EXECUTADOS:
+6
+
+TESTES APROVADOS:
+6
+
+TESTES VALIDADOS EXTERNAMENTE:
+6
+
+TESTES REPROVADOS:
+0
+
+FALHAS BLOQUEANTES:
+0
+
+CORREÇÕES NECESSÁRIAS:
+0
+
+RESULTADO CONSOLIDADO:
+HANDOFF_PROMPT_v1.1-RC.txt aprovado nos 6 TESTES_AD_HANDOFF documentais mínimos e validado externamente como candidato apto à homologação documental.
+
+---
+
+## 8. Falhas bloqueantes
+
+FALHAS BLOQUEANTES IDENTIFICADAS:
+nenhuma.
+
+---
+
+## 9. Correções necessárias
+
+CORREÇÕES NECESSÁRIAS APÓS TESTES_AD_HANDOFF:
+nenhuma.
+
+CORREÇÕES JÁ CONSOLIDADAS ANTES DOS TESTES:
+aplicação localizada do PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1.md ao HANDOFF_PROMPT_v1RC.txt para geração do HANDOFF_PROMPT_v1.1-RC.txt candidato.
+
+---
+
+## 10. Ressalva metodológica
+
+RESSALVA:
+os TESTES_AD_HANDOFF executados e homologados foram testes documentais.
+
+Eles confirmam que o HANDOFF_PROMPT_v1.1-RC.txt contém materialmente as regras, blocos, distinções e travas necessárias para preservar o estado anti-deriva escalonado da Vaquita v1.1-RC.
+
+Eles não substituem a observação futura do Handoff em operação real, especialmente em:
+
+1. migração efetiva entre chats;
+2. pacotes longos de retomada;
+3. preservação de ANTI_DERIVA_ESCALONADA em cadeia longa;
+4. declaração explícita de reinício de PARÁGRAFOS_REVISADOS_NESTE_CHAT no novo chat;
+5. preservação dos contadores persistentes;
+6. preservação de PRÓXIMO_COMANDO_SEGURO;
+7. distinção prática entre PACOTE_HANDOFF_PREVENTIVO e PACOTE_HANDOFF_VAQUITA;
+8. não declaração indevida de etapa concluída.
+
+---
+
+## 11. Status do HANDOFF_PROMPT_v1.1-RC.txt
+
+STATUS DO HANDOFF_PROMPT_v1.1-RC.txt:
+homologado documentalmente nos TESTES_AD_HANDOFF mínimos;
+validado externamente nos seis testes mínimos;
+candidato apto à substituição operacional;
+ainda não promovido definitivamente nesta etapa.
+
+STATUS OPERACIONAL:
+apto à substituição operacional do HANDOFF_PROMPT_v1RC.txt, desde que o arquivo candidato validado seja salvo humanamente de modo controlado na pasta correta.
+
+STATUS DE SUBSTITUIÇÃO:
+substituição definitiva ainda não executada neste checkpoint.
+
+CONDIÇÃO PARA SUBSTITUIÇÃO OPERACIONAL:
+salvamento humano controlado do arquivo validado:
+
+HANDOFF_PROMPT_v1.1-RC.txt
+
+na pasta:
+
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/HANDOFF/
+
+---
+
+## 12. Aptidão para substituição operacional
+
+O HANDOFF_PROMPT_v1.1-RC.txt está apto à substituição operacional do HANDOFF_PROMPT_v1RC.txt.
+
+Essa aptidão está condicionada a:
+
+1. uso do arquivo candidato já validado;
+2. salvamento humano controlado;
+3. preservação do nome exato HANDOFF_PROMPT_v1.1-RC.txt;
+4. salvamento na pasta correta;
+5. preservação do HANDOFF_PROMPT_v1RC.txt como versão anterior/base arquivada;
+6. não reexportação acidental de versão anterior;
+7. não execução de substituição automática por este checkpoint.
+
+DECLARAÇÃO:
+a homologação documental autoriza a promoção operacional do HANDOFF_PROMPT_v1.1-RC.txt, mas a substituição operacional definitiva depende de salvamento humano controlado do arquivo já validado.
+
+---
+
+## 13. Preservação da versão anterior
+
+VERSÃO ANTERIOR:
+HANDOFF_PROMPT_v1RC.txt
+
+STATUS:
+deve ser preservada como versão anterior/base arquivada.
+
+NÃO APAGAR:
+HANDOFF_PROMPT_v1RC.txt
+
+NÃO SOBRESCREVER SEM CONTROLE:
+HANDOFF_PROMPT_v1RC.txt
+
+USO FUTURO:
+referência histórica;
+base comparativa;
+versão anterior estável;
+arquivo de segurança em caso de regressão.
+
+---
+
+## 14. Protocolo de salvamento final
+
+ARQUIVO A SALVAR:
+HANDOFF_PROMPT_v1.1-RC.txt
+
+PASTA:
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/HANDOFF/
+
+FUNÇÃO:
+Prompt operacional do Handoff compatível com a Vaquita v1.1-RC e com o PROTOCOLO_ANTI_DERIVA_ESCALONADO, homologado documentalmente nos TESTES_AD_HANDOFF mínimos.
+
+SUBSTITUI OPERACIONALMENTE:
+HANDOFF_PROMPT_v1RC.txt
+
+SOMENTE APÓS:
+salvamento humano controlado do arquivo validado.
+
+VERSÃO ANTERIOR A PRESERVAR:
+HANDOFF_PROMPT_v1RC.txt
+
+STATUS DA VERSÃO ANTERIOR:
+preservada como base arquivada.
+
+CHECKPOINT A SALVAR:
+CHECKPOINT_FINAL_HOMOLOGACAO_TESTES_AD_HANDOFF.md
+
+PASTA DO CHECKPOINT:
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/ANTI_DERIVA/
+
+NÃO SALVAR COMO:
+versão enxuta;
+patch avulso;
+arquivo experimental;
+arquivo sem homologação;
+nova reexportação não validada;
+cópia com nome divergente.
+
+STATUS FINAL DO ARQUIVO CANDIDATO:
+homologado documentalmente;
+apto à promoção operacional;
+dependente de salvamento humano controlado para substituição definitiva.
+
+---
+
+## 15. Próximo comando seguro
+
+PRÓXIMO_COMANDO_SEGURO:
+SALVAR_HUMANAMENTE_HANDOFF_PROMPT_v1.1-RC_COMO_SUBSTITUTO_OPERACIONAL
+
+MOTIVO:
+os 6 TESTES_AD_HANDOFF documentais mínimos foram aprovados e validados externamente, sem falhas bloqueantes e sem correções necessárias. A substituição operacional depende agora apenas do salvamento humano controlado do arquivo candidato já validado, com preservação do HANDOFF_PROMPT_v1RC.txt como versão anterior/base arquivada.
+
+FIM_DO_ARQUIVO

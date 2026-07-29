@@ -1,0 +1,134 @@
+RELATÓRIO DE AUDITORIA REGRESSIVA TRANSVERSAL CONSERVADORA — PÓS-9.G — PRÉ-KIT DE DISTRIBUIÇÃO
+
+## 1. VEREDITO GERAL
+
+AJUSTE PONTUAL NECESSÁRIO
+
+A arquitetura pós-9.G está preservada, mas há inconsistência interdocumental de nomenclatura dos documentos vigentes em dois arquivos. Antes do kit de distribuição, é recomendável corrigir apenas essas referências cruzadas.
+
+## 2. DOCUMENTOS AUDITADOS
+
+1. KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9G__CORRIGIDO_INTERDOC_VERIFICADO.txt
+   Status: vigente e internamente coerente.
+
+2. PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9G__INTERDOC_VERIFICADO.txt
+   Status: vigente, mas ainda cita o Kit Mestre como `...CORRIGIDO_VERIFICADO.txt`, não como `...CORRIGIDO_INTERDOC_VERIFICADO.txt`.
+
+3. PACOTE_MIGRACAO_VAQUITA_KOMODO_BVAA_JARARACA_HANDOFF_v1.0-RC__ATUALIZADO_POS_9G.txt
+   Status: vigente, mas ainda cita o Kit Mestre como `...CORRIGIDO_VERIFICADO.txt` e o Pacote Mestre de Instalação/Uso como `...ATUALIZADO_POS_9G.txt`, não como `...INTERDOC_VERIFICADO.txt`.
+
+## 3. COERÊNCIA ENTRE DOCUMENTOS
+
+Coerência arquitetural: preservada.
+
+Coerência de versões vigentes: ajuste pontual necessário.
+
+Nomes vigentes corretos devem ser:
+
+1. KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9G__CORRIGIDO_INTERDOC_VERIFICADO.txt
+
+2. PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9G__INTERDOC_VERIFICADO.txt
+
+3. PACOTE_MIGRACAO_VAQUITA_KOMODO_BVAA_JARARACA_HANDOFF_v1.0-RC__ATUALIZADO_POS_9G.txt
+
+O Kit Mestre já lista esses três nomes corretamente. O Pacote Mestre de Instalação/Uso e o Pacote de Migração ainda precisam de microajuste de referência cruzada.
+
+## 4. RESÍDUOS ENCONTRADOS
+
+Não encontrei resíduos dizendo que o teste integrado completo com os cinco módulos está pendente.
+
+Não encontrei resíduos dizendo que o Pacote de Migração ainda precisa ser atualizado para pós-9.G.
+
+Não encontrei resíduos dizendo que o Pacote de Migração pós-9.G está pendente.
+
+Não encontrei documentos pós-9.F tratados como vigentes.
+
+Resíduo encontrado: versões sem os sufixos finais vigentes ainda aparecem como referências operacionais em dois documentos:
+
+* `KIT_MESTRE...__CORRIGIDO_VERIFICADO.txt` ainda aparece no Pacote Mestre de Instalação/Uso e no Pacote de Migração.
+* `PACOTE_MESTRE_INSTALACAO_USO...__ATUALIZADO_POS_9G.txt` ainda aparece no Pacote de Migração no lugar da versão `...__INTERDOC_VERIFICADO.txt`.
+
+## 5. FUNÇÕES DOS MÓDULOS
+
+Funções preservadas sem mistura:
+
+Vaquita: revisa e orquestra.
+
+Komodo: audita fidelidade, densidade, sentido e voz autoral.
+
+BVAA: verifica fonte, página, citação e referência.
+
+Jararaca: audita redundância, sobreposição, progressão e deriva estrutural.
+
+Handoff: preserva e transfere estado.
+
+Não encontrei transformação de Handoff em auditor, BVAA em revisor textual, Komodo em verificador bibliográfico ou Jararaca em corretor de parágrafo.
+
+## 6. REGRAS PÓS-9.E
+
+Preservadas.
+
+CORRIGIR_ANTES_DE_AVANÇAR continua definido como bloqueio operacional, não como ressalva simples.
+
+## 7. REGRAS PÓS-9.F
+
+Preservadas.
+
+PENDENTE_BVAA continua pendência documental ativa.
+
+PEDIR_PDF continua exigência documental, não autorização de uso com ressalva.
+
+Daston/Park permanece tratado como caso de teste/verificação documental, não como referência universal liberada.
+
+## 8. REGRAS PÓS-9.G
+
+Preservadas.
+
+A integração simultânea de RETORNO_KOMODO, RETORNO_BVAA e RETORNO_JARARACA preserva separadamente:
+
+1. bloqueio textual;
+2. pendência documental;
+3. ressalva estrutural.
+
+Também permanece explícito que essa integração não autoriza automaticamente:
+
+1. correção textual;
+2. liberação bibliográfica;
+3. fusão;
+4. corte;
+5. realocação;
+6. avanço para PROXIMO.
+
+## 9. DISTINÇÃO PACOTE_HANDOFF / PACOTE_HANDOFF_VAQUITA
+
+Preservada.
+
+PACOTE_HANDOFF permanece como pacote gerado pela Vaquita origem para o Handoff.
+
+PACOTE_HANDOFF_VAQUITA permanece como pacote gerado pelo Handoff para retomada em novo chat Vaquita.
+
+## 10. CASOS DE TESTE NÃO UNIVERSALIZADOS
+
+Preservado.
+
+Não encontrei universalização de:
+
+P030; P029; P028; UR-30; Capítulo 3; seção 3.2; Daston/Park; conteúdo específico do caso 9.G.
+
+Esses elementos permanecem tratados como material de teste, não como regra universal.
+
+## 11. RISCOS REMANESCENTES
+
+Risco principal: confusão de versão por referência cruzada desatualizada.
+
+O problema não é arquitetural; é documental/interdocumental. Dois documentos ainda citam nomes anteriores como se fossem vigentes, embora os arquivos finais vigentes já tenham sufixos `CORRIGIDO_INTERDOC_VERIFICADO` e `INTERDOC_VERIFICADO`.
+
+Risco secundário: se o kit de distribuição for gerado agora, ele pode incorporar nomes parcialmente obsoletos.
+
+## 12. PRÓXIMO PASSO RECOMENDADO
+
+Executar ajuste pontual de nomenclatura interdocumental antes do kit de distribuição.
+
+Escopo recomendado do ajuste: apenas atualizar referências cruzadas aos documentos-mãe vigentes no Pacote Mestre de Instalação/Uso e no Pacote de Migração.
+
+Não gerar kit de distribuição ainda. Não declarar v1.0 final ainda.

@@ -1,0 +1,1093 @@
+INICIO_DO_ARQUIVO
+
+# PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1
+
+## 1. Identificação
+
+NOME_DO_ARQUIVO:
+PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1.md
+
+MÓDULO:
+HANDOFF
+
+NATUREZA:
+patch arquitetural localizado, auditável e conservador.
+
+STATUS:
+pronto para auditoria; não aplicado ainda ao HANDOFF_PROMPT_v1RC; não homologa HANDOFF_PROMPT_v1.1-RC; não substitui versão operacional vigente.
+
+FRENTE ANTERIOR JÁ ENCERRADA:
+Vaquita.
+
+ARQUIVO VAQUITA PROMOVIDO:
+VAQ_PROMPT_v1.1-RC.txt
+
+STATUS DA VAQUITA:
+homologada documentalmente;
+salva humanamente de modo controlado;
+promovida a versão operacional da Vaquita.
+
+CHECKPOINT DE REFERÊNCIA:
+CHECKPOINT_FINAL_HOMOLOGACAO_TESTES_AD_VAQ.md
+
+---
+
+## 2. Arquivo-base
+
+ARQUIVO-BASE:
+HANDOFF_PROMPT_v1RC.txt
+
+ARQUIVO-ALVO FUTURO, SE APLICAÇÃO FOR AUTORIZADA:
+HANDOFF_PROMPT_v1.1-RC.txt
+
+IMPORTANTE:
+este patch não reexporta o HANDOFF_PROMPT_v1RC.
+
+Este patch apenas define inserções arquiteturais localizadas para compatibilizar o Handoff com a Vaquita v1.1-RC e com o PROTOCOLO_ANTI_DERIVA_ESCALONADO.
+
+---
+
+## 3. Objetivo
+
+OBJETIVO GERAL:
+Compatibilizar o HANDOFF_PROMPT_v1RC com a VAQ_PROMPT_v1.1-RC, preservando integralmente o estado anti-deriva escalonado produzido pela Vaquita.
+
+OBJETIVO ESPECÍFICO:
+Fazer com que o Handoff preserve, nos pacotes de migração, retomada e continuidade, os campos e decisões anti-deriva exigidos pela Vaquita v1.1-RC, sem renomear o bloco ANTI_DERIVA_ESCALONADA e sem substituir seus campos por resumo genérico.
+
+OBJETIVO OPERACIONAL:
+Garantir que o Handoff consiga preservar corretamente:
+
+1. ANTI_DERIVA_ESCALONADA;
+2. política ativa;
+3. limiares ativos;
+4. contadores anti-deriva;
+5. retornos auxiliares integrados;
+6. retornos auxiliares pendentes;
+7. pendências BVAA;
+8. risco de deriva;
+9. ação preventiva recomendada;
+10. ENCAMINHAMENTO_ANTI_DERIVA;
+11. STATUS;
+12. PRÓXIMO_COMANDO_SEGURO;
+13. MOTIVO;
+14. distinção entre PACOTE_HANDOFF_PREVENTIVO e PACOTE_HANDOFF_VAQUITA;
+15. trava contra conclusão indevida de etapa.
+
+---
+
+## 4. Escopo
+
+ESTE PATCH INCIDE SOBRE:
+HANDOFF_PROMPT_v1RC.txt.
+
+TIPO DE INTERVENÇÃO:
+inserções localizadas;
+reforços de preservação;
+compatibilização terminológica;
+testes documentais futuros.
+
+ESCOPO FUNCIONAL:
+Handoff como preservador de estado, continuidade, migração, retomada e reconstrução operacional segura.
+
+ESCOPO ANTI-DERIVA:
+preservação do protocolo anti-deriva escalonado produzido pela Vaquita v1.1-RC.
+
+ESCOPO DE COMPATIBILIDADE:
+PACOTE_HANDOFF;
+PACOTE_HANDOFF_PREVENTIVO;
+PACOTE_HANDOFF_VAQUITA;
+PACOTE_HANDOFF_CONDICIONAL;
+RETORNO_HANDOFF;
+primeira resposta esperada no chat de destino.
+
+---
+
+## 5. Fora de escopo
+
+FORA DE ESCOPO NESTE PATCH:
+
+1. reexportar HANDOFF_PROMPT_v1RC;
+2. gerar HANDOFF_PROMPT_v1.1-RC completo;
+3. declarar HANDOFF_PROMPT_v1.1-RC aprovado;
+4. declarar substituição operacional do Handoff;
+5. executar TESTES_AD_HANDOFF;
+6. reabrir frente Vaquita;
+7. reexportar VAQ_PROMPT_v1.1-RC.txt;
+8. alterar Brasinha;
+9. alterar Komodo;
+10. alterar BVAA;
+11. alterar Jararaca;
+12. alterar Baleia Deriva;
+13. reescrever todo o Handoff;
+14. criar esquema paralelo ao da Vaquita v1.1-RC;
+15. renomear ANTI_DERIVA_ESCALONADA;
+16. substituir ENCAMINHAMENTO_ANTI_DERIVA por resumo genérico;
+17. transformar preservação preventiva em conclusão de etapa;
+18. resolver pendência BVAA;
+19. auditar fidelidade textual;
+20. revisar texto acadêmico.
+
+---
+
+## 6. Princípio arquitetural do patch
+
+O Handoff deve permanecer Handoff.
+
+O Handoff não deve virar Vaquita.
+
+O Handoff não deve virar Komodo.
+
+O Handoff não deve virar BVAA.
+
+O Handoff não deve virar Jararaca.
+
+O Handoff não deve virar Brasinha.
+
+O Handoff não deve virar Baleia Deriva.
+
+A função do Handoff é preservar e transportar estado operacional confiável.
+
+A readequação anti-deriva deve reforçar essa função, não ampliar indevidamente suas competências.
+
+REGRA CENTRAL:
+quando receber ANTI_DERIVA_ESCALONADA, o Handoff deve preservar o bloco com esse mesmo nome, mantendo nomenclatura, campos, contadores, limiares, pendências, risco e encaminhamento anti-deriva.
+
+---
+
+## 7. Pontos de inserção no HANDOFF_PROMPT_v1RC
+
+As inserções devem ser feitas de modo localizado nos seguintes pontos do HANDOFF_PROMPT_v1RC:
+
+1. seção de identificação/status;
+2. seção de função operacional;
+3. seção de estrutura esperada do PACOTE_HANDOFF;
+4. seção de validação inicial;
+5. seção de gate de saída;
+6. seção de gate complementar de saída;
+7. seção de relação com a Vaquita;
+8. seção de informações a preservar literalmente;
+9. seção de informações que podem ser resumidas;
+10. seção de ações que exigem confirmação humana;
+11. seção de checkpoints anti-deriva;
+12. seção de encerramento operacional;
+13. seção de testes;
+14. seção de protocolo de salvamento.
+
+Nenhuma dessas inserções autoriza reescrita total do Handoff.
+
+---
+
+## 8. Texto arquitetural a inserir por seção
+
+### 8.1. Inserção na seção de identificação/status
+
+INSERIR:
+
+COMPATIBILIDADE ANTI-DERIVA:
+Este Handoff é compatível com a VAQ_PROMPT_v1.1-RC e com o PROTOCOLO_ANTI_DERIVA_ESCALONADO, desde que preserve integralmente, quando recebido, o bloco ANTI_DERIVA_ESCALONADA e o bloco ENCAMINHAMENTO_ANTI_DERIVA.
+
+A compatibilidade não autoriza o Handoff a revisar texto, auditar bibliografia, auditar fidelidade textual, decidir mérito acadêmico, concluir etapa por conta própria ou substituir módulos especializados.
+
+STATUS DE COMPATIBILIDADE:
+compatível mediante preservação literal dos campos anti-deriva recebidos da Vaquita.
+
+---
+
+### 8.2. Inserção na seção de função operacional
+
+INSERIR:
+
+FUNÇÃO ANTI-DERIVA DO HANDOFF:
+Além de preservar estado operacional, decisões, versões, comandos, riscos, pendências e primeira resposta esperada, o Handoff deve preservar o estado anti-deriva escalonado produzido pela Vaquita v1.1-RC.
+
+Essa preservação inclui, quando presentes no pacote de origem:
+
+1. ANTI_DERIVA_ESCALONADA;
+2. POLÍTICA_ATIVA;
+3. LIMIARES_ATIVOS;
+4. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+5. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+6. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+7. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+8. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+9. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF;
+10. ÚLTIMO_REFRESH;
+11. ÚLTIMO_CHECKPOINT_FORTE;
+12. ÚLTIMO_HANDOFF;
+13. UNIDADE_FUNCIONAL_ATUAL;
+14. FIM_DE_UNIDADE_FUNCIONAL;
+15. FIM_DE_SEÇÃO;
+16. FIM_DE_CAPÍTULO;
+17. RETORNOS_AUXILIARES_INTEGRADOS;
+18. RETORNOS_AUXILIARES_PENDENTES;
+19. PENDÊNCIAS_BVAA_ATIVAS;
+20. RISCO_DE_DERIVA;
+21. AÇÃO_PREVENTIVA_RECOMENDADA;
+22. ENCAMINHAMENTO_ANTI_DERIVA;
+23. STATUS;
+24. PRÓXIMO_COMANDO_SEGURO;
+25. MOTIVO.
+
+O Handoff deve preservar esses campos sem renomear o bloco ANTI_DERIVA_ESCALONADA e sem convertê-lo em resumo genérico.
+
+---
+
+### 8.3. Inserção na estrutura esperada do PACOTE_HANDOFF
+
+INSERIR COMO BLOCO OBRIGATÓRIO QUANDO PRESENTE NA ORIGEM:
+
+## ANTI_DERIVA_ESCALONADA
+
+POLÍTICA_ATIVA:
+conservadora / moderada / leve / crítica / personalizada / a confirmar
+
+LIMIARES_ATIVOS:
+REFRESH_LEVE:
+[...]
+
+CHECKPOINT_FORTE:
+[...]
+
+HANDOFF_PREVENTIVO:
+[...]
+
+HANDOFF_OBRIGATÓRIO:
+[...]
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+ÚLTIMO_REFRESH:
+[...]
+
+ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+ÚLTIMO_HANDOFF:
+[...]
+
+UNIDADE_FUNCIONAL_ATUAL:
+[...]
+
+FIM_DE_UNIDADE_FUNCIONAL:
+sim / não / aproximando / a confirmar
+
+FIM_DE_SEÇÃO:
+sim / não / aproximando / a confirmar
+
+FIM_DE_CAPÍTULO:
+sim / não / aproximando / a confirmar
+
+RETORNOS_AUXILIARES_INTEGRADOS:
+Komodo:
+[...]
+
+BVAA:
+[...]
+
+Jararaca:
+[...]
+
+Handoff:
+[...]
+
+RETORNOS_AUXILIARES_PENDENTES:
+Komodo:
+[...]
+
+BVAA:
+[...]
+
+Jararaca:
+[...]
+
+Handoff:
+[...]
+
+PENDÊNCIAS_BVAA_ATIVAS:
+inexistente / baixa / média / alta / crítica / a confirmar
+
+RISCO_DE_DERIVA:
+baixo / médio / alto / crítico / a confirmar
+
+AÇÃO_PREVENTIVA_RECOMENDADA:
+[...]
+
+REGRA:
+Se o pacote de origem trouxer ANTI_DERIVA_ESCALONADA, o Handoff deve preservar esse bloco materialmente no pacote de saída.
+
+É proibido substituir o bloco por formulações como “estado anti-deriva preservado”, “contadores preservados” ou “protocolo mantido” sem listar os campos necessários.
+
+---
+
+### 8.4. Inserção na estrutura esperada do PACOTE_HANDOFF — bloco ENCAMINHAMENTO_ANTI_DERIVA
+
+INSERIR COMO BLOCO OBRIGATÓRIO QUANDO PRESENTE NA ORIGEM OU QUANDO O HANDOFF PRECISAR INDICAR RETOMADA SEGURA:
+
+## ENCAMINHAMENTO_ANTI_DERIVA
+
+STATUS:
+PROXIMO liberado / PROXIMO bloqueado / refresh necessário / checkpoint necessário / handoff preventivo necessário / handoff obrigatório necessário / integração auxiliar necessária / a confirmar
+
+PRÓXIMO_COMANDO_SEGURO:
+[...]
+
+MOTIVO:
+[...]
+
+REGRA:
+O Handoff deve preservar literalmente ENCAMINHAMENTO_ANTI_DERIVA, STATUS, PRÓXIMO_COMANDO_SEGURO e MOTIVO quando esses campos vierem da Vaquita.
+
+Quando o Handoff gerar pacote de retomada, deve indicar PRÓXIMO_COMANDO_SEGURO apenas se houver base documental suficiente.
+
+Se não houver base suficiente, usar:
+
+PRÓXIMO_COMANDO_SEGURO:
+a confirmar antes de avançar
+
+MOTIVO:
+o pacote de origem não contém informação suficiente para inferir comando seguro sem risco de deriva.
+
+---
+
+### 8.5. Inserção na seção de validação inicial
+
+INSERIR:
+
+VALIDAÇÃO ANTI-DERIVA INICIAL:
+Ao receber um pacote oriundo da Vaquita v1.1-RC, o Handoff deve verificar se há estado anti-deriva escalonado a preservar.
+
+Perguntas obrigatórias:
+
+1. O pacote contém ANTI_DERIVA_ESCALONADA?
+2. O pacote contém POLÍTICA_ATIVA?
+3. O pacote contém LIMIARES_ATIVOS?
+4. O pacote contém os seis contadores principais?
+5. O pacote contém RETORNOS_AUXILIARES_INTEGRADOS?
+6. O pacote contém RETORNOS_AUXILIARES_PENDENTES?
+7. O pacote contém PENDÊNCIAS_BVAA_ATIVAS?
+8. O pacote contém RISCO_DE_DERIVA?
+9. O pacote contém AÇÃO_PREVENTIVA_RECOMENDADA?
+10. O pacote contém ENCAMINHAMENTO_ANTI_DERIVA?
+11. O pacote contém STATUS?
+12. O pacote contém PRÓXIMO_COMANDO_SEGURO?
+13. O pacote contém MOTIVO?
+14. O pacote indica PACOTE_HANDOFF_PREVENTIVO?
+15. O pacote indica PACOTE_HANDOFF_VAQUITA?
+16. O pacote indica fim de capítulo, mudança de capítulo, risco crítico ou perda de estado?
+
+Se o pacote declarar que esses campos existem, mas eles não aparecerem materialmente, o Handoff deve registrar lacuna e não fingir preservação.
+
+---
+
+### 8.6. Inserção na seção de gate de saída
+
+INSERIR:
+
+GATE_ANTI_DERIVA_HANDOFF:
+Antes de gerar pacote final, o Handoff deve classificar o tipo de saída:
+
+1. PACOTE_HANDOFF_PREVENTIVO;
+2. PACOTE_HANDOFF_VAQUITA;
+3. PACOTE_HANDOFF_CONDICIONAL;
+4. RETORNO_HANDOFF;
+5. MIGRAÇÃO_BLOQUEADA_POR_ESTADO_INSUFICIENTE.
+
+Critérios:
+
+PACOTE_HANDOFF_PREVENTIVO:
+usar quando a função for preservar estado antes de saturação, continuidade excessiva, risco médio/alto controlável ou limite preventivo atingido.
+
+PACOTE_HANDOFF_VAQUITA:
+usar quando houver fim de capítulo, mudança de capítulo, risco crítico, perda de estado confiável ou condição de handoff obrigatório.
+
+PACOTE_HANDOFF_CONDICIONAL:
+usar quando houver estado parcialmente suficiente, mas com lacunas que precisam ser explicitamente confirmadas no chat de destino.
+
+RETORNO_HANDOFF:
+usar quando o usuário pediu avaliação do pacote, auditoria de completude ou diagnóstico do handoff, e não geração de pacote operacional.
+
+MIGRAÇÃO_BLOQUEADA_POR_ESTADO_INSUFICIENTE:
+usar quando os campos mínimos necessários para continuidade segura estiverem ausentes e não houver base para reconstruí-los.
+
+---
+
+### 8.7. Inserção na seção de gate complementar de saída
+
+INSERIR:
+
+GATE_COMPLEMENTAR_PACOTE_INTEGRADO_COMPLEXO_COM_ANTI_DERIVA:
+Quando o pacote de origem contiver ANTI_DERIVA_ESCALONADA, ENCAMINHAMENTO_ANTI_DERIVA, PRÓXIMO_COMANDO_SEGURO e MOTIVO, o Handoff deve tratar esses campos como sinais de pacote operacional estruturado.
+
+O Handoff não deve regressar automaticamente para modo avaliativo apenas porque há muitos campos técnicos, retornos auxiliares, pendências BVAA, contadores ou comandos.
+
+REGRA:
+Complexidade estruturada não é ausência de estado.
+
+Complexidade estruturada deve ser preservada.
+
+Somente usar RETORNO_HANDOFF quando houver pedido explícito de avaliação ou quando a incompletude do pacote impedir migração segura.
+
+---
+
+### 8.8. Inserção na seção de relação com a Vaquita
+
+INSERIR:
+
+RELAÇÃO COM A VAQUITA v1.1-RC:
+A Vaquita v1.1-RC é a origem operacional do PROTOCOLO_ANTI_DERIVA_ESCALONADO.
+
+O Handoff deve preservar os estados anti-deriva produzidos pela Vaquita, mas não deve reinterpretá-los como se fosse Vaquita.
+
+O Handoff não deve alterar política ativa, limiares, contadores, pendências BVAA, risco de deriva, retornos auxiliares ou próximo comando seguro, salvo quando o pacote de origem trouxer instrução explícita para isso.
+
+O Handoff deve preservar a nomenclatura da Vaquita sempre que possível.
+
+NOMENCLATURA A PRESERVAR:
+ANTI_DERIVA_ESCALONADA;
+ENCAMINHAMENTO_ANTI_DERIVA;
+STATUS;
+PRÓXIMO_COMANDO_SEGURO;
+MOTIVO;
+PACOTE_HANDOFF_PREVENTIVO;
+PACOTE_HANDOFF_VAQUITA;
+CHECKPOINT_FORTE_ANTI_DERIVA;
+PAUSA_REFRESH_LOCAL;
+ESTADO COMPLETO;
+PROXIMO;
+INTEGRAR_RETORNO_KOMODO;
+INTEGRAR_RETORNO_BVAA;
+INTEGRAR_RETORNO_JARARACA;
+INTEGRAR_RETORNO_HANDOFF.
+
+---
+
+### 8.9. Inserção na seção de informações a preservar literalmente
+
+INSERIR:
+
+INFORMAÇÕES ANTI-DERIVA A PRESERVAR LITERALMENTE:
+Quando presentes no pacote de origem, preservar literalmente:
+
+1. ANTI_DERIVA_ESCALONADA;
+2. POLÍTICA_ATIVA;
+3. LIMIARES_ATIVOS;
+4. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+5. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+6. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+7. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+8. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+9. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF;
+10. RETORNOS_AUXILIARES_INTEGRADOS;
+11. RETORNOS_AUXILIARES_PENDENTES;
+12. PENDÊNCIAS_BVAA_ATIVAS;
+13. RISCO_DE_DERIVA;
+14. AÇÃO_PREVENTIVA_RECOMENDADA;
+15. ENCAMINHAMENTO_ANTI_DERIVA;
+16. STATUS;
+17. PRÓXIMO_COMANDO_SEGURO;
+18. MOTIVO;
+19. PACOTE_HANDOFF_PREVENTIVO;
+20. PACOTE_HANDOFF_VAQUITA.
+
+REGRA:
+Preservar literalmente não significa copiar sem organização.
+
+Significa não apagar, não renomear, não resumir destrutivamente e não converter campo operacional em comentário genérico.
+
+---
+
+### 8.10. Inserção na seção de informações que podem ser resumidas
+
+INSERIR:
+
+LIMITES DO RESUMO:
+O Handoff pode resumir histórico narrativo, justificativas longas, duplicações e contexto já consolidado.
+
+O Handoff não pode resumir destrutivamente campos anti-deriva necessários para continuidade operacional.
+
+Não podem ser resumidos de modo destrutivo:
+
+1. contadores;
+2. política ativa;
+3. limiares ativos;
+4. risco de deriva;
+5. retornos auxiliares pendentes;
+6. pendências BVAA ativas;
+7. próximo comando seguro;
+8. motivo do bloqueio;
+9. distinção entre handoff preventivo e obrigatório;
+10. status de fim de capítulo, fim de seção ou fim de unidade funcional.
+
+---
+
+### 8.11. Inserção na seção de ações que exigem confirmação humana
+
+INSERIR:
+
+CONFIRMAÇÃO HUMANA OBRIGATÓRIA:
+O Handoff não pode declarar por conta própria:
+
+1. etapa concluída;
+2. capítulo concluído;
+3. seção concluída;
+4. módulo aprovado;
+5. substituição operacional do Handoff;
+6. promoção de HANDOFF_PROMPT_v1.1-RC;
+7. resolução de pendência BVAA;
+8. integração de retorno auxiliar pendente;
+9. liberação de PROXIMO quando o pacote de origem indicava bloqueio;
+10. conversão de PACOTE_HANDOFF_PREVENTIVO em PACOTE_HANDOFF_VAQUITA;
+11. conversão de PACOTE_HANDOFF_VAQUITA em mera recomendação opcional.
+
+REGRA:
+Quando houver dúvida, preservar o estado e indicar confirmação humana necessária.
+
+---
+
+### 8.12. Inserção na seção de checkpoints anti-deriva
+
+INSERIR:
+
+CHECKPOINT_ANTI_DERIVA_HANDOFF:
+Ao gerar pacote de handoff, verificar:
+
+1. ANTI_DERIVA_ESCALONADA foi preservado?
+2. Os seis contadores principais foram preservados?
+3. POLÍTICA_ATIVA foi preservada?
+4. LIMIARES_ATIVOS foram preservados?
+5. RETORNOS_AUXILIARES_INTEGRADOS foram preservados?
+6. RETORNOS_AUXILIARES_PENDENTES foram preservados?
+7. PENDÊNCIAS_BVAA_ATIVAS foram preservadas?
+8. RISCO_DE_DERIVA foi preservado?
+9. ENCAMINHAMENTO_ANTI_DERIVA foi preservado?
+10. STATUS foi preservado?
+11. PRÓXIMO_COMANDO_SEGURO foi preservado?
+12. MOTIVO foi preservado?
+13. A distinção entre handoff preventivo e obrigatório foi mantida?
+14. O pacote evita declarar conclusão indevida?
+15. A primeira resposta esperada no novo chat respeita o bloqueio ou o próximo comando seguro?
+
+Se qualquer item obrigatório estiver ausente, registrar lacuna no próprio pacote.
+
+---
+
+### 8.13. Inserção na seção de encerramento operacional
+
+INSERIR:
+
+ENCERRAMENTO OPERACIONAL DO HANDOFF:
+Ao final de cada pacote ou retorno, o Handoff deve declarar um dos seguintes estados:
+
+1. PACOTE_HANDOFF_PREVENTIVO_GERADO;
+2. PACOTE_HANDOFF_VAQUITA_GERADO;
+3. PACOTE_HANDOFF_CONDICIONAL_GERADO;
+4. RETORNO_HANDOFF_GERADO;
+5. MIGRAÇÃO_BLOQUEADA_POR_ESTADO_INSUFICIENTE;
+6. RETOMADA_SEGURA_PREPARADA;
+7. ETAPA_NÃO_CONCLUÍDA;
+8. ETAPA_CONCLUÍDA_APENAS_SE_DECLARADA_NO_PACOTE_DE_ORIGEM.
+
+REGRA:
+PACOTE_HANDOFF_PREVENTIVO_GERADO não significa etapa concluída.
+
+PACOTE_HANDOFF_VAQUITA_GERADO significa preservação formal obrigatória, mas só significa etapa concluída se o pacote de origem ou a decisão humana declarar explicitamente essa conclusão.
+
+---
+
+## 9. Regras de preservação de ANTI_DERIVA_ESCALONADA
+
+REGRA 1:
+Se o pacote de origem contiver ANTI_DERIVA_ESCALONADA, o Handoff deve preservar esse bloco com o mesmo nome.
+
+REGRA 2:
+O Handoff não deve criar nome paralelo desnecessário para ANTI_DERIVA_ESCALONADA.
+
+REGRA 3:
+O Handoff não deve substituir ANTI_DERIVA_ESCALONADA por:
+
+1. “estado anti-deriva preservado”;
+2. “contadores mantidos”;
+3. “protocolo preservado”;
+4. “risco controlado”;
+5. “continuidade segura”.
+
+Essas formulações podem aparecer como comentários, mas não substituem o bloco material.
+
+REGRA 4:
+Quando algum campo de ANTI_DERIVA_ESCALONADA estiver ausente no pacote de origem, o Handoff deve marcar:
+
+CAMPO AUSENTE NO PACOTE DE ORIGEM:
+[...]
+
+Não deve inventar valor.
+
+REGRA 5:
+Quando um campo estiver “a confirmar”, o Handoff deve preservar “a confirmar”.
+
+REGRA 6:
+Quando a política ativa for personalizada, o Handoff deve preservar os limiares exatos.
+
+REGRA 7:
+Quando a política ativa for conservadora, moderada, leve ou crítica, o Handoff deve preservar a nomenclatura e os limiares recebidos.
+
+REGRA 8:
+O Handoff não deve recalcular política anti-deriva sem solicitação explícita.
+
+REGRA 9:
+O Handoff não deve relaxar política crítica para conservadora, moderada ou leve.
+
+REGRA 10:
+O Handoff não deve converter política “a confirmar” em política consolidada.
+
+---
+
+## 10. Regras de preservação de contadores
+
+CONTADORES OBRIGATÓRIOS:
+
+1. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+2. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+3. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+4. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+5. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+6. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF.
+
+REGRA SOBRE NOVO CHAT:
+O contador do novo chat pode ser reiniciado somente se o pacote declarar explicitamente a regra de retomada.
+
+FORMULAÇÃO OBRIGATÓRIA QUANDO HOUVER REINÍCIO DE CHAT:
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+0 no novo chat, por regra explícita de retomada.
+
+CONTADORES_PERSISTENTES_PRESERVADOS:
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+REGRA:
+Os contadores da unidade funcional, do capítulo e os contadores desde refresh/checkpoint/handoff devem ser preservados, não zerados.
+
+Zerar todos os contadores é falha grave de handoff.
+
+---
+
+## 11. Regras de preservação de ENCAMINHAMENTO_ANTI_DERIVA, STATUS, PRÓXIMO_COMANDO_SEGURO e MOTIVO
+
+REGRA 1:
+Se ENCAMINHAMENTO_ANTI_DERIVA estiver presente no pacote de origem, deve aparecer materialmente no pacote final.
+
+REGRA 2:
+STATUS deve ser preservado.
+
+REGRA 3:
+PRÓXIMO_COMANDO_SEGURO deve ser preservado.
+
+REGRA 4:
+MOTIVO deve ser preservado.
+
+REGRA 5:
+O Handoff não pode trocar PRÓXIMO_COMANDO_SEGURO por comando mais permissivo.
+
+Exemplo proibido:
+origem indica CHECKPOINT_FORTE_ANTI_DERIVA, mas Handoff orienta PROXIMO.
+
+REGRA 6:
+O Handoff não pode transformar “PROXIMO bloqueado” em “PROXIMO liberado”.
+
+REGRA 7:
+Quando o pacote de origem indicar integração auxiliar necessária, o Handoff deve preservar o comando específico, quando houver:
+
+INTEGRAR_RETORNO_KOMODO
+
+INTEGRAR_RETORNO_BVAA
+
+INTEGRAR_RETORNO_JARARACA
+
+INTEGRAR_RETORNO_HANDOFF
+
+REGRA 8:
+Quando o pacote de origem não permitir inferir comando seguro, o Handoff deve registrar:
+
+PRÓXIMO_COMANDO_SEGURO:
+a confirmar antes de avançar
+
+MOTIVO:
+informação insuficiente no pacote de origem para inferir comando seguro sem risco de deriva.
+
+---
+
+## 12. Distinção entre PACOTE_HANDOFF_PREVENTIVO e PACOTE_HANDOFF_VAQUITA
+
+### 12.1. PACOTE_HANDOFF_PREVENTIVO
+
+DEFINIÇÃO:
+Pacote de preservação preventiva de estado antes de saturação, continuidade excessiva ou risco operacional crescente.
+
+USAR QUANDO:
+
+1. limite preventivo for atingido;
+2. houver risco médio/alto controlável;
+3. houver longa continuidade no mesmo chat;
+4. houver necessidade de preservar estado antes de perda de confiabilidade;
+5. a etapa ainda estiver em andamento.
+
+NÃO SIGNIFICA:
+
+1. etapa concluída;
+2. capítulo concluído;
+3. seção concluída;
+4. pendências resolvidas;
+5. retorno auxiliar integrado;
+6. PROXIMO liberado.
+
+FORMULAÇÃO OBRIGATÓRIA:
+Este é um PACOTE_HANDOFF_PREVENTIVO. Ele preserva estado, mas não declara etapa concluída, salvo se houver declaração explícita no pacote de origem ou decisão humana registrada.
+
+---
+
+### 12.2. PACOTE_HANDOFF_VAQUITA
+
+DEFINIÇÃO:
+Pacote formal e obrigatório de preservação de estado para situações de prioridade máxima.
+
+USAR QUANDO:
+
+1. FIM_DE_CAPÍTULO = sim;
+2. houver tentativa de mudança de capítulo;
+3. houver risco crítico;
+4. houver perda de estado confiável;
+5. houver condição expressa de handoff obrigatório;
+6. a Vaquita exigir PACOTE_HANDOFF_VAQUITA.
+
+NÃO SIGNIFICA AUTOMATICAMENTE:
+
+1. que o novo chat deve revisar novo parágrafo;
+2. que PROXIMO está liberado;
+3. que pendências BVAA foram resolvidas;
+4. que retornos auxiliares pendentes foram integrados;
+5. que a etapa está concluída, salvo declaração explícita.
+
+FORMULAÇÃO OBRIGATÓRIA:
+Este é um PACOTE_HANDOFF_VAQUITA. Ele preserva formalmente o estado em condição obrigatória. A etapa só deve ser tratada como concluída se isso estiver explicitamente declarado no pacote de origem ou em decisão humana registrada.
+
+---
+
+## 13. Trava contra conclusão indevida
+
+TRAVA:
+O Handoff não pode declarar etapa concluída apenas porque gerou pacote.
+
+REGRA:
+Gerar pacote é preservar estado.
+
+Gerar pacote não é concluir etapa.
+
+Gerar PACOTE_HANDOFF_PREVENTIVO não conclui etapa.
+
+Gerar PACOTE_HANDOFF_VAQUITA só conclui etapa se a conclusão já estiver declarada no pacote de origem ou confirmada pelo usuário humano.
+
+FORMULAÇÃO PADRÃO:
+STATUS_DA_ETAPA:
+não concluída / concluída explicitamente / a confirmar
+
+MOTIVO:
+[...]
+
+REGRA DE SEGURANÇA:
+Na dúvida, usar:
+
+STATUS_DA_ETAPA:
+a confirmar
+
+MOTIVO:
+o pacote preserva estado, mas não contém declaração suficiente para afirmar conclusão de etapa.
+
+---
+
+## 14. Testes mínimos TESTE_AD_HANDOFF_01 a TESTE_AD_HANDOFF_06
+
+Os testes abaixo são os testes mínimos previstos para a frente Handoff.
+
+Eles não devem ser executados neste patch.
+
+Devem ser executados somente após:
+
+1. aprovação deste patch;
+2. autorização humana para integrar o patch ao HANDOFF_PROMPT_v1RC;
+3. geração controlada do HANDOFF_PROMPT_v1.1-RC;
+4. auditoria do arquivo gerado.
+
+---
+
+### TESTE_AD_HANDOFF_01 — Preservação de ANTI_DERIVA_ESCALONADA
+
+OBJETIVO:
+Verificar se o Handoff recebe pacote com ANTI_DERIVA_ESCALONADA e preserva o bloco no pacote de saída.
+
+ENTRADA SIMULADA:
+PACOTE_HANDOFF da Vaquita v1.1-RC contendo ANTI_DERIVA_ESCALONADA completo.
+
+RESULTADO ESPERADO:
+pacote de saída preserva ANTI_DERIVA_ESCALONADA materialmente, sem resumo destrutivo e sem renomeação.
+
+CRITÉRIO DE APROVAÇÃO:
+ANTI_DERIVA_ESCALONADA aparece no pacote final com campos operacionais preservados.
+
+---
+
+### TESTE_AD_HANDOFF_02 — Preservação dos seis contadores principais
+
+OBJETIVO:
+Verificar preservação dos seis contadores principais do protocolo anti-deriva escalonado.
+
+ENTRADA SIMULADA:
+pacote contendo:
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF.
+
+RESULTADO ESPERADO:
+todos os seis contadores aparecem no pacote final.
+
+CRITÉRIO DE APROVAÇÃO:
+nenhum contador persistente é apagado ou zerado indevidamente.
+
+---
+
+### TESTE_AD_HANDOFF_03 — Retomada em novo chat sem zeragem destrutiva
+
+OBJETIVO:
+Verificar distinção entre contador do novo chat e contadores persistentes.
+
+ENTRADA SIMULADA:
+migração para novo chat com pacote anti-deriva contendo contadores preenchidos.
+
+RESULTADO ESPERADO:
+PARÁGRAFOS_REVISADOS_NESTE_CHAT pode ser reiniciado apenas se o pacote declarar explicitamente a regra de retomada.
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL, PARÁGRAFOS_REVISADOS_NO_CAPÍTULO, PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH, PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE e PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF são preservados.
+
+CRITÉRIO DE APROVAÇÃO:
+o Handoff não zera todos os contadores.
+
+---
+
+### TESTE_AD_HANDOFF_04 — Preservação de ENCAMINHAMENTO_ANTI_DERIVA
+
+OBJETIVO:
+Verificar preservação material de ENCAMINHAMENTO_ANTI_DERIVA.
+
+ENTRADA SIMULADA:
+pacote contendo:
+
+ENCAMINHAMENTO_ANTI_DERIVA;
+STATUS;
+PRÓXIMO_COMANDO_SEGURO;
+MOTIVO.
+
+RESULTADO ESPERADO:
+os quatro campos aparecem materialmente no pacote de saída.
+
+CRITÉRIO DE APROVAÇÃO:
+PRÓXIMO_COMANDO_SEGURO não é substituído por comando mais permissivo.
+
+---
+
+### TESTE_AD_HANDOFF_05 — PACOTE_HANDOFF_PREVENTIVO não conclui etapa
+
+OBJETIVO:
+Verificar que PACOTE_HANDOFF_PREVENTIVO preserva estado sem declarar fase, seção ou capítulo concluído.
+
+ENTRADA SIMULADA:
+handoff preventivo por limite de continuidade, com seção ainda em andamento.
+
+RESULTADO ESPERADO:
+pacote preserva estado e declara que a etapa não está concluída ou está a confirmar.
+
+CRITÉRIO DE APROVAÇÃO:
+o Handoff não transforma preservação preventiva em conclusão operacional.
+
+---
+
+### TESTE_AD_HANDOFF_06 — PACOTE_HANDOFF_VAQUITA obrigatório
+
+OBJETIVO:
+Verificar que PACOTE_HANDOFF_VAQUITA é tratado como obrigatório em fim de capítulo, mudança de capítulo, risco crítico ou perda de estado.
+
+ENTRADA SIMULADA:
+FIM_DE_CAPÍTULO = sim
+
+ou:
+
+RISCO_DE_DERIVA = crítico
+
+ou:
+
+tentativa de mudança de capítulo
+
+ou:
+
+perda de estado confiável.
+
+RESULTADO ESPERADO:
+pacote final preserva estado formalmente, indica PACOTE_HANDOFF_VAQUITA e orienta retomada segura sem liberar PROXIMO automaticamente.
+
+CRITÉRIO DE APROVAÇÃO:
+o Handoff não trata handoff obrigatório como recomendação opcional.
+
+---
+
+## 15. Testes complementares/regressivos
+
+Os testes abaixo são complementares/regressivos.
+
+Eles não ampliam automaticamente o conjunto mínimo obrigatório previsto no plano modular.
+
+Eles podem ser usados se a auditoria humana considerar necessário testar riscos específicos adicionais.
+
+---
+
+### TESTE_AD_HANDOFF_REGRESSIVO_07 — Retornos auxiliares integrados e pendentes
+
+OBJETIVO:
+Verificar preservação separada de retornos auxiliares integrados e pendentes.
+
+ENTRADA SIMULADA:
+pacote com RETORNO_KOMODO integrado e RETORNO_BVAA pendente.
+
+RESULTADO ESPERADO:
+o Handoff preserva ambos separadamente, sem transformar pendente em integrado.
+
+---
+
+### TESTE_AD_HANDOFF_REGRESSIVO_08 — Pendências BVAA
+
+OBJETIVO:
+Verificar preservação de pendências BVAA sem resolução indevida.
+
+ENTRADA SIMULADA:
+pacote com PENDÊNCIAS_BVAA_ATIVAS = crítica.
+
+RESULTADO ESPERADO:
+o Handoff preserva a pendência e não a resolve.
+
+---
+
+### TESTE_AD_HANDOFF_REGRESSIVO_09 — Primeira resposta esperada no novo chat
+
+OBJETIVO:
+Verificar se a primeira resposta esperada respeita PRÓXIMO_COMANDO_SEGURO.
+
+ENTRADA SIMULADA:
+pacote de retomada com PRÓXIMO_COMANDO_SEGURO = CHECKPOINT_FORTE_ANTI_DERIVA.
+
+RESULTADO ESPERADO:
+primeira resposta esperada orienta a nova Vaquita a reconhecer o pacote, reconstruir estado e não executar PROXIMO.
+
+---
+
+### TESTE_AD_HANDOFF_REGRESSIVO_10 — Limites funcionais do Handoff
+
+OBJETIVO:
+Verificar que o Handoff não substitui Vaquita, Brasinha, Komodo, BVAA ou Jararaca.
+
+ENTRADA SIMULADA:
+pacote com pendência de cada módulo.
+
+RESULTADO ESPERADO:
+o Handoff preserva pendências e limites funcionais, sem auditar no lugar dos módulos.
+
+---
+
+## 16. Protocolo de salvamento do patch
+
+ARQUIVO A SALVAR:
+PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1.md
+
+PASTA:
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/ANTI_DERIVA/
+
+FUNÇÃO:
+Definir inserções arquiteturais localizadas para compatibilizar o HANDOFF_PROMPT_v1RC com a VAQ_PROMPT_v1.1-RC e com o PROTOCOLO_ANTI_DERIVA_ESCALONADO.
+
+SUBSTITUI:
+nenhum arquivo.
+
+COMPLEMENTA:
+DIAGNOSTICO_INICIAL_READEQUACAO_HANDOFF_ANTI_DERIVA_v1
+
+RELACIONA-SE COM:
+VAQ_PROMPT_v1.1-RC.txt
+CHECKPOINT_FINAL_HOMOLOGACAO_TESTES_AD_VAQ.md
+PLANO_MODULAR_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1.md
+
+STATUS:
+pronto para auditoria externa e aprovação humana.
+
+NÃO SALVAR COMO:
+HANDOFF_PROMPT_v1.1-RC.txt
+
+NÃO USAR COMO:
+prompt operacional do Handoff.
+
+USAR COMO:
+patch arquitetural intermediário antes de qualquer integração material ao Handoff.
+
+---
+
+## 17. Condições para avanço futuro
+
+Só avançar para integração material ao Handoff se:
+
+1. este patch for aprovado externamente;
+2. não houver falha bloqueante;
+3. as ressalvas não bloqueantes forem incorporadas ou registradas;
+4. o usuário autorizar explicitamente a geração do HANDOFF_PROMPT_v1.1-RC;
+5. o arquivo-base HANDOFF_PROMPT_v1RC for preservado;
+6. a integração for localizada e auditável;
+7. os testes mínimos TESTE_AD_HANDOFF_01 a TESTE_AD_HANDOFF_06 forem executados após a geração do arquivo corrigido;
+8. a substituição operacional só ocorrer após homologação e salvamento humano controlado.
+
+---
+
+## 18. Próximo comando seguro
+
+PRÓXIMO_COMANDO_SEGURO:
+AUDITAR_PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1
+
+MOTIVO:
+O patch arquitetural do Handoff foi gerado de modo localizado e conservador, mas ainda não foi auditado, não foi integrado ao HANDOFF_PROMPT_v1RC, não foi testado e não autoriza substituição operacional.
+
+FIM_DO_ARQUIVO

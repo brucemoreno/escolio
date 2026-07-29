@@ -1,0 +1,251 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_CORRECAO_OPERACIONAL_TESTE_PC30_RC1_3_BLOCO_003_INTEGRAL
+
+## 0. Status do pacote
+
+`PACOTE_CORRECAO_OPERACIONAL_TESTE_PC30_RC1_3_BLOCO_003_INTEGRAL: EMITIDO`
+
+Este pacote corrige exclusivamente a falha operacional do pacote de teste RC1.3.
+
+A candidata RC1.3 não é alterada.
+
+A arquitetura de quarentena `058–063` não é alterada.
+
+O próximo ID formal pós-correção permanece:
+
+`COMENTÁRIO_WORD_064`
+
+Status da rodada anterior:
+
+`CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO: CONGELADO_POR_REPROVACAO_T9C_POR_FALHA_DE_INSUMO_DO_TESTE`
+
+Classificação da falha:
+
+`REPROVACAO_POR_FALHA_DE_INSUMO_DO_TESTE`
+
+Não foi falha de ID.
+
+Não foi falha de densidade PC30.
+
+Não foi falha BVAA/Drive-first.
+
+---
+
+# 1. Diagnóstico da falha operacional
+
+A rodada RC1.3 foi invalidada porque o teste T9A registrou apenas título e escopo simulado do `BLOCO_003`, sem o texto integral.
+
+Como consequência, T9C não pôde executar leitura integral, seleção PC30 substantiva nem geração válida de comentário Word.
+
+A candidata agiu corretamente ao bloquear a execução substantiva sem corpus textual integral.
+
+Portanto, a correção necessária é operacional:
+
+**T9A deve carregar o BLOCO_003 integral, com os três parágrafos completos, dentro do próprio comando de teste.**
+
+---
+
+# 2. Conduta obrigatória
+
+1. Não reabrir o chat RC1.3 congelado.
+2. Não reexecutar T9C no chat congelado.
+3. Não executar T13, T12 ou T14 no chat congelado.
+4. Não homologar.
+5. Não gerar RC2.
+6. Abrir novo chat limpo após esta correção.
+7. Repetir a rodada RC1.3 com pacote de teste corrigido.
+8. Em T9A, registrar obrigatoriamente o texto integral do BLOCO_003.
+
+Nome recomendado do próximo chat:
+
+`CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO_BLOCO003_INTEGRAL`
+
+---
+
+# 3. Correção obrigatória em T9A
+
+Substituir, no pacote de teste RC1.3, o trecho:
+
+`[INSERIR AQUI O BLOCO_003 INTEGRAL USADO NA RODADA ANTERIOR]`
+
+pelo texto integral abaixo.
+
+---
+
+# 4. T9A corrigido — entrada simulada obrigatória
+
+## Comando
+
+`EXECUTAR_T9A_PC30_RC1_3`
+
+## Entrada simulada corrigida
+
+`COMANDO 0_BLOCO`
+
+`BLOCO_003 — Corpus documental: Debret, viajantes, naturalistas e livros de receitas`
+
+Como o próprio Debret (1985a, p. 12) sugere ao afirmar que “pena e pincel [podem suprir] reciprocamente sua insuficiência mútua”, esta pesquisa não se restringe à análise de suas conhecidas pinturas. Ao contrário, abrange também seus textos, comentários e observações, bem como outras obras que não foram incluídas em Viagem pitoresca e histórica ao Brasil. A versão da fonte debretiana aqui utilizada corresponde à edição publicada em 1985 pelo Círculo do Livro, que reuniu os três volumes da edição francesa original em dois tomos: o primeiro, composto pelos volumes I e II, e o segundo, correspondente ao volume III.
+
+Para além das fontes primárias, outros documentos históricos foram empregados nessa pesquisa. Obras de viajantes anteriores a Debret, como o escrivão Pero Vaz de Caminha (c. 1450-1500), o explorador francês André Thevet (1516-1590) e o missionário Jean de Lery (1536-1613), somaram-se aos escritos deixados por contemporâneos do artista, como o comerciante britânico John Luccock (1770-1826), a escritora e ilustradora Maria Graham (1745-1842) e naturalistas de diferentes nacionalidades, como Auguste de Saint-Hilaire (1779-1853), Johann Baptiste von Spix (1781-1826), Carl Friedrich Philipp von Martius (1794-1868) e Henry Walter Bates (1825-1892).
+
+Livros de receitas também integram o conjunto documental. Dentre os exemplos, destacam-se: Arte de Cozinha (1680), de Domingos Rodrigues (c. 1637–1719), considerado o primeiro livro de culinária publicado em Portugal, voltado às práticas alimentares das elites e com sugestões de ementas completas; Cozinheiro Nacional (1870), que reúne uma coleção das melhores receitas das cozinhas brasileira e europeia; e o Cozinheiro Imperial (1877), que apresenta uma vasta gama de receitas de sopas, pratos de carne, aves, peixes, mariscos, legumes, ovos, leite e doces (Rodrigues, 1693; Cozinheiro, 2008; Lima, 1877).
+
+---
+
+# 5. Critério corrigido de aprovação de T9A
+
+T9A só pode ser aprovado se registrar explicitamente:
+
+`BLOCO_003_INTEGRAL_RECEBIDO: SIM`
+
+`NUMERO_DE_PARAGRAFOS_RECEBIDOS: 3`
+
+`BLOCO_003: REGISTRADO_SEM_EXECUCAO`
+
+`AUDITORIA_BLOCO_003: NAO_EXECUTADA`
+
+`VALIDACAO_BLOCO_003: NAO_EXECUTADA`
+
+`COMANDO_1_BLOCO: NAO_EXECUTADO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`COMENTÁRIO_WORD_064: PROXIMO_ID_FORMAL_POS_CORRECAO_NAO_CONSUMIDO`
+
+`T9B_PC30_RC1_3: BLOQUEADO_ATE_VALIDACAO_EXTERNA_T9A`
+
+---
+
+# 6. Critério corrigido de reprovação de T9A
+
+T9A deve ser reprovado se ocorrer qualquer uma das situações abaixo:
+
+1. registrar apenas título;
+2. registrar apenas escopo;
+3. usar placeholder;
+4. omitir os três parágrafos integrais;
+5. auditar o bloco;
+6. validar automaticamente o bloco;
+7. executar `COMANDO_1_BLOCO`;
+8. gerar comentário Word;
+9. consumir ID;
+10. tratar `058–063` como oficiais;
+11. consumir `064`;
+12. avançar para T9B sem validação externa.
+
+Resposta obrigatória se faltar o texto integral:
+
+`T9A_PC30_RC1_3_RESULTADO_PROVISORIO: REPROVADO`
+
+Motivo:
+
+`BLOCO_003_INTEGRAL_AUSENTE`
+
+Conduta:
+
+`CONGELAR_RODADA_E_RETORNAR_AO_CHAT_DE_ARQUITETURA`
+
+---
+
+# 7. Correção obrigatória em T9B
+
+T9B só pode aprovar a validação do bloco se T9A tiver registrado:
+
+`BLOCO_003_INTEGRAL_RECEBIDO: SIM`
+
+`NUMERO_DE_PARAGRAFOS_RECEBIDOS: 3`
+
+Se T9B detectar que T9A registrou apenas título, escopo ou placeholder, deve responder:
+
+`BLOQUEADO_T9B_BLOCO_003_INTEGRAL_AUSENTE`
+
+Conduta:
+
+1. não validar o bloco;
+2. não executar auditoria;
+3. não executar `COMANDO_1_BLOCO`;
+4. não gerar comentário Word;
+5. não consumir ID;
+6. retornar ao chat de arquitetura.
+
+---
+
+# 8. Correção obrigatória em T9C
+
+T9C só pode executar `COMANDO_1_BLOCO` se as pré-condições abaixo estiverem presentes:
+
+`T9A_PC30_RC1_3_VALIDACAO_EXTERNA: APROVADO`
+
+`T9B_PC30_RC1_3_VALIDACAO_EXTERNA: APROVADO`
+
+`BLOCO_003_INTEGRAL_RECEBIDO: SIM`
+
+`NUMERO_DE_PARAGRAFOS_RECEBIDOS: 3`
+
+`BLOCO_003: REGISTRADO_E_VALIDADO_PARA_PC30`
+
+`COMANDO_1_BLOCO: LIBERADO_APENAS_NESTE_T9C_RC1_3`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`COMENTÁRIO_WORD_064: PROXIMO_ID_FORMAL_POS_CORRECAO_NAO_CONSUMIDO`
+
+`VERIFICACAO_PREVIA_DE_ID: EXECUTADA`
+
+Se o bloco integral não estiver disponível, T9C deve ser bloqueado antes de qualquer comentário Word:
+
+`BLOQUEADO_T9C_BLOCO_003_INTEGRAL_AUSENTE`
+
+---
+
+# 9. Estado de ID preservado
+
+Este pacote não consome ID.
+
+`COMENTÁRIO_WORD_064: NAO_CONSUMIDO`
+
+`COMENTÁRIO_WORD_058_A_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`IDS_058_063_CONSUMIDOS: NAO`
+
+`COMENTARIO_WORD_GERADO_NESTE_PACOTE: NAO`
+
+`ID_CONSUMIDO_NESTE_PACOTE: NENHUM`
+
+---
+
+# 10. Próximo passo operacional
+
+Abrir novo chat limpo:
+
+`CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO_BLOCO003_INTEGRAL`
+
+Colar, nesta ordem:
+
+1. pacote de abertura do chat limpo;
+2. candidata RC1.3 integral;
+3. pacote de correção arquitetural RC1.3;
+4. pacote de teste controlado RC1.3 corrigido por este pacote operacional;
+5. confirmar inicialização formal;
+6. reiniciar testes desde T-ID0.
+
+Não reaproveitar o chat RC1.3 congelado.
+
+Não pular diretamente para T9A.
+
+Não pular diretamente para T9C.
+
+---
+
+# 11. Status final
+
+`PACOTE_CORRECAO_OPERACIONAL_TESTE_PC30_RC1_3_BLOCO_003_INTEGRAL: CONCLUIDO`
+
+`PROXIMO_PASSO: ABRIR_NOVO_CHAT_LIMPO_COM_BLOCO_003_INTEGRAL_NO_T9A`
+
+FIM_DO_ARQUIVO

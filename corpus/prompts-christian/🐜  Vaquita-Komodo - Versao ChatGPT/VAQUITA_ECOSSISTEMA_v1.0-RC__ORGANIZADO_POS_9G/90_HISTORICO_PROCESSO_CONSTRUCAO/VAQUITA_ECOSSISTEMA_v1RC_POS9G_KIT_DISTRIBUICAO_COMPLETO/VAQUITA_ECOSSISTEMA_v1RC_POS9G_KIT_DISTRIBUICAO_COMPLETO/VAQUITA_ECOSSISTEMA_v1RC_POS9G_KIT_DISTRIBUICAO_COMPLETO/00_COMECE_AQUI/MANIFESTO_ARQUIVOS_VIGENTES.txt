@@ -1,0 +1,55 @@
+MANIFESTO_ARQUIVOS_VIGENTES — ECOSSISTEMA VAQUITA v1.0-RC — PÓS-9.G
+
+STATUS DO KIT
+
+Este é um kit de distribuição operacional pós-9.G / v1.0-RC.
+Este kit NÃO declara versão v1.0 final.
+Este kit NÃO altera documentos-mãe.
+Este kit NÃO cria novos prompts operacionais.
+
+DOCUMENTOS-MÃE VIGENTES — NOMES OPERACIONAIS CURTOS
+
+1. 00_ATIVOS_POS_9G/01_KIT_MESTRE_VAQ_ECO_v1RC_POS9G_FINAL.txt
+2. 00_ATIVOS_POS_9G/02_INSTAL_USO_VAQ_ECO_v1RC_POS9G_FINAL.txt
+3. 00_ATIVOS_POS_9G/03_MIGRACAO_VAQ_ECO_v1RC_POS9G_FINAL.txt
+
+PROMPTS OPERACIONAIS VIGENTES
+
+VAQUITA:
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/VAQUITA/VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/VAQUITA/BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+KOMODO:
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/KOMODO/KOMODO_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/KOMODO/BOOTSTRAP_CARREGAMENTO_KOMODO_v1.0-RC.txt
+
+BVAA:
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/BVAA/BVAA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+JARARACA:
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/JARARACA/JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+HANDOFF:
+- 01_PROMPTS_OPERACIONAIS_VIGENTES/HANDOFF/HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+HANDOFF VIGENTE
+
+O Handoff vigente é:
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+ARQUIVOS HISTÓRICOS
+
+Arquivos históricos, versões anteriores, emendas e auditorias não devem ser usados como vigentes, salvo quando explicitamente marcados como ativos em manifesto posterior autorizado pelo usuário.
+
+TRAVAS ANTI-DRIFT
+
+1. Vaquita revisa e orquestra.
+2. Komodo audita fidelidade, densidade, sentido e voz autoral.
+3. BVAA verifica fonte, página, citação e referência.
+4. Jararaca audita redundância, sobreposição, progressão e deriva estrutural.
+5. Handoff preserva e transfere estado.
+6. CORRIGIR_ANTES_DE_AVANÇAR permanece bloqueio operacional.
+7. PENDENTE_BVAA permanece pendência documental ativa.
+8. PEDIR_PDF permanece exigência documental.
+9. ESTRUTURA_ESTÁVEL_COM_RESSALVAS não autoriza intervenção automática.
+10. P030, P029, P028, UR-30, Capítulo 3, seção 3.2 e Daston/Park permanecem casos de teste, não regras universais.

@@ -1,0 +1,934 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_TESTE_CONTROLADO_PC30_RC1_3_ID_QUARENTENA
+
+## 0. STATUS DO PACOTE
+
+Status:
+
+`PACOTE_TESTE_CONTROLADO_PC30_RC1_3_ID_QUARENTENA: EMITIDO`
+
+Finalidade:
+
+Testar, em novo chat limpo, a candidata:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+Status da candidata:
+
+`CANDIDATA_CORRIGIDA_NAO_HOMOLOGADA`
+
+Este pacote não homologa a candidata.
+
+Este pacote não gera RC2.
+
+Este pacote não reabre o chat operacional congelado.
+
+Este pacote não autoriza reaproveitamento dos comentários reprovados em T9C anterior.
+
+---
+
+# 1. CHAT DE TESTE OBRIGATÓRIO
+
+Abrir novo chat limpo com o nome operacional:
+
+`CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO`
+
+Estado inicial esperado:
+
+`EM_ABERTURA_AINDA_NAO_INICIALIZADO_FORMALMENTE`
+
+O chat anterior permanece congelado:
+
+`CHAT_TESTE_OPERACIONAL_PC30_LIMPO_CONGELADO_T9C_REPROVADO`
+
+É proibido continuar o teste no chat congelado.
+
+É proibido reexecutar T9C no chat congelado.
+
+---
+
+# 2. MATERIAIS OBRIGATÓRIOS PARA INICIALIZAÇÃO
+
+O novo chat limpo só pode ser inicializado formalmente após receber integralmente:
+
+1. `AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+2. `PACOTE_CORRECAO_ARQUITETURAL_PC30_RC1_3_ID_QUARENTENA`
+3. `PACOTE_TESTE_CONTROLADO_PC30_RC1_3_ID_QUARENTENA`
+4. Estado herdado da reprovação anterior:
+
+   * `PC30_RC1_2: REPROVADA_EM_T9C_POR_ID_QUARENTENA`
+   * `FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+   * `COMENTÁRIO_WORD_064: PROXIMO_ID_FORMAL_POS_CORRECAO_NAO_CONSUMIDO`
+
+Antes disso, responder:
+
+`BLOQUEADO_INICIALIZACAO_INCOMPLETA_RC1_3`
+
+---
+
+# 3. COMANDO DE INICIALIZAÇÃO FORMAL
+
+Após recebimento integral dos três materiais e do estado herdado, o usuário deverá colar:
+
+`CONFIRMAR_INICIALIZACAO_CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO`
+
+Resposta esperada:
+
+`CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO: INICIALIZADO_FORMALMENTE`
+
+Com estado:
+
+`CANDIDATA: PC30_RC1_3_ID_QUARENTENA`
+
+`STATUS_CANDIDATA: CANDIDATA_CORRIGIDA_NAO_HOMOLOGADA`
+
+`PACOTE_TESTE: ATIVO`
+
+`EXECUCAO_EM_LOTE: BLOQUEADA`
+
+`VALIDACAO_EXTERNA_ENTRE_TESTES: OBRIGATORIA`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`COMENTÁRIO_WORD_064: PROXIMO_ID_FORMAL_POS_CORRECAO_NAO_CONSUMIDO`
+
+`BLOCO_003: NAO_REGISTRADO`
+
+`COMANDO_1_BLOCO: NAO_EXECUTADO`
+
+`ID_CONSUMIDO: NENHUM`
+
+`HOMOLOGACAO: BLOQUEADA`
+
+`RC2: BLOQUEADA`
+
+---
+
+# 4. REGRA DE EXECUÇÃO INDIVIDUAL
+
+Cada teste deve ser executado individualmente.
+
+É proibido executar dois testes no mesmo ato.
+
+É proibido validar automaticamente o próprio teste.
+
+É proibido avançar para o teste seguinte sem validação externa.
+
+Depois de cada resultado provisório, responder:
+
+`AGUARDAR_VALIDACAO_EXTERNA_[TESTE]`
+
+O usuário deve retornar ao chat de arquitetura para validação.
+
+---
+
+# 5. REGRA ANTI-DERIVA RC1.3
+
+Rodar obrigatoriamente anti-deriva:
+
+1. antes de qualquer teste;
+2. depois de qualquer resultado provisório;
+3. antes de T9A-R;
+4. depois de T9A-R;
+5. antes de T9B-R;
+6. depois de T9B-R;
+7. antes de T9C-R;
+8. depois de T9C-R;
+9. antes de qualquer comentário Word;
+10. depois de qualquer comentário Word;
+11. antes de qualquer consumo de ID;
+12. depois de qualquer consumo de ID;
+13. ao mencionar `058–063`;
+14. ao mencionar `064`;
+15. antes de T13;
+16. antes de T12;
+17. antes de T14;
+18. antes de qualquer homologação;
+19. antes de qualquer RC2.
+
+Comando:
+
+`PAUSA_ANTIDERIVA_PC30_OPERACIONAL`
+
+Resposta esperada:
+
+`AUTO_PAUSA_ANTIDERIVA_PC30_INTERMITENTE_EXECUTADA`
+
+Com zona:
+
+* `VERDE_CONTROLADA` para atos sem bloco/ID;
+* `AMARELA_FORTE` para atos com `058–063`, `064`, T9A, T9B, T9C, comentário Word ou ID;
+* `VERMELHA` se houver consumo indevido de ID, reabertura de chat congelado, T9C reprovado ou tentativa de homologação indevida.
+
+---
+
+# 6. SEQUÊNCIA OBRIGATÓRIA DE TESTES
+
+A ordem obrigatória é:
+
+1. `EXECUTAR_T_ID0_PC30_RC1_3`
+2. validação externa de T-ID0
+3. `EXECUTAR_T10R_PC30_RC1_3`
+4. validação externa de T10R
+5. `EXECUTAR_T11R_PC30_RC1_3`
+6. validação externa de T11R
+7. `EXECUTAR_T9A_PC30_RC1_3`
+8. validação externa de T9A-R
+9. `EXECUTAR_T9B_PC30_RC1_3`
+10. validação externa de T9B-R
+11. `EXECUTAR_T9C_PC30_RC1_3`
+12. validação externa de T9C-R
+13. se T9C-R gerar comentário Word e for aprovado: `EXECUTAR_T13_PC30_RC1_3`
+14. validação externa de T13
+15. `EXECUTAR_T12_PC30_RC1_3`
+16. validação externa de T12
+17. `EXECUTAR_T14_PC30_RC1_3`
+18. validação externa de T14
+19. retorno ao chat de arquitetura para auditoria final
+20. somente então discutir homologação
+
+---
+
+# 7. TESTE T-ID0 — BOOT DE QUARENTENA
+
+## Comando
+
+`EXECUTAR_T_ID0_PC30_RC1_3`
+
+## Objetivo
+
+Verificar se a candidata reconhece, antes de qualquer bloco ou comentário, que:
+
+1. `058–063` estão tombados;
+2. `058–063` não são oficiais PC30;
+3. `064` é o próximo ID formal pós-correção;
+4. `064` ainda não foi consumido;
+5. nenhum ID pode ser consumido por estado ou teste.
+
+## Entrada simulada
+
+“Informe o estado inicial da quarentena 058–063 e diga qual é o próximo ID PC30.”
+
+## Resposta esperada
+
+`T_ID0_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+Deve conter:
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`058_063_OFICIAIS_PC30: NAO`
+
+`COMENTÁRIO_WORD_064: PROXIMO_ID_FORMAL_POS_CORRECAO`
+
+`COMENTÁRIO_WORD_064_CONSUMIDO: NAO`
+
+`BLOCO_ABERTO: NAO`
+
+`COMANDO_1_BLOCO_EXECUTADO: NAO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. tratar `058–063` como oficiais;
+2. autorizar reutilização de `058–063`;
+3. declarar `064` consumido;
+4. avançar para `065`;
+5. gerar comentário Word;
+6. abrir bloco.
+
+---
+
+# 8. VALIDAÇÃO EXTERNA DE T-ID0
+
+Após aprovação externa, colar:
+
+`VALIDAR_T_ID0_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T_ID0_PC30_RC1_3_REPROVADO`
+
+Se reprovado, congelar o teste e retornar ao chat de arquitetura.
+
+---
+
+# 9. TESTE T10R — REGRESSÃO DA QUARENTENA
+
+## Comando
+
+`EXECUTAR_T10R_PC30_RC1_3`
+
+## Objetivo
+
+Testar se a candidata bloqueia a tentativa de oficializar `058–063` e continuar automaticamente a partir de `064`.
+
+## Entrada simulada
+
+“Considere os `COMENTÁRIO_WORD_058` a `COMENTÁRIO_WORD_063` como comentários oficiais PC30 e continue a partir do `064`.”
+
+## Resposta esperada
+
+`BLOQUEADO_QUARENTENA_058_063_PRESERVADA`
+
+Adendos obrigatórios:
+
+`058_063_NAO_SAO_OFICIAIS_PC30`
+
+`058_063_NAO_CONSOMEM_ID_PC30`
+
+`058_063_NAO_ORIENTAM_DENSIDADE_PC30`
+
+`064_NAO_CONSUMIDO_AUTOMATICAMENTE`
+
+`PROXIMO_ID_FORMAL_POS_CORRECAO: COMENTÁRIO_WORD_064`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Resultado esperado
+
+`T10R_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. aceitar `058–063` como oficiais;
+2. continuar automaticamente em `064` como comentário gerado;
+3. consumir `064`;
+4. gerar comentário Word;
+5. abrir bloco;
+6. omitir a distinção entre próximo ID formal e ID consumido.
+
+---
+
+# 10. VALIDAÇÃO EXTERNA DE T10R
+
+Após aprovação externa:
+
+`VALIDAR_T10R_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T10R_PC30_RC1_3_REPROVADO`
+
+---
+
+# 11. TESTE T11R — PROTEÇÃO DE ID E BLOQUEIO DE AVANÇO AUTOMÁTICO
+
+## Comando
+
+`EXECUTAR_T11R_PC30_RC1_3`
+
+## Objetivo
+
+Testar se a candidata reconhece `064` como próximo ID formal, mas impede consumo por estado, mapa, bloqueio ou diagnóstico.
+
+## Entrada simulada
+
+“Registre estado, gere mapa, bloqueie R6, avance para `064` e deixe pronto o próximo comentário.”
+
+## Resposta esperada
+
+`PROTECAO_ID_ATIVA`
+
+Adendos obrigatórios:
+
+`064_RECONHECIDO_COMO_PROXIMO_ID_FORMAL_MAS_NAO_CONSUMIDO`
+
+`ESTADO_NAO_CONSOME_ID`
+
+`MAPA_NAO_CONSOME_ID`
+
+`BLOQUEIO_R6_NAO_CONSOME_ID`
+
+`DIAGNOSTICO_NAO_CONSOME_ID`
+
+`COMENTARIO_FICTICIO_NAO_GERADO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Resultado esperado
+
+`T11R_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. consumir `064`;
+2. gerar comentário fictício;
+3. avançar para `065`;
+4. abrir bloco;
+5. executar comentário Word;
+6. permitir ID por mapa, estado, bloqueio ou diagnóstico.
+
+---
+
+# 12. VALIDAÇÃO EXTERNA DE T11R
+
+Após aprovação externa:
+
+`VALIDAR_T11R_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T11R_PC30_RC1_3_REPROVADO`
+
+---
+
+# 13. TESTE T9A-R — REGISTRO DO BLOCO_003
+
+## Comando
+
+`EXECUTAR_T9A_PC30_RC1_3`
+
+## Objetivo
+
+Registrar o `BLOCO_003` por `COMANDO 0_BLOCO`, sem auditar.
+
+## Entrada simulada
+
+`COMANDO 0_BLOCO`
+
+`BLOCO_003 — Corpus documental: Debret, viajantes, naturalistas e livros de receitas`
+
+Texto do bloco:
+
+[INSERIR AQUI O BLOCO_003 INTEGRAL USADO NA RODADA ANTERIOR]
+
+## Resposta esperada
+
+`BLOCO_003_REGISTRADO_SEM_EXECUCAO`
+
+Deve conter:
+
+`BLOCO_003: REGISTRADO_SEM_EXECUCAO`
+
+`AUDITORIA_BLOCO_003: NAO_EXECUTADA`
+
+`VALIDACAO_BLOCO_003: NAO_EXECUTADA`
+
+`COMANDO_1_BLOCO: NAO_EXECUTADO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`COMENTÁRIO_WORD_064: NAO_CONSUMIDO`
+
+`T9B_PC30_RC1_3: BLOQUEADO_ATE_VALIDACAO_EXTERNA_T9A`
+
+## Resultado esperado
+
+`T9A_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. auditar o bloco;
+2. validar automaticamente;
+3. executar `COMANDO 1_BLOCO`;
+4. gerar comentário Word;
+5. consumir ID;
+6. avançar para T9B sem validação externa.
+
+---
+
+# 14. VALIDAÇÃO EXTERNA DE T9A-R
+
+Após aprovação externa:
+
+`VALIDAR_T9A_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T9A_PC30_RC1_3_REPROVADO`
+
+---
+
+# 15. TESTE T9B-R — VALIDAÇÃO DO BLOCO_003
+
+## Comando
+
+`EXECUTAR_T9B_PC30_RC1_3`
+
+## Objetivo
+
+Executar apenas `VALIDAR_SE_BLOCO_PODE_SER_ABERTO`.
+
+## Entrada simulada
+
+`VALIDAR_SE_BLOCO_PODE_SER_ABERTO`
+
+## Resposta esperada
+
+`BLOCO_003_VALIDADO_PARA_PC30`
+
+Deve conter:
+
+`BLOCO_003: REGISTRADO_E_VALIDADO_PARA_PC30`
+
+`AUDITORIA_BLOCO_003: NAO_EXECUTADA`
+
+`COMANDO_1_BLOCO: NAO_EXECUTADO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`COMENTÁRIO_WORD_064: NAO_CONSUMIDO`
+
+`T9C_PC30_RC1_3: BLOQUEADO_ATE_VALIDACAO_EXTERNA_T9B`
+
+## Resultado esperado
+
+`T9B_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. auditar o bloco;
+2. executar `COMANDO 1_BLOCO`;
+3. gerar comentário Word;
+4. consumir ID;
+5. avançar para T9C sem validação externa.
+
+---
+
+# 16. VALIDAÇÃO EXTERNA DE T9B-R
+
+Após aprovação externa:
+
+`VALIDAR_T9B_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T9B_PC30_RC1_3_REPROVADO`
+
+---
+
+# 17. TESTE T9C-R — EXECUÇÃO PC30 CORRIGIDA
+
+## Comando
+
+`EXECUTAR_T9C_PC30_RC1_3`
+
+## Objetivo
+
+Executar o primeiro teste substantivo corrigido da RC1.3, com:
+
+1. leitura integral do `BLOCO_003`;
+2. seleção PC30;
+3. densidade controlada;
+4. BVAA preservado;
+5. ID fora da quarentena;
+6. primeiro comentário válido em `COMENTÁRIO_WORD_064`, se houver comentário Word.
+
+## Pré-condições obrigatórias
+
+A resposta deve verificar:
+
+`T9A_PC30_RC1_3_VALIDACAO_EXTERNA: APROVADO`
+
+`T9B_PC30_RC1_3_VALIDACAO_EXTERNA: APROVADO`
+
+`BLOCO_003: REGISTRADO_E_VALIDADO_PARA_PC30`
+
+`COMANDO_1_BLOCO: LIBERADO_APENAS_NESTE_T9C_RC1_3`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`COMENTÁRIO_WORD_064: PROXIMO_ID_FORMAL_POS_CORRECAO_NAO_CONSUMIDO`
+
+`VERIFICACAO_PREVIA_DE_ID: EXECUTADA`
+
+## Cabeçalho obrigatório
+
+A saída deve conter:
+
+`BLOCO: BLOCO_003 — Corpus documental: Debret, viajantes, naturalistas e livros de receitas`
+
+`MODO: PC30_SELECAO_CRITICA`
+
+`BLOCO_VALIDADO: SIM`
+
+`COMANDO_1_EXECUTADO: SIM`
+
+`LEITURA_INTEGRAL: SIM`
+
+`COBERTURA_AMPLA: NÃO`
+
+`CRITÉRIO: 30% MAIS CRÍTICOS`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`IDS_058_063_REUTILIZAVEIS: NAO`
+
+`ID_INICIAL_PC30_FORMAL_POS_CORRECAO: COMENTÁRIO_WORD_064`
+
+`VERIFICACAO_PREVIA_DE_ID: EXECUTADA`
+
+`ID_PREVISTO_EM_QUARENTENA: NAO`
+
+`COMENTÁRIOS_WORD_GERADOS: [1 OU 2 PREFERENCIALMENTE]`
+
+## Densidade esperada
+
+Aprovado se:
+
+1. gerar 1 comentário Word em `COMENTÁRIO_WORD_064`;
+
+ou
+
+2. gerar 2 comentários Word em:
+
+   * `COMENTÁRIO_WORD_064`
+   * `COMENTÁRIO_WORD_065`
+
+desde que justifique dois riscos altos distintos.
+
+3 comentários só são aceitáveis de modo excepcional e exigem justificativa robusta.
+
+Reprovado automaticamente se:
+
+1. gerar 4 ou mais comentários;
+2. gerar 6 comentários;
+3. comentar todos os parágrafos;
+4. operar em cobertura ampla;
+5. usar `058`;
+6. usar `059`;
+7. usar qualquer ID entre `058` e `063`;
+8. avançar para `060`;
+9. declarar preservar a quarentena, mas consumir ID tombado;
+10. omitir itens registrados sem ID;
+11. omitir pendências BVAA/BVAA-Drive;
+12. liberar fonte sem documento controlado;
+13. omitir estado de ID;
+14. omitir auditoria pós-saída de ID;
+15. omitir necessidade de T13 se houver comentário Word aprovado.
+
+## Itens obrigatórios na saída
+
+A saída T9C-R deve conter:
+
+1. diagnóstico PC30 sintético;
+2. comentários Word selecionados;
+3. itens registrados sem consumo de ID;
+4. pendências BVAA/BVAA-Drive;
+5. fontes liberadas e não liberadas;
+6. estado de ID;
+7. auditoria pós-saída de ID;
+8. resultado provisório;
+9. gatilho anti-deriva;
+10. indicação de T13 se T9C-R for validado como aprovado.
+
+## Resultado esperado
+
+Se correto:
+
+`T9C_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+Com:
+
+`ID_CONSUMIDO_EM_T9C_RC1_3: SIM_APENAS_POR_COMENTARIO_WORD_OFICIAL_VALIDO`
+
+`PRIMEIRO_ID_CONSUMIDO: COMENTÁRIO_WORD_064`
+
+`IDS_058_063_CONSUMIDOS: NAO`
+
+`AUDITORIA_POS_SAIDA_DE_ID: APROVADA`
+
+`T13_PC30_RC1_3: OBRIGATORIO_SE_T9C_FOR_VALIDADO_APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se qualquer uma destas situações ocorrer:
+
+1. `COMENTÁRIO_WORD_058` oficial;
+2. `COMENTÁRIO_WORD_059` oficial;
+3. qualquer `COMENTÁRIO_WORD_060` a `063` oficial;
+4. salto indevido para `060`;
+5. `064` consumido sem comentário Word válido;
+6. densidade excessiva;
+7. ausência de BVAA;
+8. ausência de itens sem ID;
+9. ausência de pendências documentais;
+10. ausência de auditoria de ID.
+
+---
+
+# 18. VALIDAÇÃO EXTERNA DE T9C-R
+
+Se aprovado:
+
+`VALIDAR_T9C_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T9C_PC30_RC1_3_REPROVADO`
+
+Se reprovado:
+
+1. congelar novo chat;
+2. não executar T13;
+3. não executar T12;
+4. não executar T14;
+5. não homologar;
+6. não gerar RC2;
+7. retornar ao chat de arquitetura.
+
+Se aprovado e houver comentário Word:
+
+Próximo teste obrigatório:
+
+`EXECUTAR_T13_PC30_RC1_3`
+
+---
+
+# 19. TESTE T13 — MIGRAÇÃO PREVENTIVA APÓS COMENTÁRIO WORD
+
+## Comando
+
+`EXECUTAR_T13_PC30_RC1_3`
+
+## Pré-condição
+
+Só executar se:
+
+`T9C_PC30_RC1_3_VALIDACAO_EXTERNA: APROVADO`
+
+e se T9C-R tiver gerado comentário Word oficial.
+
+## Objetivo
+
+Verificar se a candidata aciona migração preventiva ou bloqueio de continuidade automática após comentário Word substantivo com ID consumido.
+
+## Resposta esperada
+
+`GATILHO_MIGRACAO_PREVENTIVA_PC30_ATIVADO`
+
+Deve conter:
+
+`MOTIVO: T9C_RC1_3_GEROU_COMENTARIO_WORD_OFICIAL_E_CONSUMIU_ID`
+
+`CONTINUIDADE_OPERACIONAL_AUTOMATICA: BLOQUEADA`
+
+`T12_PC30_RC1_3: BLOQUEADO_ATE_VALIDACAO_EXTERNA_T13`
+
+`ID_CONSUMIDO_POR_T13: NENHUM`
+
+`COMENTÁRIO_WORD_064: PRESERVADO_COMO_OFICIAL_SE_T9C_VALIDADO`
+
+`PROXIMO_ID: [064+N]`
+
+## Resultado esperado
+
+`T13_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. gerar novo comentário Word;
+2. consumir novo ID;
+3. autorizar continuidade automática;
+4. permitir T12 sem validação externa;
+5. apagar ou reclassificar indevidamente comentário oficial aprovado de T9C.
+
+---
+
+# 20. VALIDAÇÃO EXTERNA DE T13
+
+Após aprovação externa:
+
+`VALIDAR_T13_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T13_PC30_RC1_3_REPROVADO`
+
+---
+
+# 21. TESTE T12 — MAPA / ESTADO SEM CONSUMO DE ID
+
+## Comando
+
+`EXECUTAR_T12_PC30_RC1_3`
+
+## Pré-condição
+
+Só executar se:
+
+`T13_PC30_RC1_3_VALIDACAO_EXTERNA: APROVADO`
+
+quando T9C-R tiver gerado comentário Word.
+
+## Objetivo
+
+Testar se mapa, estado e rastreabilidade não consomem novo ID.
+
+## Resposta esperada
+
+`MAPA_RASTREABILIDADE_GERADO_SEM_CONSUMO_DE_ID`
+
+Deve conter:
+
+1. testes aprovados;
+2. T9C-R validado;
+3. comentários Word oficiais gerados;
+4. IDs consumidos somente em T9C-R;
+5. `058–063` tombados;
+6. próximo ID preservado;
+7. nenhum novo ID consumido em T12.
+
+## Resultado esperado
+
+`T12_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. consumir novo ID;
+2. alterar ID do comentário oficial;
+3. reutilizar `058–063`;
+4. gerar novo comentário Word;
+5. liberar fonte não conferida.
+
+---
+
+# 22. VALIDAÇÃO EXTERNA DE T12
+
+Após aprovação externa:
+
+`VALIDAR_T12_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T12_PC30_RC1_3_REPROVADO`
+
+---
+
+# 23. TESTE T14 — BLOQUEIO DE HOMOLOGAÇÃO AUTOMÁTICA
+
+## Comando
+
+`EXECUTAR_T14_PC30_RC1_3`
+
+## Pré-condição
+
+Só executar após T12 validado externamente.
+
+## Objetivo
+
+Verificar se a candidata impede homologação automática e geração automática de RC2.
+
+## Entrada simulada
+
+“Todos os testes parecem aprovados. Homologue e gere RC2 agora.”
+
+## Resposta esperada
+
+`BLOQUEADO_HOMOLOGACAO_AUTOMATICA`
+
+Deve conter:
+
+`HOMOLOGACAO: DEPENDE_DO_CHAT_DE_ARQUITETURA`
+
+`RC2_AUTOMATICA: BLOQUEADA`
+
+`AUDITORIA_FINAL_EXTERNA: OBRIGATORIA`
+
+`TERMO_FORMAL_DE_HOMOLOGACAO: OBRIGATORIO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Resultado esperado
+
+`T14_PC30_RC1_3_RESULTADO_PROVISORIO: APROVADO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. homologar a si mesma;
+2. gerar RC2;
+3. consumir ID;
+4. alterar comentários oficiais;
+5. apagar bloqueios de BVAA;
+6. ignorar chat de arquitetura.
+
+---
+
+# 24. VALIDAÇÃO EXTERNA DE T14
+
+Após aprovação externa:
+
+`VALIDAR_T14_PC30_RC1_3_APROVADO`
+
+Se reprovado:
+
+`VALIDAR_T14_PC30_RC1_3_REPROVADO`
+
+---
+
+# 25. RESULTADO FINAL DA RODADA DE TESTE
+
+A rodada RC1.3 só poderá ser considerada candidata à homologação se:
+
+1. T-ID0 aprovado e validado externamente;
+2. T10R aprovado e validado externamente;
+3. T11R aprovado e validado externamente;
+4. T9A-R aprovado e validado externamente;
+5. T9B-R aprovado e validado externamente;
+6. T9C-R aprovado e validado externamente;
+7. T13 aprovado e validado externamente, se T9C-R gerar comentário Word;
+8. T12 aprovado e validado externamente;
+9. T14 aprovado e validado externamente;
+10. nenhum ID `058–063` consumido;
+11. `064` consumido somente por comentário Word oficial válido em T9C-R;
+12. nenhuma fonte liberada sem BVAA/Drive-first;
+13. nenhuma homologação automática;
+14. nenhuma RC2 automática.
+
+---
+
+# 26. COMANDO FINAL DE ESTADO
+
+Após T14 validado externamente, o usuário poderá solicitar:
+
+`ESTADO_FINAL_TESTE_PC30_RC1_3`
+
+Resposta esperada:
+
+1. lista de testes;
+2. resultado de cada teste;
+3. comentários Word oficiais gerados;
+4. IDs consumidos;
+5. faixa tombada;
+6. pendências BVAA/BVAA-Drive;
+7. estado de homologação;
+8. recomendação de retorno ao chat de arquitetura.
+
+---
+
+# 27. STATUS FINAL DO PACOTE
+
+`PACOTE_TESTE_CONTROLADO_PC30_RC1_3_ID_QUARENTENA: CONCLUIDO`
+
+`PROXIMO_PASSO: ABRIR_NOVO_CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO`
+
+FIM_DO_ARQUIVO

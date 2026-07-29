@@ -1,0 +1,427 @@
+
+INICIO_DO_ARQUIVO
+
+# ESTRUTURA_PASTAS_PC30_100_OPERACIONAL
+
+## 1. Objetivo
+
+Organizar, no computador, o pacote completo do sistema PC30 — auditor/revisor dos “30% mais críticos” — de forma didática, pragmática e segura.
+
+Este pacote reúne:
+
+1. auditor/revisor principal PC30;
+2. bot assessor PC30;
+3. testes e validações;
+4. homologações;
+5. pacotes anti-deriva;
+6. pacotes de migração;
+7. modelos de abertura de novo chat;
+8. modelos de uso real;
+9. versões congeladas, reprovadas ou não usar.
+
+---
+
+# 2. Pasta raiz recomendada
+
+Criar uma pasta raiz com este nome:
+
+`SISTEMA_PC30_30_POR_CENTO_MAIS_CRITICOS`
+
+Estrutura geral:
+
+`00_LEIA_ME_E_MAPA_GERAL`
+
+`01_AUDITOR_REVISOR_PC30`
+
+`02_BOT_ASSESSOR_PC30`
+
+`03_TESTES_E_VALIDACOES`
+
+`04_HOMOLOGACAO_E_FECHAMENTO`
+
+`05_ANTI_DERIVA_E_MIGRACAO`
+
+`06_MODELOS_DE_USO_REAL`
+
+`07_PROJETOS_EM_ANDAMENTO`
+
+`08_EXPORTACOES_E_MAPAS`
+
+`99_NAO_USAR_ARQUIVO_MORTO`
+
+---
+
+# 3. Estrutura completa de pastas
+
+```text
+SISTEMA_PC30_30_POR_CENTO_MAIS_CRITICOS/
+│
+├── 00_LEIA_ME_E_MAPA_GERAL/
+│   ├── 00_LEIA_ME_PRIMEIRO_PC30.txt
+│   ├── 01_MAPA_GERAL_DO_PACOTE_PC30.txt
+│   ├── 02_STATUS_ATUAL_PC30.txt
+│   ├── 03_DIFERENCA_ENTRE_AUDITOR_E_BOT.txt
+│   ├── 04_FLUXO_DE_USO_RAPIDO_PC30.txt
+│   └── 05_GLOSSARIO_OPERACIONAL_PC30.txt
+│
+├── 01_AUDITOR_REVISOR_PC30/
+│   ├── 01_PROMPT_MESTRE_HOMOLOGADO/
+│   │   └── AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt
+│   │
+│   ├── 02_ESTADO_DO_AUDITOR/
+│   │   ├── ESTADO_AUDITOR_PC30_RC1_3_HOMOLOGADO.txt
+│   │   ├── IDS_OFICIAIS_E_QUARENTENA_PC30.txt
+│   │   └── BVAA_DRIVE_FIRST_REGRAS_AUDITOR_PC30.txt
+│   │
+│   └── 03_RC2_NAO_USAR_AINDA/
+│       └── RC2_PC30_GERADA_MAS_NAO_TESTADA_NEM_HOMOLOGADA.txt
+│
+├── 02_BOT_ASSESSOR_PC30/
+│   ├── 01_PROMPT_BOT_VALIDADO/
+│   │   └── BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3.txt
+│   │
+│   ├── 02_TESTE_RAPIDO_DO_BOT/
+│   │   ├── PACOTE_TESTE_RAPIDO_BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3.txt
+│   │   ├── TERMO_VALIDACAO_OPERACIONAL_BOT_ASSESSOR_PC30.txt
+│   │   └── PACOTE_FECHAMENTO_TESTE_BOT_ASSESSOR_PC30.txt
+│   │
+│   └── 03_ESTADO_DO_BOT/
+│       ├── ESTADO_FINAL_TESTE_BOT_ASSESSOR_PC30.txt
+│       ├── COMANDOS_PERMITIDOS_BOT_ASSESSOR_PC30.txt
+│       └── COMANDOS_BLOQUEADOS_BOT_ASSESSOR_PC30.txt
+│
+├── 03_TESTES_E_VALIDACOES/
+│   ├── 01_TESTE_AUDITOR_PC30_RC1_3/
+│   │   ├── PACOTE_TESTE_CONTROLADO_PC30_RC1_3_ID_QUARENTENA.txt
+│   │   ├── PACOTE_CORRECAO_OPERACIONAL_TESTE_PC30_RC1_3_BLOCO_003_INTEGRAL.txt
+│   │   ├── RESULTADOS_T_ID0_A_T14_PC30_RC1_3.txt
+│   │   └── ESTADO_FINAL_TESTE_PC30_RC1_3.txt
+│   │
+│   ├── 02_TESTE_BOT_ASSESSOR_PC30/
+│   │   ├── RESULTADOS_TBOT0_A_TBOT9.txt
+│   │   ├── ESTADO_FINAL_TESTE_BOT_ASSESSOR_PC30.txt
+│   │   └── PAUSA_ANTIDERIVA_TESTE_BOT_PC30.txt
+│   │
+│   └── 03_TESTES_REPROVADOS_OU_INVALIDADOS/
+│       ├── CHAT_TESTE_OPERACIONAL_PC30_LIMPO_CONGELADO_T9C_REPROVADO.txt
+│       ├── CHAT_TESTE_OPERACIONAL_PC30_RC1_3_LIMPO_INVALIDADO_BLOCO003_AUSENTE.txt
+│       └── NOTA_SOBRE_REPROVACAO_POR_FALHA_DE_INSUMO.txt
+│
+├── 04_HOMOLOGACAO_E_FECHAMENTO/
+│   ├── 01_HOMOLOGACAO_AUDITOR_PC30_RC1_3/
+│   │   ├── AUDITORIA_FINAL_EXTERNA_PC30_RC1_3_BLOCO003_INTEGRAL.txt
+│   │   ├── TERMO_FORMAL_HOMOLOGACAO_CONTROLADA_PC30_RC1_3_BLOCO003_INTEGRAL.txt
+│   │   └── PACOTE_FECHAMENTO_HOMOLOGACAO_CONTROLADA_PC30_RC1_3_BLOCO003_INTEGRAL.txt
+│   │
+│   ├── 02_VALIDACAO_BOT_ASSESSOR_PC30/
+│   │   ├── TERMO_VALIDACAO_OPERACIONAL_BOT_ASSESSOR_PC30.txt
+│   │   └── PACOTE_FECHAMENTO_TESTE_BOT_ASSESSOR_PC30.txt
+│   │
+│   └── 03_STATUS_FINAL_DO_PACOTE_PC30/
+│       └── STATUS_PACOTE_PC30_100_OPERACIONAL.txt
+│
+├── 05_ANTI_DERIVA_E_MIGRACAO/
+│   ├── 01_PACOTES_ANTI_DERIVA/
+│   │   ├── PAUSA_ANTIDERIVA_PC30_OPERACIONAL_CURTA.txt
+│   │   ├── CHECKPOINT_ANTI_DERIVA_POS_COMENTARIO_WORD_PC30.txt
+│   │   └── CHECKPOINT_ANTI_DERIVA_PRE_MIGRACAO_PC30.txt
+│   │
+│   ├── 02_PACOTES_MIGRACAO/
+│   │   ├── PACOTE_MIGRACAO_OPERACIONAL_PC30_RC1_3_HOMOLOGADA.txt
+│   │   ├── PACOTE_MIGRACAO_PC30_GERADO_PELO_BOT_ASSESSOR.txt
+│   │   └── MODELO_PACOTE_MIGRACAO_NOVO_CHAT_PC30.txt
+│   │
+│   └── 03_HANDOFF_NOVO_CHAT/
+│       ├── PACOTE_ABERTURA_CHAT_OPERACIONAL_PC30_RC1_3_HOMOLOGADA.txt
+│       ├── PACOTE_ABERTURA_CHAT_COM_BOT_ASSESSOR_PC30.txt
+│       └── MODELO_RETOMADA_APOS_MIGRACAO_PC30.txt
+│
+├── 06_MODELOS_DE_USO_REAL/
+│   ├── 01_ABERTURA_DE_PROJETO/
+│   │   ├── MODELO_01_ABRIR_PROJETO_PC30_COM_TESE_INTEIRA.txt
+│   │   ├── MODELO_02_ABRIR_PROJETO_PC30_COM_CAPITULO.txt
+│   │   └── MODELO_03_ABRIR_PROJETO_PC30_COM_BLOCO_CURTO.txt
+│   │
+│   ├── 02_COMANDOS_OPERACIONAIS/
+│   │   ├── COMANDO_GERAR_MAPA_GLOBAL_PC30.txt
+│   │   ├── COMANDO_PROPOR_BLOCOS_PC30.txt
+│   │   ├── COMANDO_REGISTRAR_BLOCO_PC30.txt
+│   │   ├── COMANDO_PREPARAR_AUDITOR_PC30.txt
+│   │   └── COMANDO_GERAR_PACOTE_MIGRACAO_PC30.txt
+│   │
+│   └── 03_CHECKLISTS/
+│       ├── CHECKLIST_ANTES_DE_USAR_PC30.txt
+│       ├── CHECKLIST_ANTES_DE_ENVIAR_BLOCO_AO_AUDITOR.txt
+│       ├── CHECKLIST_DEPOIS_DE_GERAR_COMENTARIO_WORD.txt
+│       └── CHECKLIST_ANTES_DE_MIGRAR_DE_CHAT.txt
+│
+├── 07_PROJETOS_EM_ANDAMENTO/
+│   ├── MODELO_PASTA_PROJETO_PC30/
+│   │   ├── 00_ESTADO_DO_PROJETO/
+│   │   ├── 01_MATERIAL_RECEBIDO/
+│   │   ├── 02_MAPA_GLOBAL/
+│   │   ├── 03_BLOCOS_DE_REVISAO/
+│   │   ├── 04_COMENTARIOS_WORD_GERADOS/
+│   │   ├── 05_BVAA_FONTES_E_PAGINAS/
+│   │   ├── 06_MIGRACOES/
+│   │   └── 07_FECHAMENTO_DO_PROJETO/
+│   │
+│   └── PROJETOS_REAIS/
+│       └── [CRIAR_UMA_PASTA_PARA_CADA_TESE_OU_DISSERTACAO]
+│
+├── 08_EXPORTACOES_E_MAPAS/
+│   ├── MAPAS_DE_RASTREABILIDADE/
+│   ├── EXPORTACOES_DE_COMENTARIOS/
+│   ├── RELATORIOS_DE_ESTADO/
+│   └── PACOTES_DE_HANDOFF/
+│
+└── 99_NAO_USAR_ARQUIVO_MORTO/
+    ├── 01_IDS_TOMBADOS/
+    │   └── FAIXA_058_063_QUARENTENA_DIAGNOSTICA_TOMBADA.txt
+    │
+    ├── 02_SAIDAS_REPROVADAS/
+    │   ├── COMENTARIOS_058_059_REPROVADOS_NAO_OFICIAIS_T9C.txt
+    │   └── SAIDAS_DIAGNOSTICAS_058_063_NAO_OFICIAIS.txt
+    │
+    ├── 03_CHATS_CONGELADOS/
+    │   ├── CHAT_TESTE_PROVISORIO_PC30_CONGELADO.txt
+    │   ├── CHAT_TESTE_OPERACIONAL_PC30_LIMPO_CONGELADO_T9C_REPROVADO.txt
+    │   └── CHAT_TESTE_OPERACIONAL_PC30_RC1_3_INVALIDADO_BLOCO003_AUSENTE.txt
+    │
+    └── 04_VERSOES_NAO_HOMOLOGADAS/
+        ├── RC2_PC30_GERADA_MAS_NAO_TESTADA.txt
+        └── VERSOES_ANTERIORES_NAO_USAR_SEM_CONFERENCIA.txt
+```
+
+---
+
+# 4. Arquivos prioritários a salvar primeiro
+
+Para deixar o PC30 operacional rapidamente, salve primeiro estes arquivos:
+
+## 4.1. Auditor principal
+
+Pasta:
+
+`01_AUDITOR_REVISOR_PC30/01_PROMPT_MESTRE_HOMOLOGADO/`
+
+Arquivo:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt`
+
+Status:
+
+`PRIORIDADE_MAXIMA`
+
+---
+
+## 4.2. Bot assessor
+
+Pasta:
+
+`02_BOT_ASSESSOR_PC30/01_PROMPT_BOT_VALIDADO/`
+
+Arquivo:
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3.txt`
+
+Status:
+
+`PRIORIDADE_MAXIMA`
+
+---
+
+## 4.3. Pacote de migração operacional
+
+Pasta:
+
+`05_ANTI_DERIVA_E_MIGRACAO/02_PACOTES_MIGRACAO/`
+
+Arquivo:
+
+`PACOTE_MIGRACAO_OPERACIONAL_PC30_RC1_3_HOMOLOGADA.txt`
+
+Status:
+
+`PRIORIDADE_MAXIMA`
+
+---
+
+## 4.4. Termos de validação
+
+Pasta:
+
+`04_HOMOLOGACAO_E_FECHAMENTO/`
+
+Arquivos:
+
+`TERMO_FORMAL_HOMOLOGACAO_CONTROLADA_PC30_RC1_3_BLOCO003_INTEGRAL.txt`
+
+`TERMO_VALIDACAO_OPERACIONAL_BOT_ASSESSOR_PC30.txt`
+
+Status:
+
+`PRIORIDADE_ALTA`
+
+---
+
+## 4.5. Pacotes de fechamento
+
+Pasta:
+
+`04_HOMOLOGACAO_E_FECHAMENTO/`
+
+Arquivos:
+
+`PACOTE_FECHAMENTO_HOMOLOGACAO_CONTROLADA_PC30_RC1_3_BLOCO003_INTEGRAL.txt`
+
+`PACOTE_FECHAMENTO_TESTE_BOT_ASSESSOR_PC30.txt`
+
+Status:
+
+`PRIORIDADE_ALTA`
+
+---
+
+# 5. Status consolidado do pacote PC30
+
+## 5.1. Auditor/revisor principal PC30
+
+Nome:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+Status:
+
+`HOMOLOGADA_CONTROLADAMENTE`
+
+Função:
+
+auditar blocos de dissertações e teses em modo PC30, comentando apenas os pontos mais críticos.
+
+---
+
+## 5.2. Bot assessor PC30
+
+Nome:
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+Status:
+
+`VALIDADO_OPERACIONALMENTE`
+
+Função:
+
+organizar, preparar, validar, proteger, acionar anti-deriva e gerar migração/handoff.
+
+---
+
+## 5.3. Estado de IDs
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`COMENTÁRIO_WORD_066_STATUS: PRESERVADO_NAO_CONSUMIDO`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+---
+
+## 5.4. BVAA / Drive-first
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS: NENHUMA`
+
+`FONTE_NAO_CONFERIDA_NAO_PODE_SUSTENTAR_AFIRMACAO_ESPECIFICA`
+
+---
+
+# 6. Arquivos que não devem ser usados como operacionais
+
+Não usar como base operacional:
+
+1. qualquer versão anterior não homologada do PC30;
+2. saídas diagnósticas `058–063`;
+3. comentários `058–059` gerados na rodada reprovada;
+4. chat provisório PC30 congelado;
+5. chat operacional PC30 congelado por T9C reprovado;
+6. chat RC1.3 invalidado por ausência de `BLOCO_003` integral;
+7. RC2 PC30 enquanto não for testada e homologada;
+8. qualquer pacote que trate `058–063` como reutilizáveis;
+9. qualquer pacote que libere fonte apenas porque “está no Drive”;
+10. qualquer pacote que permita cobertura ampla dentro do modo PC30.
+
+---
+
+# 7. Como usar no dia a dia
+
+Fluxo recomendado para uso real:
+
+1. abrir novo chat limpo;
+2. colar o bot assessor PC30;
+3. colar o pacote de abertura operacional PC30;
+4. inicializar o bot;
+5. fornecer tese, sumário, resumo ou capítulo;
+6. gerar mapa global PC30;
+7. propor blocos;
+8. registrar um bloco integral;
+9. validar abertura do bloco;
+10. preparar comando para o auditor PC30;
+11. enviar pacote ao auditor PC30;
+12. validar comentário Word gerado, se houver;
+13. atualizar estado;
+14. acionar anti-deriva;
+15. migrar de chat quando recomendado.
+
+---
+
+# 8. Regra de ouro operacional
+
+Nunca usar o auditor PC30 sem preservar:
+
+`BOT_ASSESSOR_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`PC30_SIGNIFICADO: SELECAO_CRITICA_DOS_PONTOS_MAIS_RELEVANTES`
+
+`COBERTURA_AMPLA: BLOQUEADA`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS: BLOQUEADO`
+
+---
+
+# 9. Próximos artefatos recomendados
+
+Para completar o pacote PC30 100% operacional, gerar em seguida:
+
+1. `GERAR_LEIA_ME_PRIMEIRO_PC30`
+2. `GERAR_MAPA_GERAL_DO_PACOTE_PC30`
+3. `GERAR_MODELO_ABERTURA_CHAT_OPERACIONAL_PC30`
+4. `GERAR_CHECKLIST_ANTES_DE_USAR_PC30`
+5. `GERAR_GUIA_RAPIDO_USO_REAL_PC30`
+
+---
+
+# 10. Status final deste artefato
+
+`ESTRUTURA_PASTAS_PC30_100_OPERACIONAL: GERADA`
+
+`ID_CONSUMIDO_NA_GERACAO_DESTE_ARTEFATO: NENHUM`
+
+`COMENTARIO_WORD_GERADO_NA_GERACAO_DESTE_ARTEFATO: NAO`
+
+`RC_GERADA_NA_GERACAO_DESTE_ARTEFATO: NAO`
+
+`HOMOLOGACAO_AUTOMATICA_NA_GERACAO_DESTE_ARTEFATO: NAO`
+
+FIM_DO_ARQUIVO

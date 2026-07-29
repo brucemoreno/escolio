@@ -1,0 +1,250 @@
+INICIO_DO_ARQUIVO
+
+# RELATORIO_LOCALIZACAO_AUDITOR_PC30_RC1_3_HOMOLOGADO
+
+## 1. Objetivo
+
+Verificar se o arquivo autônomo do auditor/revisor principal PC30 homologado já está disponível para salvamento imediato no PC.
+
+Arquivo procurado:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt`
+
+Função esperada:
+
+prompt mestre operacional do auditor/revisor dos 30% mais críticos, capaz de auditar blocos de dissertação/tese e gerar comentários Word oficiais apenas quando houver risco crítico real.
+
+---
+
+# 2. Resultado da busca
+
+## 2.1. Arquivo localizado: bot assessor PC30
+
+Localizado:
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+Status:
+
+`VALIDADO_OPERACIONALMENTE`
+
+Este arquivo confirma o nome e o status do auditor associado:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+`PC30_RC1_3_ID_QUARENTENA: HOMOLOGADA_CONTROLADAMENTE`
+
+Conclusão:
+
+o bot assessor está disponível, mas ele não é o auditor/revisor principal.
+
+Status:
+
+`BOT_ASSESSOR_PC30: LOCALIZADO`
+
+`AUDITOR_PC30_RC1_3: REFERENCIADO_MAS_NAO_LOCALIZADO_COMO_ARQUIVO_COMPLETO`
+
+---
+
+## 2.2. Arquivo localizado: RC4 de cobertura padrão
+
+Localizado:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2.1_RC4 DRIVE_FIRST_BVAA_ZONA_SEGURA`
+
+Status:
+
+`HOMOLOGADA_CONTROLADAMENTE_v0_2_1_RC4`
+
+Mas o próprio estado indica:
+
+`PC30: INATIVO`
+
+`PROXIMO_ID_OBRIGATORIO: COMENTÁRIO_WORD_058`
+
+Conclusão:
+
+este arquivo é importante como base histórica/cobertura padrão, mas não é o auditor PC30 RC1.3 homologado.
+
+Status:
+
+`RC4_COBERTURA_PADRAO: LOCALIZADA`
+
+`RC4_COMO_AUDITOR_PC30: NAO`
+
+---
+
+## 2.3. Arquivo localizado: candidata PC30 RC1
+
+Localizado:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC1_DRIVE_FIRST_BVAA.md`
+
+Status declarado no próprio arquivo:
+
+`NAO_HOMOLOGADA`
+
+`NAO_SUBSTITUI_A_VERSAO_MAE`
+
+Conclusão:
+
+este arquivo é uma candidata anterior da trilha PC30, mas não é a versão homologada RC1.3.
+
+Status:
+
+`PC30_RC1_CANDIDATA: LOCALIZADA`
+
+`PC30_RC1_COMO_OPERACIONAL_FINAL: NAO`
+
+---
+
+## 2.4. Arquivos localizados: pacotes de teste PC30 RC1.3
+
+Localizados materiais de teste, incluindo:
+
+`PACOTE_TESTE_CONTROLADO_PC30_RC1_3_ID_QUARENTENA`
+
+Esses arquivos são protocolos de teste, não o prompt mestre final.
+
+Conclusão:
+
+eles ajudam a reconstruir e validar o histórico, mas não substituem o prompt operacional final.
+
+Status:
+
+`PACOTES_TESTE_RC1_3: LOCALIZADOS`
+
+`PROMPT_FINAL_RC1_3: NAO_CONFIRMADO_NESSES_ARQUIVOS`
+
+---
+
+# 3. Veredito de localização
+
+Veredito:
+
+`AUDITOR_PC30_RC1_3_HOMOLOGADO_COMO_ARQUIVO_AUTONOMO: NAO_LOCALIZADO_NESTA_CHECAGEM`
+
+Estado atual:
+
+`BOT_ASSESSOR_PC30: LOCALIZADO_E_VALIDADO`
+
+`AUDITOR_PC30_RC1_3: HOMOLOGADO_NO_ESTADO_DO_PROJETO`
+
+`AUDITOR_PC30_RC1_3_ARQUIVO_FINAL: PRECISA_LOCALIZAR_OU_RECONSTRUIR`
+
+---
+
+# 4. Risco operacional
+
+Não iniciar projeto real PC30 ainda se o arquivo abaixo não estiver salvo:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt`
+
+Motivo:
+
+o pacote PC30 já está arquiteturalmente pronto, mas o uso real exige o prompt mestre do auditor principal como arquivo autônomo.
+
+Sem esse arquivo, teríamos:
+
+`BOT_ASSESSOR_PC30: PRONTO`
+
+mas:
+
+`AUDITOR_PRINCIPAL_PC30: AUSENTE_COMO_ARQUIVO_EXECUTAVEL`
+
+Isso deixaria o pacote incompleto para uso real.
+
+---
+
+# 5. Próxima ação obrigatória
+
+Há duas rotas possíveis.
+
+## Rota A — localizar arquivo já existente
+
+Procurar no PC ou nos chats antigos por estes nomes ou trechos:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+`PC30_RC1_3_ID_QUARENTENA`
+
+`HOMOLOGADA_CONTROLADAMENTE`
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+Se localizado, salvar em:
+
+`SISTEMA_PC30_30_POR_CENTO_MAIS_CRITICOS/01_AUDITOR_REVISOR_PC30/01_PROMPT_MESTRE_HOMOLOGADO/`
+
+com o nome:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt`
+
+---
+
+## Rota B — reconstruir arquivo final
+
+Se o arquivo não for localizado, reconstruir o prompt mestre PC30 RC1.3 homologado como arquivo autônomo.
+
+A reconstrução deve preservar obrigatoriamente:
+
+1. base do auditor de dissertações/teses;
+2. modo PC30 dos 30% mais críticos;
+3. módulo seletor de criticidade PC30;
+4. bloqueio de cobertura ampla;
+5. bloqueio de comentário de todos os parágrafos;
+6. BVAA/Drive-first;
+7. bloqueio de fonte não conferida;
+8. bloqueio de página não validada;
+9. quarentena tombada `058–063`;
+10. comentários oficiais `064–065`;
+11. próximo ID formal `066`;
+12. anti-deriva;
+13. anti-alucinação;
+14. anti-drift operacional;
+15. exigência de bloco integral;
+16. bloqueio de execução em lote;
+17. migração preventiva;
+18. geração de comentários Word apenas por risco crítico real.
+
+---
+
+# 6. Decisão recomendada
+
+Como a prioridade é deixar o pacote PC30 100% operacional o quanto antes, a decisão recomendada é:
+
+`RECONSTRUIR_PROMPT_AUDITOR_PC30_RC1_3_HOMOLOGADO_COMO_ARQUIVO_AUTONOMO`
+
+Mesmo que o arquivo exista em algum chat antigo, reconstruir agora uma versão autônoma consolidada pode ser mais rápido e mais seguro do que depender de busca manual em histórico disperso.
+
+Mas a reconstrução deve ser marcada como:
+
+`RECONSTRUCAO_DA_VERSAO_HOMOLOGADA_A_PARTIR_DO_ESTADO_VALIDADO`
+
+e não como nova RC.
+
+---
+
+# 7. Status final deste relatório
+
+`RELATORIO_LOCALIZACAO_AUDITOR_PC30_RC1_3_HOMOLOGADO: GERADO`
+
+`AUDITOR_PC30_RC1_3_ARQUIVO_AUTONOMO: NAO_LOCALIZADO_NESTA_CHECAGEM`
+
+`BOT_ASSESSOR_PC30: LOCALIZADO_E_VALIDADO`
+
+`RC4_COBERTURA_PADRAO: LOCALIZADA_MAS_NAO_PC30`
+
+`PC30_RC1_CANDIDATA: LOCALIZADA_MAS_NAO_HOMOLOGADA`
+
+`PACOTES_TESTE_RC1_3: LOCALIZADOS_MAS_NAO_SUBSTITUEM_PROMPT_FINAL`
+
+`PROXIMA_ACAO_RECOMENDADA: RECONSTRUIR_PROMPT_AUDITOR_PC30_RC1_3_HOMOLOGADO_COMO_ARQUIVO_AUTONOMO`
+
+FIM_DO_ARQUIVO

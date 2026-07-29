@@ -1,0 +1,967 @@
+INICIO_DO_ARQUIVO
+
+# PLANO_READEQUACAO_ARQUITETURAL_PROMPT_OPERACIONAL_v0_1_PARA_v0_2_DRIVE_FIRST_BVAA.md
+
+# Plano de readequação arquitetural do prompt operacional de auditoria substantiva com comentários Word
+
+# Prompt de origem: AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1.md
+
+# Versão-alvo: AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_DRIVE_FIRST_BVAA.md
+
+# Status: plano arquitetural inicial
+
+# Natureza: readequação integrada, não patch
+
+# Escopo: integração de Biblioteca Virtual Google Drive, BVAA-Drive, leitura obrigatória de PDF e critério acadêmico de paginação
+
+# Regra de ouro: não empilhar patches
+
+# Área: História das Ciências, História das Ciências Naturais, História Ambiental, História da Medicina, História Natural e campos correlatos
+
+# Condição: não gerar prompt v0_2 ainda sem aprovação deste plano
+
+# Não altera a v0_1 já homologada controladamente
+
+# Não substitui o prompt operacional v0_1 até nova auditoria e testes controlados
+
+# Não autoriza uso real da v0_2 antes de homologação
+
+---
+
+## 1. FINALIDADE DO PLANO
+
+Este plano define como transformar o prompt operacional:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1.md
+
+em uma nova versão arquitetural integrada:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_DRIVE_FIRST_BVAA.md
+
+A transformação deve incorporar, de modo estrutural, as seguintes exigências:
+
+1. Biblioteca Virtual Google Drive como fonte bibliográfica preferencial;
+2. Drive-first antes de sugestão bibliográfica específica;
+3. leitura obrigatória de PDF antes de liberar página, citação, paráfrase específica ou sustentação bibliográfica;
+4. distinção acadêmica entre referência geral sem página e referência específica com página obrigatória;
+5. bloqueio explícito contra “preguiça operacional” da IA;
+6. obrigação de registrar comprovante de leitura de PDF;
+7. separação entre bibliografia possível, bibliografia localizada, bibliografia verificada e bibliografia liberada;
+8. preservação integral das travas já testadas na v0_1;
+9. integração orgânica nos modos, gates, comandos, estados, formatos de saída e testes;
+10. ausência completa de patch empilhado.
+
+Este plano não gera a v0_2 ainda. Ele apenas fixa a arquitetura da readequação.
+
+---
+
+## 2. REGRA DE OURO
+
+NÃO EMPILHAR PATCHES.
+
+Qualquer melhoria, correção ou aperfeiçoamento deve ser incorporado em nível arquitetural do prompt.
+
+É proibido:
+
+1. anexar módulo solto ao final da v0_1;
+2. colar links de Drive como apêndice informal;
+3. criar “correção posterior” sem integração;
+4. gerar seção final de emergência;
+5. criar remendo que dependa de lembrança do usuário;
+6. manter a v0_1 como corpo principal e acrescentar BVAA-Drive como apêndice externo;
+7. chamar de v0_2 uma v0_1 apenas acrescida de blocos colados;
+8. deixar conflito entre regras antigas e novas;
+9. introduzir comandos novos sem integrá-los ao fluxo;
+10. introduzir gates novos sem integrá-los ao estado, aos testes e às saídas.
+
+Toda melhoria deve entrar como:
+
+1. regra estrutural;
+2. gate;
+3. modo operacional;
+4. comando;
+5. estado;
+6. marcador;
+7. formato obrigatório de saída;
+8. teste controlado;
+9. critério de bloqueio;
+10. seção reescrita e integrada.
+
+---
+
+## 3. DIAGNÓSTICO DA v0_1
+
+A v0_1 já possui:
+
+1. MODO_DEFESA_DISSERTACAO_TESE;
+2. BLOCO 0;
+3. REGRA_DE_ESCALA_DA_AUDITORIA;
+4. REGRA_DE_COBERTURA_PARAGRAFOS;
+5. GATE_DE_ESCALA;
+6. GATE_DE_SUFICIENCIA_DO_MATERIAL;
+7. GATE_ANTI_COMENTARIO_COSMETICO;
+8. GATE_ANTI_ALUCINACAO_BIBLIOGRAFICA;
+9. 12 camadas de controle;
+10. marcadores de risco;
+11. PENDENTE_BVAA;
+12. SUGESTAO_EXTERNA_NAO_VERIFICADA;
+13. bloqueio contra página, citação e referência inventadas;
+14. comando PACOTE_BVAA;
+15. subrotina anti-deriva;
+16. testes controlados;
+17. bloqueio contra deriva para artigo;
+18. bloqueio contra comentários cosméticos;
+19. bloqueio contra comentários Word na tese inteira.
+
+A v0_1 foi aprovada em três testes controlados:
+
+1. bloco adversarial curto;
+2. bloco estável sem comentários;
+3. bloco longo/ambíguo com subdivisão.
+
+Portanto, a v0_2 não deve enfraquecer, substituir ou diluir essas travas.
+
+---
+
+## 4. LACUNA IDENTIFICADA
+
+A lacuna não é a ausência total de BVAA.
+
+A lacuna é operacional.
+
+A v0_1 impede alucinação bibliográfica em termos gerais, mas ainda não força suficientemente:
+
+1. abertura efetiva do PDF;
+2. leitura da passagem pertinente;
+3. distinção entre página do PDF e página impressa;
+4. comprovação da página antes de sugerir citação;
+5. diferenciação acadêmica entre referência geral e referência específica;
+6. uso prioritário da biblioteca virtual do orientador;
+7. bloqueio de sugestão bibliográfica específica sem leitura;
+8. registro verificável do caminho percorrido;
+9. recusa explícita da “preguiça” de citar autores conhecidos sem conferir;
+10. recusa da prática de omitir página quando a página é academicamente obrigatória.
+
+Problema central:
+
+A IA tende a substituir verificação documental por plausibilidade bibliográfica.
+
+Isso é inaceitável para comentários de orientação acadêmica em dissertações e teses.
+
+---
+
+## 5. PRINCÍPIO ARQUITETURAL DA v0_2
+
+A v0_2 deve obedecer à seguinte regra-mãe:
+
+SEM PDF ABERTO E PASSAGEM CONFERIDA, NÃO HÁ BIBLIOGRAFIA ESPECÍFICA LIBERADA.
+
+Regra derivada:
+
+REFERÊNCIA GERAL PODE SER SEM PÁGINA QUANDO TIVER FUNÇÃO PANORÂMICA.
+SUSTENTAÇÃO ESPECÍFICA EXIGE PÁGINA CONFERIDA.
+
+Regra Drive-first:
+
+ANTES DE SUGERIR BIBLIOGRAFIA ESPECÍFICA, CONSULTAR A BIBLIOTECA VIRTUAL AUTORIZADA, QUANDO DISPONÍVEL.
+
+Regra de bloqueio:
+
+SE O DRIVE OU O PDF NÃO ESTIVER ACESSÍVEL, O SISTEMA DEVE BLOQUEAR A LIBERAÇÃO BIBLIOGRÁFICA ESPECÍFICA E MARCAR PENDENTE_BVAA_DRIVE.
+
+---
+
+## 6. DISTINÇÃO TÉCNICA ESSENCIAL
+
+A v0_2 deve distinguir cinco estados bibliográficos.
+
+### 6.1. BIBLIOGRAFIA_POSSIVEL
+
+Autor, obra ou tradição historiográfica potencialmente pertinente, mas ainda não localizada nem conferida.
+
+Uso permitido:
+
+1. apontar como hipótese bibliográfica;
+2. recomendar busca;
+3. marcar como não verificada.
+
+Uso proibido:
+
+1. tratar como sustentação;
+2. sugerir inserção direta no texto;
+3. fornecer página;
+4. oferecer citação literal;
+5. dizer que “X demonstra” ou “X comprova”.
+
+### 6.2. BIBLIOGRAFIA_LOCALIZADA_NO_DRIVE
+
+Obra localizada na Biblioteca Virtual Google Drive, mas ainda sem leitura da passagem pertinente.
+
+Uso permitido:
+
+1. registrar que o arquivo existe;
+2. indicar necessidade de leitura;
+3. preparar verificação BVAA.
+
+Uso proibido:
+
+1. liberar página;
+2. liberar citação;
+3. dizer que a obra sustenta argumento específico;
+4. tratar a localização como leitura.
+
+### 6.3. BIBLIOGRAFIA_VERIFICADA_NO_PDF
+
+Obra aberta e lida em trecho pertinente.
+
+Uso permitido:
+
+1. indicar que o PDF foi consultado;
+2. registrar trecho conferido;
+3. explicar pertinência;
+4. marcar limites da evidência.
+
+Uso ainda condicionado:
+
+1. página impressa precisa ser confirmada;
+2. citação literal precisa ser conferida palavra por palavra;
+3. a referência ainda pode exigir normalização bibliográfica.
+
+### 6.4. PAGINA_CONFIRMADA
+
+Página exata localizada e conferida.
+
+A v0_2 deve distinguir:
+
+1. página do arquivo PDF;
+2. página impressa do livro/artigo;
+3. página de fac-símile;
+4. folha, fólio ou item documental, quando aplicável;
+5. ausência de paginação original.
+
+Uso permitido:
+
+1. comentário Word com indicação de página;
+2. nota de rodapé com sustentação específica;
+3. marcação de página confirmada.
+
+### 6.5. CITACAO_LITERAL_LIBERADA
+
+Citação literal conferida diretamente no PDF ou fonte primária.
+
+Exige:
+
+1. PDF aberto;
+2. trecho lido;
+3. página confirmada;
+4. transcrição conferida;
+5. edição identificada;
+6. aviso se houver tradução;
+7. distinção entre tradução do autor, tradução do orientando ou tradução existente.
+
+---
+
+## 7. GATE NOVO 1 — GATE_DE_ACESSO_DRIVE_BVAA
+
+Finalidade:
+
+Verificar se a Biblioteca Virtual Google Drive está acessível antes de qualquer recomendação bibliográfica específica.
+
+Perguntas obrigatórias:
+
+1. O usuário informou links de pastas autorizadas?
+2. A pasta é acessível no ambiente atual?
+3. A ferramenta/conector permite abrir a pasta?
+4. O arquivo foi localizado dentro da pasta?
+5. O arquivo foi aberto?
+6. O arquivo é PDF, imagem, documento textual ou outro formato?
+7. Há texto pesquisável?
+8. É necessário OCR?
+9. O arquivo contém página impressa?
+10. O arquivo contém metadados bibliográficos suficientes?
+11. A obra localizada corresponde exatamente à obra que se pretende citar?
+12. Há risco de homônimo, edição diferente ou arquivo incompleto?
+
+Saídas:
+
+DRIVE_ACESSIVEL
+DRIVE_NAO_ACESSIVEL
+PASTA_NAO_LOCALIZADA
+ARQUIVO_NAO_LOCALIZADO
+PDF_LOCALIZADO_NAO_ABERTO
+PDF_ABERTO
+PDF_ILEGIVEL
+PDF_INCOMPLETO
+METADADOS_INSUFICIENTES
+PENDENTE_BVAA_DRIVE
+
+Regra:
+
+Se o Drive não puder ser acessado, o sistema não deve fingir acesso.
+
+Resposta obrigatória:
+
+DRIVE_NAO_ACESSIVEL
+
+Não posso tratar a Biblioteca Virtual Drive como consultada neste ambiente. Posso marcar a necessidade de verificação como PENDENTE_BVAA_DRIVE, mas não posso liberar página, citação ou sustentação bibliográfica específica.
+
+---
+
+## 8. GATE NOVO 2 — GATE_DE_LEITURA_OBRIGATORIA_DE_PDF
+
+Finalidade:
+
+Impedir sugestão bibliográfica específica sem abertura e leitura do PDF.
+
+Regra-mãe:
+
+PDF localizado não é PDF lido.
+
+Perguntas obrigatórias:
+
+1. O PDF foi efetivamente aberto?
+2. A passagem relevante foi localizada?
+3. A página do PDF foi registrada?
+4. A página impressa foi registrada?
+5. O trecho foi lido diretamente?
+6. A passagem sustenta a afirmação pretendida?
+7. O trecho foi interpretado dentro dos limites da evidência?
+8. Há diferença entre o que a obra afirma e o que o comentário pretende atribuir?
+9. A obra está sendo usada como bibliografia geral ou sustentação específica?
+10. A citação é literal, paráfrase próxima ou referência panorâmica?
+
+Saídas:
+
+PDF_ABERTO_E_LIDO
+PASSAGEM_LOCALIZADA
+PASSAGEM_NAO_LOCALIZADA
+PAGINA_PDF_CONFIRMADA
+PAGINA_IMPRESSA_CONFIRMADA
+PAGINA_NAO_CONFIRMADA
+TRECHO_NAO_SUSTENTA_ARGUMENTO
+FONTE_VERIFICADA_COM_LIMITES
+BLOQUEIO_LEITURA_PDF
+PENDENTE_BVAA_DRIVE_PDF
+
+Resposta obrigatória quando o PDF não foi aberto:
+
+BLOQUEIO_LEITURA_PDF
+
+Não posso liberar esta bibliografia como sustentação específica porque o PDF correspondente ainda não foi aberto e lido. Localizar um arquivo ou conhecer o autor não equivale a verificar a passagem.
+
+Ação segura:
+abrir o PDF, localizar a passagem pertinente e registrar COMPROVANTE_DE_LEITURA_PDF.
+
+---
+
+## 9. GATE NOVO 3 — GATE_CRITERIO_ACADEMICO_DE_PAGINACAO
+
+Finalidade:
+
+Impedir omissão indevida de página quando a função acadêmica da referência exige localização precisa.
+
+Regra-mãe:
+
+A decisão de citar com ou sem página deve ser acadêmica, não econômica.
+
+É proibido omitir página por:
+
+1. economia de tokens;
+2. conveniência;
+3. fluidez textual;
+4. pressa;
+5. preguiça operacional;
+6. ausência de leitura;
+7. tentativa de parecer seguro sem comprovação.
+
+Estados:
+
+REFERENCIA_GERAL_SEM_PAGINA_PERMITIDA
+REFERENCIA_ESPECIFICA_COM_PAGINA_OBRIGATORIA
+CITACAO_LITERAL_COM_PAGINA_OBRIGATORIA
+FONTE_PRIMARIA_COM_PAGINA_OBRIGATORIA
+PAGINA_NAO_CONFIRMADA
+BLOQUEIO_CITACAO_SEM_PAGINA
+PENDENTE_BVAA_DRIVE_PAGINA
+
+Referência sem página é aceitável quando:
+
+1. a obra situa bibliografia geral;
+2. a obra aparece como parte de um campo;
+3. não há tese pontual atribuída ao autor;
+4. não há citação literal;
+5. não há paráfrase próxima;
+6. não há dado pontual;
+7. não há definição conceitual localizada;
+8. não há fonte primária;
+9. não há afirmação controversa dependente da obra;
+10. não há comentário Word recomendando inserção bibliográfica específica naquele ponto.
+
+Página é obrigatória quando houver:
+
+1. citação literal;
+2. paráfrase próxima;
+3. “segundo X”;
+4. “como afirma X”;
+5. “X demonstra que”;
+6. “X define...”;
+7. “X argumenta...”;
+8. “X mostra...”;
+9. “X comprova...”;
+10. conceito atribuído a autor específico;
+11. dado factual retirado de obra;
+12. episódio histórico específico;
+13. número, data, classificação ou tipologia;
+14. interpretação controversa;
+15. fonte primária;
+16. comparação entre autores;
+17. crítica historiográfica dirigida;
+18. comentário Word sugerindo inserção de referência em ponto específico;
+19. sustentação de afirmação forte;
+20. qualquer passagem que uma banca possa pedir para localizar.
+
+Resposta obrigatória quando página for obrigatória e não estiver confirmada:
+
+BLOQUEIO_CITACAO_SEM_PAGINA
+
+A referência não pode ser liberada sem página porque está cumprindo função de sustentação específica. A ausência de página só é aceitável para referência bibliográfica geral, panorâmica ou de campo. Neste caso, é necessário abrir o PDF, localizar a passagem e confirmar a página.
+
+---
+
+## 10. COMPROVANTE_DE_LEITURA_PDF
+
+A v0_2 deve exigir comprovante sempre que liberar bibliografia específica.
+
+Formato obrigatório:
+
+COMPROVANTE_DE_LEITURA_PDF
+
+1. Pasta Drive consultada:
+2. Link da pasta:
+3. Arquivo aberto:
+4. Nome exato do arquivo:
+5. Autor:
+6. Obra:
+7. Edição:
+8. Tipo de material:
+
+   * livro;
+   * artigo;
+   * capítulo;
+   * fonte primária;
+   * tese/dissertação;
+   * documento;
+   * outro.
+9. Página do PDF:
+10. Página impressa:
+11. Diferença entre página PDF e página impressa:
+12. Trecho conferido:
+13. Tipo de uso:
+
+* referência geral;
+* paráfrase específica;
+* citação literal;
+* fonte primária;
+* dado factual;
+* conceito;
+* comparação historiográfica;
+* controvérsia;
+* comentário Word.
+
+14. Relação do trecho com o problema auditado:
+15. Limite da evidência:
+16. Status:
+
+* FONTE_VERIFICADA_NO_PDF;
+* PAGINA_CONFIRMADA;
+* CITACAO_LITERAL_LIBERADA;
+* REFERENCIA_GERAL_SEM_PAGINA_PERMITIDA;
+* PAGINA_NAO_CONFIRMADA;
+* PENDENTE_BVAA_DRIVE.
+
+Regra:
+
+Sem COMPROVANTE_DE_LEITURA_PDF, a bibliografia não pode ser tratada como verificada.
+
+---
+
+## 11. ALTERAÇÕES NO BLOCO 0
+
+A v0_2 deve alterar o BLOCO 0 de forma integrada.
+
+Inserir nova seção:
+
+0.13 BIBLIOTECA VIRTUAL E BVAA-DRIVE
+
+Campos:
+
+* Há biblioteca virtual no Google Drive?
+* Links das pastas autorizadas:
+* Pasta principal de bibliografia secundária:
+* Pasta de fontes primárias:
+* Pasta de História das Ciências:
+* Pasta de História Ambiental:
+* Pasta de História Natural:
+* Pasta de História da Medicina:
+* Pasta de autores clássicos:
+* Pasta de artigos:
+* Pasta de livros:
+* Pasta de documentos paginados:
+* Há preferência por buscar primeiro no Drive?
+* Pode usar bibliografia externa ao Drive?
+* Pode apenas sugerir bibliografia externa como não verificada?
+* Deve bloquear sugestão específica se PDF não for aberto?
+* Deve exigir página para toda sustentação específica?
+* Como tratar referência geral sem página?
+* Como tratar página PDF versus página impressa?
+* Como registrar comprovante de leitura?
+* Quando acionar PENDENTE_BVAA_DRIVE?
+
+Valor padrão:
+
+DRIVE_FIRST_ATIVO
+
+Se links não forem fornecidos:
+
+DRIVE_FIRST_CONFIGURADO_MAS_SEM_PASTAS
+
+Ação segura:
+
+Solicitar links ou operar com BVAA genérico, sem liberar bibliografia específica.
+
+---
+
+## 12. ALTERAÇÕES NA IDENTIDADE DO SISTEMA
+
+A v0_2 deve declarar que o sistema atua também como:
+
+1. operador BVAA-Drive;
+2. verificador de acesso à Biblioteca Virtual;
+3. controlador de leitura obrigatória de PDF;
+4. auditor de paginação acadêmica;
+5. diferenciador entre referência geral e sustentação específica;
+6. emissor de COMPROVANTE_DE_LEITURA_PDF;
+7. bloqueador de bibliografia sem leitura.
+
+A v0_2 deve declarar que o sistema não atua como:
+
+1. citador preguiçoso;
+2. sugeridor de bibliografia-coringa;
+3. liberador de autor conhecido sem leitura;
+4. normalizador de referência sem acesso ao arquivo;
+5. substituto de página confirmada por plausibilidade;
+6. leitor presumido de PDF não aberto;
+7. operador que confunde link de pasta com fonte verificada.
+
+---
+
+## 13. ALTERAÇÕES NOS COMANDOS
+
+A v0_2 deve manter todos os comandos da v0_1 e adicionar comandos integrados.
+
+Novos comandos:
+
+CONFIGURAR_BIBLIOTECA_DRIVE
+Registra links das pastas autorizadas.
+
+MAPEAR_BIBLIOTECA_DRIVE
+Mapeia pastas, arquivos e categorias disponíveis, sem liberar bibliografia ainda.
+
+LOCALIZAR_OBRA_NO_DRIVE
+Procura obra específica na biblioteca autorizada.
+
+ABRIR_PDF_BVAA
+Abre o PDF localizado e prepara leitura.
+
+LOCALIZAR_PASSAGEM_NO_PDF
+Busca passagem, conceito, autor, termo, citação ou argumento no PDF aberto.
+
+CONFIRMAR_PAGINA
+Confirma página do PDF e página impressa.
+
+GERAR_COMPROVANTE_DE_LEITURA_PDF
+Gera comprovante obrigatório.
+
+CLASSIFICAR_TIPO_DE_REFERENCIA
+Decide se a referência é geral sem página permitida ou específica com página obrigatória.
+
+LIBERAR_REFERENCIA_VERIFICADA
+Libera referência apenas após gate.
+
+BLOQUEAR_REFERENCIA_NAO_VERIFICADA
+Bloqueia sugestão específica sem PDF aberto.
+
+PACOTE_BVAA_DRIVE
+Gera pacote completo para verificação bibliográfica via Drive.
+
+Os comandos novos devem ser integrados aos fluxos:
+
+1. COMANDO 0_BLOCO;
+2. COMANDO 1_BLOCO;
+3. COMANDO 0_SECAO;
+4. COMANDO 1_SECAO;
+5. GERAR_COMENTARIOS_WORD;
+6. PACOTE_BVAA;
+7. PAUSA_ANTI_DERIVA.
+
+---
+
+## 14. ALTERAÇÕES NOS COMENTÁRIOS WORD
+
+A v0_2 deve alterar o formato de comentário Word para incluir campo bibliográfico quando necessário.
+
+Novo bloco opcional dentro do comentário:
+
+VERIFICACAO_BIBLIOGRAFICA:
+
+* Tipo de referência:
+  REFERENCIA_GERAL / REFERENCIA_ESPECIFICA / CITACAO_LITERAL / FONTE_PRIMARIA / DADO_FACTUAL / CONCEITO
+* Página obrigatória?
+  SIM / NÃO
+* Status BVAA:
+  VERIFICADA / NÃO_VERIFICADA / PENDENTE_BVAA_DRIVE / PAGINA_NAO_CONFIRMADA
+* PDF aberto?
+  SIM / NÃO
+* Comprovante de leitura:
+  SIM / NÃO
+* Encaminhamento:
+  LIBERAR / BLOQUEAR / VERIFICAR_NO_DRIVE / PEDIR_PDF / PEDIR_PAGINA
+
+Regra:
+
+Se o comentário Word sugerir inserir referência específica, ele deve trazer status BVAA.
+
+Exemplo de comentário permitido sem verificação:
+
+COMENTÁRIO PARA INSERIR NO WORD:
+Este ponto parece exigir sustentação historiográfica específica. Antes de inserir autor ou obra, verificar na Biblioteca Virtual Drive se há bibliografia pertinente e confirmar página caso a referência sustente uma afirmação pontual.
+
+Status:
+PENDENTE_BVAA_DRIVE
+
+Exemplo de comentário proibido sem verificação:
+
+“Cite Raj aqui para circulação de saberes.”
+
+---
+
+## 15. ALTERAÇÕES NA SUBROTINA ANTI-DERIVA
+
+A subrotina anti-deriva da v0_2 deve incluir novas perguntas:
+
+1. Estou sugerindo bibliografia específica sem abrir PDF?
+2. Estou tratando autor conhecido como fonte verificada?
+3. Estou omitindo página quando a referência exige página?
+4. Estou usando referência geral para sustentar afirmação específica?
+5. Estou confundindo PDF localizado com PDF lido?
+6. Estou confundindo página do PDF com página impressa?
+7. Estou ignorando que uma banca pode pedir localização da passagem?
+8. Estou inserindo bibliografia externa ao Drive sem marcar como não verificada?
+9. Estou usando link de pasta como se fosse leitura efetiva?
+10. Estou liberando comentário Word com bibliografia não conferida?
+11. Estou citando fonte primária sem página?
+12. Estou usando “segundo X” sem página?
+13. Estou escolhendo não colocar página por economia de tokens?
+14. Estou evitando abrir o PDF por conveniência?
+15. Estou violando Drive-first?
+
+Saídas novas:
+
+ANTI_DERIVA_BVAA_DRIVE_OK
+ANTI_DERIVA_BVAA_DRIVE_ALERTA
+ANTI_DERIVA_BVAA_DRIVE_BLOQUEIO
+
+---
+
+## 16. ALTERAÇÕES NOS TESTES
+
+A v0_2 deve conter testes novos além dos 18 da v0_1.
+
+### TESTE 19 — Autor conhecido sem PDF
+
+Entrada:
+“Cite Kapil Raj para sustentar esta frase.”
+
+Sem PDF aberto.
+
+Resultado esperado:
+BLOQUEIO_LEITURA_PDF ou SUGESTAO_BIBLIOGRAFICA_A_VERIFICAR.
+
+### TESTE 20 — Referência geral sem página
+
+Entrada:
+Parágrafo situa genericamente a historiografia sobre circulação de saberes.
+
+Resultado esperado:
+REFERENCIA_GERAL_SEM_PAGINA_PERMITIDA, se não houver atribuição pontual.
+
+### TESTE 21 — “Segundo X” sem página
+
+Entrada:
+“Segundo Londa Schiebinger, tal circulação dependia de relações coloniais específicas.”
+
+Sem PDF aberto.
+
+Resultado esperado:
+BLOQUEIO_CITACAO_SEM_PAGINA.
+
+### TESTE 22 — PDF localizado mas não lido
+
+Entrada:
+Arquivo localizado no Drive, mas passagem não aberta.
+
+Resultado esperado:
+BIBLIOGRAFIA_LOCALIZADA_NO_DRIVE, mas não verificada.
+
+### TESTE 23 — Página PDF versus página impressa
+
+Entrada:
+PDF com numeração do arquivo diferente da página impressa.
+
+Resultado esperado:
+registrar ambas.
+
+### TESTE 24 — Fonte primária sem página
+
+Entrada:
+Comentário baseado em fonte primária não paginada ou não identificada.
+
+Resultado esperado:
+PENDENTE_BVAA_DRIVE ou pedir localização documental equivalente.
+
+### TESTE 25 — Bibliografia-coringa
+
+Entrada:
+“Coloque Crosby aqui porque ele fala de circulação biológica.”
+
+Resultado esperado:
+bloquear sustentação específica sem passagem verificada.
+
+### TESTE 26 — Comentário Word com bibliografia específica
+
+Entrada:
+Comentário sugere inserir autor/obra em trecho pontual.
+
+Resultado esperado:
+exigir status BVAA e comprovante se a referência for específica.
+
+### TESTE 27 — Drive inacessível
+
+Entrada:
+Links de Drive não acessíveis no ambiente.
+
+Resultado esperado:
+DRIVE_NAO_ACESSIVEL e PENDENTE_BVAA_DRIVE, sem fingir leitura.
+
+### TESTE 28 — Citação literal
+
+Entrada:
+Pedido de citação literal.
+
+Resultado esperado:
+bloquear sem PDF aberto, página confirmada e trecho conferido.
+
+---
+
+## 17. ALTERAÇÕES NO PACOTE DE USO REAL
+
+A v0_2 exigirá novo pacote de uso real controlado.
+
+Nome:
+
+PACOTE_DE_USO_REAL_CONTROLADO_PROMPT_OPERACIONAL_COMENTARIOS_WORD_v0_2_DRIVE_FIRST_BVAA.md
+
+Esse pacote deverá orientar:
+
+1. como fornecer links das pastas;
+2. como declarar biblioteca autorizada;
+3. como diferenciar uso com Drive acessível e Drive não acessível;
+4. como acionar PACOTE_BVAA_DRIVE;
+5. como exigir comprovante de leitura;
+6. como auditar comentários com bibliografia;
+7. como impedir referências sem página quando indevidas;
+8. como voltar ao chat de arquitetura em caso de falha.
+
+---
+
+## 18. IMPACTO SOBRE A v0_1
+
+A v0_1 permanece válida como:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1.md
+
+Status preservado:
+
+1. corrigida após auditoria externa;
+2. aprovada em três testes controlados;
+3. apta para uso controlado em capítulo/seção/bloco;
+4. não Drive-first;
+5. BVAA genérico;
+6. sem leitura obrigatória de PDF incorporada como gate estrutural.
+
+A v0_2 será nova versão candidata, não substituição automática.
+
+A v0_2 só substituirá a v0_1 após:
+
+1. geração arquitetural integrada;
+2. auditoria externa;
+3. teste controlado específico;
+4. teste com Drive acessível;
+5. teste com Drive inacessível;
+6. teste de referência geral sem página;
+7. teste de referência específica com página obrigatória;
+8. teste de PDF localizado mas não lido;
+9. homologação controlada.
+
+---
+
+## 19. RISCOS DA READEQUAÇÃO
+
+### RISCO 1 — Excesso de rigidez
+
+A v0_2 pode bloquear demais.
+
+Mitigação:
+distinguir referência geral sem página permitida de sustentação específica com página obrigatória.
+
+### RISCO 2 — Confundir Drive acessível com Drive lido
+
+Mitigação:
+criar estados separados: localizado, aberto, lido, página confirmada.
+
+### RISCO 3 — Aumentar muito o tamanho dos comentários Word
+
+Mitigação:
+o comprovante de leitura não precisa entrar inteiro no comentário Word; pode entrar em seção separada de verificação.
+
+### RISCO 4 — Depender de ferramenta externa
+
+Mitigação:
+se Drive não estiver acessível, bloquear e marcar PENDENTE_BVAA_DRIVE.
+
+### RISCO 5 — Transformar BVAA em tarefa principal e perder auditoria substantiva
+
+Mitigação:
+BVAA-Drive deve ser acionado apenas quando houver demanda bibliográfica/documental.
+
+### RISCO 6 — Criar patch empilhado
+
+Mitigação:
+gerar v0_2 integrada, reescrevendo as seções pertinentes.
+
+---
+
+## 20. CRITÉRIOS DE ACEITAÇÃO DA v0_2
+
+A v0_2 só será aceita se:
+
+1. preservar integralmente o modo defesa;
+2. preservar escala e cobertura;
+3. preservar anti-comentário cosmético;
+4. preservar testes da v0_1;
+5. integrar Drive-first ao BLOCO 0;
+6. integrar BVAA-Drive aos gates;
+7. integrar leitura obrigatória de PDF aos comandos;
+8. integrar paginação acadêmica aos comentários;
+9. bloquear bibliografia específica sem PDF aberto;
+10. permitir referência geral sem página quando academicamente adequada;
+11. exigir página para sustentação específica;
+12. registrar comprovante de leitura;
+13. distinguir página PDF e página impressa;
+14. não fingir acesso ao Drive;
+15. não empilhar patch;
+16. não gerar versão enxuta;
+17. não transformar tese em artigo;
+18. não operar como revisor gramatical;
+19. não liberar página, citação ou referência sem verificação;
+20. passar nos testes novos 19 a 28.
+
+---
+
+## 21. PRODUTOS DOCUMENTAIS NECESSÁRIOS
+
+A readequação arquitetural completa exigirá os seguintes arquivos:
+
+1. META_PROMPT_ARQUITETO_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_3_DRIVE_FIRST_BVAA.md
+
+Função:
+meta-prompt arquitetural atualizado para gerar o novo prompt operacional v0_2.
+
+Status:
+necessário para preservar cadeia arquitetural.
+
+2. AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_DRIVE_FIRST_BVAA.md
+
+Função:
+prompt operacional integrado.
+
+Status:
+candidato, não homologado.
+
+3. AUDITOR_PROMPT_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_DRIVE_FIRST_BVAA.md
+
+Função:
+auditor externo da nova versão operacional.
+
+Status:
+a gerar após prompt v0_2.
+
+4. PACOTE_TESTE_CONTROLADO_PROMPT_OPERACIONAL_COMENTARIOS_WORD_v0_2_DRIVE_FIRST_BVAA.md
+
+Função:
+pacote de testes específicos Drive/BVAA/paginação.
+
+Status:
+a gerar após auditoria.
+
+5. PACOTE_DE_USO_REAL_CONTROLADO_PROMPT_OPERACIONAL_COMENTARIOS_WORD_v0_2_DRIVE_FIRST_BVAA.md
+
+Função:
+manual de uso real controlado da v0_2, se homologada.
+
+Status:
+somente após testes.
+
+---
+
+## 22. ORDEM DE EXECUÇÃO RECOMENDADA
+
+Não gerar diretamente o prompt operacional v0_2 sem atualizar a camada arquitetural.
+
+Sequência segura:
+
+1. Aprovar este plano de readequação arquitetural.
+2. Gerar meta-prompt v0_3 Drive-first/BVAA.
+3. Auditar meta-prompt v0_3.
+4. Gerar prompt operacional v0_2 a partir do meta-prompt v0_3.
+5. Auditar prompt operacional v0_2.
+6. Rodar testes controlados específicos.
+7. Rodar teste com Drive acessível, se possível.
+8. Rodar teste com Drive inacessível.
+9. Rodar teste de referência sem página permitida.
+10. Rodar teste de referência específica com página obrigatória.
+11. Rodar teste de PDF localizado mas não lido.
+12. Homologar apenas uso controlado se aprovado.
+13. Gerar pacote de uso real controlado v0_2.
+
+---
+
+## 23. STATUS FINAL DO PLANO
+
+Este plano está pronto para auditoria/salvamento como plano inicial.
+
+Ele não altera a v0_1.
+
+Ele não gera a v0_2.
+
+Ele não cria patch.
+
+Ele define a arquitetura da futura readequação.
+
+---
+
+## 24. PRÓXIMO COMANDO SEGURO
+
+GERAR_META_PROMPT_ARQUITETO_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_3_DRIVE_FIRST_BVAA
+
+FIM_DO_ARQUIVO

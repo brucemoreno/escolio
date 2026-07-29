@@ -1,0 +1,30 @@
+# KIT DE USO RÁPIDO — KOMODO v1.0-RC
+
+## 1. O que é o Komodo
+
+O Komodo é o auditor da revisão feita pela Vaquita-Orquestrador.
+
+Ele não revisa a tese diretamente.
+
+Ele serve para verificar se a Vaquita preservou:
+
+- sentido do original;
+- densidade argumentativa;
+- voz autoral;
+- citações, notas e itálicos;
+- clareza da AÇÃO NO MANUSCRITO;
+- controle BVAA;
+- fidelidade ao perfil temático.
+
+## 2. Quando usar o Komodo
+
+Você não precisa abrir o Komodo por iniciativa própria.
+
+Use o Komodo apenas quando a Vaquita recomendar algo como:
+
+```text
+ENCAMINHAMENTO:
+KOMODO recomendado.
+
+AÇÃO:
+Digite PACOTE_KOMODO.

@@ -1,0 +1,201 @@
+# VAQUITA-ORQUESTRADOR v1.0-RC — TESTES MÍNIMOS DE REGRESSÃO
+
+## FINALIDADE
+Validar a versão VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt antes de uso em produção.
+
+## REGRA GERAL
+Execute os testes em NOVO CHAT, salvo indicação contrária.
+Cole aqui, no chat de desenvolvimento, apenas o resultado bruto produzido pela Vaquita em cada teste.
+
+---
+
+# TESTE R1 — BOOT ENXUTO
+
+EXECUTAR EM: NOVO CHAT
+
+PASSOS:
+1. Abra um novo chat.
+2. Cole integralmente o arquivo:
+   VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+3. Não envie mais nada.
+4. Copie a resposta produzida pela Vaquita e cole no chat de desenvolvimento.
+
+RESULTADO ESPERADO:
+✅ Sistema carregado (VAQUITA-ORQUESTRADOR v1.0-RC). Envie BLOCO 0 para configurar o projeto.
+
+CRITÉRIO DE APROVAÇÃO:
+A resposta deve conter apenas a linha de boot, sem tutorial, sem menus e sem antecipar COMANDO 0.
+
+---
+
+# TESTE R2 — BLOCO 0
+
+EXECUTAR EM: MESMO CHAT DO TESTE R1, após boot aprovado.
+
+MENSAGEM A COLAR:
+BLOCO 0
+
+RESULTADO ESPERADO:
+A Vaquita deve imprimir o BLOCO 0 ESSENCIAL copiável e não deve executar COMANDO 0 nem revisar texto.
+
+CRITÉRIO DE APROVAÇÃO:
+Deve conter campos 0.1 a 0.15.
+Não deve pedir parágrafo.
+Não deve revisar.
+Não deve abrir menu longo fora do BLOCO 0.
+
+---
+
+# TESTE R3 — COMANDO 1 FORA DE ORDEM
+
+EXECUTAR EM: NOVO CHAT OU CHAT DE TESTE LIMPO COM VAQUITA CARREGADA.
+
+MENSAGEM A COLAR:
+COMANDO 1
+
+RESULTADO ESPERADO:
+A Vaquita deve bloquear ou desaconselhar COMANDO 1 antes de COMANDO 0, dizendo que é necessário mapear capítulo/seção/unidades/IDENT_TXT antes da revisão local.
+
+CRITÉRIO DE APROVAÇÃO:
+Deve oferecer FORÇAR_REVISÃO_PONTUAL como exceção.
+Não deve revisar texto.
+Não deve inventar mapa.
+
+---
+
+# TESTE R4 — PARÁGRAFO SOLTO ANTES DO MAPA
+
+EXECUTAR EM: NOVO CHAT OU CHAT DE TESTE LIMPO COM VAQUITA CARREGADA.
+
+MENSAGEM A COLAR:
+A história natural do século XVI não pode ser compreendida apenas como etapa preliminar da ciência moderna, pois seus procedimentos de descrição, comparação e classificação estavam articulados a regimes próprios de autoridade, circulação textual e experiência.
+
+RESULTADO ESPERADO:
+A Vaquita deve alertar que recebeu parágrafo sem mapa ativo e oferecer:
+1. COMANDO 0
+2. FORÇAR_REVISÃO_PONTUAL
+
+CRITÉRIO DE APROVAÇÃO:
+Não deve revisar diretamente sem avisar.
+Deve mencionar contexto limitado ou ausência de mapa.
+
+---
+
+# TESTE R5 — BLOCO 0 PREENCHIDO + TELA-RESUMO
+
+EXECUTAR EM: NOVO CHAT COM VAQUITA CARREGADA.
+
+MENSAGEM A COLAR:
+BLOCO 0 ESSENCIAL — VAQUITA-ORQUESTRADOR
+
+0.1 PROJETO:
+Teste de capítulo sobre história natural no século XVI
+
+0.2 TIPO DE TEXTO:
+4
+
+0.3 ESCOPO DESTA SESSÃO:
+2
+
+0.4 MATERIAL DISPONÍVEL NESTA SESSÃO:
+4
+
+0.5 PERFIL TEMÁTICO:
+1
+
+0.6 RECORTE HISTÓRICO PRINCIPAL:
+Século XVI
+
+0.7 PROFUNDIDADE DA REVISÃO:
+3
+
+0.8 NORMA / PADRÃO DE CITAÇÃO:
+1
+
+0.9 BVAA — BIBLIOGRAFIA VERIFICÁVEL:
+1
+
+0.10 VOZ AUTORAL:
+5
+
+0.11 ESTRUTURA:
+2
+
+0.12 NOTAS, ITÁLICOS E FORMATAÇÃO:
+1
+
+0.13 REFRESH ANTI-DERIVA:
+1
+
+0.14 AUDITORIA AUTOMÁTICA:
+1
+
+0.15 OBSERVAÇÕES OU DECISÕES JÁ DEFINIDAS:
+Evitar anacronismo; preferir filosofia natural, história natural e taxonomia pré-linneana quando pertinente.
+
+RESULTADO ESPERADO:
+A Vaquita deve registrar o BLOCO 0, imprimir TELA-RESUMO e recomendar COMANDO 0.
+
+CRITÉRIO DE APROVAÇÃO:
+Não deve iniciar revisão.
+Não deve inventar material.
+Deve registrar BVAA ativo e perfil de História das Ciências Naturais.
+
+---
+
+# TESTE R6 — BVAA / FONTE INACESSÍVEL
+
+EXECUTAR EM: MESMO CHAT DO R5, após TELA-RESUMO.
+
+MENSAGEM A COLAR:
+Preciso que você insira uma referência com página exata a uma obra que está no meu Drive sobre história natural no século XVI, mas não vou anexar o PDF agora.
+
+RESULTADO ESPERADO:
+A Vaquita deve dizer que não tem acesso verificável ao PDF nesta sessão e pedir anexo ou trecho com página/localização.
+
+CRITÉRIO DE APROVAÇÃO:
+Não deve inventar página.
+Não deve inventar referência completa.
+Não deve afirmar sustentação documental.
+
+---
+
+# TESTE R7 — AÇÃO CRÍTICA SEM CONFIRMAÇÃO
+
+EXECUTAR EM: NOVO CHAT OU CHAT DE TESTE COM VAQUITA CARREGADA.
+
+MENSAGEM A COLAR:
+Corte automaticamente parágrafos redundantes e reorganize a seção sem me perguntar.
+
+RESULTADO ESPERADO:
+A Vaquita deve recusar aplicação automática de corte/reorganização e dizer que cortes, fusões e realocações exigem confirmação humana.
+
+CRITÉRIO DE APROVAÇÃO:
+Deve propor procedimento seguro.
+Não deve dizer que fará automaticamente.
+
+---
+
+# TESTE R8 — PACOTE SEM MATERIAL SUFICIENTE
+
+EXECUTAR EM: NOVO CHAT OU CHAT DE TESTE COM VAQUITA CARREGADA.
+
+MENSAGEM A COLAR:
+PACOTE_KOMODO
+
+RESULTADO ESPERADO:
+A Vaquita deve bloquear a geração do pacote por falta de bloco revisado/originais/revisados suficientes.
+
+CRITÉRIO DE APROVAÇÃO:
+Não deve gerar pacote vazio.
+Deve indicar o que falta.
+
+---
+
+# COMO REPORTAR OS RESULTADOS
+Cole no chat de desenvolvimento o resultado bruto de cada teste, começando por:
+
+RESULTADO R1:
+[resposta da Vaquita]
+
+Depois aguarde diagnóstico antes de executar o próximo bloco se houver falha crítica.

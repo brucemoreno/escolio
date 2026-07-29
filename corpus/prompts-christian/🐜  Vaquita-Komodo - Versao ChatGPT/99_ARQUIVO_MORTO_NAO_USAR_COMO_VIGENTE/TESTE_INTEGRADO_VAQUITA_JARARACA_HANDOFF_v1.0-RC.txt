@@ -1,0 +1,623 @@
+# TESTE INTEGRADO — VAQUITA + JARARACA + HANDOFF v1.0-RC
+# Fase: 9.C
+# Finalidade: testar cadeia integrada Vaquita → Jararaca → Vaquita → Handoff → nova Vaquita
+# Status: protocolo de teste integrado, não é prompt operacional
+
+---
+
+## 1. OBJETIVO DO TESTE
+
+Verificar se a cadeia integrada Vaquita + Jararaca + Handoff funciona sem perda de estado, sem confusão funcional e sem avanço indevido da revisão.
+
+A cadeia a testar é:
+
+Vaquita origem
+→ gera PACOTE_JARARACA
+→ Jararaca audita estrutura e devolve RETORNO_JARARACA
+→ Vaquita integra RETORNO_JARARACA
+→ Vaquita gera PACOTE_HANDOFF
+→ Handoff gera PACOTE_HANDOFF_VAQUITA
+→ nova Vaquita reconstrói ESTADO_VAQUITA
+
+O teste deve confirmar se:
+
+1. a Vaquita gera PACOTE_JARARACA válido;
+2. a Jararaca devolve RETORNO_JARARACA sem revisar texto como Vaquita;
+3. a Jararaca não audita fidelidade como Komodo;
+4. a Jararaca não verifica bibliografia como BVAA;
+5. a Vaquita integra o RETORNO_JARARACA sem aplicar decisão crítica indevida;
+6. a Vaquita preserva o retorno da Jararaca no ESTADO_VAQUITA;
+7. a Vaquita gera PACOTE_HANDOFF após integração;
+8. o Handoff preserva o retorno da Jararaca no PACOTE_HANDOFF_VAQUITA;
+9. a nova Vaquita reconstrói estado com o retorno da Jararaca preservado;
+10. nenhuma etapa revisa texto indevidamente, resolve pendências auxiliares ou avança fase sem confirmação humana.
+
+---
+
+## 2. MÓDULOS ENVOLVIDOS
+
+### CHAT A — Vaquita origem
+
+Usar:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Função no teste:
+
+Gerar PACOTE_JARARACA a partir de um estado simulado de revisão acadêmica.
+
+---
+
+### CHAT B — Jararaca
+
+Usar:
+
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Função no teste:
+
+Receber PACOTE_JARARACA e devolver RETORNO_JARARACA.
+
+---
+
+### CHAT C — Vaquita integração
+
+Usar:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Função no teste:
+
+Integrar RETORNO_JARARACA e gerar PACOTE_HANDOFF.
+
+---
+
+### CHAT D — Handoff
+
+Usar:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Função no teste:
+
+Converter PACOTE_HANDOFF em PACOTE_HANDOFF_VAQUITA.
+
+---
+
+### CHAT E — Vaquita destino
+
+Usar:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Função no teste:
+
+Receber PACOTE_HANDOFF_VAQUITA e reconstruir o estado preservando o retorno da Jararaca.
+
+---
+
+## 3. REGRA GERAL DE EXECUÇÃO
+
+Este teste deve ser feito em cinco chats separados:
+
+1. CHAT A — Vaquita origem.
+2. CHAT B — Jararaca.
+3. CHAT C — Vaquita integração.
+4. CHAT D — Handoff.
+5. CHAT E — Vaquita destino.
+
+Não rodar checkpoint anti-deriva dentro dos chats de teste.
+
+Não corrigir manualmente respostas dos módulos.
+
+Copiar e colar os resultados brutos no chat de desenvolvimento.
+
+---
+
+# TESTE R1 — VAQUITA GERA PACOTE_JARARACA
+
+EXECUTAR EM: NOVO CHAT VAQUITA
+
+## Arquivo a usar
+
+Use este arquivo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Depois use este bootstrap:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Não use agora:
+
+- Jararaca
+- Handoff
+- Komodo
+- BVAA
+
+## Bloco a colar no CHAT A — Vaquita origem
+
+SOLICITAÇÃO DE TESTE INTEGRADO — VAQUITA + JARARACA + HANDOFF
+
+Você está atuando como Vaquita-Orquestrador v1.0-RC.
+
+Objetivo deste teste:
+Gerar um PACOTE_JARARACA válido para auditoria estrutural de uma possível sobreposição entre UR-12 e UR-14.
+
+Não revise texto.
+Não avance para próximo parágrafo.
+Não resolva pendências auxiliares.
+Não gere PACOTE_KOMODO, PACOTE_BVAA ou PACOTE_HANDOFF agora.
+Gere apenas PACOTE_JARARACA para envio à Jararaca.
+
+## ESTADO_VAQUITA SIMULADO
+
+- Projeto: Teste Integrado Vaquita + Jararaca + Handoff v1.0-RC
+- Tipo de texto: capítulo de tese
+- Perfil temático: História das Ciências Naturais
+- Padrão de citação: ABNT autor-data
+- Profundidade de revisão: revisão profunda
+- Capítulo atual: Capítulo 2
+- Seção atual: 2.3 Autoridade letrada e circulação textual
+- Unidade atual: UR-14
+- Última ação concluída: revisão do parágrafo 13
+- Ação no manuscrito: substituir parágrafo 13 pela versão revisada limpa
+- Próximo passo: revisar parágrafo 14
+- Próximo comando esperado: PROXIMO
+- Restrição: não avançar para nova seção sem concluir UR-14
+- Cortes e fusões exigem confirmação humana
+
+## FUNÇÃO DO BLOCO NO ARGUMENTO
+
+A seção 2.3 discute como a autoridade letrada, a circulação textual e a validação social estruturavam a produção e a recepção de descrições naturalistas no século XVI.
+
+A UR-12 havia desenvolvido a ideia de que relatos naturalistas ganhavam reconhecimento ao circular entre leitores eruditos, repertórios textuais e redes de autoridade.
+
+A UR-14 retoma essa articulação ao preparar a passagem para o próximo movimento da seção, no qual a circulação textual será tratada como condição de validação e estabilização das descrições.
+
+## MATERIAL A ANALISAR
+
+### UR-12
+
+A autoridade letrada fornecia uma moldura de reconhecimento para as descrições naturalistas. Por meio dela, relatos sobre plantas, animais e minerais podiam ser aproximados de repertórios textuais compartilhados, tornando-se mais inteligíveis para leitores eruditos e mais aptos a circular em ambientes de validação letrada.
+
+### UR-14
+
+A circulação textual, nesse contexto, não era apenas uma etapa posterior à observação. Ela participava da própria validação das descrições naturalistas, pois permitia que experiências locais fossem transformadas em relatos reconhecíveis por leitores eruditos, patronos e agentes de impressão.
+
+## SUSPEITA OU MOTIVO DO ENVIO
+
+Há suspeita de sobreposição parcial entre UR-12 e UR-14.
+
+A Vaquita precisa saber se:
+
+1. há redundância problemática;
+2. há retomada funcional;
+3. há progressão adequada entre autoridade letrada e circulação textual;
+4. a UR-14 deve ser preservada, condensada, fundida, deslocada ou apenas ajustada.
+
+## LIMITES DA AUDITORIA
+
+A Jararaca deve:
+
+1. auditar apenas redundância, sobreposição, progressão argumentativa e deriva estrutural;
+2. não reescrever os parágrafos como versão final;
+3. não auditar fidelidade textual como Komodo;
+4. não verificar bibliografia como BVAA;
+5. não aplicar corte, fusão ou realocação como decisão final;
+6. indicar se há ação que exige confirmação humana;
+7. devolver RETORNO_JARARACA em formato integrável pela Vaquita.
+
+## ESTADO_VAQUITA PARA INTEGRAÇÃO
+
+- Revisão em andamento.
+- Capítulo 2 / seção 2.3.
+- Unidade atual: UR-14.
+- Última ação concluída: revisão do parágrafo 13.
+- Próximo alvo: parágrafo 14.
+- Próximo comando esperado: PROXIMO.
+- Cortes e fusões exigem confirmação humana.
+- Não avançar para nova seção sem concluir UR-14.
+
+## SAÍDA ESPERADA
+
+Gere apenas:
+
+PACOTE_JARARACA
+
+Não acrescente comentário fora do pacote.
+
+## Resultado esperado do R1
+
+A Vaquita deve gerar PACOTE_JARARACA estruturado contendo, no mínimo:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. MATERIAL A ANALISAR;
+4. SUSPEITA OU MOTIVO DO ENVIO;
+5. LIMITES DA AUDITORIA;
+6. ESTADO_VAQUITA PARA INTEGRAÇÃO.
+
+## Critério de aprovação R1
+
+R1 será aprovado se a Vaquita gerar PACOTE_JARARACA válido sem revisar texto, sem resolver pendências e sem avançar fase.
+
+---
+
+# TESTE R2 — JARARACA DEVOLVE RETORNO_JARARACA
+
+EXECUTAR EM: NOVO CHAT JARARACA
+
+## Arquivo a usar
+
+Use este arquivo:
+
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Não use agora:
+
+- Vaquita
+- Handoff
+- Komodo
+- BVAA
+
+## Passos
+
+1. Abra novo chat.
+2. Cole ou anexe:
+
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+3. Aguarde o boot da Jararaca.
+4. Cole o PACOTE_JARARACA gerado pela Vaquita no R1.
+5. Copie a resposta bruta da Jararaca.
+6. Cole no chat de desenvolvimento como:
+
+RESULTADO R2 — JARARACA
+
+[cole aqui a resposta bruta]
+
+## Resultado esperado do R2
+
+A Jararaca deve devolver RETORNO_JARARACA.
+
+O retorno deve:
+
+1. classificar se há redundância, sobreposição, progressão frágil ou retomada funcional;
+2. indicar se há necessidade de condensação, fusão, deslocamento ou apenas ajuste leve;
+3. preservar a distinção entre auditoria estrutural e revisão textual;
+4. não reescrever os parágrafos como versão final;
+5. não verificar fontes;
+6. não auditar fidelidade textual;
+7. indicar se cortes/fusões exigem confirmação humana;
+8. indicar integração recomendada na Vaquita.
+
+## Critério de aprovação R2
+
+R2 será aprovado se a Jararaca devolver RETORNO_JARARACA válido, sem invadir funções da Vaquita, Komodo ou BVAA.
+
+---
+
+# TESTE R3 — VAQUITA INTEGRA RETORNO_JARARACA E GERA PACOTE_HANDOFF
+
+EXECUTAR EM: NOVO CHAT VAQUITA
+
+## Arquivo a usar
+
+Use este arquivo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Depois use este bootstrap:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Não use agora:
+
+- Jararaca
+- Handoff
+- Komodo
+- BVAA
+
+## Bloco-base a colar no CHAT C — Vaquita integração
+
+Após carregar a Vaquita e receber o boot, cole o bloco abaixo, substituindo [COLE AQUI O RETORNO_JARARACA BRUTO DO R2] pelo retorno bruto produzido pela Jararaca no R2.
+
+INTEGRAR_RETORNO_JARARACA
+
+## CONTEXTO DO TESTE
+
+Você está atuando como Vaquita-Orquestrador v1.0-RC.
+
+Objetivo:
+Integrar o RETORNO_JARARACA recebido no teste R2 e, em seguida, gerar PACOTE_HANDOFF para preservar o estado integrado.
+
+Não revise texto.
+Não avance para o parágrafo 14.
+Não aplique corte, fusão ou realocação.
+Não resolva pendências BVAA ou Komodo.
+Não gere PACOTE_KOMODO ou PACOTE_BVAA.
+Integre apenas o retorno estrutural da Jararaca ao ESTADO_VAQUITA e gere PACOTE_HANDOFF.
+
+## ESTADO_VAQUITA ANTES DA INTEGRAÇÃO
+
+- Projeto: Teste Integrado Vaquita + Jararaca + Handoff v1.0-RC
+- Tipo de texto: capítulo de tese
+- Perfil temático: História das Ciências Naturais
+- Padrão de citação: ABNT autor-data
+- Profundidade de revisão: revisão profunda
+- Capítulo atual: Capítulo 2
+- Seção atual: 2.3 Autoridade letrada e circulação textual
+- Unidade atual: UR-14
+- Última ação concluída: revisão do parágrafo 13
+- Ação no manuscrito: substituir parágrafo 13 pela versão revisada limpa
+- Próximo passo: revisar parágrafo 14
+- Próximo comando esperado: PROXIMO
+- Restrição: não avançar para nova seção sem concluir UR-14
+- Cortes e fusões exigem confirmação humana
+- Pendência BVAA: verificar página de uma referência secundária
+- Pendência Komodo: auditar fidelidade de uma condensação
+
+## RETORNO_JARARACA A INTEGRAR
+
+[COLE AQUI O RETORNO_JARARACA BRUTO DO R2]
+
+## SAÍDA ESPERADA
+
+Gere apenas:
+
+PACOTE_HANDOFF
+
+O PACOTE_HANDOFF deve preservar:
+
+1. ESTADO_VAQUITA atualizado com RETORNO_JARARACA integrado;
+2. Capítulo 2;
+3. seção 2.3 Autoridade letrada e circulação textual;
+4. UR-14;
+5. último parágrafo revisado: parágrafo 13;
+6. ação no manuscrito: substituir parágrafo 13 pela versão revisada limpa;
+7. próximo alvo: parágrafo 14;
+8. próximo comando esperado: PROXIMO;
+9. pendência BVAA;
+10. pendência Komodo;
+11. retorno da Jararaca e sua integração recomendada;
+12. se houver ação crítica indicada pela Jararaca, preservar que exige confirmação humana;
+13. regra de não revisar o parágrafo 14 na primeira resposta do novo chat;
+14. regra de não resolver pendências auxiliares;
+15. regra de não avançar para nova seção antes de concluir UR-14.
+
+Não acrescente comentário fora do pacote.
+
+## Resultado esperado do R3
+
+A Vaquita deve gerar PACOTE_HANDOFF com o RETORNO_JARARACA preservado/integrado.
+
+## Critério de aprovação R3
+
+R3 será aprovado se a Vaquita integrar o retorno sem aplicar automaticamente corte/fusão/realocação, e gerar PACOTE_HANDOFF preservando o estado.
+
+---
+
+# TESTE R4 — HANDOFF PRESERVA ESTADO INTEGRADO DA JARARACA
+
+EXECUTAR EM: NOVO CHAT HANDOFF
+
+## Arquivo a usar
+
+Use este arquivo:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Não use agora:
+
+- Vaquita
+- Jararaca
+- Komodo
+- BVAA
+
+## Passos
+
+1. Abra novo chat.
+2. Cole ou anexe:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+3. Aguarde o boot do Handoff.
+4. Cole o PACOTE_HANDOFF gerado pela Vaquita no R3.
+5. Copie a resposta bruta do Handoff.
+6. Cole no chat de desenvolvimento como:
+
+RESULTADO R4 — HANDOFF
+
+[cole aqui a resposta bruta]
+
+## Resultado esperado do R4
+
+O Handoff deve gerar:
+
+PACOTE_HANDOFF_VAQUITA
+
+ou, se houver decisão aberta relevante:
+
+PACOTE_HANDOFF_CONDICIONAL com estrutura de VAQUITA_OPERACIONAL.
+
+O pacote deve preservar:
+
+1. ESTADO_VAQUITA;
+2. Capítulo 2;
+3. seção 2.3;
+4. UR-14;
+5. PROXIMO;
+6. ação no manuscrito;
+7. pendência BVAA;
+8. pendência Komodo;
+9. RETORNO_JARARACA integrado;
+10. qualquer ação crítica dependente de confirmação humana;
+11. primeira resposta esperada da nova Vaquita.
+
+## Critério de aprovação R4
+
+R4 será aprovado se o Handoff preservar o retorno da Jararaca sem refazer auditoria estrutural e sem resolver pendências.
+
+---
+
+# TESTE R5 — NOVA VAQUITA RECONSTRÓI ESTADO COM RETORNO_JARARACA PRESERVADO
+
+EXECUTAR EM: NOVO CHAT VAQUITA
+
+## Arquivo a usar
+
+Use este arquivo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Depois use este bootstrap:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Não use agora:
+
+- Handoff
+- Jararaca
+- Komodo
+- BVAA
+
+## Passos
+
+1. Abra novo chat.
+2. Cole ou anexe:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+3. Cole:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+4. Aguarde o boot.
+5. Cole o PACOTE_HANDOFF_VAQUITA gerado pelo Handoff no R4.
+6. Copie a resposta bruta da Vaquita.
+7. Cole no chat de desenvolvimento como:
+
+RESULTADO R5 — VAQUITA DESTINO
+
+[cole aqui a resposta bruta]
+
+## Resultado esperado do R5
+
+A Vaquita de destino deve reconstruir estado e reconhecer:
+
+1. PACOTE_HANDOFF_VAQUITA;
+2. ESTADO_VAQUITA;
+3. Capítulo 2;
+4. seção 2.3;
+5. UR-14;
+6. parágrafo 13 como último feito;
+7. parágrafo 14 como próximo alvo;
+8. PROXIMO;
+9. pendência BVAA;
+10. pendência Komodo;
+11. RETORNO_JARARACA integrado/preservado;
+12. necessidade de confirmação humana para qualquer corte/fusão/realocação;
+13. status: aguardando PROXIMO ou comando do usuário.
+
+## Critério de aprovação R5
+
+R5 será aprovado se a Vaquita de destino reconstruir o estado sem revisar parágrafo 14, sem aplicar decisão estrutural e sem avançar fase.
+
+---
+
+# TESTE R6 — VERIFICAÇÃO DE INTEGRIDADE DA CADEIA
+
+EXECUTAR NO CHAT DE DESENVOLVIMENTO
+
+Após executar R1, R2, R3, R4 e R5, colar aqui os resultados brutos:
+
+RESULTADO R1 — VAQUITA ORIGEM
+
+[cole resposta bruta]
+
+RESULTADO R2 — JARARACA
+
+[cole resposta bruta]
+
+RESULTADO R3 — VAQUITA INTEGRAÇÃO
+
+[cole resposta bruta]
+
+RESULTADO R4 — HANDOFF
+
+[cole resposta bruta]
+
+RESULTADO R5 — VAQUITA DESTINO
+
+[cole resposta bruta]
+
+## Critérios de avaliação no chat de desenvolvimento
+
+Avaliar:
+
+1. A Vaquita gerou PACOTE_JARARACA válido?
+2. A Jararaca devolveu RETORNO_JARARACA sem invadir outros módulos?
+3. A Vaquita integrou RETORNO_JARARACA sem aplicar decisão crítica automaticamente?
+4. A Vaquita gerou PACOTE_HANDOFF preservando o retorno da Jararaca?
+5. O Handoff preservou o retorno da Jararaca sem refazer auditoria?
+6. A Vaquita destino reconstruiu o estado integrado?
+7. PROXIMO foi preservado?
+8. Ação no manuscrito foi preservada?
+9. Pendências BVAA e Komodo foram preservadas?
+10. Algum módulo revisou texto indevidamente?
+11. Algum módulo avançou fase?
+12. Algum módulo apagou decisão aberta?
+
+---
+
+## MATRIZ DE APROVAÇÃO DA FASE 9.C
+
+A FASE 9.C será aprovada se:
+
+R1: aprovado.
+R2: aprovado.
+R3: aprovado.
+R4: aprovado.
+R5: aprovado.
+R6: aprovado.
+
+Falhas bloqueantes:
+
+1. Vaquita não gerar PACOTE_JARARACA;
+2. PACOTE_JARARACA não conter campos mínimos obrigatórios;
+3. Jararaca aceitar pacote insuficiente sem bloqueio;
+4. Jararaca revisar texto como Vaquita;
+5. Jararaca verificar fonte como BVAA;
+6. Jararaca auditar fidelidade como Komodo;
+7. Vaquita aplicar corte/fusão/realocação automaticamente;
+8. Vaquita perder RETORNO_JARARACA na integração;
+9. Handoff perder RETORNO_JARARACA no pacote de migração;
+10. Vaquita destino não reconhecer RETORNO_JARARACA preservado;
+11. perda de PROXIMO;
+12. perda de ESTADO_VAQUITA;
+13. avanço automático para parágrafo 14;
+14. resolução indevida de pendências BVAA ou Komodo.
+
+Falhas não bloqueantes:
+
+1. saída longa, se preservar estado;
+2. organização melhorável;
+3. veredito estrutural mais cauteloso do que o necessário;
+4. pequenas redundâncias de formulação sem perda de função.
+
+---
+
+## STATUS
+
+Protocolo da FASE 9.C criado.
+
+Próximo passo operacional:
+
+Executar R1 em novo chat Vaquita e colar o resultado bruto no chat de desenvolvimento.

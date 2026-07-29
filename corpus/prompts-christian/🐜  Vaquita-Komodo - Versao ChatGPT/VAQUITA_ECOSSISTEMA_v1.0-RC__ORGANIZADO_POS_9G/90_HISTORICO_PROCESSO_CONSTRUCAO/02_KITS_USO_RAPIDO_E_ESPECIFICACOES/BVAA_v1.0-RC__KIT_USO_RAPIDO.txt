@@ -1,0 +1,38 @@
+# KIT DE USO RÁPIDO — BIBLIOTECÁRIO BVAA v1.0-RC
+
+## 1. O que é o BVAA
+
+O Bibliotecário BVAA é o verificador bibliográfico e documental da família Vaquita.
+
+BVAA significa:
+
+Bibliografia Verificável Anti-Alucinação.
+
+Ele serve para verificar:
+
+- fontes;
+- páginas;
+- citações literais;
+- referências;
+- dados bibliográficos;
+- pertinência entre fonte e afirmação;
+- risco de fonte-coringa.
+
+O BVAA não revisa texto como a Vaquita.
+
+O BVAA não audita densidade como o Komodo.
+
+O BVAA não reorganiza estrutura como a Jararaca.
+
+## 2. Quando usar o BVAA
+
+Você não precisa abrir o BVAA por iniciativa própria.
+
+Use o BVAA quando a Vaquita recomendar algo como:
+
+```text
+ENCAMINHAMENTO:
+BVAA obrigatório.
+
+AÇÃO:
+Digite PACOTE_BVAA.

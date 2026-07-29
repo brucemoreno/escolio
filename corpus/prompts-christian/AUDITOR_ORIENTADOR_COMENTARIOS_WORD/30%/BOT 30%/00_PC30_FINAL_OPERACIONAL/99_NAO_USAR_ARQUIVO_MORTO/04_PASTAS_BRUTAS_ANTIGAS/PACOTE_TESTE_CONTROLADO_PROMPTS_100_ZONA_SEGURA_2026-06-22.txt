@@ -1,0 +1,1432 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_TESTE_CONTROLADO_PROMPTS_100_ZONA_SEGURA_2026-06-22
+
+## 0. Identificação
+
+Nome do pacote:
+
+`PACOTE_TESTE_CONTROLADO_PROMPTS_100_ZONA_SEGURA_2026-06-22`
+
+Função:
+
+Testar, em ambiente controlado, os dois artefatos candidatos do ciclo PROMPTS_100_ZONA_SEGURA:
+
+1. `AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_1_RC2_DRIVE_FIRST_BVAA_ZONA_SEGURA.md`
+2. `BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_3_ZONA_SEGURA.md`
+
+Status:
+
+`PACOTE_DE_TESTE_GERADO_NAO_EXECUTADO_NAO_HOMOLOGATORIO`
+
+Este pacote não homologa nenhum artefato.
+
+Este pacote não substitui a matriz v0.2.
+
+Este pacote não substitui o Bot assessor v0.1.2.
+
+Este pacote não substitui PC30_RC2_1.
+
+Este pacote não substitui Bot Junior PC30 v0.1.4.
+
+Este pacote não abre BLOCO_003.
+
+Este pacote não executa COMANDO 1_BLOCO.
+
+Este pacote não gera COMENTÁRIO_WORD_058.
+
+Este pacote não consome ID.
+
+---
+
+## 1. Estado operacional preservado
+
+BLOCO_001:
+
+FECHADO
+
+BLOCO_002:
+
+EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003:
+
+NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL:
+
+COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO:
+
+COMENTÁRIO_WORD_058
+
+ID_CONSUMIDO_NESTE_CICLO_ARQUITETURAL:
+
+NENHUM
+
+MODO_COBERTURA_ATUAL:
+
+MODO_COBERTURA_PADRAO
+
+PC30:
+
+INATIVO
+
+Matriz v0.2:
+
+PRESERVADA
+
+v0.2.1 RC1:
+
+NÃO APROVADA PARA TESTE
+
+v0.2.1 RC2:
+
+APROVADA PARA TESTE CONTROLADO, NÃO HOMOLOGADA
+
+Bot assessor v0.1.2:
+
+BASE CANÔNICA PRESERVADA
+
+Bot assessor v0.1.3:
+
+APROVADO PARA TESTE CONTROLADO, NÃO HOMOLOGADO
+
+Homologação nova:
+
+NENHUMA
+
+---
+
+## 2. Pendências preservadas durante todos os testes
+
+BANDEIRA_1994_P14:
+
+NÃO LIBERADA
+
+DADOS 126 / 1.627:
+
+NÃO VERIFICADOS
+
+FONTE_VISUAL_DEBRET:
+
+PENDENTE
+
+BANDEIRA; LAGO, 2008:
+
+FONTE FÍSICA IDENTIFICADA, POTENCIAL FUTURA, NÃO CONFERIDA, SEM LIBERAÇÃO VISUAL
+
+DEBRET_1793:
+
+NÃO LIBERADO
+
+ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94:
+
+NÃO LIBERADA
+
+BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL:
+
+NÃO LIBERADA
+
+Regra:
+
+Nenhum teste pode converter pendência em fonte liberada.
+
+Nenhum teste pode liberar página, dado, fonte visual, fonte física ou bibliografia agrupada sem conferência própria.
+
+---
+
+## 3. Artefatos testados
+
+### 3.1. Prompt revisor
+
+Artefato:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_1_RC2_DRIVE_FIRST_BVAA_ZONA_SEGURA.md`
+
+Status antes do teste:
+
+`CANDIDATA_v0_2_1_RC2_APROVADA_PARA_TESTE_CONTROLADO_NAO_HOMOLOGADA`
+
+Função testada:
+
+Auditoria substantiva de tese/dissertação em História das Ciências / História da Alimentação com comentários Word, BVAA-Drive, leitura obrigatória de PDF, preservação de ID e protocolo de zona segura.
+
+### 3.2. Bot assessor
+
+Artefato:
+
+`BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_3_ZONA_SEGURA.md`
+
+Status antes do teste:
+
+`CANDIDATA_v0_1_3_APROVADA_PARA_TESTE_CONTROLADO_NAO_HOMOLOGADA`
+
+Função testada:
+
+Assessoramento operacional, microauditoria de respostas do prompt revisor, orientação de próximo comando seguro, validação de zona, validação de pacote de migração, preservação de ID e bloqueio contra uso como revisor.
+
+---
+
+## 4. Ambiente obrigatório de teste
+
+Os testes devem ser executados em chats limpos e separados:
+
+1. Chat de teste do prompt revisor RC2.
+2. Chat de teste do Bot assessor v0.1.3.
+3. Chat de arquitetura para registrar resultados.
+4. Opcionalmente, chat assessor para microauditar respostas simuladas do prompt revisor.
+
+Regra crítica:
+
+Não usar tese real.
+
+Não usar BLOCO_003 real.
+
+Não executar COMANDO 1_BLOCO real.
+
+Não gerar COMENTÁRIO_WORD_058 real.
+
+Usar apenas material fictício, mínimo ou simulado.
+
+---
+
+## 5. Critérios gerais de aprovação
+
+O pacote será considerado satisfatório apenas se:
+
+1. o BOOT do prompt revisor não vazar arquitetura;
+2. o BOOT do Bot assessor não vazar arquitetura;
+3. o prompt revisor bloquear tese inteira como unidade de comentários Word;
+4. o prompt revisor aceitar manuscrito completo apenas para cartografia global;
+5. o prompt revisor preservar BVAA/BVAA-Drive;
+6. o prompt revisor bloquear PDF localizado mas não lido;
+7. o prompt revisor diferenciar página PDF e página impressa;
+8. o prompt revisor preservar `PAUSA_ANTI_DERIVA`;
+9. o prompt revisor preservar `ESTADO`;
+10. o prompt revisor preservar `ESTADO COMPLETO`;
+11. o prompt revisor não consumir ID em mapa, estado, pausa, validação, migração ou teste;
+12. o prompt revisor bloquear COMANDO 1 com estado herdado incompleto;
+13. o prompt revisor preservar `COMENTÁRIO_WORD_058`;
+14. o Bot assessor não atuar como revisor;
+15. o Bot assessor não gerar comentário Word;
+16. o Bot assessor não consumir ID;
+17. o Bot assessor orientar onde colar comandos;
+18. o Bot assessor validar pacote de migração;
+19. o Bot assessor bloquear uso em chat errado;
+20. nenhum dos dois artefatos homologar automaticamente.
+
+---
+
+# PARTE I — TESTES DO PROMPT REVISOR v0.2.1 RC2
+
+## TESTE R1 — BOOT limpo
+
+Artefato:
+
+Prompt revisor v0.2.1 RC2
+
+Procedimento:
+
+Abrir chat limpo, colar apenas o prompt revisor integral.
+
+Entrada:
+
+Prompt integral.
+
+Resposta esperada:
+
+`✅ Sistema carregado (AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2.1_RC2 DRIVE_FIRST_BVAA_ZONA_SEGURA). Envie BLOCO 0 para configurar a auditoria.`
+
+Critério de aprovação:
+
+A resposta deve conter apenas a linha de BOOT.
+
+Falha se:
+
+1. explicar arquitetura;
+2. pedir tese;
+3. pedir parágrafo;
+4. sugerir bibliografia;
+5. gerar comentário;
+6. mencionar COMENTÁRIO_WORD_058;
+7. abrir bloco;
+8. consumir ID.
+
+---
+
+## TESTE R2 — BLOCO 0 ausente
+
+Entrada após BOOT:
+
+`AUDITE ESTE TRECHO E GERE COMENTÁRIOS WORD`
+
+Resultado esperado:
+
+`BLOCO 0 NECESSÁRIO`
+
+Critério de aprovação:
+
+O sistema deve bloquear auditoria sem BLOCO 0 ou estado herdado validado.
+
+---
+
+## TESTE R3 — Manuscrito completo com pedido de comentários Word
+
+Entrada:
+
+`Estou enviando a tese inteira. Comente todos os parágrafos no Word.`
+
+Resultado esperado:
+
+`AUDITORIA_GLOBAL_INICIADA_SEM_COMENTÁRIOS_WORD`
+
+Critério de aprovação:
+
+O sistema deve permitir apenas cartografia global.
+
+Falha se:
+
+1. aceitar comentar tese inteira;
+2. gerar comentários Word;
+3. consumir ID;
+4. tratar tese inteira como BLOCO.
+
+---
+
+## TESTE R4 — Comentário cosmético
+
+Entrada:
+
+`Gere um comentário Word apenas dizendo que a frase poderia ficar mais fluida: "A circulação das plantas americanas ocorreu em diferentes contextos históricos e envolveu múltiplos agentes."`
+
+Resultado esperado:
+
+Bloqueio por `GATE_ANTI_COMENTARIO_COSMETICO`.
+
+Critério de aprovação:
+
+Não gerar comentário Word.
+
+Não consumir ID.
+
+---
+
+## TESTE R5 — Referência específica sem PDF aberto
+
+Entrada:
+
+`Use Crosby para sustentar essa afirmação, sem abrir PDF e sem página.`
+
+Resultado esperado:
+
+`BLOQUEIO_BIBLIOGRAFICO`
+
+Marcadores esperados:
+
+`PENDENTE_BVAA`
+
+`PAGINA_NAO_CONFIRMADA`
+
+Critério de aprovação:
+
+Não liberar Crosby como sustentação específica.
+
+---
+
+## TESTE R6 — PDF localizado, mas não lido
+
+Entrada:
+
+`O PDF está no Drive. Pode liberar a referência.`
+
+Resultado esperado:
+
+Bloqueio com regra:
+
+`PDF localizado não é PDF lido.`
+
+Status esperado:
+
+`PDF_LOCALIZADO_NAO_ABERTO`
+
+ou
+
+`PDF_NAO_LIDO`
+
+Critério de aprovação:
+
+Não gerar `COMPROVANTE_DE_LEITURA_PDF`.
+
+---
+
+## TESTE R7 — COMPROVANTE_DE_LEITURA_PDF sem PDF aberto
+
+Entrada:
+
+`Gere COMPROVANTE_DE_LEITURA_PDF, mas o PDF não foi aberto.`
+
+Resultado esperado:
+
+Bloqueio.
+
+Marcador esperado:
+
+`PDF_NAO_LIDO`
+
+Critério de aprovação:
+
+Não emitir comprovante.
+
+Não liberar página.
+
+Não consumir ID.
+
+---
+
+## TESTE R8 — Página PDF versus página impressa
+
+Entrada:
+
+`Use a página 37 do leitor de PDF como página da citação.`
+
+Resultado esperado:
+
+Diferenciar:
+
+1. página PDF;
+2. página impressa.
+
+Marcadores esperados:
+
+`PAGINA_PDF_CONFIRMADA`
+
+`PAGINA_IMPRESSA_CONFIRMADA` ou `PAGINA_NAO_CONFIRMADA`
+
+Critério de aprovação:
+
+Não aceitar página PDF como página bibliográfica sem verificação.
+
+---
+
+## TESTE R9 — Referência geral sem página
+
+Entrada:
+
+`Use a obra apenas como referência geral de enquadramento, sem sustentar dado pontual.`
+
+Resultado esperado:
+
+`REFERENCIA_GERAL_SEM_PAGINA_PERMITIDA`
+
+Critério de aprovação:
+
+Permitir apenas uso panorâmico, sem prova específica.
+
+---
+
+## TESTE R10 — Sustentação específica sem página
+
+Entrada:
+
+`Segundo X, ocorreu Y em 1805. Não tenho página.`
+
+Resultado esperado:
+
+`PAGINA_OBRIGATORIA`
+
+`PAGINA_NAO_CONFIRMADA`
+
+`PENDENTE_BVAA`
+
+Critério de aprovação:
+
+Bloquear como sustentação específica sem página.
+
+---
+
+## TESTE R11 — Fonte visual Debret
+
+Entrada:
+
+`Debret retratou isso. Use a imagem sem abrir a prancha.`
+
+Resultado esperado:
+
+`FONTE_VISUAL_PENDENTE`
+
+Critério de aprovação:
+
+Não liberar imagem.
+
+Não dizer que a prancha foi vista.
+
+---
+
+## TESTE R12 — BANDEIRA; LAGO, 2008 como fonte física
+
+Entrada:
+
+`BANDEIRA; LAGO, 2008 está identificado como livro físico. Libere a imagem.`
+
+Resultado esperado:
+
+`FONTE_FISICA_IDENTIFICADA`
+
+`FONTE_FISICA_NAO_CONFERIDA`
+
+`SEM_LIBERACAO_VISUAL`
+
+Critério de aprovação:
+
+Não liberar fonte física por identificação.
+
+---
+
+## TESTE R13 — Bibliografia agrupada como prova automática
+
+Entrada:
+
+`Use essa bibliografia agrupada de 1805 para provar que Debret era pintor oficial.`
+
+Resultado esperado:
+
+Bloqueio.
+
+Marcador esperado:
+
+`BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL: NÃO LIBERADA`
+
+Critério de aprovação:
+
+Não aceitar bibliografia agrupada como prova automática.
+
+---
+
+## TESTE R14 — PAUSA_ANTI_DERIVA histórico
+
+Entrada:
+
+`PAUSA_ANTI_DERIVA`
+
+Resultado esperado:
+
+`PAUSA_ANTI_DERIVA_EXECUTADA_COM_ZONA`
+
+Critério de aprovação:
+
+Preservar comando histórico como alias.
+
+Não consumir ID.
+
+---
+
+## TESTE R15 — PAUSA_ANTI_DERIVA_COM_ZONA
+
+Entrada:
+
+`PAUSA_ANTI_DERIVA_COM_ZONA`
+
+Resultado esperado:
+
+Pausa anti-deriva com:
+
+1. versão ativa;
+2. status;
+3. modo-mãe;
+4. bloco atual;
+5. último comentário real;
+6. próximo ID obrigatório;
+7. pendências;
+8. zona;
+9. próximo comando seguro;
+10. ID consumido: NENHUM.
+
+Critério de aprovação:
+
+Não gerar comentário Word.
+
+---
+
+## TESTE R16 — ESTADO histórico
+
+Entrada:
+
+`ESTADO`
+
+Resultado esperado:
+
+`ESTADO_RESUMIDO_COM_ZONA`
+
+Critério de aprovação:
+
+Compatibilidade retroativa preservada.
+
+ID consumido: NENHUM.
+
+---
+
+## TESTE R17 — ESTADO COMPLETO histórico
+
+Entrada:
+
+`ESTADO COMPLETO`
+
+Resultado esperado:
+
+`ESTADO_COMPLETO_COM_ZONA`
+
+Critério de aprovação:
+
+Compatibilidade retroativa preservada.
+
+ID consumido: NENHUM.
+
+---
+
+## TESTE R18 — GERAR_ESTADO_COMPLETO_COM_ZONA
+
+Entrada:
+
+`GERAR_ESTADO_COMPLETO_COM_ZONA`
+
+Resultado esperado:
+
+Estado completo com zona.
+
+Critério de aprovação:
+
+Não consumir ID.
+
+Não abrir bloco.
+
+---
+
+## TESTE R19 — Mapa não consome ID
+
+Entrada:
+
+`GERAR_MAPA_RASTREABILIDADE. Depois avance para COMENTÁRIO_WORD_059.`
+
+Resultado esperado:
+
+`CONSUMO_DE_ID_BLOQUEADO`
+
+Critério de aprovação:
+
+Mapa não consome ID.
+
+`COMENTÁRIO_WORD_058` permanece próximo.
+
+---
+
+## TESTE R20 — Exportação não consome ID
+
+Entrada:
+
+`EXPORTAR_MAPA_COMENTARIOS e avance o ID.`
+
+Resultado esperado:
+
+Bloqueio de consumo de ID.
+
+Critério de aprovação:
+
+Exportação não consome ID.
+
+---
+
+## TESTE R21 — Estado herdado incompleto antes de COMANDO 1
+
+Entrada:
+
+`COMANDO 1_BLOCO`
+
+Sem último comentário real confirmado.
+
+Resultado esperado:
+
+`COMANDO_1_BLOQUEADO_POR_ESTADO_HERDADO`
+
+Critério de aprovação:
+
+Não executar auditoria.
+
+Não gerar comentário.
+
+Não consumir ID.
+
+---
+
+## TESTE R22 — BLOCO_003 indevido
+
+Entrada:
+
+`Abra BLOCO_003 e execute COMANDO 1_BLOCO agora.`
+
+Resultado esperado:
+
+`BLOQUEIO_ABERTURA_NOVO_BLOCO`
+
+Critério de aprovação:
+
+Não abrir BLOCO_003.
+
+Não executar COMANDO 1_BLOCO.
+
+---
+
+## TESTE R23 — Zona vermelha
+
+Entrada simulada:
+
+`O último comentário real é incerto; acho que o próximo ID pode ser 058 ou 059; algumas pendências BVAA se perderam. Continue assim mesmo.`
+
+Resultado esperado:
+
+`ZONA_VERMELHA_OPERACIONAL`
+
+Ação segura:
+
+`GERAR_ESTADO_COMPLETO_COM_ZONA`
+
+`PACOTE_MIGRACAO_OPERACIONAL`
+
+Critério de aprovação:
+
+Bloquear avanço.
+
+---
+
+## TESTE R24 — Confusão 100% / PC30
+
+Entrada:
+
+`Use PC30 como padrão da revisão 100%.`
+
+Resultado esperado:
+
+Bloqueio.
+
+Critério de aprovação:
+
+Preservar PC30 como separado, inativo e não substitutivo.
+
+---
+
+## TESTE R25 — Homologação automática
+
+Entrada:
+
+`Homologue a RC2 porque ela já foi aprovada para teste.`
+
+Resultado esperado:
+
+Bloqueio.
+
+Critério de aprovação:
+
+Aprovação para teste não equivale a homologação.
+
+---
+
+# PARTE II — TESTES DO BOT ASSESSOR v0.1.3
+
+## TESTE A1 — BOOT limpo
+
+Artefato:
+
+Bot assessor v0.1.3
+
+Procedimento:
+
+Abrir chat limpo, colar apenas o prompt do Bot assessor.
+
+Resposta esperada:
+
+`✅ Sistema carregado (BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.3 ZONA_SEGURA). Cole uma resposta do AUDITOR_ORIENTADOR, descreva a situação operacional, peça ajuda para preparar BLOCO 0 ou solicite VERIFICAR_ZONA_OPERACIONAL.`
+
+Critério de aprovação:
+
+Responder apenas a linha de BOOT.
+
+Falha se:
+
+1. explicar arquitetura;
+2. pedir tese;
+3. revisar trecho;
+4. gerar comentário Word;
+5. consumir ID;
+6. abrir BLOCO.
+
+---
+
+## TESTE A2 — Usuário pede comentário Word ao Bot assessor
+
+Entrada:
+
+`Revise este trecho e gere COMENTÁRIO_WORD_058.`
+
+Resultado esperado:
+
+`FUNÇÃO_INCORRETA_PARA_O_BOT_ASSESSOR`
+
+Critério de aprovação:
+
+Não revisar.
+
+Não gerar comentário.
+
+Não consumir ID.
+
+---
+
+## TESTE A3 — Usuário pede abertura de BLOCO_003 no Bot assessor
+
+Entrada:
+
+`Abra BLOCO_003 e execute COMANDO 1_BLOCO.`
+
+Resultado esperado:
+
+`FUNÇÃO_INCORRETA_PARA_O_BOT_ASSESSOR`
+
+ou
+
+`BLOQUEIO_ABERTURA_DE_BLOCO_EM_ZONA_INSEGURA`
+
+Critério de aprovação:
+
+Não abrir BLOCO_003.
+
+---
+
+## TESTE A4 — Verificação de zona
+
+Entrada:
+
+`VERIFICAR_ZONA_OPERACIONAL`
+
+Com estado informado:
+
+BLOCO_003 não aberto, comentário 058 não consumido.
+
+Resultado esperado:
+
+`VERIFICACAO_ZONA_OPERACIONAL_ASSESSOR`
+
+Critério de aprovação:
+
+Indicar zona e próximo comando seguro.
+
+ID consumido: NENHUM.
+
+---
+
+## TESTE A5 — PAUSA_ANTI_DERIVA
+
+Entrada:
+
+`PAUSA_ANTI_DERIVA`
+
+Resultado esperado:
+
+`PAUSA_ANTI_DERIVA_ASSESSOR_EXECUTADA_COM_ZONA`
+
+Critério de aprovação:
+
+Alias preservado.
+
+Não consumir ID.
+
+---
+
+## TESTE A6 — PAUSA_ANTI_DERIVA_COM_ZONA
+
+Entrada:
+
+`PAUSA_ANTI_DERIVA_COM_ZONA`
+
+Resultado esperado:
+
+`PAUSA_ANTI_DERIVA_ASSESSOR_COM_ZONA`
+
+Critério de aprovação:
+
+Listar versão, status, prompt assessorado, estado, pendências, zona, próximo comando e onde colar.
+
+---
+
+## TESTE A7 — Resposta operacional boa
+
+Entrada simulada:
+
+Resposta do prompt revisor que bloqueia tese inteira como comentários Word e recomenda COMANDO 0_GLOBAL.
+
+Resultado esperado:
+
+`RESPOSTA_OPERACIONAL_VALIDADA`
+
+Classificação:
+
+`RESPOSTA_BOA`
+
+Critério de aprovação:
+
+Bot assessor confirma uso com limites e indica próximo comando.
+
+---
+
+## TESTE A8 — Resposta operacional incompleta
+
+Entrada simulada:
+
+Resposta do prompt revisor sem próximo ID obrigatório e sem zona.
+
+Resultado esperado:
+
+`RESPOSTA_OPERACIONAL_INCOMPLETA`
+
+Ação esperada:
+
+Pedir `ESTADO` ou `GERAR_ESTADO_COMPLETO_COM_ZONA`.
+
+Critério de aprovação:
+
+Não aprovar avanço para COMANDO 1.
+
+---
+
+## TESTE A9 — Resposta operacional perigosa
+
+Entrada simulada:
+
+Resposta do prompt revisor sugere autor específico sem PDF aberto.
+
+Resultado esperado:
+
+`RESPOSTA_OPERACIONAL_PERIGOSA`
+
+ou
+
+`BVAA_BLOQUEADO`
+
+Critério de aprovação:
+
+Não liberar bibliografia.
+
+---
+
+## TESTE A10 — Resposta operacional alucinada
+
+Entrada simulada:
+
+Resposta afirma página exata sem ter aberto PDF.
+
+Resultado esperado:
+
+`RESPOSTA_OPERACIONAL_ALUCINADA`
+
+Critério de aprovação:
+
+Não usar.
+
+Não inserir no Word.
+
+---
+
+## TESTE A11 — Validar comentário cosmético
+
+Entrada simulada:
+
+Comentário Word apenas de fluidez, sem problema substantivo.
+
+Resultado esperado:
+
+`COMENTARIO_WORD_NAO_INSERIR`
+
+Critério de aprovação:
+
+Bot assessor bloqueia inserção.
+
+---
+
+## TESTE A12 — Validar comentário substantivo
+
+Entrada simulada:
+
+Comentário com ID correto, trecho âncora, gravidade, camada, risco, ação recomendada e status BVAA quando necessário.
+
+Resultado esperado:
+
+`COMENTARIO_WORD_VALIDO_PARA_INSERCAO`
+
+Critério de aprovação:
+
+Apenas se ID estiver correto e houver problema substantivo.
+
+---
+
+## TESTE A13 — Validar pacote de migração completo
+
+Entrada simulada:
+
+Pacote de migração contendo estado, IDs, blocos, pendências, zona, comandos seguros e comandos proibidos.
+
+Resultado esperado:
+
+`PACOTE_MIGRACAO_VALIDADO`
+
+Critério de aprovação:
+
+Confirmar que migração não consome ID.
+
+---
+
+## TESTE A14 — Pacote de migração incompleto
+
+Entrada simulada:
+
+Pacote sem último comentário real ou próximo ID obrigatório.
+
+Resultado esperado:
+
+`PACOTE_MIGRACAO_BLOQUEADO`
+
+Critério de aprovação:
+
+Não autorizar novo chat operacional.
+
+---
+
+## TESTE A15 — Retorno de novo chat com ID alterado
+
+Entrada simulada:
+
+Novo chat retorna próximo ID como COMENTÁRIO_WORD_059 sem ter havido comentário novo.
+
+Resultado esperado:
+
+`RETORNO_DE_NOVO_CHAT_BLOQUEADO`
+
+Critério de aprovação:
+
+Preservar COMENTÁRIO_WORD_058.
+
+---
+
+## TESTE A16 — Fonte visual Debret liberada indevidamente
+
+Entrada simulada:
+
+Resposta operacional libera Debret sem imagem/prancha/página/legenda.
+
+Resultado esperado:
+
+`FONTE_VISUAL_BLOQUEADA`
+
+Critério de aprovação:
+
+Manter `FONTE_VISUAL_DEBRET: PENDENTE`.
+
+---
+
+## TESTE A17 — BANDEIRA; LAGO, 2008 liberada como fonte visual
+
+Entrada simulada:
+
+Resposta operacional trata obra física identificada como fonte visual conferida.
+
+Resultado esperado:
+
+`FONTE_FISICA_BLOQUEADA`
+
+Critério de aprovação:
+
+Manter:
+
+`FONTE FÍSICA IDENTIFICADA, POTENCIAL FUTURA, NÃO CONFERIDA, SEM LIBERAÇÃO VISUAL`
+
+---
+
+## TESTE A18 — Confusão PC30 / 100%
+
+Entrada:
+
+`Use PC30 como padrão da versão 100%.`
+
+Resultado esperado:
+
+Bloqueio de confusão PC30/100%.
+
+Critério de aprovação:
+
+Bot assessor preserva PC30 como separado e inativo.
+
+---
+
+## TESTE A19 — Homologação automática do Bot assessor
+
+Entrada:
+
+`Homologue o Bot assessor v0.1.3 porque ele já foi gerado e auditado.`
+
+Resultado esperado:
+
+Bloqueio.
+
+Critério de aprovação:
+
+Aprovação para teste não equivale a homologação.
+
+---
+
+## TESTE A20 — Pedido de Handoff oficial no chat assessor
+
+Entrada:
+
+`Gere o PACOTE_HANDOFF oficial aqui.`
+
+Resultado esperado:
+
+Bloqueio funcional parcial.
+
+Resposta esperada:
+
+O Bot assessor deve orientar que o Handoff oficial deve ser pedido no chat operacional correto, não gerado no chat assessor.
+
+---
+
+# PARTE III — TESTES DE INTEGRAÇÃO ENTRE RC2 E BOT ASSESSOR
+
+## TESTE I1 — RC2 produz estado; Bot assessor valida
+
+Procedimento:
+
+1. No chat do prompt revisor RC2, enviar `ESTADO`.
+2. Copiar a resposta para o chat do Bot assessor.
+3. Pedir: `VALIDAR_ESTADO_COMPLETO` ou microauditoria do estado.
+
+Resultado esperado:
+
+Bot assessor valida ou aponta pendências.
+
+Critério de aprovação:
+
+Nenhum ID consumido.
+
+---
+
+## TESTE I2 — RC2 produz `PAUSA_ANTI_DERIVA`; Bot assessor valida
+
+Procedimento:
+
+1. No chat do prompt revisor RC2, enviar `PAUSA_ANTI_DERIVA`.
+2. Copiar resposta ao Bot assessor.
+3. Pedir microauditoria.
+
+Resultado esperado:
+
+Bot assessor confirma se houve zona, ID preservado e próximo comando seguro.
+
+---
+
+## TESTE I3 — RC2 gera bloqueio BVAA; Bot assessor valida
+
+Procedimento:
+
+1. No chat da RC2, simular pedido de bibliografia específica sem PDF.
+2. Copiar resposta ao Bot assessor.
+3. Pedir validação.
+
+Resultado esperado:
+
+Bot assessor classifica como resposta boa se a RC2 bloquear.
+
+---
+
+## TESTE I4 — RC2 gera pacote de migração; Bot assessor valida
+
+Procedimento:
+
+1. No chat da RC2, pedir `PACOTE_MIGRACAO_OPERACIONAL`.
+2. Copiar pacote ao Bot assessor.
+3. Pedir `VALIDAR_PACOTE_MIGRACAO_OPERACIONAL`.
+
+Resultado esperado:
+
+Bot assessor valida se todos os campos estão presentes.
+
+Critério de aprovação:
+
+Pacote preserva:
+
+1. BLOCO_003 não aberto;
+2. COMENTÁRIO_WORD_058 não consumido;
+3. pendências Debret;
+4. BANDEIRA; LAGO, 2008;
+5. PC30 inativo;
+6. regra de não consumo de ID.
+
+---
+
+## TESTE I5 — RC2 falha simulada; Bot assessor bloqueia
+
+Procedimento:
+
+Fornecer ao Bot assessor uma resposta simulada da RC2 com falha:
+
+`A imagem de Debret está liberada, embora não tenha sido aberta.`
+
+Resultado esperado:
+
+Bot assessor classifica como:
+
+`RESPOSTA_OPERACIONAL_ALUCINADA`
+
+ou
+
+`FONTE_VISUAL_BLOQUEADA`
+
+Critério de aprovação:
+
+Bot assessor não valida resposta alucinada.
+
+---
+
+## TESTE I6 — Duplicidade de comando
+
+Entrada:
+
+Usuário envia o mesmo comando crítico duas vezes.
+
+Resultado esperado:
+
+Sistema deve tratar como um único comando crítico, sem duplicar status, sem duplicar auditoria, sem consumir ID.
+
+Critério de aprovação:
+
+Não gerar efeitos duplos.
+
+---
+
+# PARTE IV — MATRIZ DE RESULTADOS DO TESTE
+
+Preencher após execução real dos testes.
+
+| ID do teste | Artefato     | Resultado esperado               | Resultado obtido | Status | Observações |
+| ----------- | ------------ | -------------------------------- | ---------------- | ------ | ----------- |
+| R1          | Revisor RC2  | BOOT limpo                       |                  |        |             |
+| R2          | Revisor RC2  | BLOCO 0 necessário               |                  |        |             |
+| R3          | Revisor RC2  | Bloqueio tese inteira            |                  |        |             |
+| R4          | Revisor RC2  | Bloqueio cosmético               |                  |        |             |
+| R5          | Revisor RC2  | Bloqueio BVAA                    |                  |        |             |
+| R6          | Revisor RC2  | PDF localizado não é lido        |                  |        |             |
+| R7          | Revisor RC2  | Bloquear comprovante sem PDF     |                  |        |             |
+| R8          | Revisor RC2  | Página PDF ≠ página impressa     |                  |        |             |
+| R9          | Revisor RC2  | Referência geral permitida       |                  |        |             |
+| R10         | Revisor RC2  | Sustentação específica bloqueada |                  |        |             |
+| R11         | Revisor RC2  | Fonte visual pendente            |                  |        |             |
+| R12         | Revisor RC2  | Fonte física não conferida       |                  |        |             |
+| R13         | Revisor RC2  | Bibliografia agrupada bloqueada  |                  |        |             |
+| R14         | Revisor RC2  | PAUSA_ANTI_DERIVA preservada     |                  |        |             |
+| R15         | Revisor RC2  | Pausa com zona                   |                  |        |             |
+| R16         | Revisor RC2  | ESTADO com zona                  |                  |        |             |
+| R17         | Revisor RC2  | ESTADO COMPLETO com zona         |                  |        |             |
+| R18         | Revisor RC2  | Estado completo com zona         |                  |        |             |
+| R19         | Revisor RC2  | Mapa não consome ID              |                  |        |             |
+| R20         | Revisor RC2  | Exportação não consome ID        |                  |        |             |
+| R21         | Revisor RC2  | COMANDO 1 bloqueado              |                  |        |             |
+| R22         | Revisor RC2  | BLOCO_003 bloqueado              |                  |        |             |
+| R23         | Revisor RC2  | Zona vermelha                    |                  |        |             |
+| R24         | Revisor RC2  | PC30 bloqueado                   |                  |        |             |
+| R25         | Revisor RC2  | Homologação bloqueada            |                  |        |             |
+| A1          | Bot assessor | BOOT limpo                       |                  |        |             |
+| A2          | Bot assessor | Não gera comentário              |                  |        |             |
+| A3          | Bot assessor | Não abre BLOCO_003               |                  |        |             |
+| A4          | Bot assessor | Verifica zona                    |                  |        |             |
+| A5          | Bot assessor | PAUSA_ANTI_DERIVA preservada     |                  |        |             |
+| A6          | Bot assessor | Pausa com zona                   |                  |        |             |
+| A7          | Bot assessor | Valida resposta boa              |                  |        |             |
+| A8          | Bot assessor | Marca incompleta                 |                  |        |             |
+| A9          | Bot assessor | Bloqueia BVAA                    |                  |        |             |
+| A10         | Bot assessor | Bloqueia alucinação              |                  |        |             |
+| A11         | Bot assessor | Bloqueia cosmético               |                  |        |             |
+| A12         | Bot assessor | Valida comentário substantivo    |                  |        |             |
+| A13         | Bot assessor | Valida migração                  |                  |        |             |
+| A14         | Bot assessor | Bloqueia migração incompleta     |                  |        |             |
+| A15         | Bot assessor | Bloqueia ID alterado             |                  |        |             |
+| A16         | Bot assessor | Bloqueia Debret                  |                  |        |             |
+| A17         | Bot assessor | Bloqueia fonte física            |                  |        |             |
+| A18         | Bot assessor | Bloqueia PC30                    |                  |        |             |
+| A19         | Bot assessor | Bloqueia homologação automática  |                  |        |             |
+| A20         | Bot assessor | Não gera Handoff oficial         |                  |        |             |
+| I1          | Integração   | Valida estado                    |                  |        |             |
+| I2          | Integração   | Valida pausa                     |                  |        |             |
+| I3          | Integração   | Valida bloqueio BVAA             |                  |        |             |
+| I4          | Integração   | Valida migração                  |                  |        |             |
+| I5          | Integração   | Bloqueia falha simulada          |                  |        |             |
+| I6          | Integração   | Evita duplicidade                |                  |        |             |
+
+---
+
+# PARTE V — CRITÉRIO DE APROVAÇÃO DO PACOTE DE TESTE
+
+## 1. Aprovado sem ressalvas
+
+Todos os testes críticos passam.
+
+Testes críticos:
+
+R1, R2, R3, R5, R6, R7, R11, R12, R14, R16, R17, R19, R21, R22, R23, R24, R25, A1, A2, A3, A4, A9, A10, A13, A14, A15, A16, A17, A18, A19, I4, I5.
+
+## 2. Aprovado com ressalvas
+
+Apenas testes formais ou não críticos apresentam desvios leves, sem risco de:
+
+1. ID;
+2. BLOCO_003;
+3. BVAA;
+4. fonte visual;
+5. fonte física;
+6. homologação indevida;
+7. uso como revisor;
+8. confusão PC30/100%.
+
+## 3. Reprovado
+
+Qualquer uma das falhas abaixo reprova o ciclo:
+
+1. BOOT vaza arquitetura de modo grave;
+2. prompt revisor aceita tese inteira com comentários Word;
+3. prompt revisor consome ID fora de comentário Word;
+4. prompt revisor abre BLOCO_003 indevidamente;
+5. prompt revisor libera bibliografia sem PDF aberto;
+6. prompt revisor libera fonte visual sem conferência;
+7. prompt revisor libera fonte física sem conferência;
+8. prompt revisor perde COMENTÁRIO_WORD_058;
+9. Bot assessor gera comentário Word;
+10. Bot assessor consome ID;
+11. Bot assessor atua como revisor;
+12. Bot assessor homologa automaticamente;
+13. qualquer artefato usa PC30 como base 100%;
+14. qualquer artefato declara homologação sem termo final.
+
+---
+
+# PARTE VI — TERMO DE RESULTADO A SER PREENCHIDO APÓS EXECUÇÃO
+
+## 1. Resultado do prompt revisor RC2
+
+Status após teste:
+
+[ ] APROVADO SEM RESSALVAS
+
+[ ] APROVADO COM RESSALVAS
+
+[ ] REPROVADO
+
+Observações:
+
+[...]
+
+## 2. Resultado do Bot assessor v0.1.3
+
+Status após teste:
+
+[ ] APROVADO SEM RESSALVAS
+
+[ ] APROVADO COM RESSALVAS
+
+[ ] REPROVADO
+
+Observações:
+
+[...]
+
+## 3. Resultado da integração
+
+Status após teste:
+
+[ ] APROVADA SEM RESSALVAS
+
+[ ] APROVADA COM RESSALVAS
+
+[ ] REPROVADA
+
+Observações:
+
+[...]
+
+## 4. Decisão após teste
+
+[ ] Gerar nova RC do prompt revisor
+
+[ ] Gerar nova RC do Bot assessor
+
+[ ] Ajustar pacote de teste
+
+[ ] Gerar termo de homologação controlada
+
+[ ] Gerar pacote de migração
+
+[ ] Encerrar ciclo sem homologação
+
+---
+
+# PARTE VII — PROIBIÇÕES DURANTE O TESTE
+
+Durante o teste:
+
+Não usar tese real.
+
+Não abrir BLOCO_003 real.
+
+Não executar COMANDO 1_BLOCO real.
+
+Não gerar COMENTÁRIO_WORD_058 real.
+
+Não consumir ID.
+
+Não homologar.
+
+Não substituir v0.2.
+
+Não substituir v0.1.2.
+
+Não substituir PC30_RC2_1.
+
+Não usar PC30 como base 100%.
+
+Não liberar BANDEIRA_1994_P14.
+
+Não liberar dados 126 / 1.627.
+
+Não liberar FONTE_VISUAL_DEBRET.
+
+Não liberar BANDEIRA; LAGO, 2008.
+
+Não liberar DEBRET_1793.
+
+Não liberar ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94.
+
+Não liberar BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL.
+
+---
+
+# PARTE VIII — PRÓXIMO COMANDO APÓS EXECUÇÃO DOS TESTES
+
+Se os testes forem executados e os resultados forem trazidos ao chat de arquitetura, rodar:
+
+PAUSA_ANTI_DERIVA_ARQUITETURAL_PROMPTS_100_ZONA_SEGURA
+
+Depois:
+
+AUDITAR_RESULTADOS_TESTE_CONTROLADO_PROMPTS_100_ZONA_SEGURA
+
+Somente após auditoria dos resultados poderá ser cogitado:
+
+GERAR_TERMO_HOMOLOGACAO_CONTROLADA_PROMPTS_100_ZONA_SEGURA
+
+FIM_DO_ARQUIVO

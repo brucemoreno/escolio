@@ -1,0 +1,783 @@
+INICIO_DO_ARQUIVO
+
+# MAPA_RASTREABILIDADE — USO REAL CONTROLADO PC30_RC2_1 — BLOCO 001
+
+## 1. IDENTIFICAÇÃO DO MAPA
+
+Versão ativa:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA
+
+Status da versão:
+
+HOMOLOGADA_CONTROLADAMENTE_PARA_USO_OPERACIONAL_LIMITADO_EM_BLOCOS
+
+Matriz v0.2:
+
+PRESERVADA
+
+Uso operacional amplo:
+
+NÃO AUTORIZADO
+
+Unidade auditada:
+
+Capítulo 3 — “O Homem da Natureza”: o olhar europeu e as práticas alimentares indígenas
+
+Seção:
+
+Abertura do Capítulo 3
+
+Subseção:
+
+NÃO HÁ
+
+Bloco:
+
+BLOCO 001
+
+Localização textual:
+
+Capítulo 3, BLOCO 001, abertura do capítulo
+
+Modo-mãe:
+
+MODO_DEFESA_DISSERTACAO_TESE
+
+Escala:
+
+MODO_BLOCO_CONTROLADO
+
+Modo de cobertura executado:
+
+MODO_COBERTURA_PRIORIDADE_CRITICA_30
+
+Páginas do manuscrito:
+
+PÁGINAS DO MANUSCRITO NÃO CONFIRMADAS
+
+---
+
+## 2. BLOCO TEXTUAL AUDITADO
+
+“Tais pesquisas possibilitaram a conclusão do último capítulo, cujo objetivo visa compreender o processo de inserção dos comércios alimentícios do Rio de Janeiro, baseados em modelos do Velho Mundo. Com a chegada de novos armazéns, mercados e estabelecimentos, a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14). O capítulo examina, dessa forma, o processo de produção, distribuição e abastecimento de alimentos considerados fundamentais à manutenção da vida urbana. O pão, o café e a carne, todos retratados por Debret, apresentam-se enquanto elementos que não apenas alimentavam, mas também se colocavam enquanto marcadores de status e diferenciação socioeconômica.”
+
+---
+
+## 3. ESTADO DE NUMERAÇÃO
+
+Último comentário Word real antes do bloco:
+
+COMENTÁRIO_WORD_052
+
+Comentários Word gerados no bloco:
+
+1. COMENTÁRIO_WORD_053
+2. COMENTÁRIO_WORD_054
+
+Último comentário Word real após o bloco:
+
+COMENTÁRIO_WORD_054
+
+Próximo ID obrigatório:
+
+COMENTÁRIO_WORD_055
+
+IDs consumidos por comentários Word:
+
+2
+
+IDs consumidos por riscos mapeados sem comentário:
+
+0
+
+IDs consumidos por registros BVAA/BVAA-Drive:
+
+0
+
+IDs consumidos por fonte visual não conferida:
+
+0
+
+---
+
+## 4. QUADRO DE RASTREABILIDADE DOS RISCOS
+
+### RISCO_001
+
+Trecho-âncora:
+
+“...a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14).”
+
+Classificação PC30:
+
+P1 — CRÍTICO_BLOQUEANTE
+
+Camadas acionadas:
+
+1. CAMADA 3 — Corpus documental, fontes e evidência;
+2. CAMADA 7 — Diálogo historiográfico e bibliográfico;
+3. CAMADA 10 — Aparato acadêmico, notas, citações e normalização;
+4. CAMADA 12 — Preparação para banca e risco de defesa.
+
+Natureza do risco:
+
+Dado quantitativo específico sustentado por referência bibliográfica não verificada.
+
+Status BVAA:
+
+PRESERVADO / COM PENDÊNCIA
+
+Status BVAA-Drive:
+
+PRESERVADO / COM PENDÊNCIA
+
+PDF aberto:
+
+NÃO
+
+Passagem localizada:
+
+NÃO
+
+Página PDF confirmada:
+
+NÃO
+
+Página impressa confirmada:
+
+NÃO
+
+COMPROVANTE_DE_LEITURA_PDF:
+
+NÃO
+
+Decisão PC30:
+
+CONVERTIDO EM COMENTÁRIO WORD
+
+Comentário gerado:
+
+COMENTÁRIO_WORD_053
+
+ID consumido:
+
+SIM
+
+Status final:
+
+ABERTO COMO PENDÊNCIA DOCUMENTAL
+
+Ação segura posterior:
+
+PACOTE_BVAA ou PACOTE_BVAA_DRIVE
+
+---
+
+### RISCO_002
+
+Trecho-âncora:
+
+“O pão, o café e a carne, todos retratados por Debret, apresentam-se enquanto elementos que não apenas alimentavam, mas também se colocavam enquanto marcadores de status e diferenciação socioeconômica.”
+
+Classificação PC30:
+
+P1 — CRÍTICO_BLOQUEANTE
+
+Camadas acionadas:
+
+1. CAMADA 3 — Corpus documental, fontes e evidência;
+2. CAMADA 10 — Aparato acadêmico, notas, citações, imagens e normalização;
+3. CAMADA 11 — Precisão factual, documental e anti-anacronismo;
+4. CAMADA 12 — Preparação para banca e risco de defesa.
+
+Natureza do risco:
+
+Fonte visual mencionada, mas não conferida, usada como base para inferência histórica forte.
+
+Status da fonte visual:
+
+FONTE_VISUAL_NAO_CONFERIDA
+
+Imagem aberta:
+
+NÃO
+
+Legenda conferida:
+
+NÃO
+
+Análise visual realizada:
+
+NÃO
+
+Regra preservada:
+
+“Debret retrata” não equivale a “Debret prova”.
+
+Decisão PC30:
+
+CONVERTIDO EM COMENTÁRIO WORD
+
+Comentário gerado:
+
+COMENTÁRIO_WORD_054
+
+ID consumido:
+
+SIM
+
+Status final:
+
+ABERTO COMO PENDÊNCIA VISUAL E INTERPRETATIVA
+
+Ação segura posterior:
+
+VERIFICAR_FONTE_VISUAL
+
+---
+
+### RISCO_003
+
+Trecho-âncora:
+
+“...baseados em modelos do Velho Mundo.”
+
+Classificação PC30:
+
+P2 — CRÍTICO_ALTO
+
+Camadas acionadas:
+
+1. CAMADA 2 — Recorte, escala e viabilidade;
+2. CAMADA 5 — Estrutura argumentativa e progressão;
+3. CAMADA 9 — Escrita acadêmica como problema argumentativo;
+4. CAMADA 11 — Precisão factual, cronológica, documental e anti-anacronismo.
+
+Natureza do risco:
+
+Formulação conceitual ampla, com risco de generalização, transferência direta e eurocentrismo não problematizado.
+
+Decisão PC30:
+
+RETIDO SEM COMENTÁRIO WORD
+
+Motivo da retenção:
+
+Risco relevante, mas menos crítico que os dois P1 do bloco. Deve ser monitorado se a categoria “modelos do Velho Mundo” reaparecer como eixo interpretativo do capítulo.
+
+Comentário Word gerado:
+
+NÃO
+
+ID consumido:
+
+NÃO
+
+Status final:
+
+ABERTO PARA MONITORAMENTO
+
+Ação segura posterior:
+
+Retomar no BLOCO 002 se a categoria continuar estruturando o argumento.
+
+---
+
+### RISCO_004
+
+Trecho-âncora:
+
+“...marcadores de status e diferenciação socioeconômica.”
+
+Classificação PC30:
+
+P2 — CRÍTICO_ALTO
+
+Camadas acionadas:
+
+1. CAMADA 3 — Corpus documental, fontes e evidência;
+2. CAMADA 5 — Estrutura argumentativa e progressão;
+3. CAMADA 9 — Escrita acadêmica como problema argumentativo;
+4. CAMADA 12 — Preparação para banca e risco de defesa.
+
+Natureza do risco:
+
+Inferência social forte que exige mediação entre alimento, visualidade, consumo, distinção social e documentação.
+
+Decisão PC30:
+
+ABSORVIDO POR COMENTÁRIO DE ALCANCE AMPLIADO
+
+Comentário absorvedor:
+
+COMENTÁRIO_WORD_054
+
+Comentário Word próprio:
+
+NÃO
+
+ID consumido:
+
+NÃO
+
+Status final:
+
+ABSORVIDO, MAS MANTIDO COMO RISCO INTERPRETATIVO ABERTO
+
+Ação segura posterior:
+
+Verificar se o argumento será sustentado por corpus visual/documental equivalente.
+
+---
+
+### RISCO_005
+
+Trecho-âncora:
+
+“Tais pesquisas possibilitaram a conclusão do último capítulo...”
+
+Classificação PC30:
+
+P3 — RELEVANTE_MÉDIO
+
+Camadas acionadas:
+
+1. CAMADA 5 — Estrutura argumentativa e progressão;
+2. CAMADA 6 — Coerência entre partes;
+3. CAMADA 9 — Escrita acadêmica como problema argumentativo.
+
+Natureza do risco:
+
+A expressão “tais pesquisas” depende de antecedente contextual e pode soar genérica na abertura isolada do capítulo.
+
+Decisão PC30:
+
+RETIDO SEM COMENTÁRIO WORD
+
+Motivo da retenção:
+
+Risco de coesão e clareza, mas não crítico no recorte PC30.
+
+Comentário Word gerado:
+
+NÃO
+
+ID consumido:
+
+NÃO
+
+Status final:
+
+RETIDO
+
+Ação segura posterior:
+
+Monitorar na continuidade da abertura do capítulo.
+
+---
+
+### RISCO_006
+
+Trecho-âncora:
+
+“...cujo objetivo visa compreender...”
+
+Classificação PC30:
+
+P5 — RASTREABILIDADE_SEM_COMENTÁRIO
+
+Camadas acionadas:
+
+CAMADA 9 — Escrita acadêmica como problema argumentativo
+
+Natureza do risco:
+
+Formulação redacional de baixa criticidade.
+
+Decisão PC30:
+
+DESCARTADO COMO NÃO PRIORITÁRIO NO PC30
+
+Comentário Word gerado:
+
+NÃO
+
+ID consumido:
+
+NÃO
+
+Status final:
+
+SEM INTERVENÇÃO
+
+Ação segura posterior:
+
+Nenhuma no PC30. Poderia ser corrigido em revisão textual posterior, fora da prioridade crítica.
+
+---
+
+## 5. COMENTÁRIOS WORD GERADOS — RASTREIO
+
+### COMENTÁRIO_WORD_053
+
+Risco associado:
+
+RISCO_001
+
+Trecho-âncora:
+
+“Com a chegada de novos armazéns, mercados e estabelecimentos, a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14).”
+
+Classificação:
+
+P1 — CRÍTICO_BLOQUEANTE
+
+Tipo:
+
+Comentário documental / bibliográfico / quantitativo
+
+Status:
+
+GERADO
+
+ID consumido:
+
+SIM
+
+Próximo ID após este comentário:
+
+COMENTÁRIO_WORD_054
+
+---
+
+### COMENTÁRIO_WORD_054
+
+Risco associado:
+
+RISCO_002
+
+Riscos absorvidos:
+
+RISCO_004
+
+Trecho-âncora:
+
+“O pão, o café e a carne, todos retratados por Debret, apresentam-se enquanto elementos que não apenas alimentavam, mas também se colocavam enquanto marcadores de status e diferenciação socioeconômica.”
+
+Classificação:
+
+P1 — CRÍTICO_BLOQUEANTE
+
+Tipo:
+
+Comentário visual / iconográfico / inferência histórica
+
+Status:
+
+GERADO
+
+ID consumido:
+
+SIM
+
+Próximo ID após este comentário:
+
+COMENTÁRIO_WORD_055
+
+---
+
+## 6. MAPA PC30 — SÍNTESE NUMÉRICA
+
+Total de riscos relevantes mapeados:
+
+6
+
+P1:
+
+2
+
+P2:
+
+2
+
+P3:
+
+1
+
+P4:
+
+0
+
+P5:
+
+1
+
+Comentários Word gerados:
+
+2
+
+Riscos retidos sem comentário próprio:
+
+4
+
+Percentual aproximado de conversão:
+
+33,3%
+
+Justificativa do corte:
+
+Foram comentados apenas os dois riscos P1 do bloco. Os riscos P2/P3/P5 foram retidos, absorvidos por comentário de alcance ampliado ou descartados como não prioritários, preservando a lógica PC30 de comentário seletivo.
+
+Exceção de segurança PC30:
+
+NÃO
+
+Todos os P1 foram comentados ou absorvidos?
+
+SIM
+
+Observação:
+
+Neste bloco, os dois P1 foram comentados diretamente.
+
+---
+
+## 7. MAPA BVAA / BVAA-DRIVE
+
+Referência sensível:
+
+Bandeira, 1994, p. 14
+
+Tipo de uso:
+
+SUSTENTAÇÃO ESPECÍFICA DE DADO QUANTITATIVO
+
+Status BVAA:
+
+PENDENTE / PRESERVADO
+
+Status BVAA-Drive:
+
+PENDENTE / PRESERVADO
+
+PDF aberto:
+
+NÃO
+
+Passagem localizada:
+
+NÃO
+
+Página PDF confirmada:
+
+NÃO
+
+Página impressa confirmada:
+
+NÃO
+
+COMPROVANTE_DE_LEITURA_PDF:
+
+NÃO
+
+Status da referência:
+
+NÃO LIBERADA
+
+Comentário Word associado:
+
+COMENTÁRIO_WORD_053
+
+Ação segura posterior:
+
+PACOTE_BVAA_DRIVE
+
+ou
+
+PACOTE_BVAA
+
+Regra preservada:
+
+Prioridade crítica não libera documentação.
+
+---
+
+## 8. MAPA DE FONTE VISUAL
+
+Fonte visual mencionada:
+
+Debret
+
+Trecho associado:
+
+“O pão, o café e a carne, todos retratados por Debret...”
+
+Imagem/prancha específica:
+
+NÃO INFORMADA
+
+Imagem aberta:
+
+NÃO
+
+Legenda conferida:
+
+NÃO
+
+Análise visual realizada:
+
+NÃO
+
+Status:
+
+FONTE_VISUAL_NAO_CONFERIDA
+
+Inferência bloqueada:
+
+SIM
+
+Inferência bloqueada:
+
+Debret como prova direta de que pão, café e carne funcionavam como marcadores de status e diferenciação socioeconômica.
+
+Comentário Word associado:
+
+COMENTÁRIO_WORD_054
+
+Ação segura posterior:
+
+VERIFICAR_FONTE_VISUAL
+
+Regra preservada:
+
+Imagem mencionada não equivale a imagem analisada.
+Legenda não substitui análise visual.
+“Debret retrata” não equivale a “Debret prova”.
+
+---
+
+## 9. MAPA DE PENDÊNCIAS
+
+### PENDÊNCIA_001 — Bandeira, 1994, p. 14
+
+Tipo:
+
+BVAA / BVAA-Drive / página / dado quantitativo
+
+Status:
+
+ABERTA
+
+Ação recomendada:
+
+PACOTE_BVAA_DRIVE ou PACOTE_BVAA
+
+---
+
+### PENDÊNCIA_002 — Debret
+
+Tipo:
+
+Fonte visual / legenda / análise iconográfica
+
+Status:
+
+ABERTA
+
+Ação recomendada:
+
+VERIFICAR_FONTE_VISUAL
+
+---
+
+### PENDÊNCIA_003 — “modelos do Velho Mundo”
+
+Tipo:
+
+Conceitual / historiográfica
+
+Status:
+
+ABERTA PARA MONITORAMENTO
+
+Ação recomendada:
+
+Retomar se reaparecer no BLOCO 002.
+
+---
+
+### PENDÊNCIA_004 — Páginas do manuscrito
+
+Tipo:
+
+Localização interna do manuscrito
+
+Status:
+
+PÁGINAS NÃO CONFIRMADAS
+
+Ação recomendada:
+
+Manter sem paginação até confirmação.
+
+---
+
+## 10. STATUS FINAL DO MAPA
+
+Mapa de rastreabilidade:
+
+GERADO
+
+Bloco:
+
+BLOCO 001
+
+Execução PC30:
+
+CONCLUÍDA
+
+Matriz v0.2:
+
+PRESERVADA
+
+PC30_RC2_1:
+
+OPEROU DENTRO DO ESCOPO HOMOLOGADO CONTROLADAMENTE
+
+Último comentário Word real:
+
+COMENTÁRIO_WORD_054
+
+Próximo ID obrigatório:
+
+COMENTÁRIO_WORD_055
+
+BVAA/BVAA-Drive:
+
+PRESERVADOS COM PENDÊNCIAS
+
+Fonte visual:
+
+FONTE_VISUAL_NAO_CONFERIDA
+
+Avanço automático para BLOCO 002:
+
+NÃO AUTORIZADO
+
+---
+
+## 11. PRÓXIMO COMANDO SEGURO
+
+Próximo comando seguro recomendado:
+
+EXPORTAR_MAPA_COMENTARIOS
+
+Alternativas seguras:
+
+1. PACOTE_BVAA_DRIVE
+2. VERIFICAR_FONTE_VISUAL
+3. RETOMAR_MODO_COBERTURA_PADRAO
+4. BLOCO 0 — USO REAL CONTROLADO PC30_RC2_1 — BLOCO 002
+
+FIM_DO_ARQUIVO

@@ -1,0 +1,438 @@
+# KIT MESTRE VAQUITA ECOSSISTEMA v1.0-RC — EMENDA DE ATUALIZAÇÃO
+# Nome: ATUALIZAÇÃO PÓS-FASE 9.F / BVAA EM CADEIA
+# Arquivo: KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__EMENDA_ATUALIZACAO_POS_9F.txt
+# Origem: FASE 9.F — Teste integrado Vaquita + BVAA + Handoff
+# Status: emenda de atualização do Kit Mestre
+# Não substitui o Kit Mestre integral; deve ser incorporada à próxima versão consolidada
+
+---
+
+## 1. MOTIVO DA EMENDA
+
+Esta emenda atualiza o Kit Mestre do Ecossistema Vaquita v1.0-RC após a aprovação funcional da FASE 9.F — Teste integrado Vaquita + BVAA + Handoff.
+
+A FASE 9.F confirmou que a cadeia integrada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+funciona corretamente quando o BVAA devolve uma pendência documental ativa com o status:
+
+PENDENTE_BVAA
+
+e o veredito operacional:
+
+PEDIR_PDF
+
+A emenda registra que esse estado foi preservado pela Vaquita, pelo Handoff e pela Vaquita destino, sem ser convertido indevidamente em fonte liberada, página confirmada, citação literal liberada ou referência consolidada.
+
+---
+
+## 2. ALTERAÇÃO PRINCIPAL NO KIT MESTRE
+
+Atualizar o Kit Mestre para registrar:
+
+FASE 9.F — APROVADA.
+
+Descrição:
+
+Teste integrado Vaquita + BVAA + Handoff aprovado.
+
+Cadeia validada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Função validada:
+
+Preservar uma pendência documental ativa durante integração e migração.
+
+Status crítico preservado:
+
+PENDENTE_BVAA
+
+Veredito operacional crítico preservado:
+
+PEDIR_PDF
+
+Resultado:
+
+O ecossistema preserva corretamente uma pendência documental emitida pelo BVAA, impedindo falsa liberação de fonte, página, citação literal ou referência bibliográfica.
+
+---
+
+## 3. STATUS ATUAL DO ECOSSISTEMA A ATUALIZAR
+
+Atualizar no Kit Mestre:
+
+Ecossistema Vaquita v1.0-RC: aprovado para uso inicial controlado.
+
+Módulos aprovados:
+
+1. Vaquita;
+2. Komodo;
+3. BVAA;
+4. Jararaca;
+5. Handoff.
+
+Fluxos integrados já aprovados:
+
+1. FASE 9.B — Vaquita + Handoff;
+2. FASE 9.C — Vaquita + Jararaca + Handoff;
+3. FASE 9.E — Vaquita + Komodo + Handoff;
+4. FASE 9.F — Vaquita + BVAA + Handoff.
+
+Fluxo integrado ainda pendente:
+
+1. Teste integrado completo com os cinco módulos:
+   Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+Arquivo principal recomendado do Handoff permanece:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Kit Mestre vigente antes desta emenda:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9E.txt
+
+Nome recomendado para a próxima versão consolidada do Kit Mestre:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt
+
+---
+
+## 4. FASE 9.F A INSERIR NO KIT MESTRE
+
+### FASE 9.F — Teste Integrado Vaquita + BVAA + Handoff
+
+Status:
+
+APROVADA.
+
+Produto recomendado:
+
+TESTE_INTEGRADO_VAQUITA_BVAA_HANDOFF_v1.0-RC.txt
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados:
+
+R1 — Vaquita origem gerou PACOTE_BVAA: aprovado.
+
+R2 — BVAA gerou RETORNO_BVAA: aprovado.
+
+R3 — Vaquita integrou RETORNO_BVAA: aprovado.
+
+R4 — Vaquita gerou PACOTE_HANDOFF preservando a pendência BVAA: aprovado.
+
+R5 — Handoff gerou PACOTE_HANDOFF_VAQUITA: aprovado.
+
+R6 — Vaquita destino retomou o estado com pendência BVAA ativa: aprovado.
+
+Veredito final:
+
+FASE 9.F APROVADA.
+
+Interpretação técnica:
+
+A FASE 9.F validou a capacidade do ecossistema de preservar, em cadeia, uma pendência documental ativa. O teste demonstrou que PENDENTE_BVAA permanece pendência documental e que PEDIR_PDF permanece exigência de evidência documental adicional, não autorização de uso com ressalva.
+
+Caso de teste:
+
+Referência candidata:
+
+DASTON, Lorraine; PARK, Katharine. Wonders and the order of nature, 1150–1750. New York: Zone Books, 1998.
+
+Seção de teste:
+
+Capítulo 2 / Seção 2.5 Maravilhoso, experiência e autoridade naturalista / UR-22.
+
+Status do caso de teste:
+
+A referência não foi liberada.
+
+A página não foi confirmada.
+
+A citação literal não foi liberada.
+
+“p. XX” permaneceu bloqueado para versão final.
+
+A referência permaneceu apenas hipótese bibliográfica a verificar.
+
+PROXIMO permaneceu bloqueado até evidência documental adequada ou decisão humana explícita.
+
+Observação crítica:
+
+O caso Daston/Park e a seção 2.5 pertencem apenas ao teste da FASE 9.F. Não devem ser convertidos em regra universal do ecossistema.
+
+---
+
+## 5. REGRA NOVA A INSERIR NO KIT MESTRE
+
+Adicionar ao conjunto de regras críticas:
+
+Quando o BVAA devolver:
+
+PENDENTE_BVAA
+
+esse status deve ser tratado como pendência documental ativa.
+
+Quando o BVAA devolver:
+
+PEDIR_PDF
+
+esse veredito operacional deve ser tratado como exigência de evidência documental adicional.
+
+O sistema não deve:
+
+1. transformar PENDENTE_BVAA em LIBERADA;
+2. transformar PEDIR_PDF em USAR_COM_RESSALVA;
+3. substituir “p. XX” por página presumida;
+4. liberar citação literal sem trecho conferido;
+5. tratar referência normalizada em ABNT como referência documentalmente verificada;
+6. transformar plausibilidade temática em sustentação documental;
+7. consolidar referência sem PDF, trecho paginado ou confirmação material da edição;
+8. avançar para PROXIMO quando a pendência bloquear a consolidação local.
+
+O sistema deve:
+
+1. preservar o RETORNO_BVAA integrado;
+2. preservar o status PENDENTE_BVAA;
+3. preservar o veredito operacional PEDIR_PDF;
+4. preservar página não confirmada;
+5. preservar citação literal não liberada;
+6. preservar a referência como hipótese bibliográfica a verificar;
+7. manter “p. XX” bloqueado para versão final;
+8. solicitar PDF, trecho paginado pertinente ou confirmação material da edição;
+9. aguardar evidência documental ou decisão humana explícita antes de qualquer consolidação.
+
+---
+
+## 6. ATUALIZAÇÃO DA FUNÇÃO DO BVAA NO KIT MESTRE
+
+Onde o Kit Mestre descrever o BVAA, acrescentar:
+
+O BVAA pode emitir retornos pendentes, especialmente:
+
+PENDENTE_BVAA
+
+Esse status indica que fonte, página, trecho, citação literal, edição ou pertinência documental ainda não foram suficientemente verificados.
+
+O BVAA também pode emitir o veredito operacional:
+
+PEDIR_PDF
+
+Esse veredito exige que a Vaquita solicite PDF, trecho paginado, confirmação material da edição ou evidência documental equivalente antes de consolidar a referência no manuscrito.
+
+O BVAA não deve revisar texto no lugar da Vaquita, não deve resolver progressão argumentativa, não deve inventar página, não deve liberar citação literal sem trecho conferido e não deve transformar plausibilidade bibliográfica em sustentação documental.
+
+A FASE 9.F confirmou que o retorno pendente do BVAA é preservado corretamente pela cadeia Vaquita + Handoff + Vaquita destino.
+
+---
+
+## 7. ATUALIZAÇÃO DA FUNÇÃO DO HANDOFF NO KIT MESTRE
+
+Onde o Kit Mestre descrever o Handoff, acrescentar:
+
+O Handoff deve preservar retornos BVAA integrados, inclusive quando o status for pendente.
+
+Se o PACOTE_HANDOFF contiver:
+
+1. RETORNO_BVAA integrado;
+2. STATUS_BVAA: PENDENTE_BVAA;
+3. VEREDITO_OPERACIONAL: PEDIR_PDF;
+4. página não confirmada;
+5. citação literal não liberada;
+6. referência não LIBERADA;
+7. “p. XX” bloqueado;
+8. referência apenas como hipótese bibliográfica a verificar;
+
+então o PACOTE_HANDOFF_VAQUITA deve preservar integralmente esses elementos.
+
+O Handoff não deve:
+
+1. resolver a pendência BVAA;
+2. verificar bibliografia;
+3. confirmar página;
+4. liberar citação literal;
+5. consolidar referência;
+6. transformar PENDENTE_BVAA em LIBERADA;
+7. transformar PEDIR_PDF em USAR_COM_RESSALVA;
+8. substituir “p. XX” por página presumida;
+9. tratar plausibilidade temática como sustentação documental;
+10. acionar Komodo ou Jararaca sem comando;
+11. avançar fase ou parágrafo.
+
+---
+
+## 8. COMANDOS E ETIQUETAS A ACRESCENTAR OU REFORÇAR
+
+Certificar que o Kit Mestre preserve literalmente:
+
+PENDENTE_BVAA
+
+PEDIR_PDF
+
+PRECISA_BVAA
+
+BLOQUEADO PARA AVANÇO LOCAL
+
+Página não confirmada
+
+Citação literal não liberada
+
+Referência não LIBERADA
+
+“p. XX” bloqueado
+
+Hipótese bibliográfica a verificar
+
+Não consolidar referência
+
+Não transformar PENDENTE_BVAA em LIBERADA
+
+Não transformar PEDIR_PDF em USAR_COM_RESSALVA
+
+Não substituir “p. XX” por página presumida
+
+Não liberar citação literal
+
+Não consolidar citação com “p. XX”
+
+Observação:
+
+Algumas etiquetas apareceram no teste da FASE 9.F como etiquetas de caso. Não devem ser universalizadas como obrigatórias em todos os projetos, mas devem ser preservadas quando aparecerem em pacotes de migração ou teste.
+
+---
+
+## 9. RISCOS A ACRESCENTAR AO KIT MESTRE
+
+Adicionar aos riscos operacionais:
+
+### ALERTA_PENDENTE_BVAA_LIBERADO_INDEVIDAMENTE
+
+Risco:
+
+Transformar PENDENTE_BVAA em LIBERADA sem evidência verificável.
+
+Regra:
+
+PENDENTE_BVAA permanece pendência até nova evidência documental.
+
+---
+
+### ALERTA_PEDIR_PDF_SUAVIZADO
+
+Risco:
+
+Transformar PEDIR_PDF em USAR_COM_RESSALVA.
+
+Regra:
+
+PEDIR_PDF exige PDF, trecho paginado, confirmação material da edição ou evidência documental equivalente.
+
+---
+
+### ALERTA_P_XX_CONSOLIDADO
+
+Risco:
+
+Manter “p. XX” em versão final ou substituí-lo por página presumida.
+
+Regra:
+
+“p. XX” é marcador inválido para versão final e deve permanecer bloqueado até confirmação de página.
+
+---
+
+### ALERTA_REFERENCIA_ABNT_CONFUNDIDA_COM_VERIFICACAO
+
+Risco:
+
+Tratar referência normalizada em ABNT como se tivesse sido conferida documentalmente.
+
+Regra:
+
+Normalização bibliográfica não equivale a verificação documental.
+
+---
+
+### ALERTA_FONTE_CORINGA
+
+Risco:
+
+Usar obra bibliograficamente plausível como suporte genérico sem trecho específico conferido.
+
+Regra:
+
+Plausibilidade temática não equivale a sustentação documental verificável.
+
+---
+
+## 10. DECISÕES CONSOLIDADAS A INSERIR NO KIT MESTRE
+
+1. A FASE 9.F foi aprovada.
+
+2. O fluxo Vaquita + BVAA + Handoff está funcionalmente validado.
+
+3. O BVAA consegue devolver pendência documental sem liberar fonte.
+
+4. A Vaquita consegue integrar RETORNO_BVAA pendente.
+
+5. O Handoff consegue preservar RETORNO_BVAA pendente durante migração.
+
+6. A Vaquita destino consegue retomar estado com pendência BVAA ativa sem resolver, revisar, avançar ou consolidar a referência.
+
+7. PENDENTE_BVAA deve permanecer pendência documental ativa quando emitido pelo BVAA.
+
+8. PEDIR_PDF deve permanecer exigência documental, não autorização de uso com ressalva.
+
+9. “p. XX” deve permanecer bloqueado para versão final.
+
+10. Página não confirmada e citação literal não liberada devem ser preservadas como tais.
+
+11. Referência normalizada em ABNT não equivale a referência conferida documentalmente.
+
+12. O caso Daston/Park é apenas caso de teste e não deve contaminar o núcleo universal.
+
+---
+
+## 11. DECISÕES AINDA ABERTAS APÓS ESTA EMENDA
+
+1. Incorporar esta emenda ao Kit Mestre vigente para gerar:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt
+
+2. Atualizar o Pacote Mestre de Instalação/Uso com a FASE 9.F aprovada.
+
+3. Incorporar a emenda pós-9.F ao pacote geral de migração, se necessário.
+
+4. Executar teste integrado completo com os cinco módulos:
+
+Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+5. Criar kit de distribuição final do ecossistema.
+
+6. Decidir se haverá versão v1.0 final após testes adicionais.
+
+---
+
+## 12. STATUS FINAL DA EMENDA
+
+Esta emenda atualiza o Kit Mestre para o estado pós-FASE 9.F.
+
+Status:
+
+EMENDA_DE_ATUALIZACAO_DO_KIT_MESTRE_POS_9F_CRIADA
+
+Próximo passo:
+
+Anexar ou colar o arquivo vigente:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9E.txt
+
+e incorporar esta emenda em uma versão consolidada atualizada do Kit Mestre.
+
+Nome recomendado para a próxima versão consolidada:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt

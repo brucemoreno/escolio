@@ -1,0 +1,66 @@
+PACOTE_FONTE_FISICA_DEBRET_BANDEIRA_LAGO_2008_RECEBIDO
+
+Status de execução:
+
+**NÃO EXECUTADO COMO VERIFICAÇÃO VISUAL**, porque os dados manuais mínimos ainda não foram informados.
+
+## Resultado
+
+A obra física foi registrada como fonte potencial de apoio:
+
+**BANDEIRA, Júlio; LAGO, Pedro Corrêa do. *Debret e o Brasil: obra completa, 1816-1831*. Rio de Janeiro: Capivara, 2008.**
+
+Mas permanecem ausentes:
+
+* página da obra física;
+* título da prancha ou imagem;
+* número da prancha, se houver;
+* data atribuída;
+* legenda transcrita;
+* descrição objetiva da imagem;
+* confirmação visual sobre pão, café, carne, pessoas, consumo, comércio, mercado, mesa, cozinha, venda, rua ou hierarquia social.
+
+## Decisão operacional
+
+**FONTE_VISUAL_DEBRET: AINDA NÃO LIBERADA**
+
+Classificação provisória da pergunta de verificação:
+
+**EXIGE_DADOS_MANUAIS_ANTES_DA_CLASSIFICAÇÃO**
+
+Ainda não é possível escolher com segurança entre:
+
+1. SUSTENTA_COM_LIMITES
+2. NÃO_SUSTENTA
+3. SUSTENTA_APENAS_DESCRIÇÃO_VISUAL
+4. EXIGE_CRUZAMENTO_DOCUMENTAL
+
+Como não há prancha, página, legenda nem descrição objetiva, qualquer resposta agora seria inferência sem base visual conferida.
+
+## Efeito sobre comentários
+
+**COMENTÁRIO_WORD_054: MANTER**
+
+Motivo:
+
+A pendência visual continua aberta. A obra física foi identificada, mas nenhuma imagem específica foi conferida.
+
+**COMENTÁRIO_WORD_053: MANTER**
+
+Motivo:
+
+A obra BANDEIRA; LAGO, 2008 não libera Bandeira, 1994, p. 14, nem verifica os dados quantitativos sobre casas comerciais.
+
+## Numeração
+
+**COMENTÁRIO_WORD_055: PRESERVADO**
+
+Nenhum novo comentário Word foi gerado. Nenhum ID foi consumido.
+
+## Próximo comando seguro
+
+Para executar a verificação, reenviar:
+
+**PACOTE_FONTE_FISICA_DEBRET_BANDEIRA_LAGO_2008**
+
+com os campos preenchidos a partir da obra física.

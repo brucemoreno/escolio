@@ -1,0 +1,166 @@
+RELATÓRIO DE PRONTIDÃO PARA POSSÍVEL v1.0 FINAL — ECOSSISTEMA VAQUITA
+
+## 1. VEREDITO
+
+**TESTES ADICIONAIS NECESSÁRIOS**
+
+O ecossistema está pronto para **planejar** uma possível v1.0 final, mas ainda não recomendo declarar v1.0 final. O estado correto permanece:
+
+**KIT COMPLETO PÓS-9.G EXTRAÍDO CORRETAMENTE.
+APROVADO PARA DISTRIBUIÇÃO OPERACIONAL CONTROLADA.
+NÃO É v1.0 FINAL.**
+
+## 2. ESTADO ATUAL
+
+A FASE 9.G foi tecnicamente aprovada, a documentação pós-9.G foi consolidada, a nomenclatura curta canônica foi congelada e o kit completo pós-9.G foi gerado, extraído e auditado.
+
+Documentos-mãe operacionais vigentes:
+
+```text
+01_KIT_MESTRE_VAQ_ECO_v1RC_POS9G_FINAL.txt
+02_INSTAL_USO_VAQ_ECO_v1RC_POS9G_FINAL.txt
+03_MIGRACAO_VAQ_ECO_v1RC_POS9G_FINAL.txt
+```
+
+Prompts/bootstraps operacionais vigentes:
+
+```text
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+KOMODO_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+BOOTSTRAP_CARREGAMENTO_KOMODO_v1.0-RC.txt
+BVAA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+```
+
+## 3. CRITÉRIOS MÍNIMOS PARA v1.0 FINAL
+
+Declarar v1.0 final, neste projeto, significaria afirmar que o ecossistema está suficientemente estável para uso operacional padrão, com documentação, prompts, instalação, migração, testes mínimos e limites funcionais consolidados.
+
+Critérios mínimos recomendados:
+
+1. Kit completo extraído corretamente em ambiente local.
+2. Instalação testada em chats limpos.
+3. Boot dos cinco módulos testado a partir dos arquivos do kit.
+4. Teste mínimo funcional de cada módulo executado a partir do kit, não de memória.
+5. Handoff testado em retomada real a partir do Pacote de Migração curto.
+6. Verificação de que o README e o manifesto são suficientes para um usuário instalar sem orientação oral.
+7. Auditoria regressiva funcional dos cinco módulos após distribuição.
+8. README final de versão, deixando claro o que é v1.0 final.
+9. Changelog final, distinguindo v1.0-RC pós-9.G de eventual v1.0 final.
+10. Confirmação humana explícita de que o status pode mudar de v1.0-RC para v1.0 final.
+
+## 4. O QUE JÁ ESTÁ CUMPRIDO
+
+Já está cumprido:
+
+1. FASE 9.G tecnicamente aprovada.
+2. Integração completa Vaquita + Komodo + BVAA + Jararaca + Handoff validada.
+3. Documentos-mãe pós-9.G consolidados.
+4. Nomenclatura curta canônica aprovada.
+5. Kit completo pós-9.G gerado.
+6. ZIP auditado e aprovado para distribuição operacional pós-9.G.
+7. Extração local confirmada.
+8. Sete prompts/bootstraps operacionais presentes.
+9. Funções dos módulos preservadas.
+10. Regras pós-9.E, pós-9.F e pós-9.G preservadas.
+11. P030, P029, P028, UR-30, Capítulo 3, seção 3.2 e Daston/Park mantidos como casos de teste, não regras universais.
+
+## 5. O QUE AINDA PRECISA SER TESTADO
+
+Antes de v1.0 final, recomendo testar:
+
+1. **Teste de instalação em ambiente limpo**
+   Abrir novos chats usando exclusivamente os arquivos do kit extraído.
+
+2. **Teste de boot dos módulos**
+   Verificar se cada prompt responde apenas com a linha de boot esperada.
+
+3. **Teste mínimo da Vaquita**
+   Carregar Vaquita, enviar BLOCO 0 mínimo e confirmar que ela não avança indevidamente.
+
+4. **Teste mínimo do Komodo**
+   Carregar Komodo e confirmar que ele aguarda PACOTE_KOMODO.
+
+5. **Teste mínimo do BVAA**
+   Carregar BVAA e confirmar que ele aguarda PACOTE_BVAA.
+
+6. **Teste mínimo da Jararaca**
+   Carregar Jararaca e confirmar que ela aguarda PACOTE_JARARACA.
+
+7. **Teste mínimo do Handoff**
+   Carregar Handoff e confirmar que ele aguarda PACOTE_HANDOFF ou solicitação de migração.
+
+8. **Teste de leitura do README por usuário externo**
+   Verificar se alguém consegue identificar quais arquivos usar sem contexto da conversa.
+
+9. **Teste de migração curta**
+   Usar `03_MIGRACAO_VAQ_ECO_v1RC_POS9G_FINAL.txt` em novo chat e confirmar retomada correta sem declarar v1.0 final.
+
+10. **Auditoria regressiva funcional curta**
+    Confirmar que cada módulo mantém seus limites funcionais.
+
+## 6. RISCOS DE DECLARAÇÃO PREMATURA
+
+Riscos se declarar v1.0 final agora:
+
+1. Confundir “kit distribuível pós-9.G” com “versão final plenamente estabilizada”.
+2. Não detectar falhas de instalação em chat limpo.
+3. Descobrir tarde que algum bootstrap/prompt carregado do kit se comporta diferente do esperado.
+4. Ter documentação suficiente para o desenvolvedor, mas ainda não suficiente para usuário externo.
+5. Pular changelog final.
+6. Pular README final de versão.
+7. Transformar aprovação técnica da 9.G em aprovação final ampla.
+8. Apagar a distinção entre v1.0-RC e v1.0 final.
+
+## 7. PRÓXIMA ETAPA MAIS CONSERVADORA
+
+A próxima etapa mais conservadora é:
+
+**TESTE DE INSTALAÇÃO E BOOT EM AMBIENTE LIMPO — PÓS-9.G**
+
+Esse teste deve usar apenas o kit extraído, sem recorrer a memória da conversa, nomes longos ou arquivos intermediários.
+
+Ordem recomendada:
+
+1. Testar README/manifesto.
+2. Carregar Vaquita em chat limpo.
+3. Carregar Komodo em chat limpo.
+4. Carregar BVAA em chat limpo.
+5. Carregar Jararaca em chat limpo.
+6. Carregar Handoff em chat limpo.
+7. Testar migração curta com o pacote de migração.
+8. Só depois avaliar plano de v1.0 final.
+
+## 8. AÇÕES PROIBIDAS NESTE MOMENTO
+
+Neste momento, não fazer:
+
+1. declarar v1.0 final;
+2. gerar novo ZIP;
+3. alterar documentos-mãe;
+4. alterar prompts operacionais;
+5. criar novos sufixos;
+6. reabrir microajustes de nomenclatura;
+7. transformar nomes longos em nomes operacionais;
+8. apagar histórico técnico;
+9. tratar o kit parcial anterior como vigente;
+10. universalizar casos de teste;
+11. misturar funções dos módulos;
+12. avançar de fase sem teste de instalação.
+
+## 9. COMANDO HUMANO SEGURO PARA A PRÓXIMA ETAPA
+
+```text
+AUTORIZAÇÃO CONTROLADA — TESTE DE INSTALAÇÃO E BOOT EM AMBIENTE LIMPO — PÓS-9.G
+
+Execute apenas o plano de teste de instalação e boot do kit completo pós-9.G em ambiente limpo.
+
+Não declarar v1.0 final.
+Não alterar arquivos.
+Não gerar novo ZIP.
+Não criar novos sufixos.
+Não reabrir microajustes.
+Testar apenas se os documentos e prompts do kit extraído carregam corretamente e preservam seus limites funcionais.
+```

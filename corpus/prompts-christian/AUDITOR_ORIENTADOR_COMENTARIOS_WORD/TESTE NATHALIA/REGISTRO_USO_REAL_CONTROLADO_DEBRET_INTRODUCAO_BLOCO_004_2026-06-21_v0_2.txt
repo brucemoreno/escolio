@@ -1,0 +1,100 @@
+# REGISTRO DE USO REAL CONTROLADO — CICLO 004
+
+## Sistema operacional
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+## Bot-assessor
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.2
+
+## Trabalho testado
+
+Tese de Nathália Moro:
+Entre pratos e pincéis: práticas alimentares no Império do Brasil através da iconografia de Jean-Baptiste Debret (1816-1831)
+
+## Unidade testada
+
+Introdução — bloco sobre catálogos de Debret, acervo, bibliografia de apoio e organização capitular.
+
+## Escala
+
+MODO_BLOCO_CONTROLADO
+
+## Contexto operacional
+
+Este ciclo foi executado após migração preventiva por PACOTE_HANDOFF.
+
+O Handoff foi integrado com sucesso no novo chat operacional antes do BLOCO 004.
+
+A numeração dos comentários foi preservada após a migração.
+
+## Comandos executados
+
+1. COMANDO 0_BLOCO
+2. COMANDO 1_BLOCO
+3. GERAR_MAPA_RASTREABILIDADE
+
+## Validação pelo bot-assessor
+
+O bot-assessor classificou o ciclo como RESPOSTA_BOA.
+
+## Resultado
+
+CICLO_004_ENCERRADO_COM_RASTREABILIDADE_POS_HANDOFF_E_NUMERACAO_PRESERVADA_012
+
+## Comentários Word
+
+Foram autorizados para uso controlado, com cautela, os comentários:
+
+* COMENTÁRIO_WORD_009
+* COMENTÁRIO_WORD_010
+* COMENTÁRIO_WORD_011
+
+O próximo ID obrigatório preservado é:
+
+* COMENTÁRIO_WORD_012
+
+No Word, devem ser inseridos apenas os textos do campo COMENTÁRIO PARA INSERIR NO WORD, sem metadados internos do sistema.
+
+## Pontos sensíveis do bloco
+
+* Cardoso, 2003, p. 13.
+* Bandeira; Lago, 2008, p. 9.
+* Lima, 2007, p. 27.
+* Uso dos catálogos como mediação documental e bibliográfica.
+* Expressões como “obra completa”, “totalidade” e “cada pintura”.
+* Escopo dos catálogos não verificado.
+* Aquisição em 1939, acervos e mediação documental.
+* Função do capítulo biográfico em relação ao objeto alimentação em Debret.
+
+## Bloqueios preservados
+
+Foram preservados os seguintes bloqueios:
+
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+* página não confirmada
+* bibliografia específica não verificada
+* catálogos/acervos não verificados
+* edição/datação não verificadas
+* dados factuais de acervo não tratados como conferidos
+* comprovante de leitura PDF não produzido
+
+## Observações
+
+Os comentários Word foram considerados substantivos, seletivos e seguros para uso controlado.
+
+Não foram detectados:
+
+* comentário cosmético
+* bibliografia indevida
+* validação indevida de catálogos/acervos
+* página confirmada indevidamente
+* edição/datação tratada como verificada
+* poluição de comentários
+* risco de escala
+* perda de numeração
+* perda de estado
+
+Este registro é um fechamento mínimo de ciclo, baseado na validação final do bot-assessor. O mapa completo de rastreabilidade não foi salvo como arquivo separado neste momento, seguindo a regra operacional simplificada de não multiplicar arquivos intermediários sem necessidade.

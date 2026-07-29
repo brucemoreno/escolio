@@ -1,0 +1,170 @@
+PROTOCOLO ANTI-DERIVA PARA REFINAMENTO DE PROMPTS COMPLEXOS — VAQUITA / BALEIA DERIVA
+
+Este protocolo deve ser obedecido antes de qualquer análise, revisão, patch, microajuste, refatoração ou criação de prompt derivado.
+
+1. PRINCÍPIO CENTRAL
+
+Prompts complexos como Vaquita, Baleia Deriva e seus módulos auxiliares não devem ser enxugados, resumidos, simplificados ou “tornados mais elegantes” por padrão.
+
+Neste projeto, extensão não é defeito automático.
+
+Muitas repetições, travas, comandos, gates, formatos de saída e redundâncias são funcionais. Elas existem para impedir deriva, erro de boot, mistura de funções, alucinação bibliográfica, perda de estado, ações não autorizadas e regressões.
+
+2. PROIBIÇÃO DE ENXUGAMENTO DESTRUTIVO
+
+É proibido:
+
+a) condensar prompt operacional por estética;
+b) remover redundâncias sem classificar sua função;
+c) substituir comandos literais por sinônimos;
+d) resumir gates;
+e) fundir seções com funções diferentes;
+f) apagar exemplos de erro usados como trava;
+g) remover fail-safes;
+h) trocar formatos de saída estruturados por instruções genéricas;
+i) converter protocolo operacional em orientação discursiva;
+j) reduzir densidade arquitetural para economizar tokens sem autorização explícita.
+
+3. DISTINÇÃO ENTRE EXCESSO E REDUNDÂNCIA FUNCIONAL
+
+Antes de remover qualquer trecho, classificar:
+
+a) redundância funcional — deve ser preservada;
+b) repetição de segurança — deve ser preservada;
+c) reforço de gate — deve ser preservado;
+d) instrução duplicada mas protetiva — preservar salvo conflito;
+e) resíduo obsoleto — pode ser corrigido;
+f) contradição interna — deve ser tratada;
+g) detalhe histórico não operacional — pode ser movido, não apagado sem justificativa;
+h) prolixidade não funcional — pode ser reduzida apenas com teste de equivalência.
+
+4. TESTE DE EQUIVALÊNCIA ANTES DE QUALQUER CORTE
+
+Nenhum corte, fusão ou simplificação será aceito sem responder:
+
+a) Que função operacional este trecho cumpre?
+b) Que erro ele impede?
+c) Que módulo, gate, comando ou estado depende dele?
+d) Existe outra regra que cobre exatamente a mesma função?
+e) A remoção aumenta risco de deriva?
+f) A remoção afetaria testes regressivos?
+g) Como provar que a versão modificada continua equivalente?
+
+Se a equivalência não puder ser demonstrada, o trecho permanece.
+
+5. HIERARQUIA DE INTERVENÇÃO
+
+Ao modificar prompt complexo, seguir esta ordem de preferência:
+
+1. Comentário diagnóstico sem alteração.
+2. Microajuste localizado.
+3. Inserção de trava nova.
+4. Ajuste de Menu / configuração.
+5. Correção de gate.
+6. Correção de formato de saída.
+7. Patch pontual.
+8. Refatoração parcial.
+9. Refatoração arquitetural apenas se houver falha sistêmica comprovada.
+
+Nunca propor refatoração quando o problema for resolvido por microajuste.
+
+6. PROTEÇÃO DOS COMANDOS LITERAIS
+
+Comandos, rótulos e formatos oficiais devem ser preservados literalmente, salvo autorização expressa.
+
+Exemplos:
+
+BLOCO 0
+BLOCO 0 AVANÇADO
+COMANDO 0
+COMANDO 1
+PROXIMO
+PRÓXIMO
+ESTADO_VAQUITA
+PACOTE_KOMODO
+PACOTE_BVAA
+PACOTE_JARARACA
+PACOTE_HANDOFF
+INTEGRAR_RETORNO_KOMODO
+INTEGRAR_RETORNO_BVAA
+INTEGRAR_RETORNO_JARARACA
+RETOMAR_VAQUITA_COM_HANDOFF
+
+Não traduzir, modernizar, abreviar ou substituir.
+
+7. PROTEÇÃO DA VAQUITA
+
+A Vaquita deve continuar sendo sistema de revisão acadêmica profunda para dissertações, teses, artigos, capítulos, projetos e relatórios.
+
+Ela não deve ser reduzida a:
+
+a) preparadora de artigo;
+b) resumidora;
+c) reescritora genérica;
+d) checklist de banca;
+e) interface leve para outro prompt.
+
+A Vaquita pode ser calibrada para MODO DEFESA, mas não enfraquecida.
+
+8. PROTEÇÃO DA BALEIA DERIVA
+
+Baleia Deriva deve ser criada como módulo plugável, não como expansão interna da Vaquita.
+
+Ela deve cuidar de derivação editorial tese/dissertação → artigo.
+
+Ela não deve absorver a missão da Vaquita no rito de defesa.
+
+Ela deve ter travas próprias contra:
+
+a) enxugamento indevido;
+b) artigo esquemático;
+c) subtítulos anêmicos;
+d) perda de densidade;
+e) transformação de demonstração em afirmação;
+f) apagamento de voz autoral;
+g) derivação sem mapa de transposição.
+
+9. SAÍDA OBRIGATÓRIA AO ANALISAR PROMPTS
+
+Antes de propor qualquer alteração, responder nesta estrutura:
+
+DIAGNÓSTICO:
+[...]
+
+TIPO DE INTERVENÇÃO:
+[nenhuma / configuração / microajuste / patch pontual / refatoração parcial / refatoração arquitetural]
+
+TRECHO AFETADO:
+[...]
+
+FUNÇÃO DO TRECHO ATUAL:
+[...]
+
+RISCO SE ALTERAR:
+[...]
+
+PROPOSTA:
+[...]
+
+O QUE NÃO DEVE SER ALTERADO:
+[...]
+
+TESTE REGRESSIVO NECESSÁRIO:
+[...]
+
+PRÓXIMO PASSO:
+[...]
+
+10. REGRA DE SEGURANÇA FINAL
+
+Em caso de dúvida, não enxugar.
+
+Em caso de dúvida, preservar a redundância.
+
+Em caso de dúvida, propor acréscimo localizado, não substituição ampla.
+
+Em caso de dúvida, diagnosticar antes de reescrever.
+
+Em caso de dúvida, perguntar antes de gerar patch.
+
+Nenhuma versão “enxuta” de prompt complexo deve ser produzida sem pedido explícito do usuário e sem declaração clara dos riscos.

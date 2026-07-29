@@ -1,0 +1,186 @@
+# TERMO DE FECHAMENTO FORMAL v1.0 — ECOSSISTEMA VAQUITA
+
+## 1. DECLARAÇÃO FORMAL
+
+Fica formalmente registrado o fechamento da **versão v1.0 do Ecossistema Vaquita**, após conclusão, auditoria e validação das etapas pós-FASE 9.G.
+
+A versão v1.0 é declarada com base na consolidação documental, nos testes operacionais aprovados, na validação do kit de distribuição, na preservação das funções modulares e na autorização humana explícita para fechamento formal.
+
+Este termo não altera documentos-mãe, não altera prompts operacionais, não gera novo ZIP, não reabre nomenclatura, não cria novos sufixos e não apaga rastreabilidade histórica.
+
+## 2. DOCUMENTOS FINAIS VÁLIDOS
+
+A documentação final válida da versão v1.0 é composta por:
+
+1. `README_VERSAO_v1.0_FINAL__AUDITADO_ATUALIZADO.txt`
+2. `CHANGELOG_v1.0_FINAL.txt`
+
+Esses documentos registram a estabilização da versão v1.0, a passagem a partir do estado v1.0-RC pós-9.G, os testes aprovados, os limites funcionais preservados e a não universalização dos casos de teste.
+
+## 3. DOCUMENTOS-MÃE OPERACIONAIS VIGENTES
+
+Os documentos-mãe operacionais vigentes permanecem os nomes curtos canônicos:
+
+1. `01_KIT_MESTRE_VAQ_ECO_v1RC_POS9G_FINAL.txt`
+2. `02_INSTAL_USO_VAQ_ECO_v1RC_POS9G_FINAL.txt`
+3. `03_MIGRACAO_VAQ_ECO_v1RC_POS9G_FINAL.txt`
+
+Esses três arquivos continuam sendo os documentos-mãe operacionais de uso, distribuição e carregamento.
+
+Os nomes longos anteriores permanecem apenas como rastreabilidade histórica/de origem, não como nomes operacionais vigentes.
+
+## 4. PROMPTS OPERACIONAIS VIGENTES
+
+Os prompts e bootstraps operacionais vigentes são:
+
+### VAQUITA
+
+1. `VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt`
+2. `BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt`
+
+### KOMODO
+
+3. `KOMODO_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt`
+4. `BOOTSTRAP_CARREGAMENTO_KOMODO_v1.0-RC.txt`
+
+### BVAA
+
+5. `BVAA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt`
+
+### JARARACA
+
+6. `JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt`
+
+### HANDOFF
+
+7. `HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt`
+
+Esses prompts permanecem operacionais e não foram alterados por este termo.
+
+## 5. TESTES APROVADOS
+
+Foram aprovados e incorporados ao histórico de validação:
+
+1. Boot Vaquita.
+2. Boot Komodo.
+3. Boot BVAA.
+4. Boot Jararaca.
+5. Boot Handoff.
+6. Migração curta com `03_MIGRACAO_VAQ_ECO_v1RC_POS9G_FINAL.txt`.
+7. Leitura do README, Manifesto e Tabela.
+8. Vaquita com `BLOCO 0`.
+9. Vaquita com `COMANDO 1` fora de ordem.
+10. Vaquita com `PROXIMO` fora de ordem.
+11. Komodo com entrada sem `PACOTE_KOMODO`.
+12. BVAA com entrada sem `PACOTE_BVAA`.
+13. Jararaca com entrada sem `PACOTE_JARARACA`.
+14. Handoff com solicitação genérica de migração.
+15. Handoff com `PACOTE_HANDOFF` incompleto.
+16. Teste 9 — cadeia operacional mínima a partir do kit.
+
+## 6. TESTE 9 — CADEIA OPERACIONAL MÍNIMA
+
+O Teste 9 foi aprovado com a seguinte cadeia:
+
+Vaquita configurada
+→ `PACOTE_BVAA` gerado
+→ BVAA respondeu sem liberar fonte sem evidência
+→ Vaquita integrou `RETORNO_BVAA`
+→ Vaquita gerou `PACOTE_HANDOFF`
+→ Handoff converteu em `PACOTE_HANDOFF_VAQUITA`
+→ nova Vaquita retomou estado `PRONTO_COM_PENDÊNCIAS`
+
+O teste confirmou:
+
+1. preservação de estado;
+2. preservação de pendência BVAA;
+3. ausência de liberação documental indevida;
+4. ausência de página inventada;
+5. ausência de citação literal inventada;
+6. ausência de referência ABNT consolidada sem verificação;
+7. conversão correta pelo Handoff;
+8. retomada correta pela Vaquita destino.
+
+## 7. LIMITES FUNCIONAIS PRESERVADOS
+
+Permanecem preservadas as funções separadas dos módulos:
+
+1. Vaquita revisa e orquestra.
+2. Komodo audita fidelidade, densidade, sentido e voz autoral.
+3. BVAA verifica fonte, página, citação e referência.
+4. Jararaca audita redundância, progressão e deriva estrutural.
+5. Handoff preserva e transfere estado.
+
+Nenhum módulo substitui indevidamente outro módulo.
+
+## 8. REGRAS CRÍTICAS PRESERVADAS
+
+Permanecem ativas:
+
+1. `CORRIGIR_ANTES_DE_AVANÇAR` como bloqueio operacional.
+2. `PENDENTE_BVAA` como pendência documental ativa.
+3. `PEDIR_PDF` como exigência documental.
+4. `ESTRUTURA_ESTÁVEL_COM_RESSALVAS` como ressalva, não autorização automática.
+5. `PACOTE_HANDOFF` e `PACOTE_HANDOFF_VAQUITA` como pacotes distintos.
+6. Handoff como módulo de preservação e transferência de estado, não como auditor textual, bibliográfico ou estrutural.
+7. BVAA como verificador documental, não como revisor textual.
+8. Komodo como auditor textual, não como verificador bibliográfico.
+9. Jararaca como auditora estrutural, não como corretora de parágrafo.
+10. Vaquita destino como agente de retomada controlada, não de ação automática.
+
+## 9. CASOS DE TESTE NÃO UNIVERSALIZADOS
+
+Permanecem apenas como casos de teste, não como regras universais:
+
+1. P030.
+2. P029.
+3. P028.
+4. UR-30.
+5. Capítulo 3.
+6. seção 3.2.
+7. Daston/Park.
+8. conteúdo específico do caso 9.G.
+9. ressalva formal da Jararaca no R2C.
+
+Esses elementos não contaminam o núcleo universal do Ecossistema Vaquita.
+
+## 10. STATUS FINAL DO ECOSSISTEMA
+
+Status final declarado:
+
+**ECOSSISTEMA VAQUITA v1.0 — FORMALMENTE FECHADO.**
+
+Condição de fechamento:
+
+1. documentação final v1.0 válida;
+2. documentos-mãe operacionais vigentes preservados;
+3. prompts operacionais vigentes preservados;
+4. kit completo pós-9.G aprovado;
+5. boot dos cinco módulos aprovado;
+6. gates mínimos aprovados;
+7. migração curta aprovada;
+8. README, Manifesto e Tabela aprovados;
+9. Teste 9 integrado mínimo aprovado;
+10. limites funcionais preservados;
+11. rastreabilidade histórica preservada;
+12. casos de teste não universalizados.
+
+## 11. AÇÕES NÃO REALIZADAS POR ESTE TERMO
+
+Este termo não realizou:
+
+1. geração de arquivos;
+2. alteração de documentos-mãe;
+3. alteração de prompts operacionais;
+4. geração de novo ZIP;
+5. reabertura de nomenclatura;
+6. criação de novos sufixos;
+7. alteração do kit pós-9.G;
+8. apagamento de histórico técnico;
+9. universalização de casos de teste.
+
+## 12. FECHAMENTO
+
+Com base nas evidências acumuladas, nos testes aprovados e na autorização humana explícita, fica formalmente fechado o ciclo de estabilização da versão v1.0 do Ecossistema Vaquita.
+
+**STATUS_FINAL: ECOSSISTEMA VAQUITA v1.0 FORMALMENTE FECHADO.**

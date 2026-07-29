@@ -1,0 +1,49 @@
+PROTOCOLO ANTI-DERIVA / ANTI-DRIFT — RETOMADA DE CONTEXTO
+
+Antes de continuar, execute uma checagem de integridade do projeto.
+
+NÃO entregue ainda a versão final dos prompts.
+NÃO simplifique o projeto.
+NÃO apague decisões anteriores.
+NÃO trate nenhuma decisão provisória como definitiva sem confirmar.
+NÃO misture o caso Gabrielle com o núcleo universal do sistema.
+NÃO transforme sugestões antigas em comandos ativos sem verificar se ainda fazem sentido.
+NÃO resuma destrutivamente módulos, funções, nomes técnicos, decisões ou riscos.
+
+TAREFA:
+1. Reconstituir o estado atual do projeto com base na conversa.
+2. Listar apenas as decisões já consolidadas.
+3. Listar as decisões ainda abertas.
+4. Identificar riscos de deriva, conflito ou esquecimento.
+5. Confirmar qual é a fase atual.
+6. Confirmar qual é o próximo passo lógico.
+7. Informar explicitamente se alguma informação está ambígua ou insuficiente.
+8. Não avançar para a próxima fase até encerrar esta checagem.
+
+FORMATO DA RESPOSTA:
+
+[CHECKPOINT ANTI-DERIVA]
+
+1. FASE ATUAL
+- ...
+
+2. DECISÕES CONSOLIDADAS
+- ...
+
+3. DECISÕES EM ABERTO
+- ...
+
+4. RISCOS DE DERIVA/DRIFT
+- ...
+
+5. MÓDULOS QUE NÃO PODEM SER ESQUECIDOS
+- ...
+
+6. PONTOS DE ATENÇÃO PARA A PRÓXIMA ETAPA
+- ...
+
+7. PRÓXIMO PASSO RECOMENDADO
+- ...
+
+8. STATUS
+- Aguardar confirmação do usuário antes de avançar.

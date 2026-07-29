@@ -1,0 +1,120 @@
+# REGISTRO DE USO REAL CONTROLADO — CICLO 011
+
+## Sistema operacional
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+## Bot-assessor
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.2
+
+## Trabalho testado
+
+Tese de Nathália Moro:
+Entre pratos e pincéis: práticas alimentares no Império do Brasil através da iconografia de Jean-Baptiste Debret (1816-1831)
+
+## Unidade testada
+
+Capítulo 2 — seção 2.1, “A Missão Artística Francesa de 1816”
+Bloco 003 — projeto de ensino artístico no Rio de Janeiro, Marquês de Marialva, Conde da Barca, D. João VI, Lebreton, Humboldt, indústria europeia, belas-artes e Academia de Belas-Artes.
+
+## Escala
+
+MODO_BLOCO_CONTROLADO
+
+## Contexto operacional
+
+Este ciclo foi executado no novo chat operacional, após integração validada do PACOTE_HANDOFF pós-Introdução.
+
+O Handoff preservou os Ciclos 001 a 008, os COMENTÁRIO_WORD_001 a COMENTÁRIO_WORD_022, o encerramento da Introdução, o mapa consolidado da Introdução, a retificação do BLOCO 007 sobre “inúmeras lojas da cidade” e os bloqueios BVAA/BVAA-Drive.
+
+Os Ciclos 009 e 010 já haviam confirmado a estabilidade do novo chat operacional após o Handoff.
+
+## Comandos executados
+
+1. COMANDO 0_BLOCO
+2. COMANDO 1_BLOCO
+3. GERAR_MAPA_RASTREABILIDADE
+
+## Validação pelo bot-assessor
+
+O bot-assessor classificou o fechamento do ciclo como RESPOSTA_BOA.
+
+## Resultado
+
+CICLO_011_ENCERRADO_COM_RASTREABILIDADE_MISSAO_ARTISTICA_FRANCESA_DOCUMENTOS_OFICIAIS_NOTA_3_NAO_CONFERIDA_E_PROXIMO_ID_033
+
+## Comentários Word
+
+Foram autorizados para uso controlado, com cautela, os comentários:
+
+* COMENTÁRIO_WORD_029
+* COMENTÁRIO_WORD_030
+* COMENTÁRIO_WORD_031
+* COMENTÁRIO_WORD_032
+
+O próximo ID obrigatório preservado é:
+
+* COMENTÁRIO_WORD_033
+
+No Word, devem ser inseridos apenas os textos do campo COMENTÁRIO PARA INSERIR NO WORD, sem metadados internos do sistema.
+
+## Observação prática para inserção no Word
+
+No COMENTÁRIO_WORD_029, selecionar o título ou apenas a expressão “Missão Artística Francesa”.
+
+Nos COMENTÁRIO_WORD_030 a COMENTÁRIO_WORD_032, selecionar apenas os trechos indicados, não os parágrafos inteiros.
+
+## Pontos sensíveis do bloco
+
+* Expressão “segundo documentos oficiais da época3”.
+* Nota 3 não recebida e não conferida.
+* “Documentos oficiais da época” sem identificação documental suficiente.
+* Debret, 1985b, p. 365; 425-426; 448 não verificado.
+* Debret, 1985a, p. 12 não verificado.
+* Citações literais sobre “criação de uma sociedade de encorajamento à indústria”, “projeto de uma Academia de Belas-Artes”, “necessidade de atrair a indústria europeia...” e “com o fim de fundar uma Academia [...]”.
+* Dias, 2006, p. 304; Villaça/Morais, 1993, p. 16; Cardoso, 2003, p. 21-22; Pelegrini/Tutui, 2013 não verificados.
+* “Missão Artística Francesa” como categoria historiográfica.
+* Causalidade institucional envolvendo Marialva, Conde da Barca, D. João VI, Lebreton e Humboldt.
+* Oposição entre “nova concepção estética” e “tradição colonial”, com risco de teleologia.
+
+## Bloqueios preservados
+
+Foram preservados os seguintes bloqueios:
+
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+* PAGINA_NAO_CONFIRMADA
+* CITACAO_LITERAL_NAO_LIBERADA
+* fonte primária não conferida
+* bibliografia específica não verificada
+* nota 3 não tratada como conferida
+* documentos oficiais da época não tratados como identificados ou verificados
+* Debret 1985a/1985b não tratado como verificado
+* citações literais não liberadas
+* categoria “Missão Artística Francesa” não tratada como autoevidente
+* interpretação sobre ruptura estética não tratada como demonstrada sem mediação
+* comprovante de leitura PDF não produzido
+
+## Observações
+
+Os comentários Word foram considerados substantivos, seletivos e seguros para uso controlado.
+
+Não foram detectados:
+
+* perda de estado
+* perda de numeração
+* validação indevida de página
+* validação indevida de citação literal
+* validação indevida de fonte primária
+* tratamento indevido da nota 3 como conferida
+* enfraquecimento BVAA/BVAA-Drive
+* comentário cosmético
+* poluição de comentários
+* risco de escala
+* necessidade de ESTADO COMPLETO
+* necessidade de PACOTE_HANDOFF
+
+Este ciclo confirmou a continuidade estável do novo chat operacional após o Handoff pós-Introdução.
+
+Este registro é um fechamento mínimo de ciclo, baseado na validação final do bot-assessor. O mapa completo de rastreabilidade não foi salvo como arquivo separado neste momento, seguindo a regra operacional simplificada de não multiplicar arquivos intermediários sem necessidade.

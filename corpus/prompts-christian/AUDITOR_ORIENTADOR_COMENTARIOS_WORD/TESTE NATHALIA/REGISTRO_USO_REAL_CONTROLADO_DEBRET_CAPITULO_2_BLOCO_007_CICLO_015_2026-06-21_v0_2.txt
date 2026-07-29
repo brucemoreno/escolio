@@ -1,0 +1,134 @@
+# REGISTRO DE USO REAL CONTROLADO — CICLO 015
+
+## Sistema operacional
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+## Bot-assessor
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.2
+
+## Trabalho testado
+
+Tese de Nathália Moro:
+Entre pratos e pincéis: práticas alimentares no Império do Brasil através da iconografia de Jean-Baptiste Debret (1816-1831)
+
+## Unidade testada
+
+Capítulo 2 — seção 2.2, “Sob Traços Neoclássicos”
+Bloco 007 — trânsito de Debret entre elite, pessoas escravizadas e pobres; cenas cotidianas; esboços e método de trabalho; analogia com “olhar fotográfico”; mediação visual; intencionalidade do pintor; higienização da brutalidade escravista; valor histórico dos detalhes iconográficos; ponte para alimentação e cultura material.
+
+## Escala
+
+MODO_BLOCO_CONTROLADO
+
+## Contexto operacional
+
+Este ciclo foi executado no novo chat operacional, após integração validada do PACOTE_HANDOFF pós-Introdução.
+
+O Handoff preservou os Ciclos 001 a 008, os COMENTÁRIO_WORD_001 a COMENTÁRIO_WORD_022, o encerramento da Introdução, o mapa consolidado da Introdução, a retificação do BLOCO 007 sobre “inúmeras lojas da cidade” e os bloqueios BVAA/BVAA-Drive.
+
+Os Ciclos 009, 010, 011, 012, 013 e 014 já haviam confirmado a estabilidade do novo chat operacional após o Handoff.
+
+## Retificação operacional de seção
+
+Durante o COMANDO 0_BLOCO, o chat operacional registrou indevidamente o bloco como pertencente à seção 2.1 — “A Missão Artística Francesa de 1816”.
+
+O bot-assessor detectou a deriva local de seção e determinou retificação antes do COMANDO 1_BLOCO.
+
+Foi enviada retificação operacional prospectiva, determinando que o bloco fosse tratado corretamente como:
+
+Capítulo 2 — seção 2.2 — “Sob Traços Neoclássicos”
+
+A retificação foi incorporada corretamente no COMANDO 1_BLOCO e confirmada no mapa de rastreabilidade, sem reabrir ciclos anteriores, sem renumerar comentários e sem alterar comentários já gerados.
+
+## Comandos executados
+
+1. COMANDO 0_BLOCO
+2. RETIFICACAO_OPERACIONAL_DE_SECAO
+3. COMANDO 1_BLOCO
+4. GERAR_MAPA_RASTREABILIDADE
+
+## Validação pelo bot-assessor
+
+O bot-assessor classificou o fechamento do ciclo como RESPOSTA_BOA.
+
+## Resultado
+
+CICLO_015_ENCERRADO_COM_RASTREABILIDADE_SECAO_2_2_RETIFICADA_OLHAR_FOTOGRAFICO_MEDIACAO_VISUAL_PONTE_ALIMENTAR_E_PROXIMO_ID_048
+
+## Comentários Word
+
+Foram autorizados para uso controlado, com cautela, os comentários:
+
+* COMENTÁRIO_WORD_043
+* COMENTÁRIO_WORD_044
+* COMENTÁRIO_WORD_045
+* COMENTÁRIO_WORD_046
+* COMENTÁRIO_WORD_047
+
+O próximo ID obrigatório preservado é:
+
+* COMENTÁRIO_WORD_048
+
+No Word, devem ser inseridos apenas os textos do campo COMENTÁRIO PARA INSERIR NO WORD, sem metadados internos do sistema.
+
+## Pontos sensíveis do bloco
+
+* Afirmação de que Debret transitou entre intimidade da elite e escassez da vida de pessoas escravizadas e pobres exige critério comparativo.
+* Cardoso, 2003, p. 41, e Tutui, 2015, p. 4-5 permanecem não verificados.
+* Método de esboços iniciais e registro ágil de cenas cotidianas permanece não verificado.
+* Villaça; Morais, 1993, p. 14 permanece não verificado.
+* Analogia entre Debret e “olhar fotográfico” exige controle historiográfico e metodológico.
+* Aragão, 2009, p. 140-141 permanece não verificado.
+* Tensão entre registro visual, intencionalidade artística e mediação para público europeu exige precisão.
+* Pesavento, 2008, p. 111-112 permanece não verificado.
+* Formulação forte sobre Debret selecionar, estetizar e higienizar a brutalidade do cotidiano escravista exige demonstração visual/documental.
+* Afirmação de que o livro de Debret se tornou a obra ilustrada mais famosa já publicada por viajantes europeus sobre o Brasil permanece não verificada.
+* Bandeira; Lago, 2008, p. 55 permanece não verificado.
+* Expressão “detalhes que nutrem suas cenas” deve funcionar como ponte analítica para alimentação/cultura material, não como frase apenas retórica.
+
+## Bloqueios preservados
+
+Foram preservados os seguintes bloqueios:
+
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+* PAGINA_NAO_CONFIRMADA
+* CITACAO_LITERAL_NAO_LIBERADA quando aplicável
+* expressão entre aspas não liberada
+* bibliografia específica não verificada
+* dados factuais não tratados como verificados
+* Cardoso não tratado como verificado
+* Tutui não tratado como verificado
+* Villaça/Morais não tratado como verificado
+* Aragão não tratado como verificado
+* Pesavento não tratado como verificado
+* Bandeira/Lago não tratado como verificado
+* “olhar fotográfico” não tratado como citação conferida nem como propriedade literal da obra
+* “higienizava a brutalidade do cotidiano escravista” não tratado como demonstrado sem análise visual/documental
+* “detalhes que nutrem suas cenas” não tratado como conclusão analítica já comprovada
+* comprovante de leitura PDF não produzido
+
+## Observações
+
+Os comentários Word foram considerados substantivos, seletivos e seguros para uso controlado.
+
+Não foram detectados:
+
+* erro persistente de seção
+* perda de estado
+* perda de numeração
+* validação indevida de página
+* validação indevida de fonte
+* liberação indevida de citação literal
+* tratamento indevido de bibliografia como verificada
+* comentário cosmético
+* poluição de comentários
+* risco de escala
+* necessidade de ESTADO COMPLETO
+* necessidade de PACOTE_HANDOFF
+
+Este ciclo é relevante para a homologação do prompt-mãe porque demonstrou que o ecossistema detecta e corrige uma deriva local de localização textual sem comprometer a continuidade operacional.
+
+Este registro é um fechamento mínimo de ciclo, baseado na validação final do bot-assessor. O mapa completo de rastreabilidade não foi salvo como arquivo separado neste momento, seguindo a regra operacional simplificada de não multiplicar arquivos intermediários sem necessidade.

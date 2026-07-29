@@ -1,0 +1,453 @@
+INICIO_DO_ARQUIVO
+
+# AUDITORIA_INTEGRACAO_PROTOCOLO_ZONA_SEGURA_MIGRACAO_PROMPTS_100_2026-06-22
+
+## 0. Checkpoint anti-deriva aplicado
+
+OBJETIVO_ATUAL:
+
+Auditar a integração do protocolo de zona segura, anti-deriva e migração preventiva nas peças 100% do sistema de revisão orientadora com comentários Word.
+
+NÃO_EXECUTAR_AGORA:
+
+Não abrir BLOCO_003.
+
+Não executar COMANDO 1_BLOCO.
+
+Não gerar COMENTÁRIO_WORD_058.
+
+Não consumir ID.
+
+Não revisar tese.
+
+Não alterar a matriz v0.2 neste ato.
+
+Não alterar a versão PC30_RC2_1 neste ato.
+
+Não alterar o Bot Junior PC30 v0.1.4 neste ato.
+
+Não gerar versão enxuta.
+
+Não aplicar patch solto.
+
+Não transformar diagnóstico em reescrita imediata sem decisão arquitetural.
+
+ESTADO OPERACIONAL PRESERVADO:
+
+BLOCO_001: FECHADO
+
+BLOCO_002: EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003: NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL: COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO: COMENTÁRIO_WORD_058
+
+MODO_COBERTURA_ATUAL: MODO_COBERTURA_PADRAO
+
+PC30: INATIVO
+
+ZONA_OPERACIONAL_DESTE_CHAT:
+
+ZONA_AMARELA_LEVE
+
+CONDUTA:
+
+Auditoria permitida neste chat.
+
+Reescrita integral dos prompts 100% não recomendada neste chat sem pacote de migração arquitetural, porque o chat já acumula ciclos extensos de arquitetura, auditoria, homologação e fechamento.
+
+FIM_CHECKPOINT_ANTI_DERIVA
+
+---
+
+# 1. Artefatos auditados
+
+Foram auditados conceitualmente os seguintes artefatos:
+
+## 1.1. Prompt revisor 100%
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_DRIVE_FIRST_BVAA
+
+Função:
+
+Prompt operacional revisor para auditoria substantiva de teses e dissertações em História das Ciências, com comentários Word, BVAA-Drive, leitura obrigatória de PDF e critério acadêmico de paginação.
+
+Status operacional posterior do fluxo:
+
+PROMPT-MÃE HOMOLOGADO CONTROLADAMENTE PARA USO OPERACIONAL EM BLOCOS.
+
+## 1.2. Bot assessor 100%
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_2
+
+Função:
+
+Assessor operacional autônomo do usuário humano para uso controlado do prompt revisor 100%.
+
+Status:
+
+Versão integrada candidata/homologada em ciclo próprio anterior, mas sem o protocolo canônico de zona segura formulado com a precisão posteriormente estabilizada no Bot Junior PC30.
+
+## 1.3. Referência comparativa
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4
+
+Função:
+
+Referência arquitetural recente para protocolo canônico de zona segura, anti-deriva, preservação de estado, preservação de IDs e migração.
+
+Status:
+
+HOMOLOGADO OPERACIONALMENTE COMO ASSESSOR PC30 LIMITADO.
+
+---
+
+# 2. Critério de auditoria
+
+A auditoria avaliou se as peças 100% contêm, de forma explícita, suficiente e operacionalmente vinculante, os seguintes elementos:
+
+1. ZONA_VERDE;
+2. ZONA_AMARELA;
+3. ZONA_VERMELHA;
+4. gatilhos de cada zona;
+5. consequência operacional de cada zona;
+6. bloqueio de abertura de novo bloco em zona insegura;
+7. regra de migração preventiva;
+8. comando formal de verificação de zona;
+9. comando formal de pacote de migração operacional;
+10. preservação de último comentário Word real;
+11. preservação de próximo ID obrigatório;
+12. proibição de consumo de ID por mapa, exportação, estado, migração e anti-deriva;
+13. distinção entre prompt revisor, bot assessor, bot junior, chat operacional, chat de arquitetura, chat BVAA e chat de handoff;
+14. preservação das pendências BVAA, fonte visual e fonte física;
+15. bloqueio contra tese inteira como unidade operacional de comentários Word;
+16. bloqueio contra reabertura indevida de blocos fechados;
+17. obrigação de gerar versões integradas em vez de patches soltos.
+
+---
+
+# 3. Achados no prompt revisor 100%
+
+## 3.1. Elementos já presentes
+
+O prompt revisor 100% já contém elementos fortes de segurança:
+
+1. BOOT obrigatório;
+2. exigência de BLOCO 0 antes da auditoria;
+3. modo-mãe MODO_DEFESA_DISSERTACAO_TESE;
+4. regra de que manuscrito completo serve para cartografia global;
+5. regra de que capítulo, seção ou bloco são unidades de comentários Word;
+6. bloqueio contra tese inteira como unidade de comentários Word;
+7. comando PAUSA_ANTI_DERIVA;
+8. comando ESTADO;
+9. comando ESTADO COMPLETO;
+10. comando PACOTE_HANDOFF;
+11. comando GERAR_MAPA_RASTREABILIDADE;
+12. comando EXPORTAR_MAPA_COMENTARIOS;
+13. regra contra comentários cosméticos;
+14. regra contra bibliografia sem leitura;
+15. regra BVAA/BVAA-Drive;
+16. regra de PDF aberto;
+17. regra de página PDF versus página impressa;
+18. controle de fonte, página, citação literal e referência específica.
+
+## 3.2. Lacunas identificadas
+
+O prompt revisor 100% não contém, de modo canônico e suficiente:
+
+1. ZONA_VERDE;
+2. ZONA_AMARELA;
+3. ZONA_VERMELHA;
+4. gatilhos explícitos para migração preventiva;
+5. proibição explícita de abrir novo bloco em zona amarela ou vermelha;
+6. comando VERIFICAR_ZONA_OPERACIONAL;
+7. comando PACOTE_MIGRACAO_OPERACIONAL;
+8. modelo integral de pacote de migração operacional;
+9. distinção entre handoff genérico e migração operacional por risco de saturação;
+10. regra explícita de que mapa, exportação, estado, migração, validação e anti-deriva não consomem ID;
+11. protocolo formal de transição quando o chat estiver longo, com muitas decisões, muitas pendências BVAA ou risco de perda de rastreabilidade;
+12. bloqueio operacional por zona vermelha;
+13. obrigação de encerrar bloco, gerar mapa/exportação/estado e migrar antes de abrir novo bloco em zona amarela.
+
+## 3.3. Diagnóstico do prompt revisor 100%
+
+O prompt revisor 100% tem anti-deriva e handoff, mas não tem o protocolo de zona segura no padrão agora homologado no Bot Junior PC30.
+
+Classificação:
+
+INTEGRAÇÃO PARCIAL
+
+Risco:
+
+MÉDIO EM USO LONGO
+
+Motivo:
+
+Em chats longos, a ausência de zona operacional canônica pode permitir continuidade excessiva, abertura de novo bloco em contexto saturado, perda de estado, confusão de IDs ou handoff tardio.
+
+Impacto:
+
+Não invalida a matriz v0.2.
+
+Não invalida a homologação controlada anterior.
+
+Mas recomenda nova versão integrada futura para segurança operacional ampliada.
+
+---
+
+# 4. Achados no Bot assessor 100%
+
+## 4.1. Elementos já presentes
+
+O Bot assessor 100% já contém elementos importantes:
+
+1. BOOT obrigatório;
+2. função de assessor operacional;
+3. distinção entre bot assessor e prompt revisor;
+4. bloqueio contra produção de comentários Word;
+5. bloqueio contra revisão de tese;
+6. verificação de resposta do chat operacional;
+7. indicação de próximo comando seguro;
+8. verificação de BOOT;
+9. verificação de BLOCO 0;
+10. verificação de escala;
+11. verificação de modo de cobertura;
+12. verificação de estado;
+13. verificação de comentários Word;
+14. verificação de risco BVAA/BVAA-Drive;
+15. verificação de risco bibliográfico, página, PDF e citação literal;
+16. verificação de risco de perda de estado;
+17. indicação de ESTADO;
+18. indicação de ESTADO COMPLETO;
+19. indicação de GERAR_MAPA_RASTREABILIDADE;
+20. indicação de PACOTE_HANDOFF;
+21. guardião contra tese inteira;
+22. guardião contra comentários cosméticos;
+23. guardião contra poluição de comentários;
+24. guardião contra chat errado;
+25. alerta de migração;
+26. orientação sobre quando migrar de chat.
+
+## 4.2. Lacunas identificadas
+
+O Bot assessor 100% não contém, de modo canônico e suficiente:
+
+1. ZONA_VERDE;
+2. ZONA_AMARELA;
+3. ZONA_VERMELHA;
+4. comando formal VERIFICAR_ZONA_OPERACIONAL;
+5. comando formal PACOTE_MIGRACAO_OPERACIONAL;
+6. modelo canônico de resposta para zona verde;
+7. modelo canônico de resposta para zona amarela;
+8. modelo canônico de resposta para zona vermelha;
+9. regra de bloqueio de novo bloco quando houver zona vermelha;
+10. regra de finalizar bloco em curso e migrar antes de abrir novo bloco em zona amarela;
+11. obrigação de preservar último comentário real e próximo ID obrigatório em todo pacote de migração;
+12. obrigação de registrar pendências BVAA, fonte visual e fonte física no pacote de migração;
+13. regra explícita de que migração não consome ID;
+14. separação formal entre PACOTE_HANDOFF e PACOTE_MIGRACAO_OPERACIONAL;
+15. subrotina de validação do pacote de migração antes do uso;
+16. protocolo para retorno do novo chat após migração.
+
+## 4.3. Diagnóstico do Bot assessor 100%
+
+O Bot assessor 100% já possui função de alerta e preservação operacional, mas o protocolo está formulado como orientação de handoff/migração, não como sistema de zonas.
+
+Classificação:
+
+INTEGRAÇÃO PARCIAL FORTE, MAS NÃO CANÔNICA
+
+Risco:
+
+MÉDIO-BAIXO EM USO NORMAL
+
+MÉDIO EM USO LONGO OU MULTIBLOCO
+
+Motivo:
+
+O Bot assessor tem a intuição funcional correta, mas não tem a taxonomia operacional estabilizada depois: zona verde, zona amarela, zona vermelha e pacote de migração operacional completo.
+
+Impacto:
+
+Não invalida o Bot assessor 100%.
+
+Mas recomenda nova versão integrada futura.
+
+---
+
+# 5. Comparação com o Bot Junior PC30 v0.1.4
+
+O Bot Junior PC30 v0.1.4 consolidou um padrão superior para:
+
+1. carregamento controlado;
+2. inicialização formal;
+3. pausa anti-deriva;
+4. verificação de zona;
+5. preservação explícita de último ID real;
+6. preservação explícita de próximo ID obrigatório;
+7. separação entre assessor e chat operacional;
+8. recusa à troca indevida de função;
+9. zona operacional;
+10. migração preventiva;
+11. bloqueio contra abertura indevida de bloco;
+12. bloqueio contra consumo indevido de ID;
+13. preservação de pendências BVAA/visual/física;
+14. uso de modelo de resposta com estado herdado;
+15. termo de homologação controlada.
+
+Esse padrão não deve ser copiado mecanicamente para os prompts 100%, porque o escopo é diferente.
+
+Mas deve ser promovido arquiteturalmente, com adaptação, para:
+
+1. prompt revisor 100%;
+2. Bot assessor 100%.
+
+---
+
+# 6. Veredito da auditoria
+
+VEREDITO:
+
+INTEGRAÇÃO INSUFICIENTE PARA O PADRÃO CANÔNICO ATUAL.
+
+Classificação:
+
+NÃO CRÍTICA
+
+NÃO INVALIDANTE
+
+MAS REQUER MELHORIA ARQUITETURAL INTEGRADA
+
+A matriz v0.2 continua preservada.
+
+O prompt revisor 100% continua utilizável no regime de homologação controlada anterior.
+
+O Bot assessor 100% continua funcional como copiloto operacional.
+
+Mas ambos devem receber, em ciclo próprio, integração arquitetural do protocolo de zona segura e migração preventiva.
+
+---
+
+# 7. Decisão sobre correção
+
+Não basta gerar um termo de preservação.
+
+Não basta gerar um patch solto.
+
+Não basta anexar um módulo externo informal.
+
+A correção adequada é gerar novas versões integradas:
+
+## 7.1. Nova versão recomendada do prompt revisor 100%
+
+Nome recomendado:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_1_DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+Natureza:
+
+Versão integrada derivada da v0.2, preservando integralmente a matriz funcional e incorporando protocolo de zona segura/migração.
+
+Status recomendado:
+
+CANDIDATA_v0_2_1_NAO_HOMOLOGADA
+
+Até teste controlado, não deve substituir a v0.2 homologada.
+
+Função da versão:
+
+Manter a cobertura 100%, mas com protocolo explícito de zona operacional, migração preventiva e bloqueio de continuidade insegura.
+
+## 7.2. Nova versão recomendada do Bot assessor 100%
+
+Nome recomendado:
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_3_ZONA_SEGURA
+
+Natureza:
+
+Versão integrada derivada da v0.1.2, preservando função assessora e incorporando protocolo canônico de zonas, migração operacional e validação de pacote.
+
+Status recomendado:
+
+CANDIDATA_v0_1_3_NAO_HOMOLOGADA
+
+Até teste controlado, não deve substituir a v0.1.2.
+
+Função da versão:
+
+Tornar o assessor 100% capaz de operar com a mesma precisão de controle já homologada no Bot Junior PC30, respeitando as diferenças entre revisão 100% e PC30.
+
+---
+
+# 8. Conteúdo mínimo a integrar nas versões futuras
+
+As novas versões devem integrar, em nível arquitetural, os seguintes módulos:
+
+1. PROTOCOLO_ZONA_SEGURA_OPERACIONAL;
+2. ZONA_VERDE;
+3. ZONA_AMARELA;
+4. ZONA_VERMELHA;
+5. GATILHOS_DE_ZONA_AMARELA;
+6. GATILHOS_DE_ZONA_VERMELHA;
+7. CONSEQUENCIAS_OPERACIONAIS_POR_ZONA;
+8. VERIFICAR_ZONA_OPERACIONAL;
+9. PAUSA_ANTI_DERIVA_COM_ZONA;
+10. PACOTE_MIGRACAO_OPERACIONAL;
+11. MODELO_PACOTE_MIGRACAO_OPERACIONAL;
+12. VALIDAÇÃO_DE_PACOTE_MIGRACAO;
+13. REGRA_DE_NAO_CONSUMO_DE_ID_POR_MIGRACAO;
+14. REGRA_DE_NAO_ABRIR_NOVO_BLOCO_EM_ZONA_INSEGURA;
+15. REGRA_DE_FECHAMENTO_DE_BLOCO_ANTES_DE_MIGRAR;
+16. REGRA_DE_PRESERVACAO_DE_PENDENCIAS_BVAA;
+17. REGRA_DE_PRESERVACAO_DE_FONTE_VISUAL;
+18. REGRA_DE_PRESERVACAO_DE_FONTE_FISICA;
+19. REGRA_DE_SEPARACAO_ENTRE_PROMPT_REVISOR_E_BOT_ASSESSOR;
+20. REGRA_DE_SEPARACAO_ENTRE_PROMPT_100_E_PC30;
+21. REGRA_DE_NAO_PATCH;
+22. REGRA_DE_NAO_ENXUGAR_ARTEFATOS_INTEGRAIS.
+
+---
+
+# 9. Risco de prosseguir neste mesmo chat
+
+Este chat está em:
+
+ZONA_AMARELA_LEVE
+
+Motivos:
+
+1. histórico longo;
+2. múltiplos ciclos de prompt;
+3. múltiplos artefatos;
+4. homologação do Bot Junior recém-fechada;
+5. coexistência de matriz v0.2, PC30_RC2_1, Bot assessor 100% e Bot Junior PC30;
+6. risco de confusão entre arquitetura e operação;
+7. risco de enxugamento involuntário se reescrever artefatos longos aqui;
+8. risco de perda de rastreabilidade se gerar duas versões longas no mesmo chat.
+
+Conduta recomendada:
+
+Gerar pacote de migração arquitetural específico antes de reescrever as versões 100%.
+
+---
+
+# 10. Próximo comando seguro
+
+Próximo comando seguro:
+
+GERAR_PACOTE_MIGRACAO_ARQUITETURAL_PROMPTS_100_ZONA_SEGURA
+
+Finalidade:
+
+Abrir novo chat de arquitetura para gerar, com anti-deriva e sem enxugamento:
+
+1. AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_1_DRIVE_FIRST_BVAA_ZONA_SEGURA;
+2. BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_3_ZONA_SEGURA;
+3. pacote de teste controlado das duas versões;
+4. auditoria posterior;
+5. termo de homologação apenas se os testes passarem.
+
+FIM_DO_ARQUIVO
