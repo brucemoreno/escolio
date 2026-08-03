@@ -1,2 +1,3 @@
-corpus\prompts-christian\🐜\ \ Vaquita-Komodo\ -\ Versao\ ChatGPT
-corpus\prompts-christian\AUDITOR_ORIENTADOR_COMENTARIOS_WORD
+data/
+*:Zone.Identifier
+node_modules/
