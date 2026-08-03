@@ -1,0 +1,38 @@
+INICIO_DO_PROTOCOLO
+
+PROTOCOLO_DE_RESTAURACAO_DE_ESTADO_P01_R01
+
+OBJETIVO:
+Restaurar o estado canônico verificável do projeto sem executar transição.
+
+CONFERENCIAS_OBRIGATORIAS:
+- identidade do projeto;
+- autoridade da R03;
+- estado do P00;
+- estado de P01-P28;
+- hashes dos objetos essenciais disponíveis;
+- decisões congeladas;
+- pendências abertas;
+- papéis e autoridades;
+- travas e proibições;
+- única próxima ação autorizada.
+
+CLASSIFICACAO_DE_DIVERGENCIAS:
+A. MATERIAL_BLOQUEADORA
+   Compromete identidade, conteúdo, escopo, proveniência ou veredito.
+B. FORMAL_NAO_BLOQUEADORA
+   Não altera identidade, conteúdo, escopo, proveniência ou veredito.
+C. NAO_COMPROVADA
+   Não pode ser resolvida por inferência.
+
+REGRAS:
+- divergência formal não bloqueia isoladamente;
+- divergência material exige interrupção;
+- ausência de evidência não autoriza reconstrução;
+- objeto confirmado por hash não deve ser solicitado novamente sem necessidade real;
+- restauração não homologa nem inicia componente.
+
+SAIDA:
+RECIBO_DE_RESTAURACAO
+
+FIM_DO_PROTOCOLO

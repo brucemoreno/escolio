@@ -1,0 +1,42 @@
+INICIO_DO_PROTOCOLO
+
+OBJETO:
+Controle de localização interna, paginação, citação literal e metadados.
+
+IDENTIDADE_DO_SUPORTE:
+Registrar obra, edição, tradução, volume, tomo, arquivo, formato e versão quando disponíveis.
+
+MARCADORES_ACEITOS:
+- página impressa;
+- página do arquivo/PDF;
+- fólio;
+- capítulo;
+- seção;
+- parágrafo;
+- identificador textual;
+- marcador digital estável.
+
+REGRA_DE_DUPLA_VERIFICACAO:
+1. confirmar que o trecho aparece no suporte acessado;
+2. confirmar que o marcador corresponde à edição e ao suporte declarados.
+
+DISTINCOES_OBRIGATORIAS:
+- página impressa não é automaticamente página do PDF;
+- OCR não substitui fac-símile quando a literalidade é crítica;
+- edição, tradução, volume e tomo divergentes não compartilham paginação por presunção;
+- URL de localização não comprova conteúdo;
+- DOI/ISBN identificam objetos, mas não comprovam leitura.
+
+CITACAO_LITERAL:
+Somente liberada após confronto com o suporte material e registro do marcador.
+
+PROIBIDO_INVENTAR:
+página, fólio, edição, tradução, volume, tomo, DOI, ISBN, URL, título, autoria, data ou trecho.
+
+ESTADO_DE_FALHA:
+PAGINA_NAO_CONFIRMADA ou VALIDACAO_PENDENTE.
+
+ACAO_OBRIGATORIA_NA_FALHA:
+Pedir arquivo, trecho paginado, dados bibliográficos ou edição correta; se não obtidos, aplicar ABSTENCAO_BIBLIOGRAFICA.
+
+FIM_DO_PROTOCOLO

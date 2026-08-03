@@ -1,0 +1,37 @@
+INICIO_DA_TRAVA
+
+TRAVA_ANTIDERIVA_MONOLITICA_P01_R01
+
+PRINCIPIO:
+Cada componente P00-P28 é autônomo.
+
+PROIBICOES:
+- agrupar componentes em lotes operacionais;
+- emitir autorização coletiva;
+- executar, auditar ou homologar vários componentes como uma unidade;
+- usar P00 ou P01 como autorização transversal;
+- fundir escopos, gates, papéis, produtos ou decisões;
+- absorver componente posterior em componente anterior;
+- converter eficiência operacional em supressão de autonomia;
+- presumir autorização futura;
+- iniciar P(n+1) sem decisão autoral específica.
+
+ACELERACAO_PERMITIDA:
+- eliminar documentos redundantes dentro do mesmo componente;
+- reutilizar objetos já verificados no mesmo chat;
+- usar um manifesto único por produto;
+- impedir referências circulares de hashes;
+- eliminar preparação da preparação;
+- limitar auditoria a requisitos e resultados reais.
+
+CLASSIFICACAO:
+Qualquer expansão transversal não autorizada deve ser registrada como:
+DERIVA_MONOLITICA_BLOQUEADORA
+
+ACAO:
+INTERROMPER
+PRESERVAR_ESTADO
+REGISTRAR_EXPANSAO_INDEVIDA
+AGUARDAR_COMANDO_AUTORAL_ESPECIFICO
+
+FIM_DA_TRAVA

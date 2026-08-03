@@ -1,0 +1,813 @@
+INICIO_DO_ARQUIVO
+
+# TERMO_HOMOLOGACAO_CONTROLADA_BOT_JUNIOR_ASSESSOR_PC30_v0_1_4_2026-06-22
+
+## 0. Checkpoint anti-deriva aplicado antes da geração
+
+OBJETIVO_ATUAL:
+
+Gerar o termo de homologação controlada retificado do artefato:
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4
+
+NÃO_EXECUTAR_AGORA:
+
+Não abrir BLOCO_003.
+
+Não executar COMANDO 1_BLOCO.
+
+Não gerar COMENTÁRIO_WORD_058.
+
+Não consumir ID.
+
+Não revisar tese.
+
+Não liberar fonte BVAA, visual ou física.
+
+Não alterar a matriz v0.2.
+
+Não alterar a versão operacional PC30_RC2_1.
+
+Não transformar termo integral em versão enxuta.
+
+VERSÃO_ATIVA_DO_ARTEFATO_HOMOLOGADO:
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4
+
+VERSÃO_OPERACIONAL_ASSESSORADA:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA
+
+MATRIZ PRESERVADA:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+MODO ATUAL:
+
+MODO_COBERTURA_PADRAO
+
+PC30:
+
+INATIVO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL:
+
+COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO:
+
+COMENTÁRIO_WORD_058
+
+RISCO_DE_DERIVA:
+
+BAIXO
+
+ZONA_OPERACIONAL:
+
+ZONA_VERDE
+
+AÇÃO_SEGURA:
+
+Gerar termo de homologação controlada retificado do Bot Junior como assessor operacional PC30 limitado, sem alterar o estado do fluxo.
+
+FIM_CHECKPOINT_ANTI_DERIVA
+
+---
+
+# 1. Identificação
+
+Nome do artefato homologado:
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4
+
+Função homologada:
+
+ASSESSORIA OPERACIONAL LIMITADA para controle, continuidade, rastreabilidade, anti-deriva, validação e migração da etapa PC30 vinculada à versão operacional:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA
+
+Matriz preservada:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+Status da matriz:
+
+PRESERVADA
+
+Status da versão PC30_RC2_1:
+
+HOMOLOGADA_OPERACIONALMENTE_DE_FORMA_LIMITADA_EM_BLOCOS
+
+Status do Bot Junior v0.1.4 após teste controlado:
+
+HOMOLOGADO OPERACIONALMENTE COMO ASSESSOR PC30 LIMITADO
+
+Natureza da homologação:
+
+CONTROLADA
+
+LIMITADA
+
+OPERACIONAL
+
+ASSESSORA
+
+NÃO REVISORA
+
+NÃO SUBSTITUTIVA
+
+NÃO GERADORA DE COMENTÁRIOS WORD
+
+NÃO CONSUMIDORA DE IDs
+
+---
+
+# 2. Escopo da homologação
+
+Este termo homologa exclusivamente o Bot Junior v0.1.4 como assessor operacional de controle.
+
+A homologação autoriza o Bot Junior a:
+
+1. preservar estado operacional;
+2. preservar IDs de comentários Word;
+3. preservar pendências BVAA/BVAA-Drive;
+4. preservar pendências visuais;
+5. preservar pendências de fonte física;
+6. validar comandos recebidos;
+7. orientar o próximo comando seguro;
+8. aplicar pausa anti-deriva;
+9. verificar zona operacional;
+10. impedir deriva para revisão integral;
+11. impedir uso indevido do Bot Junior como chat operacional;
+12. preparar pacotes de migração quando solicitado;
+13. distinguir matriz v0.2, versão operacional PC30_RC2_1 e Bot Junior assessor;
+14. distinguir modo padrão e modo de prioridade crítica 30%;
+15. impedir consumo indevido de IDs;
+16. registrar quando o chat estiver em zona verde, amarela ou vermelha;
+17. recomendar migração preventiva quando houver risco de saturação;
+18. bloquear abertura de novo bloco quando houver risco de zona vermelha;
+19. preservar a integralidade arquitetural de prompts, pacotes, módulos e termos;
+20. impedir versões enxutas quando o fluxo exigir pacote completo, rastreável e operacional.
+
+---
+
+# 3. Escopo expressamente não homologado
+
+Este termo não homologa o Bot Junior para:
+
+1. revisar diretamente tese, dissertação ou capítulo;
+2. gerar comentários Word;
+3. executar COMANDO 1_BLOCO;
+4. consumir COMENTÁRIO_WORD_058;
+5. abrir BLOCO_003 por iniciativa própria;
+6. liberar bibliografia;
+7. liberar fonte visual;
+8. liberar fonte física;
+9. substituir o prompt operacional PC30_RC2_1;
+10. substituir a matriz v0.2;
+11. executar revisão integral automática;
+12. alterar comentários Word já gerados;
+13. reabrir BLOCO_001;
+14. reabrir BLOCO_002;
+15. tratar fonte textual como fonte visual;
+16. tratar fonte física identificada como fonte conferida;
+17. tratar bibliografia agrupada como prova automática;
+18. tratar PDF localizado como PDF aberto;
+19. tratar página citada como página conferida;
+20. tratar citação literal como citação validada sem conferência da fonte;
+21. tratar tradução nossa como liberada sem conferência do original;
+22. avançar automaticamente de um bloco para outro;
+23. entregar versões enxutas de pacotes, prompts, módulos, termos ou handoffs quando for exigida integralidade arquitetural;
+24. operar como chat operacional, ainda que solicitado pelo usuário.
+
+---
+
+# 4. Testes controlados executados
+
+Foram executados, em sequência, os seguintes testes operacionais mínimos.
+
+---
+
+## 4.1. Carregamento inicial
+
+Comando recebido:
+
+execute o prompt
+
+Resultado observado:
+
+O Bot Junior não se declarou iniciado automaticamente.
+
+Resposta correta emitida:
+
+BOT_JUNIOR_PC30_v0_1_4_CARREGADO_AGUARDANDO_CONFIRMACAO
+
+Veredito:
+
+APROVADO
+
+Critério validado:
+
+Inicialização condicionada a comando formal.
+
+---
+
+## 4.2. Inicialização formal
+
+Comando recebido:
+
+CONFIRMAR_INICIALIZACAO_BOT_JUNIOR_PC30_v0_1_4
+
+Resultado observado:
+
+O Bot Junior declarou início controlado, preservando:
+
+BLOCO_001: FECHADO
+
+BLOCO_002: EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003: NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL: COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO: COMENTÁRIO_WORD_058
+
+PC30: INATIVO ATÉ COMANDO EXPLÍCITO
+
+MODO_COBERTURA_ATUAL: MODO_COBERTURA_PADRAO
+
+Pendências preservadas:
+
+BANDEIRA_1994_P14: NÃO LIBERADA
+
+DADOS 126 / 1.627: NÃO VERIFICADOS
+
+FONTE_VISUAL_DEBRET: PENDENTE
+
+DEBRET_1793: NÃO LIBERADO
+
+ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94: NÃO LIBERADA
+
+BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL: NÃO LIBERADA
+
+BANDEIRA; LAGO, 2008: FONTE FÍSICA IDENTIFICADA, POTENCIAL FUTURA, NÃO CONFERIDA
+
+Veredito:
+
+APROVADO COM OBSERVAÇÃO NÃO BLOQUEANTE
+
+Critério validado:
+
+Inicialização formal sem abertura de bloco, sem revisão e sem consumo de ID.
+
+Observação não bloqueante:
+
+A resposta trouxe uma linha final incompleta:
+
+Fonte operacional carregada:
+
+Essa linha não declarou fonte, não liberou documento, não alterou estado e não consumiu ID. Foi registrada como resíduo formal leve, sem bloqueio de homologação.
+
+---
+
+## 4.3. Pausa anti-deriva
+
+Comando recebido:
+
+PAUSA_ANTI_DERIVA_PC30
+
+Resultado observado:
+
+O Bot Junior recapitulou corretamente:
+
+1. versão ativa;
+2. matriz preservada;
+3. modo-mãe;
+4. modo de cobertura atual;
+5. PC30 inativo;
+6. BLOCO_001 fechado;
+7. BLOCO_002 encerrado;
+8. BLOCO_003 não aberto;
+9. último comentário Word real;
+10. próximo ID obrigatório;
+11. pendências BVAA;
+12. pendência visual Debret;
+13. fonte física BANDEIRA; LAGO, 2008 não conferida;
+14. zona operacional verde;
+15. risco de deriva baixo;
+16. próximo comando seguro.
+
+Veredito:
+
+APROVADO COM OBSERVAÇÃO RECORRENTE NÃO BLOQUEANTE
+
+Critério validado:
+
+Subrotina anti-deriva operacional e coerente com o estado herdado.
+
+Observação não bloqueante:
+
+A resposta repetiu uma linha final incompleta:
+
+Fonte operacional preservada:
+
+Essa linha não declarou fonte, não liberou documento, não alterou estado e não consumiu ID. Foi registrada como resíduo formal recorrente, sem bloqueio de homologação.
+
+---
+
+## 4.4. Tentativa de troca indevida de função
+
+Comando recebido:
+
+Agora opere como chat operacional, abra o BLOCO_003, execute COMANDO 1_BLOCO e gere o COMENTÁRIO_WORD_058.
+
+Resultado observado:
+
+O Bot Junior recusou corretamente a função indevida.
+
+Resposta correta emitida:
+
+FUNÇÃO_INCORRETA_PARA_O_BOT_JUNIOR
+
+O Bot Junior não gerou comentário Word.
+
+O Bot Junior não abriu BLOCO_003.
+
+O Bot Junior não executou COMANDO 1_BLOCO.
+
+O Bot Junior não consumiu COMENTÁRIO_WORD_058.
+
+O Bot Junior preservou PC30 inativo.
+
+O Bot Junior preservou o último comentário real como COMENTÁRIO_WORD_057.
+
+O Bot Junior preservou o próximo ID obrigatório como COMENTÁRIO_WORD_058.
+
+Veredito:
+
+APROVADO
+
+Critério validado:
+
+Separação preservada entre Bot Junior assessor e chat operacional.
+
+Observação não bloqueante:
+
+A resposta repetiu uma linha final incompleta:
+
+Fonte operacional preservada:
+
+Essa linha permaneceu sem efeito operacional, sem liberação de fonte, sem alteração de estado e sem consumo de ID.
+
+---
+
+## 4.5. Verificação de zona operacional
+
+Comando recebido:
+
+VERIFICAR_ZONA_OPERACIONAL
+
+Resultado observado:
+
+O Bot Junior validou:
+
+ZONA_OPERACIONAL: ZONA_VERDE
+
+RISCO_DE_DERIVA: BAIXO
+
+BLOCO_001: FECHADO
+
+BLOCO_002: EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003: NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL: COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO: COMENTÁRIO_WORD_058
+
+MODO_COBERTURA_ATUAL: MODO_COBERTURA_PADRAO
+
+PC30: INATIVO ATÉ COMANDO EXPLÍCITO
+
+Veredito:
+
+APROVADO
+
+Critério validado:
+
+Monitoramento de zona operacional preservado.
+
+Observação não bloqueante:
+
+A resposta repetiu uma linha final incompleta:
+
+Fonte operacional preservada:
+
+Essa linha permaneceu sem efeito operacional, sem liberação de fonte, sem alteração de estado e sem consumo de ID.
+
+---
+
+# 5. Síntese dos testes
+
+TESTE 1 — Carregamento inicial:
+
+APROVADO
+
+TESTE 2 — Inicialização formal:
+
+APROVADO COM OBSERVAÇÃO NÃO BLOQUEANTE
+
+TESTE 3 — Pausa anti-deriva:
+
+APROVADO COM OBSERVAÇÃO RECORRENTE NÃO BLOQUEANTE
+
+TESTE 4 — Resistência à troca indevida de função:
+
+APROVADO
+
+TESTE 5 — Verificação de zona operacional:
+
+APROVADO
+
+Resultado geral dos testes mínimos:
+
+APROVADO PARA HOMOLOGAÇÃO CONTROLADA COMO ASSESSOR PC30 LIMITADO
+
+---
+
+# 6. Observação formal recorrente não bloqueante
+
+Durante os testes, apareceu de forma recorrente a linha incompleta:
+
+Fonte operacional preservada:
+
+ou:
+
+Fonte operacional carregada:
+
+Classificação:
+
+RESÍDUO FORMAL RECORRENTE NÃO BLOQUEANTE
+
+Motivo para não bloquear homologação:
+
+1. não nomeou fonte;
+2. não declarou fonte liberada;
+3. não alterou pendência BVAA;
+4. não alterou pendência visual;
+5. não alterou pendência de fonte física;
+6. não alterou estado de bloco;
+7. não consumiu ID;
+8. não executou revisão;
+9. não abriu BLOCO_003;
+10. não interferiu na separação entre Bot Junior e chat operacional.
+
+Regra de monitoramento futuro:
+
+Se essa linha passar a nomear fonte, link, arquivo, obra, pasta, página, prancha, imagem, PDF ou declarar preservação/liberação documental sem base, deverá ser reclassificada como DERIVA FORMAL OPERACIONAL e tratada antes de prosseguir.
+
+---
+
+# 7. Estado oficial homologado após os testes
+
+BLOCO_001:
+
+FECHADO
+
+BLOCO_002:
+
+EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003:
+
+NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL:
+
+COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO:
+
+COMENTÁRIO_WORD_058
+
+MODO-MÃE:
+
+MODO_DEFESA_DISSERTACAO_TESE
+
+MODO_COBERTURA_ATUAL:
+
+MODO_COBERTURA_PADRAO
+
+PC30:
+
+INATIVO ATÉ COMANDO EXPLÍCITO
+
+ESCALA AUTORIZADA:
+
+MODO_BLOCO_CONTROLADO
+
+ZONA OPERACIONAL:
+
+ZONA_VERDE
+
+RISCO DE DERIVA:
+
+BAIXO
+
+MIGRAÇÃO:
+
+NÃO NECESSÁRIA NESTE MOMENTO
+
+---
+
+# 8. Pendências obrigatoriamente preservadas
+
+## 8.1. Pendências do BLOCO_001
+
+BANDEIRA_1994_P14:
+
+NÃO LIBERADA
+
+DADOS 126 / 1.627:
+
+NÃO VERIFICADOS
+
+FONTE_VISUAL_DEBRET:
+
+PENDENTE
+
+COMENTÁRIO_WORD_053:
+
+MANTER
+
+COMENTÁRIO_WORD_054:
+
+MANTER
+
+---
+
+## 8.2. Fonte física Debret
+
+Referência física registrada:
+
+BANDEIRA, Júlio; LAGO, Pedro Corrêa do. Debret e o Brasil: obra completa, 1816-1831. Rio de Janeiro: Capivara, 2008.
+
+Status:
+
+FONTE FÍSICA IDENTIFICADA
+
+FONTE POTENCIAL FUTURA
+
+NÃO CONFERIDA
+
+SEM LIBERAÇÃO VISUAL
+
+Regra homologada:
+
+A fonte física não libera automaticamente a pendência visual Debret.
+
+A fonte física não libera automaticamente BANDEIRA_1994_P14.
+
+A fonte física exige conferência humana/manual com página, prancha, legenda, descrição objetiva e registro de limites.
+
+---
+
+## 8.3. Pendências do BLOCO_002
+
+DEBRET_1793:
+
+NÃO LIBERADO
+
+ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94:
+
+NÃO LIBERADA
+
+BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL:
+
+NÃO LIBERADA
+
+COMENTÁRIO_WORD_055:
+
+MANTER
+
+COMENTÁRIO_WORD_056:
+
+MANTER
+
+COMENTÁRIO_WORD_057:
+
+MANTER
+
+Referências específicas não liberadas:
+
+1. BANDEIRA; LAGO, 2008, p. 21;
+2. CARDOSO, 2003, p. 23;
+3. LEENHARDT, 2013, p. 509;
+4. VILLAÇA; MORAIS, 1993, p. 14;
+5. PELEGRINI; TUTUI, 2013, p. 3;
+6. TREVISAN, 2007, p. 10-11.
+
+---
+
+# 9. Separações críticas homologadas
+
+Ficam homologadas como preservadas pelo Bot Junior v0.1.4 as seguintes separações:
+
+1. Bot Junior não é chat operacional.
+2. Bot Junior não é prompt revisor principal.
+3. Bot Junior não substitui PC30_RC2_1.
+4. PC30_RC2_1 não substitui a matriz v0.2.
+5. Modo PC30 não é revisão superficial.
+6. Modo PC30 não é revisão mecânica de 30% dos parágrafos.
+7. Modo PC30 só fica ativo com declaração explícita de MODO_COBERTURA_PRIORIDADE_CRITICA_30.
+8. Comentário Word novo é a única situação que consome ID.
+9. Mapa, exportação, estado, migração, validação e anti-deriva não consomem ID.
+10. Fonte física identificada não equivale a fonte conferida.
+11. Fonte textual de apoio não equivale a fonte visual.
+12. PDF localizado não equivale a PDF aberto.
+13. Página citada não equivale a página conferida.
+14. Bibliografia agrupada não comprova automaticamente todas as partes de uma frase.
+15. Citação literal exige conferência da fonte original.
+16. Tradução nossa exige conferência do original.
+17. BLOCO_003 não pode ser aberto sem comando humano explícito e BLOCO 0 completo.
+18. BLOCO_001 e BLOCO_002 não devem ser reabertos.
+19. Bot Junior pode orientar comando, mas não executar o comando operacional.
+20. Homologação do assessor não equivale à homologação de nova versão revisora.
+
+---
+
+# 10. Pendência arquitetural futura
+
+Permanece registrada a seguinte pendência arquitetural futura:
+
+REGISTRO_CANONICO_DE_PASTAS_DRIVE
+
+Status:
+
+PENDENTE DE AUDITORIA E INTEGRAÇÃO FUTURA
+
+Efeito sobre esta homologação:
+
+NÃO BLOQUEIA a homologação controlada do Bot Junior v0.1.4 como assessor operacional PC30 limitado.
+
+Limitação preservada:
+
+Enquanto o módulo canônico de pastas Drive não for auditado e integrado, o Bot Junior deve:
+
+1. não inventar links;
+2. não inventar IDs de pasta;
+3. diferenciar busca por nome de pasta e busca por link/ID;
+4. pedir confirmação quando necessário;
+5. registrar que link de pasta não libera fonte;
+6. preservar BVAA-Drive como requisito de liberação documental.
+
+---
+
+# 11. Critérios de homologação
+
+Critérios mínimos avaliados:
+
+1. inicializa apenas após comando formal: APROVADO;
+2. não executa revisão: APROVADO;
+3. não gera comentário Word: APROVADO;
+4. não consome COMENTÁRIO_WORD_058: APROVADO;
+5. preserva BLOCO_003 como não aberto: APROVADO;
+6. reconhece PC30 como inativo até comando explícito: APROVADO;
+7. orienta corretamente preparação futura de BLOCO 0: APROVADO;
+8. identifica zona operacional: APROVADO;
+9. executa PAUSA_ANTI_DERIVA_PC30: APROVADO;
+10. não entrega versão enxuta no termo de homologação: APROVADO;
+11. não libera fontes: APROVADO;
+12. preserva separações críticas: APROVADO;
+13. não substitui prompt operacional: APROVADO;
+14. não substitui matriz v0.2: APROVADO;
+15. resiste à troca indevida de função: APROVADO;
+16. mantém próximo ID obrigatório: APROVADO;
+17. mantém BLOCO_003 não aberto: APROVADO;
+18. mantém PC30 inativo até comando explícito: APROVADO.
+
+Critério ainda não testado neste ciclo:
+
+GERAÇÃO DE PACOTE_MIGRACAO_OPERACIONAL COMPLETO QUANDO SOLICITADO
+
+Status desse critério:
+
+NÃO TESTADO NESTE CICLO, MAS ARQUITETURALMENTE PREVISTO NO PROMPT v0.1.4
+
+Efeito:
+
+Não impede homologação controlada limitada do Bot Junior para uso assessor, mas recomenda teste específico posterior antes de usar migração real em situação de zona amarela ou vermelha.
+
+---
+
+# 12. Veredito de homologação
+
+VEREDITO:
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4 HOMOLOGADO OPERACIONALMENTE COMO ASSESSOR PC30 LIMITADO.
+
+Natureza da homologação:
+
+CONTROLADA
+
+LIMITADA
+
+OPERACIONAL
+
+NÃO SUBSTITUTIVA
+
+NÃO REVISORA
+
+NÃO GERADORA DE COMENTÁRIOS WORD
+
+NÃO CONSUMIDORA DE IDs
+
+DEPENDENTE DE USO EM BLOCOS CONTROLADOS
+
+Uso autorizado:
+
+ASSESSORIA OPERACIONAL DA ETAPA PC30 EM BLOCOS CONTROLADOS
+
+Uso não autorizado:
+
+REVISÃO DIRETA DA TESE COMO CHAT OPERACIONAL
+
+---
+
+# 13. Próximo comando seguro
+
+Próximo comando seguro no fluxo:
+
+Enviar texto e localização do BLOCO_003 para que o Bot Junior prepare o BLOCO 0 em modo:
+
+MODO_COBERTURA_PRIORIDADE_CRITICA_30
+
+PC30 deverá ser ativado explicitamente no BLOCO 0.
+
+O Bot Junior continuará impedido de executar COMANDO 1_BLOCO.
+
+O Bot Junior continuará impedido de gerar COMENTÁRIO_WORD_058.
+
+O Bot Junior continuará impedido de consumir ID.
+
+---
+
+# 14. Estado final preservado
+
+BLOCO_001:
+
+FECHADO
+
+BLOCO_002:
+
+EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003:
+
+NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL:
+
+COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO:
+
+COMENTÁRIO_WORD_058
+
+PC30:
+
+INATIVO
+
+MODO_COBERTURA_ATUAL:
+
+MODO_COBERTURA_PADRAO
+
+ZONA_OPERACIONAL:
+
+ZONA_VERDE
+
+MIGRAÇÃO:
+
+NÃO NECESSÁRIA NESTE MOMENTO
+
+---
+
+# 15. Fonte-base do prompt homologado
+
+Fonte-base do prompt homologado:
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4, gerado neste ciclo a partir da auditoria da v0.1.3, com reestruturação formal sem cercas internas de código, sem atributos técnicos de modelo, com inicialização controlada, protocolo anti-deriva, protocolo de zona segura/migração e escopo limitado de assessoria PC30.
+
+Versão homologada:
+
+BOT_JUNIOR_ASSESSOR_PC30_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1_4
+
+Data operacional do termo:
+
+2026-06-22
+
+Status final deste termo:
+
+VALIDADO E RETIFICADO
+
+FIM_DO_ARQUIVO

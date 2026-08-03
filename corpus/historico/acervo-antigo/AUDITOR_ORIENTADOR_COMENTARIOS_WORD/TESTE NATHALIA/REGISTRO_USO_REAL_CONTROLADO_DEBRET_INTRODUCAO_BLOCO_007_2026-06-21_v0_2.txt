@@ -1,0 +1,119 @@
+# REGISTRO DE USO REAL CONTROLADO — CICLO 007
+
+## Sistema operacional
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+## Bot-assessor
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.2
+
+## Trabalho testado
+
+Tese de Nathália Moro:
+Entre pratos e pincéis: práticas alimentares no Império do Brasil através da iconografia de Jean-Baptiste Debret (1816-1831)
+
+## Unidade testada
+
+Introdução — bloco sobre comércio ambulante, economia popular, comida de rua, estabelecimentos fixos, comércio alimentício, imigração, importações e Doutorado Sanduíche.
+
+## Escala
+
+MODO_BLOCO_CONTROLADO
+
+## Contexto operacional
+
+Este ciclo foi executado no chat operacional atual, após migração preventiva anterior por PACOTE_HANDOFF.
+
+O Handoff permaneceu integrado e a numeração dos comentários foi preservada.
+
+O ESTADO COMPLETO pós-Ciclo 006 havia sido validado antes do início deste bloco.
+
+## Comandos executados
+
+1. COMANDO 0_BLOCO
+2. COMANDO 1_BLOCO
+3. RETIFICAR_STATUS_BVAA_DO_BLOCO
+4. GERAR_MAPA_RASTREABILIDADE
+
+## Validação pelo bot-assessor
+
+O bot-assessor classificou o fechamento do ciclo como RESPOSTA_BOA.
+
+## Resultado
+
+CICLO_007_ENCERRADO_COM_RASTREABILIDADE_RETIFICADA_E_CITACAO_LITERAL_DEBRET_NAO_LIBERADA
+
+## Comentários Word
+
+Foram autorizados para uso controlado, com cautela, os comentários:
+
+* COMENTÁRIO_WORD_018
+* COMENTÁRIO_WORD_019
+* COMENTÁRIO_WORD_020
+
+O próximo ID obrigatório preservado é:
+
+* COMENTÁRIO_WORD_021
+
+No Word, devem ser inseridos apenas os textos do campo COMENTÁRIO PARA INSERIR NO WORD, sem metadados internos do sistema.
+
+## Retificação incorporada
+
+A expressão “inúmeras lojas da cidade”, atribuída a Debret, foi preservada como possível citação literal ou semiliteral, com bloqueio explícito em:
+
+* CITACAO_LITERAL_NAO_LIBERADA
+* PAGINA_NAO_CONFIRMADA
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+
+A passagem, a página, a formulação, a edição e a suficiência documental não foram validadas.
+
+## Pontos sensíveis do bloco
+
+* Mulheres negras livres ou escravizadas “ao ganho”.
+* Mobilidade social no trabalho ao ganho.
+* Comércio ambulante, economia popular e regulação pós-1808.
+* Categoria “venda ambulante de alimentos” e “comida de rua”.
+* Passagem de comércio ambulante para padarias, cafeterias, açougues e estabelecimentos fixos.
+* Imigração, comércio fixo e abastecimento urbano não verificados.
+* Debret, Mattoso, Pertile, Freitas, Farias e Pereira não verificados.
+* Doutorado Sanduíche, acervos da FCUL e fontes raras ainda dependentes de identificação documental.
+* Tensão de escala entre Rio/Debret e espaço luso-europeu.
+
+## Bloqueios preservados
+
+Foram preservados os seguintes bloqueios:
+
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+* página não confirmada
+* citação literal não liberada
+* bibliografia específica não verificada
+* fonte primária não conferida
+* dados sobre comércio ambulante não tratados como verificados
+* dados sobre mulheres ao ganho não tratados como verificados
+* dados sobre imigração e estabelecimentos fixos não tratados como verificados
+* dados sobre Doutorado Sanduíche/acervos FCUL não tratados como prova documental suficiente
+* comprovante de leitura PDF não produzido
+
+## Observações
+
+Os comentários Word foram considerados substantivos, seletivos e seguros para uso controlado.
+
+Não foram detectados:
+
+* comentário cosmético
+* bibliografia indevida
+* validação indevida de páginas
+* validação indevida de citação literal
+* validação indevida de fontes
+* tratamento indevido de Debret, Mattoso, Pertile, Freitas, Farias ou Pereira como verificados
+* poluição de comentários
+* risco de escala
+* perda de numeração
+* perda de estado
+
+Não há necessidade de novo Handoff neste momento.
+
+Este registro é um fechamento mínimo de ciclo, baseado na validação final do bot-assessor. O mapa completo de rastreabilidade não foi salvo como arquivo separado neste momento, seguindo a regra operacional simplificada de não multiplicar arquivos intermediários sem necessidade.

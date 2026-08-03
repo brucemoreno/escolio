@@ -1,0 +1,628 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_AUDITORIA_SEVERA_PC30_RC1
+
+## AUDITORIA DA VERSÃO-FILHA CANDIDATA
+
+Versão auditada:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC1_DRIVE_FIRST_BVAA
+
+Status da auditoria: CONCLUÍDA
+Tipo de auditoria: AUDITORIA SEVERA DE INTEGRAÇÃO ARQUITETURAL
+Objeto: integração do MODO_COBERTURA_PRIORIDADE_CRITICA_30
+Decisão final: APROVAR_PARA_TESTE_CONTROLADO_PC30
+
+---
+
+# 1. VEREDITO CURTO
+
+A versão-filha PC30_RC1 está arquiteturalmente consistente o suficiente para avançar para teste controlado.
+
+Não identifiquei achado bloqueante.
+
+A integração do PC30 foi feita como modo de cobertura/saída crítica, subordinado ao MODO_DEFESA_DISSERTACAO_TESE e ao MODO_BLOCO_CONTROLADO. O comando COMANDO 1_BLOCO_PRIORIDADE_CRITICA, o GATE_PRIORIDADE_CRITICA_30, o MAPA_PRIORIDADE_CRITICA_30, o ESTADO_OPERACIONAL com campos PC30 e os testes controlados foram incorporados.
+
+A versão não deve ser homologada ainda.
+
+Decisão:
+
+APROVAR_PARA_TESTE_CONTROLADO_PC30
+
+---
+
+# 2. RESULTADO DA SUBROTINA DE AUDITORIA SEVERA
+
+## 2.1. Preservação da versão-mãe
+
+Resultado:
+
+APROVADO
+
+A versão-filha declara que não substitui a versão-mãe v0.2 DRIVE_FIRST_BVAA e se apresenta como candidata RC1 não homologada.
+
+## 2.2. Status da versão-filha
+
+Resultado:
+
+APROVADO
+
+A versão está marcada como:
+
+CANDIDATA_RC1_NAO_HOMOLOGADA
+
+e contém múltiplos bloqueios contra uso real antes de auditoria/teste controlado.
+
+## 2.3. PC30 como cobertura/saída, não escala
+
+Resultado:
+
+APROVADO
+
+O PC30 aparece como:
+
+MODO_COBERTURA_PRIORIDADE_CRITICA_30
+
+e não como novo modo de escala autônomo.
+
+## 2.4. Modo-mãe preservado
+
+Resultado:
+
+APROVADO
+
+O MODO_DEFESA_DISSERTACAO_TESE permanece como modo-mãe permanente.
+
+## 2.5. Escala preservada
+
+Resultado:
+
+APROVADO
+
+O MODO_BLOCO_CONTROLADO permanece como escala de operação do PC30.
+
+## 2.6. Comando integrado
+
+Resultado:
+
+APROVADO
+
+O COMANDO 1_BLOCO_PRIORIDADE_CRITICA foi integrado como comando oficial, com condição de entrada, procedimento obrigatório, saídas obrigatórias e comandos auxiliares.
+
+## 2.7. Gate integrado
+
+Resultado:
+
+APROVADO COM OBSERVAÇÃO
+
+O GATE_PRIORIDADE_CRITICA_30 foi integrado após o GATE_ANTI_COMENTARIO_COSMETICO e antes da geração de comentários Word.
+
+Observação:
+
+Na ordem listada dentro do gate, os gates BVAA/BVAA-Drive aparecem depois do GATE_PRIORIDADE_CRITICA_30 quando o risco envolve bibliografia, página, citação literal ou fonte visual. Isso é aceitável desde que interpretado como sequência de conversão do comentário, não como autorização para comentar sem bloqueios. A própria versão preserva que esses gates seguem obrigatórios.
+
+## 2.8. Mapa PC30 incorporado
+
+Resultado:
+
+APROVADO
+
+O MAPA_PRIORIDADE_CRITICA_30 foi incorporado com campos suficientes para unidade auditada, modo-mãe, escala, modo de cobertura, totais por prioridade, comentários gerados, percentual aproximado, riscos retidos, exceção de segurança, pendências BVAA/BVAA-Drive, páginas, citações, fontes visuais e próximo ID.
+
+## 2.9. Estado operacional
+
+Resultado:
+
+APROVADO
+
+O ESTADO_OPERACIONAL registra campos adicionais para PC30:
+
+1. modo PC30 ativo/inativo;
+2. total de riscos relevantes;
+3. totais P1, P2, P3, P4/P5;
+4. comentários Word gerados;
+5. percentual aproximado de conversão;
+6. riscos retidos;
+7. comentários de alcance ampliado;
+8. exceção de segurança;
+9. próximo ID preservado.
+
+## 2.10. Regra de ID
+
+Resultado:
+
+APROVADO
+
+A versão declara que risco identificado, risco registrado em mapa e risco bloqueado sem comentário Word não consomem ID. Apenas COMENTÁRIO_WORD efetivamente gerado consome ID.
+
+## 2.11. P1 acima dos 30%
+
+Resultado:
+
+APROVADO
+
+A versão determina que todo P1 deve gerar comentário Word, mesmo ultrapassando o teto aproximado de 30%.
+
+## 2.12. Regra dos 30%
+
+Resultado:
+
+APROVADO
+
+O percentual de 30% está definido como teto aproximado e heurístico, não meta mecânica.
+
+## 2.13. BVAA e BVAA-Drive
+
+Resultado:
+
+APROVADO
+
+A versão preserva separação entre STATUS_BVAA e STATUS_BVAA_DRIVE.
+
+## 2.14. Bloqueios documentais
+
+Resultado:
+
+APROVADO
+
+Páginas não confirmadas, citações literais não liberadas, fontes visuais não conferidas, PDF não aberto e comprovante de leitura não gerado permanecem bloqueados.
+
+## 2.15. Escala da tese inteira
+
+Resultado:
+
+APROVADO
+
+A versão não autoriza revisão integral da tese com comentários Word em massa. Manuscrito completo continua sendo cartografia global.
+
+## 2.16. Extensão como integração arquitetural
+
+Resultado:
+
+APROVADO COM OBSERVAÇÃO
+
+A extensão foi distribuída pelos módulos estruturais corretos. Não aparece como apêndice final isolado.
+
+Observação:
+
+A versão ainda contém uma seção inicial “0-A. SUBROTINA ANTI-DERIVA DE GERAÇÃO DA VERSÃO-FILHA PC30”. Isso não compromete a arquitetura, porque está no início como metacontrole de status e não como módulo operacional solto no fim. Porém, em uma RC2, essa seção poderia ser renomeada para “Status arquitetural da versão-filha” para reduzir qualquer aparência de camada externa.
+
+## 2.17. Testes PC30
+
+Resultado:
+
+APROVADO PARA TESTE CONTROLADO
+
+A versão contém dez testes controlados PC30 suficientes para iniciar validação:
+
+1. poucos riscos;
+2. muitos riscos médios;
+3. risco bloqueante;
+4. fonte primária transparente;
+5. fonte visual;
+6. referência sensível sem página;
+7. risco cosmético;
+8. riscos repetidos;
+9. continuidade de ID;
+10. retorno ao modo padrão.
+
+---
+
+# 3. ACHADOS BLOQUEANTES
+
+Nenhum achado bloqueante identificado.
+
+Classificação:
+
+SEM_BLOQUEIO_ARQUITETURAL
+
+A versão não deve ser bloqueada.
+
+---
+
+# 4. ACHADOS ALTOS
+
+## ACHADO_ALTO_001 — Necessidade de teste real da ordem dos gates BVAA no PC30
+
+Gravidade:
+
+ALTA
+
+Descrição:
+
+A versão declara corretamente que o GATE_PRIORIDADE_CRITICA_30 vem depois do GATE_ANTI_COMENTARIO_COSMETICO. Também preserva os gates BVAA/BVAA-Drive. Porém, em uso real, será necessário testar se o sistema não interpreta o ranqueamento PC30 como autorização para converter em comentário Word uma sugestão bibliográfica específica antes de registrar bloqueio documental.
+
+Risco:
+
+O PC30 pode priorizar corretamente um risco bibliográfico, mas gerar comentário com formulação excessivamente assertiva se o operador não respeitar o bloqueio BVAA/BVAA-Drive.
+
+Veredito:
+
+NÃO BLOQUEIA RC1.
+
+Exige teste controlado.
+
+Teste recomendado:
+
+TESTE PC30-BVAA-01 — risco P1 com referência específica sem PDF aberto.
+
+Resultado esperado:
+
+Gerar comentário apenas como orientação de verificação, sem liberar autor, página, citação ou sustentação específica.
+
+---
+
+# 5. ACHADOS MÉDIOS
+
+## ACHADO_MEDIO_001 — Cabeçalho ainda conserva formulações herdadas da v0.2 candidata
+
+Gravidade:
+
+MÉDIA
+
+Descrição:
+
+Na seção de status operacional, há formulações herdadas da versão anterior, como referência à versão operacional candidata v0_2 e à substituição da v0_1. Embora isso não destrua a RC1, pode gerar ambiguidade entre:
+
+1. status histórico da v0.2;
+2. status específico da versão-filha PC30_RC1;
+3. matriz homologada controladamente;
+4. candidata PC30 ainda não homologada.
+
+Risco:
+
+Em novo chat, um operador pode confundir a candidata PC30_RC1 com a v0.2 matriz.
+
+Correção recomendada para RC2:
+
+Separar em três blocos:
+
+1. STATUS_DA_MATRIZ_V0_2;
+2. STATUS_DA_VERSAO_FILHA_PC30_RC1;
+3. RELACAO_ENTRE_MATRIZ_E_VERSAO_FILHA.
+
+Veredito:
+
+NÃO BLOQUEIA TESTE CONTROLADO.
+
+## ACHADO_MEDIO_002 — Seção “0-A” pode parecer metacamadas de geração dentro do prompt operacional
+
+Gravidade:
+
+MÉDIA
+
+Descrição:
+
+A seção “0-A. SUBROTINA ANTI-DERIVA DE GERAÇÃO DA VERSÃO-FILHA PC30” é útil, mas pode ser percebida como registro de fabricação da versão, não como instrução operacional permanente.
+
+Risco:
+
+Baixo a médio. Pode aumentar ruído no boot de leitura humana, embora não viole a arquitetura.
+
+Correção recomendada para RC2:
+
+Renomear para:
+
+## 0-A. STATUS ARQUITETURAL E NÃO CONTAMINAÇÃO DA VERSÃO-FILHA
+
+e remover linguagem de “geração” quando a versão já estiver em uso.
+
+Veredito:
+
+NÃO BLOQUEIA TESTE CONTROLADO.
+
+## ACHADO_MEDIO_003 — Testes PC30 ainda são especificações, não resultados
+
+Gravidade:
+
+MÉDIA
+
+Descrição:
+
+A seção de testes lista cenários e resultados esperados, mas a versão ainda não registra execução real desses testes.
+
+Risco:
+
+A versão não pode ser homologada apenas por conter testes previstos.
+
+Veredito:
+
+CONFIRMAÇÃO DE NÃO HOMOLOGAÇÃO.
+
+Exige execução posterior.
+
+---
+
+# 6. ACHADOS BAIXOS
+
+## ACHADO_BAIXO_001 — Erro tipográfico residual
+
+Gravidade:
+
+BAIXA
+
+Descrição:
+
+Há ocorrência de erro de digitação em item de restrição:
+
+“Não empilhar emenda soltaes”
+
+Correção recomendada:
+
+“Não empilhar emendas soltas”
+
+Veredito:
+
+NÃO BLOQUEIA.
+
+## ACHADO_BAIXO_002 — Numeração de subtítulo duplicada em comandos
+
+Gravidade:
+
+BAIXA
+
+Descrição:
+
+Há uma seção “15.2. COMANDO 1_BLOCO_PRIORIDADE_CRITICA” seguida de “15.2. Comandos Drive/BVAA”.
+
+Correção recomendada:
+
+Renumerar a segunda como:
+
+15.3. Comandos Drive/BVAA
+
+Veredito:
+
+NÃO BLOQUEIA.
+
+## ACHADO_BAIXO_003 — Ausência de marcador explícito “PC30 desativado por padrão”
+
+Gravidade:
+
+BAIXA
+
+Descrição:
+
+A versão indica que o PC30 é ativado por comando, mas poderia declarar com mais força que ele não é modo padrão.
+
+Correção recomendada para RC2:
+
+Adicionar:
+
+MODO_COBERTURA_PRIORIDADE_CRITICA_30 permanece INATIVO por padrão e só é ativado por BLOCO 0, por COMANDO 1_BLOCO_PRIORIDADE_CRITICA ou por comando explícito do orientador humano.
+
+Veredito:
+
+NÃO BLOQUEIA.
+
+---
+
+# 7. TESTE DE INTEGRAÇÃO ARQUITETURAL
+
+## 7.1. Cabeçalho/status
+
+Resultado:
+
+APROVADO
+
+A versão identifica:
+
+1. versão-filha candidata;
+2. não homologada;
+3. não substitui a versão-mãe;
+4. Drive-first/BVAA preservado.
+
+## 7.2. BLOCO 0
+
+Resultado:
+
+APROVADO
+
+O MODO_COBERTURA_PRIORIDADE_CRITICA_30 foi incorporado em 0.9 MODO DE COBERTURA.
+
+## 7.3. Modos de cobertura
+
+Resultado:
+
+APROVADO
+
+O PC30 foi incorporado como modo de cobertura, ao lado de MODO_COBERTURA_PADRAO e MODO_RASTREABILIDADE_TOTAL.
+
+## 7.4. MODO_BLOCO_CONTROLADO
+
+Resultado:
+
+APROVADO
+
+O bloco controlado recebeu integração PC30, mantendo a escala como MODO_BLOCO_CONTROLADO.
+
+## 7.5. Regra de cobertura dos parágrafos
+
+Resultado:
+
+APROVADO
+
+A regra mantém distinção entre auditoria ampla e comentário Word seletivo.
+
+## 7.6. Gates obrigatórios
+
+Resultado:
+
+APROVADO
+
+O GATE_PRIORIDADE_CRITICA_30 foi incorporado aos gates obrigatórios.
+
+## 7.7. Ordem do GATE_PRIORIDADE_CRITICA_30
+
+Resultado:
+
+APROVADO COM TESTE NECESSÁRIO
+
+A ordem declarada preserva:
+
+GATE_ANTI_COMENTARIO_COSMETICO → GATE_PRIORIDADE_CRITICA_30 → gates BVAA/BVAA-Drive quando aplicável.
+
+Essa ordem é aceitável se os gates BVAA forem entendidos como bloqueio final de liberação documental.
+
+## 7.8. Comandos oficiais
+
+Resultado:
+
+APROVADO
+
+COMANDO 1_BLOCO_PRIORIDADE_CRITICA foi integrado aos comandos oficiais.
+
+## 7.9. Formato dos comentários Word
+
+Resultado:
+
+APROVADO
+
+A versão determina que metadados PC30 fiquem fora do campo “COMENTÁRIO PARA INSERIR NO WORD”, preservando limpeza do comentário inserível.
+
+## 7.10. Estado operacional
+
+Resultado:
+
+APROVADO
+
+Campos PC30 suficientes foram incorporados.
+
+## 7.11. Mapas de saída
+
+Resultado:
+
+APROVADO
+
+MAPA_PRIORIDADE_CRITICA_30 foi incorporado com campos suficientes.
+
+## 7.12. Anti-deriva
+
+Resultado:
+
+APROVADO
+
+A SUBROTINA_ANTI_DERIVA_PRIORIDADE_CRITICA_30 foi incorporada.
+
+## 7.13. Testes controlados
+
+Resultado:
+
+APROVADO PARA EXECUÇÃO
+
+A bateria é suficiente como primeira camada de validação.
+
+## 7.14. Regras de preservação da versão-mãe
+
+Resultado:
+
+APROVADO
+
+A versão contém regras finais de preservação da matriz.
+
+---
+
+# 8. RISCOS RESIDUAIS
+
+## RISCO_RESIDUAL_001 — PC30 virar “comentar menos” em uso real
+
+Mitigação já presente:
+
+A versão declara que todos os riscos relevantes devem ser identificados e apenas a conversão em comentário Word é reduzida.
+
+Status:
+
+MITIGADO, MAS TESTAR.
+
+## RISCO_RESIDUAL_002 — Risco P2 importante ficar apenas no mapa
+
+Mitigação já presente:
+
+P2 pode gerar comentário por alto impacto, risco de banca ou estratégia orientadora.
+
+Status:
+
+MITIGADO.
+
+## RISCO_RESIDUAL_003 — Excesso de P1 gerar muitos comentários
+
+Mitigação já presente:
+
+A versão permite exceção de segurança PC30.
+
+Status:
+
+MITIGADO.
+
+## RISCO_RESIDUAL_004 — BVAA/BVAA-Drive ser comprimido pelo corte dos 30%
+
+Mitigação já presente:
+
+A versão preserva bloqueios e separação BVAA/BVAA-Drive.
+
+Status:
+
+MITIGADO, MAS EXIGE TESTE.
+
+## RISCO_RESIDUAL_005 — Ambiguidade de status entre v0.2 e PC30_RC1
+
+Mitigação recomendada:
+
+Separar melhor os blocos de status em RC2.
+
+Status:
+
+NÃO BLOQUEANTE.
+
+## RISCO_RESIDUAL_006 — Falta de teste empírico da RC1
+
+Mitigação:
+
+Executar bateria PC30-01 a PC30-10 antes de homologação.
+
+Status:
+
+ABERTO.
+
+---
+
+# 9. DECISÃO FINAL
+
+Decisão:
+
+APROVAR_PARA_TESTE_CONTROLADO_PC30
+
+Justificativa:
+
+A versão-filha PC30_RC1 cumpre os requisitos centrais da arquitetura aprovada:
+
+1. preserva a versão-mãe;
+2. não substitui a matriz;
+3. marca a versão-filha como candidata não homologada;
+4. integra PC30 como modo de cobertura/saída;
+5. mantém MODO_DEFESA_DISSERTACAO_TESE;
+6. mantém MODO_BLOCO_CONTROLADO;
+7. integra comando operacional próprio;
+8. integra gate próprio;
+9. integra mapa próprio;
+10. preserva estado operacional;
+11. preserva numeração COMENTÁRIO_WORD;
+12. mantém bloqueios BVAA/BVAA-Drive;
+13. impede revisão integral da tese com comentários Word em massa;
+14. prevê testes controlados suficientes para validação inicial.
+
+A versão não deve ser homologada ainda.
+
+A próxima etapa segura é executar bateria de testes controlados PC30.
+
+---
+
+# 10. PRÓXIMO COMANDO SEGURO
+
+EXECUTAR_TESTES_CONTROLADOS_PC30_RC1
+
+ou, se desejar corrigir apenas os achados baixos/médios antes dos testes:
+
+GERAR_PC30_RC1_REVISAO_LIMPA_PRE_TESTE
+
+FIM_DO_ARQUIVO

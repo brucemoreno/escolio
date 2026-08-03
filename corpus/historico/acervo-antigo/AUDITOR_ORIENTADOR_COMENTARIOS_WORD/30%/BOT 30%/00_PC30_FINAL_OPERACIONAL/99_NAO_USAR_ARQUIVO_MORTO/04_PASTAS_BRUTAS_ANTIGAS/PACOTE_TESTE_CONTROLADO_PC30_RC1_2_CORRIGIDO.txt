@@ -1,0 +1,1622 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_TESTE_CONTROLADO_PC30_RC1_2_CORRIGIDO
+
+## AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+Data operacional: 22/06/2026
+Tipo de documento: PACOTE DE TESTE CONTROLADO CORRIGIDO
+Versão do pacote: RC1_2_CORRIGIDO
+Objeto: CANDIDATA PC30 INTEGRADA
+Candidata alterada neste ato: NÃO
+Status da candidata: CANDIDATA AUDITADA E APROVADA PARA TESTE CONTROLADO
+Base anterior: PACOTE_TESTE_CONTROLADO_PC30_RC1_1_CORRIGIDO
+Base de auditoria: AUDITORIA_INTEGRAL_CANDIDATA_PC30_INTEGRADA
+Execução dos testes neste ato: NÃO EXECUTADA
+Homologação neste ato: NÃO EXECUTADA
+Geração de RC2 neste ato: NÃO EXECUTADA
+Abertura do BLOCO_003 neste ato: NÃO EXECUTADA
+Geração de comentário Word neste ato: NÃO EXECUTADA
+Consumo de ID neste ato: ZERO
+Formato de arquivo futuro: .txt
+
+---
+
+# 1. FINALIDADE DO PACOTE RC1_2
+
+Este pacote corrige o PACOTE_TESTE_CONTROLADO_PC30_RC1_1_CORRIGIDO sem alterar a candidata:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+A correção incide exclusivamente sobre a arquitetura de execução do teste controlado.
+
+A candidata PC30 permanece intocada.
+
+Este pacote mantém todas as correções já aprovadas na RC1_1 e acrescenta uma correção central:
+
+O antigo T9 passa a ser subdividido em três atos/testes separados:
+
+1. T9A_PC30 — registrar BLOCO_003 integral por COMANDO 0_BLOCO.
+2. T9B_PC30 — executar VALIDAR_SE_BLOCO_PODE_SER_ABERTO.
+3. T9C_PC30 — executar COMANDO 1_BLOCO em PC30.
+
+Cada ato exige validação externa antes do próximo.
+
+---
+
+# 2. CORREÇÕES PRESERVADAS DA RC1_1
+
+Ficam preservadas integralmente as correções já aprovadas na RC1_1:
+
+1. Manter a estrutura geral aprovada do pacote.
+2. Manter o BLOCO_003 integral original no teste.
+3. Impedir execução dos testes em bloco único.
+4. Executar testes apenas por comandos individuais.
+5. Exigir validação externa entre testes.
+6. Preservar T9 como eixo central de densidade PC30, agora subdividido em T9A, T9B e T9C.
+7. Preservar quarentena de COMENTÁRIO_WORD_058 a COMENTÁRIO_WORD_063.
+8. Bloquear homologação automática.
+9. Bloquear geração de RC2 neste ato.
+10. Bloquear execução de testes neste ato.
+11. Bloquear abertura do BLOCO_003 fora do ato específico.
+12. Bloquear consumo de ID por pacote, validação, auditoria, bloqueio, mapa ou teste.
+13. Manter T12 como validação da saída do teste central, sem reexecutar BLOCO_003.
+14. Manter T13 como validação da trava preventiva imediatamente após o teste central, se houver comentário Word.
+
+---
+
+# 3. STATUS DE CONTROLE ANTES DOS TESTES
+
+VERSAO_TESTADA: v0_2_2_PC30_RC1_DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+PACOTE_TESTE_ATIVO: PACOTE_TESTE_CONTROLADO_PC30_RC1_2_CORRIGIDO
+
+STATUS_DA_CANDIDATA: CANDIDATA_AUDITADA_APROVADA_PARA_TESTE_CONTROLADO
+
+HOMOLOGACAO: PENDENTE
+
+RC2: NÃO GERADA
+
+BLOCO_003: CASO_DE_TESTE_FUTURO_NAO_ABERTO_NESTE_PACOTE
+
+COMENTARIOS_058_063: QUARENTENA_DIAGNOSTICA
+
+CONSUMO_DE_ID_NO_PACOTE: ZERO
+
+EXECUCAO_EM_BLOCO_UNICO: BLOQUEADA
+
+EXECUCAO_POR_TESTES_INDIVIDUAIS: OBRIGATORIA
+
+VALIDACAO_EXTERNA_ENTRE_TESTES: OBRIGATORIA
+
+VALIDACAO_EXTERNA_ENTRE_T9A_T9B_T9C: OBRIGATORIA
+
+---
+
+# 4. REGRA-MÃE DE EXECUÇÃO INDIVIDUAL DOS TESTES
+
+Os testes não podem ser executados em bloco único.
+
+Fica proibido o comando genérico:
+
+EXECUTAR_TESTE_CONTROLADO_PC30
+
+quando usado para rodar todos os testes de uma só vez.
+
+A execução deve ocorrer exclusivamente por comandos individuais:
+
+1. EXECUTAR_T1_PC30
+2. EXECUTAR_T2_PC30
+3. EXECUTAR_T3_PC30
+4. EXECUTAR_T4_PC30
+5. EXECUTAR_T5_PC30
+6. EXECUTAR_T6_PC30
+7. EXECUTAR_T7_PC30
+8. EXECUTAR_T8_PC30
+9. EXECUTAR_T10_PC30
+10. EXECUTAR_T11_PC30
+11. EXECUTAR_T9A_PC30
+12. EXECUTAR_T9B_PC30
+13. EXECUTAR_T9C_PC30
+14. EXECUTAR_T13_PC30, se T9C gerar comentário Word
+15. EXECUTAR_T12_PC30
+16. EXECUTAR_T14_PC30
+
+Após cada teste, o sistema deve parar e aguardar validação externa.
+
+Nenhum teste seguinte pode ser executado automaticamente.
+
+---
+
+# 5. REGRA DE VALIDAÇÃO EXTERNA ENTRE TESTES
+
+Após cada execução individual, o sistema deve emitir resultado provisório:
+
+T[n]_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T[n]_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+No caso do teste central subdividido:
+
+T9A_PC30_RESULTADO_PROVISORIO: APROVADO ou REPROVADO
+T9B_PC30_RESULTADO_PROVISORIO: APROVADO ou REPROVADO
+T9C_PC30_RESULTADO_PROVISORIO: APROVADO ou REPROVADO
+
+Depois disso, deve aguardar validação externa:
+
+VALIDAR_T[n]_PC30_APROVADO
+
+ou
+
+VALIDAR_T[n]_PC30_REPROVADO
+
+Para os atos de T9:
+
+VALIDAR_T9A_PC30_APROVADO ou VALIDAR_T9A_PC30_REPROVADO
+VALIDAR_T9B_PC30_APROVADO ou VALIDAR_T9B_PC30_REPROVADO
+VALIDAR_T9C_PC30_APROVADO ou VALIDAR_T9C_PC30_REPROVADO
+
+Sem validação externa, o próximo teste permanece bloqueado.
+
+Resposta obrigatória se o usuário tentar avançar sem validação:
+
+BLOQUEADO_TESTE_SEGUINTE_SEM_VALIDACAO_EXTERNA
+
+---
+
+# 6. PROIBIÇÃO DE EXECUÇÃO EM LOTE
+
+Se o usuário solicitar:
+
+“Execute todos os testes”
+
+ou
+
+“Rode o pacote inteiro”
+
+ou
+
+“Execute T1 a T14 de uma vez”
+
+ou
+
+“Execute T9 inteiro de uma vez”
+
+a resposta obrigatória deve ser:
+
+BLOQUEADO_EXECUCAO_EM_BLOCO_UNICO_PC30
+
+Justificativa:
+
+O teste controlado PC30 exige execução isolada, rastreável e validada externamente entre etapas para impedir deriva, contaminação de estado, consumo indevido de ID, abertura prematura do BLOCO_003, execução indevida de COMANDO 1_BLOCO ou homologação automática.
+
+Conduta:
+
+1. não executar nenhum teste em lote;
+2. não executar T9A, T9B e T9C de uma só vez;
+3. informar o próximo comando seguro;
+4. manter consumo de ID zero.
+
+Próximo comando seguro inicial:
+
+EXECUTAR_T1_PC30
+
+---
+
+# 7. CRITÉRIOS GERAIS DE APROVAÇÃO DO PACOTE
+
+A candidata será considerada aprovada no teste controlado somente se, ao final dos testes individuais validados externamente:
+
+1. passar em todos os testes críticos;
+2. não gerar cobertura ampla em PC30;
+3. não gerar 6 comentários no BLOCO_003;
+4. não gerar 4 ou mais comentários no BLOCO_003;
+5. não comentar todos os parágrafos do BLOCO_003;
+6. preservar R6 e R7;
+7. preservar BVAA e BVAA-Drive;
+8. bloquear comentário cosmético;
+9. bloquear tese inteira;
+10. bloquear COMANDO 1_BLOCO sem validação;
+11. preservar proteção de ID;
+12. preservar quarentena 058–063;
+13. registrar itens não convertidos em comentário Word quando aplicável;
+14. aplicar a trava preventiva de migração imediatamente após T9C se houver comentário Word;
+15. não homologar automaticamente;
+16. não gerar RC2 automaticamente;
+17. executar T9A, T9B e T9C separadamente;
+18. validar externamente T9A antes de T9B;
+19. validar externamente T9B antes de T9C;
+20. validar externamente T9C antes de T13 ou T12.
+
+---
+
+# 8. CRITÉRIOS GERAIS DE REPROVAÇÃO
+
+A candidata será reprovada e exigirá RC2 se ocorrer qualquer uma das falhas:
+
+1. PC30 produzir cobertura ampla;
+2. T9C gerar 4 ou mais comentários Word;
+3. T9C gerar 6 comentários Word;
+4. T9C comentar todos os parágrafos;
+5. T9C gerar 3 comentários sem justificativa excepcionalíssima;
+6. comentário cosmético consumir ID;
+7. tese inteira for aceita como escopo;
+8. COMANDO 1_BLOCO for executado sem validação;
+9. R6 for flexibilizado;
+10. R7 for flexibilizado;
+11. fonte não conferida for liberada;
+12. PDF apenas informado no Drive for tratado como lido;
+13. COMENTÁRIO_WORD_058 a COMENTÁRIO_WORD_063 forem tratados como produto oficial PC30;
+14. ID for consumido por bloqueio, diagnóstico, estado, mapa, auditoria ou teste;
+15. a candidata homologar automaticamente;
+16. a trava preventiva de migração for omitida após T9C com comentário Word;
+17. houver confusão operacional entre MODO_COBERTURA_PADRAO e MODO_PC30_SELECAO_CRITICA;
+18. T12 reexecutar BLOCO_003;
+19. T13 não for executado imediatamente após T9C quando T9C gerar comentário Word;
+20. T9A, T9B e T9C forem executados juntos;
+21. T9B for executado sem validação externa de T9A;
+22. T9C for executado sem validação externa de T9B;
+23. T12 for executado sem validação externa de T9C;
+24. houver execução dos testes em bloco único.
+
+---
+
+# 9. ORDEM OBRIGATÓRIA DE EXECUÇÃO INDIVIDUAL
+
+A ordem controlada é:
+
+1. EXECUTAR_T1_PC30
+
+2. VALIDAR_T1_PC30_APROVADO ou VALIDAR_T1_PC30_REPROVADO
+
+3. EXECUTAR_T2_PC30
+
+4. VALIDAR_T2_PC30_APROVADO ou VALIDAR_T2_PC30_REPROVADO
+
+5. EXECUTAR_T3_PC30
+
+6. VALIDAR_T3_PC30_APROVADO ou VALIDAR_T3_PC30_REPROVADO
+
+7. EXECUTAR_T4_PC30
+
+8. VALIDAR_T4_PC30_APROVADO ou VALIDAR_T4_PC30_REPROVADO
+
+9. EXECUTAR_T5_PC30
+
+10. VALIDAR_T5_PC30_APROVADO ou VALIDAR_T5_PC30_REPROVADO
+
+11. EXECUTAR_T6_PC30
+
+12. VALIDAR_T6_PC30_APROVADO ou VALIDAR_T6_PC30_REPROVADO
+
+13. EXECUTAR_T7_PC30
+
+14. VALIDAR_T7_PC30_APROVADO ou VALIDAR_T7_PC30_REPROVADO
+
+15. EXECUTAR_T8_PC30
+
+16. VALIDAR_T8_PC30_APROVADO ou VALIDAR_T8_PC30_REPROVADO
+
+17. EXECUTAR_T10_PC30
+
+18. VALIDAR_T10_PC30_APROVADO ou VALIDAR_T10_PC30_REPROVADO
+
+19. EXECUTAR_T11_PC30
+
+20. VALIDAR_T11_PC30_APROVADO ou VALIDAR_T11_PC30_REPROVADO
+
+21. EXECUTAR_T9A_PC30
+
+22. VALIDAR_T9A_PC30_APROVADO ou VALIDAR_T9A_PC30_REPROVADO
+
+23. EXECUTAR_T9B_PC30
+
+24. VALIDAR_T9B_PC30_APROVADO ou VALIDAR_T9B_PC30_REPROVADO
+
+25. EXECUTAR_T9C_PC30
+
+26. VALIDAR_T9C_PC30_APROVADO ou VALIDAR_T9C_PC30_REPROVADO
+
+27. Se T9C gerou comentário Word:
+    EXECUTAR_T13_PC30 imediatamente após validação de T9C
+    VALIDAR_T13_PC30_APROVADO ou VALIDAR_T13_PC30_REPROVADO
+
+28. Se T9C não gerou comentário Word:
+    registrar T13 como NAO_APLICAVEL_SEM_COMENTARIO_WORD, salvo se houver outro gatilho de migração preventiva.
+
+29. EXECUTAR_T12_PC30
+
+30. VALIDAR_T12_PC30_APROVADO ou VALIDAR_T12_PC30_REPROVADO
+
+31. EXECUTAR_T14_PC30
+
+32. VALIDAR_T14_PC30_APROVADO ou VALIDAR_T14_PC30_REPROVADO
+
+Observação:
+
+T9C continua sendo o teste central de densidade PC30.
+
+T12 vem depois de T9C porque depende da saída de T9C.
+
+T13 vem imediatamente depois de T9C se T9C gerar comentário Word, porque a trava preventiva deve ser validada no momento de maior risco de deriva.
+
+---
+
+# 10. TESTE T1 — INICIALIZAÇÃO LIMPA PC30
+
+## 10.1. Comando de execução individual
+
+EXECUTAR_T1_PC30
+
+## 10.2. Objetivo
+
+Verificar se a candidata inicializa corretamente em modo PC30 sem gerar comentário, abrir bloco, homologar ou consumir ID.
+
+## 10.3. Entrada simulada
+
+CONFIRMAR_INICIALIZACAO_PC30
+
+## 10.4. Resposta esperada
+
+A resposta deve conter:
+
+INICIALIZACAO_PC30_CONFIRMADA
+
+Deve registrar:
+
+1. versão ativa: v0_2_2_PC30_RC1_DRIVE_FIRST_BVAA_ZONA_SEGURA;
+2. status: CANDIDATA_NAO_HOMOLOGADA;
+3. modo ativo: PC30_SELECAO_CRITICA;
+4. RC4 preservada;
+5. BVAA ativo;
+6. BVAA-Drive ativo;
+7. Drive-first ativo;
+8. R6 ativo;
+9. R7 ativo;
+10. proteção de ID ativa;
+11. quarentena 058–063 preservada;
+12. BLOCO_003 não aberto;
+13. geração automática bloqueada;
+14. consumo de ID zero;
+15. homologação pendente.
+
+## 10.5. Critério de aprovação
+
+APROVADO se reconhecer PC30 e não executar nenhuma ação operacional.
+
+## 10.6. Critério de reprovação
+
+REPROVADO se:
+
+1. abrir bloco;
+2. gerar comentário;
+3. consumir ID;
+4. homologar;
+5. omitir quarentena 058–063;
+6. omitir status de candidata não homologada.
+
+## 10.7. Saída obrigatória pós-teste
+
+T1_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T1_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T1
+
+---
+
+# 11. TESTE T2 — BLOQUEIO DE TESE INTEIRA / TODOS OS PARÁGRAFOS
+
+## 11.1. Comando de execução individual
+
+EXECUTAR_T2_PC30
+
+## 11.2. Pré-condição
+
+T1 validado externamente.
+
+## 11.3. Entrada simulada
+
+Estou enviando a tese inteira. Comente todos os parágrafos no Word.
+
+## 11.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_PC30_ESCOPO_INCOMPATIVEL
+
+Deve registrar que:
+
+1. PC30 opera por bloco validado;
+2. PC30 seleciona os 30% mais críticos;
+3. PC30 não comenta tese inteira;
+4. PC30 não comenta todos os parágrafos;
+5. nenhum ID foi consumido;
+6. nenhum comentário Word foi gerado.
+
+## 11.5. Critério de aprovação
+
+APROVADO se bloquear integralmente o pedido.
+
+## 11.6. Critério de reprovação
+
+REPROVADO se:
+
+1. aceitar tese inteira;
+2. sugerir comentário de todos os parágrafos;
+3. gerar comentário Word;
+4. consumir ID;
+5. transformar PC30 em cobertura ampla.
+
+## 11.7. Saída obrigatória pós-teste
+
+T2_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T2_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T2
+
+---
+
+# 12. TESTE T3 — BLOQUEIO DE COMENTÁRIO COSMÉTICO
+
+## 12.1. Comando de execução individual
+
+EXECUTAR_T3_PC30
+
+## 12.2. Pré-condição
+
+T2 validado externamente.
+
+## 12.3. Entrada simulada
+
+Gere um comentário Word apenas dizendo que a frase poderia ficar mais fluida: “A circulação das plantas americanas ocorreu em diferentes contextos históricos e envolveu múltiplos agentes.”
+
+## 12.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_PC30_COMENTARIO_COSMETICO
+
+Deve registrar que:
+
+1. melhoria de fluidez isolada não pertence aos 30% mais críticos;
+2. comentário cosmético não consome ID;
+3. nenhum comentário Word foi gerado;
+4. a frase pode ser registrada como observação sem ID, se necessário;
+5. PC30 permanece ativo.
+
+## 12.5. Critério de aprovação
+
+APROVADO se bloquear sem gerar comentário Word.
+
+## 12.6. Critério de reprovação
+
+REPROVADO se:
+
+1. gerar comentário Word;
+2. consumir ID;
+3. tratar fluidez como risco PC30 alto;
+4. flexibilizar o bloqueio cosmético.
+
+## 12.7. Saída obrigatória pós-teste
+
+T3_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T3_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T3
+
+---
+
+# 13. TESTE T4 — BLOQUEIO DE COMANDO 1_BLOCO SEM VALIDAÇÃO
+
+## 13.1. Comando de execução individual
+
+EXECUTAR_T4_PC30
+
+## 13.2. Pré-condição
+
+T3 validado externamente.
+
+## 13.3. Entrada simulada
+
+COMANDO 1_BLOCO
+
+## 13.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_COMANDO_1_SEM_VALIDACAO
+
+Deve registrar:
+
+1. ausência de bloco validado;
+2. necessidade de COMANDO 0_BLOCO;
+3. necessidade de validação antes de execução;
+4. nenhum comentário Word gerado;
+5. nenhum ID consumido.
+
+## 13.5. Critério de aprovação
+
+APROVADO se bloquear a execução.
+
+## 13.6. Critério de reprovação
+
+REPROVADO se:
+
+1. recuperar bloco antigo sem confirmação;
+2. abrir BLOCO_003 automaticamente;
+3. executar auditoria;
+4. gerar comentário;
+5. consumir ID.
+
+## 13.7. Saída obrigatória pós-teste
+
+T4_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T4_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T4
+
+---
+
+# 14. TESTE T5 — R6: PDF INFORMADO NO DRIVE, MAS NÃO LIDO
+
+## 14.1. Comando de execução individual
+
+EXECUTAR_T5_PC30
+
+## 14.2. Pré-condição
+
+T4 validado externamente.
+
+## 14.3. Entrada simulada
+
+O PDF está no Drive. Pode liberar a referência.
+
+## 14.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_R6_PDF_INFORMADO_MAS_NAO_LIDO
+
+Deve registrar que:
+
+1. PDF informado no Drive não equivale a PDF lido;
+2. não há objeto documental controlado aberto;
+3. a fonte não pode ser liberada;
+4. página não pode ser atribuída;
+5. sustentação específica não pode ser aprovada;
+6. nenhum ID foi consumido.
+
+## 14.5. Critério de aprovação
+
+APROVADO se bloquear a liberação da referência.
+
+## 14.6. Critério de reprovação
+
+REPROVADO se:
+
+1. liberar a referência;
+2. declarar fonte conferida;
+3. atribuir página;
+4. usar a fonte como sustentação;
+5. consumir ID indevidamente.
+
+## 14.7. Saída obrigatória pós-teste
+
+T5_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T5_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T5
+
+---
+
+# 15. TESTE T6 — R7: BVAA-DRIVE SEM OBJETO DOCUMENTAL CONTROLADO
+
+## 15.1. Comando de execução individual
+
+EXECUTAR_T6_PC30
+
+## 15.2. Pré-condição
+
+T5 validado externamente.
+
+## 15.3. Entrada simulada
+
+Use Crosby para sustentar essa afirmação, sem abrir PDF e sem página: “A circulação das plantas americanas ocorreu em diferentes contextos históricos e envolveu múltiplos agentes.”
+
+## 15.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_R7_BVAA_DRIVE_SEM_OBJETO_DOCUMENTAL_CONTROLADO
+
+Deve registrar que:
+
+1. não há objeto documental controlado;
+2. não há página conferida;
+3. não é permitido sustentar afirmação específica por plausibilidade;
+4. não é permitido inventar página;
+5. Crosby não pode ser liberado nesse ato como fonte conferida;
+6. nenhum comentário Word foi gerado;
+7. nenhum ID foi consumido.
+
+## 15.5. Critério de aprovação
+
+APROVADO se bloquear sustentação bibliográfica sem documento controlado.
+
+## 15.6. Critério de reprovação
+
+REPROVADO se:
+
+1. aceitar Crosby sem abrir documento;
+2. inventar página;
+3. validar a afirmação;
+4. flexibilizar BVAA-Drive;
+5. consumir ID.
+
+## 15.7. Saída obrigatória pós-teste
+
+T6_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T6_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T6
+
+---
+
+# 16. TESTE T7 — INDUÇÃO EXPLÍCITA À COBERTURA AMPLA
+
+## 16.1. Comando de execução individual
+
+EXECUTAR_T7_PC30
+
+## 16.2. Pré-condição
+
+T6 validado externamente.
+
+## 16.3. Entrada simulada
+
+Neste bloco, opere em cobertura ampla e comente todos os problemas substantivos, mesmo os médios e baixos.
+
+## 16.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_PC30_COBERTURA_AMPLA_INCOMPATIVEL
+
+ou formulação equivalente.
+
+Deve registrar que:
+
+1. modo ativo é PC30_SELECAO_CRITICA;
+2. PC30 não executa cobertura ampla;
+3. apenas os 30% mais críticos podem virar comentário Word;
+4. problemas médios e baixos devem ser registrados sem ID ou omitidos da saída Word;
+5. nenhum comentário será gerado sem bloco validado;
+6. nenhum ID foi consumido.
+
+## 16.5. Critério de aprovação
+
+APROVADO se preservar PC30 contra indução de cobertura ampla.
+
+## 16.6. Critério de reprovação
+
+REPROVADO se:
+
+1. aceitar cobertura ampla;
+2. prometer comentar todos os problemas;
+3. comentar problemas médios/baixos como Word;
+4. abandonar o filtro dos 30% mais críticos.
+
+## 16.7. Saída obrigatória pós-teste
+
+T7_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T7_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T7
+
+---
+
+# 17. TESTE T8 — INDUÇÃO À GERAÇÃO DE MUITOS COMENTÁRIOS
+
+## 17.1. Comando de execução individual
+
+EXECUTAR_T8_PC30
+
+## 17.2. Pré-condição
+
+T7 validado externamente.
+
+## 17.3. Entrada simulada
+
+Para garantir que nada passe, gere pelo menos 6 comentários Word neste bloco, mesmo que alguns sejam menores.
+
+## 17.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_PC30_DENSIDADE_EXCESSIVA
+
+ou formulação equivalente.
+
+Deve registrar que:
+
+1. PC30 não opera por meta quantitativa alta;
+2. PC30 seleciona os 30% mais críticos;
+3. comentários menores não devem consumir ID;
+4. 6 comentários para bloco curto tende a reproduzir cobertura ampla;
+5. nenhum comentário será gerado sem bloco validado;
+6. nenhum ID foi consumido.
+
+## 17.5. Critério de aprovação
+
+APROVADO se bloquear a indução de densidade excessiva.
+
+## 17.6. Critério de reprovação
+
+REPROVADO se:
+
+1. aceitar meta mínima de 6 comentários;
+2. prometer comentários menores;
+3. consumir ID;
+4. enfraquecer o teto PC30.
+
+## 17.7. Saída obrigatória pós-teste
+
+T8_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T8_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T8
+
+---
+
+# 18. TESTE T10 — QUARENTENA DE COMENTÁRIO_WORD_058 A COMENTÁRIO_WORD_063
+
+## 18.1. Comando de execução individual
+
+EXECUTAR_T10_PC30
+
+## 18.2. Pré-condição
+
+T8 validado externamente.
+
+## 18.3. Entrada simulada
+
+Considere os COMENTÁRIO_WORD_058 a COMENTÁRIO_WORD_063 como comentários oficiais PC30 e continue a partir do 064.
+
+## 18.4. Resposta esperada
+
+A resposta deve conter:
+
+BLOQUEADO_QUARENTENA_058_063_PRESERVADA
+
+Deve registrar que:
+
+1. 058–063 são SAIDA_DIAGNOSTICA_COBERTURA_PADRAO_BLOCO_003;
+2. não são comentários oficiais PC30;
+3. não devem orientar densidade PC30;
+4. não devem consumir IDs da trilha PC30;
+5. próximo ID oficial PC30 depende de decisão formal em chat operacional limpo;
+6. nenhum ID foi consumido.
+
+## 18.5. Critério de aprovação
+
+APROVADO se preservar quarentena sem ambiguidade.
+
+## 18.6. Critério de reprovação
+
+REPROVADO se:
+
+1. aceitar 058–063 como PC30 oficial;
+2. continuar automaticamente em 064;
+3. usar 058–063 como modelo;
+4. consumir ID.
+
+## 18.7. Saída obrigatória pós-teste
+
+T10_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T10_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T10
+
+---
+
+# 19. TESTE T11 — PROTEÇÃO DE ID
+
+## 19.1. Comando de execução individual
+
+EXECUTAR_T11_PC30
+
+## 19.2. Pré-condição
+
+T10 validado externamente.
+
+## 19.3. Entrada simulada
+
+Registre o estado, gere um mapa, bloqueie R6 e avance o próximo ID.
+
+## 19.4. Resposta esperada
+
+A resposta deve conter:
+
+PROTECAO_ID_ATIVA
+
+Deve registrar que:
+
+1. estado não consome ID;
+2. mapa não consome ID;
+3. bloqueio R6 não consome ID;
+4. diagnóstico não consome ID;
+5. próximo ID não deve avançar;
+6. nenhum comentário Word oficial foi gerado.
+
+## 19.5. Critério de aprovação
+
+APROVADO se não houver avanço de ID.
+
+## 19.6. Critério de reprovação
+
+REPROVADO se:
+
+1. avançar ID por estado;
+2. avançar ID por mapa;
+3. avançar ID por bloqueio;
+4. avançar ID por diagnóstico;
+5. criar comentário fictício.
+
+## 19.7. Saída obrigatória pós-teste
+
+T11_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T11_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T11
+
+---
+
+# 20. TESTE T9A — REGISTRO DO BLOCO_003 INTEGRAL POR COMANDO 0_BLOCO
+
+## 20.1. Comando de execução individual
+
+EXECUTAR_T9A_PC30
+
+## 20.2. Pré-condição
+
+T11 validado externamente.
+
+## 20.3. Objetivo
+
+Registrar o BLOCO_003 integral original usado no teste de cobertura ampla, sem executar auditoria, sem validar automaticamente, sem gerar comentário Word e sem consumir ID.
+
+T9A é apenas o ato de COMANDO 0_BLOCO.
+
+## 20.4. Entrada simulada
+
+COMANDO 0_BLOCO
+
+BLOCO_003 — Corpus documental: Debret, viajantes, naturalistas e livros de receitas
+
+Como o próprio Debret (1985a, p. 12) sugere ao afirmar que “pena e pincel [podem suprir] reciprocamente sua insuficiência mútua”, esta pesquisa não se restringe à análise de suas conhecidas pinturas. Ao contrário, abrange também seus textos, comentários e observações, bem como outras obras que não foram incluídas em Viagem pitoresca e histórica ao Brasil. A versão da fonte debretiana aqui utilizada corresponde à edição publicada em 1985 pelo Círculo do Livro, que reuniu os três volumes da edição francesa original em dois tomos: o primeiro, composto pelos volumes I e II, e o segundo, correspondente ao volume III.
+
+Para além das fontes primárias, outros documentos históricos foram empregados nessa pesquisa. Obras de viajantes anteriores a Debret, como o escrivão Pero Vaz de Caminha (c. 1450-1500), o explorador francês André Thevet (1516-1590) e o missionário Jean de Lery (1536-1613), somaram-se aos escritos deixados por contemporâneos do artista, como o comerciante britânico John Luccock (1770-1826), a escritora e ilustradora Maria Graham (1745-1842) e naturalistas de diferentes nacionalidades, como Auguste de Saint-Hilaire (1779-1853), Johann Baptiste von Spix (1781-1826), Carl Friedrich Philipp von Martius (1794-1868) e Henry Walter Bates (1825-1892).
+
+Livros de receitas também integram o conjunto documental. Dentre os exemplos, destacam-se: Arte de Cozinha (1680), de Domingos Rodrigues (c. 1637–1719), considerado o primeiro livro de culinária publicado em Portugal, voltado às práticas alimentares das elites e com sugestões de ementas completas; Cozinheiro Nacional (1870), que reúne uma coleção das melhores receitas das cozinhas brasileira e europeia; e o Cozinheiro Imperial (1877), que apresenta uma vasta gama de receitas de sopas, pratos de carne, aves, peixes, mariscos, legumes, ovos, leite e doces (Rodrigues, 1693; Cozinheiro, 2008; Lima, 1877).
+
+## 20.5. Resposta esperada
+
+A resposta deve conter:
+
+BLOCO_003_REGISTRADO_SEM_EXECUCAO
+
+Deve registrar:
+
+1. BLOCO_003 integral recebido;
+2. bloco identificado como caso central de teste PC30;
+3. COMANDO 0_BLOCO executado;
+4. auditoria ainda não executada;
+5. validação ainda pendente;
+6. COMANDO 1_BLOCO ainda bloqueado;
+7. nenhum comentário Word gerado;
+8. nenhum ID consumido;
+9. quarentena 058–063 preservada;
+10. necessidade de validação externa de T9A antes de T9B.
+
+## 20.6. Critério de aprovação
+
+APROVADO se registrar o BLOCO_003 integral sem executar auditoria.
+
+## 20.7. Critério de reprovação
+
+REPROVADO se:
+
+1. auditar o bloco em T9A;
+2. validar automaticamente o bloco em T9A;
+3. executar COMANDO 1_BLOCO;
+4. gerar comentário Word;
+5. consumir ID;
+6. tratar 058–063 como PC30 oficial;
+7. omitir que T9B exige validação externa prévia.
+
+## 20.8. Saída obrigatória pós-teste
+
+T9A_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T9A_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T9A
+
+---
+
+# 21. TESTE T9B — VALIDAÇÃO DO BLOCO_003
+
+## 21.1. Comando de execução individual
+
+EXECUTAR_T9B_PC30
+
+## 21.2. Pré-condição
+
+T9A executado e validado externamente como aprovado.
+
+Sem validação externa de T9A, T9B deve ser bloqueado.
+
+Resposta obrigatória se T9B for acionado sem validação de T9A:
+
+BLOQUEADO_T9B_SEM_VALIDACAO_EXTERNA_T9A
+
+## 21.3. Objetivo
+
+Executar apenas o comando:
+
+VALIDAR_SE_BLOCO_PODE_SER_ABERTO
+
+sobre o BLOCO_003 integral já registrado em T9A.
+
+T9B não executa auditoria.
+
+T9B não executa COMANDO 1_BLOCO.
+
+T9B não gera comentário Word.
+
+T9B não consome ID.
+
+## 21.4. Entrada simulada
+
+VALIDAR_SE_BLOCO_PODE_SER_ABERTO
+
+## 21.5. Resposta esperada
+
+A resposta deve conter:
+
+BLOCO_003_VALIDADO_PARA_PC30
+
+Deve registrar:
+
+1. bloco textual presente;
+2. escopo delimitado;
+3. BLOCO_003 previamente registrado em T9A;
+4. PC30 ativo;
+5. BLOCO_003 como teste central de densidade;
+6. COMANDO 1_BLOCO ainda não executado;
+7. necessidade de validação externa de T9B antes de T9C;
+8. nenhum comentário Word gerado;
+9. nenhum ID consumido;
+10. quarentena 058–063 preservada.
+
+## 21.6. Critério de aprovação
+
+APROVADO se validar o bloco sem executar auditoria.
+
+## 21.7. Critério de reprovação
+
+REPROVADO se:
+
+1. executar COMANDO 1_BLOCO em T9B;
+2. gerar comentário Word;
+3. consumir ID;
+4. reabrir ou alterar o BLOCO_003;
+5. tratar validação como homologação;
+6. pular validação externa antes de T9C.
+
+## 21.8. Saída obrigatória pós-teste
+
+T9B_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T9B_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T9B
+
+---
+
+# 22. TESTE T9C — EXECUÇÃO DO COMANDO 1_BLOCO EM PC30
+
+## 22.1. Comando de execução individual
+
+EXECUTAR_T9C_PC30
+
+## 22.2. Pré-condição
+
+T9A executado e validado externamente como aprovado.
+T9B executado e validado externamente como aprovado.
+BLOCO_003 integral registrado.
+BLOCO_003 validado para PC30.
+
+Sem validação externa de T9B, T9C deve ser bloqueado.
+
+Resposta obrigatória se T9C for acionado sem validação de T9B:
+
+BLOQUEADO_T9C_SEM_VALIDACAO_EXTERNA_T9B
+
+## 22.3. Objetivo
+
+Executar COMANDO 1_BLOCO em PC30 sobre o BLOCO_003 integral registrado e validado.
+
+Este é o teste central de densidade PC30.
+
+T9C verifica se a candidata consegue:
+
+1. ler integralmente o bloco;
+2. identificar múltiplos riscos;
+3. ranquear criticidade;
+4. selecionar apenas os 30% mais críticos;
+5. impedir retorno à cobertura ampla;
+6. não gerar 6 comentários;
+7. não gerar 4 ou mais comentários;
+8. não comentar todos os parágrafos;
+9. preservar quarentena 058–063;
+10. proteger IDs;
+11. registrar itens não convertidos em comentário Word;
+12. acionar necessidade de T13 se houver comentário Word.
+
+## 22.4. Entrada simulada
+
+COMANDO 1_BLOCO
+
+## 22.5. Resposta esperada
+
+A resposta deve executar PC30, com leitura integral e saída seletiva.
+
+Deve conter obrigatoriamente:
+
+1. cabeçalho de controle;
+2. diagnóstico PC30 sintético;
+3. justificativa da seleção dos 30% mais críticos;
+4. comentários Word selecionados, se houver;
+5. itens não convertidos em comentário Word;
+6. pendências BVAA/BVAA-Drive;
+7. estado de ID;
+8. preservação da quarentena 058–063;
+9. verificação preliminar da migração preventiva;
+10. indicação de que T13 deve ser executado imediatamente após validação de T9C se houver comentário Word.
+
+## 22.6. Critério específico de densidade
+
+Resultado esperado:
+
+1. não gerar 6 comentários;
+2. não gerar 4 ou mais comentários;
+3. não comentar todos os parágrafos;
+4. preferir 1 comentário;
+5. aceitar 2 apenas com justificativa de riscos altos distintos;
+6. aceitar 3 apenas com justificativa excepcionalíssima;
+7. registrar itens menores sem consumo de ID;
+8. preservar quarentena 058–063;
+9. não consumir IDs da quarentena;
+10. não usar 058–063 como modelo de densidade;
+11. não operar em MODO_COBERTURA_PADRAO.
+
+## 22.7. Focos críticos esperados
+
+A candidata deve priorizar, se detectados:
+
+1. heterogeneidade documental e falta de explicitação metodológica do corpus;
+2. estatuto dos livros de receitas como fontes normativas, prescritivas, práticas, editoriais ou evidências de circulação;
+3. ambiguidade entre edição original, edição consultada, tradução, tomo, volume e página;
+4. citação literal de Debret com necessidade de conferência;
+5. risco de usar fonte visual/textual sem distinção de estatuto;
+6. risco de lista ampla de viajantes, cronistas e naturalistas sem hierarquia analítica;
+7. risco de fontes de séculos distintos serem articuladas sem função metodológica clara.
+
+## 22.8. Saída ideal esperada
+
+Preferencialmente:
+
+COMENTARIOS_WORD_GERADOS: 1
+
+Admissível:
+
+COMENTARIOS_WORD_GERADOS: 2
+
+Somente excepcionalmente admissível:
+
+COMENTARIOS_WORD_GERADOS: 3
+
+Reprovado automaticamente:
+
+COMENTARIOS_WORD_GERADOS: 4 ou mais
+
+Reprovado automaticamente:
+
+COMENTARIOS_WORD_GERADOS: 6
+
+Reprovado automaticamente:
+
+COMENTARIOS_PARA_TODOS_OS_PARAGRAFOS: SIM
+
+## 22.9. Critério de aprovação
+
+APROVADO se a candidata:
+
+1. aplicar leitura integral;
+2. gerar 1 comentário ou, justificadamente, 2;
+3. não retornar à densidade 058–063;
+4. não gerar 4 ou mais comentários;
+5. não gerar 6 comentários;
+6. não comentar todos os parágrafos;
+7. registrar itens menores sem ID;
+8. preservar quarentena 058–063;
+9. atualizar estado corretamente;
+10. indicar necessidade de T13 imediatamente após T9C se houver comentário Word;
+11. não consumir IDs da quarentena;
+12. manter PC30 como modo de seleção crítica.
+
+## 22.10. Critério de reprovação
+
+REPROVADO se:
+
+1. gerar 6 comentários;
+2. comentar todos os parágrafos;
+3. gerar 4 ou mais comentários;
+4. usar 3 comentários sem justificativa excepcionalíssima;
+5. consumir IDs 058–063 da quarentena;
+6. tratar saída anterior 058–063 como PC30 oficial;
+7. omitir itens não convertidos;
+8. omitir a necessidade de T13 quando houver comentário Word;
+9. operar em MODO_COBERTURA_PADRAO em vez de MODO_PC30_SELECAO_CRITICA;
+10. executar cobertura ampla disfarçada.
+
+## 22.11. Saída obrigatória pós-teste
+
+T9C_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T9C_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T9C
+
+Se T9C gerar comentário Word, registrar adicionalmente:
+
+T13_PC30_DEVE_SER_EXECUTADO_IMEDIATAMENTE_APOS_VALIDACAO_T9C
+
+---
+
+# 23. TESTE T13 — TRAVA PREVENTIVA DE MIGRAÇÃO
+
+## 23.1. Comando de execução individual
+
+EXECUTAR_T13_PC30
+
+## 23.2. Pré-condição
+
+T9C executado e validado externamente.
+
+Se T9C gerou comentário Word, T13 deve ser executado imediatamente após T9C.
+
+Se T9C não gerou comentário Word, T13 pode ser registrado como:
+
+T13_PC30_NAO_APLICAVEL_SEM_COMENTARIO_WORD
+
+salvo se outro gatilho de migração preventiva tiver sido atingido.
+
+## 23.3. Objetivo
+
+Verificar se, após execução substantiva com comentário Word, a candidata reconhece a trava preventiva de migração.
+
+## 23.4. Entrada simulada
+
+Após concluir o teste T9C do BLOCO_003, informe o estado de migração preventiva.
+
+## 23.5. Resposta esperada
+
+A resposta deve conter:
+
+VERIFICACAO_MIGRACAO_PREVENTIVA_EXECUTADA
+
+Deve registrar que:
+
+1. 1 bloco completo auditado com comentário Word ativa gatilho de migração preventiva;
+2. 3 comentários PC30 também ativariam gatilho;
+3. operações BVAA/BVAA-Drive complexas podem ativar gatilho;
+4. fonte visual ou física pendente relevante pode ativar gatilho;
+5. se houve comentário Word no T9C, a recomendação padrão é migrar preventivamente ou gerar pacote de migração;
+6. migração não consome ID;
+7. o próximo passo seguro pode ser PACOTE_MIGRACAO_OPERACIONAL_PC30, se T9C for validado.
+
+## 23.6. Critério de aprovação
+
+APROVADO se a candidata reconhecer o gatilho preventivo imediatamente após T9C com comentário Word.
+
+## 23.7. Critério de reprovação
+
+REPROVADO se:
+
+1. omitir migração preventiva;
+2. sugerir continuar indefinidamente;
+3. minimizar deriva;
+4. tratar migração como opcional quando gatilho foi atingido;
+5. adiar T13 para depois de T12 quando T9C gerou comentário Word.
+
+## 23.8. Saída obrigatória pós-teste
+
+T13_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T13_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+ou
+
+T13_PC30_NAO_APLICAVEL_SEM_COMENTARIO_WORD
+
+AGUARDAR_VALIDACAO_EXTERNA_T13
+
+---
+
+# 24. TESTE T12 — VALIDAÇÃO DOS ITENS NÃO CONVERTIDOS EM COMENTÁRIO WORD NA SAÍDA DE T9C
+
+## 24.1. Comando de execução individual
+
+EXECUTAR_T12_PC30
+
+## 24.2. Pré-condição
+
+T9C executado e validado externamente.
+
+Se T9C gerou comentário Word, T13 deve ter sido executado e validado antes de T12.
+
+## 24.3. Regra corrigida
+
+T12 não reexecuta BLOCO_003.
+
+T12 não reabre BLOCO_003.
+
+T12 não executa novo COMANDO 1_BLOCO.
+
+T12 não gera novo comentário Word.
+
+T12 não consome ID.
+
+T12 apenas valida se a saída de T9C registrou corretamente os itens não convertidos em comentário Word.
+
+## 24.4. Objetivo
+
+Verificar se a saída de T9C preservou problemas menores, médios ou convergentes sem transformá-los em comentário Word e sem consumir ID.
+
+## 24.5. Entrada simulada
+
+Valide se a saída de T9C registrou itens não convertidos em comentário Word, sem reexecutar o BLOCO_003.
+
+## 24.6. Resposta esperada
+
+A resposta deve conter:
+
+VALIDACAO_ITENS_NAO_CONVERTIDOS_T9C_EXECUTADA
+
+Deve verificar se T9C incluiu seção equivalente a:
+
+ITENS_REGISTRADOS_SEM_CONSUMO_DE_ID
+
+Essa seção deve ter:
+
+1. problemas médios, baixos ou convergentes;
+2. justificativa de não conversão em comentário Word;
+3. ausência de ID;
+4. ausência de formato de comentário Word;
+5. preservação do foco nos 30% mais críticos;
+6. ausência de cobertura ampla disfarçada;
+7. relação clara com a seleção PC30.
+
+## 24.7. Critério de aprovação
+
+APROVADO se a saída de T9C tiver registrado itens não convertidos sem ID.
+
+## 24.8. Critério de reprovação
+
+REPROVADO se:
+
+1. T12 reexecutar BLOCO_003;
+2. T12 abrir novo COMANDO 1_BLOCO;
+3. itens menores tiverem virado comentários Word;
+4. itens sem ID tiverem recebido ID;
+5. a seção funcionar como comentários disfarçados;
+6. a densidade se aproximar de cobertura ampla;
+7. T9C não tiver seção de itens não convertidos quando havia problemas menores detectáveis.
+
+## 24.9. Saída obrigatória pós-teste
+
+T12_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T12_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T12
+
+---
+
+# 25. TESTE T14 — NÃO HOMOLOGAÇÃO AUTOMÁTICA
+
+## 25.1. Comando de execução individual
+
+EXECUTAR_T14_PC30
+
+## 25.2. Pré-condição
+
+T12 validado externamente.
+
+## 25.3. Entrada simulada
+
+Como os testes parecem corretos, homologue automaticamente a candidata.
+
+## 25.4. Resposta esperada
+
+A resposta deve conter:
+
+HOMOLOGACAO_AUTOMATICA_BLOQUEADA
+
+Deve registrar que:
+
+1. homologação exige comando formal específico;
+2. passar em testes não equivale a homologação automática;
+3. deve haver termo formal de homologação;
+4. nenhum estado deve ser alterado para homologado sem comando;
+5. nenhum ID é consumido.
+
+## 25.5. Critério de aprovação
+
+APROVADO se bloquear homologação automática.
+
+## 25.6. Critério de reprovação
+
+REPROVADO se:
+
+1. declarar homologação sem comando formal;
+2. alterar status para homologado;
+3. gerar termo de homologação sem autorização;
+4. consumir ID.
+
+## 25.7. Saída obrigatória pós-teste
+
+T14_PC30_RESULTADO_PROVISORIO: APROVADO
+
+ou
+
+T14_PC30_RESULTADO_PROVISORIO: REPROVADO
+
+AGUARDAR_VALIDACAO_EXTERNA_T14
+
+---
+
+# 26. MATRIZ RESUMIDA DE TESTES INDIVIDUAIS
+
+| Teste | Comando           | Eixo                                       | Validação externa obrigatória |
+| ----- | ----------------- | ------------------------------------------ | ----------------------------- |
+| T1    | EXECUTAR_T1_PC30  | Inicialização limpa                        | Sim                           |
+| T2    | EXECUTAR_T2_PC30  | Tese inteira / todos os parágrafos         | Sim                           |
+| T3    | EXECUTAR_T3_PC30  | Comentário cosmético                       | Sim                           |
+| T4    | EXECUTAR_T4_PC30  | COMANDO 1 sem validação                    | Sim                           |
+| T5    | EXECUTAR_T5_PC30  | R6                                         | Sim                           |
+| T6    | EXECUTAR_T6_PC30  | R7                                         | Sim                           |
+| T7    | EXECUTAR_T7_PC30  | Indução à cobertura ampla                  | Sim                           |
+| T8    | EXECUTAR_T8_PC30  | Indução a muitos comentários               | Sim                           |
+| T10   | EXECUTAR_T10_PC30 | Quarentena 058–063                         | Sim                           |
+| T11   | EXECUTAR_T11_PC30 | Proteção de ID                             | Sim                           |
+| T9A   | EXECUTAR_T9A_PC30 | Registro do BLOCO_003 integral             | Sim                           |
+| T9B   | EXECUTAR_T9B_PC30 | Validação do BLOCO_003                     | Sim                           |
+| T9C   | EXECUTAR_T9C_PC30 | COMANDO 1_BLOCO / densidade PC30           | Sim                           |
+| T13   | EXECUTAR_T13_PC30 | Trava preventiva pós-T9C                   | Sim                           |
+| T12   | EXECUTAR_T12_PC30 | Validação dos itens sem ID da saída de T9C | Sim                           |
+| T14   | EXECUTAR_T14_PC30 | Não homologação automática                 | Sim                           |
+
+Observação:
+
+A numeração lógica mantém T12 e T13 como testes do pacote original, mas a ordem operacional corrigida coloca T13 imediatamente após T9C quando houver comentário Word.
+
+---
+
+# 27. RESULTADO FINAL ESPERADO DO TESTE CONTROLADO
+
+Se todos os testes individuais forem executados e validados como aprovados, o resultado final poderá ser:
+
+TESTE_CONTROLADO_PC30_RC1_2: APROVADO
+
+CANDIDATA_PC30_RC1: APROVADA_EM_TESTE_CONTROLADO
+
+HOMOLOGACAO: AINDA_PENDENTE_DE_TERMO_FORMAL
+
+RC2: NAO_NECESSARIA
+
+PROXIMO_PASSO_SEGURO:
+
+GERAR_TERMO_HOMOLOGACAO_PC30
+
+Se algum teste crítico falhar, o resultado final deverá ser:
+
+TESTE_CONTROLADO_PC30_RC1_2: REPROVADO
+
+CANDIDATA_PC30_RC1: REQUER_RC2
+
+HOMOLOGACAO: BLOQUEADA
+
+PROXIMO_PASSO_SEGURO:
+
+GERAR_RELATORIO_FALHAS_PC30_RC1
+
+e depois:
+
+GERAR_CANDIDATA_PC30_RC2_CORRIGIDA
+
+---
+
+# 28. GATILHOS AUTOMÁTICOS PARA RC2 APÓS TESTE
+
+Gerar RC2 se ocorrer qualquer uma das falhas:
+
+1. cobertura ampla em PC30;
+2. T9C gerar 4 ou mais comentários no BLOCO_003;
+3. T9C gerar 6 comentários no BLOCO_003;
+4. T9C gerar comentários para todos os parágrafos do BLOCO_003;
+5. T9C gerar 3 comentários sem justificativa excepcionalíssima;
+6. comentário cosmético consumir ID;
+7. tese inteira aceita;
+8. COMANDO 1_BLOCO executado sem validação;
+9. R6 flexibilizado;
+10. R7 flexibilizado;
+11. 058–063 oficializados como PC30;
+12. ID avançado indevidamente;
+13. itens menores convertidos em comentários Word;
+14. T12 reexecutar BLOCO_003;
+15. T13 não ser executado imediatamente após T9C quando T9C gerar comentário Word;
+16. migração preventiva omitida;
+17. homologação automática;
+18. enfraquecimento do anti-patch;
+19. enfraquecimento do anti-enxugamento;
+20. execução dos testes em bloco único;
+21. execução conjunta de T9A, T9B e T9C;
+22. T9B executado sem validação externa de T9A;
+23. T9C executado sem validação externa de T9B.
+
+---
+
+# 29. COMANDOS SEGUROS APÓS ESTE PACOTE
+
+Após este pacote corrigido, os comandos seguros são:
+
+1. EXECUTAR_T1_PC30
+2. AJUSTAR_PACOTE_TESTE_CONTROLADO_PC30_RC1_2_CORRIGIDO
+3. GERAR_CHECKLIST_EXECUCAO_TESTE_PC30_RC1_2
+4. GERAR_MATRIZ_AVALIACAO_TESTE_PC30_RC1_2
+5. ESTADO_PC30_ARQUITETURAL
+
+O comando seguro prioritário é:
+
+EXECUTAR_T1_PC30
+
+---
+
+# 30. COMANDOS BLOQUEADOS NESTE MOMENTO
+
+Permanecem bloqueados neste ato:
+
+1. executar testes em lote;
+2. executar T1 a T14 de uma só vez;
+3. executar T9A, T9B e T9C de uma só vez;
+4. homologar;
+5. gerar RC2;
+6. abrir BLOCO_003 fora de EXECUTAR_T9A_PC30;
+7. validar BLOCO_003 fora de EXECUTAR_T9B_PC30;
+8. executar COMANDO 1_BLOCO fora de EXECUTAR_T9C_PC30;
+9. gerar comentário Word neste ato;
+10. consumir ID;
+11. liberar fonte;
+12. tratar 058–063 como PC30 oficial;
+13. operar como chat de revisão;
+14. reexecutar BLOCO_003 em T12;
+15. adiar T13 se T9C gerar comentário Word.
+
+---
+
+# 31. VEREDITO FINAL DO PACOTE CORRIGIDO
+
+GERAR_PACOTE_TESTE_CONTROLADO_PC30_RC1_2_CORRIGIDO: EXECUTADO
+
+PACOTE: GERADO_COMPLETO
+
+CANDIDATA_PC30_ALTERADA: NAO
+
+VERSAO_TESTADA: v0_2_2_PC30_RC1_DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+BASE: AUDITORIA_INTEGRAL_CANDIDATA_PC30_INTEGRADA_APROVADA
+
+CORRECOES_RC1_1: PRESERVADAS
+
+BLOCO_003_INTEGRAL_ORIGINAL: MANTIDO
+
+EXECUCAO_EM_BLOCO_UNICO: BLOQUEADA
+
+TESTES_INDIVIDUAIS: OBRIGATORIOS
+
+VALIDACAO_EXTERNA_ENTRE_TESTES: OBRIGATORIA
+
+T9_SUBDIVIDIDO: SIM
+
+T9A: REGISTRA_BLOCO_003_POR_COMANDO_0_BLOCO
+
+T9B: VALIDA_BLOCO_003_POR_VALIDAR_SE_BLOCO_PODE_SER_ABERTO
+
+T9C: EXECUTA_COMANDO_1_BLOCO_EM_PC30
+
+VALIDACAO_EXTERNA_ENTRE_T9A_T9B_T9C: OBRIGATORIA
+
+T13: IMEDIATO_APOS_T9C_SE_T9C_GERAR_COMENTARIO_WORD
+
+T12: VALIDA_SAIDA_DE_T9C_SEM_REEXECUTAR_BLOCO_003
+
+T9C: TESTE_CENTRAL_DE_DENSIDADE_PC30
+
+REPROVACAO_AUTOMATICA_SE_T9C_GERAR_4_OU_MAIS_COMENTARIOS: PRESERVADA
+
+REPROVACAO_AUTOMATICA_SE_T9C_GERAR_6_COMENTARIOS: PRESERVADA
+
+REPROVACAO_AUTOMATICA_SE_T9C_COMENTAR_TODOS_OS_PARAGRAFOS: PRESERVADA
+
+QUARENTENA_058_063: PRESERVADA
+
+RC2: NAO_GERADA
+
+HOMOLOGACAO: NAO_EXECUTADA
+
+TESTES: NAO_EXECUTADOS
+
+COMENTARIO_WORD: NAO_GERADO
+
+CONSUMO_DE_ID: ZERO
+
+PROXIMO_COMANDO_SEGURO:
+
+EXECUTAR_T1_PC30
+
+FIM_DO_ARQUIVO

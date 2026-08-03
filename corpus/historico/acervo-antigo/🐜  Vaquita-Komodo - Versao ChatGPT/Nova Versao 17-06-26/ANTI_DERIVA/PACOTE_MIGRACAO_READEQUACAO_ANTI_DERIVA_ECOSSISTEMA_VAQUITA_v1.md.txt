@@ -1,0 +1,1749 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_MIGRACAO_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1
+
+## 1. Identificação do pacote
+
+```text
+NOME_DO_PACOTE:
+PACOTE_MIGRACAO_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1
+
+FUNÇÃO:
+Migrar para novo chat limpo a tarefa de readequação arquitetural parcial do Ecossistema Vaquita para incorporar o PROTOCOLO_ANTI_DERIVA_ESCALONADO.
+
+STATUS:
+pacote de migração para desenvolvimento arquitetural
+
+NÃO É:
+prompt operacional final;
+patch já aplicado;
+nova versão Vaquita;
+nova versão Handoff;
+nova versão Brasinha;
+reescrita completa dos módulos;
+pacote de retomada de revisão de tese específica.
+
+OBJETIVO DO NOVO CHAT:
+conduzir, de modo modular e conservador, a criação de versões readequadas da Vaquita, Handoff e Brasinha, e depois ajustes leves de compatibilidade nos auxiliares Komodo, BVAA e Jararaca, com base na especificação arquitetural já aprovada.
+```
+
+---
+
+# 2. Regra de recepção no novo chat
+
+Ao receber este pacote em novo chat, o assistente deve responder apenas com um diagnóstico de carregamento e aguardar o comando de início.
+
+Resposta esperada no novo chat:
+
+```text
+PACOTE RECEBIDO.
+
+Estado reconhecido:
+readequação arquitetural parcial do Ecossistema Vaquita para incorporar PROTOCOLO_ANTI_DERIVA_ESCALONADO.
+
+Não reescreverei prompts ainda.
+Não aplicarei patch solto.
+Não alterarei Baleia Deriva.
+Aguardarei o comando de início modular.
+
+Comando seguro para iniciar:
+INICIAR_READEQUACAO_MODULAR_ANTI_DERIVA
+```
+
+Se o usuário já colar este pacote e, na mesma mensagem, enviar:
+
+```text
+INICIAR_READEQUACAO_MODULAR_ANTI_DERIVA
+```
+
+então o assistente deve iniciar pela **Fase 1 — planejamento da readequação da Vaquita**, e não pela reescrita completa de todos os prompts.
+
+---
+
+# 3. Contexto geral do ecossistema
+
+O Ecossistema Vaquita é composto, no estado reconhecido deste pacote, pelos seguintes módulos:
+
+```text
+VAQUITA:
+orquestrador principal de revisão acadêmica conservadora. Atua sobre tese, dissertação, capítulo, artigo, projeto ou relatório. Revisa parágrafo a parágrafo, mantém ESTADO_VAQUITA, usa IDENT_TXT, AÇÃO NO MANUSCRITO, ESTADO_ATUALIZADO, PAUSA_REFRESH_LOCAL, pacotes auxiliares e confirmação humana.
+
+KOMODO:
+auditor de fidelidade, densidade, sentido, voz autoral e qualidade da revisão feita pela Vaquita. Não revisa diretamente o manuscrito como orquestrador.
+
+BVAA:
+Bibliografia Verificável Anti-Alucinação. Verifica fontes, páginas, citações, referências e pertinência documental. Não revisa texto, não reorganiza estrutura, não transfere contexto.
+
+JARARACA:
+auditora estrutural de redundância, sobreposição, progressão argumentativa e deriva estrutural. Não revisa parágrafo a parágrafo, não verifica bibliografia, não aplica corte/fusão/realocação sem confirmação humana.
+
+HANDOFF:
+módulo de continuidade, migração e preservação de estado entre chats. Preserva decisões, versões, comandos, testes, riscos, pendências, limites funcionais e primeira resposta esperada no chat de destino.
+
+BRASINHA:
+assessor operacional do usuário. Ajuda a decidir onde colar comandos, como operar os módulos, quando acionar auxiliares, quando pedir refresh, quando pedir Handoff e quando bloquear avanço.
+
+BALEIA DERIVA:
+sistema separado de derivação editorial controlada. Transforma capítulo/tese/dissertação em artigo ou outro produto publicável. Não deve ser alterado nesta fase.
+```
+
+---
+
+# 4. Estado arquitetural antes da readequação
+
+A arquitetura atual já possui várias defesas anti-deriva:
+
+```text
+1. BLOCO 0;
+2. BLOCO 0 AVANÇADO;
+3. COMANDO 0;
+4. COMANDO 1;
+5. PROXIMO / PRÓXIMO;
+6. IDENT_TXT;
+7. AÇÃO NO MANUSCRITO;
+8. ESTADO_VAQUITA;
+9. ESTADO_ATUALIZADO;
+10. PAUSA_REFRESH_LOCAL;
+11. ESTADO;
+12. ESTADO COMPLETO;
+13. ROTEADOR_DE_AUDITORIA;
+14. PACOTE_KOMODO;
+15. PACOTE_BVAA;
+16. PACOTE_JARARACA;
+17. PACOTE_HANDOFF;
+18. INTEGRAR_RETORNO_KOMODO;
+19. INTEGRAR_RETORNO_BVAA;
+20. INTEGRAR_RETORNO_JARARACA;
+21. INTEGRAR_RETORNO_HANDOFF;
+22. RETOMAR_VAQUITA_COM_HANDOFF;
+23. MODO_COMPACTO sem remover campos obrigatórios;
+24. GATE_DE_COMPLETUDE_DOS_PACOTES;
+25. confirmação humana para ações críticas.
+```
+
+Esses mecanismos reduzem o risco de deriva, mas ainda não estabelecem uma régua preventiva suficientemente objetiva para impedir que o usuário continue no mesmo chat até a saturação.
+
+---
+
+# 5. Problema arquitetural identificado
+
+Durante operação real com revisão de tese/dissertação inteira em chat Vaquita, observou-se o seguinte risco:
+
+```text
+DERIVA POR CONTINUIDADE APARENTEMENTE ESTÁVEL
+```
+
+Descrição:
+
+O chat continua funcionando, respondendo com aparência de controle, produzindo revisão, estados, encaminhamentos e pacotes. No entanto, pelo volume acumulado de texto, decisões, comandos, pendências BVAA, retornos auxiliares, correções locais e refreshes, aumenta o risco de:
+
+```text
+1. perda de densidade argumentativa;
+2. relaxamento da cautela historiográfica;
+3. enfraquecimento das fronteiras entre módulos;
+4. falsa continuidade;
+5. esquecimento de decisões persistentes;
+6. apagamento de pendências BVAA;
+7. uso indevido de fonte-coringa;
+8. redução automática do texto;
+9. confusão entre revisão local e reestruturação global;
+10. avanço sem confirmação humana;
+11. handoff tardio;
+12. resumo destrutivo;
+13. continuidade no mesmo chat quando o correto seria preservar estado.
+```
+
+O problema não é apenas operacional. É arquitetural porque a prevenção ainda depende muito da percepção humana ou de sinais tardios de risco.
+
+---
+
+# 6. Hipótese inicialmente avaliada
+
+A hipótese inicial considerada foi o:
+
+```text
+PROTOCOLO 3-9-12 ANTI-DERIVA
+```
+
+Com a seguinte lógica:
+
+```text
+1. a cada 3 parágrafos revisados:
+executar refresh anti-deriva obrigatório;
+
+2. a cada 9 parágrafos revisados:
+exigir checkpoint forte ou ESTADO COMPLETO;
+
+3. a cada 12 parágrafos revisados:
+bloquear PROXIMO e recomendar PACOTE_HANDOFF_VAQUITA obrigatório;
+
+4. ao fim de unidade funcional:
+avaliar Handoff preventivo;
+
+5. ao fim de capítulo:
+Handoff obrigatório;
+
+6. antes de mudar de capítulo:
+preservar estado por Handoff ou ESTADO COMPLETO.
+```
+
+Avaliação feita:
+
+```text
+O 3-9-12 é adequado como intuição conservadora, mas não deve virar regra universal rígida.
+```
+
+Motivo:
+
+```text
+1. parágrafos variam muito em extensão e complexidade;
+2. três parágrafos podem ser simples ou altamente densos;
+3. doze parágrafos podem ser pouco ou muito, conforme o texto;
+4. tokens/caracteres são pouco operacionais para o usuário;
+5. páginas também são imprecisas porque a Vaquita opera por IDENT_TXT;
+6. unidade funcional, eventos e risco são tão importantes quanto contagem.
+```
+
+---
+
+# 7. Decisão arquitetural adotada
+
+A decisão arquitetural aprovada foi criar um:
+
+```text
+PROTOCOLO_ANTI_DERIVA_ESCALONADO
+```
+
+com três propriedades:
+
+```text
+1. preventivo;
+2. configurável;
+3. híbrido.
+```
+
+Preventivo:
+
+```text
+atua antes de a deriva se instalar.
+```
+
+Configurável:
+
+```text
+varia conforme tese, dissertação, capítulo, artigo, parecer, livro, densidade documental e política BVAA.
+```
+
+Híbrido:
+
+```text
+combina contadores, eventos e risco.
+```
+
+Fórmula conceitual:
+
+```text
+AÇÃO_ANTI_DERIVA = contador + evento + risco
+```
+
+---
+
+# 8. Especificação arquitetural já criada
+
+Documento já produzido e aprovado para orientar a readequação:
+
+```text
+ESPECIFICACAO_ARQUITETURAL_ANTI_DERIVA_ESCALONADA_v1.md
+```
+
+Pasta recomendada:
+
+```text
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/ANTI_DERIVA/
+```
+
+Status:
+
+```text
+documento novo; não substitui nenhum prompt ainda.
+```
+
+Esse documento deve ser considerado a especificação-mãe da readequação anti-deriva.
+
+O novo chat deve tomar esse documento como base normativa e não reabrir a decisão do zero, salvo se o usuário pedir auditoria da especificação.
+
+---
+
+# 9. Núcleo da especificação anti-deriva
+
+O protocolo deve operar por quatro níveis:
+
+```text
+NÍVEL 1:
+refresh leve
+
+NÍVEL 2:
+checkpoint forte
+
+NÍVEL 3:
+handoff preventivo
+
+NÍVEL 4:
+handoff obrigatório
+```
+
+## 9.1. Nível 1 — Refresh leve
+
+Produto esperado:
+
+```text
+PAUSA_REFRESH_LOCAL
+```
+
+Função:
+
+```text
+1. estabilizar último parágrafo revisado;
+2. confirmar próximo alvo;
+3. registrar pendências locais;
+4. registrar decisões humanas recentes;
+5. atualizar BVAA;
+6. atualizar contadores;
+7. reduzir risco de continuidade falsa.
+```
+
+## 9.2. Nível 2 — Checkpoint forte
+
+Produto esperado:
+
+```text
+ESTADO COMPLETO
+```
+
+ou:
+
+```text
+CHECKPOINT_FORTE_ANTI_DERIVA
+```
+
+Função:
+
+```text
+1. consolidar estado;
+2. listar decisões;
+3. listar pendências;
+4. listar parágrafos/unidades revisadas;
+5. confirmar o próximo alvo;
+6. avaliar necessidade de Handoff preventivo;
+7. impedir avanço por inércia.
+```
+
+## 9.3. Nível 3 — Handoff preventivo
+
+Produto esperado:
+
+```text
+PACOTE_HANDOFF_PREVENTIVO
+```
+
+ou:
+
+```text
+PACOTE_HANDOFF_CONDICIONAL
+```
+
+Função:
+
+```text
+1. preservar estado antes de saturação;
+2. permitir migração opcional;
+3. não declarar fase concluída se ainda houver pendência;
+4. não apagar decisões abertas;
+5. impedir que o chat continue por excesso de confiança.
+```
+
+## 9.4. Nível 4 — Handoff obrigatório
+
+Produto esperado:
+
+```text
+PACOTE_HANDOFF_VAQUITA
+```
+
+ou, conforme o caso:
+
+```text
+PACOTE_HANDOFF_MODULAR
+PACOTE_HANDOFF_CASO
+PACOTE_HANDOFF_DESENVOLVIMENTO
+```
+
+Função:
+
+```text
+1. encerrar etapa com preservação formal;
+2. impedir mudança de capítulo sem estado;
+3. preservar decisões e pendências;
+4. permitir retomada segura em novo chat;
+5. evitar resumo destrutivo.
+```
+
+---
+
+# 10. Políticas configuráveis
+
+A política anti-deriva deve ser escolhida no BLOCO 0.
+
+## 10.1. Conservadora 3/9/12
+
+Recomendada para:
+
+```text
+1. teses;
+2. dissertações;
+3. capítulos densos;
+4. História das Ciências;
+5. História Ambiental;
+6. História Natural;
+7. corpus documental sensível;
+8. uso de fontes primárias;
+9. muitas notas;
+10. BVAA rigor máximo;
+11. risco alto de anacronismo;
+12. revisão para banca.
+```
+
+Configuração:
+
+```text
+REFRESH_LEVE:
+a cada 3 parágrafos revisados
+
+CHECKPOINT_FORTE:
+a cada 9 parágrafos revisados
+
+HANDOFF_PREVENTIVO:
+a cada 12 parágrafos revisados
+
+HANDOFF_OBRIGATÓRIO:
+fim de capítulo, mudança de capítulo ou risco alto
+```
+
+## 10.2. Moderada 4/10/15
+
+Recomendada para:
+
+```text
+1. capítulos menos densos;
+2. artigos longos;
+3. revisão com BVAA moderado;
+4. seções estáveis;
+5. menor risco de anacronismo.
+```
+
+Configuração:
+
+```text
+REFRESH_LEVE:
+a cada 4 parágrafos
+
+CHECKPOINT_FORTE:
+a cada 10 parágrafos
+
+HANDOFF_PREVENTIVO:
+a cada 15 parágrafos
+```
+
+## 10.3. Leve 5/12/18
+
+Recomendada para:
+
+```text
+1. textos curtos;
+2. baixa densidade documental;
+3. revisão formal;
+4. ajustes de estilo;
+5. menor risco de perda de estado.
+```
+
+Configuração:
+
+```text
+REFRESH_LEVE:
+a cada 5 parágrafos
+
+CHECKPOINT_FORTE:
+a cada 12 parágrafos
+
+HANDOFF_PREVENTIVO:
+a cada 18 parágrafos
+```
+
+## 10.4. Crítica 2/6/9
+
+Recomendada para:
+
+```text
+1. trechos com muitas citações;
+2. bibliografia instável;
+3. fontes primárias;
+4. notas extensas;
+5. risco alto de anacronismo;
+6. pendências BVAA críticas;
+7. múltiplos auxiliares integrados;
+8. seção com risco de banca;
+9. capítulo já instável.
+```
+
+Configuração:
+
+```text
+REFRESH_LEVE:
+a cada 2 parágrafos
+
+CHECKPOINT_FORTE:
+a cada 6 parágrafos
+
+HANDOFF_PREVENTIVO:
+a cada 9 parágrafos
+```
+
+## 10.5. Personalizada
+
+Permite ao usuário definir:
+
+```text
+REFRESH_LEVE:
+[...]
+
+CHECKPOINT_FORTE:
+[...]
+
+HANDOFF_PREVENTIVO:
+[...]
+
+HANDOFF_OBRIGATÓRIO:
+[condições]
+```
+
+---
+
+# 11. Métrica híbrida obrigatória
+
+A ativação do protocolo não deve depender só do número de parágrafos.
+
+A Vaquita deverá considerar:
+
+```text
+1. número de parágrafos revisados no chat;
+2. número de parágrafos desde o último refresh;
+3. número de parágrafos desde o último checkpoint forte;
+4. número de parágrafos desde o último handoff;
+5. conclusão de unidade funcional;
+6. conclusão de seção;
+7. conclusão de capítulo;
+8. quantidade e gravidade de pendências BVAA;
+9. integração de retorno Komodo;
+10. integração de retorno BVAA;
+11. integração de retorno Jararaca;
+12. integração de retorno Handoff;
+13. ação estrutural forte aprovada;
+14. mudança de seção;
+15. mudança de capítulo;
+16. pausa longa no chat;
+17. sinal textual de deriva;
+18. aumento de extensão das respostas;
+19. risco de confusão entre módulos;
+20. alerta do Brasinha;
+21. alerta do usuário.
+```
+
+---
+
+# 12. Campos obrigatórios em ESTADO_ATUALIZADO e ESTADO_VAQUITA
+
+A Vaquita deverá incluir bloco específico:
+
+```text
+ANTI_DERIVA_ESCALONADA:
+
+POLÍTICA_ATIVA:
+conservadora / moderada / leve / crítica / personalizada / a confirmar
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+ÚLTIMO_REFRESH:
+não realizado / realizado após PXXX / realizado em [marco]
+
+ÚLTIMO_CHECKPOINT_FORTE:
+não realizado / realizado após PXXX / realizado em [marco]
+
+ÚLTIMO_HANDOFF:
+não realizado / realizado após PXXX / realizado em [marco]
+
+UNIDADE_FUNCIONAL_ATUAL:
+[...]
+
+FIM_DE_UNIDADE_FUNCIONAL:
+sim / não / aproximando
+
+FIM_DE_SEÇÃO:
+sim / não / aproximando
+
+FIM_DE_CAPÍTULO:
+sim / não / aproximando
+
+RETORNOS_AUXILIARES_INTEGRADOS:
+Komodo: sim/não
+BVAA: sim/não
+Jararaca: sim/não
+Handoff: sim/não
+
+PENDÊNCIAS_BVAA_ATIVAS:
+baixa / média / alta / crítica
+
+RISCO_DE_DERIVA:
+baixo / médio / alto / crítico
+
+AÇÃO_PREVENTIVA_RECOMENDADA:
+PROXIMO liberado / PAUSA_REFRESH_LOCAL obrigatória / CHECKPOINT_FORTE obrigatório / PACOTE_HANDOFF_PREVENTIVO obrigatório / PACOTE_HANDOFF_VAQUITA obrigatório
+```
+
+---
+
+# 13. Regra de bloqueio de PROXIMO
+
+A Vaquita deve bloquear `PROXIMO` quando:
+
+```text
+1. limite de handoff preventivo for atingido;
+2. fim de capítulo for alcançado;
+3. risco de deriva for alto;
+4. risco de deriva for crítico;
+5. houver checkpoint forte vencido;
+6. houver pendência crítica de estado;
+7. houver retorno auxiliar ainda não integrado;
+8. usuário tentar mudar de capítulo sem Handoff;
+9. usuário tentar mudar de capítulo sem ESTADO COMPLETO;
+10. PAUSA_REFRESH_LOCAL obrigatória estiver vencida;
+11. houver sinais de relaxamento de protocolo;
+12. houver ausência de ESTADO_ATUALIZADO na resposta anterior.
+```
+
+Resposta esperada da Vaquita:
+
+```text
+BLOQUEIO_ANTI_DERIVA
+
+PROXIMO não recomendado neste momento.
+
+MOTIVO:
+[...]
+
+AÇÃO NECESSÁRIA:
+PAUSA_REFRESH_LOCAL / ESTADO COMPLETO / CHECKPOINT_FORTE_ANTI_DERIVA / PACOTE_HANDOFF_PREVENTIVO / PACOTE_HANDOFF_VAQUITA
+
+Depois disso, o fluxo poderá ser retomado com segurança.
+```
+
+---
+
+# 14. Campo novo no BLOCO 0 da Vaquita
+
+A Vaquita deverá incluir no BLOCO 0 e no BLOCO 0 AVANÇADO:
+
+```text
+POLÍTICA_ANTI_DERIVA:
+1 = Conservadora 3/9/12
+2 = Moderada 4/10/15
+3 = Leve 5/12/18
+4 = Crítica 2/6/9
+5 = Personalizada
+6 = A confirmar
+```
+
+Regras de default:
+
+```text
+TESE:
+Conservadora 3/9/12
+
+DISSERTAÇÃO:
+Conservadora 3/9/12
+
+CAPÍTULO DENSO:
+Conservadora 3/9/12
+
+CAPÍTULO COM MUITO BVAA:
+Crítica 2/6/9
+
+ARTIGO CURTO:
+Moderada 4/10/15
+
+REVISÃO FORMAL:
+Leve 5/12/18
+
+PROJETO A CONFIRMAR:
+Conservadora até confirmação
+```
+
+---
+
+# 15. Preservação de contadores no Handoff
+
+O Handoff deverá separar:
+
+```text
+CONTADOR_DO_CHAT:
+zera no novo chat.
+
+CONTADOR_DA_UNIDADE_FUNCIONAL:
+preserva.
+
+CONTADOR_DO_CAPÍTULO:
+preserva.
+
+HISTÓRICO_DE_REFRESHES:
+preserva em resumo controlado.
+
+HISTÓRICO_DE_HANDOFFS:
+preserva.
+
+MOTIVO_DO_HANDOFF:
+preserva.
+
+RISCO_DE_DERIVA_NO_MOMENTO_DO_HANDOFF:
+preserva.
+```
+
+Exemplo de retomada:
+
+```text
+ANTI_DERIVA_ESCALONADA:
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+0
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+9
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+23
+
+ÚLTIMO_HANDOFF:
+realizado após P009
+
+MOTIVO_DO_HANDOFF:
+limiar preventivo / fim de unidade funcional / fim de capítulo / risco alto
+
+RISCO_ATUAL:
+médio
+
+AÇÃO_DE_RETOMADA:
+retomar a partir do próximo parágrafo mapeado, sem zerar histórico da unidade ou do capítulo.
+```
+
+---
+
+# 16. Ordem obrigatória de implementação
+
+A readequação deve ser feita na seguinte ordem:
+
+```text
+1. Vaquita;
+2. Handoff;
+3. Brasinha;
+4. Komodo — compatibilidade leve;
+5. BVAA — compatibilidade leve;
+6. Jararaca — compatibilidade leve;
+7. Baleia Deriva — não alterar nesta fase.
+```
+
+Motivo:
+
+```text
+1. Vaquita é o orquestrador e fonte dos estados.
+2. Handoff precisa preservar os novos estados gerados pela Vaquita.
+3. Brasinha precisa auditar a operação humana do protocolo.
+4. Komodo, BVAA e Jararaca não devem assumir orquestração.
+5. Baleia Deriva tem lógica própria e está em auditoria separada.
+```
+
+---
+
+# 17. Arquivos de origem disponíveis / versões atuais
+
+Os arquivos atuais reconhecidos nesta migração são:
+
+```text
+VAQ_PROMPT_v1RC.txt
+VAQ_BOOT_v1RC.txt
+HANDOFF_PROMPT_v1RC.txt
+BRASINHA_PROMPT_ASSESSOR_OPERACIONAL_VAQ_ECO_v0_1.md
+KOMODO_PROMPT_v1RC.txt
+KOMODO_BOOT_v1RC.txt
+BVAA_PROMPT_v1RC.txt
+JARARACA_PROMPT_v1RC.txt
+```
+
+Observação:
+
+```text
+O novo chat deve verificar os nomes exatos dos arquivos fornecidos pelo usuário antes de gerar versões substitutivas.
+
+Não inventar arquivo inexistente.
+Não assumir que todos os arquivos estão anexados no novo chat.
+Se algum arquivo-alvo não estiver disponível, pedir upload ou trabalhar apenas com o conteúdo colado pelo usuário.
+```
+
+---
+
+# 18. Arquivos-alvo recomendados
+
+## 18.1. Especificação arquitetural
+
+Já criada:
+
+```text
+ESPECIFICACAO_ARQUITETURAL_ANTI_DERIVA_ESCALONADA_v1.md
+```
+
+Pasta:
+
+```text
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/ANTI_DERIVA/
+```
+
+Status:
+
+```text
+documento novo; não substitui nenhum prompt.
+```
+
+## 18.2. Vaquita
+
+Arquivo-alvo:
+
+```text
+VAQ_PROMPT_v1.1-RC.txt
+```
+
+Substitui:
+
+```text
+VAQ_PROMPT_v1RC.txt
+```
+
+ou, se o arquivo-base usado no novo chat for nomeado de modo diferente:
+
+```text
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+```
+
+Função:
+
+```text
+Vaquita com PROTOCOLO_ANTI_DERIVA_ESCALONADO incorporado ao BLOCO 0, BLOCO 0 AVANÇADO, ESTADO_ATUALIZADO, ESTADO_VAQUITA, PROXIMO, PAUSA_REFRESH_LOCAL, ESTADO COMPLETO e PACOTE_HANDOFF.
+```
+
+## 18.3. Vaquita Boot
+
+Arquivo-alvo:
+
+```text
+VAQ_BOOT_v1.1-RC.txt
+```
+
+Substitui:
+
+```text
+VAQ_BOOT_v1RC.txt
+```
+
+Apenas se o boot precisar refletir a nova política.
+
+Regra:
+
+```text
+Não alterar boot se o boot atual puder permanecer enxuto.
+```
+
+## 18.4. Handoff
+
+Arquivo-alvo:
+
+```text
+HANDOFF_PROMPT_v1.1-RC.txt
+```
+
+Substitui:
+
+```text
+HANDOFF_PROMPT_v1RC.txt
+```
+
+Função:
+
+```text
+Handoff compatível com os novos campos anti-deriva produzidos pela Vaquita.
+```
+
+## 18.5. Brasinha
+
+Arquivo-alvo:
+
+```text
+BRASINHA_PROMPT_ASSESSOR_OPERACIONAL_VAQ_ECO_v0_2.md
+```
+
+Substitui:
+
+```text
+BRASINHA_PROMPT_ASSESSOR_OPERACIONAL_VAQ_ECO_v0_1.md
+```
+
+Função:
+
+```text
+Brasinha passa a auditar externamente o cumprimento do PROTOCOLO_ANTI_DERIVA_ESCALONADO.
+```
+
+## 18.6. Compatibilidade dos auxiliares
+
+Arquivos complementares iniciais:
+
+```text
+KOMODO_COMPAT_ANTI_DERIVA_v1.md
+BVAA_COMPAT_ANTI_DERIVA_v1.md
+JARARACA_COMPAT_ANTI_DERIVA_v1.md
+```
+
+Status:
+
+```text
+complementam inicialmente; não substituem os prompts completos até teste.
+```
+
+---
+
+# 19. O que alterar na Vaquita v1.1-RC
+
+A Vaquita deve receber alterações nos seguintes pontos:
+
+```text
+1. BLOCO 0;
+2. BLOCO 0 AVANÇADO;
+3. ESTADO_VAQUITA;
+4. ESTADO_ATUALIZADO;
+5. PROXIMO / PRÓXIMO;
+6. PAUSA_REFRESH_LOCAL;
+7. ESTADO COMPLETO;
+8. ROTEADOR_DE_AUDITORIA;
+9. PACOTE_HANDOFF;
+10. GATE_DE_COMPLETUDE_DOS_PACOTES;
+11. MODO_COMPACTO;
+12. ENCAMINHAMENTO.
+```
+
+## 19.1. BLOCO 0
+
+Inserir campo:
+
+```text
+POLÍTICA_ANTI_DERIVA:
+1 = Conservadora 3/9/12
+2 = Moderada 4/10/15
+3 = Leve 5/12/18
+4 = Crítica 2/6/9
+5 = Personalizada
+6 = A confirmar
+```
+
+## 19.2. BLOCO 0 AVANÇADO
+
+Inserir campo expandido:
+
+```text
+POLÍTICA_ANTI_DERIVA_AVANÇADA:
+
+POLÍTICA:
+conservadora / moderada / leve / crítica / personalizada / a confirmar
+
+JUSTIFICATIVA:
+[...]
+
+GATILHOS_ADICIONAIS:
+fim de unidade / fim de seção / fim de capítulo / retorno auxiliar / BVAA alto / pausa longa / risco de banca / outro
+
+HANDOFF:
+preventivo / obrigatório por seção / obrigatório por capítulo / a confirmar
+```
+
+## 19.3. ESTADO_ATUALIZADO
+
+Adicionar bloco obrigatório:
+
+```text
+ANTI_DERIVA_ESCALONADA:
+[campos completos definidos na especificação]
+```
+
+## 19.4. PROXIMO / PRÓXIMO
+
+Antes de revisar novo parágrafo, Vaquita deve aplicar:
+
+```text
+GATE_ANTI_DERIVA_ESCALONADA
+```
+
+Se o gate bloquear:
+
+```text
+não revisar novo parágrafo;
+não antecipar revisão;
+não resumir o estado destrutivamente;
+indicar ação necessária.
+```
+
+## 19.5. PAUSA_REFRESH_LOCAL
+
+Deve passar a atualizar também os contadores e classificar risco.
+
+## 19.6. ESTADO COMPLETO
+
+Deve incluir histórico anti-deriva completo da unidade e do capítulo.
+
+## 19.7. PACOTE_HANDOFF
+
+Deve incluir campos anti-deriva e motivo do handoff.
+
+---
+
+# 20. O que alterar no Handoff v1.1-RC
+
+Handoff deve receber compatibilidade com:
+
+```text
+1. ANTI_DERIVA_ESCALONADA;
+2. contador do chat;
+3. contador da unidade funcional;
+4. contador do capítulo;
+5. histórico de refreshes;
+6. histórico de checkpoints;
+7. histórico de handoffs;
+8. motivo do handoff;
+9. risco no momento da migração;
+10. política anti-deriva ativa;
+11. regra de retomada em novo chat;
+12. primeira resposta esperada.
+```
+
+Handoff não deve:
+
+```text
+1. decidir revisar novo parágrafo;
+2. substituir Vaquita;
+3. fazer auditoria Komodo;
+4. fazer verificação BVAA;
+5. fazer auditoria Jararaca;
+6. transformar contador em aprovação;
+7. apagar pendências;
+8. declarar fase encerrada se o pacote for preventivo;
+9. resumir destrutivamente.
+```
+
+Tipos novos ou refinados:
+
+```text
+PACOTE_HANDOFF_PREVENTIVO
+PACOTE_HANDOFF_ANTI_DERIVA
+PACOTE_HANDOFF_FIM_DE_UNIDADE
+PACOTE_HANDOFF_FIM_DE_CAPÍTULO
+```
+
+O Handoff pode usar `PACOTE_HANDOFF_CONDICIONAL` quando o pacote preserva estado, mas não encerra fase.
+
+---
+
+# 21. O que alterar no Brasinha v0.2
+
+Brasinha deve receber uma camada de:
+
+```text
+MICROAUDITORIA_ANTI_DERIVA_ESCALONADA
+```
+
+Funções:
+
+```text
+1. verificar se a Vaquita atualizou ANTI_DERIVA_ESCALONADA;
+2. verificar se PROXIMO foi liberado indevidamente;
+3. orientar quando enviar PAUSA_REFRESH_LOCAL;
+4. orientar quando enviar ESTADO COMPLETO;
+5. orientar quando enviar PACOTE_HANDOFF_PREVENTIVO;
+6. orientar quando bloquear avanço;
+7. explicar onde colar cada comando;
+8. não substituir Handoff;
+9. não gerar migração oficial se o estado exigir Handoff formal;
+10. detectar excesso de continuidade no mesmo chat.
+```
+
+Comandos que Brasinha deve saber recomendar:
+
+```text
+PAUSA_REFRESH_LOCAL
+ESTADO COMPLETO
+CHECKPOINT_FORTE_ANTI_DERIVA
+PACOTE_HANDOFF_PREVENTIVO
+PACOTE_HANDOFF_VAQUITA
+BLOQUEAR_AVANÇO
+CORRIGIR_ANTES_DE_AVANÇAR
+```
+
+---
+
+# 22. Compatibilidade leve no Komodo
+
+Komodo não deve ser refeito agora.
+
+Criar documento complementar:
+
+```text
+KOMODO_COMPAT_ANTI_DERIVA_v1.md
+```
+
+Função:
+
+```text
+Permitir que Komodo alerte Vaquita quando a auditoria de fidelidade/densidade revelar risco de deriva por extensão, perda de densidade, revisão excessivamente longa ou bloco instável.
+```
+
+Alertas sugeridos:
+
+```text
+ALERTA_DERIVA_LOCAL
+ALERTA_RECOMENDAR_REFRESH_VAQUITA
+ALERTA_BLOCO_EXTENSO
+ALERTA_PERDA_DE_DENSIDADE_POR_CONTINUIDADE
+```
+
+Limite:
+
+```text
+Komodo não decide Handoff.
+Komodo não conta parágrafos da Vaquita.
+Komodo não libera PROXIMO.
+Komodo não assume orquestração.
+```
+
+---
+
+# 23. Compatibilidade leve no BVAA
+
+BVAA não deve ser refeito agora.
+
+Criar documento complementar:
+
+```text
+BVAA_COMPAT_ANTI_DERIVA_v1.md
+```
+
+Função:
+
+```text
+Permitir que BVAA alerte Vaquita quando a carga documental/bibliográfica tornar recomendável checkpoint anti-deriva.
+```
+
+Alertas sugeridos:
+
+```text
+ALERTA_BVAA_COMPLEXIDADE_ALTA
+ALERTA_PENDENCIAS_BVAA_ACUMULADAS
+RECOMENDAR_CHECKPOINT_VAQUITA
+RECOMENDAR_HANDOFF_SE_PENDENCIAS_MULTIPLAS
+```
+
+Limite:
+
+```text
+BVAA não decide Handoff.
+BVAA não revisa manuscrito.
+BVAA não audita densidade como Komodo.
+BVAA não reorganiza estrutura como Jararaca.
+```
+
+---
+
+# 24. Compatibilidade leve na Jararaca
+
+Jararaca não deve ser refeita agora.
+
+Criar documento complementar:
+
+```text
+JARARACA_COMPAT_ANTI_DERIVA_v1.md
+```
+
+Função:
+
+```text
+Permitir que Jararaca recomende checkpoint ou Handoff quando identificar deriva estrutural por extensão, seção excessivamente longa, múltiplas intervenções estruturais ou risco de aplicação indevida de corte/fusão/realocação.
+```
+
+Alertas sugeridos:
+
+```text
+ALERTA_DERIVA_ESTRUTURAL_POR_EXTENSÃO
+ALERTA_RECOMENDAR_CHECKPOINT_VAQUITA
+ALERTA_RECOMENDAR_HANDOFF_PREVENTIVO
+ALERTA_NAO_APLICAR_INTERVENCAO_SEM_ESTADO_COMPLETO
+```
+
+Limite:
+
+```text
+Jararaca não conta parágrafos da Vaquita.
+Jararaca não decide Handoff.
+Jararaca não aplica corte/fusão/realocação.
+Jararaca não substitui Vaquita, Komodo ou BVAA.
+```
+
+---
+
+# 25. Baleia Deriva
+
+Não alterar nesta fase.
+
+Motivo:
+
+```text
+1. Baleia está em auditoria própria;
+2. Baleia opera por blocos de artigo, não por parágrafos de tese;
+3. alterar Baleia agora misturaria frentes;
+4. os aprendizados podem ser adaptados depois em Baleia Deriva v1RC2.
+```
+
+Registrar apenas:
+
+```text
+POTENCIAL_COMPATIBILIDADE_FUTURA_BALEIA:
+adaptar anti-deriva por blocos redigidos, blocos avaliados, aprovações humanas, pendências BVAA e checkpoint antes de COMANDO 5.
+```
+
+---
+
+# 26. Plano de execução no novo chat
+
+## Fase 1 — Reancoragem
+
+O novo chat deve confirmar:
+
+```text
+1. pacote recebido;
+2. especificação arquitetural reconhecida;
+3. objetivo: revisão arquitetural parcial;
+4. ordem: Vaquita → Handoff → Brasinha → compatibilidades leves;
+5. bloqueio contra reescrever tudo de uma vez.
+```
+
+## Fase 2 — Vaquita v1.1-RC
+
+Produto da fase:
+
+```text
+VAQ_PROMPT_v1.1-RC.txt
+```
+
+ou, se o usuário preferir etapa intermediária:
+
+```text
+PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA_v1.md
+```
+
+Recomendação:
+
+```text
+Gerar primeiro um PATCH_ARQUITETURAL legível e auditável.
+Depois incorporar em VAQ_PROMPT_v1.1-RC.
+```
+
+Motivo:
+
+```text
+Reduz risco de danificar o prompt inteiro.
+```
+
+## Fase 3 — Teste mínimo da Vaquita
+
+Executar testes:
+
+```text
+TESTE_AD_VAQ_01:
+BLOCO 0 imprime POLÍTICA_ANTI_DERIVA.
+
+TESTE_AD_VAQ_02:
+BLOCO 0 AVANÇADO imprime política expandida.
+
+TESTE_AD_VAQ_03:
+ESTADO_ATUALIZADO inclui ANTI_DERIVA_ESCALONADA.
+
+TESTE_AD_VAQ_04:
+PROXIMO é bloqueado quando refresh leve está vencido.
+
+TESTE_AD_VAQ_05:
+PROXIMO é bloqueado quando checkpoint forte está vencido.
+
+TESTE_AD_VAQ_06:
+PROXIMO é bloqueado quando handoff preventivo está vencido.
+
+TESTE_AD_VAQ_07:
+fim de capítulo gera PACOTE_HANDOFF_VAQUITA obrigatório.
+
+TESTE_AD_VAQ_08:
+retorno auxiliar integrado reavalia risco.
+```
+
+## Fase 4 — Handoff v1.1-RC
+
+Produto da fase:
+
+```text
+HANDOFF_PROMPT_v1.1-RC.txt
+```
+
+ou, se etapa intermediária:
+
+```text
+PATCH_ARQUITETURAL_HANDOFF_ANTI_DERIVA_ESCALONADA_v1.md
+```
+
+Testes:
+
+```text
+TESTE_AD_HANDOFF_01:
+recebe pacote com ANTI_DERIVA_ESCALONADA.
+
+TESTE_AD_HANDOFF_02:
+preserva contador do chat, unidade e capítulo.
+
+TESTE_AD_HANDOFF_03:
+declara contador do chat zerado na retomada.
+
+TESTE_AD_HANDOFF_04:
+preserva contador da unidade e capítulo.
+
+TESTE_AD_HANDOFF_05:
+não declara fase encerrada em handoff preventivo.
+
+TESTE_AD_HANDOFF_06:
+gera primeira resposta esperada do novo chat.
+```
+
+## Fase 5 — Brasinha v0.2
+
+Produto:
+
+```text
+BRASINHA_PROMPT_ASSESSOR_OPERACIONAL_VAQ_ECO_v0_2.md
+```
+
+ou:
+
+```text
+PATCH_BRASINHA_MICROAUDITORIA_ANTI_DERIVA_v1.md
+```
+
+Testes:
+
+```text
+TESTE_AD_BRASINHA_01:
+dado ESTADO_ATUALIZADO com limite vencido, recomenda PAUSA_REFRESH_LOCAL.
+
+TESTE_AD_BRASINHA_02:
+dado limite de checkpoint vencido, recomenda ESTADO COMPLETO.
+
+TESTE_AD_BRASINHA_03:
+dado limite de Handoff vencido, recomenda PACOTE_HANDOFF_PREVENTIVO.
+
+TESTE_AD_BRASINHA_04:
+não gera Handoff oficial no lugar do Handoff.
+
+TESTE_AD_BRASINHA_05:
+explica onde colar o comando.
+```
+
+## Fase 6 — compatibilidades leves
+
+Criar:
+
+```text
+KOMODO_COMPAT_ANTI_DERIVA_v1.md
+BVAA_COMPAT_ANTI_DERIVA_v1.md
+JARARACA_COMPAT_ANTI_DERIVA_v1.md
+```
+
+Não incorporar aos prompts completos até testar Vaquita, Handoff e Brasinha.
+
+## Fase 7 — teste integrado
+
+Teste integrado mínimo:
+
+```text
+TESTE_AD_INT_01:
+Vaquita revisa até refresh leve; Brasinha audita; Vaquita executa PAUSA_REFRESH_LOCAL.
+
+TESTE_AD_INT_02:
+Vaquita revisa até checkpoint forte; Brasinha recomenda ESTADO COMPLETO.
+
+TESTE_AD_INT_03:
+Vaquita chega ao limite de Handoff; gera PACOTE_HANDOFF_PREVENTIVO; Handoff preserva contadores.
+
+TESTE_AD_INT_04:
+novo chat Vaquita retoma com contador do chat zerado e contador da unidade preservado.
+
+TESTE_AD_INT_05:
+Komodo/BVAA/Jararaca emitem apenas alertas de compatibilidade, sem orquestrar.
+```
+
+---
+
+# 27. Critérios de validação
+
+A readequação só deve ser considerada aprovada se:
+
+```text
+1. Vaquita não liberar PROXIMO quando refresh obrigatório estiver vencido.
+
+2. Vaquita não liberar PROXIMO quando checkpoint forte estiver vencido.
+
+3. Vaquita não liberar PROXIMO quando Handoff preventivo ou obrigatório estiver vencido.
+
+4. Vaquita incluir ANTI_DERIVA_ESCALONADA em ESTADO_ATUALIZADO.
+
+5. Handoff preservar contadores de chat, unidade e capítulo.
+
+6. Handoff zerar apenas o contador do chat na retomada.
+
+7. Brasinha detectar descumprimento do protocolo.
+
+8. Komodo não virar orquestrador.
+
+9. BVAA não virar orquestrador.
+
+10. Jararaca não virar orquestrador.
+
+11. Baleia Deriva permanecer fora da alteração.
+
+12. O protocolo não burocratizar excessivamente casos simples.
+
+13. O protocolo reduzir risco de deriva em casos longos.
+
+14. Não houver perda de campos obrigatórios já existentes na Vaquita.
+
+15. Não houver resumo destrutivo dos prompts originais.
+```
+
+---
+
+# 28. Bloqueios no novo chat
+
+Não fazer:
+
+```text
+1. Não reescrever todos os prompts na primeira resposta.
+
+2. Não criar VAQ_PROMPT_v1.1-RC antes de apresentar plano modular.
+
+3. Não alterar Handoff antes de estabilizar quais campos Vaquita enviará.
+
+4. Não alterar Brasinha antes de definir os novos estados da Vaquita.
+
+5. Não inserir protocolo completo em Komodo, BVAA e Jararaca.
+
+6. Não transformar 3/9/12 em regra universal rígida.
+
+7. Não usar tokens como métrica oficial principal.
+
+8. Não transformar Handoff em orquestrador.
+
+9. Não transformar Brasinha em Handoff.
+
+10. Não tratar Baleia Deriva como parte desta alteração.
+
+11. Não apagar gates existentes.
+
+12. Não remover GATE_DE_COMPLETUDE_DOS_PACOTES.
+
+13. Não remover MODO_DEFESA.
+
+14. Não remover FRONTEIRA_BALEIA_DERIVA.
+
+15. Não remover CONTRATO_DE_COMPLETUDE_DOS_PACOTES.
+
+16. Não apagar regras BVAA.
+
+17. Não simplificar Vaquita sob pretexto de incorporar anti-deriva.
+
+18. Não gerar versão enxuta.
+
+19. Não produzir resumo substitutivo do prompt.
+
+20. Não salvar v1.1-RC como definitiva sem testes AD.
+```
+
+---
+
+# 29. Sobre enxugamento
+
+Regra especial desta migração:
+
+```text
+ENXUGAMENTO:
+proibido nesta fase.
+
+VERSÃO RESUMIDA:
+proibida nesta fase.
+
+PATCH SOLTO:
+não preferencial.
+
+REESCRITA TOTAL EM UM PASSO:
+proibida.
+
+MELHOR PRÁTICA:
+modular, auditável, por blocos, com salvamento explícito.
+```
+
+Motivo:
+
+```text
+A perda de campos, comandos, gates, fronteiras funcionais ou histórico de decisões pode comprometer todo o ecossistema.
+```
+
+---
+
+# 30. Protocolo de salvamento no novo chat
+
+Toda entrega de arquivo deve vir com:
+
+```text
+ARQUIVO A SALVAR:
+[...]
+
+PASTA:
+[...]
+
+FUNÇÃO:
+[...]
+
+SUBSTITUI:
+[...]
+
+COMPLEMENTA:
+[...]
+
+STATUS:
+[rascunho / pronto para teste / aprovado / substitui versão anterior após teste]
+```
+
+Nenhum arquivo deve ser tratado como substituição definitiva antes dos testes.
+
+---
+
+# 31. Primeiros produtos esperados no novo chat
+
+## Produto 1
+
+```text
+PLANO_MODULAR_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1.md
+```
+
+Função:
+
+```text
+planejar execução modular antes de reescrever.
+```
+
+Status:
+
+```text
+documento de operação; não substitui prompt.
+```
+
+## Produto 2
+
+```text
+PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA_v1.md
+```
+
+Função:
+
+```text
+definir exatamente onde e como inserir o protocolo anti-deriva na Vaquita.
+```
+
+Status:
+
+```text
+complemento preparatório; não substitui VAQ_PROMPT ainda.
+```
+
+## Produto 3
+
+```text
+VAQ_PROMPT_v1.1-RC.txt
+```
+
+Função:
+
+```text
+Vaquita readequada com protocolo incorporado.
+```
+
+Status:
+
+```text
+pronta para teste AD_VAQ após geração.
+```
+
+Só depois:
+
+```text
+HANDOFF_PROMPT_v1.1-RC.txt
+BRASINHA_PROMPT_ASSESSOR_OPERACIONAL_VAQ_ECO_v0_2.md
+KOMODO_COMPAT_ANTI_DERIVA_v1.md
+BVAA_COMPAT_ANTI_DERIVA_v1.md
+JARARACA_COMPAT_ANTI_DERIVA_v1.md
+```
+
+---
+
+# 32. Comando de início no novo chat
+
+Depois de colar este pacote, usar:
+
+```text
+INICIAR_READEQUACAO_MODULAR_ANTI_DERIVA
+```
+
+Resposta esperada:
+
+```text
+Vou iniciar a readequação modular anti-deriva do Ecossistema Vaquita.
+
+Não reescreverei todos os prompts de uma vez.
+Não farei versão enxuta.
+Não alterarei Baleia Deriva.
+Começarei pelo plano modular e, em seguida, pelo patch arquitetural da Vaquita.
+
+Primeiro produto:
+PLANO_MODULAR_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1.md
+```
+
+---
+
+# 33. Comando alternativo se o usuário quiser começar diretamente pela Vaquita
+
+Usar apenas se o usuário já tiver salvo o plano modular ou dispensar conscientemente a etapa:
+
+```text
+GERAR_PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA
+```
+
+Resposta esperada:
+
+```text
+Gerarei apenas o patch arquitetural da Vaquita, sem reescrever Handoff, Brasinha ou auxiliares.
+
+O patch indicará:
+1. seções do prompt-alvo;
+2. texto a inserir;
+3. texto a alterar;
+4. campos novos;
+5. gates novos;
+6. testes necessários;
+7. riscos de regressão.
+```
+
+---
+
+# 34. Comando que NÃO deve ser usado agora
+
+```text
+REESCREVER_TODOS_OS_PROMPTS
+```
+
+Motivo:
+
+```text
+alto risco de patch stacking, perda de campos, mistura de módulos e regressão arquitetural.
+```
+
+Também não usar agora:
+
+```text
+GERAR_VAQ_HANDOFF_BRASINHA_TUDO_JUNTO
+```
+
+Motivo:
+
+```text
+pode apagar fronteiras funcionais e dificultar auditoria.
+```
+
+---
+
+# 35. Estado final deste pacote
+
+```text
+PACOTE:
+PACOTE_MIGRACAO_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1
+
+STATUS:
+pronto para migração
+
+FUNÇÃO:
+abrir novo chat limpo para readequação modular do Ecossistema Vaquita com PROTOCOLO_ANTI_DERIVA_ESCALONADO
+
+PRIMEIRO COMANDO NO NOVO CHAT:
+INICIAR_READEQUACAO_MODULAR_ANTI_DERIVA
+
+PRIMEIRO PRODUTO ESPERADO:
+PLANO_MODULAR_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1.md
+
+MÓDULO A REVISAR PRIMEIRO:
+Vaquita
+
+MÓDULO A REVISAR DEPOIS:
+Handoff
+
+TERCEIRO:
+Brasinha
+
+AUXILIARES:
+compatibilidade leve
+
+BALEIA DERIVA:
+não alterar nesta fase
+
+REGRA CRÍTICA:
+não enxugar, não resumir destrutivamente, não reescrever tudo de uma vez, não aplicar patch solto sem plano.
+```
+
+FIM_DO_ARQUIVO

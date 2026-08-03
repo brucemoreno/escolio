@@ -1,0 +1,799 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_DE_USO_REAL_CONTROLADO_PROMPT_OPERACIONAL_COMENTARIOS_WORD_v0_1.md
+
+# Pacote de orientação para uso controlado do prompt operacional de auditoria substantiva com comentários Word
+
+# Prompt operacional associado: AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1.md
+
+# Status: pacote de uso real controlado
+
+# Escopo: primeiro uso real em capítulo, seção ou bloco de dissertação/tese
+
+# Área: História das Ciências, História das Ciências Naturais, História Ambiental, História da Medicina, História Natural e campos correlatos
+
+# Condição: uso controlado, não uso irrestrito
+
+# Regra-mãe: manuscrito completo = cartografia global; capítulo/seção/bloco = comentários Word
+
+# Não substitui orientador humano
+
+# Não substitui BVAA
+
+# Não autoriza comentários Word sobre tese/dissertação inteira em rodada única
+
+---
+
+## 1. FINALIDADE DESTE PACOTE
+
+Este pacote orienta o uso real controlado do prompt:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1.md
+
+O objetivo é permitir o primeiro uso em material real sem quebrar as travas testadas nos cenários controlados.
+
+O prompt foi aprovado para:
+
+1. uso controlado em capítulo real;
+2. auditoria de seção real;
+3. auditoria de bloco real;
+4. produção de comentários Word substantivos;
+5. cartografia global de manuscrito completo;
+6. mapeamento de riscos;
+7. controle de escala;
+8. controle de cobertura dos parágrafos;
+9. prevenção de comentários cosméticos;
+10. prevenção de alucinação bibliográfica;
+11. prevenção de deriva para artigo.
+
+O prompt ainda não deve ser usado para:
+
+1. auditar tese/dissertação inteira com comentários Word em uma única rodada;
+2. substituir leitura humana do orientador;
+3. liberar bibliografia, página ou citação sem BVAA;
+4. transformar capítulo em artigo;
+5. aplicar corte, fusão, reestruturação ou mudança de tese sem confirmação humana;
+6. comentar todos os parágrafos por obrigação;
+7. fazer revisão gramatical comum;
+8. funcionar como parecer final de banca.
+
+---
+
+## 2. STATUS OPERACIONAL DO PROMPT
+
+Status recomendado do prompt operacional:
+
+versão operacional v0_1;
+corrigida após auditoria externa;
+aprovada em teste controlado 1 — bloco adversarial curto;
+aprovada em teste controlado 2 — bloco estável sem comentários;
+aprovada em teste controlado 3 — bloco longo/ambíguo com subdivisão;
+sem achados bloqueantes;
+sem achados de alta gravidade;
+sem patch empilhado;
+apta para uso controlado em capítulo real;
+não apta para auditoria integral de tese/dissertação com comentários Word em rodada única.
+
+---
+
+## 3. ONDE USAR
+
+Usar em chat limpo.
+
+Não usar no chat de arquitetura.
+
+Não usar no chat onde o prompt foi criado, corrigido ou auditado.
+
+Não misturar, no mesmo chat, as funções:
+
+1. criar prompt;
+2. auditar prompt;
+3. corrigir prompt;
+4. usar prompt em tese real.
+
+O uso real deve ocorrer em um chat novo, dedicado apenas à operação do prompt.
+
+---
+
+## 4. PASSO A PASSO DO PRIMEIRO USO REAL
+
+### PASSO 1 — Abrir chat limpo
+
+Abrir novo chat.
+
+Colar o arquivo integral:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_1.md
+
+O sistema deve responder somente:
+
+✅ Sistema carregado (AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1). Envie BLOCO 0 para configurar a auditoria.
+
+Se responder mais do que isso, o BOOT falhou.
+
+Nesse caso, não prosseguir para material real. Voltar ao chat de arquitetura com o retorno.
+
+---
+
+### PASSO 2 — Enviar BLOCO 0 real
+
+Depois do BOOT, preencher o BLOCO 0 real.
+
+Não colar ainda capítulo completo sem configuração.
+
+Não pedir comentários Word antes de configurar o projeto.
+
+Usar o modelo abaixo.
+
+---
+
+## 5. MODELO DE BLOCO 0 REAL
+
+BLOCO 0
+
+0.1 IDENTIFICAÇÃO DO TRABALHO
+
+* Nome provisório da tese/dissertação:
+* Autor/orientando:
+* Orientador:
+* Programa:
+* Nível:
+  1 = Mestrado
+  2 = Doutorado
+* Área:
+* Linha de pesquisa:
+* Estado do trabalho:
+  1 = Projeto
+  2 = Capítulo em elaboração
+  3 = Dissertação/tese em andamento
+  4 = Pré-qualificação
+  5 = Pós-qualificação
+  6 = Pré-defesa
+  7 = Depósito
+  8 = Revisão pós-banca
+  9 = Outro
+
+0.2 FINALIDADE DA AUDITORIA
+
+Marcar uma ou mais:
+
+* Cartografia global da tese/dissertação
+* Mapa global de riscos
+* Produzir comentários Word
+* Auditar capítulo
+* Auditar seção
+* Auditar bloco controlado
+* Auditar introdução
+* Auditar conclusão
+* Auditar uso de fontes
+* Auditar categorias conceituais
+* Auditar coerência entre partes
+* Auditar risco de banca
+* Auditar cobertura de comentários
+* Outro:
+
+0.3 ESCALA PRETENDIDA
+
+Escolher uma:
+
+* MODO_GLOBAL_CARTOGRAFICO
+* MODO_CAPITULO
+* MODO_SECAO
+* MODO_BLOCO_CONTROLADO
+* MODO_PONTUAL
+* A CONFIGURAR PELO SISTEMA COM BASE NO MATERIAL
+
+0.4 MATERIAL DISPONÍVEL
+
+Marcar o que será enviado:
+
+* Manuscrito completo
+* Sumário
+* Introdução
+* Capítulo específico
+* Seção específica
+* Bloco de parágrafos
+* Parágrafo específico
+* Conclusão
+* Bibliografia
+* Notas
+* Fontes primárias
+* Parecer de qualificação
+* Orientações anteriores
+* Comentários já existentes no Word
+* Outro:
+
+0.5 RECORTE E OBJETO
+
+* Tema:
+* Problema de pesquisa:
+* Objeto:
+* Recorte cronológico:
+* Recorte espacial:
+* Corpus documental:
+* Hipótese ou tese defendida:
+* Objetivo geral:
+* Objetivos específicos:
+* Contribuição pretendida:
+
+0.6 PERFIL TEMÁTICO
+
+Marcar uma ou mais:
+
+* História das Ciências
+* História das Ciências Naturais
+* História Natural
+* História da Medicina
+* História Ambiental
+* História da Botânica
+* História da Zoologia
+* História da Farmácia
+* História da circulação de saberes
+* História dos impressos e manuscritos científicos
+* História colonial
+* História imperial
+* História contemporânea
+* Outro:
+
+0.7 CUIDADOS HISTORIOGRÁFICOS ESPECÍFICOS
+
+Marcar os relevantes:
+
+* Evitar anacronismo disciplinar
+* Evitar presentismo
+* Evitar teleologia
+* Evitar história whig
+* Evitar precursorismo
+* Evitar “descoberta” sem mediação histórica
+* Evitar categoria moderna como categoria de época
+* Evitar generalização colonial
+* Evitar eurocentrismo não problematizado
+* Evitar fonte primária tratada como transparente
+* Evitar bibliografia-coringa
+* Evitar comentário cosmético
+* Evitar poluição de comentários
+* Evitar auditoria global com comentários Word em massa
+* Outro:
+
+0.8 PADRÃO DE COMENTÁRIOS
+
+Escolher:
+
+* Comentários curtos
+* Comentários médios
+* Comentários longos
+* Comentários com perguntas ao orientando
+* Comentários com ação recomendada
+* Comentários com risco de banca
+* Comentários com marcador de gravidade
+* Comentários com sugestão de encaminhamento
+* Comentários com indicação de alcance local ou ampliado
+* Comentários com status de pendência
+
+0.9 MODO DE COBERTURA
+
+Escolher uma opção:
+
+* MODO_COBERTURA_PADRAO
+  Auditar todos os parágrafos da unidade selecionada e comentar apenas os que exigem intervenção substantiva.
+
+* MODO_RASTREABILIDADE_TOTAL
+  Auditar todos os parágrafos da unidade selecionada, gerar comentários substantivos quando necessário e registrar parágrafos sem comentário substantivo.
+
+* MODO_COMENTARIO_EM_TODOS_OS_PARAGRAFOS
+  Bloqueado por padrão. Requer confirmação explícita do orientador humano.
+
+Recomendação para primeiro uso real:
+
+MODO_COBERTURA_PADRAO
+
+0.10 LIMITES DA AUDITORIA
+
+Responder sim/não ou especificar:
+
+* Pode sugerir reformulação conceitual?
+* Pode sugerir reorganização estrutural?
+* Pode sugerir fusão de seções?
+* Pode sugerir corte de trecho?
+* Pode sugerir bibliografia nova?
+* Pode marcar PENDENTE_BVAA?
+* Pode sugerir consulta a fonte primária?
+* Pode avaliar risco de banca?
+* Pode produzir comentários prontos para Word?
+* Deve evitar reescrita de parágrafos?
+* Deve registrar parágrafos sem comentário?
+* Pode gerar mapa global sem comentários Word?
+* Pode bloquear escala inadequada?
+
+Recomendação para primeiro uso real:
+
+* Pode produzir comentários Word substantivos.
+* Pode marcar PENDENTE_BVAA.
+* Não pode inserir bibliografia como verificada sem fonte.
+* Não pode aplicar corte, fusão ou realocação sem confirmação.
+* Não pode transformar tese/dissertação em artigo.
+
+0.11 RESTRIÇÕES DO ORIENTADOR HUMANO
+
+Marcar as relevantes:
+
+* Não reduzir densidade
+* Não sugerir versão enxuta
+* Não substituir voz autoral
+* Não inserir bibliografia não verificada
+* Não mexer em citação direta
+* Não fazer comentários cosméticos
+* Não transformar tese em artigo
+* Não aplicar mudanças sem confirmação
+* Não comentar todos os parágrafos sem necessidade
+* Não auditar tese inteira de uma vez com comentários Word
+* Não empilhar patches
+* Outra:
+
+0.12 FORMATO DE SAÍDA DESEJADO
+
+Escolher:
+
+* Lista de comentários Word
+* Tabela de comentários
+* Comentários por camada de controle
+* Comentários por parágrafo auditado com status
+* Comentários por seção
+* Relatório de riscos
+* Mapa de pendências
+* Mapa global de riscos
+* Mapa de rastreabilidade
+* Pacote para revisão posterior
+* Outro:
+
+---
+
+## 6. ESCOLHA DA ROTA DE USO
+
+Depois do BLOCO 0, escolher uma rota.
+
+---
+
+## 6.1. ROTA A — Manuscrito completo
+
+Usar esta rota quando houver tese/dissertação inteira, mas sem gerar comentários Word diretamente.
+
+Comando:
+
+COMANDO 0_GLOBAL
+
+Função:
+
+1. mapear estrutura geral;
+2. identificar capítulos;
+3. identificar problema, objeto, corpus, recorte e hipótese;
+4. mapear riscos macroestruturais;
+5. definir sequência de auditoria;
+6. selecionar primeiro capítulo.
+
+Proibido nessa rota:
+
+1. gerar comentários Word para a tese inteira;
+2. auditar todos os capítulos em uma rodada;
+3. comentar parágrafo por parágrafo;
+4. liberar parecer final da tese;
+5. sugerir cortes globais sem auditoria controlada.
+
+Depois de COMANDO 0_GLOBAL, usar:
+
+SELECIONAR_CAPITULO
+
+Depois:
+
+COMANDO 0_CAPITULO
+
+---
+
+## 6.2. ROTA B — Capítulo real
+
+Recomendada para primeiro uso real.
+
+Usar quando o orientador já escolheu um capítulo específico.
+
+Sequência:
+
+1. Enviar BLOCO 0.
+2. Enviar o capítulo selecionado ou parte substancial dele.
+3. Executar:
+
+COMANDO 0_CAPITULO
+
+4. Aguardar mapa do capítulo.
+5. Se o capítulo for longo, aceitar subdivisão por seções ou blocos.
+6. Executar:
+
+COMANDO 1_CAPITULO
+
+ou, se o sistema recomendar subdivisão:
+
+SELECIONAR_SECAO
+
+COMANDO 0_SECAO
+
+COMANDO 1_SECAO
+
+ou:
+
+SELECIONAR_BLOCO
+
+COMANDO 0_BLOCO
+
+COMANDO 1_BLOCO
+
+Recomendação conservadora:
+
+No primeiro caso real, preferir:
+
+COMANDO 0_CAPITULO
+
+Depois:
+
+COMANDO 0_SECAO
+
+Depois:
+
+COMANDO 1_SECAO
+
+ou:
+
+COMANDO 0_BLOCO
+
+Depois:
+
+COMANDO 1_BLOCO
+
+---
+
+## 6.3. ROTA C — Seção real
+
+Usar quando já houver uma seção delimitada.
+
+Sequência:
+
+1. Enviar BLOCO 0.
+2. Enviar título da seção e texto da seção.
+3. Executar:
+
+COMANDO 0_SECAO
+
+4. Se a seção for manejável, executar:
+
+COMANDO 1_SECAO
+
+5. Se a seção for longa, aceitar subdivisão em blocos:
+
+COMANDO 0_BLOCO
+
+COMANDO 1_BLOCO
+
+---
+
+## 6.4. ROTA D — Bloco real
+
+Usar quando se quer teste cirúrgico em poucos parágrafos.
+
+Sequência:
+
+1. Enviar BLOCO 0.
+2. Enviar bloco de parágrafos com localização.
+3. Executar:
+
+COMANDO 0_BLOCO
+
+4. Depois:
+
+COMANDO 1_BLOCO
+
+Esta é a rota mais segura para o primeiro uso real, se o objetivo for testar comportamento do prompt antes de um capítulo inteiro.
+
+---
+
+## 7. MODELO DE ENVIO PARA CAPÍTULO REAL
+
+Depois do BLOCO 0, usar este formato:
+
+MATERIAL_REAL_PARA_AUDITORIA_CONTROLADA
+
+1. IDENTIFICAÇÃO DO MATERIAL
+
+* Tipo de material: capítulo / seção / bloco
+* Título do capítulo:
+* Título da seção:
+* Posição no manuscrito:
+* Versão do texto:
+* Estado do texto:
+* Finalidade da auditoria:
+
+2. CONTEXTO MÍNIMO
+
+* Função esperada do capítulo/seção/bloco:
+* Relação com problema da tese/dissertação:
+* Relação com capítulo anterior:
+* Relação com capítulo seguinte:
+* Pontos que preocupam o orientador:
+* Comentários anteriores, se houver:
+
+3. TEXTO
+
+[colar aqui o capítulo, seção ou bloco]
+
+4. COMANDO
+
+Escolher um:
+
+COMANDO 0_CAPITULO
+
+COMANDO 0_SECAO
+
+COMANDO 0_BLOCO
+
+---
+
+## 8. MODELO DE PRIMEIRO USO RECOMENDADO
+
+Para o primeiro uso real, usar este fluxo:
+
+1. Chat limpo.
+2. Colar prompt operacional.
+3. Aguardar BOOT.
+4. Enviar BLOCO 0 real.
+5. Enviar uma seção ou bloco real, não a tese inteira.
+6. Executar:
+
+COMANDO 0_BLOCO
+
+7. Aguardar cartografia do bloco.
+8. Se o sistema considerar a escala adequada, executar:
+
+COMANDO 1_BLOCO
+
+9. Copiar os comentários Word úteis.
+10. Voltar ao chat de arquitetura com o retorno se houver dúvida.
+
+---
+
+## 9. TRAVA ANTI-DERIVA DE USO REAL
+
+Antes de cada comando importante, enviar:
+
+PAUSA_ANTI_DERIVA
+
+Usar obrigatoriamente antes de:
+
+1. COMANDO 0_GLOBAL;
+2. COMANDO 0_CAPITULO;
+3. COMANDO 0_SECAO;
+4. COMANDO 0_BLOCO;
+5. COMANDO 1_CAPITULO;
+6. COMANDO 1_SECAO;
+7. COMANDO 1_BLOCO;
+8. GERAR_COMENTARIOS_WORD;
+9. PACOTE_BVAA;
+10. PACOTE_HANDOFF;
+11. aceitar comentário em todos os parágrafos;
+12. sugerir corte, fusão ou reestruturação;
+13. sugerir bibliografia;
+14. encerrar capítulo.
+
+Modelo:
+
+PAUSA_ANTI_DERIVA
+
+Antes de avançar, verifique:
+
+1. O modo ativo ainda é MODO_DEFESA_DISSERTACAO_TESE?
+2. A escala está correta?
+3. O material é manuscrito completo, capítulo, seção ou bloco?
+4. Se for manuscrito completo, estamos apenas em cartografia global?
+5. Estamos prestes a gerar comentários Word apenas em capítulo/seção/bloco?
+6. Há risco de comentário cosmético?
+7. Há risco de comentar todos os parágrafos por obrigação?
+8. Há risco de inventar bibliografia, página ou citação?
+9. Há risco de transformar tese/dissertação em artigo?
+10. Há risco de corte, fusão ou reestruturação sem confirmação humana?
+11. Há risco de extrapolar trecho local para a tese inteira?
+12. Há necessidade de subdivisão antes de comentar?
+13. O próximo comando é seguro?
+
+Responda com:
+
+ANTI_DERIVA_OK
+
+ou:
+
+ANTI_DERIVA_ALERTA
+
+ou:
+
+ANTI_DERIVA_BLOQUEIO
+
+---
+
+## 10. COMO LIDAR COM COMENTÁRIOS WORD GERADOS
+
+O prompt vai gerar comentários em formato textual.
+
+O orientador humano deve:
+
+1. ler cada comentário;
+2. decidir se ele é adequado;
+3. selecionar no Word o trecho indicado pela âncora;
+4. colar o comentário no comentário do Word;
+5. adaptar o tom, se necessário;
+6. descartar comentários excessivos;
+7. não inserir automaticamente todos os comentários sem julgamento.
+
+O prompt não é instância final de decisão.
+
+---
+
+## 11. QUANDO ACIONAR BVAA
+
+Acionar BVAA quando aparecer:
+
+1. página exata;
+2. citação literal;
+3. referência incompleta;
+4. obra citada sem dados;
+5. fonte primária não identificada;
+6. edição não confirmada;
+7. tradução não confirmada;
+8. DOI ou dados editoriais;
+9. afirmação factual forte dependente de obra específica;
+10. sugestão de bibliografia nova;
+11. fonte-coringa;
+12. dúvida sobre obra realmente consultada.
+
+Comando:
+
+PACOTE_BVAA
+
+ou:
+
+PENDENTE_BVAA
+
+Nunca aceitar página, citação ou referência sem verificação.
+
+---
+
+## 12. QUANDO VOLTAR AO CHAT DE ARQUITETURA
+
+Voltar ao chat de arquitetura quando ocorrer:
+
+1. falha de BOOT;
+2. prompt comentar tese inteira;
+3. prompt ignorar BLOCO 0;
+4. prompt gerar comentário cosmético;
+5. prompt comentar todos os parágrafos por obrigação;
+6. prompt sugerir página ou bibliografia sem BVAA;
+7. prompt aceitar derivação para artigo;
+8. prompt sugerir corte/fusão sem confirmação;
+9. prompt se perder em escala;
+10. prompt criar muitos comentários repetitivos;
+11. prompt não aceitar subdivisão;
+12. dúvida sobre homologação;
+13. necessidade de novo pacote de handoff;
+14. chat real ficar longo demais.
+
+Voltar com o seguinte pacote:
+
+RETORNO_DE_USO_REAL_CONTROLADO
+
+1. IDENTIFICAÇÃO
+
+* Prompt usado:
+* Chat usado:
+* Tipo de material:
+* Escala:
+* Comando executado:
+* Modo de cobertura:
+* Data:
+
+2. MATERIAL
+
+* Capítulo/seção/bloco:
+* Quantidade de parágrafos:
+* Houve bibliografia?
+* Houve fontes primárias?
+* Houve notas?
+* Houve pedido de comentários Word?
+
+3. RESPOSTA DO PROMPT
+
+[colar resposta integral ou trecho relevante]
+
+4. AVALIAÇÃO HUMANA INICIAL
+
+* O comentário parece útil?
+* Houve comentário cosmético?
+* Houve comentário excessivo?
+* Houve alucinação bibliográfica?
+* Houve risco de escala?
+* Houve sugestão estrutural indevida?
+* Houve necessidade de BVAA?
+* Houve bloqueio correto?
+* Houve dúvida?
+
+5. PEDIDO AO CHAT DE ARQUITETURA
+
+* Auditar o retorno
+* Confirmar se a execução foi segura
+* Indicar próximo comando
+* Gerar pacote de continuidade
+* Corrigir falha
+* Outro:
+
+---
+
+## 13. PRIMEIRO COMANDO REAL RECOMENDADO
+
+Para máxima segurança, usar:
+
+COMANDO 0_BLOCO
+
+com um bloco real de 3 a 6 parágrafos.
+
+Depois:
+
+COMANDO 1_BLOCO
+
+Se passar bem, avançar para:
+
+COMANDO 0_SECAO
+
+Depois:
+
+COMANDO 1_SECAO
+
+Só depois avançar para capítulo inteiro.
+
+---
+
+## 14. REGRA DE PROGRESSÃO SEGURA
+
+Progressão recomendada:
+
+1. bloco real curto;
+2. seção real curta;
+3. seção real longa com subdivisão;
+4. capítulo real com cartografia;
+5. capítulo real por seções/blocos;
+6. manuscrito completo apenas para cartografia global.
+
+Não inverter essa ordem no primeiro uso.
+
+---
+
+## 15. STATUS FINAL DO PACOTE
+
+Este pacote autoriza:
+
+USO_CONTROLADO_EM_MATERIAL_REAL
+
+Este pacote não autoriza:
+
+USO_IRRESTRITO
+AUDITORIA_GLOBAL_COM_COMENTARIOS_WORD
+HOMOLOGACAO_PLENA
+DERIVACAO_PARA_ARTIGO
+LIBERACAO_BIBLIOGRAFICA_SEM_BVAA
+
+---
+
+## 16. PRÓXIMO PASSO SEGURO
+
+Abrir chat limpo e iniciar o primeiro uso real controlado com:
+
+1. prompt operacional integral;
+2. BLOCO 0 real;
+3. bloco real curto;
+4. COMANDO 0_BLOCO;
+5. PAUSA_ANTI_DERIVA;
+6. COMANDO 1_BLOCO.
+
+FIM_DO_ARQUIVO

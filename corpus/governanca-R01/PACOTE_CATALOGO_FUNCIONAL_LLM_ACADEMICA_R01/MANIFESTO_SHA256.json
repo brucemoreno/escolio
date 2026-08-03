@@ -1,0 +1,64 @@
+{
+  "produto": "PACOTE_CATALOGO_FUNCIONAL_LLM_ACADEMICA_R01",
+  "componente": "P02",
+  "algoritmo": "SHA-256",
+  "regra": "MANIFESTO_NAO_REFERENCIA_A_SI_MESMO",
+  "fonte_funcional": {
+    "nome": "PACOTE_ESPECIFICACAO_FUNCIONAL_LLM_ACADEMICA_R01(1).zip",
+    "sha256": "0798eb457fece6e5a0188622447840ba6eb212798976a13cc89162aa0249f634"
+  },
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "41e50209d404bd48ffa1be9330d9ccc5a96bc88295f30021c8dbbb2fe0b9ede3",
+      "tamanho_bytes": 1332
+    },
+    {
+      "nome": "01_INVENTARIO_FUNCIONAL_P02_R01.csv",
+      "sha256": "8c10ea3bb95db7348444222554a414ea17dc330f819b2338c48762788fd708a7",
+      "tamanho_bytes": 7056
+    },
+    {
+      "nome": "02_CATALOGO_FUNCIONAL_CONSOLIDADO_P02_R01.md",
+      "sha256": "c7850251f2b5b03f8b23bccdbee7895e29e8df579d36f05d9268b4467c2ff894",
+      "tamanho_bytes": 9450
+    },
+    {
+      "nome": "03_MATRIZ_DE_REQUISITOS_LIMITES_GATES_E_SAIDAS_P02_R01.csv",
+      "sha256": "421c1bfc8d12e2fd4c88f9448dff52c024f8770cffdd689092bf930c812526a7",
+      "tamanho_bytes": 5938
+    },
+    {
+      "nome": "04_MAPA_DE_PROVENIENCIA_FUNCIONAL_P02_R01.jsonl",
+      "sha256": "36e694695dc18ceced372b7c32b8a45106372ddf8e3b44b950594020b610c230",
+      "tamanho_bytes": 2800
+    },
+    {
+      "nome": "05_REGISTRO_DE_DUPLICIDADES_E_CONSOLIDACOES_P02_R01.jsonl",
+      "sha256": "b636ad348051ab129d38bb795efe3ef0091738a712da0415946ddf0e675823d6",
+      "tamanho_bytes": 958
+    },
+    {
+      "nome": "06_REGISTRO_DE_LACUNAS_FUNCIONAIS_P02_R01.jsonl",
+      "sha256": "6b8bffccad0bcc4cd7c93d94fd1791788ce0e8871e57ba0bd9577983a120c4c5",
+      "tamanho_bytes": 1347
+    },
+    {
+      "nome": "07_TESTE_FUNCIONAL_P02_R01.txt",
+      "sha256": "7f1b086f47550e9be85bf7884881eb5cefffb402dd68841199f1f99258758a25",
+      "tamanho_bytes": 1500
+    },
+    {
+      "nome": "08_DIAGNOSTICO_FINAL_P02_R01.txt",
+      "sha256": "7bf47d5e95df02d63c56598df8cd603d39e0d3b87903b5963185f30b6dccdf3c",
+      "tamanho_bytes": 645
+    }
+  ],
+  "estado": {
+    "P02": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+    "P00": "HOMOLOGADO_E_CONGELADO",
+    "P01": "HOMOLOGADO_E_CONGELADO",
+    "R03": "INALTERADA",
+    "P03_a_P28": "NAO_INICIADOS"
+  }
+}

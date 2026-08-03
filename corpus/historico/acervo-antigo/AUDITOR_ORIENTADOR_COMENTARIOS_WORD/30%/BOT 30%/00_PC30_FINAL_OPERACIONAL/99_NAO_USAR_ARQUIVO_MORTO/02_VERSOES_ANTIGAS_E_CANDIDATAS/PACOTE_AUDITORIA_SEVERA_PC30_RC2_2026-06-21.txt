@@ -1,0 +1,424 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_AUDITORIA_SEVERA_PC30_RC2
+
+## AUDITORIA DA VERSÃO-FILHA CANDIDATA
+
+Versão auditada:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_DRIVE_FIRST_BVAA
+
+Status da versão auditada:
+
+CANDIDATA_RC2_NAO_HOMOLOGADA
+
+Tipo de auditoria:
+
+AUDITORIA SEVERA DE INTEGRAÇÃO ARQUITETURAL, REGRESSÃO E COMPATIBILIDADE COM A MATRIZ v0.2
+
+Objeto:
+
+Verificar se a RC2 limpa pós-testes controlados preservou a matriz v0.2, integrou corretamente o PC30, corrigiu os ruídos formais da RC1, manteve BVAA/BVAA-Drive, PDF, paginação, fonte visual e numeração COMENTÁRIO_WORD, sem gerar patch solto nem homologação indevida.
+
+Decisão final:
+
+PC30_RC2_EXIGE_AJUSTE_LOCALIZADO_ANTES_DE_TESTE_DE_REGRESSAO
+
+---
+
+# 1. VEREDITO CURTO
+
+A RC2 está arquiteturalmente muito mais limpa que a RC1 e resolveu os principais ruídos formais detectados anteriormente.
+
+Ela preserva:
+
+1. matriz v0.2 como versão-mãe homologada controladamente;
+2. RC2 como versão-filha candidata não homologada;
+3. PC30 como modo de cobertura/saída, não como escala;
+4. MODO_DEFESA_DISSERTACAO_TESE como modo-mãe;
+5. MODO_BLOCO_CONTROLADO como escala do PC30;
+6. PC30 inativo por padrão;
+7. prioridade crítica como autorização de comentário orientador, não de liberação documental;
+8. separação BVAA/BVAA-Drive;
+9. distinção entre PDF localizado, PDF aberto, passagem localizada, página PDF e página impressa;
+10. protocolo de fonte visual, legenda, descrição visual e inferência histórica;
+11. regra de que registros sem COMENTÁRIO_WORD não consomem ID.
+
+Entretanto, há uma regressão relevante: a RC2 simplificou ou substituiu parte dos comandos oficiais herdados da matriz v0.2, especialmente no eixo BVAA/BVAA-Drive, Drive, PDF, passagem, página e integração de retorno.
+
+Essa regressão não bloqueia a arquitetura PC30, mas torna imprudente iniciar teste de regressão antes de uma revisão integrada de compatibilidade de comandos.
+
+---
+
+# 2. RESULTADO DA AUDITORIA ANTI-DERIVA
+
+Resultado:
+
+ANTI_DERIVA_PC30_RC2_ALERTA
+
+Motivo:
+
+A arquitetura central está preservada, mas há risco de perda de compatibilidade operacional por substituição/condensação de comandos literais da matriz v0.2.
+
+Não há evidência de patch solto.
+
+Não há evidência de homologação indevida.
+
+Não há evidência de contaminação da matriz.
+
+Não há evidência de autorização de revisão integral da tese.
+
+---
+
+# 3. ACHADOS BLOQUEANTES
+
+Nenhum achado bloqueante identificado.
+
+Classificação:
+
+SEM_ACHADO_BLOQUEANTE
+
+A RC2 não deve ser bloqueada.
+
+---
+
+# 4. ACHADOS ALTOS
+
+## ACHADO_ALTO_001 — Regressão de compatibilidade nos comandos oficiais herdados da matriz v0.2
+
+Gravidade:
+
+ALTA
+
+Descrição:
+
+A matriz v0.2 preservava uma lista ampla de comandos oficiais, incluindo comandos de fluxo, BVAA, BVAA-Drive, Drive, PDF, passagem, página, integração de retorno, handoff, mapas e estado.
+
+Na RC2, a lista de comandos foi racionalizada e parte dos comandos herdados aparece ausente, substituída ou condensada por comandos mais genéricos.
+
+Exemplos de comandos da matriz que precisam permanecer como comandos aceitos ou aliases literais na versão-filha:
+
+1. COMANDO 1
+2. PROXIMO / PRÓXIMO
+3. PROXIMA_SECAO
+4. PROXIMO_BLOCO
+5. SELECIONAR_CAPITULO
+6. SELECIONAR_SECAO
+7. AUDITAR_TRECHO
+8. AUDITAR_SECAO
+9. AUDITAR_CAPITULO
+10. MAPA_GLOBAL_DE_RISCOS
+11. MAPA_DE_RISCOS
+12. GERAR_COMENTARIOS_WORD
+13. GERAR_MAPA_RASTREABILIDADE
+14. ESTADO
+15. PAUSA_ANTI_DERIVA
+16. PACOTE_BVAA
+17. PACOTE_BVAA_DRIVE
+18. PACOTE_ESTRUTURAL
+19. PACOTE_HANDOFF
+20. INTEGRAR_RETORNO_BVAA
+21. INTEGRAR_RETORNO_BVAA_DRIVE
+22. INTEGRAR_RETORNO_ESTRUTURAL
+23. INTEGRAR_RETORNO_HANDOFF
+24. EXPORTAR_MAPA_COMENTARIOS
+25. CONFIGURAR_BIBLIOTECA_DRIVE
+26. MAPEAR_BIBLIOTECA_DRIVE
+27. LOCALIZAR_OBRA_NO_DRIVE
+28. ABRIR_PDF_BVAA
+29. LOCALIZAR_PASSAGEM_NO_PDF
+30. CONFIRMAR_PAGINA
+31. CLASSIFICAR_TIPO_DE_REFERENCIA
+32. LIBERAR_REFERENCIA_VERIFICADA
+33. BLOQUEAR_REFERENCIA_NAO_VERIFICADA
+34. FORÇAR_MODO_PONTUAL
+
+Risco:
+
+Um operador treinado na matriz v0.2 pode usar comandos válidos da versão-mãe e a RC2 pode não reconhecê-los como comandos oficiais, produzindo perda de continuidade, perda de estado ou desvio operacional.
+
+Impacto:
+
+Não bloqueia a RC2, porque os protocolos substantivos estão presentes.
+
+Mas bloqueia o início do teste de regressão até que a compatibilidade de comandos seja restaurada.
+
+Correção obrigatória:
+
+Gerar uma revisão integrada da RC2 incorporando uma seção:
+
+COMANDOS HERDADOS DA MATRIZ v0.2 — COMPATIBILIDADE OBRIGATÓRIA
+
+Essa seção deve preservar todos os comandos oficiais da matriz como comandos aceitos, mesmo quando a RC2 também ofereça comandos simplificados ou específicos para PC30.
+
+Veredito:
+
+ALTO_NAO_BLOQUEANTE_COM_AJUSTE_OBRIGATORIO_ANTES_DE_REGRESSAO
+
+---
+
+# 5. ACHADOS MÉDIOS
+
+## ACHADO_MEDIO_001 — COMANDO 1_BLOCO_PRIORIDADE_CRITICA precisa exigir mapeamento prévio mais explicitamente
+
+Gravidade:
+
+MÉDIA
+
+Descrição:
+
+A RC2 determina que o comando confirme escala como MODO_BLOCO_CONTROLADO, ative PC30, audite o bloco, classifique riscos e gere mapas. Porém, deve explicitar com mais força que o fluxo seguro é:
+
+COMANDO 0_BLOCO
+
+seguido de:
+
+COMANDO 1_BLOCO_PRIORIDADE_CRITICA
+
+ou, em alternativa, uso com bloco já delimitado e mapeamento interno explícito.
+
+Risco:
+
+O usuário pode acionar COMANDO 1_BLOCO_PRIORIDADE_CRITICA sem mapeamento mínimo do bloco, pulando a etapa de localização, função da unidade e suficiência material.
+
+Correção recomendada:
+
+Adicionar regra:
+
+COMANDO 1_BLOCO_PRIORIDADE_CRITICA pressupõe COMANDO 0_BLOCO previamente executado ou bloco curto suficientemente delimitado para mapeamento interno obrigatório antes da geração de comentários Word.
+
+---
+
+## ACHADO_MEDIO_002 — A RC2 precisa explicitar fallback para comando herdado equivalente
+
+Gravidade:
+
+MÉDIA
+
+Descrição:
+
+A RC2 cria comandos simplificados como LOCALIZAR_PDF, ABRIR_PDF e LOCALIZAR_PASSAGEM, mas a matriz usa comandos mais específicos como LOCALIZAR_OBRA_NO_DRIVE, ABRIR_PDF_BVAA e LOCALIZAR_PASSAGEM_NO_PDF.
+
+Risco:
+
+Duplicidade de nomes pode confundir o operador.
+
+Correção recomendada:
+
+Adicionar equivalências formais:
+
+1. LOCALIZAR_PDF = LOCALIZAR_OBRA_NO_DRIVE quando a busca for na Biblioteca Drive;
+2. ABRIR_PDF = ABRIR_PDF_BVAA;
+3. LOCALIZAR_PASSAGEM = LOCALIZAR_PASSAGEM_NO_PDF;
+4. CONFIRMAR_PAGINA_PDF + CONFIRMAR_PAGINA_IMPRESSA = CONFIRMAR_PAGINA, com detalhamento obrigatório.
+
+---
+
+## ACHADO_MEDIO_003 — Teste BVAA real continua pendente para homologação futura
+
+Gravidade:
+
+MÉDIA
+
+Descrição:
+
+A RC2 incorpora corretamente a lógica BVAA/PDF/página, mas a validação anterior foi protocolo documental condicionado, não verificação real com PDF aberto e comprovante completo.
+
+Risco:
+
+A versão pode estar arquiteturalmente correta, mas ainda não testada com arquivo real em toda a cadeia: Drive → PDF aberto → passagem localizada → página PDF → página impressa → comprovante.
+
+Correção:
+
+Não é correção da RC2. É requisito de homologação futura.
+
+---
+
+# 6. ACHADOS BAIXOS
+
+## ACHADO_BAIXO_001 — A seção de comandos ficou mais limpa, mas menos histórica
+
+Gravidade:
+
+BAIXA
+
+Descrição:
+
+A RC2 ganhou clareza, mas reduziu a rastreabilidade nominal dos comandos da matriz.
+
+Correção:
+
+Resolver junto ao ACHADO_ALTO_001 por meio de seção de compatibilidade.
+
+---
+
+# 7. TESTE DE INTEGRAÇÃO ARQUITETURAL
+
+## 7.1. Status matriz/filha
+
+Resultado:
+
+APROVADO
+
+A RC2 distingue corretamente matriz v0.2, versão-filha PC30_RC2 e relação entre ambas.
+
+## 7.2. Não homologação
+
+Resultado:
+
+APROVADO
+
+A RC2 permanece CANDIDATA_RC2_NAO_HOMOLOGADA.
+
+## 7.3. PC30 como cobertura/saída
+
+Resultado:
+
+APROVADO
+
+A RC2 mantém PC30 como modo de cobertura/saída, subordinado ao MODO_BLOCO_CONTROLADO.
+
+## 7.4. PC30 inativo por padrão
+
+Resultado:
+
+APROVADO
+
+A RC2 declara que PC30 permanece inativo por padrão e só é ativado por BLOCO 0, COMANDO 1_BLOCO_PRIORIDADE_CRITICA ou comando explícito do orientador humano.
+
+## 7.5. BVAA/BVAA-Drive
+
+Resultado:
+
+APROVADO
+
+A RC2 mantém separação BVAA/BVAA-Drive e reforça bloqueios documentais.
+
+## 7.6. PDF/página/comprovante
+
+Resultado:
+
+APROVADO
+
+A RC2 diferencia PDF localizado, PDF aberto, passagem localizada, página PDF, página impressa e comprovante de leitura.
+
+## 7.7. Fonte visual
+
+Resultado:
+
+APROVADO
+
+A RC2 incorpora protocolo visual robusto, inclusive a regra de que imagem mencionada não é imagem analisada, legenda não substitui análise e Debret não deve ser tratado como prova transparente.
+
+## 7.8. Comentários Word
+
+Resultado:
+
+APROVADO
+
+A RC2 preserva comentário limpo para inserção no Word e mantém metadados fora do campo inserível.
+
+## 7.9. Estado operacional e mapas
+
+Resultado:
+
+APROVADO
+
+A RC2 inclui campos PC30, BVAA, PDF, fonte visual, riscos retidos, IDs e mapas.
+
+## 7.10. Comandos
+
+Resultado:
+
+APROVADO COM ACHADO ALTO
+
+Os comandos PC30 estão integrados, mas a compatibilidade literal com os comandos herdados da matriz v0.2 precisa ser restaurada antes de teste de regressão.
+
+---
+
+# 8. TESTE DE REGRESSÃO RC1 → RC2
+
+Resultado:
+
+REGRESSÃO SUBSTANTIVA APROVADA
+
+A RC2 preserva os ganhos da RC1:
+
+1. PC30 como cobertura/saída;
+2. comentários por prioridade crítica;
+3. P1 obrigatório ou absorvido por comentário ampliado;
+4. 30% como teto heurístico;
+5. riscos retidos sem consumo de ID;
+6. BVAA/BVAA-Drive separados;
+7. PDF e paginação bloqueados sem comprovação;
+8. fonte visual não tratada como prova automática;
+9. mapa PC30;
+10. mapa visual PC30.
+
+Resultado:
+
+REGRESSÃO OPERACIONAL DE COMANDOS DETECTADA
+
+A RC2 precisa restaurar os comandos herdados ou declará-los como aliases aceitos.
+
+---
+
+# 9. RISCOS RESIDUAIS
+
+## RISCO_RESIDUAL_001 — Comandos herdados não reconhecidos
+
+Status:
+
+ABERTO
+
+Mitigação:
+
+Gerar revisão integrada de compatibilidade de comandos antes do teste de regressão.
+
+## RISCO_RESIDUAL_002 — BVAA real ainda não testado com PDF completo
+
+Status:
+
+ABERTO
+
+Mitigação:
+
+Executar teste real com PDF aberto antes de homologação futura.
+
+## RISCO_RESIDUAL_003 — PC30 pode ser acionado sem COMANDO 0_BLOCO
+
+Status:
+
+MITIGÁVEL
+
+Mitigação:
+
+Adicionar regra explícita de pré-mapeamento.
+
+---
+
+# 10. DECISÃO FINAL
+
+Decisão:
+
+PC30_RC2_EXIGE_AJUSTES
+
+Mais precisamente:
+
+PC30_RC2_EXIGE_AJUSTE_INTEGRADO_DE_COMPATIBILIDADE_DE_COMANDOS_ANTES_DO_TESTE_DE_REGRESSAO
+
+A RC2 está correta na arquitetura PC30, BVAA, PDF, paginação e fonte visual.
+
+A RC2 não deve ser bloqueada.
+
+A RC2 ainda não deve ir para teste de regressão.
+
+A próxima etapa segura é gerar uma revisão integrada, não patch, restaurando a compatibilidade literal dos comandos da matriz v0.2.
+
+---
+
+# 11. PRÓXIMO COMANDO SEGURO
+
+GERAR_PC30_RC2_1_COMPATIBILIDADE_COMANDOS_MATRIZ_V0_2
+
+FIM_DO_ARQUIVO

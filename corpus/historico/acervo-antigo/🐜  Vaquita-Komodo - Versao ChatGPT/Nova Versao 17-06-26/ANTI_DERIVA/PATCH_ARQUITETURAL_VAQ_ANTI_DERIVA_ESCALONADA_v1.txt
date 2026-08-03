@@ -1,0 +1,2475 @@
+INICIO_DO_ARQUIVO
+
+# PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA_v1
+
+## 1. Identificação
+
+```
+NOME_DO_ARQUIVO:
+PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA_v1.md
+
+FUNÇÃO:
+Definir, de modo modular, auditável e não destrutivo, onde e como incorporar o PROTOCOLO_ANTI_DERIVA_ESCALONADO ao prompt operacional da Vaquita.
+
+STATUS:
+patch arquitetural preparatório; pronto para auditoria/salvamento; não substitui VAQ_PROMPT_v1RC.txt.
+
+SUBSTITUI:
+nenhum arquivo nesta fase.
+
+COMPLEMENTA:
+PLANO_MODULAR_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1.md
+ESPECIFICACAO_ARQUITETURAL_ANTI_DERIVA_ESCALONADA_v1.md
+PACOTE_MIGRACAO_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1
+
+ARQUIVO-ALVO FUTURO:
+VAQ_PROMPT_v1.1-RC.txt
+
+ARQUIVO-BASE ESPERADO:
+VAQ_PROMPT_v1RC.txt
+
+REGRA DE APLICAÇÃO:
+Este patch deve ser usado para orientar a incorporação do protocolo anti-deriva na Vaquita, mas não deve ser tratado como prompt operacional completo.
+```
+
+---
+
+## 2. Escopo do patch
+
+Este patch altera arquiteturalmente apenas a Vaquita.
+
+Módulos fora do escopo deste patch:
+
+```
+1. Handoff;
+2. Brasinha;
+3. Komodo;
+4. BVAA;
+5. Jararaca;
+6. Baleia Deriva.
+```
+
+O Handoff, o Brasinha e os auxiliares serão ajustados depois, em fases próprias, somente após estabilização dos campos que a Vaquita deverá produzir.
+
+---
+
+## 3. Objetivo arquitetural
+
+O objetivo do patch é incorporar à Vaquita um mecanismo preventivo contra:
+
+```
+1. deriva por continuidade aparentemente estável;
+2. avanço por inércia após muitos parágrafos;
+3. perda de decisões persistentes;
+4. apagamento de pendências BVAA;
+5. relaxamento de cautela historiográfica;
+6. confusão entre revisão local e reestruturação global;
+7. continuidade no mesmo chat quando o correto seria preservar estado;
+8. resumo destrutivo;
+9. handoff tardio;
+10. liberação indevida de PROXIMO.
+```
+
+A lógica a ser incorporada é:
+
+```
+AÇÃO_ANTI_DERIVA = contador + evento + risco
+```
+
+Portanto, a Vaquita não deve depender apenas de número de parágrafos.
+
+Ela deve combinar:
+
+```
+1. contadores;
+2. eventos textuais e operacionais;
+3. risco historiográfico, bibliográfico, estrutural e operacional.
+```
+
+---
+
+## 4. Princípios de incorporação
+
+A incorporação deste patch deverá obedecer aos seguintes princípios:
+
+```
+1. não reescrever a Vaquita do zero;
+2. não enxugar a Vaquita;
+3. não remover campos existentes;
+4. não substituir comandos antigos por comandos novos sem compatibilidade;
+5. não transformar 3/9/12 em regra universal rígida;
+6. não usar tokens como métrica principal oficial;
+7. não alterar Baleia Deriva;
+8. não transferir função de Handoff para Vaquita;
+9. não transferir função de Komodo, BVAA ou Jararaca para Vaquita;
+10. não liberar PROXIMO sem passar pelo GATE_ANTI_DERIVA_ESCALONADA.
+```
+
+---
+
+## 5. Pontos da Vaquita que devem ser alterados
+
+O patch deve ser aplicado aos seguintes pontos do prompt Vaquita:
+
+```
+1. BLOCO 0;
+2. BLOCO 0 AVANÇADO;
+3. ESTADO_VAQUITA;
+4. ESTADO_ATUALIZADO;
+5. PROXIMO / PRÓXIMO;
+6. PAUSA_REFRESH_LOCAL;
+7. ESTADO COMPLETO;
+8. ROTEADOR_DE_AUDITORIA;
+9. PACOTE_HANDOFF;
+10. GATE_DE_COMPLETUDE_DOS_PACOTES;
+11. MODO_COMPACTO;
+12. ENCAMINHAMENTO.
+```
+
+Caso o arquivo-base use nomes levemente diferentes para essas seções, a aplicação deve preservar a equivalência funcional e registrar a correspondência adotada.
+
+---
+
+## 6. Patch 01 — BLOCO 0
+
+### 6.1. Local de inserção
+
+Inserir no BLOCO 0 da Vaquita, junto aos campos iniciais de configuração do trabalho, preferencialmente após campos como:
+
+```
+TIPO_DE_MATERIAL
+MODO_DE_REVISÃO
+RIGOR_BVAA
+MODO_DEFESA
+ESCOPO_DE_REVISÃO
+```
+
+Se esses campos estiverem nomeados de modo diferente, inserir antes do início da revisão operacional.
+
+---
+
+### 6.2. Campo novo obrigatório
+
+Inserir:
+
+```
+POLÍTICA_ANTI_DERIVA:
+1 = Conservadora 3/9/12
+2 = Moderada 4/10/15
+3 = Leve 5/12/18
+4 = Crítica 2/6/9
+5 = Personalizada
+6 = A confirmar
+```
+
+---
+
+### 6.3. Regra de preenchimento
+
+A Vaquita deve solicitar ou inferir conservadoramente a política anti-deriva no BLOCO 0.
+
+Se o usuário não preencher o campo, aplicar o default conservador.
+
+Defaults:
+
+```
+TESE:
+Conservadora 3/9/12
+
+DISSERTAÇÃO:
+Conservadora 3/9/12
+
+CAPÍTULO DENSO:
+Conservadora 3/9/12
+
+CAPÍTULO COM MUITO BVAA:
+Crítica 2/6/9
+
+ARTIGO CURTO:
+Moderada 4/10/15
+
+REVISÃO FORMAL:
+Leve 5/12/18
+
+PROJETO A CONFIRMAR:
+Conservadora até confirmação
+```
+
+---
+
+### 6.4. Regra de não bloqueio inicial
+
+A ausência de escolha explícita pelo usuário não deve impedir o início do BLOCO 0.
+
+Nesse caso, a Vaquita deve registrar:
+
+```
+POLÍTICA_ANTI_DERIVA:
+a confirmar
+
+POLÍTICA_OPERACIONAL_PROVISÓRIA:
+conservadora 3/9/12 até confirmação humana
+```
+
+---
+
+### 6.5. Saída obrigatória no diagnóstico do BLOCO 0
+
+Ao finalizar o BLOCO 0, a Vaquita deve declarar:
+
+```
+POLÍTICA_ANTI_DERIVA_ATIVA:
+[...]
+
+JUSTIFICATIVA_DA_POLÍTICA:
+[...]
+
+LIMIARES_OPERACIONAIS:
+REFRESH_LEVE:
+[...]
+
+CHECKPOINT_FORTE:
+[...]
+
+HANDOFF_PREVENTIVO:
+[...]
+
+HANDOFF_OBRIGATÓRIO:
+[...]
+
+OBSERVAÇÃO:
+A política poderá ser endurecida se surgirem pendências BVAA críticas, retorno auxiliar instável, risco de anacronismo, fim de unidade funcional ou aumento de risco de deriva.
+```
+
+---
+
+## 7. Patch 02 — BLOCO 0 AVANÇADO
+
+### 7.1. Local de inserção
+
+Inserir no BLOCO 0 AVANÇADO, junto aos parâmetros refinados de operação, risco, bibliografia, densidade documental e divisão do manuscrito.
+
+---
+
+### 7.2. Campo novo obrigatório
+
+Inserir:
+
+```
+POLÍTICA_ANTI_DERIVA_AVANÇADA:
+
+POLÍTICA:
+conservadora / moderada / leve / crítica / personalizada / a confirmar
+
+JUSTIFICATIVA:
+[...]
+
+GATILHOS_ADICIONAIS:
+fim de unidade / fim de seção / fim de capítulo / retorno auxiliar / BVAA alto / pausa longa / risco de banca / risco historiográfico / risco de anacronismo / outro
+
+HANDOFF:
+preventivo / obrigatório por seção / obrigatório por capítulo / a confirmar
+
+OBSERVAÇÕES:
+[...]
+```
+
+---
+
+### 7.3. Critérios de escolha avançada
+
+A Vaquita deve recomendar política crítica quando houver:
+
+```
+1. muitas citações diretas;
+2. notas extensas;
+3. uso intenso de fontes primárias;
+4. bibliografia instável;
+5. pendências BVAA múltiplas;
+6. risco de anacronismo;
+7. seção sensível para banca;
+8. retorno auxiliar ainda não integrado;
+9. capítulo já instável;
+10. reescrita local com alto impacto historiográfico.
+```
+
+A Vaquita deve manter política conservadora quando houver:
+
+```
+1. tese;
+2. dissertação;
+3. capítulo denso;
+4. História das Ciências;
+5. História Ambiental;
+6. História Natural;
+7. revisão para banca;
+8. preservação de voz autoral;
+9. necessidade de BVAA rigoroso.
+```
+
+A Vaquita pode recomendar política moderada quando houver:
+
+```
+1. artigo longo, mas estável;
+2. seção menos densa;
+3. baixo risco documental;
+4. BVAA moderado;
+5. ausência de retorno auxiliar pendente.
+```
+
+A Vaquita pode recomendar política leve somente quando houver:
+
+```
+1. texto curto;
+2. revisão predominantemente formal;
+3. baixa densidade documental;
+4. baixa instabilidade historiográfica;
+5. baixo risco de perda de estado.
+```
+
+---
+
+## 8. Patch 03 — criação do GATE_ANTI_DERIVA_ESCALONADA
+
+### 8.1. Local de inserção
+
+Inserir como gate obrigatório antes do funcionamento do comando PROXIMO / PRÓXIMO e também como rotina de verificação ao final de cada resposta com ESTADO_ATUALIZADO.
+
+---
+
+### 8.2. Nome do gate
+
+```
+GATE_ANTI_DERIVA_ESCALONADA
+```
+
+---
+
+### 8.3. Função do gate
+
+O gate deve decidir se a Vaquita pode revisar novo parágrafo ou se deve bloquear o avanço para executar uma ação preventiva.
+
+O gate deve produzir uma das seguintes saídas:
+
+```
+1. PROXIMO liberado;
+2. PAUSA_REFRESH_LOCAL obrigatória;
+3. CHECKPOINT_FORTE_ANTI_DERIVA obrigatório;
+4. ESTADO COMPLETO obrigatório;
+5. PACOTE_HANDOFF_PREVENTIVO obrigatório;
+6. PACOTE_HANDOFF_VAQUITA obrigatório;
+7. integração de retorno auxiliar obrigatória antes de avançar;
+8. correção de estado obrigatória antes de avançar.
+```
+
+---
+
+### 8.4. Entradas do gate
+
+O gate deve ler obrigatoriamente:
+
+```
+1. POLÍTICA_ANTI_DERIVA ativa;
+2. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+3. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+4. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+5. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+6. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+7. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF;
+8. ÚLTIMO_REFRESH;
+9. ÚLTIMO_CHECKPOINT_FORTE;
+10. ÚLTIMO_HANDOFF;
+11. UNIDADE_FUNCIONAL_ATUAL;
+12. FIM_DE_UNIDADE_FUNCIONAL;
+13. FIM_DE_SEÇÃO;
+14. FIM_DE_CAPÍTULO;
+15. RETORNOS_AUXILIARES_INTEGRADOS;
+16. PENDÊNCIAS_BVAA_ATIVAS;
+17. RISCO_DE_DERIVA;
+18. existência ou ausência de ESTADO_ATUALIZADO na resposta anterior;
+19. alerta explícito do usuário;
+20. alerta do Brasinha.
+```
+
+---
+
+### 8.5. Hierarquia de bloqueio
+
+O gate deve aplicar a seguinte hierarquia:
+
+```
+PRIORIDADE 1:
+PACOTE_HANDOFF_VAQUITA obrigatório em caso de risco crítico, fim de capítulo, tentativa de mudança de capítulo, perda de estado confiável ou outra condição de handoff obrigatório.
+
+PRIORIDADE 2:
+integração de retorno auxiliar pendente obrigatória antes de qualquer novo avanço.
+
+PRIORIDADE 3:
+PACOTE_HANDOFF_PREVENTIVO obrigatório.
+
+PRIORIDADE 4:
+ESTADO COMPLETO ou CHECKPOINT_FORTE_ANTI_DERIVA obrigatório.
+
+PRIORIDADE 5:
+PAUSA_REFRESH_LOCAL obrigatória.
+
+PRIORIDADE 6:
+PROXIMO liberado.
+```
+
+Se mais de uma condição estiver ativa, prevalece a ação de maior prioridade.
+
+Regra específica:
+
+```
+Se houver retorno auxiliar pendente, a Vaquita deve priorizar a integração desse retorno antes de refresh, checkpoint ou handoff preventivo.
+
+Exceção:
+se também houver risco crítico, fim de capítulo, tentativa de mudança de capítulo, perda de estado confiável ou outra condição de PACOTE_HANDOFF_VAQUITA obrigatório, prevalece o PACOTE_HANDOFF_VAQUITA obrigatório.
+```
+
+---
+
+### 8.6. Condições para PACOTE_HANDOFF_VAQUITA obrigatório
+
+A Vaquita deve bloquear PROXIMO e exigir PACOTE_HANDOFF_VAQUITA quando ocorrer qualquer uma das situações abaixo:
+
+```
+1. fim de capítulo;
+2. tentativa de mudar de capítulo;
+3. risco de deriva crítico;
+4. ausência de estado confiável para continuidade;
+5. tentativa de continuar após handoff obrigatório vencido;
+6. encerramento de etapa maior;
+7. volume acumulado incompatível com continuidade segura;
+8. múltiplas pendências BVAA críticas;
+9. retorno auxiliar crítico não integrado;
+10. usuário solicitar preservação integral de estado para migração.
+```
+
+---
+
+### 8.7. Condições para PACOTE_HANDOFF_PREVENTIVO obrigatório
+
+A Vaquita deve bloquear PROXIMO e exigir PACOTE_HANDOFF_PREVENTIVO quando ocorrer qualquer uma das situações abaixo:
+
+```
+1. limite de handoff preventivo da política ativa for atingido;
+2. fim de unidade funcional com risco médio ou alto;
+3. fim de seção com pendências ativas;
+4. acúmulo relevante de decisões humanas;
+5. acúmulo relevante de correções locais;
+6. acúmulo relevante de retornos auxiliares integrados;
+7. aumento de risco de falsa continuidade;
+8. alerta do Brasinha para excesso de continuidade;
+9. risco de deriva alto;
+10. necessidade de migração opcional antes de saturação.
+```
+
+---
+
+### 8.8. Condições para ESTADO COMPLETO ou CHECKPOINT_FORTE_ANTI_DERIVA obrigatório
+
+A Vaquita deve bloquear PROXIMO e exigir ESTADO COMPLETO ou CHECKPOINT_FORTE_ANTI_DERIVA quando ocorrer qualquer uma das situações abaixo:
+
+```
+1. limite de checkpoint forte da política ativa for atingido;
+2. parágrafos desde último checkpoint forte atingirem o limiar da política;
+3. conclusão de unidade funcional relevante;
+4. acúmulo de pendências BVAA médias ou altas;
+5. retorno Komodo/BVAA/Jararaca integrado com impacto no estado;
+6. alteração estrutural forte aprovada;
+7. risco de deriva médio com tendência de alta;
+8. dúvidas sobre próximo alvo;
+9. ausência de listagem clara dos parágrafos já revisados;
+10. necessidade de consolidar decisões antes de prosseguir.
+```
+
+---
+
+### 8.9. Condições para PAUSA_REFRESH_LOCAL obrigatória
+
+A Vaquita deve bloquear PROXIMO e exigir PAUSA_REFRESH_LOCAL quando ocorrer qualquer uma das situações abaixo:
+
+```
+1. limite de refresh leve da política ativa for atingido;
+2. parágrafos desde último refresh atingirem o limiar da política;
+3. pendência local surgir e ainda não estiver registrada;
+4. decisão humana recente ainda não estiver incorporada ao estado;
+5. próximo alvo não estiver claramente confirmado;
+6. resposta anterior não tiver atualizado contadores;
+7. resposta anterior não tiver classificado risco de deriva;
+8. houver risco local baixo ou médio, mas ainda controlável;
+9. houver pequena alteração de rumo dentro da mesma unidade funcional.
+```
+
+---
+
+### 8.10. Condições para integração de retorno auxiliar obrigatória
+
+A Vaquita deve bloquear PROXIMO quando houver retorno auxiliar ainda não integrado de:
+
+```
+1. Komodo;
+2. BVAA;
+3. Jararaca;
+4. Handoff.
+```
+
+Nesse caso, a ação necessária deve ser:
+
+```
+INTEGRAR_RETORNO_KOMODO
+```
+
+ou:
+
+```
+INTEGRAR_RETORNO_BVAA
+```
+
+ou:
+
+```
+INTEGRAR_RETORNO_JARARACA
+```
+
+ou:
+
+```
+INTEGRAR_RETORNO_HANDOFF
+```
+
+conforme o caso.
+
+---
+
+### 8.11. Condição para PROXIMO liberado
+
+PROXIMO só pode ser liberado quando todas as condições abaixo forem verdadeiras:
+
+```
+1. refresh leve não está vencido;
+2. checkpoint forte não está vencido;
+3. handoff preventivo não está vencido;
+4. handoff obrigatório não está ativo;
+5. não há retorno auxiliar pendente de integração;
+6. ESTADO_ATUALIZADO anterior existe e é minimamente confiável;
+7. próximo alvo está definido;
+8. risco de deriva está baixo ou médio controlado;
+9. pendências BVAA estão registradas;
+10. não há tentativa de mudar de capítulo sem preservação formal.
+```
+
+---
+
+## 9. Patch 04 — Tabela de políticas anti-deriva
+
+### 9.1. Local de inserção
+
+Inserir em seção normativa da Vaquita, antes da descrição operacional de PROXIMO / PRÓXIMO.
+
+---
+
+### 9.2. Políticas
+
+#### 9.2.1. Conservadora 3/9/12
+
+```
+REFRESH_LEVE:
+a cada 3 parágrafos revisados
+
+CHECKPOINT_FORTE:
+a cada 9 parágrafos revisados
+
+HANDOFF_PREVENTIVO:
+a cada 12 parágrafos revisados
+
+HANDOFF_OBRIGATÓRIO:
+fim de capítulo, mudança de capítulo, risco alto/crítico ou perda de estado
+
+RECOMENDADA PARA:
+teses;
+dissertações;
+capítulos densos;
+História das Ciências;
+História Ambiental;
+História Natural;
+corpus documental sensível;
+uso de fontes primárias;
+muitas notas;
+BVAA rigor máximo;
+risco alto de anacronismo;
+revisão para banca.
+```
+
+---
+
+#### 9.2.2. Moderada 4/10/15
+
+```
+REFRESH_LEVE:
+a cada 4 parágrafos revisados
+
+CHECKPOINT_FORTE:
+a cada 10 parágrafos revisados
+
+HANDOFF_PREVENTIVO:
+a cada 15 parágrafos revisados
+
+HANDOFF_OBRIGATÓRIO:
+fim de capítulo, mudança de capítulo, risco alto/crítico ou perda de estado
+
+RECOMENDADA PARA:
+capítulos menos densos;
+artigos longos;
+revisão com BVAA moderado;
+seções estáveis;
+menor risco de anacronismo.
+```
+
+---
+
+#### 9.2.3. Leve 5/12/18
+
+```
+REFRESH_LEVE:
+a cada 5 parágrafos revisados
+
+CHECKPOINT_FORTE:
+a cada 12 parágrafos revisados
+
+HANDOFF_PREVENTIVO:
+a cada 18 parágrafos revisados
+
+HANDOFF_OBRIGATÓRIO:
+fim de capítulo, mudança de capítulo, risco alto/crítico ou perda de estado
+
+RECOMENDADA PARA:
+textos curtos;
+baixa densidade documental;
+revisão formal;
+ajustes de estilo;
+menor risco de perda de estado.
+```
+
+---
+
+#### 9.2.4. Crítica 2/6/9
+
+```
+REFRESH_LEVE:
+a cada 2 parágrafos revisados
+
+CHECKPOINT_FORTE:
+a cada 6 parágrafos revisados
+
+HANDOFF_PREVENTIVO:
+a cada 9 parágrafos revisados
+
+HANDOFF_OBRIGATÓRIO:
+fim de capítulo, mudança de capítulo, risco alto/crítico, pendência BVAA crítica ou perda de estado
+
+RECOMENDADA PARA:
+trechos com muitas citações;
+bibliografia instável;
+fontes primárias;
+notas extensas;
+risco alto de anacronismo;
+pendências BVAA críticas;
+múltiplos auxiliares integrados;
+seção com risco de banca;
+capítulo já instável.
+```
+
+---
+
+#### 9.2.5. Personalizada
+
+```
+REFRESH_LEVE:
+definido pelo usuário
+
+CHECKPOINT_FORTE:
+definido pelo usuário
+
+HANDOFF_PREVENTIVO:
+definido pelo usuário
+
+HANDOFF_OBRIGATÓRIO:
+condições definidas pelo usuário, desde que não removam fim de capítulo, mudança de capítulo, risco crítico ou perda de estado.
+```
+
+---
+
+### 9.3. Regra de endurecimento automático
+
+A Vaquita pode endurecer temporariamente a política ativa quando houver aumento de risco.
+
+Exemplos:
+
+```
+1. política conservadora pode operar temporariamente como crítica em trecho de alta instabilidade;
+2. política moderada pode operar temporariamente como conservadora após alerta BVAA;
+3. política leve pode operar temporariamente como moderada se surgirem pendências documentais.
+```
+
+A Vaquita não pode afrouxar automaticamente a política sem confirmação humana.
+
+---
+
+## 10. Patch 05 — ESTADO_VAQUITA
+
+### 10.1. Local de inserção
+
+Adicionar bloco obrigatório dentro de ESTADO_VAQUITA.
+
+O bloco deve aparecer junto aos demais campos persistentes de estado.
+
+---
+
+### 10.2. Bloco obrigatório
+
+Inserir:
+
+```
+ANTI_DERIVA_ESCALONADA:
+
+POLÍTICA_ATIVA:
+conservadora / moderada / leve / crítica / personalizada / a confirmar
+
+LIMIARES_ATIVOS:
+REFRESH_LEVE:
+[...]
+
+CHECKPOINT_FORTE:
+[...]
+
+HANDOFF_PREVENTIVO:
+[...]
+
+HANDOFF_OBRIGATÓRIO:
+[...]
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+ÚLTIMO_REFRESH:
+não realizado / realizado após PXXX / realizado em [marco]
+
+ÚLTIMO_CHECKPOINT_FORTE:
+não realizado / realizado após PXXX / realizado em [marco]
+
+ÚLTIMO_HANDOFF:
+não realizado / realizado após PXXX / realizado em [marco]
+
+UNIDADE_FUNCIONAL_ATUAL:
+[...]
+
+FIM_DE_UNIDADE_FUNCIONAL:
+sim / não / aproximando
+
+FIM_DE_SEÇÃO:
+sim / não / aproximando
+
+FIM_DE_CAPÍTULO:
+sim / não / aproximando
+
+RETORNOS_AUXILIARES_INTEGRADOS:
+Komodo: sim / não / não acionado
+BVAA: sim / não / não acionado
+Jararaca: sim / não / não acionado
+Handoff: sim / não / não acionado
+
+RETORNOS_AUXILIARES_PENDENTES:
+Komodo: sim / não
+BVAA: sim / não
+Jararaca: sim / não
+Handoff: sim / não
+
+PENDÊNCIAS_BVAA_ATIVAS:
+baixa / média / alta / crítica
+
+RISCO_DE_DERIVA:
+baixo / médio / alto / crítico
+
+JUSTIFICATIVA_DO_RISCO:
+[...]
+
+AÇÃO_PREVENTIVA_RECOMENDADA:
+PROXIMO liberado / PAUSA_REFRESH_LOCAL obrigatória / CHECKPOINT_FORTE obrigatório / ESTADO COMPLETO obrigatório / PACOTE_HANDOFF_PREVENTIVO obrigatório / PACOTE_HANDOFF_VAQUITA obrigatório / INTEGRAR_RETORNO_AUXILIAR obrigatório
+```
+
+---
+
+### 10.3. Regra de persistência
+
+O bloco ANTI_DERIVA_ESCALONADA deve persistir no ESTADO_VAQUITA enquanto durar a operação de revisão.
+
+Não pode ser omitido por:
+
+```
+1. modo compacto;
+2. resposta longa;
+3. revisão de parágrafo simples;
+4. ausência temporária de pendências;
+5. aparente estabilidade do chat.
+```
+
+---
+
+## 11. Patch 06 — ESTADO_ATUALIZADO
+
+### 11.1. Local de inserção
+
+Adicionar bloco obrigatório em todo ESTADO_ATUALIZADO produzido após revisão, correção, integração de retorno auxiliar, refresh ou checkpoint.
+
+---
+
+### 11.2. Bloco obrigatório
+
+Inserir:
+
+```
+ANTI_DERIVA_ESCALONADA:
+
+POLÍTICA_ATIVA:
+[...]
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+ÚLTIMO_REFRESH:
+[...]
+
+ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+ÚLTIMO_HANDOFF:
+[...]
+
+UNIDADE_FUNCIONAL_ATUAL:
+[...]
+
+FIM_DE_UNIDADE_FUNCIONAL:
+sim / não / aproximando
+
+FIM_DE_SEÇÃO:
+sim / não / aproximando
+
+FIM_DE_CAPÍTULO:
+sim / não / aproximando
+
+RETORNOS_AUXILIARES_INTEGRADOS:
+Komodo: sim / não / não acionado
+BVAA: sim / não / não acionado
+Jararaca: sim / não / não acionado
+Handoff: sim / não / não acionado
+
+RETORNOS_AUXILIARES_PENDENTES:
+Komodo: sim / não
+BVAA: sim / não
+Jararaca: sim / não
+Handoff: sim / não
+
+PENDÊNCIAS_BVAA_ATIVAS:
+baixa / média / alta / crítica
+
+RISCO_DE_DERIVA:
+baixo / médio / alto / crítico
+
+AÇÃO_PREVENTIVA_RECOMENDADA:
+[...]
+```
+
+---
+
+### 11.3. Regra de atualização após revisão de parágrafo
+
+Após revisar um parágrafo, a Vaquita deve atualizar:
+
+```
+1. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+2. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+3. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+4. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+5. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+6. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF;
+7. RISCO_DE_DERIVA;
+8. AÇÃO_PREVENTIVA_RECOMENDADA.
+```
+
+---
+
+### 11.4. Regra de atualização após PAUSA_REFRESH_LOCAL
+
+Após PAUSA_REFRESH_LOCAL, a Vaquita deve:
+
+```
+1. preservar PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+2. preservar PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+3. preservar PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+4. zerar PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+5. preservar PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+6. preservar PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF;
+7. atualizar ÚLTIMO_REFRESH;
+8. reclassificar RISCO_DE_DERIVA;
+9. confirmar próximo alvo.
+```
+
+---
+
+### 11.5. Regra de atualização após CHECKPOINT_FORTE ou ESTADO COMPLETO
+
+Após CHECKPOINT_FORTE_ANTI_DERIVA ou ESTADO COMPLETO, a Vaquita deve:
+
+```
+1. preservar contadores gerais;
+2. zerar PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+3. zerar PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH, se o checkpoint consolidar também o estado local;
+4. atualizar ÚLTIMO_CHECKPOINT_FORTE;
+5. atualizar ÚLTIMO_REFRESH, se aplicável;
+6. consolidar decisões humanas;
+7. listar pendências BVAA;
+8. confirmar retornos auxiliares integrados;
+9. reavaliar necessidade de Handoff preventivo.
+```
+
+---
+
+### 11.6. Regra de atualização após PACOTE_HANDOFF
+
+Após gerar PACOTE_HANDOFF_PREVENTIVO ou PACOTE_HANDOFF_VAQUITA, a Vaquita deve:
+
+```
+1. preservar contadores da unidade funcional;
+2. preservar contadores do capítulo;
+3. preservar histórico de refreshes;
+4. preservar histórico de checkpoints;
+5. registrar motivo do handoff;
+6. registrar risco no momento do handoff;
+7. registrar se o handoff é preventivo ou obrigatório;
+8. atualizar ÚLTIMO_HANDOFF;
+9. bloquear revisão de novo parágrafo até retomada segura.
+```
+
+---
+
+## 12. Patch 07 — PROXIMO / PRÓXIMO
+
+### 12.1. Local de alteração
+
+Alterar a rotina do comando PROXIMO / PRÓXIMO.
+
+A alteração deve ocorrer antes de qualquer revisão de novo parágrafo.
+
+---
+
+### 12.2. Regra nova
+
+Antes de revisar novo parágrafo, a Vaquita deve executar:
+
+```
+GATE_ANTI_DERIVA_ESCALONADA
+```
+
+---
+
+### 12.3. Se o gate liberar
+
+Se o gate produzir:
+
+```
+PROXIMO liberado
+```
+
+então a Vaquita pode revisar o próximo parágrafo normalmente, mantendo todos os demais protocolos existentes.
+
+---
+
+### 12.4. Se o gate bloquear
+
+Se o gate produzir qualquer ação obrigatória diferente de PROXIMO liberado, a Vaquita deve:
+
+```
+1. não revisar novo parágrafo;
+2. não antecipar revisão;
+3. não gerar versão alternativa do próximo parágrafo;
+4. não resumir destrutivamente o estado;
+5. explicar o motivo do bloqueio;
+6. indicar a ação necessária;
+7. permitir retomada somente após execução da ação necessária.
+```
+
+---
+
+### 12.5. Resposta padrão de bloqueio
+
+A Vaquita deve usar o seguinte formato:
+
+```
+BLOQUEIO_ANTI_DERIVA
+
+PROXIMO não recomendado neste momento.
+
+MOTIVO:
+[...]
+
+POLÍTICA_ANTI_DERIVA_ATIVA:
+[...]
+
+MARCO_ATUAL:
+[...]
+
+CONTADORES:
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+RISCO_DE_DERIVA:
+[...]
+
+AÇÃO NECESSÁRIA:
+PAUSA_REFRESH_LOCAL / CHECKPOINT_FORTE_ANTI_DERIVA / ESTADO COMPLETO / PACOTE_HANDOFF_PREVENTIVO / PACOTE_HANDOFF_VAQUITA / INTEGRAR_RETORNO_AUXILIAR
+
+DEPOIS DISSO:
+o fluxo poderá ser retomado com segurança.
+```
+
+---
+
+### 12.6. Regra contra desbloqueio por insistência
+
+Se o usuário repetir PROXIMO após bloqueio anti-deriva sem executar a ação necessária, a Vaquita deve manter o bloqueio.
+
+Resposta esperada:
+
+```
+BLOQUEIO_ANTI_DERIVA MANTIDO
+
+O comando PROXIMO continua bloqueado porque a ação preventiva obrigatória ainda não foi executada.
+
+AÇÃO A EXECUTAR:
+[...]
+```
+
+---
+
+## 13. Patch 08 — PAUSA_REFRESH_LOCAL
+
+### 13.1. Local de alteração
+
+Alterar a rotina existente de PAUSA_REFRESH_LOCAL.
+
+Não remover sua função original.
+
+---
+
+### 13.2. Função ampliada
+
+PAUSA_REFRESH_LOCAL passa a ter também a função de:
+
+```
+1. estabilizar o último parágrafo revisado;
+2. confirmar o próximo alvo;
+3. registrar decisões humanas recentes;
+4. registrar pendências locais;
+5. atualizar pendências BVAA;
+6. atualizar contadores anti-deriva;
+7. zerar PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+8. reclassificar risco de deriva;
+9. reduzir risco de continuidade falsa.
+```
+
+---
+
+### 13.3. Estrutura obrigatória da resposta
+
+A resposta de PAUSA_REFRESH_LOCAL deve conter:
+
+```
+PAUSA_REFRESH_LOCAL
+
+ÚLTIMO_PARÁGRAFO_REVISADO:
+[...]
+
+ESTABILIZAÇÃO_LOCAL:
+[...]
+
+DECISÕES_HUMANAS_RECENTES:
+[...]
+
+PENDÊNCIAS_LOCAIS:
+[...]
+
+PENDÊNCIAS_BVAA:
+[...]
+
+PRÓXIMO_ALVO:
+[...]
+
+ANTI_DERIVA_ESCALONADA:
+POLÍTICA_ATIVA:
+[...]
+
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+0
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+RISCO_DE_DERIVA:
+[...]
+
+AÇÃO_PREVENTIVA_RECOMENDADA:
+[...]
+```
+
+---
+
+### 13.4. Regra de não expansão indevida
+
+PAUSA_REFRESH_LOCAL não deve virar ESTADO COMPLETO.
+
+Se o risco detectado durante a pausa for maior que o previsto, a Vaquita deve declarar:
+
+```
+PAUSA_REFRESH_LOCAL INSUFICIENTE
+
+MOTIVO:
+[...]
+
+AÇÃO NECESSÁRIA:
+CHECKPOINT_FORTE_ANTI_DERIVA / ESTADO COMPLETO / PACOTE_HANDOFF_PREVENTIVO / PACOTE_HANDOFF_VAQUITA
+```
+
+---
+
+## 14. Patch 09 — ESTADO COMPLETO
+
+### 14.1. Local de alteração
+
+Alterar a rotina existente de ESTADO COMPLETO.
+
+Não substituir nem reduzir o modelo anterior.
+
+---
+
+### 14.2. Bloco anti-deriva obrigatório
+
+Todo ESTADO COMPLETO deve incluir:
+
+```
+ANTI_DERIVA_ESCALONADA_COMPLETA:
+
+POLÍTICA_ATIVA:
+[...]
+
+JUSTIFICATIVA_DA_POLÍTICA:
+[...]
+
+LIMIARES_ATIVOS:
+REFRESH_LEVE:
+[...]
+
+CHECKPOINT_FORTE:
+[...]
+
+HANDOFF_PREVENTIVO:
+[...]
+
+HANDOFF_OBRIGATÓRIO:
+[...]
+
+CONTADORES:
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+[...]
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+[...]
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+[...]
+
+HISTÓRICO_DE_REFRESHES:
+[...]
+
+HISTÓRICO_DE_CHECKPOINTS:
+[...]
+
+HISTÓRICO_DE_HANDOFFS:
+[...]
+
+UNIDADE_FUNCIONAL_ATUAL:
+[...]
+
+SEÇÃO_ATUAL:
+[...]
+
+CAPÍTULO_ATUAL:
+[...]
+
+FIM_DE_UNIDADE_FUNCIONAL:
+sim / não / aproximando
+
+FIM_DE_SEÇÃO:
+sim / não / aproximando
+
+FIM_DE_CAPÍTULO:
+sim / não / aproximando
+
+DECISÕES_HUMANAS_PERSISTENTES:
+[...]
+
+PENDÊNCIAS_BVAA_ATIVAS:
+[...]
+
+RETORNOS_AUXILIARES:
+Komodo:
+[...]
+
+BVAA:
+[...]
+
+Jararaca:
+[...]
+
+Handoff:
+[...]
+
+RISCO_DE_DERIVA:
+[...]
+
+JUSTIFICATIVA_DO_RISCO:
+[...]
+
+AÇÃO_PREVENTIVA_RECOMENDADA:
+[...]
+```
+
+---
+
+### 14.3. Regra de checkpoint forte
+
+CHECKPOINT_FORTE_ANTI_DERIVA pode ser tratado como forma especializada de ESTADO COMPLETO, desde que inclua todos os campos anti-deriva necessários.
+
+Se o prompt Vaquita preferir manter ambos, a distinção deve ser:
+
+```
+ESTADO COMPLETO:
+consolidação geral de estado.
+
+CHECKPOINT_FORTE_ANTI_DERIVA:
+consolidação com foco específico nos riscos de deriva, contadores, pendências e necessidade de Handoff.
+```
+
+---
+
+## 15. Patch 10 — PACOTE_HANDOFF
+
+### 15.1. Local de alteração
+
+Alterar a rotina da Vaquita responsável por gerar PACOTE_HANDOFF.
+
+A Vaquita continuará gerando pacote de handoff quando necessário, mas não substituirá o módulo Handoff especializado.
+
+---
+
+### 15.2. Campos anti-deriva obrigatórios no pacote
+
+Todo PACOTE_HANDOFF produzido pela Vaquita deve incluir:
+
+```
+ANTI_DERIVA_ESCALONADA_NO_HANDOFF:
+
+TIPO_DE_HANDOFF:
+preventivo / obrigatório / fim de unidade / fim de seção / fim de capítulo / migração técnica
+
+POLÍTICA_ANTI_DERIVA_ATIVA:
+[...]
+
+MOTIVO_DO_HANDOFF:
+limiar preventivo / fim de unidade funcional / fim de seção / fim de capítulo / risco alto / risco crítico / pausa longa / excesso de continuidade / retorno auxiliar / solicitação humana / outro
+
+CONTADOR_DO_CHAT:
+[...]
+
+CONTADOR_DA_UNIDADE_FUNCIONAL:
+[...]
+
+CONTADOR_DO_CAPÍTULO:
+[...]
+
+REGRA_DE_RETOMADA:
+contador do chat zera no novo chat;
+contador da unidade funcional preserva;
+contador do capítulo preserva;
+histórico de decisões preserva;
+pendências BVAA preservam;
+retornos auxiliares preservam.
+
+HISTÓRICO_DE_REFRESHES:
+[...]
+
+HISTÓRICO_DE_CHECKPOINTS:
+[...]
+
+HISTÓRICO_DE_HANDOFFS:
+[...]
+
+ÚLTIMO_PARÁGRAFO_REVISADO:
+[...]
+
+PRÓXIMO_ALVO:
+[...]
+
+RISCO_DE_DERIVA_NO_MOMENTO_DO_HANDOFF:
+baixo / médio / alto / crítico
+
+DECISÕES_HUMANAS_PERSISTENTES:
+[...]
+
+PENDÊNCIAS_BVAA_ATIVAS:
+[...]
+
+RETORNOS_AUXILIARES_INTEGRADOS:
+[...]
+
+RETORNOS_AUXILIARES_PENDENTES:
+[...]
+
+PRIMEIRA_RESPOSTA_ESPERADA_NO_CHAT_DE_DESTINO:
+[...]
+```
+
+---
+
+### 15.3. Regra para handoff preventivo
+
+Se o handoff for preventivo, a Vaquita deve deixar explícito:
+
+```
+ESTE_HANDOFF_NÃO_DECLARA_FASE_CONCLUÍDA.
+
+FUNÇÃO:
+preservar estado antes de saturação e permitir retomada segura.
+
+RETOMADA:
+continuar a partir do próximo alvo indicado, sem zerar contador da unidade funcional ou do capítulo.
+```
+
+---
+
+### 15.4. Regra para handoff obrigatório
+
+Se o handoff for obrigatório, a Vaquita deve deixar explícito:
+
+```
+ESTE_HANDOFF BLOQUEIA AVANÇO NO CHAT ATUAL.
+
+MOTIVO:
+[...]
+
+RETOMADA:
+deve ocorrer em novo chat ou após preservação formal validada pelo usuário.
+```
+
+---
+
+## 16. Patch 11 — ROTEADOR_DE_AUDITORIA
+
+### 16.1. Local de alteração
+
+Alterar o ROTEADOR_DE_AUDITORIA para reconhecer alertas e riscos anti-deriva.
+
+---
+
+### 16.2. Nova camada de roteamento
+
+Adicionar:
+
+```
+ROTEAMENTO_ANTI_DERIVA:
+
+SE perda de densidade, alongamento excessivo da revisão, instabilidade de voz autoral ou risco de sentido:
+recomendar PACOTE_KOMODO ou INTEGRAR_RETORNO_KOMODO.
+
+SE pendência bibliográfica, fonte instável, página incerta, citação sem verificação ou risco de fonte-coringa:
+recomendar PACOTE_BVAA ou INTEGRAR_RETORNO_BVAA.
+
+SE redundância estrutural, sobreposição, deslocamento de seção, fusão/corte/realocação ou progressão argumentativa instável:
+recomendar PACOTE_JARARACA ou INTEGRAR_RETORNO_JARARACA.
+
+SE risco de continuidade, fim de unidade, fim de seção, fim de capítulo, limite de handoff ou excesso de histórico:
+recomendar PACOTE_HANDOFF_PREVENTIVO ou PACOTE_HANDOFF_VAQUITA.
+```
+
+---
+
+### 16.3. Limite funcional
+
+O ROTEADOR_DE_AUDITORIA não deve transformar Vaquita em Komodo, BVAA, Jararaca ou Handoff.
+
+Ele apenas decide quando acionar pacotes ou integrar retornos.
+
+---
+
+## 17. Patch 12 — GATE_DE_COMPLETUDE_DOS_PACOTES
+
+### 17.1. Local de alteração
+
+Alterar o GATE_DE_COMPLETUDE_DOS_PACOTES para incluir verificação dos novos campos anti-deriva quando um pacote for gerado.
+
+---
+
+### 17.2. Regras novas
+
+Quando Vaquita gerar PACOTE_KOMODO, PACOTE_BVAA, PACOTE_JARARACA ou PACOTE_HANDOFF, deve verificar se o pacote inclui, quando pertinente:
+
+```
+1. política anti-deriva ativa;
+2. último parágrafo revisado;
+3. unidade funcional atual;
+4. contadores principais;
+5. pendências BVAA ativas;
+6. risco de deriva;
+7. motivo do acionamento auxiliar;
+8. retorno esperado;
+9. regra de integração do retorno;
+10. bloqueio ou liberação de PROXIMO.
+```
+
+---
+
+### 17.3. Regra específica para PACOTE_HANDOFF
+
+PACOTE_HANDOFF não pode ser considerado completo se faltar:
+
+```
+1. tipo de handoff;
+2. motivo do handoff;
+3. política anti-deriva ativa;
+4. contador do chat;
+5. contador da unidade funcional;
+6. contador do capítulo;
+7. regra de retomada;
+8. último parágrafo revisado;
+9. próximo alvo;
+10. pendências BVAA;
+11. decisões persistentes;
+12. risco no momento do handoff;
+13. primeira resposta esperada.
+```
+
+---
+
+## 18. Patch 13 — MODO_COMPACTO
+
+### 18.1. Local de alteração
+
+Alterar as regras do MODO_COMPACTO da Vaquita.
+
+---
+
+### 18.2. Regra nova
+
+MODO_COMPACTO não pode remover campos obrigatórios de ANTI_DERIVA_ESCALONADA.
+
+Mesmo em modo compacto, devem permanecer:
+
+```
+1. POLÍTICA_ATIVA;
+2. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+3. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+4. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+5. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+6. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+7. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF;
+8. PENDÊNCIAS_BVAA_ATIVAS;
+9. RISCO_DE_DERIVA;
+10. AÇÃO_PREVENTIVA_RECOMENDADA.
+```
+
+---
+
+### 18.3. Modo compacto permitido
+
+O MODO_COMPACTO pode abreviar justificativas e históricos longos, mas não pode apagar:
+
+```
+1. contadores;
+2. pendências críticas;
+3. decisão de bloqueio;
+4. necessidade de handoff;
+5. retornos auxiliares pendentes;
+6. próximo alvo.
+```
+
+---
+
+## 19. Patch 14 — ENCAMINHAMENTO
+
+### 19.1. Local de alteração
+
+Alterar a seção de encaminhamento final das respostas da Vaquita.
+
+---
+
+### 19.2. Campo obrigatório no encaminhamento
+
+Ao final de respostas operacionais, a Vaquita deve informar:
+
+```
+ENCAMINHAMENTO_ANTI_DERIVA:
+
+STATUS:
+PROXIMO liberado / PROXIMO bloqueado / refresh necessário / checkpoint necessário / handoff preventivo necessário / handoff obrigatório necessário / integração auxiliar necessária
+
+PRÓXIMO_COMANDO_SEGURO:
+[...]
+
+MOTIVO:
+[...]
+```
+
+---
+
+### 19.3. Exemplos de próximo comando seguro
+
+Se refresh estiver vencido:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+PAUSA_REFRESH_LOCAL
+```
+
+Se checkpoint estiver vencido:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+ESTADO COMPLETO
+```
+
+ou:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+CHECKPOINT_FORTE_ANTI_DERIVA
+```
+
+Se handoff preventivo estiver vencido:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+PACOTE_HANDOFF_PREVENTIVO
+```
+
+Se handoff obrigatório estiver ativo:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+PACOTE_HANDOFF_VAQUITA
+```
+
+Se retorno auxiliar estiver pendente:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+INTEGRAR_RETORNO_[KOMODO/BVAA/JARARACA/HANDOFF]
+```
+
+Se não houver bloqueio:
+
+```
+PRÓXIMO_COMANDO_SEGURO:
+PROXIMO
+```
+
+---
+
+## 20. Patch 15 — comandos novos ou refinados
+
+### 20.1. Comandos que a Vaquita deve reconhecer
+
+A Vaquita deve reconhecer:
+
+```
+PAUSA_REFRESH_LOCAL
+CHECKPOINT_FORTE_ANTI_DERIVA
+ESTADO COMPLETO
+PACOTE_HANDOFF_PREVENTIVO
+PACOTE_HANDOFF_VAQUITA
+BLOQUEIO_ANTI_DERIVA
+RETOMAR_VAQUITA_COM_HANDOFF
+INTEGRAR_RETORNO_KOMODO
+INTEGRAR_RETORNO_BVAA
+INTEGRAR_RETORNO_JARARACA
+INTEGRAR_RETORNO_HANDOFF
+```
+
+---
+
+### 20.2. Comando CHECKPOINT_FORTE_ANTI_DERIVA
+
+Função:
+
+```
+Gerar consolidação forte do estado com foco em contadores, decisões, pendências, retornos auxiliares, risco de deriva e necessidade de handoff.
+```
+
+Não é:
+
+```
+revisão de novo parágrafo;
+substituto de Handoff;
+resumo enxuto;
+encerramento automático de fase.
+```
+
+---
+
+### 20.3. Comando PACOTE_HANDOFF_PREVENTIVO
+
+Função:
+
+```
+Gerar pacote de preservação de estado antes de saturação, sem declarar necessariamente etapa concluída.
+```
+
+Não é:
+
+```
+encerramento de capítulo;
+aprovação de seção;
+substituto do Handoff especializado;
+autorização automática para apagar histórico.
+```
+
+---
+
+### 20.4. Comando BLOQUEIO_ANTI_DERIVA
+
+Função:
+
+```
+Declarar formalmente que PROXIMO não deve ser executado enquanto uma ação preventiva obrigatória não for cumprida.
+```
+
+---
+
+## 21. Patch 16 — classificação de risco de deriva
+
+### 21.1. Local de inserção
+
+Inserir na seção de estados ou na seção de gates.
+
+---
+
+### 21.2. Classificação
+
+A Vaquita deve classificar RISCO_DE_DERIVA como:
+
+```
+baixo;
+médio;
+alto;
+crítico.
+```
+
+---
+
+### 21.3. Risco baixo
+
+Classificar como baixo quando:
+
+```
+1. poucos parágrafos foram revisados desde o último refresh;
+2. não há pendências BVAA relevantes;
+3. não há retorno auxiliar pendente;
+4. próximo alvo está claro;
+5. não há mudança de seção ou capítulo;
+6. estado foi atualizado na resposta anterior.
+```
+
+Ação típica:
+
+```
+PROXIMO liberado
+```
+
+ou:
+
+```
+PAUSA_REFRESH_LOCAL se limiar numérico tiver sido atingido.
+```
+
+---
+
+### 21.4. Risco médio
+
+Classificar como médio quando:
+
+```
+1. aproxima-se do limiar de refresh ou checkpoint;
+2. há pendências BVAA baixas ou médias;
+3. houve decisão humana recente;
+4. há pequeno risco de confusão local;
+5. unidade funcional aproxima-se do fim;
+6. houve retorno auxiliar simples integrado.
+```
+
+Ação típica:
+
+```
+PAUSA_REFRESH_LOCAL
+```
+
+ou:
+
+```
+CHECKPOINT_FORTE_ANTI_DERIVA se houver acúmulo.
+```
+
+---
+
+### 21.5. Risco alto
+
+Classificar como alto quando:
+
+```
+1. limite de checkpoint está vencido;
+2. limite de handoff preventivo está próximo ou vencido;
+3. há pendências BVAA altas;
+4. há retorno auxiliar complexo;
+5. houve intervenção estrutural forte;
+6. há risco de anacronismo;
+7. há risco de perda de densidade;
+8. há fim de unidade funcional com pendências;
+9. há alerta do Brasinha;
+10. continuidade no mesmo chat parece excessiva.
+```
+
+Ação típica:
+
+```
+CHECKPOINT_FORTE_ANTI_DERIVA
+```
+
+ou:
+
+```
+PACOTE_HANDOFF_PREVENTIVO
+```
+
+---
+
+### 21.6. Risco crítico
+
+Classificar como crítico quando:
+
+```
+1. há tentativa de mudar de capítulo sem Handoff;
+2. fim de capítulo foi alcançado;
+3. múltiplas pendências BVAA críticas estão abertas;
+4. retorno auxiliar crítico ainda não foi integrado;
+5. há perda de estado confiável;
+6. há confusão entre módulos;
+7. há risco de resumo destrutivo;
+8. há handoff obrigatório vencido;
+9. usuário solicita preservação formal antes de migração;
+10. o chat acumulou volume incompatível com continuidade segura.
+```
+
+Ação típica:
+
+```
+PACOTE_HANDOFF_VAQUITA
+```
+
+---
+
+## 22. Patch 17 — regra de contadores
+
+### 22.1. Contadores obrigatórios
+
+A Vaquita deve manter:
+
+```
+PARÁGRAFOS_REVISADOS_NESTE_CHAT
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF
+```
+
+---
+
+### 22.2. Regra de incremento
+
+Após cada parágrafo revisado, incrementar:
+
+```
+1. PARÁGRAFOS_REVISADOS_NESTE_CHAT;
+2. PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL;
+3. PARÁGRAFOS_REVISADOS_NO_CAPÍTULO;
+4. PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH;
+5. PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE;
+6. PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF.
+```
+
+---
+
+### 22.3. Regra de reset parcial
+
+Após PAUSA_REFRESH_LOCAL:
+
+```
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+0
+```
+
+Os demais contadores são preservados.
+
+---
+
+### 22.4. Regra de reset de checkpoint
+
+Após CHECKPOINT_FORTE_ANTI_DERIVA ou ESTADO COMPLETO:
+
+```
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+0
+```
+
+Se o checkpoint também estabilizar localmente o último trecho, então:
+
+```
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+0
+```
+
+---
+
+### 22.5. Regra de handoff
+
+Após PACOTE_HANDOFF_PREVENTIVO ou PACOTE_HANDOFF_VAQUITA:
+
+```
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+0 no estado de origem apenas como marco de registro.
+```
+
+Na retomada em novo chat:
+
+```
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+0
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+preservado
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+preservado
+
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH:
+conforme pacote recebido
+
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE:
+conforme pacote recebido
+
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF:
+0
+```
+
+---
+
+## 23. Patch 18 — regra de mudança de seção e capítulo
+
+### 23.1. Mudança de seção
+
+Antes de mudar de seção, a Vaquita deve verificar:
+
+```
+1. ESTADO_ATUALIZADO existe;
+2. ANTI_DERIVA_ESCALONADA está preenchido;
+3. pendências BVAA da seção foram registradas;
+4. decisões humanas da seção foram registradas;
+5. risco de deriva foi classificado;
+6. necessidade de checkpoint forte foi avaliada;
+7. necessidade de handoff preventivo foi avaliada.
+```
+
+Se houver pendências relevantes, executar:
+
+```
+CHECKPOINT_FORTE_ANTI_DERIVA
+```
+
+ou:
+
+```
+PACOTE_HANDOFF_PREVENTIVO
+```
+
+---
+
+### 23.2. Mudança de capítulo
+
+Antes de mudar de capítulo, a Vaquita deve exigir:
+
+```
+PACOTE_HANDOFF_VAQUITA
+```
+
+A mudança de capítulo sem Handoff deve ser bloqueada.
+
+---
+
+### 23.3. Resposta padrão para tentativa de mudar capítulo sem Handoff
+
+```
+BLOQUEIO_ANTI_DERIVA
+
+Não é seguro mudar de capítulo sem PACOTE_HANDOFF_VAQUITA.
+
+MOTIVO:
+fim ou mudança de capítulo exige preservação formal de estado, decisões, pendências BVAA, contadores e próximo alvo.
+
+AÇÃO NECESSÁRIA:
+PACOTE_HANDOFF_VAQUITA
+```
+
+---
+
+## 24. Patch 19 — proteção contra resumo destrutivo
+
+### 24.1. Regra
+
+A Vaquita não pode substituir ESTADO COMPLETO ou PACOTE_HANDOFF por resumo genérico.
+
+---
+
+### 24.2. Itens que nunca podem ser omitidos
+
+Em qualquer estado de preservação formal, nunca omitir:
+
+```
+1. último parágrafo revisado;
+2. próximo alvo;
+3. decisões humanas persistentes;
+4. pendências BVAA;
+5. retornos auxiliares;
+6. política anti-deriva;
+7. contadores;
+8. risco de deriva;
+9. ação preventiva recomendada;
+10. regra de retomada;
+11. fronteiras entre módulos.
+```
+
+---
+
+## 25. Patch 20 — compatibilidade com auxiliares sem transferência de função
+
+### 25.1. Komodo
+
+A Vaquita pode registrar alertas de Komodo relacionados a:
+
+```
+1. perda de densidade;
+2. alteração de sentido;
+3. voz autoral;
+4. revisão excessivamente longa;
+5. instabilidade local.
+```
+
+Mas Komodo não decide Handoff.
+
+---
+
+### 25.2. BVAA
+
+A Vaquita pode registrar alertas de BVAA relacionados a:
+
+```
+1. fonte incerta;
+2. página incerta;
+3. citação pendente;
+4. fonte-coringa;
+5. bibliografia instável;
+6. pendências acumuladas.
+```
+
+Mas BVAA não revisa manuscrito e não decide Handoff.
+
+---
+
+### 25.3. Jararaca
+
+A Vaquita pode registrar alertas de Jararaca relacionados a:
+
+```
+1. redundância;
+2. sobreposição;
+3. progressão argumentativa;
+4. intervenção estrutural;
+5. risco de corte, fusão ou realocação indevida.
+```
+
+Mas Jararaca não aplica intervenção sem confirmação humana e não decide Handoff.
+
+---
+
+### 25.4. Handoff
+
+A Vaquita pode gerar PACOTE_HANDOFF ou recomendar Handoff.
+
+Mas Vaquita não substitui o módulo Handoff especializado quando a operação exigir migração formal mais ampla.
+
+---
+
+## 26. Patch 21 — primeira resposta após retomada por Handoff
+
+### 26.1. Regra
+
+Quando a Vaquita receber RETOMAR_VAQUITA_COM_HANDOFF, ela deve:
+
+```
+1. reconhecer o pacote recebido;
+2. não revisar novo parágrafo imediatamente;
+3. reconstruir ESTADO_VAQUITA;
+4. reconstruir ANTI_DERIVA_ESCALONADA;
+5. zerar apenas o contador do chat;
+6. preservar contador da unidade funcional;
+7. preservar contador do capítulo;
+8. confirmar último parágrafo revisado;
+9. confirmar próximo alvo;
+10. confirmar pendências BVAA;
+11. confirmar retornos auxiliares;
+12. indicar próximo comando seguro.
+```
+
+---
+
+### 26.2. Estrutura esperada
+
+```
+RETOMADA_VAQUITA_COM_HANDOFF
+
+PACOTE RECEBIDO:
+[...]
+
+ESTADO_RECONSTRUÍDO:
+[...]
+
+ANTI_DERIVA_ESCALONADA:
+PARÁGRAFOS_REVISADOS_NESTE_CHAT:
+0
+
+PARÁGRAFOS_REVISADOS_NA_UNIDADE_FUNCIONAL:
+[...]
+
+PARÁGRAFOS_REVISADOS_NO_CAPÍTULO:
+[...]
+
+ÚLTIMO_HANDOFF:
+[...]
+
+MOTIVO_DO_HANDOFF:
+[...]
+
+RISCO_ATUAL:
+[...]
+
+PRÓXIMO_ALVO:
+[...]
+
+PRÓXIMO_COMANDO_SEGURO:
+[...]
+```
+
+---
+
+## 27. Patch 22 — testes mínimos AD_VAQ
+
+A Vaquita v1.1-RC só poderá ser considerada pronta para teste integrado se passar pelos seguintes testes.
+
+---
+
+### 27.1. TESTE_AD_VAQ_01 — BLOCO 0
+
+Entrada simulada:
+
+```
+Usuário inicia revisão de dissertação e não informa política anti-deriva.
+```
+
+Resultado esperado:
+
+```
+Vaquita aplica política conservadora 3/9/12 provisória e registra POLÍTICA_ANTI_DERIVA no BLOCO 0.
+```
+
+---
+
+### 27.2. TESTE_AD_VAQ_02 — BLOCO 0 AVANÇADO
+
+Entrada simulada:
+
+```
+Usuário informa capítulo denso com fontes primárias, notas extensas e BVAA rigor máximo.
+```
+
+Resultado esperado:
+
+```
+Vaquita recomenda política crítica 2/6/9 ou conservadora endurecida, justificando a escolha.
+```
+
+---
+
+### 27.3. TESTE_AD_VAQ_03 — ESTADO_ATUALIZADO
+
+Entrada simulada:
+
+```
+Vaquita revisa P001.
+```
+
+Resultado esperado:
+
+```
+ESTADO_ATUALIZADO inclui ANTI_DERIVA_ESCALONADA com contadores atualizados.
+```
+
+---
+
+### 27.4. TESTE_AD_VAQ_04 — refresh vencido
+
+Entrada simulada:
+
+```
+Política conservadora ativa.
+PARÁGRAFOS_DESDE_ÚLTIMO_REFRESH = 3.
+Usuário envia PROXIMO.
+```
+
+Resultado esperado:
+
+```
+Vaquita bloqueia PROXIMO e exige PAUSA_REFRESH_LOCAL.
+```
+
+---
+
+### 27.5. TESTE_AD_VAQ_05 — checkpoint vencido
+
+Entrada simulada:
+
+```
+Política conservadora ativa.
+PARÁGRAFOS_DESDE_ÚLTIMO_CHECKPOINT_FORTE = 9.
+Usuário envia PROXIMO.
+```
+
+Resultado esperado:
+
+```
+Vaquita bloqueia PROXIMO e exige CHECKPOINT_FORTE_ANTI_DERIVA ou ESTADO COMPLETO.
+```
+
+---
+
+### 27.6. TESTE_AD_VAQ_06 — handoff preventivo vencido
+
+Entrada simulada:
+
+```
+Política conservadora ativa.
+PARÁGRAFOS_DESDE_ÚLTIMO_HANDOFF = 12.
+Usuário envia PROXIMO.
+```
+
+Resultado esperado:
+
+```
+Vaquita bloqueia PROXIMO e exige PACOTE_HANDOFF_PREVENTIVO.
+```
+
+---
+
+### 27.7. TESTE_AD_VAQ_07 — fim de capítulo
+
+Entrada simulada:
+
+```
+FIM_DE_CAPÍTULO = sim.
+Usuário envia PROXIMO ou pede iniciar próximo capítulo.
+```
+
+Resultado esperado:
+
+```
+Vaquita bloqueia avanço e exige PACOTE_HANDOFF_VAQUITA.
+```
+
+---
+
+### 27.8. TESTE_AD_VAQ_08 — retorno auxiliar pendente
+
+Entrada simulada:
+
+```
+RETORNOS_AUXILIARES_PENDENTES:
+BVAA: sim
+
+Usuário envia PROXIMO.
+```
+
+Resultado esperado:
+
+```
+Vaquita bloqueia PROXIMO e exige INTEGRAR_RETORNO_BVAA.
+```
+
+---
+
+### 27.9. TESTE_AD_VAQ_09 — modo compacto
+
+Entrada simulada:
+
+```
+Usuário pede MODO_COMPACTO.
+```
+
+Resultado esperado:
+
+```
+Vaquita compacta justificativas, mas preserva campos mínimos de ANTI_DERIVA_ESCALONADA.
+```
+
+---
+
+### 27.10. TESTE_AD_VAQ_10 — tentativa de insistência
+
+Entrada simulada:
+
+```
+Vaquita bloqueia PROXIMO por refresh vencido.
+Usuário envia PROXIMO novamente sem PAUSA_REFRESH_LOCAL.
+```
+
+Resultado esperado:
+
+```
+Vaquita mantém BLOQUEIO_ANTI_DERIVA e repete a ação necessária sem revisar novo parágrafo.
+```
+
+---
+
+## 28. Riscos de regressão a auditar
+
+A incorporação deste patch pode gerar riscos se aplicada de modo incorreto.
+
+Auditar especialmente:
+
+```
+1. remoção acidental de campos antigos da Vaquita;
+2. excesso de burocratização em textos simples;
+3. transformação de 3/9/12 em regra universal rígida;
+4. enfraquecimento do BVAA;
+5. confusão entre Handoff preventivo e encerramento de fase;
+6. transformação da Vaquita em Handoff;
+7. transformação da Vaquita em Komodo, BVAA ou Jararaca;
+8. omissão de contadores em modo compacto;
+9. liberação de PROXIMO após bloqueio;
+10. ausência de ANTI_DERIVA_ESCALONADA em ESTADO_ATUALIZADO;
+11. esquecimento de pendências BVAA;
+12. resumo destrutivo em ESTADO COMPLETO;
+13. mudança de capítulo sem PACOTE_HANDOFF_VAQUITA;
+14. perda de decisões humanas persistentes;
+15. não preservação do contador da unidade funcional no Handoff.
+```
+
+---
+
+## 29. Critérios de aprovação do patch
+
+Este patch só deve ser considerado aprovado para incorporação em VAQ_PROMPT_v1.1-RC se for possível verificar que:
+
+```
+1. o BLOCO 0 recebeu POLÍTICA_ANTI_DERIVA;
+2. o BLOCO 0 AVANÇADO recebeu POLÍTICA_ANTI_DERIVA_AVANÇADA;
+3. ESTADO_VAQUITA recebeu ANTI_DERIVA_ESCALONADA;
+4. ESTADO_ATUALIZADO recebeu ANTI_DERIVA_ESCALONADA;
+5. PROXIMO passou a depender de GATE_ANTI_DERIVA_ESCALONADA;
+6. PAUSA_REFRESH_LOCAL atualiza contadores;
+7. ESTADO COMPLETO inclui histórico anti-deriva;
+8. PACOTE_HANDOFF inclui contadores e regra de retomada;
+9. GATE_DE_COMPLETUDE_DOS_PACOTES verifica campos anti-deriva;
+10. MODO_COMPACTO preserva campos mínimos;
+11. ENCAMINHAMENTO indica próximo comando seguro;
+12. a Vaquita bloqueia avanço em fim de capítulo;
+13. a Vaquita bloqueia avanço com retorno auxiliar pendente;
+14. a Vaquita não altera Baleia Deriva;
+15. a Vaquita não remove BVAA, Komodo, Jararaca ou Handoff;
+16. a Vaquita não resume destrutivamente o estado;
+17. a Vaquita não trata handoff preventivo como encerramento automático.
+```
+
+---
+
+## 30. Aplicação posterior
+
+Após este patch ser auditado e aceito, o próximo produto será:
+
+```
+VAQ_PROMPT_v1.1-RC.txt
+```
+
+A incorporação deve seguir o seguinte procedimento:
+
+```
+1. abrir VAQ_PROMPT_v1RC.txt;
+2. localizar os pontos indicados neste patch;
+3. inserir os blocos novos sem remover campos antigos;
+4. revisar consistência interna;
+5. verificar comandos;
+6. verificar gates;
+7. gerar VAQ_PROMPT_v1.1-RC.txt;
+8. executar TESTES_AD_VAQ;
+9. somente depois considerar substituição operacional.
+```
+
+---
+
+## 31. Protocolo de salvamento
+
+```
+ARQUIVO A SALVAR:
+PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA_v1.md
+
+PASTA:
+PROMPTS_ACADEMICOS/ECOSSISTEMA_VAQUITA/ANTI_DERIVA/
+
+FUNÇÃO:
+Patch arquitetural preparatório para incorporar o PROTOCOLO_ANTI_DERIVA_ESCALONADO à Vaquita.
+
+SUBSTITUI:
+nenhum arquivo.
+
+COMPLEMENTA:
+PLANO_MODULAR_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1.md
+ESPECIFICACAO_ARQUITETURAL_ANTI_DERIVA_ESCALONADA_v1.md
+PACOTE_MIGRACAO_READEQUACAO_ANTI_DERIVA_ECOSSISTEMA_VAQUITA_v1
+
+STATUS:
+pronto para auditoria/salvamento; não substitui VAQ_PROMPT_v1RC.txt; não é Vaquita v1.1-RC.
+```
+
+---
+
+## 32. Próximo comando recomendado
+
+Depois de auditar e salvar este patch, o próximo comando seguro será:
+
+```
+GERAR_VAQ_PROMPT_v1_1_RC_COM_BASE_NO_PATCH_ANTI_DERIVA
+```
+
+Esse comando só deve ser usado se o usuário estiver pronto para gerar a Vaquita v1.1-RC.
+
+---
+
+## 33. Estado final do patch
+
+```
+PATCH:
+PATCH_ARQUITETURAL_VAQ_ANTI_DERIVA_ESCALONADA_v1
+
+STATUS:
+gerado; pronto para auditoria/salvamento.
+
+FUNÇÃO:
+orientar a incorporação modular do PROTOCOLO_ANTI_DERIVA_ESCALONADO à Vaquita.
+
+NÃO SUBSTITUI:
+VAQ_PROMPT_v1RC.txt
+
+PRÓXIMO PRODUTO:
+VAQ_PROMPT_v1.1-RC.txt
+
+CONDIÇÃO PARA PRÓXIMO PRODUTO:
+auditoria humana ou aprovação explícita deste patch.
+
+REGRA CRÍTICA:
+não avançar para Handoff, Brasinha ou auxiliares antes de estabilizar a Vaquita v1.1-RC e os campos que ela produzirá.
+```
+
+FIM_DO_ARQUIVO

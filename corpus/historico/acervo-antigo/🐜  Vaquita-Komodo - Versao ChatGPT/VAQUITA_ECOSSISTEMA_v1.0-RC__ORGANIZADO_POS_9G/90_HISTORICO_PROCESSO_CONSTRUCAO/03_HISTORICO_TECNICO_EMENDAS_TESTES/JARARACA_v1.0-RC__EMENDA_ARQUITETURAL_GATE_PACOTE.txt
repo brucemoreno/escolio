@@ -1,0 +1,224 @@
+# JARARACA v1.0-RC — EMENDA ARQUITETURAL
+# Tema: endurecimento do gate de PACOTE_JARARACA insuficiente
+# Origem: falha bloqueante no Teste R3
+# Status: emenda obrigatória antes da versão auditada
+
+---
+
+## 1. DIAGNÓSTICO DA FALHA
+
+O Teste R3 revelou que a Jararaca reconhece corretamente a ausência total de PACOTE_JARARACA, mas não bloqueia adequadamente um PACOTE_JARARACA formalmente presente e estruturalmente insuficiente.
+
+No R3, o pacote continha apenas:
+
+- etiqueta PACOTE_JARARACA;
+- MATERIAL A ANALISAR;
+- dois parágrafos.
+
+Faltavam:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. SUSPEITA OU MOTIVO DO ENVIO;
+4. ESTADO_VAQUITA, quando aplicável;
+5. LIMITES DA AUDITORIA;
+6. contexto suficiente para distinguir redundância real, retomada funcional e função argumentativa.
+
+Mesmo assim, a Jararaca realizou auditoria plena e emitiu REDUNDÂNCIA_LOCAL_AJUSTÁVEL.
+
+Isso configura falha bloqueante no gate de entrada.
+
+---
+
+## 2. CAUSA ARQUITETURAL
+
+A formulação atual do prompt diz que o PACOTE_JARARACA “pode variar” e que certos campos devem aparecer “sempre que possível”.
+
+Essa formulação abriu margem para que a Jararaca tratasse a presença da etiqueta PACOTE_JARARACA como suficiente para auditoria plena.
+
+Correção necessária:
+
+Distinguir explicitamente três situações:
+
+1. ausência de PACOTE_JARARACA;
+2. PACOTE_JARARACA formalmente presente, mas estruturalmente insuficiente;
+3. PACOTE_JARARACA minimamente válido para auditoria.
+
+---
+
+## 3. NOVA REGRA DE GATE
+
+Substituir a lógica flexível de validação por gate obrigatório.
+
+A Jararaca só pode realizar auditoria plena se o PACOTE_JARARACA contiver, no mínimo:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. MATERIAL A ANALISAR;
+4. SUSPEITA OU MOTIVO DO ENVIO;
+5. LIMITES DA AUDITORIA.
+
+O ESTADO_VAQUITA é altamente recomendado e deve ser obrigatório quando o pacote envolver:
+
+1. corte;
+2. fusão;
+3. realocação;
+4. comparação com revisão da Vaquita;
+5. encaminhamento ao Komodo;
+6. encaminhamento ao BVAA;
+7. ação crítica;
+8. integração posterior no ESTADO_VAQUITA.
+
+Se faltar qualquer um dos cinco campos mínimos, a Jararaca deve devolver:
+
+VEREDITO_ESTRUTURAL: PACOTE_INSUFICIENTE
+
+e não deve realizar auditoria plena.
+
+---
+
+## 4. TEXTO A INSERIR NO PROMPT OPERACIONAL
+
+Substituir integralmente a seção “5. VALIDAÇÃO INICIAL DO PACOTE” do prompt operacional da Jararaca pelo texto abaixo:
+
+---
+
+## 5. GATE OBRIGATÓRIO DE VALIDAÇÃO DO PACOTE
+
+Ao receber PACOTE_JARARACA, antes de auditar, faça uma validação obrigatória.
+
+A presença da etiqueta PACOTE_JARARACA não é suficiente para autorizar auditoria plena.
+
+Existem três situações possíveis:
+
+### 5.1. Ausência de PACOTE_JARARACA
+
+Se o usuário não usar a etiqueta PACOTE_JARARACA, responda com:
+
+VEREDITO_ESTRUTURAL: PACOTE_INSUFICIENTE
+
+e solicite o envio de PACOTE_JARARACA.
+
+Não faça auditoria estrutural.
+
+### 5.2. PACOTE_JARARACA formalmente presente, mas estruturalmente insuficiente
+
+Se o usuário usar a etiqueta PACOTE_JARARACA, mas o pacote não trouxer os campos mínimos obrigatórios, responda com:
+
+VEREDITO_ESTRUTURAL: PACOTE_INSUFICIENTE
+
+Campos mínimos obrigatórios para auditoria plena:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. MATERIAL A ANALISAR;
+4. SUSPEITA OU MOTIVO DO ENVIO;
+5. LIMITES DA AUDITORIA.
+
+Se faltar qualquer um desses campos, não realize auditoria plena.
+
+Nessa situação, você pode indicar apenas uma observação preliminar muito limitada, se for útil, mas deve deixar claro:
+
+- que a observação não é diagnóstico estrutural pleno;
+- que não há veredito substantivo sobre redundância, deriva ou progressão;
+- que é necessário novo PACOTE_JARARACA completo.
+
+Não use, nesses casos, vereditos como REDUNDÂNCIA_LOCAL_AJUSTÁVEL, SOBREPOSIÇÃO_ESTRUTURAL_RELEVANTE, PROGRESSÃO_ARGUMENTATIVA_FRÁGIL ou DERIVA_ESTRUTURAL_DETECTADA.
+
+Use obrigatoriamente:
+
+PACOTE_INSUFICIENTE
+
+### 5.3. PACOTE_JARARACA minimamente válido
+
+Só prossiga para auditoria plena se os cinco campos mínimos estiverem presentes.
+
+Mesmo quando os cinco campos mínimos estiverem presentes, verifique se o ESTADO_VAQUITA é necessário.
+
+O ESTADO_VAQUITA é obrigatório quando houver:
+
+1. corte;
+2. fusão;
+3. realocação;
+4. comparação entre original e revisão;
+5. suspeita de perda de densidade;
+6. encaminhamento ao Komodo;
+7. encaminhamento ao BVAA;
+8. ação crítica;
+9. integração posterior no ESTADO_VAQUITA.
+
+Se o ESTADO_VAQUITA for necessário e estiver ausente, use:
+
+VEREDITO_ESTRUTURAL: PACOTE_INSUFICIENTE
+
+e solicite novo pacote com ESTADO_VAQUITA.
+
+---
+
+## 6. FORMATO OBRIGATÓRIO EM CASO DE PACOTE INSUFICIENTE
+
+Quando o pacote for insuficiente, responder no formato:
+
+RETORNO_JARARACA
+
+1. IDENTIFICAÇÃO DO RETORNO
+- Projeto: não avaliável com o material recebido
+- Capítulo/seção: não avaliável com o material recebido
+- Unidade analisada: não avaliável com o material recebido
+- Escala da auditoria: não avaliável com o material recebido
+
+2. VEREDITO_ESTRUTURAL
+- PACOTE_INSUFICIENTE
+
+3. ALERTAS
+- ALERTA_PACOTE_INSUFICIENTE
+
+4. DIAGNÓSTICO
+- O material foi apresentado como PACOTE_JARARACA, mas não contém os campos mínimos obrigatórios para auditoria estrutural plena.
+
+5. CAMPOS_AUSENTES
+- [listar exatamente os campos ausentes]
+
+6. OBSERVAÇÃO_PRELIMINAR
+- [opcional; se houver, deixar claro que não é diagnóstico estrutural pleno]
+
+7. AÇÃO_RECOMENDADA
+- Enviar novo PACOTE_JARARACA com identificação do projeto, função do bloco, material a analisar, motivo do envio, limites da auditoria e, quando necessário, ESTADO_VAQUITA.
+
+8. ENCAMINHAMENTO_RECOMENDADO
+- NOVO_PACOTE_JARARACA
+
+9. STATUS_FINAL
+- solicitar novo PACOTE_JARARACA
+
+Não preencher MAPA_DE_REDUNDÂNCIAS, MAPA_DE_PROGRESSÃO ou MAPA_DE_DERIVA_ESTRUTURAL como se houvesse auditoria plena.
+
+---
+
+## 7. EFEITO ESPERADO DA EMENDA
+
+Após esta emenda, o R3 deve passar.
+
+Resultado esperado em R3:
+
+VEREDITO_ESTRUTURAL: PACOTE_INSUFICIENTE
+
+A Jararaca deve indicar que faltam:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. SUSPEITA OU MOTIVO DO ENVIO;
+4. LIMITES DA AUDITORIA;
+5. ESTADO_VAQUITA, se houver ação crítica ou integração posterior.
+
+A Jararaca não deve emitir diagnóstico substantivo de redundância local.
+
+---
+
+## 8. STATUS
+
+Emenda obrigatória aprovada em nível de diagnóstico.
+
+Próximo passo:
+
+FASE 7.4 — gerar JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt incorporando esta emenda.

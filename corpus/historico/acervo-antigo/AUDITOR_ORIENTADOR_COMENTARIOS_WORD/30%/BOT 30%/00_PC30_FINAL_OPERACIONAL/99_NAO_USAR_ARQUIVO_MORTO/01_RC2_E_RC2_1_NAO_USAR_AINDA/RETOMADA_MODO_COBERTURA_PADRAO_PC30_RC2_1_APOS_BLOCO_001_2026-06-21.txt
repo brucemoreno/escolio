@@ -1,0 +1,33 @@
+PACOTE_BVAA_DRIVE
+
+Alvo da verificação:
+
+Bandeira, 1994, p. 14
+
+Comentário associado:
+
+COMENTÁRIO_WORD_053
+
+Trecho do manuscrito associado:
+
+“Com a chegada de novos armazéns, mercados e estabelecimentos, a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14).”
+
+Objetivo:
+
+Verificar se a referência Bandeira, 1994, p. 14 sustenta exatamente os dados quantitativos “126 casas comerciais” em 1808 e “1.627” em 1821, identificando o tipo de “casas comerciais” referido e os limites da sustentação documental.
+
+Estado atual:
+
+PDF aberto: NÃO
+Passagem localizada: NÃO
+Página PDF confirmada: NÃO
+Página impressa confirmada: NÃO
+COMPROVANTE_DE_LEITURA_PDF: NÃO
+
+Regra:
+
+Não liberar a referência sem PDF aberto, passagem localizada, página confirmada e COMPROVANTE_DE_LEITURA_PDF.
+
+Próximo ID obrigatório preservado:
+
+COMENTÁRIO_WORD_055

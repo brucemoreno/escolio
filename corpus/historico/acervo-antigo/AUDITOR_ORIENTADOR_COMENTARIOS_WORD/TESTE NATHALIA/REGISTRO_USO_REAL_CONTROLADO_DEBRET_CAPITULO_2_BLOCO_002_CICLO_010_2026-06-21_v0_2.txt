@@ -1,0 +1,115 @@
+# REGISTRO DE USO REAL CONTROLADO — CICLO 010
+
+## Sistema operacional
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+## Bot-assessor
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.2
+
+## Trabalho testado
+
+Tese de Nathália Moro:
+Entre pratos e pincéis: práticas alimentares no Império do Brasil através da iconografia de Jean-Baptiste Debret (1816-1831)
+
+## Unidade testada
+
+Capítulo 2 — “Um pintor histórico: Debret e o registro visual do Império”
+Bloco 002 — formação francesa de Debret, Jacques-Louis David, carreira napoleônica, crise pós-Waterloo e partida para o Brasil.
+
+## Escala
+
+MODO_BLOCO_CONTROLADO
+
+## Contexto operacional
+
+Este ciclo foi executado no novo chat operacional, após integração validada do PACOTE_HANDOFF pós-Introdução.
+
+O Handoff preservou os Ciclos 001 a 008, os COMENTÁRIO_WORD_001 a COMENTÁRIO_WORD_022, o encerramento da Introdução, o mapa consolidado da Introdução, a retificação do BLOCO 007 sobre “inúmeras lojas da cidade” e os bloqueios BVAA/BVAA-Drive.
+
+O Ciclo 009 já havia confirmado a estabilidade inicial do novo chat operacional após o Handoff.
+
+## Comandos executados
+
+1. COMANDO 0_BLOCO
+2. COMANDO 1_BLOCO
+3. GERAR_MAPA_RASTREABILIDADE
+
+## Validação pelo bot-assessor
+
+O bot-assessor classificou o fechamento do ciclo como RESPOSTA_BOA.
+
+## Resultado
+
+CICLO_010_ENCERRADO_COM_RASTREABILIDADE_FORMACAO_FRANCESA_DEBRET_CITACAO_LITERAL_NAO_LIBERADA_E_PROXIMO_ID_029
+
+## Comentários Word
+
+Foram autorizados para uso controlado, com cautela, os comentários:
+
+* COMENTÁRIO_WORD_025
+* COMENTÁRIO_WORD_026
+* COMENTÁRIO_WORD_027
+* COMENTÁRIO_WORD_028
+
+O próximo ID obrigatório preservado é:
+
+* COMENTÁRIO_WORD_029
+
+No Word, devem ser inseridos apenas os textos do campo COMENTÁRIO PARA INSERIR NO WORD, sem metadados internos do sistema.
+
+## Observação prática para inserção no Word
+
+No COMENTÁRIO_WORD_028, não selecionar os dois parágrafos inteiros. Selecionar apenas a frase indicada sobre os fatores que levaram Debret a deixar a França, mantendo o alcance ampliado apenas como orientação interpretativa.
+
+## Pontos sensíveis do bloco
+
+* Influência de Jacques-Louis David na formação artística e intelectual de Debret.
+* Citação traduzida de Debret, 1793.
+* Debret, 1793, permanece não verificado.
+* Escola Nacional de Pontes e Estradas, 1793, p. 94, permanece não verificada.
+* Expressão “pintor oficial do Império francês” exige definição de estatuto documental, historiográfico ou interpretativo.
+* Bandeira/Lago, Cardoso, Leenhardt, Villaça/Morais, Pelegrini/Tutui e Trevisan não verificados.
+* Narrativa causal entre Waterloo, exílio de David, crise pessoal/profissional e decisão de Debret deixar a França.
+* Opção Rússia versus Rio de Janeiro.
+* Debret partindo aos 47 anos e integrando a comitiva de 1816.
+* Necessidade de subordinar a biografia ao problema da tese sobre Debret, registro visual do Império e alimentação.
+
+## Bloqueios preservados
+
+Foram preservados os seguintes bloqueios:
+
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+* PAGINA_NAO_CONFIRMADA
+* CITACAO_LITERAL_NAO_LIBERADA
+* fonte primária não conferida
+* bibliografia específica não verificada
+* Debret, 1793, não tratado como verificado
+* documento institucional de 1793 não tratado como verificado
+* citação traduzida não liberada
+* narrativa causal histórica não tratada como demonstrada sem mediação
+* comprovante de leitura PDF não produzido
+
+## Observações
+
+Os comentários Word foram considerados substantivos, seletivos e seguros para uso controlado.
+
+Não foram detectados:
+
+* perda de estado
+* perda de numeração
+* validação indevida de página
+* validação indevida de citação literal
+* validação indevida de fonte primária
+* enfraquecimento BVAA/BVAA-Drive
+* comentário cosmético
+* poluição de comentários
+* risco de escala
+* necessidade de ESTADO COMPLETO
+* necessidade de PACOTE_HANDOFF
+
+Este ciclo confirmou a continuidade estável do novo chat operacional após o Handoff pós-Introdução.
+
+Este registro é um fechamento mínimo de ciclo, baseado na validação final do bot-assessor. O mapa completo de rastreabilidade não foi salvo como arquivo separado neste momento, seguindo a regra operacional simplificada de não multiplicar arquivos intermediários sem necessidade.

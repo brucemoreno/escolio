@@ -1,0 +1,375 @@
+# KIT MESTRE VAQUITA ECOSSISTEMA v1.0-RC — EMENDA DE ATUALIZAÇÃO
+# Nome: ATUALIZAÇÃO PÓS-FASE 9.E / KOMODO EM CADEIA
+# Arquivo: KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__EMENDA_ATUALIZACAO_POS_9E.txt
+# Origem: FASE 9.E — Teste integrado Vaquita + Komodo + Handoff
+# Status: emenda de atualização do Kit Mestre
+# Não substitui o Kit Mestre integral; deve ser incorporada à próxima versão consolidada
+
+---
+
+## 1. MOTIVO DA EMENDA
+
+Esta emenda atualiza o Kit Mestre do Ecossistema Vaquita v1.0-RC após a aprovação da FASE 9.E — Teste integrado Vaquita + Komodo + Handoff.
+
+A FASE 9.E confirmou que a cadeia integrada:
+
+Vaquita origem → PACOTE_KOMODO → Komodo → RETORNO_KOMODO → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+funciona corretamente quando o Komodo devolve um retorno bloqueante com o veredito:
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+A emenda registra que esse bloqueio foi preservado pela Vaquita, pelo Handoff e pela Vaquita destino, sem ser suavizado, apagado ou transformado em ressalva simples.
+
+---
+
+## 2. ALTERAÇÃO PRINCIPAL NO KIT MESTRE
+
+Atualizar o Kit Mestre para registrar:
+
+FASE 9.E — APROVADA.
+
+Descrição:
+
+Teste integrado Vaquita + Komodo + Handoff aprovado.
+
+Cadeia validada:
+
+Vaquita origem → PACOTE_KOMODO → Komodo → RETORNO_KOMODO → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Função validada:
+
+Preservar um RETORNO_KOMODO bloqueante durante integração e migração.
+
+Veredito crítico preservado:
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+Resultado:
+
+O ecossistema preserva corretamente um bloqueio emitido pelo Komodo, impedindo avanço automático, consolidação indevida no manuscrito e rebaixamento do bloqueio para APROVADO_COM_RESSALVAS.
+
+---
+
+## 3. STATUS ATUAL DO ECOSSISTEMA A ATUALIZAR
+
+Atualizar no Kit Mestre:
+
+Ecossistema Vaquita v1.0-RC: aprovado para uso inicial controlado.
+
+Módulos aprovados:
+
+1. Vaquita;
+2. Komodo;
+3. BVAA;
+4. Jararaca;
+5. Handoff.
+
+Fluxos integrados já aprovados:
+
+1. FASE 9.B — Vaquita + Handoff;
+2. FASE 9.C — Vaquita + Jararaca + Handoff;
+3. FASE 9.E — Vaquita + Komodo + Handoff.
+
+Fluxo integrado ainda pendente:
+
+1. Vaquita + BVAA + Handoff;
+2. fluxo integrado completo com os cinco módulos.
+
+Arquivo principal recomendado do Handoff permanece:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Kit Mestre vigente antes desta emenda:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_R4.3.txt
+
+Nome recomendado para a próxima versão consolidada do Kit Mestre:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9E.txt
+
+---
+
+## 4. FASE 9.E A INSERIR NO KIT MESTRE
+
+### FASE 9.E — Teste Integrado Vaquita + Komodo + Handoff
+
+Status:
+
+APROVADA.
+
+Produto recomendado:
+
+TESTE_INTEGRADO_VAQUITA_KOMODO_HANDOFF_v1.0-RC.txt
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_KOMODO → Komodo → RETORNO_KOMODO → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados:
+
+R1 — Vaquita origem gerou PACOTE_KOMODO: aprovado.
+
+R2 — Komodo gerou RETORNO_KOMODO: aprovado.
+
+R3 — Vaquita integrou RETORNO_KOMODO: aprovado.
+
+R4 — Vaquita gerou PACOTE_HANDOFF preservando o bloqueio: aprovado.
+
+R5 — Handoff gerou PACOTE_HANDOFF_VAQUITA: aprovado.
+
+R6 — Vaquita destino retomou o estado bloqueado: aprovado.
+
+Veredito final:
+
+FASE 9.E APROVADA.
+
+Interpretação técnica:
+
+A FASE 9.E validou a capacidade do ecossistema de preservar, em cadeia, um retorno Komodo bloqueante. O teste demonstrou que o veredito CORRIGIR_ANTES_DE_AVANÇAR permanece bloqueio operacional durante integração pela Vaquita, migração via Handoff e retomada em novo chat Vaquita.
+
+Caso de teste:
+
+P018, seção 2.4 Testemunho, mediação e autoridade textual.
+
+Status do caso de teste:
+
+P018 não foi corrigido.
+
+P018 permaneceu bloqueado.
+
+P018 permaneceu não consolidado no manuscrito.
+
+PROXIMO permaneceu bloqueado até correção do P018.
+
+Ação anterior do P017 foi preservada.
+
+Observação crítica:
+
+O conteúdo do P018 e da seção 2.4 pertence apenas ao teste da FASE 9.E. Não deve ser convertido em regra universal do ecossistema.
+
+---
+
+## 5. REGRA NOVA A INSERIR NO KIT MESTRE
+
+Adicionar ao conjunto de regras críticas:
+
+Quando o Komodo devolver:
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+esse veredito deve ser tratado como bloqueio operacional, não como ressalva simples.
+
+O sistema não deve:
+
+1. transformar CORRIGIR_ANTES_DE_AVANÇAR em APROVADO_COM_RESSALVAS;
+2. avançar para PROXIMO sem correção;
+3. consolidar ação no manuscrito;
+4. tratar o parágrafo como aprovado;
+5. apagar os alertas do Komodo;
+6. reduzir o retorno do Komodo a uma recomendação genérica;
+7. permitir que Handoff ou Vaquita destino corrijam automaticamente o trecho bloqueado.
+
+O sistema deve:
+
+1. preservar o RETORNO_KOMODO integrado;
+2. preservar o veredito CORRIGIR_ANTES_DE_AVANÇAR;
+3. preservar o status operacional BLOQUEADO PARA AVANÇO quando aplicável;
+4. preservar que PROXIMO está bloqueado até correção;
+5. preservar a ação no manuscrito como não consolidada;
+6. aguardar comando humano para corrigir ou autorizar ajuste.
+
+---
+
+## 6. ATUALIZAÇÃO DA FUNÇÃO DO KOMODO NO KIT MESTRE
+
+Onde o Kit Mestre descrever o Komodo, acrescentar:
+
+O Komodo pode emitir retornos bloqueantes, especialmente:
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+Esse veredito indica que a versão revisada não deve ser consolidada nem usada para avançar sem correção prévia.
+
+A função do Komodo continua limitada a auditar fidelidade, densidade, sentido, voz autoral e preservação de nuance. O Komodo não deve revisar no lugar da Vaquita, não deve gerar versão final alternativa e não deve aplicar ação no manuscrito.
+
+A FASE 9.E confirmou que o retorno bloqueante do Komodo é preservado corretamente pela cadeia Vaquita + Handoff + Vaquita destino.
+
+---
+
+## 7. ATUALIZAÇÃO DA FUNÇÃO DO HANDOFF NO KIT MESTRE
+
+Onde o Kit Mestre descrever o Handoff, acrescentar:
+
+O Handoff deve preservar retornos Komodo integrados, inclusive quando o veredito for bloqueante.
+
+Se o PACOTE_HANDOFF contiver:
+
+1. RETORNO_KOMODO integrado;
+2. VEREDITO_KOMODO: CORRIGIR_ANTES_DE_AVANÇAR;
+3. status operacional BLOQUEADO PARA AVANÇO;
+4. ação no manuscrito não consolidada;
+5. PROXIMO bloqueado até correção;
+
+então o PACOTE_HANDOFF_VAQUITA deve preservar integralmente esses elementos.
+
+O Handoff não deve:
+
+1. corrigir o trecho bloqueado;
+2. gerar nova versão revisada;
+3. transformar bloqueio em ressalva;
+4. aplicar ação no manuscrito;
+5. reacionar Komodo;
+6. acionar BVAA ou Jararaca sem comando;
+7. avançar fase;
+8. reduzir o retorno Komodo a resumo genérico.
+
+---
+
+## 8. COMANDOS E ETIQUETAS A ACRESCENTAR OU REFORÇAR
+
+Certificar que o Kit Mestre preserve literalmente:
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+BLOQUEAR_AVANÇO
+
+BLOQUEADO PARA AVANÇO
+
+STATUS_OPERACIONAL
+
+STATUS_P018
+
+AÇÃO_NO_MANUSCRITO_P018
+
+RETORNO_KOMODO
+
+VEREDITO_KOMODO
+
+PROXIMO bloqueado até correção
+
+ALERTA_DENSIDADE
+
+ALERTA_SENTIDO
+
+ALERTA_VOZ_AUTORAL
+
+ALERTA_DERIVA_LOCAL
+
+Observação:
+
+STATUS_P018 e AÇÃO_NO_MANUSCRITO_P018 aparecem no teste da FASE 9.E como etiquetas de caso. Não devem ser universalizadas como obrigatórias em todos os projetos, mas devem ser preservadas quando aparecerem em pacotes de migração ou teste.
+
+---
+
+## 9. RISCOS A ACRESCENTAR AO KIT MESTRE
+
+Adicionar aos riscos operacionais:
+
+### ALERTA_BLOQUEIO_KOMODO_SUAVIZADO
+
+Risco:
+
+Transformar CORRIGIR_ANTES_DE_AVANÇAR em APROVADO_COM_RESSALVAS.
+
+Regra:
+
+Quando o Komodo emitir CORRIGIR_ANTES_DE_AVANÇAR, o estado deve permanecer bloqueado até correção ou comando humano adequado.
+
+---
+
+### ALERTA_PENDENCIA_COMO_AVANCO
+
+Risco:
+
+Tratar um trecho bloqueado como próximo alvo livre para PROXIMO.
+
+Regra:
+
+Se PROXIMO estiver bloqueado até correção, a Vaquita não deve avançar automaticamente.
+
+---
+
+### ALERTA_ACAO_MANUSCRITO_INDEVIDA
+
+Risco:
+
+Aplicar ação no manuscrito em trecho que está expressamente marcado como não consolidado.
+
+Regra:
+
+Ação no manuscrito só pode ser consolidada após correção, validação ou comando humano adequado.
+
+---
+
+### ALERTA_RETORNO_KOMODO_RESUMIDO_DEMAIS
+
+Risco:
+
+Reduzir o RETORNO_KOMODO a uma fórmula genérica, como “ajustar densidade”, apagando critérios específicos de fidelidade, sentido e nuance.
+
+Regra:
+
+Quando o Komodo listar pontos concretos a recuperar, esses pontos devem ser preservados no ESTADO_VAQUITA e em eventuais PACOTE_HANDOFF.
+
+---
+
+## 10. DECISÕES CONSOLIDADAS A INSERIR NO KIT MESTRE
+
+1. A FASE 9.E foi aprovada.
+
+2. O fluxo Vaquita + Komodo + Handoff está funcionalmente validado.
+
+3. O Komodo consegue devolver veredito bloqueante sem reescrever no lugar da Vaquita.
+
+4. A Vaquita consegue integrar RETORNO_KOMODO bloqueante.
+
+5. O Handoff consegue preservar RETORNO_KOMODO bloqueante durante a migração.
+
+6. A Vaquita destino consegue retomar estado bloqueado sem corrigir, avançar ou suavizar o bloqueio.
+
+7. CORRIGIR_ANTES_DE_AVANÇAR deve permanecer bloqueio operacional quando emitido pelo Komodo.
+
+8. PROXIMO pode permanecer bloqueado até correção.
+
+9. Ação no manuscrito pode permanecer não consolidada até ajuste posterior.
+
+10. O caso P018 é apenas caso de teste e não deve contaminar o núcleo universal.
+
+---
+
+## 11. DECISÕES AINDA ABERTAS APÓS ESTA EMENDA
+
+1. Atualizar o Pacote Mestre de Instalação/Uso com a FASE 9.E aprovada.
+
+2. Executar teste integrado Vaquita + BVAA + Handoff.
+
+3. Executar teste integrado completo com os cinco módulos:
+
+Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+4. Criar kit de distribuição final do ecossistema.
+
+5. Decidir se haverá versão v1.0 final após os testes adicionais.
+
+---
+
+## 12. STATUS FINAL DA EMENDA
+
+Esta emenda atualiza o Kit Mestre para o estado pós-FASE 9.E.
+
+Status:
+
+EMENDA_DE_ATUALIZACAO_DO_KIT_MESTRE_POS_9E_CRIADA
+
+Próximo passo:
+
+Anexar ou colar o arquivo vigente:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_R4.3.txt
+
+e incorporar esta emenda em uma versão consolidada atualizada do Kit Mestre.
+
+Nome recomendado para a próxima versão consolidada:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9E.txt

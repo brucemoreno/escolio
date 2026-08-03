@@ -1,0 +1,420 @@
+INICIO_DO_ARQUIVO
+
+PACOTE_BVAA_DRIVE — BANDEIRA, 1994, p. 14 — COMENTÁRIO_WORD_053
+1. IDENTIFICAÇÃO DA VERIFICAÇÃO
+
+Comando executado:
+
+PACOTE_BVAA_DRIVE
+
+Alvo da verificação:
+
+Bandeira, 1994, p. 14
+
+Comentário associado:
+
+COMENTÁRIO_WORD_053
+
+Trecho do manuscrito associado:
+
+“Com a chegada de novos armazéns, mercados e estabelecimentos, a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14).”
+
+Objetivo:
+
+Verificar se a referência Bandeira, 1994, p. 14 sustenta exatamente os dados quantitativos “126 casas comerciais” em 1808 e “1.627” em 1821, identificando o tipo de “casas comerciais” referido e os limites da sustentação documental.
+
+Próximo ID obrigatório preservado:
+
+COMENTÁRIO_WORD_055
+
+2. ESTADO INICIAL DECLARADO
+
+PDF aberto:
+
+NÃO
+
+Passagem localizada:
+
+NÃO
+
+Página PDF confirmada:
+
+NÃO
+
+Página impressa confirmada:
+
+NÃO
+
+COMPROVANTE_DE_LEITURA_PDF:
+
+NÃO
+
+Regra aplicada:
+
+Não liberar a referência sem PDF aberto, passagem localizada, página confirmada e COMPROVANTE_DE_LEITURA_PDF.
+
+3. BUSCAS REALIZADAS NO DRIVE
+
+Foram realizadas buscas orientadas por:
+
+Bandeira 1994;
+casas comerciais;
+126 1627;
+1.627;
+Bandeira Rio Janeiro;
+Bandeira;
+Nathália Bandeira 1994;
+capital além mar;
+Um rei na América.
+4. RESULTADOS DOCUMENTAIS OBTIDOS
+4.1. Resultado 1 — Manuscrito da tese localizado
+
+Arquivo localizado:
+
+Tese Nathália Moro.pdf
+
+Status:
+
+LOCALIZADO
+
+Resultado:
+
+O manuscrito contém o trecho associado ao COMENTÁRIO_WORD_053, com a afirmação de que a capital, em 1808, contava com 126 casas comerciais e registrou 1.627 em 1821, citando Bandeira, 1994, p. 14.
+
+Valor documental:
+
+CONFIRMA O USO DA REFERÊNCIA NO MANUSCRITO
+
+Limite:
+
+NÃO CONFIRMA A FONTE BANDEIRA, 1994, p. 14.
+
+O manuscrito não pode servir como comprovante da própria referência que ele cita.
+
+4.2. Resultado 2 — Entrada bibliográfica localizada na tese
+
+Arquivo localizado:
+
+Tese Nathália Moro.docx
+
+Entrada bibliográfica encontrada:
+
+BANDEIRA, Júlio. Um rei na América, Brasil sede do Império português. In: CENTRO CULTURAL BANCO DO BRASIL. Rio de Janeiro, capital d’além mar: na construção dos Museus Castro Maia. Rio de Janeiro: CCBB, 1994. p. 11-18.
+
+Status:
+
+ENTRADA_BIBLIOGRAFICA_LOCALIZADA
+
+Valor documental:
+
+IDENTIFICA A OBRA PROVÁVEL CITADA COMO BANDEIRA, 1994.
+
+Limite:
+
+A entrada bibliográfica não equivale à leitura da página 14.
+
+Não confirma os dados “126 casas comerciais” e “1.627”.
+
+4.3. Resultado 3 — Obra-fonte Bandeira, 1994 não localizada como PDF aberto
+
+Obra procurada:
+
+BANDEIRA, Júlio. Um rei na América, Brasil sede do Império português.
+
+Publicação:
+
+In: CENTRO CULTURAL BANCO DO BRASIL. Rio de Janeiro, capital d’além mar: na construção dos Museus Castro Maia. Rio de Janeiro: CCBB, 1994. p. 11-18.
+
+Status no Drive:
+
+OBRA_FONTE_NAO_LOCALIZADA_COMO_PDF_ABERTO
+
+Não foi possível abrir a página 14 da obra-fonte.
+
+Não foi possível localizar a passagem original.
+
+Não foi possível confirmar a página PDF.
+
+Não foi possível confirmar a página impressa.
+
+Não foi possível gerar COMPROVANTE_DE_LEITURA_PDF.
+
+5. VERIFICAÇÃO DO DADO QUANTITATIVO
+5.1. Dado 1
+
+Afirmação do manuscrito:
+
+126 casas comerciais em 1808.
+
+Status:
+
+NÃO VERIFICADO NA OBRA-FONTE
+
+Motivo:
+
+O PDF da obra de Bandeira, 1994, não foi localizado/aberto. A passagem original da página 14 não foi conferida.
+
+5.2. Dado 2
+
+Afirmação do manuscrito:
+
+1.627 casas comerciais em 1821.
+
+Status:
+
+NÃO VERIFICADO NA OBRA-FONTE
+
+Motivo:
+
+O PDF da obra de Bandeira, 1994, não foi localizado/aberto. A passagem original da página 14 não foi conferida.
+
+5.3. Tipo de “casas comerciais”
+
+Status:
+
+NÃO IDENTIFICADO NA OBRA-FONTE
+
+Motivo:
+
+Sem acesso à passagem de Bandeira, 1994, p. 14, não é possível determinar se “casas comerciais” se refere a:
+
+casas de comércio em sentido amplo;
+lojas;
+armazéns;
+estabelecimentos comerciais cadastrados;
+casas mercantis;
+categoria administrativa específica;
+categoria usada por Bandeira a partir de outra fonte.
+6. STATUS BVAA-DRIVE
+
+DRIVE_ACESSADO:
+
+SIM
+
+OBRA_LOCALIZADA_NO_DRIVE:
+
+NÃO, apenas a entrada bibliográfica no manuscrito foi localizada.
+
+PDF_FONTE_LOCALIZADO:
+
+NÃO
+
+PDF_ABERTO:
+
+NÃO
+
+PASSAGEM_LOCALIZADA:
+
+NÃO
+
+PÁGINA PDF CONFIRMADA:
+
+NÃO
+
+PÁGINA IMPRESSA CONFIRMADA:
+
+NÃO
+
+COMPROVANTE_DE_LEITURA_PDF:
+
+NÃO GERADO
+
+REFERÊNCIA LIBERADA:
+
+NÃO
+
+7. STATUS BVAA
+
+STATUS_BVAA:
+
+PENDENTE
+
+Classificação da referência:
+
+REFERÊNCIA ESPECÍFICA DE SUSTENTAÇÃO QUANTITATIVA
+
+Função no argumento:
+
+Sustentar empiricamente a expansão de casas comerciais no Rio de Janeiro entre 1808 e 1821.
+
+Risco:
+
+ALTO
+
+Motivo:
+
+A frase depende de números precisos e de uma categoria histórica que precisa ser definida pela fonte.
+
+Status de liberação:
+
+BLOQUEADA
+
+8. DECISÃO DOCUMENTAL
+
+Decisão:
+
+BANDEIRA_1994_P14_NAO_LIBERADA
+
+Justificativa:
+
+A busca no Drive confirmou que o manuscrito usa a referência Bandeira, 1994, p. 14 e permitiu identificar a entrada bibliográfica completa provável. Contudo, a obra-fonte não foi localizada como PDF aberto, a passagem da página 14 não foi lida, a página não foi confirmada e não há COMPROVANTE_DE_LEITURA_PDF.
+
+Portanto, a referência não pode ser liberada como sustentação dos dados quantitativos.
+
+9. IMPACTO SOBRE O COMENTÁRIO_WORD_053
+
+Comentário associado:
+
+COMENTÁRIO_WORD_053
+
+Status após PACOTE_BVAA_DRIVE:
+
+MANTER_COMENTÁRIO
+
+Motivo:
+
+O comentário continua pertinente. A referência permanece não verificada e deve ser tratada como pendência documental.
+
+Revisão sugerida do status interno do comentário:
+
+ANTES:
+
+Referência não verificada.
+
+DEPOIS:
+
+Referência bibliográfica identificada no manuscrito, mas obra-fonte Bandeira, 1994, p. 14 não localizada/aberta no Drive; dados quantitativos não liberados.
+
+10. FORMULAÇÃO OPERACIONAL PARA INSERIR EM MAPA OU ESTADO
+
+Referência Bandeira, 1994, p. 14:
+
+Status:
+
+NÃO LIBERADA
+
+Resultado do PACOTE_BVAA_DRIVE:
+
+A entrada bibliográfica foi localizada no manuscrito como Júlio Bandeira, “Um rei na América, Brasil sede do Império português”, publicado em Rio de Janeiro, capital d’além mar, CCBB, 1994, p. 11-18. Contudo, a obra-fonte não foi localizada/aberta no Drive, a página 14 não foi conferida e os dados “126 casas comerciais” em 1808 e “1.627” em 1821 não foram confirmados na fonte. Manter pendência documental.
+
+11. AÇÃO SEGURA RECOMENDADA
+11.1. Ação documental preferencial
+
+Localizar manualmente no Drive ou em acervo externo o PDF ou digitalização de:
+
+BANDEIRA, Júlio. Um rei na América, Brasil sede do Império português. In: CENTRO CULTURAL BANCO DO BRASIL. Rio de Janeiro, capital d’além mar: na construção dos Museus Castro Maia. Rio de Janeiro: CCBB, 1994. p. 11-18.
+
+Depois executar:
+
+ABRIR_PDF_BVAA
+
+LOCALIZAR_PASSAGEM_NO_PDF
+
+CONFIRMAR_PAGINA
+
+GERAR_COMPROVANTE_DE_LEITURA_PDF
+
+11.2. Ação alternativa
+
+Se a obra de Bandeira não for localizada, buscar fonte secundária ou documental alternativa que confirme:
+
+o número de 126 casas comerciais em 1808;
+o número de 1.627 em 1821;
+a categoria exata usada para “casas comerciais”;
+o método de contagem;
+a fonte primária ou administrativa desses números.
+12. EFEITO SOBRE A TESE
+12.1. Se a passagem for confirmada futuramente
+
+Manter o dado, mas explicitar melhor:
+
+o tipo de estabelecimento;
+a fonte da contagem;
+o que exatamente aumentou entre 1808 e 1821;
+como esse aumento sustenta o argumento sobre comércio alimentício.
+12.2. Se a passagem não for confirmada
+
+Revisar a frase.
+
+Possíveis saídas:
+
+remover os números;
+substituir por referência verificada;
+reformular como crescimento comercial amplo, sem quantificação específica;
+deslocar os números para nota com ressalva;
+buscar fonte primária ou historiografia mais diretamente ligada ao comércio urbano.
+13. NUMERAÇÃO
+
+Último comentário Word real:
+
+COMENTÁRIO_WORD_054
+
+Próximo ID obrigatório antes do PACOTE_BVAA_DRIVE:
+
+COMENTÁRIO_WORD_055
+
+IDs consumidos pelo PACOTE_BVAA_DRIVE:
+
+0
+
+Próximo ID obrigatório preservado:
+
+COMENTÁRIO_WORD_055
+
+Regra preservada:
+
+PACOTE_BVAA_DRIVE não consome ID de comentário Word.
+
+14. STATUS FINAL
+
+PACOTE_BVAA_DRIVE:
+
+EXECUTADO
+
+Alvo:
+
+Bandeira, 1994, p. 14
+
+Resultado:
+
+ENTRADA_BIBLIOGRAFICA_IDENTIFICADA_NO_MANUSCRITO
+
+OBRA_FONTE_NAO_LOCALIZADA_COMO_PDF_ABERTO
+
+PASSAGEM_NAO_LOCALIZADA
+
+PAGINA_NAO_CONFIRMADA
+
+COMPROVANTE_DE_LEITURA_PDF_NAO_GERADO
+
+REFERÊNCIA:
+
+NÃO LIBERADA
+
+DADOS QUANTITATIVOS:
+
+NÃO VERIFICADOS
+
+COMENTÁRIO_WORD_053:
+
+MANTER
+
+PRÓXIMO ID OBRIGATÓRIO:
+
+COMENTÁRIO_WORD_055
+
+15. PRÓXIMO COMANDO SEGURO
+
+Próximo comando seguro recomendado:
+
+ESTADO COMPLETO
+
+Alternativas seguras:
+
+PACOTE_BVAA
+LOCALIZAR_OBRA_NO_DRIVE — BANDEIRA_JULIO_UM_REI_NA_AMERICA_CCBB_1994
+VERIFICAR_FONTE_VISUAL — DEBRET
+BLOCO 0 — USO REAL CONTROLADO PC30_RC2_1 — BLOCO 002
+GERAR_MAPA_RASTREABILIDADE_ATUALIZADO
+
+FIM_DO_ARQUIVO

@@ -1,0 +1,389 @@
+# PACOTE MESTRE DE INSTALAÇÃO E USO — EMENDA DE ATUALIZAÇÃO
+# Nome: ATUALIZAÇÃO PÓS-FASE 9.F / BVAA EM CADEIA
+# Arquivo: PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__EMENDA_ATUALIZACAO_POS_9F.txt
+# Origem: FASE 9.F — Teste integrado Vaquita + BVAA + Handoff
+# Status: emenda de atualização do Pacote Mestre de Instalação/Uso
+# Não substitui o pacote mestre integral; deve ser incorporada à próxima versão consolidada
+
+---
+
+## 1. MOTIVO DA EMENDA
+
+Esta emenda atualiza o Pacote Mestre de Instalação e Uso do Ecossistema Vaquita v1.0-RC após a aprovação funcional da FASE 9.F — Teste integrado Vaquita + BVAA + Handoff.
+
+A FASE 9.F validou a cadeia:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+O teste confirmou que o ecossistema preserva corretamente uma pendência documental ativa emitida pelo BVAA, sem falsa liberação de fonte, página, citação literal ou referência bibliográfica.
+
+Status crítico preservado:
+
+PENDENTE_BVAA
+
+Veredito operacional crítico preservado:
+
+PEDIR_PDF
+
+---
+
+## 2. ALTERAÇÃO PRINCIPAL NO PACOTE MESTRE
+
+Atualizar o Pacote Mestre para registrar:
+
+FASE 9.F — APROVADA.
+
+Fluxo validado:
+
+Vaquita + BVAA + Handoff.
+
+Função validada:
+
+Preservação de uma pendência documental ativa durante integração, migração e retomada em novo chat Vaquita.
+
+Resultado:
+
+O sistema preservou:
+
+1. RETORNO_BVAA integrado;
+2. STATUS_BVAA: PENDENTE_BVAA;
+3. VEREDITO_OPERACIONAL: PEDIR_PDF;
+4. página não confirmada;
+5. citação literal não liberada;
+6. referência não LIBERADA;
+7. referência apenas como hipótese bibliográfica a verificar;
+8. “p. XX” bloqueado para versão final;
+9. PROXIMO bloqueado até evidência documental adequada ou decisão humana explícita;
+10. Handoff como módulo de migração, não de verificação bibliográfica.
+
+---
+
+## 3. STATUS ATUALIZADO DO ECOSSISTEMA
+
+Atualizar no Pacote Mestre:
+
+Ecossistema Vaquita v1.0-RC: aprovado para uso inicial controlado.
+
+Módulos aprovados:
+
+1. Vaquita;
+2. Komodo;
+3. BVAA;
+4. Jararaca;
+5. Handoff.
+
+Fluxos integrados já aprovados:
+
+1. FASE 9.B — Vaquita + Handoff;
+2. FASE 9.C — Vaquita + Jararaca + Handoff;
+3. FASE 9.E — Vaquita + Komodo + Handoff;
+4. FASE 9.F — Vaquita + BVAA + Handoff.
+
+Fluxos integrados ainda pendentes:
+
+1. teste integrado completo com os cinco módulos;
+2. kit de distribuição final;
+3. eventual versão v1.0 final.
+
+Arquivo principal vigente do Handoff:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Kit Mestre vigente:
+
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt
+
+Pacote Mestre vigente antes desta emenda:
+
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9E.txt
+
+Nome recomendado para a próxima versão consolidada:
+
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt
+
+---
+
+## 4. TRECHO A INSERIR NA SEÇÃO DE FASES RECENTES
+
+### FASE 9.F — Teste Integrado Vaquita + BVAA + Handoff
+
+Status:
+
+APROVADA.
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados:
+
+R1 — Vaquita origem gerou PACOTE_BVAA: aprovado.
+
+R2 — BVAA gerou RETORNO_BVAA: aprovado.
+
+R3 — Vaquita integrou RETORNO_BVAA: aprovado.
+
+R4 — Vaquita gerou PACOTE_HANDOFF preservando a pendência BVAA: aprovado.
+
+R5 — Handoff gerou PACOTE_HANDOFF_VAQUITA: aprovado.
+
+R6 — Vaquita destino retomou o estado com pendência BVAA ativa: aprovado.
+
+Veredito final:
+
+FASE 9.F APROVADA.
+
+Interpretação técnica:
+
+A cadeia Vaquita + BVAA + Handoff funciona. O teste validou especialmente a preservação de uma pendência documental ativa durante integração e migração.
+
+Ponto central validado:
+
+PENDENTE_BVAA deve permanecer pendência documental ativa.
+
+PEDIR_PDF deve permanecer exigência de evidência documental adicional, não autorização de uso com ressalva.
+
+O sistema não deve transformar PENDENTE_BVAA em LIBERADA, não deve transformar PEDIR_PDF em USAR_COM_RESSALVA, não deve substituir “p. XX” por página presumida, não deve liberar citação literal e não deve consolidar referência sem evidência documental.
+
+Observação:
+
+O caso Daston/Park usado no teste pertence apenas à FASE 9.F. Ele não deve ser convertido em regra universal do ecossistema.
+
+---
+
+## 5. ATUALIZAÇÃO DA SEÇÃO “QUANDO ACIONAR BVAA”
+
+Acrescentar:
+
+O BVAA deve ser acionado quando houver dúvida sobre fonte, página, edição, citação literal, referência bibliográfica, pertinência documental ou risco de uso de fonte sem evidência verificável.
+
+O BVAA pode emitir o status:
+
+PENDENTE_BVAA
+
+Esse status significa que a fonte, página, trecho, citação literal, edição ou pertinência documental ainda não foram suficientemente verificados.
+
+O BVAA pode emitir o veredito operacional:
+
+PEDIR_PDF
+
+Esse veredito significa que a Vaquita deve solicitar PDF, trecho paginado, confirmação material da edição ou evidência documental equivalente antes de consolidar a referência.
+
+Quando o BVAA devolver PENDENTE_BVAA ou PEDIR_PDF:
+
+1. a referência não deve ser tratada como LIBERADA;
+2. a página não deve ser presumida;
+3. “p. XX” não deve permanecer em versão final;
+4. citação literal não deve ser liberada;
+5. referência normalizada em ABNT não deve ser tratada como fonte conferida;
+6. PROXIMO pode permanecer bloqueado se a pendência comprometer a consolidação local.
+
+O BVAA não deve:
+
+1. revisar texto no lugar da Vaquita;
+2. resolver progressão argumentativa;
+3. inventar página;
+4. inventar citação literal;
+5. inventar DOI;
+6. completar dados bibliográficos por memória como se fossem verificados;
+7. transformar plausibilidade temática em sustentação documental.
+
+---
+
+## 6. ATUALIZAÇÃO DA SEÇÃO “QUANDO ACIONAR HANDOFF”
+
+Acrescentar:
+
+Quando o PACOTE_HANDOFF contiver RETORNO_BVAA integrado com status PENDENTE_BVAA e veredito operacional PEDIR_PDF, o Handoff deve preservar esse estado como pendência documental ativa.
+
+O Handoff deve preservar:
+
+1. RETORNO_BVAA integrado;
+2. STATUS_BVAA: PENDENTE_BVAA;
+3. VEREDITO_OPERACIONAL: PEDIR_PDF;
+4. página não confirmada;
+5. citação literal não liberada;
+6. referência não LIBERADA;
+7. “p. XX” bloqueado;
+8. referência apenas como hipótese bibliográfica a verificar;
+9. necessidade de PDF, trecho paginado ou confirmação material da edição;
+10. PROXIMO bloqueado, quando a pendência bloquear a consolidação local.
+
+O Handoff não deve:
+
+1. resolver a pendência BVAA;
+2. verificar bibliografia;
+3. confirmar página;
+4. liberar citação literal;
+5. consolidar referência;
+6. transformar PENDENTE_BVAA em LIBERADA;
+7. transformar PEDIR_PDF em USAR_COM_RESSALVA;
+8. substituir “p. XX” por página presumida;
+9. tratar plausibilidade temática como sustentação documental;
+10. acionar Komodo ou Jararaca sem comando;
+11. avançar fase ou parágrafo.
+
+---
+
+## 7. REGRA OPERACIONAL NOVA
+
+Adicionar às regras anti-deriva:
+
+Quando um RETORNO_BVAA trouxer PENDENTE_BVAA, esse status deve ser tratado como pendência documental ativa.
+
+Quando um RETORNO_BVAA trouxer PEDIR_PDF, esse veredito operacional deve ser tratado como exigência de evidência documental adicional.
+
+O sistema deve:
+
+1. preservar RETORNO_BVAA;
+2. preservar PENDENTE_BVAA;
+3. preservar PEDIR_PDF;
+4. preservar página não confirmada;
+5. preservar citação literal não liberada;
+6. preservar referência como hipótese bibliográfica a verificar;
+7. manter “p. XX” bloqueado para versão final;
+8. impedir falsa consolidação documental;
+9. solicitar PDF, trecho paginado ou confirmação material da edição;
+10. aguardar evidência documental ou decisão humana explícita antes de consolidar.
+
+O sistema não deve:
+
+1. suavizar a pendência;
+2. tratar a fonte como LIBERADA;
+3. converter PEDIR_PDF em USAR_COM_RESSALVA;
+4. substituir “p. XX” por página presumida;
+5. liberar citação literal sem trecho conferido;
+6. tratar referência ABNT normalizada como fonte verificada;
+7. corrigir automaticamente durante handoff ou retomada.
+
+---
+
+## 8. RISCOS A ACRESCENTAR
+
+Adicionar ao Pacote Mestre:
+
+### ALERTA_PENDENTE_BVAA_LIBERADO_INDEVIDAMENTE
+
+Risco:
+
+Transformar PENDENTE_BVAA em LIBERADA sem evidência verificável.
+
+Regra:
+
+PENDENTE_BVAA permanece pendência até nova evidência documental.
+
+---
+
+### ALERTA_PEDIR_PDF_SUAVIZADO
+
+Risco:
+
+Transformar PEDIR_PDF em USAR_COM_RESSALVA.
+
+Regra:
+
+PEDIR_PDF exige PDF, trecho paginado, confirmação material da edição ou evidência documental equivalente.
+
+---
+
+### ALERTA_P_XX_CONSOLIDADO
+
+Risco:
+
+Manter “p. XX” em versão final ou substituí-lo por página presumida.
+
+Regra:
+
+“p. XX” é marcador inválido para versão final e deve permanecer bloqueado até confirmação de página.
+
+---
+
+### ALERTA_REFERENCIA_ABNT_CONFUNDIDA_COM_VERIFICACAO
+
+Risco:
+
+Tratar referência normalizada em ABNT como se tivesse sido conferida documentalmente.
+
+Regra:
+
+Normalização bibliográfica não equivale a verificação documental.
+
+---
+
+### ALERTA_FONTE_CORINGA
+
+Risco:
+
+Usar obra bibliograficamente plausível como suporte genérico sem trecho específico conferido.
+
+Regra:
+
+Plausibilidade temática não equivale a sustentação documental verificável.
+
+---
+
+## 9. DECISÕES CONSOLIDADAS A INSERIR
+
+1. A FASE 9.F foi aprovada.
+
+2. O fluxo Vaquita + BVAA + Handoff está funcionalmente validado.
+
+3. O BVAA consegue devolver pendência documental sem liberar fonte.
+
+4. A Vaquita consegue integrar RETORNO_BVAA pendente.
+
+5. O Handoff consegue preservar RETORNO_BVAA pendente durante migração.
+
+6. A Vaquita destino consegue retomar estado com pendência BVAA ativa sem resolver, revisar, avançar ou consolidar a referência.
+
+7. PENDENTE_BVAA deve permanecer pendência documental ativa quando emitido pelo BVAA.
+
+8. PEDIR_PDF deve permanecer exigência documental, não autorização de uso com ressalva.
+
+9. “p. XX” deve permanecer bloqueado para versão final.
+
+10. Página não confirmada e citação literal não liberada devem ser preservadas como tais.
+
+11. Referência normalizada em ABNT não equivale a referência conferida documentalmente.
+
+12. O caso Daston/Park é apenas caso de teste e não deve contaminar o núcleo universal.
+
+---
+
+## 10. DECISÕES AINDA ABERTAS APÓS ESTA EMENDA
+
+1. Incorporar esta emenda ao Pacote Mestre de Instalação/Uso vigente para gerar:
+
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt
+
+2. Incorporar a emenda pós-9.F ao pacote geral de migração, se necessário.
+
+3. Executar teste integrado completo com os cinco módulos:
+
+Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+4. Criar kit de distribuição final do ecossistema.
+
+5. Decidir se haverá versão v1.0 final após testes adicionais.
+
+---
+
+## 11. STATUS FINAL DA EMENDA
+
+Esta emenda atualiza o Pacote Mestre de Instalação/Uso para o estado pós-FASE 9.F.
+
+Status:
+
+EMENDA_DE_ATUALIZACAO_DO_PACOTE_MESTRE_INSTALACAO_USO_POS_9F_CRIADA
+
+Próximo passo:
+
+Anexar ou colar o arquivo vigente:
+
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9E.txt
+
+e incorporar esta emenda em uma versão consolidada atualizada.
+
+Nome recomendado para a próxima versão consolidada:
+
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9F.txt

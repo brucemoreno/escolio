@@ -1,0 +1,107 @@
+# REGISTRO DE USO REAL CONTROLADO — CICLO 008
+
+## Sistema operacional
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2 DRIVE_FIRST_BVAA
+
+## Bot-assessor
+
+BOT_ASSESSOR_OPERACIONAL_AUDITOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.1.2
+
+## Trabalho testado
+
+Tese de Nathália Moro:
+Entre pratos e pincéis: práticas alimentares no Império do Brasil através da iconografia de Jean-Baptiste Debret (1816-1831)
+
+## Unidade testada
+
+Introdução — bloco final sobre comércios alimentícios, modelos do Velho Mundo, armazéns, mercados, pão, café, carne, status social e síntese do objeto da tese.
+
+## Escala
+
+MODO_BLOCO_CONTROLADO
+
+## Contexto operacional
+
+Este ciclo foi executado no chat operacional atual, após migração preventiva anterior por PACOTE_HANDOFF.
+
+O Handoff permaneceu integrado e a numeração dos comentários foi preservada.
+
+O ESTADO COMPLETO pós-Ciclo 006 havia sido validado antes da continuidade dos blocos finais da Introdução.
+
+O Ciclo 007 havia sido encerrado com rastreabilidade retificada.
+
+## Comandos executados
+
+1. COMANDO 0_BLOCO
+2. COMANDO 1_BLOCO
+3. GERAR_MAPA_RASTREABILIDADE
+
+## Validação pelo bot-assessor
+
+O bot-assessor classificou o fechamento do ciclo como RESPOSTA_BOA.
+
+## Resultado
+
+CICLO_008_ENCERRADO_COM_RASTREABILIDADE_FECHAMENTO_INTRODUCAO_E_DADOS_NAO_VERIFICADOS
+
+## Comentários Word
+
+Foram autorizados para uso controlado, com cautela, os comentários:
+
+* COMENTÁRIO_WORD_021
+* COMENTÁRIO_WORD_022
+
+O próximo ID obrigatório preservado é:
+
+* COMENTÁRIO_WORD_023
+
+No Word, devem ser inseridos apenas os textos do campo COMENTÁRIO PARA INSERIR NO WORD, sem metadados internos do sistema.
+
+## Pontos sensíveis do bloco
+
+* Dados quantitativos sobre 126 casas comerciais em 1808 e 1.627 casas comerciais em 1821.
+* Bandeira, 1994, p. 14 não verificado.
+* Debret como fonte para pão, café e carne.
+* Pão, café e carne como marcadores de status e diferenciação socioeconômica.
+* Formulação sobre hábitos alimentares não apenas refletindo, mas estruturando dinâmicas sociais e culturais.
+* Escala “Império do Brasil” versus foco Rio de Janeiro/Debret.
+* Fechamento argumentativo da Introdução e risco de tese ampla demais.
+* História da Alimentação como objeto de investigação.
+
+## Bloqueios preservados
+
+Foram preservados os seguintes bloqueios:
+
+* PENDENTE_BVAA
+* PENDENTE_BVAA_DRIVE
+* página não confirmada
+* bibliografia específica não verificada
+* fonte primária não conferida
+* dados quantitativos 126 / 1.627 não tratados como verificados
+* Bandeira não tratado como verificado
+* Debret não tratado como fonte conferida
+* corpus e escala não tratados como validados
+* síntese interpretativa final não tratada como conclusão já demonstrada sem mediação
+* comprovante de leitura PDF não produzido
+
+## Observações
+
+Os comentários Word foram considerados substantivos, seletivos e seguros para uso controlado.
+
+Não foram detectados:
+
+* comentário cosmético
+* bibliografia indevida
+* validação indevida de páginas
+* validação indevida de fontes
+* tratamento indevido de Bandeira ou Debret como verificados
+* tratamento indevido dos dados 126 / 1.627 como conferidos
+* poluição de comentários
+* risco de escala operacional
+* perda de numeração
+* perda de estado
+
+O Ciclo 008 fecha a Introdução. O bot-assessor recomendou consolidar os comentários acumulados antes de avançar para novo trecho ou capítulo.
+
+Este registro é um fechamento mínimo de ciclo, baseado na validação final do bot-assessor. O mapa completo de rastreabilidade não foi salvo como arquivo separado neste momento, seguindo a regra operacional simplificada de não multiplicar arquivos intermediários sem necessidade.

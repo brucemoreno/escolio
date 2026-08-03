@@ -1,0 +1,475 @@
+INICIO_DO_ARQUIVO
+
+# CHECKLIST_ANTES_DE_USAR_PC30
+
+## 1. Finalidade
+
+Este checklist deve ser usado antes de iniciar qualquer trabalho real com o sistema PC30 — auditoria de dissertações e teses com foco nos **30% mais críticos**.
+
+Objetivo:
+
+garantir que o chat está corretamente preparado, que o auditor/revisor PC30 está carregado, que o bot assessor está ativo, que os IDs estão preservados, que BVAA/Drive-first está obrigatório e que o modo PC30 não será confundido com cobertura ampla.
+
+---
+
+# 2. Confirmação do modo PC30
+
+Antes de iniciar, confirmar:
+
+`MODO_PC30_CONFIRMADO: SIM`
+
+`PC30_SIGNIFICADO: SELECAO_CRITICA_DOS_PONTOS_MAIS_RELEVANTES`
+
+`PC30_NAO_SIGNIFICA_COMENTAR_30_POR_CENTO_MECANICO: SIM`
+
+`PC30_NAO_SIGNIFICA_COMENTAR_TODOS_OS_PARAGRAFOS: SIM`
+
+`PC30_NAO_SIGNIFICA_COBERTURA_AMPLA: SIM`
+
+`PC30_NAO_SIGNIFICA_REVISAO_100_POR_CENTO: SIM`
+
+Se qualquer item acima falhar:
+
+`USO_PC30_BLOQUEADO_ATE_CORRECAO_DO_MODO`
+
+---
+
+# 3. Confirmação do auditor/revisor principal
+
+Verificar se o auditor principal correto está carregado:
+
+`AUDITOR_PC30_CARREGADO: SIM`
+
+Nome obrigatório:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+Status obrigatório:
+
+`PC30_RC1_3_ID_QUARENTENA: HOMOLOGADA_CONTROLADAMENTE`
+
+Função:
+
+`AUDITOR_REVISOR_PRINCIPAL_PC30`
+
+Se o auditor não estiver carregado ou se a versão não for a RC1.3 homologada:
+
+`USO_PC30_BLOQUEADO_AUDITOR_INCORRETO_OU_AUSENTE`
+
+---
+
+# 4. Confirmação do bot assessor
+
+Verificar se o bot assessor correto está carregado:
+
+`BOT_ASSESSOR_PC30_CARREGADO: SIM`
+
+Nome obrigatório:
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+Status obrigatório:
+
+`BOT_ASSESSOR_PC30: VALIDADO_OPERACIONALMENTE`
+
+Status hierárquico obrigatório:
+
+`BOT_AUXILIAR_NAO_AUDITOR_PRINCIPAL`
+
+Função:
+
+`ORGANIZAR_PREPARAR_VALIDAR_CONTROLAR_ESTADO_E_MIGRAR`
+
+O bot assessor não deve gerar comentário Word oficial por conta própria.
+
+Se o bot não estiver carregado ou se tentar atuar como auditor principal:
+
+`USO_PC30_BLOQUEADO_BOT_ASSESSOR_INCORRETO`
+
+---
+
+# 5. Confirmação de IDs
+
+Antes de qualquer operação, confirmar:
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`COMENTÁRIO_WORD_066_STATUS: PRESERVADO_NAO_CONSUMIDO`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`IDS_058_063_REUTILIZAVEIS: NAO`
+
+`IDS_058_063_RECICLAVEIS: NAO`
+
+`IDS_058_063_OFICIAIS_PC30: NAO`
+
+`IDS_058_063_CONSUMIVEIS: NAO`
+
+Se `066` já aparecer como consumido sem comentário Word oficial validado:
+
+`USO_PC30_BLOQUEADO_ESTADO_DE_ID_INCONSISTENTE`
+
+Se qualquer ID de `058–063` aparecer como reutilizável:
+
+`USO_PC30_BLOQUEADO_ID_QUARENTENA_REABERTO`
+
+---
+
+# 6. Confirmação BVAA / Drive-first
+
+Antes de usar fonte, página, bibliografia ou imagem, confirmar:
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS_INICIALMENTE: NENHUMA`
+
+`FONTE_NAO_ABERTA_NAO_LIBERADA: SIM`
+
+`PAGINA_NAO_CONFERIDA_NAO_VALIDADA: SIM`
+
+`PDF_APENAS_INFORMADO_NO_DRIVE_NAO_CONTA_COMO_LIDO: SIM`
+
+`PAGINA_INVENTADA: BLOQUEADA`
+
+`SUSTENTACAO_ESPECIFICA_SEM_BVAA: BLOQUEADA`
+
+Se o sistema aceitar fonte apenas porque “está no Drive”:
+
+`USO_PC30_BLOQUEADO_FALHA_BVAA_DRIVE`
+
+---
+
+# 7. Confirmação do material de entrada
+
+Antes de iniciar o trabalho, identificar o tipo de material recebido:
+
+`MATERIAL_RECEBIDO: TESE_INTEIRA / DISSERTACAO_INTEIRA / SUMARIO / RESUMO / INTRODUCAO / CAPITULO / SECAO / BLOCO`
+
+Se for tese ou dissertação inteira, a primeira ação deve ser:
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+Não gerar comentários Word diretamente a partir da tese inteira.
+
+Se for capítulo ou seção, verificar se há texto integral suficiente.
+
+Se for apenas título, escopo ou placeholder:
+
+`BLOQUEADO_BLOCO_INTEGRAL_AUSENTE`
+
+---
+
+# 8. Confirmação do mapa global
+
+Antes de revisar blocos reais, verificar:
+
+`MAPA_GLOBAL_PC30_GERADO: SIM/NAO`
+
+Se ainda não houver mapa global e o material permitir:
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+O mapa global deve identificar, quando possível:
+
+`OBJETO_CENTRAL`
+
+`HIPOTESE_OU_PROBLEMA`
+
+`RECORTE_TEMPORAL`
+
+`RECORTE_ESPACIAL`
+
+`CORPUS_DOCUMENTAL`
+
+`ESTRUTURA_DE_CAPITULOS`
+
+`RISCOS_GLOBAIS_PC30`
+
+`PENDENCIAS_BVAA`
+
+`PLANO_MODULAR_DE_REVISAO`
+
+Regra:
+
+mapa global não gera comentário Word e não consome ID.
+
+`COMENTARIO_WORD_GERADO_PELO_MAPA: NAO`
+
+`ID_CONSUMIDO_PELO_MAPA: NENHUM`
+
+---
+
+# 9. Confirmação dos blocos
+
+Antes de enviar qualquer trecho ao auditor PC30, confirmar:
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`BLOCO_ID_ATRIBUIDO: SIM`
+
+`NUMERO_DE_PARAGRAFOS_RECEBIDOS: INFORMADO`
+
+`PLACEHOLDER_USADO: NAO`
+
+`TITULO_OU_ESCOPO_APENAS: NAO`
+
+`ESCOPO_DELIMITADO: SIM`
+
+Se não houver bloco integral:
+
+`BLOQUEADO_ENVIO_AO_AUDITOR_PC30_BLOCO_AUSENTE`
+
+---
+
+# 10. Confirmação antes de preparar o auditor PC30
+
+Antes de usar:
+
+`PREPARAR_COMANDO_AUDITOR_PC30`
+
+confirmar:
+
+`BLOCO_VALIDADO_PARA_PC30: SIM`
+
+`MODO_PC30_DECLARADO: SIM`
+
+`PEDIDO_DE_TESE_INTEIRA: NAO`
+
+`COBERTURA_AMPLA_SOLICITADA: NAO`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS_SOLICITADO: NAO`
+
+`PROXIMO_ID_FORMAL_CONFIRMADO: COMENTÁRIO_WORD_066`
+
+`BVAA_DRIVE_CONFIRMADO: SIM`
+
+`FONTES_LIBERADAS_CONFORME_ESTADO_REAL: SIM`
+
+Se houver pedido de cobertura ampla ou comentário parágrafo a parágrafo:
+
+`BLOQUEADO_PEDIDO_INCOMPATIVEL_COM_PC30`
+
+---
+
+# 11. Confirmação antes de gerar comentário Word
+
+Somente o auditor/revisor principal PC30 pode gerar comentário Word oficial.
+
+Antes de aceitar comentário Word, confirmar:
+
+`COMENTARIO_WORD_GERADO_PELO_AUDITOR_PRINCIPAL: SIM`
+
+`COMENTARIO_WORD_GERADO_PELO_BOT_ASSESSOR: NAO`
+
+`COMENTARIO_PERTENCE_AO_MODO_PC30: SIM`
+
+`COMENTARIO_TRATA_RISCO_CRITICO_REAL: SIM`
+
+`COMENTARIO_NAO_E_COSMETICO_SEM_RISCO: SIM`
+
+`ID_FORMAL_USADO: COMENTÁRIO_WORD_066 / OUTRO_ID_VALIDO_FUTURO`
+
+`ID_NAO_PERTENCE_A_FAIXA_058_063: SIM`
+
+`BVAA_PRESERVADO: SIM`
+
+Se comentário Word for gerado pelo bot assessor:
+
+`COMENTARIO_WORD_BLOQUEADO_POR_HIERARQUIA`
+
+Se o comentário consumir `058–063`:
+
+`COMENTARIO_WORD_BLOQUEADO_ID_TOMBADO`
+
+---
+
+# 12. Confirmação anti-deriva
+
+Antes de seguir para novo bloco, fonte, comentário Word ou migração, verificar:
+
+`ANTI_DERIVA: ATIVO`
+
+`ANTI_ALUCINACAO: ATIVO`
+
+`ANTI_DRIFT_OPERACIONAL: ATIVO`
+
+Usar pausa se houver:
+
+1. geração de comentário Word;
+2. risco de consumir ID;
+3. mudança de bloco;
+4. troca de capítulo;
+5. fonte ou página pendente;
+6. BVAA sensível;
+7. chat lento ou intermitente;
+8. confusão entre bot e auditor;
+9. tendência a cobertura ampla;
+10. continuidade automática indevida.
+
+Comando:
+
+`PAUSA_ANTIDERIVA_PC30_OPERACIONAL`
+
+A pausa deve preservar:
+
+`PROXIMO_ID_FORMAL`
+
+`FAIXA_058_063`
+
+`COMENTÁRIOS_WORD_OFICIAIS`
+
+`BVAA_DRIVE`
+
+`FONTES_LIBERADAS`
+
+`BLOCO_ATUAL`
+
+`MODO_PC30`
+
+---
+
+# 13. Confirmação antes de migração
+
+Antes de migrar de chat, verificar:
+
+`PACOTE_MIGRACAO_PC30_GERADO: SIM`
+
+O pacote deve conter:
+
+`MODO_ATUAL: PC30`
+
+`AUDITOR_ASSOCIADO`
+
+`BOT_ASSESSOR_PC30`
+
+`MAPA_GLOBAL_PC30`
+
+`BLOCOS_JA_REGISTRADOS`
+
+`BLOCO_ATUAL`
+
+`COMENTÁRIOS_WORD_OFICIAIS`
+
+`PROXIMO_ID_FORMAL`
+
+`FAIXA_058_063`
+
+`BVAA_DRIVE`
+
+`FONTES_LIBERADAS`
+
+`PENDENCIAS_BVAA`
+
+`COMANDOS_PERMITIDOS`
+
+`COMANDOS_BLOQUEADOS`
+
+`PONTO_EXATO_DE_RETOMADA`
+
+Se não houver pacote de migração:
+
+`MIGRACAO_PC30_BLOQUEADA_ATE_GERAR_HANDOFF`
+
+---
+
+# 14. Comandos seguros para iniciar
+
+Depois de passar no checklist, os comandos seguros são:
+
+`INICIALIZAR_BOT_ASSESSOR_PC30`
+
+`ESTADO_PC30`
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+`PROPOR_BLOCOS_PC30`
+
+`REGISTRAR_BLOCO_PC30`
+
+`VALIDAR_ABERTURA_BLOCO_PC30`
+
+`PREPARAR_COMANDO_AUDITOR_PC30`
+
+`PAUSA_ANTIDERIVA_PC30_OPERACIONAL`
+
+`GERAR_PACOTE_MIGRACAO_PC30`
+
+---
+
+# 15. Comandos perigosos ou bloqueados
+
+Bloquear:
+
+`USAR_ID_058_A_063`
+
+`CONSUMIR_ID_MANUALMENTE`
+
+`CONSUMIR_COMENTÁRIO_WORD_066_SEM_COMENTARIO_WORD_OFICIAL_VALIDO`
+
+`GERAR_COMENTARIO_WORD_OFICIAL_SEM_AUDITOR`
+
+`LIBERAR_FONTE_SEM_ABRIR_DOCUMENTO`
+
+`VALIDAR_PAGINA_SEM_CONFERENCIA`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS`
+
+`TRANSFORMAR_PC30_EM_COBERTURA_AMPLA`
+
+`EXECUTAR_TESE_INTEIRA_EM_PC30_SEM_BLOCOS`
+
+`IGNORAR_ANTI_DERIVA`
+
+`HOMOLOGAR_AUTOMATICAMENTE`
+
+`GERAR_RC_AUTOMATICAMENTE`
+
+---
+
+# 16. Checklist rápido de 12 itens
+
+Antes de usar PC30 em caso real, confirmar:
+
+1. `BOT_ASSESSOR_PC30_CARREGADO: SIM`
+2. `AUDITOR_PC30_RC1_3_HOMOLOGADO_CARREGADO: SIM`
+3. `BOT_E_AUXILIAR_NAO_AUDITOR: SIM`
+4. `MODO_PC30_CONFIRMADO: SIM`
+5. `COMENTÁRIO_WORD_064_E_065_OFICIAIS: SIM`
+6. `PROXIMO_ID_FORMAL_066_PRESERVADO: SIM`
+7. `FAIXA_058_063_TOMBADA: SIM`
+8. `BVAA_DRIVE_OBRIGATORIO: SIM`
+9. `FONTES_LIBERADAS_INICIALMENTE_NENHUMA: SIM`
+10. `COBERTURA_AMPLA_BLOQUEADA: SIM`
+11. `COMENTAR_TODOS_OS_PARAGRAFOS_BLOQUEADO: SIM`
+12. `EXECUCAO_EM_LOTE_E_CONTINUIDADE_AUTOMATICA_BLOQUEADAS: SIM`
+
+Se todos os itens estiverem corretos:
+
+`PC30_APTO_PARA_USO_OPERACIONAL_CONTROLADO`
+
+Se qualquer item falhar:
+
+`PC30_NAO_APTO_ATE_CORRECAO_DO_ESTADO`
+
+---
+
+# 17. Status final deste arquivo
+
+`CHECKLIST_ANTES_DE_USAR_PC30: GERADO`
+
+`FUNCAO: VERIFICAR_CONDICOES_MINIMAS_ANTES_DO_USO_REAL_PC30`
+
+`ID_CONSUMIDO_NA_GERACAO_DESTE_CHECKLIST: NENHUM`
+
+`COMENTARIO_WORD_GERADO_NA_GERACAO_DESTE_CHECKLIST: NAO`
+
+`RC_GERADA_NA_GERACAO_DESTE_CHECKLIST: NAO`
+
+`HOMOLOGACAO_AUTOMATICA_NA_GERACAO_DESTE_CHECKLIST: NAO`
+
+FIM_DO_ARQUIVO

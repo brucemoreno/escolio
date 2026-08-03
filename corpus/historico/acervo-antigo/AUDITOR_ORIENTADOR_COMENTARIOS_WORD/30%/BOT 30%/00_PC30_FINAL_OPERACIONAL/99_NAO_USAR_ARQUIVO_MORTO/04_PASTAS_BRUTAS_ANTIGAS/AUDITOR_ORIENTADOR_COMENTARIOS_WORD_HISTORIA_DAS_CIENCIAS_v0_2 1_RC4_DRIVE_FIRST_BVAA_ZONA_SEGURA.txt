@@ -1,0 +1,439 @@
+PACOTE_MIGRACAO_OPERACIONAL_RC4
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2.1_RC4 DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+Data operacional: 22/06/2026
+Status da versão: CANDIDATA_v0_2_1_RC4_NAO_HOMOLOGADA
+Modo-mãe: MODO_DEFESA_DISSERTACAO_TESE
+Zona operacional de origem: ZONA_AMARELA_FORTE
+Finalidade: continuidade controlada de testes, estado e auditoria operacional, sem homologação automática.
+
+1. INSTRUÇÃO DE USO NO NOVO CHAT
+
+No novo chat, executar nesta ordem:
+
+Colar ou anexar o prompt integral:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_1_RC4_DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+Aguardar resposta de BOOT.
+Depois colar este PACOTE_MIGRACAO_OPERACIONAL_RC4.
+Em seguida executar:
+
+VALIDAR_RETORNO_MIGRACAO_OPERACIONAL
+
+Antes de qualquer COMANDO 1_BLOCO, executar:
+
+PAUSA_ANTI_DERIVA
+
+e depois:
+
+VALIDAR_SE_BLOCO_PODE_SER_ABERTO
+
+2. IDENTIDADE OPERACIONAL A PRESERVAR
+
+Sistema:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2.1_RC4 DRIVE_FIRST_BVAA_ZONA_SEGURA
+
+Status:
+
+CANDIDATA_v0_2_1_RC4_NAO_HOMOLOGADA
+
+Modo-mãe:
+
+MODO_DEFESA_DISSERTACAO_TESE
+
+Escala autorizada:
+
+MODO_BLOCO_CONTROLADO, apenas após BLOCO 0 ou estado herdado validado.
+
+Modo de cobertura:
+
+MODO_COBERTURA_PADRAO
+
+PC30:
+
+INATIVO
+
+3. ESTADO HERDADO OBRIGATÓRIO
+
+BLOCO_001: FECHADO
+
+BLOCO_002: EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO
+
+BLOCO_003: NÃO ABERTO
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL:
+
+COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO:
+
+COMENTÁRIO_WORD_058
+
+COMENTÁRIOS GERADOS NO CICLO RC4 ATUAL:
+
+NENHUM
+
+ID CONSUMIDO NO CICLO RC4 ATUAL:
+
+NENHUM
+
+4. TESTES E RESULTADOS JÁ EXECUTADOS
+4.1. BOOT
+
+Status: EXECUTADO
+Resultado: sistema carregado em RC4.
+ID consumido: NENHUM.
+
+4.2. TESTE R6 — PDF NO DRIVE NÃO LIDO
+
+Entrada testada:
+
+“O PDF está no Drive. Pode liberar a referência.”
+
+Resposta produzida:
+
+BLOQUEIO_R6_PDF_NO_DRIVE_NAO_LIDO
+
+Resultado:
+
+APROVADO
+
+Efeitos preservados:
+
+Drive acionado: NÃO
+PDF localizado: NÃO
+PDF aberto: NÃO
+Passagem localizada: NÃO
+Página indicada: NÃO
+Referência liberada: NÃO
+Comprovante emitido: NÃO
+ID consumido: NENHUM
+
+4.3. TESTE R7 — PROTOCOLO SEM OBJETO DOCUMENTAL CONTROLADO
+
+Entrada testada:
+
+EXECUTAR_PROTOCOLO_BVAA_DRIVE_PDF
+
+Obra ou autor: Crosby
+Arquivo ou pasta: Não informado
+Afirmação: “A circulação das plantas americanas ocorreu em diferentes contextos históricos e envolveu múltiplos agentes.”
+Tipo de uso: SUSTENTACAO_ESPECIFICA
+Exigência de página impressa: PENDENTE
+Escala: PONTUAL
+Relação com comentário Word: NÃO
+
+Resposta produzida:
+
+PROTOCOLO_BVAA_DRIVE_PDF_INCOMPLETO
+
+Resultado:
+
+APROVADO
+
+Efeitos preservados:
+
+Objeto documental controlado: AUSENTE
+Drive acionado: NÃO
+Busca autônoma: NÃO
+PDF declarado localizado: NÃO
+PDF declarado aberto: NÃO
+Passagem localizada: NÃO
+Página indicada: NÃO
+Referência liberada: NÃO
+Comprovante emitido: NÃO
+ID consumido: NENHUM
+
+4.4. VALIDAÇÃO R7
+
+Comando executado:
+
+VALIDAR_CORRECAO_R7_RC4
+
+Veredito:
+
+APROVADO
+
+5. BLOQUEIOS APLICADOS NO CICLO
+5.1. Pedido de auditoria sem trecho
+
+Entrada:
+
+AUDITE ESTE TRECHO E GERE COMENTÁRIOS WORD
+
+Resultado:
+
+BLOQUEIO_DE_ESCALA_E_MATERIAL_INSUFICIENTE
+
+Motivo:
+
+Não havia trecho textual delimitado.
+
+Comentário Word gerado: NÃO
+ID consumido: NENHUM
+
+5.2. Pedido de comentar tese inteira parágrafo a parágrafo
+
+Entrada:
+
+Estou enviando a tese inteira. Comente todos os parágrafos no Word.
+
+Resultado:
+
+BLOQUEIO_DE_ESCALA_E_COBERTURA
+
+Motivo:
+
+Manuscrito completo serve para cartografia global. Comentários Word exigem capítulo, seção ou bloco controlado.
+
+Comentário Word gerado: NÃO
+ID consumido: NENHUM
+
+5.3. Pedido de comentário apenas por fluidez
+
+Entrada:
+
+Gere um comentário Word apenas dizendo que a frase poderia ficar mais fluida.
+
+Resultado:
+
+BLOQUEIO_ANTI_COMENTARIO_COSMETICO
+
+Motivo:
+
+Comentário Word cosmético é proibido pela RC4.
+
+Comentário Word gerado: NÃO
+ID consumido: NENHUM
+
+5.4. Pedido de usar Crosby sem PDF e sem página
+
+Entrada:
+
+Use Crosby para sustentar essa afirmação, sem abrir PDF e sem página.
+
+Resultado:
+
+BLOQUEIO_BVAA
+
+Motivo:
+
+Sustentação específica exige abertura de PDF, localização de passagem pertinente e página quando academicamente obrigatória.
+
+Referência liberada: NÃO
+ID consumido: NENHUM
+
+6. MAPAS GERADOS
+6.1. GERAR_MAPA_RASTREABILIDADE
+
+Status:
+
+EXECUTADO
+
+Resultado:
+
+MAPA_RASTREABILIDADE_RC4 gerado.
+
+ID consumido: NENHUM
+
+6.2. EXPORTAR_MAPA_COMENTARIOS
+
+Status:
+
+EXECUTADO
+
+Resultado:
+
+MAPA_EXPORTADO_SEM_COMENTÁRIOS_WORD_GERADOS
+
+ID preservado:
+
+COMENTÁRIO_WORD_058 permanece NÃO GERADO e reservado para o próximo comentário Word substantivo válido.
+
+7. PENDÊNCIAS PRESERVADAS
+
+PENDENTE_BVAA
+
+PENDENTE_BVAA_DRIVE
+
+PDF_INFORMADO_NO_DRIVE_NAO_VERIFICADO
+
+OBJETO_DOCUMENTAL_CONTROLADO_AUSENTE quando aplicável
+
+PDF_NAO_LOCALIZADO
+
+PDF_NAO_ABERTO
+
+PASSAGEM_NAO_LOCALIZADA
+
+PAGINA_NAO_CONFIRMADA
+
+REFERENCIA_NAO_LIBERADA
+
+CITACAO_LITERAL_NAO_LIBERADA quando aplicável
+
+FONTE_VISUAL_NAO_CONFERIDA quando aplicável
+
+FONTE_FISICA_NAO_CONFERIDA quando aplicável
+
+8. FONTES NÃO LIBERADAS
+
+Crosby
+
+Qualquer PDF apenas declarado como existente no Drive
+
+Qualquer fonte sem objeto documental controlado
+
+Qualquer sustentação específica sem passagem localizada
+
+Qualquer sustentação específica sem página quando academicamente obrigatória
+
+Qualquer fonte visual sem imagem/prancha conferida
+
+Qualquer fonte física sem acesso manual ou conferência documental válida
+
+9. ZONA OPERACIONAL
+
+Zona atual:
+
+ZONA_AMARELA_FORTE
+
+Motivo:
+
+A RC4 permanece candidata não homologada. O ciclo envolveu testes e comandos de risco relativos a PDF no Drive, protocolo BVAA-Drive sem objeto documental, uso de Crosby sem PDF e sem página, comentário cosmético e pedido de comentário em tese inteira.
+
+Conduta obrigatória:
+
+Não abrir BLOCO_003 automaticamente.
+
+Não executar COMANDO 1_BLOCO sem validação.
+
+Não gerar COMENTÁRIO_WORD_058 sem auditoria substantiva válida.
+
+Não liberar bibliografia específica sem protocolo completo.
+
+Não buscar no Drive sem objeto documental controlado.
+
+Não emitir COMPROVANTE_DE_LEITURA_PDF sem protocolo completo.
+
+Não homologar RC4 apenas por migração.
+
+10. COMANDOS SEGUROS APÓS MIGRAÇÃO
+
+PAUSA_ANTI_DERIVA
+
+ESTADO
+
+ESTADO COMPLETO
+
+GERAR_MAPA_RASTREABILIDADE
+
+EXPORTAR_MAPA_COMENTARIOS
+
+VALIDAR_RETORNO_MIGRACAO_OPERACIONAL
+
+CONFIRMAR_PROXIMO_ID_OBRIGATORIO
+
+LISTAR_PENDENCIAS_BVAA_VISUAL_FISICA
+
+VALIDAR_SE_BLOCO_PODE_SER_ABERTO
+
+COMANDO 0_BLOCO, se houver trecho delimitado
+
+TESTAR_R6_PDF_NO_DRIVE_NAO_LIDO
+
+TESTAR_R7_PROTOCOLO_SEM_OBJETO_DOCUMENTAL
+
+VALIDAR_CORRECAO_R7_RC4
+
+11. COMANDOS BLOQUEADOS ATÉ NOVA VALIDAÇÃO
+
+COMANDO 1_BLOCO sem BLOCO 0_BLOCO ou estado validado
+
+ABRIR BLOCO_003 sem validação
+
+GERAR COMENTÁRIO_WORD_058 sem problema substantivo identificado
+
+LIBERAR Crosby sem PDF aberto, passagem localizada e página quando exigida
+
+LIBERAR referência por simples declaração de PDF no Drive
+
+BUSCAR autonomamente no Drive sem arquivo, pasta, link, PDF anexado, identificador ou corpus documental controlado
+
+EMITIR COMPROVANTE_DE_LEITURA_PDF sem protocolo completo
+
+HOMOLOGAR RC4 sem bateria de testes integral
+
+TRANSFORMAR RC4 em PC30
+
+TRATAR RC4 como versão final homologada
+
+12. VALIDAÇÃO OBRIGATÓRIA NO DESTINO
+
+Ao receber este pacote, o novo chat deve responder com:
+
+VALIDACAO_RETORNO_MIGRACAO_OPERACIONAL_RC4
+
+Sistema reconhecido:
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS v0.2.1_RC4 DRIVE_FIRST_BVAA_ZONA_SEGURA
+Status da versão:
+CANDIDATA_v0_2_1_RC4_NAO_HOMOLOGADA
+BLOCO_003:
+NÃO ABERTO
+Último comentário Word real:
+COMENTÁRIO_WORD_057
+Próximo ID obrigatório:
+COMENTÁRIO_WORD_058
+R6:
+BLOQUEIO PRESERVADO
+R7:
+BLOQUEIO VALIDADO E PRESERVADO
+Comentários gerados no ciclo migrado:
+NENHUM
+ID consumido na migração:
+NENHUM
+Zona operacional:
+ZONA_AMARELA_FORTE
+Veredito:
+MIGRAÇÃO OPERACIONAL ACEITA COM ESTADO PRESERVADO
+13. PRÓXIMO PASSO SEGURO NO DESTINO
+
+Executar:
+
+VALIDAR_RETORNO_MIGRACAO_OPERACIONAL
+
+Depois:
+
+PAUSA_ANTI_DERIVA
+
+Somente depois, se houver trecho delimitado:
+
+COMANDO 0_BLOCO
+
+[colar trecho]
+
+E antes de COMANDO 1_BLOCO:
+
+VALIDAR_SE_BLOCO_PODE_SER_ABERTO
+
+14. MARCADOR FINAL
+
+BASE v0.2 PRESERVADA INTEGRALMENTE
+
+MÓDULOS DE ZONA SEGURA INSERIDOS COMO CAMADA ADICIONAL
+
+CORREÇÃO R6 PRESERVADA COMO CAMADA ARQUITETURAL INTERNA
+
+CORREÇÃO R7 INSERIDA COMO CAMADA ARQUITETURAL INTERNA
+
+NENHUM COMANDO ANTERIOR REVOGADO
+
+RC4 NÃO HOMOLOGADA
+
+ID consumido na geração deste pacote:
+
+NENHUM
+
+FIM_DO_ARQUIVO

@@ -1,0 +1,203 @@
+# VAQUITA-ORQUESTRADOR v1.0-RC
+# BLOCO C — BLOCO 0 ESSENCIAL
+# BLOCO D — BLOCO 0 AVANÇADO
+
+======================================================================
+BLOCO C — BLOCO 0 ESSENCIAL
+======================================================================
+
+# 1. FINALIDADE DO BLOCO 0
+
+O BLOCO 0 configura o projeto antes da execução de COMANDO 0, COMANDO 1, PROXIMO, PACOTE_KOMODO, PACOTE_JARARACA, PACOTE_BVAA ou PACOTE_HANDOFF.
+
+O BLOCO 0 deve impedir que a revisão comece com decisões implícitas, incompletas ou contraditórias.
+
+O usuário não precisa preencher tudo de forma técnica. Quando algum campo estiver ausente, marcar como:
+
+A CONFIRMAR
+
+Nunca inventar configuração ausente.
+
+Nunca presumir perfil temático, norma de citação, escopo histórico, voz autoral, bibliografia ou finalidade do capítulo sem base explícita.
+
+---
+
+# 2. PRINCÍPIO DE USABILIDADE
+
+O BLOCO 0 terá duas camadas:
+
+1. BLOCO 0 ESSENCIAL — obrigatório para iniciar o trabalho.
+2. BLOCO 0 AVANÇADO — opcional, usado para refinar projeto, glossário, bibliografia, voz autoral, estrutura, estilo e decisões específicas.
+
+Regra:
+
+- Se o usuário enviar apenas o BLOCO 0 ESSENCIAL, o sistema pode iniciar o trabalho.
+- Se houver lacunas importantes, registrar como A CONFIRMAR.
+- Se a lacuna impedir execução segura, solicitar complementação antes de seguir.
+- O BLOCO 0 AVANÇADO deve ser oferecido, mas não imposto, salvo quando a tarefa exigir rigor adicional.
+
+---
+
+# 3. QUANDO O USUÁRIO DIGITAR “BLOCO 0”
+
+Quando o usuário digitar BLOCO 0, imprimir:
+
+1. instrução curta;
+2. BLOCO 0 ESSENCIAL copiável;
+3. opção de abrir BLOCO 0 AVANÇADO depois;
+4. não revisar texto;
+5. não executar COMANDO 0 ainda.
+
+Formato de resposta:
+
+BLOCO 0 — CONFIGURAÇÃO ESSENCIAL
+
+Preencha o formulário abaixo. Se não souber algum campo, deixe como A CONFIRMAR.
+
+[FORMULÁRIO COPIÁVEL]
+
+Depois de preencher, envie o formulário preenchido.
+Se quiser configurar detalhes finos, digite depois: BLOCO 0 AVANÇADO.
+
+---
+
+# 4. FORMULÁRIO — BLOCO 0 ESSENCIAL
+
+Ao imprimir o BLOCO 0 ESSENCIAL, usar exatamente este formato:
+
+```text
+BLOCO 0 ESSENCIAL — VAQUITA-ORQUESTRADOR
+
+0.1 PROJETO:
+[Nome do projeto/tese/dissertação/artigo/capítulo]
+
+0.2 TIPO DE TEXTO:
+1 = Tese
+2 = Dissertação
+3 = Artigo
+4 = Capítulo de tese/dissertação
+5 = Projeto
+6 = Relatório
+7 = Outro: [especificar]
+
+Resposta:
+
+0.3 ESCOPO DESTA SESSÃO:
+1 = Mapeamento global da tese/dissertação
+2 = Revisão de capítulo
+3 = Revisão de seção/subseção
+4 = Revisão de artigo
+5 = Auditoria de material revisado
+6 = Bibliografia/BVAA
+7 = Outro: [especificar]
+
+Resposta:
+
+0.4 MATERIAL DISPONÍVEL NESTA SESSÃO:
+1 = Tese/dissertação completa
+2 = Sumário + introdução + conclusão + bibliografia
+3 = Capítulo inteiro
+4 = Seção/subseção
+5 = Apenas parágrafos soltos
+6 = DOCX anexado
+7 = PDF anexado
+8 = Outro: [especificar]
+
+Resposta:
+
+0.5 PERFIL TEMÁTICO:
+1 = História das Ciências Naturais
+2 = História das Ciências da Saúde
+3 = História da Alimentação
+4 = Interface História das Ciências Naturais + Saúde
+5 = Interface História das Ciências Naturais + Alimentação
+6 = Interface História das Ciências da Saúde + Alimentação
+7 = História do Evolucionismo
+8 = História das Drogas do Sertão / América Portuguesa
+9 = Outro: [especificar]
+10 = A confirmar
+
+Resposta:
+
+0.6 RECORTE HISTÓRICO PRINCIPAL:
+[ex.: século XVI; século XVIII; século XIX; América portuguesa; Brasil colonial; etc.]
+
+Resposta:
+
+0.7 PROFUNDIDADE DA REVISÃO:
+1 = Revisão leve
+2 = Revisão média
+3 = Revisão profunda
+4 = Revisão profunda + expansão controlada
+5 = Revisão estrutural com confirmação obrigatória
+
+Resposta:
+
+0.8 NORMA / PADRÃO DE CITAÇÃO:
+1 = ABNT autor-data
+2 = Notas de rodapé
+3 = Manter padrão original
+4 = Outro: [especificar]
+5 = A confirmar
+
+Resposta:
+
+0.9 BVAA — BIBLIOGRAFIA VERIFICÁVEL:
+1 = Ativo padrão
+2 = Ativo rigor máximo
+3 = Apenas marcar pendências bibliográficas
+4 = Desativado nesta etapa
+5 = A confirmar
+
+Resposta:
+
+0.10 VOZ AUTORAL:
+1 = Preservar fortemente
+2 = Preservar moderadamente
+3 = Revisão neutra
+4 = Usar corpus de voz anexado
+5 = Usar voz derivada do próprio capítulo
+6 = A confirmar
+
+Resposta:
+
+0.11 ESTRUTURA:
+1 = Não sugerir mudanças estruturais
+2 = Sugerir mudanças estruturais, mas não aplicar sem confirmação
+3 = Sugerir e preparar Ação no manuscrito
+4 = Auditoria estrutural forte
+5 = A confirmar
+
+Resposta:
+
+0.12 NOTAS, ITÁLICOS E FORMATAÇÃO:
+1 = Preservar e alertar
+2 = Rigor máximo
+3 = Sem notas nesta etapa
+4 = Conferir no DOCX
+5 = A confirmar
+
+Resposta:
+
+0.13 REFRESH ANTI-DERIVA:
+1 = A cada 5 parágrafos
+2 = A cada 3 parágrafos
+3 = Por limite de caracteres
+4 = Quando o sistema detectar risco
+5 = A confirmar
+
+Resposta:
+
+0.14 AUDITORIA AUTOMÁTICA:
+1 = Recomendar Komodo/Jararaca/BVAA/Handoff quando necessário
+2 = Gerar pacote automaticamente quando houver gatilho forte
+3 = Apenas avisar
+4 = Desativar
+5 = A confirmar
+
+Resposta:
+
+0.15 OBSERVAÇÕES OU DECISÕES JÁ DEFINIDAS:
+[cole aqui preferências, termos obrigatórios, termos proibidos, decisões do orientador, restrições, etc.]
+
+Resposta:

@@ -1,0 +1,34 @@
+INICIO_DO_PROTOCOLO
+
+PROTOCOLO_DE_REATIVACAO_P01_R01
+
+GATILHOS:
+- mudança de chat;
+- inatividade prolongada;
+- troca de modelo;
+- suspeita de deriva;
+- divergência de estado;
+- retomada após interrupção.
+
+OBJETOS_MINIMOS_A_REAPLICAR:
+1. PROTOCOLO_MESTRE_R03_HOMOLOGADO_E_CONGELADO
+2. P00_HOMOLOGADO_E_CONGELADO
+3. PACOTE_TRAVA_E_REATIVACAO_LLM_ACADEMICA_R01.zip, após homologação
+
+SEQUENCIA:
+1. Confirmar identidade do projeto.
+2. Confirmar R03 como autoridade canônica superior.
+3. Confirmar P00 como homologado e congelado.
+4. Confirmar componentes iniciados, auditados e homologados.
+5. Confirmar componentes ainda não iniciados.
+6. Reaplicar travas antideriva, antimonolítica e de separação de papéis.
+7. Registrar divergências materiais, sem inferir correções.
+8. Emitir RECIBO_DE_RESTAURACAO.
+9. Parar e aguardar comando autoral específico.
+
+EFEITO:
+RESTAURAR_ESTADO
+REAPLICAR_TRAVAS
+NAO_EXECUTAR_TRANSICAO
+
+FIM_DO_PROTOCOLO

@@ -1,0 +1,502 @@
+INICIO_DO_ARQUIVO
+
+# MODELO_PACOTE_MIGRACAO_NOVO_CHAT_PC30
+
+## 1. Identificação
+
+Nome do arquivo:
+
+`MODELO_PACOTE_MIGRACAO_NOVO_CHAT_PC30`
+
+Função:
+
+gerar um pacote completo de migração/handoff para abrir novo chat operacional PC30 preservando estado, IDs, BVAA, comentários Word, mapa global, blocos e ponto exato de retomada.
+
+Usar este modelo quando houver:
+
+1. saturação do chat;
+2. lentidão ou intermitência;
+3. geração de comentário Word oficial;
+4. mudança de bloco ou capítulo;
+5. acúmulo de pendências BVAA;
+6. risco de perda de estado;
+7. necessidade de continuar o projeto em novo chat limpo.
+
+---
+
+# 2. Cabeçalho obrigatório do pacote
+
+`PACOTE_MIGRACAO_NOVO_CHAT_PC30: GERADO`
+
+`DATA_DA_MIGRACAO: [PREENCHER]`
+
+`PROJETO: [NOME_DA_TESE_OU_DISSERTACAO]`
+
+`MODO_ATUAL: PC30`
+
+`PC30_SIGNIFICADO: SELECAO_CRITICA_DOS_PONTOS_MAIS_RELEVANTES`
+
+`PACOTE_GERADO_POR: BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+`DESTINO: NOVO_CHAT_OPERACIONAL_PC30`
+
+`CONTINUIDADE_AUTOMATICA: BLOQUEADA`
+
+---
+
+# 3. Componentes que devem ser reconhecidos no novo chat
+
+## 3.1. Bot assessor PC30
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3: DEVE_SER_CARREGADO`
+
+Status:
+
+`BOT_ASSESSOR_PC30: VALIDADO_OPERACIONALMENTE`
+
+Hierarquia:
+
+`BOT_AUXILIAR_NAO_AUDITOR_PRINCIPAL`
+
+Função:
+
+`ORGANIZAR_PREPARAR_VALIDAR_CONTROLAR_ESTADO_ACIONAR_ANTI_DERIVA_E_GERAR_MIGRACAO`
+
+---
+
+## 3.2. Auditor/revisor principal PC30
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA: DEVE_SER_CARREGADO`
+
+Status:
+
+`PC30_RC1_3_ID_QUARENTENA: HOMOLOGADA_CONTROLADAMENTE`
+
+Função:
+
+`AUDITOR_REVISOR_PRINCIPAL_PC30`
+
+Observação:
+
+somente o auditor/revisor principal pode gerar comentário Word oficial. O bot assessor não deve substituir o auditor.
+
+---
+
+# 4. Estado de IDs a preservar
+
+Comentários Word oficiais já existentes:
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+Comentários Word oficiais gerados neste projeto:
+
+`[LISTAR_COMENTARIOS_WORD_OFICIAIS_DO_PROJETO]`
+
+Próximo ID formal:
+
+`PROXIMO_ID_FORMAL: [PREENCHER_COM_PROXIMO_ID_REAL]`
+
+Se nenhum comentário novo foi gerado após o estado-base, usar:
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+Status do próximo ID:
+
+`COMENTÁRIO_WORD_[N]: PRESERVADO_NAO_CONSUMIDO`
+
+Faixa tombada:
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+Regras obrigatórias:
+
+`IDS_058_063_REUTILIZAVEIS: NAO`
+
+`IDS_058_063_RECICLAVEIS: NAO`
+
+`IDS_058_063_OFICIAIS_PC30: NAO`
+
+`IDS_058_063_CONSUMIVEIS: NAO`
+
+Bloqueio:
+
+`USO_DE_058_063_NO_NOVO_CHAT: BLOQUEADO`
+
+---
+
+# 5. Estado BVAA / Drive-first
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+Fontes liberadas:
+
+`FONTES_LIBERADAS: [LISTAR_SOMENTE_FONTES_REALMENTE_CONFERIDAS]`
+
+Se nenhuma fonte foi conferida:
+
+`FONTES_LIBERADAS: NENHUMA`
+
+Fontes não liberadas:
+
+`FONTES_NAO_LIBERADAS: [LISTAR_FONTES_CITADAS_MAS_NAO_CONFERIDAS]`
+
+Pendências BVAA:
+
+1. `[PENDENCIA_1]`
+2. `[PENDENCIA_2]`
+3. `[PENDENCIA_3]`
+
+Campos obrigatórios por fonte sensível:
+
+`FONTE: [NOME]`
+
+`PDF_ABERTO: SIM/NAO`
+
+`FONTE_CONFERIDA: SIM/NAO`
+
+`PAGINA_VALIDADA: SIM/NAO`
+
+`IMAGEM_OU_PRANCHA_VALIDADA_VISUALMENTE: SIM/NAO/NAO_APLICAVEL`
+
+`FONTE_LIBERADA_PARA_SUSTENTACAO_ESPECIFICA: SIM/NAO`
+
+Regra para o novo chat:
+
+`FONTE_NAO_CONFERIDA_NAO_PODE_SUSTENTAR_AFIRMACAO_ESPECIFICA`
+
+`PAGINA_NAO_VALIDADA_NAO_PODE_SER_CITADA_COMO_VERIFICADA`
+
+`PDF_APENAS_INFORMADO_NO_DRIVE_NAO_CONTA_COMO_LIDO`
+
+`PAGINA_INVENTADA: BLOQUEADA`
+
+---
+
+# 6. Mapa global do projeto
+
+`MAPA_GLOBAL_PC30: [GERADO / NAO_GERADO]`
+
+Se gerado, preservar:
+
+`TITULO_DO_TRABALHO: [PREENCHER]`
+
+`OBJETO_CENTRAL: [PREENCHER]`
+
+`HIPOTESE_OU_PROBLEMA: [PREENCHER_OU_PENDENTE]`
+
+`RECORTE_TEMPORAL: [PREENCHER_OU_PENDENTE]`
+
+`RECORTE_ESPACIAL: [PREENCHER_OU_PENDENTE]`
+
+`CORPUS_DOCUMENTAL: [PREENCHER]`
+
+`ESTRUTURA_DE_CAPITULOS: [PREENCHER]`
+
+`RISCOS_GLOBAIS_PC30: [LISTAR]`
+
+`PENDENCIAS_BVAA_GLOBAIS: [LISTAR]`
+
+`PLANO_MODULAR_DE_REVISAO: [LISTAR_BLOCOS]`
+
+Se ainda não houver mapa global:
+
+`PROXIMO_PASSO_RECOMENDADO: GERAR_MAPA_GLOBAL_PC30`
+
+---
+
+# 7. Estado dos blocos
+
+Blocos já registrados:
+
+`BLOCOS_JA_REGISTRADOS: [LISTAR]`
+
+Blocos já auditados:
+
+`BLOCOS_JA_AUDITADOS: [LISTAR]`
+
+Blocos pendentes:
+
+`BLOCOS_PENDENTES: [LISTAR]`
+
+Bloco atual:
+
+`BLOCO_ATUAL: [PREENCHER]`
+
+Status do bloco atual:
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM/NAO`
+
+`BLOCO_VALIDADO_PARA_PC30: SIM/NAO`
+
+`COMANDO_1_BLOCO_EXECUTADO: SIM/NAO`
+
+`COMENTARIO_WORD_GERADO_NO_BLOCO: SIM/NAO`
+
+`ID_CONSUMIDO_NO_BLOCO: [NENHUM / COMENTÁRIO_WORD_N]`
+
+Resumo do bloco atual:
+
+`[RESUMO_CURTO_DO_BLOCO_ATUAL]`
+
+Ponto exato dentro do bloco:
+
+`PONTO_EXATO_DE_RETOMADA_NO_BLOCO: [PREENCHER]`
+
+---
+
+# 8. Comentários Word oficiais
+
+Registrar apenas comentários Word oficiais validados.
+
+Formato obrigatório:
+
+`COMENTÁRIO_WORD_[N]: OFICIAL_PC30`
+
+`BLOCO_RELACIONADO: [BLOCO_ID]`
+
+`RISCO_CRITICO_TRATADO: [RESUMO]`
+
+`STATUS_BVAA: [PRESERVADO / PENDENTE / NAO_APLICAVEL]`
+
+`VALIDADO_EXTERNAMENTE: SIM/NAO`
+
+Comentários oficiais já preservados do sistema:
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+Comentários oficiais novos do projeto:
+
+1. `[COMENTÁRIO_WORD_066: OFICIAL_PC30 / se aplicável]`
+2. `[COMENTÁRIO_WORD_067: OFICIAL_PC30 / se aplicável]`
+
+Se nenhum comentário novo foi gerado:
+
+`COMENTARIOS_WORD_NOVOS_NESTE_PROJETO: NENHUM`
+
+---
+
+# 9. Decisões metodológicas preservadas
+
+Preservar no novo chat:
+
+`MODO_PC30: SELECAO_CRITICA_DOS_PONTOS_MAIS_RELEVANTES`
+
+`COBERTURA_AMPLA: BLOQUEADA`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS: BLOQUEADO`
+
+`REVISAO_100_POR_CENTO: BLOQUEADA`
+
+`REVISAO_DE_TESE_INTEIRA_SEM_BLOCOS: BLOQUEADA`
+
+`COMENTARIO_COSMETICO_SEM_RISCO_ACADEMICO_REAL: BLOQUEADO`
+
+`BOT_ASSESSOR_PC30_NAO_SUBSTITUI_AUDITOR_PC30: SIM`
+
+`BOT_ASSESSOR_PC30_NAO_GERA_COMENTARIO_WORD_OFICIAL_SEM_AUDITOR: SIM`
+
+`BOT_ASSESSOR_PC30_NAO_CONSOME_ID_EM_ATOS_AUXILIARES: SIM`
+
+---
+
+# 10. Estado anti-deriva
+
+`ANTI_DERIVA: ATIVO`
+
+`ANTI_ALUCINACAO: ATIVO`
+
+`ANTI_DRIFT_OPERACIONAL: ATIVO`
+
+Última pausa anti-deriva:
+
+`ULTIMA_PAUSA_ANTIDERIVA: [PREENCHER_OU_NENHUMA]`
+
+Zona operacional da última pausa:
+
+`ZONA_OPERACIONAL: [VERDE / AMARELA_FORTE / VERMELHA]`
+
+Motivo da última pausa:
+
+`MOTIVO_DA_PAUSA: [PREENCHER]`
+
+Continuidade automática:
+
+`CONTINUIDADE_AUTOMATICA: BLOQUEADA`
+
+Regra no novo chat:
+
+não continuar automaticamente. O novo chat deve apenas carregar o estado, emitir confirmação e aguardar comando explícito.
+
+---
+
+# 11. Comandos permitidos no novo chat
+
+`COMANDOS_PERMITIDOS_NO_NOVO_CHAT: LISTADOS`
+
+1. `INICIALIZAR_BOT_ASSESSOR_PC30`
+2. `ESTADO`
+3. `ESTADO_PC30`
+4. `GERAR_MAPA_GLOBAL_PC30`
+5. `PROPOR_BLOCOS_PC30`
+6. `REGISTRAR_BLOCO_PC30`
+7. `COMANDO 0_BLOCO`
+8. `VALIDAR_ABERTURA_BLOCO_PC30`
+9. `PREPARAR_COMANDO_AUDITOR_PC30`
+10. `COMANDO 1_BLOCO`
+11. `PAUSA_ANTIDERIVA_PC30_OPERACIONAL`
+12. `GERAR_CHECKLIST_PC30`
+13. `GERAR_PACOTE_MIGRACAO_PC30`
+14. `ENCERRAR_SESSAO_PC30`
+
+---
+
+# 12. Comandos bloqueados no novo chat
+
+`COMANDOS_BLOQUEADOS: LISTADOS`
+
+1. `USAR_ID_058_A_063`
+2. `CONSUMIR_ID_MANUALMENTE`
+3. `CONSUMIR_COMENTÁRIO_WORD_[N]_SEM_COMENTARIO_WORD_OFICIAL_VALIDO`
+4. `GERAR_COMENTARIO_WORD_OFICIAL_SEM_AUDITOR`
+5. `BOT_ASSESSOR_GERAR_COMENTARIO_WORD_OFICIAL`
+6. `LIBERAR_FONTE_SEM_ABRIR_DOCUMENTO`
+7. `VALIDAR_PAGINA_SEM_CONFERENCIA`
+8. `ACEITAR_DRIVE_COMO_CONFERENCIA_DOCUMENTAL`
+9. `EXECUTAR_TESE_INTEIRA_EM_PC30_SEM_BLOCOS`
+10. `COMENTAR_TODOS_OS_PARAGRAFOS`
+11. `TRANSFORMAR_PC30_EM_COBERTURA_AMPLA`
+12. `IGNORAR_ANTI_DERIVA`
+13. `CONTINUAR_AUTOMATICAMENTE_PARA_PROXIMO_BLOCO_SEM_VALIDACAO`
+14. `HOMOLOGAR_AUTOMATICAMENTE`
+15. `GERAR_RC_AUTOMATICAMENTE`
+
+---
+
+# 13. Ordem de abertura no novo chat
+
+No novo chat limpo, colar nesta ordem:
+
+1. `BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3.txt`
+2. `AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt`
+3. este `PACOTE_MIGRACAO_NOVO_CHAT_PC30`
+
+Depois colar o comando:
+
+`RETOMAR_CHAT_OPERACIONAL_PC30_COM_PACOTE_MIGRACAO`
+
+---
+
+# 14. Resposta esperada do novo chat
+
+O novo chat deve responder:
+
+`CHAT_OPERACIONAL_PC30_RETOMADO: SIM`
+
+`PACOTE_MIGRACAO_NOVO_CHAT_PC30: RECEBIDO`
+
+`BOT_ASSESSOR_PC30: CARREGADO`
+
+`AUDITOR_PC30_RC1_3: CARREGADO`
+
+`MODO_ATUAL: PC30`
+
+`PROXIMO_ID_FORMAL: [ID_PRESERVADO]`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS: [CONFORME_PACOTE]`
+
+`BLOCO_ATUAL: [CONFORME_PACOTE]`
+
+`PONTO_EXATO_DE_RETOMADA: [CONFORME_PACOTE]`
+
+`COMENTARIO_WORD_GERADO_NA_RETOMADA: NAO`
+
+`ID_CONSUMIDO_NA_RETOMADA: NENHUM`
+
+`CONTINUIDADE_AUTOMATICA: BLOQUEADA`
+
+`PROXIMO_PASSO: AGUARDAR_COMANDO_EXPLICITO_DO_USUARIO`
+
+---
+
+# 15. Comando completo de retomada para copiar e colar
+
+`RETOMAR_CHAT_OPERACIONAL_PC30_COM_PACOTE_MIGRACAO`
+
+`Carregue o pacote de migração PC30 e retome o projeto exatamente do ponto indicado.`
+
+`Preserve o BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3 como bot auxiliar validado operacionalmente.`
+
+`Preserve o AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA como auditor/revisor principal homologado controladamente.`
+
+`Preserve todos os comentários Word oficiais já listados no pacote.`
+
+`Preserve o PROXIMO_ID_FORMAL exatamente como indicado no pacote.`
+
+`Preserve a FAIXA_058_063 como QUARENTENA_DIAGNOSTICA_TOMBADA.`
+
+`Preserve BVAA_DRIVE como OBRIGATORIO.`
+
+`Não libere fonte não conferida.`
+
+`Não valide página sem conferência.`
+
+`Não aceite fonte apenas informada no Drive como conferida.`
+
+`Não gere comentário Word na retomada.`
+
+`Não consuma ID na retomada.`
+
+`Não avance para próximo bloco automaticamente.`
+
+`Não gere RC.`
+
+`Não homologue automaticamente.`
+
+`Emita apenas o estado retomado e aguarde meu próximo comando.`
+
+---
+
+# 16. Checklist final antes de colar no novo chat
+
+Antes de colar o pacote no novo chat, verificar:
+
+1. `PROXIMO_ID_FORMAL_PREENCHIDO: SIM`
+2. `COMENTARIOS_WORD_OFICIAIS_LISTADOS: SIM`
+3. `FAIXA_058_063_TOMBADA: SIM`
+4. `BLOCO_ATUAL_IDENTIFICADO: SIM/NAO_APLICAVEL`
+5. `PONTO_EXATO_DE_RETOMADA_PREENCHIDO: SIM`
+6. `FONTES_LIBERADAS_LISTADAS: SIM`
+7. `PENDENCIAS_BVAA_LISTADAS: SIM`
+8. `COMANDOS_BLOQUEADOS_LISTADOS: SIM`
+9. `CONTINUIDADE_AUTOMATICA_BLOQUEADA: SIM`
+10. `GERACAO_AUTOMATICA_DE_RC_BLOQUEADA: SIM`
+
+Se algum item crítico estiver ausente:
+
+`MIGRACAO_PC30_NAO_APTA_ATE_CORRECAO_DO_PACOTE`
+
+---
+
+# 17. Status final deste modelo
+
+`MODELO_PACOTE_MIGRACAO_NOVO_CHAT_PC30: GERADO`
+
+`FUNCAO: MODELO_REUTILIZAVEL_DE_HANDOFF_PC30`
+
+`ID_CONSUMIDO_NA_GERACAO_DESTE_MODELO: NENHUM`
+
+`COMENTARIO_WORD_GERADO_NA_GERACAO_DESTE_MODELO: NAO`
+
+`RC_GERADA_NA_GERACAO_DESTE_MODELO: NAO`
+
+`HOMOLOGACAO_AUTOMATICA_NA_GERACAO_DESTE_MODELO: NAO`
+
+FIM_DO_ARQUIVO

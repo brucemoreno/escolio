@@ -1,0 +1,83 @@
+onde salvo este registro? 
+
+# INTEGRACAO_RETORNO_TESTE_CONTROLADO_PROMPT_OPERACIONAL_v0_2_DRIVE_FIRST_BVAA.md
+
+## 1. IDENTIFICAÇÃO
+
+* Documento integrado: RETORNO_TESTE_CONTROLADO_PROMPT_OPERACIONAL_v0_2_DRIVE_FIRST_BVAA
+* Prompt testado: AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_DRIVE_FIRST_BVAA.md
+* Versão: v0.2 Drive-first/BVAA
+* Tipo de integração: auditoria de retorno de teste controlado
+* Status do teste: APROVADO_COM_RESSALVAS_EM_TESTE_CONTROLADO_v0_2
+* Uso real autorizado automaticamente: NÃO
+
+## 2. RESULTADO INTEGRADO
+
+O retorno do teste controlado indica que os 14 testes adversariais/funcionais foram aprovados.
+
+Foram preservados:
+
+1. MODO_DEFESA_DISSERTACAO_TESE;
+2. regra de escala;
+3. cobertura seletiva;
+4. bloqueio de comentário cosmético;
+5. bloqueio de tese inteira com comentários Word;
+6. bloqueio de deriva para artigo;
+7. separação entre STATUS_BVAA e STATUS_BVAA_DRIVE;
+8. bloqueio de Drive inacessível;
+9. distinção entre PDF localizado e PDF lido;
+10. bloqueio de “segundo X” sem página;
+11. bloqueio de omissão de página por economia de tokens;
+12. permissão controlada de referência geral sem página;
+13. geração de comprovante apenas quando havia simulação suficiente;
+14. preservação de estado BVAA-Drive complexo.
+
+## 3. ACHADOS
+
+### Achados bloqueantes
+
+Nenhum.
+
+### Achados altos
+
+Nenhum.
+
+### Achados médios
+
+Nenhum.
+
+### Achados baixos
+
+1. Ressalva procedimental: o retorno precisa ser integrado no chat de arquitetura antes de homologação.
+
+## 4. AVALIAÇÃO DA RESSALVA
+
+A ressalva não indica falha funcional do prompt operacional v0_2.
+
+Ela apenas preserva a regra de que nenhum teste, mesmo aprovado, homologa automaticamente o uso real.
+
+Classificação:
+
+RESSALVA_PROCEDIMENTAL_NAO_BLOQUEANTE
+
+## 5. DECISÃO ANTI-DERIVA
+
+ANTI_DERIVA_OK
+
+Não corrigir o prompt agora.
+
+Não criar patch.
+
+Não alterar a v0_2 por causa da ressalva procedimental.
+
+Não substituir a v0_1 por inferência automática.
+
+Avançar para homologação controlada.
+
+## 6. VEREDITO INTEGRADO
+
+APTO_PARA_HOMOLOGACAO_CONTROLADA
+
+## 7. PRÓXIMO COMANDO SEGURO
+
+HOMOLOGAR_PROMPT_OPERACIONAL_v0_2_PARA_USO_CONTROLADO

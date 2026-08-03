@@ -1,0 +1,483 @@
+INICIO_DO_ARQUIVO
+
+# EXPORTAR_MAPA_COMENTARIOS — USO REAL CONTROLADO PC30_RC2_1 — BLOCO 001
+
+## 1. IDENTIFICAÇÃO
+
+Versão ativa:
+
+AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA
+
+Status da versão:
+
+HOMOLOGADA_CONTROLADAMENTE_PARA_USO_OPERACIONAL_LIMITADO_EM_BLOCOS
+
+Matriz v0.2:
+
+PRESERVADA
+
+Substitui a matriz:
+
+NÃO
+
+Uso operacional amplo:
+
+NÃO AUTORIZADO
+
+Unidade auditada:
+
+Capítulo 3 — “O Homem da Natureza”: o olhar europeu e as práticas alimentares indígenas
+
+Seção:
+
+Abertura do Capítulo 3
+
+Subseção:
+
+NÃO HÁ
+
+Bloco:
+
+BLOCO 001
+
+Localização textual:
+
+Capítulo 3, BLOCO 001, abertura do capítulo
+
+Modo-mãe:
+
+MODO_DEFESA_DISSERTACAO_TESE
+
+Escala:
+
+MODO_BLOCO_CONTROLADO
+
+Modo de cobertura executado:
+
+MODO_COBERTURA_PRIORIDADE_CRITICA_30
+
+Páginas do manuscrito:
+
+PÁGINAS DO MANUSCRITO NÃO CONFIRMADAS
+
+---
+
+# 2. ESTADO DE NUMERAÇÃO
+
+Último comentário Word real antes do bloco:
+
+COMENTÁRIO_WORD_052
+
+Comentários Word gerados neste bloco:
+
+1. COMENTÁRIO_WORD_053
+2. COMENTÁRIO_WORD_054
+
+Último comentário Word real após o bloco:
+
+COMENTÁRIO_WORD_054
+
+Próximo ID obrigatório:
+
+COMENTÁRIO_WORD_055
+
+IDs consumidos nesta exportação:
+
+NÃO
+
+Observação:
+
+A exportação do mapa não consome novo ID.
+
+---
+
+# 3. MAPA EXPORTADO DE COMENTÁRIOS WORD
+
+## COMENTÁRIO_WORD_053
+
+### Trecho-âncora
+
+“Com a chegada de novos armazéns, mercados e estabelecimentos, a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14).”
+
+### Classificação PC30
+
+P1 — CRÍTICO_BLOQUEANTE
+
+### Camadas acionadas
+
+1. Corpus documental, fontes e evidência.
+2. Diálogo historiográfico e bibliográfico.
+3. Aparato acadêmico, notas, citações e normalização.
+4. Preparação para banca e risco de defesa.
+
+### Natureza do risco
+
+Dado quantitativo específico sustentado por referência bibliográfica não verificada.
+
+### Status BVAA
+
+PRESERVADO / COM PENDÊNCIA
+
+### Status BVAA-Drive
+
+PRESERVADO / COM PENDÊNCIA
+
+### Status documental
+
+PDF aberto:
+
+NÃO
+
+Passagem localizada:
+
+NÃO
+
+Página PDF confirmada:
+
+NÃO
+
+Página impressa confirmada:
+
+NÃO
+
+COMPROVANTE_DE_LEITURA_PDF:
+
+NÃO
+
+Referência associada:
+
+Bandeira, 1994, p. 14
+
+Status da referência:
+
+NÃO LIBERADA
+
+### Comentário para inserir no Word
+
+A afirmação quantitativa aqui cumpre função probatória central e, por isso, pede checagem documental rigorosa. Como o argumento depende de números precisos (126 em 1808; 1.627 em 1821), convém verificar se Bandeira (1994, p. 14) sustenta exatamente esses dados, em que termos os apresenta e a que tipo de “casas comerciais” eles se referem. Se a passagem confirmar os números, vale explicitar melhor a função deles no argumento; se não confirmar, será necessário revisar a formulação. Neste ponto, a referência não pode ser tratada como documentalmente liberada sem abertura do PDF, localização da passagem e confirmação da página.
+
+### Ação segura posterior
+
+PACOTE_BVAA_DRIVE
+
+ou
+
+PACOTE_BVAA
+
+---
+
+## COMENTÁRIO_WORD_054
+
+### Trecho-âncora
+
+“O pão, o café e a carne, todos retratados por Debret, apresentam-se enquanto elementos que não apenas alimentavam, mas também se colocavam enquanto marcadores de status e diferenciação socioeconômica.”
+
+### Classificação PC30
+
+P1 — CRÍTICO_BLOQUEANTE
+
+### Camadas acionadas
+
+1. Corpus documental, fontes e evidência.
+2. Aparato acadêmico, notas, citações, imagens e normalização.
+3. Precisão factual, documental e anti-anacronismo.
+4. Preparação para banca e risco de defesa.
+
+### Natureza do risco
+
+Fonte visual mencionada, mas não conferida, usada como sustentação de inferência histórica forte.
+
+### Status da fonte visual
+
+FONTE_VISUAL_NAO_CONFERIDA
+
+Imagem aberta:
+
+NÃO
+
+Legenda conferida:
+
+NÃO
+
+Análise visual realizada:
+
+NÃO
+
+Prancha específica:
+
+NÃO INFORMADA
+
+### Riscos absorvidos
+
+RISCO_004 — inferência de “status e diferenciação socioeconômica” sem mediação visual/documental suficiente.
+
+### Comentário para inserir no Word
+
+Aqui há um ponto importante de método: a menção a Debret, por si só, não basta para sustentar a inferência de que pão, café e carne funcionavam como marcadores de status e diferenciação socioeconômica. Sugiro identificar quais pranchas estão sendo mobilizadas, separar com clareza o que é efetivamente visível nas imagens do que é interpretação histórica e explicitar por que esses elementos permitiriam sustentar essa leitura. Também seria importante evitar que “Debret retrata” funcione como equivalente de “Debret prova”, sobretudo porque a imagem ainda precisaria ser analisada em sua composição, legenda, contexto de produção e limites de evidência. Se a interpretação for mantida, convém cruzá-la com documentação textual ou bibliografia de apoio.
+
+### Ação segura posterior
+
+VERIFICAR_FONTE_VISUAL
+
+---
+
+# 4. QUADRO RESUMIDO DE COMENTÁRIOS
+
+| ID                  | Trecho-âncora resumido                          | Classificação | Tipo de risco                                 | Status |
+| ------------------- | ----------------------------------------------- | ------------: | --------------------------------------------- | ------ |
+| COMENTÁRIO_WORD_053 | “126 casas comerciais... 1.627...”              |            P1 | Dado quantitativo / referência não verificada | Gerado |
+| COMENTÁRIO_WORD_054 | “pão, café e carne... retratados por Debret...” |            P1 | Fonte visual / inferência histórica           | Gerado |
+
+---
+
+# 5. RISCOS MAPEADOS SEM COMENTÁRIO PRÓPRIO
+
+## RISCO_003
+
+Trecho:
+
+“baseados em modelos do Velho Mundo”
+
+Classificação:
+
+P2 — CRÍTICO_ALTO
+
+Status:
+
+RETIDO_SEM_COMENTÁRIO_WORD
+
+Motivo:
+
+Risco conceitual/historiográfico relevante, mas menos crítico que os P1 do bloco.
+
+ID consumido:
+
+NÃO
+
+---
+
+## RISCO_004
+
+Trecho:
+
+“marcadores de status e diferenciação socioeconômica”
+
+Classificação:
+
+P2 — CRÍTICO_ALTO
+
+Status:
+
+ABSORVIDO_POR_COMENTÁRIO_DE_ALCANCE_AMPLIADO
+
+Comentário absorvedor:
+
+COMENTÁRIO_WORD_054
+
+ID consumido:
+
+NÃO
+
+---
+
+## RISCO_005
+
+Trecho:
+
+“Tais pesquisas possibilitaram...”
+
+Classificação:
+
+P3 — RELEVANTE_MÉDIO
+
+Status:
+
+RETIDO_SEM_COMENTÁRIO_WORD
+
+Motivo:
+
+Risco de coesão/clareza, mas não crítico no PC30.
+
+ID consumido:
+
+NÃO
+
+---
+
+## RISCO_006
+
+Trecho:
+
+“cujo objetivo visa compreender”
+
+Classificação:
+
+P5 — RASTREABILIDADE_SEM_COMENTÁRIO
+
+Status:
+
+DESCARTADO_COMO_NÃO_PRIORITÁRIO_NO_PC30
+
+Motivo:
+
+Questão redacional/cosmética.
+
+ID consumido:
+
+NÃO
+
+---
+
+# 6. SÍNTESE PC30
+
+Total de riscos relevantes mapeados:
+
+6
+
+P1:
+
+2
+
+P2:
+
+2
+
+P3:
+
+1
+
+P4:
+
+0
+
+P5:
+
+1
+
+Comentários Word gerados:
+
+2
+
+Riscos sem comentário próprio:
+
+4
+
+Percentual aproximado de conversão:
+
+33,3%
+
+Todos os P1 foram comentados?
+
+SIM
+
+Exceção de segurança PC30:
+
+NÃO
+
+Justificativa do corte:
+
+Foram exportados apenas os dois comentários Word gerados para riscos P1. Os riscos P2/P3/P5 permaneceram registrados, retidos, absorvidos ou descartados como não prioritários, sem consumo adicional de ID.
+
+---
+
+# 7. PENDÊNCIAS ASSOCIADAS AOS COMENTÁRIOS
+
+## PENDÊNCIA_001 — Bandeira, 1994, p. 14
+
+Comentário associado:
+
+COMENTÁRIO_WORD_053
+
+Status:
+
+ABERTA
+
+Tipo:
+
+BVAA / BVAA-Drive / página / dado quantitativo
+
+Ação segura:
+
+PACOTE_BVAA_DRIVE
+
+ou
+
+PACOTE_BVAA
+
+---
+
+## PENDÊNCIA_002 — Debret
+
+Comentário associado:
+
+COMENTÁRIO_WORD_054
+
+Status:
+
+ABERTA
+
+Tipo:
+
+Fonte visual / legenda / análise iconográfica / inferência histórica
+
+Ação segura:
+
+VERIFICAR_FONTE_VISUAL
+
+---
+
+# 8. ESTADO FINAL APÓS EXPORTAÇÃO
+
+Mapa de comentários:
+
+EXPORTADO
+
+Último comentário Word real:
+
+COMENTÁRIO_WORD_054
+
+Próximo ID obrigatório:
+
+COMENTÁRIO_WORD_055
+
+IDs consumidos pela exportação:
+
+0
+
+BVAA:
+
+PRESERVADO_COM_PENDÊNCIAS
+
+BVAA-Drive:
+
+PRESERVADO_COM_PENDÊNCIAS
+
+Fonte visual:
+
+FONTE_VISUAL_NAO_CONFERIDA
+
+Páginas do manuscrito:
+
+PÁGINAS DO MANUSCRITO NÃO CONFIRMADAS
+
+Avanço automático para BLOCO 002:
+
+NÃO AUTORIZADO
+
+---
+
+# 9. PRÓXIMO COMANDO SEGURO
+
+Próximo comando seguro recomendado:
+
+RETOMAR_MODO_COBERTURA_PADRAO
+
+Alternativas seguras:
+
+1. PACOTE_BVAA_DRIVE
+2. PACOTE_BVAA
+3. VERIFICAR_FONTE_VISUAL
+4. ESTADO COMPLETO
+5. BLOCO 0 — USO REAL CONTROLADO PC30_RC2_1 — BLOCO 002
+
+FIM_DO_ARQUIVO

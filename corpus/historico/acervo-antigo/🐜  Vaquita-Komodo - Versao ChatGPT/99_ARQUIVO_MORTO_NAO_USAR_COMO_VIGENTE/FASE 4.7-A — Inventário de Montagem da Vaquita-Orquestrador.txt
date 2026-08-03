@@ -1,0 +1,309 @@
+FASE 4.7-A — Inventário de Montagem da Vaquita-Orquestrador
+1. Objetivo desta fase
+
+Esta fase prepara a montagem consolidada da Vaquita-Orquestrador v1.0-RC.
+
+Ainda não é a versão operacional final.
+
+A função agora é:
+
+1. listar todos os blocos-fonte;
+2. confirmar a função de cada bloco;
+3. identificar módulos obrigatórios;
+4. indicar o que deve ser deduplicado;
+5. apontar conflitos potenciais;
+6. definir o plano seguro de montagem;
+7. preparar a Fase 4.7-B.
+2. Blocos-fonte já entregues
+BLOCO A/B
+
+Arquivo salvo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_A_B__BOOT_CONSTITUICAO_PERMANENTE.txt
+
+Função:
+
+Boot, identidade do sistema, Constituição Permanente, regras de integridade, BVAA, anti-fonte-coringa, anti-anacronismo, voz autoral, IDENT_TXT, ação no manuscrito, estado, roteador, pacotes e fail-safe geral.
+
+Deve entrar na versão operacional?
+
+Sim, mas enxugado.
+
+Risco:
+
+Este bloco é constitucional e pode ficar longo demais se mantivermos todos os exemplos. Na versão operacional, deve preservar regras, mas reduzir explicações repetidas.
+BLOCO C/D
+
+Arquivo salvo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_C_D__BLOCO_0_CONFIGURACAO.txt
+
+Função:
+
+BLOCO 0 Essencial + BLOCO 0 Avançado, validação de configuração, conflitos, tela-resumo, atualização de configuração e bloqueio por configuração insegura.
+
+Deve entrar na versão operacional?
+
+Sim.
+
+Risco:
+
+O BLOCO 0 pode ficar burocrático. A versão operacional deve manter o modelo híbrido: essencial obrigatório e avançado opcional.
+BLOCO E
+
+Arquivo salvo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_E__COMANDO_0_CARTOGRAFO_MAPAS.txt
+
+Função:
+
+COMANDO 0, Cartógrafo, diagnóstico global/capítulo/seção, seccionamento por função argumentativa, mapas, unidades de revisão, mapa de localização por IDENT_TXT, diagnóstico bibliográfico inicial e estado inicial.
+
+Deve entrar na versão operacional?
+
+Sim.
+
+Risco:
+
+Pode haver sobreposição com BLOCO F em relação a IDENT_TXT, estado e mapeamento. Na montagem final, COMANDO 0 deve preparar; COMANDO 1 deve executar revisão local.
+BLOCO F
+
+Arquivo salvo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_F__COMANDO_1_REVISAO_LOCAL_ACAO_MANUSCRITO.txt
+
+Função:
+
+COMANDO 1, revisão local parágrafo a parágrafo, PROXIMO, entrada manual de parágrafo, janela de contexto, níveis de revisão, preservação de citações/notas/itálicos, saída local, ação no manuscrito, impacto global, atualização de estado e gatilhos de auditoria.
+
+Deve entrar na versão operacional?
+
+Sim.
+
+Risco:
+
+É um dos blocos mais importantes. Não pode ser excessivamente reduzido. Precisa preservar obrigatoriamente: parágrafo revisado, função no argumento, impacto global, ação no manuscrito, pendências, estado atualizado e encaminhamento.
+BLOCO G
+
+Arquivo salvo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_G__ESTADO_REFRESH_ROTEADOR_ENCAMINHAMENTOS.txt
+
+Função:
+
+ESTADO_VAQUITA, PAUSA_REFRESH_LOCAL, REFRESH_GATE_STRICT, roteador de auditoria, encaminhamentos automáticos, status operacional, pendências e próximo passo.
+
+Deve entrar na versão operacional?
+
+Sim.
+
+Risco:
+
+Há sobreposição com BLOCO F nos gatilhos de Komodo/Jararaca/BVAA/Handoff. Na versão consolidada, os gatilhos devem aparecer uma vez, de modo canônico.
+BLOCO H
+
+Arquivo salvo:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_H__PACOTES_MARKDOWN_INTEGRACAO_RETORNOS.txt
+
+Função:
+
+PACOTE_KOMODO, PACOTE_JARARACA, PACOTE_BVAA, PACOTE_HANDOFF, chaining controlado, templates markdown, integração de retornos e conflitos entre retornos.
+
+Deve entrar na versão operacional?
+
+Sim, mas com templates organizados e sem repetição desnecessária.
+
+Risco:
+
+É o bloco mais longo em templates. A montagem operacional deve preservar estrutura dos pacotes, mas evitar duplicar regras já declaradas na Constituição.
+3. Módulos obrigatórios da versão operacional
+
+A versão operacional consolidada da Vaquita-Orquestrador v1.0-RC deve conter obrigatoriamente:
+
+1. Boot enxuto.
+2. Identidade da Vaquita-Orquestrador.
+3. Constituição Permanente.
+4. Hierarquia de regras.
+5. BVAA.
+6. BVAA_SOURCE_DISCIPLINE.
+7. ANTI-FONTE-CORINGA.
+8. Protocolo para Drive/PDF inacessível.
+9. Perfil temático e anti-anacronismo.
+10. Voz autoral como estilo, não conteúdo.
+11. Separação entre núcleo universal e projetos específicos.
+12. BLOCO 0 Essencial.
+13. BLOCO 0 Avançado.
+14. Validação de BLOCO 0.
+15. COMANDO 0.
+16. Cartógrafo.
+17. MAPA_GLOBAL_TESE.
+18. MAPA_CAPÍTULO.
+19. MAPA_SEÇÃO.
+20. MAPA_DE_LOCALIZAÇÃO.
+21. IDENT_TXT.
+22. UNIDADES_DE_REVISÃO.
+23. Diagnóstico bibliográfico inicial.
+24. COMANDO 1.
+25. PROXIMO.
+26. Revisão local com janela de contexto.
+27. Saída obrigatória por parágrafo.
+28. AÇÃO NO MANUSCRITO.
+29. IMPACTO GLOBAL.
+30. FUNÇÃO NO ARGUMENTO.
+31. PENDÊNCIAS.
+32. ESTADO_VAQUITA.
+33. ESTADO_ATUALIZADO.
+34. PAUSA_REFRESH_LOCAL.
+35. REFRESH_GATE_STRICT.
+36. ROTEADOR_DE_AUDITORIA.
+37. ENCAMINHAMENTO.
+38. STATUS_OPERACIONAL.
+39. PACOTE_KOMODO.
+40. PACOTE_JARARACA.
+41. PACOTE_BVAA.
+42. PACOTE_HANDOFF.
+43. INTEGRAR_RETORNO_KOMODO.
+44. INTEGRAR_RETORNO_JARARACA.
+45. INTEGRAR_RETORNO_BVAA.
+46. INTEGRAR_RETORNO_HANDOFF.
+47. Confirmação humana para ações críticas.
+48. Fail-safes de deriva, estado, pacote e integração.
+49. Modo semiautomático.
+50. Conservadorismo máximo.
+4. Módulos que devem ser deduplicados
+
+Na montagem consolidada, devo evitar repetir várias vezes:
+
+1. Regras BVAA gerais.
+2. Regras anti-fonte-coringa.
+3. Proibição de ações críticas sem confirmação.
+4. Gatilhos para Komodo.
+5. Gatilhos para Jararaca.
+6. Gatilhos para BVAA.
+7. Gatilhos para Handoff.
+8. Definição de IDENT_TXT.
+9. Formato de ESTADO_VAQUITA.
+10. Regras de AÇÃO NO MANUSCRITO.
+11. Regras de refresh.
+12. Regras de preservação de notas/itálicos/citações.
+
+Estratégia:
+
+Declarar a regra uma vez na Constituição ou no módulo canônico correspondente.
+Nos outros pontos, fazer referência curta à regra.
+5. Conflitos potenciais a resolver na montagem
+5.1. Saída completa versus modo compacto
+
+Conflito:
+
+A saída completa é mais segura, mas pode ficar longa no uso cotidiano.
+
+Resolução recomendada:
+
+Manter saída completa como padrão inicial.
+Permitir MODO COMPACTO, mas nunca remover:
+- PARÁGRAFO REVISADO;
+- AÇÃO NO MANUSCRITO;
+- PENDÊNCIAS;
+- ESTADO_ATUALIZADO;
+- ENCAMINHAMENTO.
+5.2. Refresh fixo versus variável
+
+Conflito:
+
+Refresh fixo a cada 5 parágrafos é simples.
+Refresh variável 3–5 é mais seguro para trechos densos.
+
+Resolução recomendada:
+
+Padrão: refresh obrigatório a cada 5 parágrafos.
+Exceção: refresh a cada 3 parágrafos em trechos densos, com muitas notas, citações, fontes ou pendências.
+5.3. Orquestrador Global separado versus modo interno
+
+Conflito:
+
+Um Orquestrador Global separado ajuda tese longa, mas aumenta número de chats.
+
+Resolução recomendada para v1.0-RC:
+
+Manter INICIAR_MAPA_GLOBAL como modo interno da Vaquita.
+Depois, se necessário, criar prompt Orquestrador Global separado.
+5.4. Vaquita auditar demais a si mesma
+
+Conflito:
+
+A Vaquita precisa detectar problemas, mas não deve substituir Komodo/Jararaca/BVAA.
+
+Resolução:
+
+Vaquita faz triagem e alerta.
+Auditoria profunda deve ser encaminhada por PACOTE.
+5.5. Pacotes completos versus tamanho excessivo
+
+Conflito:
+
+Pacotes completos reduzem deriva, mas podem ficar longos.
+
+Resolução:
+
+Priorizar completude.
+Permitir pacotes divididos PARTE 1/2, PARTE 2/2 quando necessário.
+Para Komodo, preservar originais e revisados.
+Para Jararaca, preservar seção/unidade revisada e mapa.
+Para BVAA, preservar trecho exato, afirmação e evidência.
+Para Handoff, preservar estado completo.
+6. Plano de montagem consolidada
+
+A Fase 4.7-B deve montar a versão operacional nesta ordem:
+
+1. Boot.
+2. Núcleo constitucional curto.
+3. BLOCO 0.
+4. Comandos oficiais.
+5. COMANDO 0.
+6. COMANDO 1.
+7. Saída local obrigatória.
+8. Estado e refresh.
+9. Roteador de auditoria.
+10. Pacotes markdown.
+11. Integração de retornos.
+12. Fail-safes.
+13. Instrução final de uso.
+7. Regra de montagem
+
+A montagem consolidada deve obedecer a esta regra:
+
+Não colar blocos mecanicamente.
+Deduplicar.
+Preservar módulos críticos.
+Reduzir explicações repetidas.
+Manter comandos literais.
+Manter templates essenciais.
+Resolver conflitos.
+Não remover travas BVAA.
+Não remover IDENT_TXT.
+Não remover AÇÃO NO MANUSCRITO.
+Não remover ESTADO_VAQUITA.
+Não remover ROTEADOR_DE_AUDITORIA.
+Não remover PACOTES_MARKDOWN.
+8. Minha recomendação antes da Fase 4.7-B
+
+Como você pediu máxima segurança contra deriva, minha recomendação é:
+
+Antes de eu montar a versão consolidada, você deve anexar ou colar novamente os blocos-fonte salvos da Vaquita.
+
+Blocos a anexar ou colar:
+
+1. VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_A_B__BOOT_CONSTITUICAO_PERMANENTE.txt
+2. VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_C_D__BLOCO_0_CONFIGURACAO.txt
+3. VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_E__COMANDO_0_CARTOGRAFO_MAPAS.txt
+4. VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_F__COMANDO_1_REVISAO_LOCAL_ACAO_MANUSCRITO.txt
+5. VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_G__ESTADO_REFRESH_ROTEADOR_ENCAMINHAMENTOS.txt
+6. VAQUITA_ORQUESTRADOR_v1.0-RC__BLOCO_H__PACOTES_MARKDOWN_INTEGRACAO_RETORNOS.txt
+
+Isso é mais trabalhoso, mas é o procedimento mais conservador.
+
+9. Status
+
+Fase 4.7-A concluída.

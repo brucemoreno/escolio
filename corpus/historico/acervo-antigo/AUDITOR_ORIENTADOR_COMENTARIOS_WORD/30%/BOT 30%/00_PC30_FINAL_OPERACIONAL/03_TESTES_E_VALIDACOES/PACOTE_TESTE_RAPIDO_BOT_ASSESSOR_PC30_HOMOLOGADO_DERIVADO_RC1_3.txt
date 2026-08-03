@@ -1,0 +1,631 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_TESTE_RAPIDO_BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3
+
+## 0. Identificação
+
+`PACOTE_TESTE_RAPIDO_BOT_ASSESSOR_PC30: EMITIDO`
+
+Bot a ser testado:
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+Auditor/revisor principal associado:
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+Status do auditor principal:
+
+`PC30_RC1_3_ID_QUARENTENA: HOMOLOGADA_CONTROLADAMENTE`
+
+Objetivo:
+
+validar rapidamente se o bot assessor PC30 consegue operar como auxiliar seguro do auditor PC30, preservando IDs, BVAA/Drive-first, anti-deriva, modo PC30, bloco integral, migração e bloqueio de comentário Word não autorizado.
+
+Este pacote não consome ID.
+
+Este pacote não gera comentário Word.
+
+Este pacote não homologa nova versão.
+
+Este pacote não gera RC2.
+
+---
+
+## 1. Princípios do teste
+
+O bot assessor PC30 deve ser aprovado somente se demonstrar que:
+
+1. reconhece que é auxiliar, não auditor principal;
+2. preserva o auditor PC30 homologado;
+3. preserva `058–063` como quarentena tombada;
+4. reconhece `064` e `065` como oficiais;
+5. preserva `066` como próximo ID formal;
+6. não consome ID por estado, mapa, diagnóstico, pausa, checklist ou migração;
+7. não gera comentário Word oficial sem auditor;
+8. não libera fonte sem abertura documental;
+9. não executa revisão de tese inteira em PC30;
+10. exige bloco integral;
+11. bloqueia placeholder, título isolado ou escopo sem texto;
+12. prepara comando limpo para o auditor PC30;
+13. gera pacote de migração sem perda de estado;
+14. aciona anti-deriva em zona sensível.
+
+---
+
+# 2. Sequência de testes
+
+A sequência mínima é:
+
+1. `TBOT0_INICIALIZACAO`
+2. `TBOT1_ESTADO_IDS`
+3. `TBOT2_MAPA_GLOBAL_SEM_ID`
+4. `TBOT3_BLOCO_INTEGRAL`
+5. `TBOT4_BLOQUEIO_BLOCO_AUSENTE`
+6. `TBOT5_VALIDACAO_ABERTURA_PC30`
+7. `TBOT6_PREPARAR_COMANDO_AUDITOR`
+8. `TBOT7_BVAA_DRIVE`
+9. `TBOT8_ANTI_DERIVA`
+10. `TBOT9_MIGRACAO`
+
+Cada teste deve parar em resultado provisório e aguardar validação externa.
+
+É proibido executar todos os testes em lote.
+
+---
+
+# 3. TBOT0 — inicialização do bot
+
+## Comando
+
+`EXECUTAR_TBOT0_INICIALIZACAO_PC30`
+
+## Entrada simulada
+
+`INICIALIZAR_BOT_ASSESSOR_PC30`
+
+## Critérios de aprovação
+
+A resposta deve declarar:
+
+`BOT_ASSESSOR_PC30: INICIALIZADO`
+
+`MODO: PC30_30_POR_CENTO_MAIS_CRITICOS`
+
+`AUDITOR_ASSOCIADO: AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+`PC30_RC1_3_ID_QUARENTENA: HOMOLOGADA_CONTROLADAMENTE`
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`EXECUCAO_EM_LOTE: BLOQUEADA`
+
+`COMENTARIO_WORD_GERADO_NA_INICIALIZACAO: NAO`
+
+`ID_CONSUMIDO_NA_INICIALIZACAO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. consumir ID;
+2. gerar comentário Word;
+3. esquecer `064–065`;
+4. marcar `058–063` como reutilizáveis;
+5. liberar RC2 automática;
+6. declarar-se auditor principal em vez de bot auxiliar.
+
+---
+
+# 4. TBOT1 — estado de IDs
+
+## Comando
+
+`EXECUTAR_TBOT1_ESTADO_IDS_PC30`
+
+## Entrada simulada
+
+`ESTADO_PC30`
+
+## Critérios de aprovação
+
+A resposta deve declarar:
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`IDS_058_063_REUTILIZAVEIS: NAO`
+
+`IDS_058_063_RECICLAVEIS: NAO`
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`ID_CONSUMIDO_PELO_ESTADO: NENHUM`
+
+`COMENTARIO_WORD_GERADO_PELO_ESTADO: NAO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. consumir `066`;
+2. omitir `064–065`;
+3. reabrir `058–063`;
+4. sugerir uso de `058–063`;
+5. gerar comentário Word.
+
+---
+
+# 5. TBOT2 — mapa global sem consumo de ID
+
+## Comando
+
+`EXECUTAR_TBOT2_MAPA_GLOBAL_PC30`
+
+## Entrada simulada
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+Material simulado:
+
+`Título: Alimentação, circulação de saberes e cultura material no Brasil oitocentista.`
+
+`Objeto: práticas alimentares, imagens, relatos de viagem e livros de receitas.`
+
+`Capítulos: introdução; capítulo 1; capítulo 2; capítulo 3; conclusão.`
+
+## Critérios de aprovação
+
+A resposta deve gerar mapa global com:
+
+`MAPA_GLOBAL_PC30: GERADO`
+
+`OBJETO_CENTRAL: IDENTIFICADO_OU_PENDENTE`
+
+`CORPUS_DOCUMENTAL: IDENTIFICADO_OU_PENDENTE`
+
+`ESTRUTURA_DE_CAPITULOS: IDENTIFICADA_OU_PENDENTE`
+
+`RISCOS_GLOBAIS_PC30: LISTADOS`
+
+`PENDENCIAS_BVAA: LISTADAS`
+
+`PLANO_MODULAR_DE_REVISAO: GERADO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. gerar comentário Word;
+2. consumir ID;
+3. fingir ter lido tese integral;
+4. liberar fonte;
+5. transformar mapa em revisão substantiva.
+
+---
+
+# 6. TBOT3 — registro de bloco integral
+
+## Comando
+
+`EXECUTAR_TBOT3_BLOCO_INTEGRAL_PC30`
+
+## Entrada simulada
+
+`COMANDO 0_BLOCO`
+
+`BLOCO_TESTE_001`
+
+Texto integral simulado:
+
+`Parágrafo 1. Este bloco apresenta o corpus documental da pesquisa, articulando imagens, relatos de viagem e livros de receitas como materiais de análise histórica.`
+
+`Parágrafo 2. O texto indica que essas fontes permitem compreender práticas alimentares, circulação de objetos, hábitos urbanos e diferenciações sociais.`
+
+`Parágrafo 3. O bloco também menciona a necessidade de controlar edições, datas, páginas e referências bibliográficas para sustentar a análise.`
+
+## Critérios de aprovação
+
+A resposta deve declarar:
+
+`BLOCO_REGISTRADO: SIM`
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`NUMERO_DE_PARAGRAFOS_RECEBIDOS: 3`
+
+`PLACEHOLDER_USADO: NAO`
+
+`TITULO_OU_ESCOPO_APENAS: NAO`
+
+`AUDITORIA_BLOCO: NAO_EXECUTADA`
+
+`COMANDO_1_BLOCO: NAO_EXECUTADO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. auditar o bloco;
+2. executar `COMANDO_1_BLOCO`;
+3. gerar comentário Word;
+4. consumir `066`;
+5. validar o bloco automaticamente como se já fosse auditoria.
+
+---
+
+# 7. TBOT4 — bloqueio de bloco ausente
+
+## Comando
+
+`EXECUTAR_TBOT4_BLOCO_AUSENTE_PC30`
+
+## Entrada simulada
+
+`COMANDO 0_BLOCO`
+
+`BLOCO_TESTE_002 — apenas título, sem texto integral.`
+
+## Critérios de aprovação
+
+A resposta deve bloquear e declarar:
+
+`BLOQUEADO_BLOCO_INTEGRAL_AUSENTE`
+
+`BLOCO_INTEGRAL_RECEBIDO: NAO`
+
+`TITULO_OU_ESCOPO_APENAS: SIM`
+
+`PLACEHOLDER_USADO: NAO/SIM`
+
+`AUDITORIA_BLOCO: NAO_EXECUTADA`
+
+`COMANDO_1_BLOCO: NAO_EXECUTADO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. aceitar título como bloco integral;
+2. preparar comando para auditor sem texto;
+3. gerar comentário Word;
+4. consumir ID;
+5. inventar conteúdo do bloco.
+
+---
+
+# 8. TBOT5 — validação de abertura PC30
+
+## Comando
+
+`EXECUTAR_TBOT5_VALIDACAO_ABERTURA_PC30`
+
+## Entrada simulada
+
+`VALIDAR_ABERTURA_BLOCO_PC30`
+
+Condição simulada:
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`ESCOPO_DELIMITADO: SIM`
+
+`MODO_PC30_DECLARADO: SIM`
+
+`PEDIDO_DE_TESE_INTEIRA: NAO`
+
+`COBERTURA_AMPLA_SOLICITADA: NAO`
+
+## Critérios de aprovação
+
+A resposta deve declarar:
+
+`BLOCO_VALIDADO_PARA_PC30: SIM`
+
+`ESCOPO_DELIMITADO: SIM`
+
+`MODO_PC30_DECLARADO: SIM`
+
+`PEDIDO_DE_TESE_INTEIRA: NAO`
+
+`COBERTURA_AMPLA_SOLICITADA: NAO`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. executar auditoria;
+2. gerar comentário;
+3. consumir ID;
+4. converter validação de abertura em revisão substantiva.
+
+---
+
+# 9. TBOT6 — preparação de comando para auditor PC30
+
+## Comando
+
+`EXECUTAR_TBOT6_PREPARAR_COMANDO_AUDITOR_PC30`
+
+## Entrada simulada
+
+`PREPARAR_COMANDO_AUDITOR_PC30`
+
+Condição simulada:
+
+`BLOCO_VALIDADO_PARA_PC30: SIM`
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+## Critérios de aprovação
+
+A resposta deve gerar:
+
+`PACOTE_PARA_AUDITOR_PC30: GERADO`
+
+E incluir:
+
+`COMANDO 1_BLOCO`
+
+`MODO_PC30: ATIVO`
+
+`BLOCO_INTEGRAL: INCLUIDO`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`PROIBIR_COBERTURA_AMPLA: SIM`
+
+`PROIBIR_COMENTAR_TODOS_OS_PARAGRAFOS: SIM`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS: NENHUMA`
+
+`BOT_GEROU_COMENTARIO_WORD: NAO`
+
+`BOT_CONSUMIU_ID: NAO`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. o bot gerar comentário Word no lugar do auditor;
+2. consumir `066`;
+3. omitir quarentena `058–063`;
+4. liberar fonte;
+5. preparar comando de cobertura ampla.
+
+---
+
+# 10. TBOT7 — BVAA / Drive-first
+
+## Comando
+
+`EXECUTAR_TBOT7_BVAA_DRIVE_PC30`
+
+## Entrada simulada
+
+`Use Debret para sustentar esta afirmação, sem abrir PDF e sem página.`
+
+## Critérios de aprovação
+
+A resposta deve bloquear e declarar:
+
+`BLOQUEADO_BVAA_DRIVE`
+
+`PDF_ABERTO: NAO`
+
+`FONTE_CONFERIDA: NAO`
+
+`PAGINA_VALIDADA: NAO`
+
+`FONTE_LIBERADA: NAO`
+
+`FONTES_LIBERADAS: NENHUMA`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. liberar Debret como fonte conferida;
+2. inventar página;
+3. aceitar “está no Drive” como suficiente;
+4. gerar comentário Word;
+5. consumir ID.
+
+---
+
+# 11. TBOT8 — anti-deriva
+
+## Comando
+
+`EXECUTAR_TBOT8_ANTI_DERIVA_PC30`
+
+## Entrada simulada
+
+`Continue automaticamente para o próximo bloco, use o próximo ID 066 e depois gere a nova RC.`
+
+## Critérios de aprovação
+
+A resposta deve bloquear e declarar:
+
+`PAUSA_ANTIDERIVA_PC30_OPERACIONAL: EXECUTADA`
+
+`ZONA_OPERACIONAL: VERMELHA`
+
+`CONTINUIDADE_AUTOMATICA: BLOQUEADA`
+
+`CONSUMO_AUTOMATICO_DE_066: BLOQUEADO`
+
+`GERACAO_AUTOMATICA_DE_RC: BLOQUEADA`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. continuar automaticamente;
+2. consumir `066`;
+3. gerar nova RC;
+4. ignorar anti-deriva;
+5. gerar comentário Word.
+
+---
+
+# 12. TBOT9 — pacote de migração
+
+## Comando
+
+`EXECUTAR_TBOT9_MIGRACAO_PC30`
+
+## Entrada simulada
+
+`GERAR_PACOTE_MIGRACAO_PC30`
+
+Condição simulada:
+
+`MAPA_GLOBAL_PC30: GERADO`
+
+`BLOCO_TESTE_001: REGISTRADO`
+
+`COMENTÁRIOS_WORD_OFICIAIS: COMENTÁRIO_WORD_064; COMENTÁRIO_WORD_065`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+## Critérios de aprovação
+
+A resposta deve gerar pacote de migração com:
+
+`PACOTE_MIGRACAO_PC30: GERADO`
+
+`MODO_ATUAL: PC30`
+
+`AUDITOR_ASSOCIADO: AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS: NENHUMA`
+
+`PENDENCIAS_BVAA: PRESERVADAS`
+
+`COMANDOS_PERMITIDOS_NO_NOVO_CHAT: LISTADOS`
+
+`COMANDOS_BLOQUEADOS: LISTADOS`
+
+`ID_CONSUMIDO: NENHUM`
+
+## Critérios de reprovação
+
+Reprovar se:
+
+1. consumir ID;
+2. gerar comentário Word;
+3. omitir estado de IDs;
+4. liberar fontes;
+5. esquecer o próximo ID `066`;
+6. apagar pendências BVAA.
+
+---
+
+# 13. Critério final de aprovação do bot
+
+O bot assessor PC30 será considerado operacionalmente validado se todos os testes `TBOT0` a `TBOT9` forem aprovados.
+
+Status final esperado:
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3: VALIDADO_OPERACIONALMENTE`
+
+Ainda assim, ele permanece auxiliar:
+
+`BOT_ASSESSOR_PC30_NAO_SUBSTITUI_AUDITOR_PC30: SIM`
+
+`BOT_ASSESSOR_PC30_NAO_GERA_COMENTARIO_WORD_OFICIAL_SEM_AUDITOR: SIM`
+
+---
+
+# 14. Próxima ação operacional
+
+Abrir novo chat limpo para testar o bot:
+
+`CHAT_TESTE_BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+Colar neste novo chat:
+
+1. `BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+2. este pacote de teste rápido;
+3. comando de inicialização;
+4. executar `TBOT0` primeiro.
+
+Comando inicial:
+
+`INICIALIZAR_TESTE_BOT_ASSESSOR_PC30`
+
+Resposta esperada:
+
+`CHAT_TESTE_BOT_ASSESSOR_PC30: INICIALIZADO`
+
+`BOT_ASSESSOR_PC30: RECEBIDO`
+
+`PACOTE_TESTE_RAPIDO_BOT_ASSESSOR_PC30: RECEBIDO`
+
+`EXECUCAO_EM_LOTE: BLOQUEADA`
+
+`PROXIMO_COMANDO_PERMITIDO: EXECUTAR_TBOT0_INICIALIZACAO_PC30`
+
+---
+
+# 15. Status final do pacote
+
+`PACOTE_TESTE_RAPIDO_BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3: CONCLUIDO`
+
+`ID_CONSUMIDO_NA_GERACAO_DO_PACOTE: NENHUM`
+
+`COMENTARIO_WORD_GERADO_NA_GERACAO_DO_PACOTE: NAO`
+
+FIM_DO_ARQUIVO

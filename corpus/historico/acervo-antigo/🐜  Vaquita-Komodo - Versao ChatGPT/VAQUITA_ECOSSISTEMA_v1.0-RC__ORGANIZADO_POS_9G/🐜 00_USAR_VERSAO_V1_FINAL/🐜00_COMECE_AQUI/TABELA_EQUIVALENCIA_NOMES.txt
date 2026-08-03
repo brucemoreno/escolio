@@ -1,0 +1,40 @@
+TABELA_EQUIVALENCIA_NOMES — ECOSSISTEMA VAQUITA v1.0-RC — PÓS-9.G
+
+REGRA OBRIGATÓRIA
+
+Os nomes curtos são os nomes operacionais canônicos de distribuição.
+Os nomes longos permanecem apenas como histórico técnico/de origem.
+Não criar novos sufixos após POS9G_FINAL sem autorização humana.
+
+TABELA
+
+1. Nome operacional curto vigente:
+01_KIT_MESTRE_VAQ_ECO_v1RC_POS9G_FINAL.txt
+
+Nome longo histórico/de origem:
+KIT_MESTRE_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9G__CORRIGIDO_INTERDOC_VERIFICADO.txt
+
+Status:
+Usar nome curto como vigente; nome longo apenas como rastreabilidade histórica/de origem.
+
+---
+
+2. Nome operacional curto vigente:
+02_INSTAL_USO_VAQ_ECO_v1RC_POS9G_FINAL.txt
+
+Nome longo histórico/de origem:
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC__ATUALIZADO_POS_9G__INTERDOC_REFCHECK_FINAL_VERIFICADO__ARQUIVO_CONFIRMADO.txt
+
+Status:
+Usar nome curto como vigente; nome longo apenas como rastreabilidade histórica/de origem.
+
+---
+
+3. Nome operacional curto vigente:
+03_MIGRACAO_VAQ_ECO_v1RC_POS9G_FINAL.txt
+
+Nome longo histórico/de origem:
+PACOTE_MIGRACAO_VAQUITA_KOMODO_BVAA_JARARACA_HANDOFF_v1.0-RC__ATUALIZADO_POS_9G__REFCHECK_VERIFICADO.txt
+
+Status:
+Usar nome curto como vigente; nome longo apenas como rastreabilidade histórica/de origem.

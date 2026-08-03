@@ -1,0 +1,65 @@
+INICIO_DO_ARQUIVO
+
+COMPONENTE:
+P00
+
+DENOMINACAO:
+Controle mestre e estado canônico
+
+FASE:
+F0 — Estado e governança
+
+CAMADA:
+GOVERNANCA
+
+AUTORIDADE_CANONICA_VIGENTE:
+R03 HOMOLOGADA E CONGELADA
+
+OBJETO_CANONICO:
+PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.zip
+
+SHA256_OBJETO_CANONICO:
+0f7e3acf43d09562a4dbdc6adfccc3535b950b0e6548aa49fa81d127a3d1b39f
+
+REGRA_DE_PRECEDENCIA:
+R03 > R02 > R01
+
+EFEITO_DA_PRECEDENCIA:
+R03 substitui R02 como controladora sem apagar R01/R02.
+O termo externo de homologação e congelamento prevalece sobre estados internos pré-homologação do objeto R03.
+
+ESTADO_DO_P00:
+EXECUTADO_DOCUMENTALMENTE_SOB_CONTROLE
+NAO_AUDITADO
+NAO_HOMOLOGADO
+
+ESTADO_DOS_COMPONENTES_POSTERIORES:
+P01_A_P28_NAO_INICIADOS
+
+ESTADO_DA_R03:
+INALTERADA
+HOMOLOGADA
+CONGELADA
+
+SAIDA_MINIMA_CONSOLIDADA:
+- estado;
+- precedência;
+- linha do tempo;
+- inventário;
+- governança congelada;
+- lacunas não inferíveis.
+
+DECISOES_PRESERVADAS:
+- arquitetura técnica permanece não decidida;
+- os seis profiles V117 permanecem canônicos;
+- contextos geográficos, temporais e interseções permanecem separados;
+- treinamento, RAG, fine-tuning e implementação permanecem não autorizados;
+- bibliografia nova exige leitura efetiva e localização confirmada;
+- suíte de testes deve ser congelada antes de exemplos supervisionados;
+- comando vago não autoriza transição.
+
+ESTADO_FINAL_DESTE_ARTEFATO:
+P00_EXECUTADO_DOCUMENTALMENTE_SOB_CONTROLE
+AGUARDANDO_AUDITORIA_INDEPENDENTE_FUTURA_NAO_AUTOMATICA
+
+FIM_DO_ARQUIVO

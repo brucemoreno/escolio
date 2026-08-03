@@ -1,0 +1,833 @@
+INICIO_DO_ARQUIVO
+
+# PACOTE_FECHAMENTO_AUDITORIA_HOMOLOGACAO_OPERACIONAL_LIMITADA_PC30_RC2_1_2026-06-21
+
+## 1. Identificação do pacote
+
+Versão auditada:
+
+**AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA**
+
+Natureza do fechamento:
+
+**FECHAMENTO DE AUDITORIA E HOMOLOGAÇÃO OPERACIONAL LIMITADA**
+
+Escopo:
+
+**Uso operacional limitado em blocos controlados**
+
+Data operacional:
+
+**2026-06-21**
+
+Status da matriz:
+
+**MATRIZ v0.2 PRESERVADA**
+
+Substitui a matriz v0.2:
+
+**NÃO**
+
+Autoriza uso operacional amplo:
+
+**NÃO**
+
+Autoriza revisão integral automática da tese:
+
+**NÃO**
+
+Abre BLOCO 003:
+
+**NÃO**
+
+Gera novos comentários Word neste fechamento:
+
+**NÃO**
+
+Consome COMENTÁRIO_WORD_058:
+
+**NÃO**
+
+---
+
+## 2. Objetivo do fechamento
+
+Este pacote consolida a evidência obtida nos testes reais controlados da versão:
+
+**AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA**
+
+O objetivo não é revisar a tese inteira, nem ampliar o escopo da homologação.
+
+O objetivo é registrar que a versão **PC30_RC2_1** demonstrou estabilidade operacional suficiente para uso limitado em blocos controlados, preservando:
+
+1. matriz v0.2;
+2. separação entre modo PC30 e modo padrão;
+3. numeração sequencial dos comentários Word;
+4. BVAA/BVAA-Drive;
+5. travas para citações literais, traduções, páginas e fontes primárias;
+6. travas para fonte visual;
+7. preservação de pendências não liberadas;
+8. continuidade pós-migração sem reabertura indevida de blocos anteriores.
+
+---
+
+## 3. Estado final consolidado
+
+MATRIZ v0.2:
+
+**PRESERVADA**
+
+PC30_RC2_1:
+
+**HOMOLOGADA_CONTROLADAMENTE_PARA_USO_OPERACIONAL_LIMITADO_EM_BLOCOS**
+
+Modo-mãe:
+
+**MODO_DEFESA_DISSERTACAO_TESE**
+
+Modo de cobertura atual:
+
+**MODO_COBERTURA_PADRAO**
+
+PC30:
+
+**INATIVO**
+
+Escala autorizada:
+
+**MODO_BLOCO_CONTROLADO**
+
+BLOCO_001:
+
+**FECHADO**
+
+BLOCO_002:
+
+**EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO**
+
+Último comentário Word real:
+
+**COMENTÁRIO_WORD_057**
+
+Próximo ID obrigatório:
+
+**COMENTÁRIO_WORD_058**
+
+BLOCO_003:
+
+**NÃO ABERTO**
+
+---
+
+## 4. Evidência 1 — BLOCO 001
+
+Unidade executada:
+
+**Capítulo 3 — “O Homem da Natureza”: o olhar europeu e as práticas alimentares indígenas**
+
+Seção:
+
+**Abertura do Capítulo 3**
+
+Status:
+
+**FECHADO**
+
+Modo executado:
+
+**MODO_COBERTURA_PRIORIDADE_CRITICA_30**
+
+Comentários gerados:
+
+**COMENTÁRIO_WORD_053**
+**COMENTÁRIO_WORD_054**
+
+Resultado:
+
+O modo PC30 executou corretamente a filtragem de prioridade, concentrando os comentários nos riscos críticos P1.
+
+Não houve revisão integral da tese.
+
+Não houve geração excessiva de comentários.
+
+Não houve consumo indevido de IDs.
+
+Não houve liberação automática de fonte documental ou visual.
+
+Pendências preservadas:
+
+**BANDEIRA_1994_P14: NÃO LIBERADA**
+**DADOS 126 / 1.627: NÃO VERIFICADOS**
+**FONTE_VISUAL_DEBRET: PENDENTE**
+
+---
+
+## 5. Evidência 2 — COMENTÁRIO_WORD_053
+
+Comentário:
+
+**COMENTÁRIO_WORD_053**
+
+Risco associado:
+
+**RISCO_001 — Bandeira, 1994, p. 14**
+
+Natureza:
+
+**Dado quantitativo específico sustentado por referência bibliográfica não verificada**
+
+Trecho associado:
+
+> “Com a chegada de novos armazéns, mercados e estabelecimentos, a capital que, em 1808, contava com 126 casas comerciais, registrou 1.627 no ano de 1821 (Bandeira, 1994, p. 14).”
+
+Status:
+
+**MANTER**
+
+Decisão documental:
+
+**BANDEIRA_1994_P14_NAO_LIBERADA**
+
+Dados quantitativos associados:
+
+**126 casas comerciais em 1808**
+**1.627 casas comerciais em 1821**
+
+Status dos dados:
+
+**NÃO VERIFICADOS NA OBRA-FONTE**
+
+---
+
+## 6. Evidência 3 — BVAA-Drive Bandeira, 1994, p. 14
+
+Pacote executado:
+
+**PACOTE_BVAA_DRIVE_BANDEIRA**
+
+Alvo:
+
+**Bandeira, 1994, p. 14**
+
+Resultado:
+
+**EXECUTADO**
+
+Entrada bibliográfica provável identificada no manuscrito:
+
+**BANDEIRA, Júlio. “Um rei na América, Brasil sede do Império português”. In: CENTRO CULTURAL BANCO DO BRASIL. *Rio de Janeiro, capital d’além mar: na construção dos Museus Castro Maia*. Rio de Janeiro: CCBB, 1994. p. 11-18.**
+
+Decisão:
+
+**BANDEIRA_1994_P14_NAO_LIBERADA**
+
+Motivo:
+
+A entrada bibliográfica foi identificada no manuscrito, mas a obra-fonte **Bandeira, 1994, p. 14** não foi localizada/aberta como PDF, a página 14 não foi conferida e não houve **COMPROVANTE_DE_LEITURA_PDF**.
+
+Status BVAA:
+
+**PENDENTE**
+
+Status BVAA-Drive:
+
+**PENDENTE**
+
+Referência liberada:
+
+**NÃO**
+
+---
+
+## 7. Evidência 4 — COMENTÁRIO_WORD_054
+
+Comentário:
+
+**COMENTÁRIO_WORD_054**
+
+Risco associado:
+
+**RISCO_002 — Debret / fonte visual não conferida**
+
+Risco absorvido:
+
+**RISCO_004 — inferência de status e diferenciação socioeconômica**
+
+Natureza:
+
+**Fonte visual mencionada, mas não conferida, usada como sustentação de inferência histórica forte**
+
+Status:
+
+**MANTER**
+
+Pendência:
+
+**FONTE_VISUAL_DEBRET: PENDENTE**
+
+Imagem/prancha específica:
+
+**NÃO LIBERADA**
+
+Legenda conferida:
+
+**NÃO**
+
+Análise visual realizada:
+
+**NÃO**
+
+Regra preservada:
+
+**Imagem mencionada não equivale a imagem analisada.**
+**Legenda não substitui análise visual.**
+**“Debret retrata” não equivale a “Debret prova”.**
+
+---
+
+## 8. Evidência 5 — Fonte física BANDEIRA; LAGO, 2008
+
+Obra registrada:
+
+**BANDEIRA, Júlio; LAGO, Pedro Corrêa do. *Debret e o Brasil: obra completa, 1816-1831*. Rio de Janeiro: Capivara, 2008.**
+
+Status:
+
+**FONTE_FISICA_IDENTIFICADA**
+**FONTE POTENCIAL FUTURA**
+**NÃO CONFERIDA**
+**SEM LIBERAÇÃO VISUAL**
+
+Disponível para conferência imediata:
+
+**NÃO**
+
+Digitalizada:
+
+**NÃO**
+
+PDF disponível:
+
+**NÃO**
+
+Verificação visual executada:
+
+**NÃO**
+
+Regra preservada:
+
+**Posse física não equivale a leitura verificada.**
+
+Efeito operacional:
+
+A obra **BANDEIRA; LAGO, 2008** permanece registrada como fonte potencial futura, mas não foi usada para liberar fonte visual, nem para resolver o **COMENTÁRIO_WORD_054**, nem para resolver o **COMENTÁRIO_WORD_053**.
+
+Separação preservada:
+
+**BANDEIRA, 1994, p. 14** não se confunde com **BANDEIRA; LAGO, 2008, p. 21**.
+
+---
+
+## 9. Evidência 6 — Triagem PDF Debret
+
+Pacote executado:
+
+**PACOTE_TRIAGEM_FONTES_PDF_ACESSIVEIS_PARA_COMENTARIO_WORD_054**
+
+Objetivo:
+
+Triar fontes PDF acessíveis para verificar se alguma poderia tratar a pendência visual associada ao **COMENTÁRIO_WORD_054**.
+
+Resultado:
+
+**QUATRO FONTES PDF ACESSÍVEIS FORAM TRIADAS.**
+
+Decisão:
+
+**FONTE_VISUAL_POTENCIAL PARA DEBRET NÃO LOCALIZADA ENTRE AS QUATRO FONTES.**
+
+Classificações:
+
+### 9.1. PERTILE
+
+Fonte:
+
+**PERTILE, Krisciê. *Comida de rua: relações históricas e conceituais*.**
+
+Classificação:
+
+**FONTE_TEXTUAL_DE_APOIO_FORTE**
+
+Uso seguro:
+
+Apoio textual para comida de rua, comércio alimentar, venda, rua, consumo, pobreza, prestígio e status.
+
+Limite:
+
+**Não libera fonte visual Debret.**
+
+---
+
+### 9.2. TANIA ANDRADE LIMA
+
+Fonte:
+
+**LIMA, Tania Andrade. *Humores e odores: ordem corporal e ordem social no Rio de Janeiro, século XIX*.**
+
+Classificação:
+
+**FONTE_TEXTUAL_DE_APOIO_FORTE COM ESCOPO RESTRITO**
+
+Uso seguro:
+
+Apoio textual para Rio de Janeiro oitocentista, ordem social, corpo, higienização, burguesia e cultura material.
+
+Limite:
+
+**Não libera fonte visual alimentar de Debret.**
+
+---
+
+### 9.3. BRAGA
+
+Fonte:
+
+**BRAGA, Isabel Drumond. *Do primeiro almoço à ceia: estudos de história da alimentação*.**
+
+Classificação:
+
+**FONTE_HISTORIOGRAFICA_GERAL**
+
+Status:
+
+**NÃO TRIADA TEXTUALMENTE COM SEGURANÇA**
+
+Motivo:
+
+Extração textual insuficiente; exige abertura manual, OCR ou verificação página a página para uso específico.
+
+Limite:
+
+**Não libera COMENTÁRIO_WORD_054.**
+
+---
+
+### 9.4. MORO; SANTOS
+
+Fonte:
+
+**MORO, Nathália; SANTOS, Christian Fausto Moraes dos. *Raízes que saciam a fome: o papel da mandioca (Manihot spp.) na dinâmica colonizatória da América Portuguesa no século XVI*.**
+
+Classificação:
+
+**NÃO_PRIORITÁRIA_PARA_COMENTÁRIO_WORD_054**
+
+Motivo:
+
+Fonte útil para mandioca, alimentação colonial, América Portuguesa e século XVI, mas não prioritária para Debret, Rio de Janeiro oitocentista, pão, café, carne, comércio urbano ou diferenciação social no século XIX.
+
+---
+
+## 10. Regra consolidada após triagem Debret
+
+A triagem confirmou que:
+
+**Fonte textual de apoio não equivale a fonte visual.**
+
+Portanto:
+
+**COMENTÁRIO_WORD_054: MANTER**
+**FONTE_VISUAL_DEBRET: PENDENTE**
+**FONTE_VISUAL_POTENCIAL ENTRE AS QUATRO FONTES: NÃO LOCALIZADA**
+
+---
+
+## 11. Evidência 7 — Migração operacional
+
+Resultado:
+
+**MIGRAÇÃO DE CHAT OPERACIONAL EXECUTADA E INCORPORADA**
+
+Estado preservado na migração:
+
+**BLOCO_001: FECHADO**
+**COMENTÁRIO_WORD_054: ÚLTIMO COMENTÁRIO ANTES DO BLOCO 002**
+**COMENTÁRIO_WORD_055: PRÓXIMO ID OBRIGATÓRIO NO INÍCIO DO BLOCO 002**
+**PC30: INATIVO**
+**MODO_COBERTURA_PADRAO: ATIVO**
+
+Validação:
+
+A migração não reiniciou estado, não reabriu BLOCO 001, não regenerou comentários anteriores, não alterou a matriz v0.2 e não liberou pendências documentais ou visuais.
+
+---
+
+## 12. Evidência 8 — BLOCO 002
+
+Unidade executada:
+
+**Capítulo 2 — “Um pintor histórico: Debret e o registro visual do Império”**
+
+Seção:
+
+**Abertura do Capítulo 2**
+
+Localização textual:
+
+**Capítulo 2, BLOCO 002, página 25 do manuscrito/PDF**
+
+Modo executado:
+
+**MODO_COBERTURA_PADRAO**
+
+PC30:
+
+**INATIVO**
+
+Comentários gerados:
+
+**COMENTÁRIO_WORD_055**
+**COMENTÁRIO_WORD_056**
+**COMENTÁRIO_WORD_057**
+
+Resultado:
+
+O BLOCO 002 foi executado corretamente pós-migração, sem reabrir o BLOCO 001, sem ativar PC30 e sem contaminar pendências herdadas.
+
+Produtos gerados:
+
+**MAPA_RASTREABILIDADE: GERADO**
+**EXPORTAR_MAPA_COMENTARIOS: GERADO**
+**RETOMAR_MODO_COBERTURA_PADRAO: EXECUTADO**
+
+Status:
+
+**BLOCO_002 EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO**
+
+---
+
+## 13. Comentários Word do BLOCO 002
+
+### 13.1. COMENTÁRIO_WORD_055
+
+Risco associado:
+
+**RISCO_007 — Citação literal traduzida de fonte primária não conferida**
+
+Risco absorvido:
+
+**RISCO_008 — Expressão “artista militar” sem estatuto documental definido**
+
+Status:
+
+**GERADO E EXPORTADO**
+
+Pendência:
+
+**DEBRET_1793: NÃO LIBERADO**
+
+Natureza:
+
+Citação literal, tradução nossa e fonte primária/documental não conferida.
+
+---
+
+### 13.2. COMENTÁRIO_WORD_056
+
+Risco associado:
+
+**RISCO_009 — Referência institucional específica não conferida**
+
+Status:
+
+**GERADO E EXPORTADO**
+
+Pendência:
+
+**ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94: NÃO LIBERADA**
+
+Natureza:
+
+Referência documental/institucional específica, com página precisa.
+
+---
+
+### 13.3. COMENTÁRIO_WORD_057
+
+Risco associado:
+
+**RISCO_010 — Afirmação historiográfica forte sobre “pintor oficial do Império francês”**
+
+Risco absorvido:
+
+**RISCO_011 — Cadeia bibliográfica agrupada sem discriminação de função**
+
+Status:
+
+**GERADO E EXPORTADO**
+
+Pendência:
+
+**BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL: NÃO LIBERADA**
+
+Natureza:
+
+Afirmação historiográfica forte, expressão entre aspas e bibliografia agrupada não discriminada.
+
+---
+
+## 14. Pendências abertas pelo BLOCO 002
+
+Pendências registradas:
+
+**DEBRET_1793: NÃO LIBERADO**
+
+**ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94: NÃO LIBERADA**
+
+**BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL: NÃO LIBERADA**
+
+Referências específicas não liberadas no BLOCO 002:
+
+**BANDEIRA; LAGO, 2008, p. 21**
+**CARDOSO, 2003, p. 23**
+**LEENHARDT, 2013, p. 509**
+**VILLAÇA; MORAIS, 1993, p. 14**
+**PELEGRINI; TUTUI, 2013, p. 3**
+**TREVISAN, 2007, p. 10-11**
+
+Regra preservada:
+
+Múltiplas referências agrupadas não equivalem a verificação documental.
+
+---
+
+## 15. Numeração consolidada
+
+Último comentário Word real antes do BLOCO 001:
+
+**COMENTÁRIO_WORD_052**
+
+Comentários gerados no BLOCO 001:
+
+**COMENTÁRIO_WORD_053**
+**COMENTÁRIO_WORD_054**
+
+Comentários gerados no BLOCO 002:
+
+**COMENTÁRIO_WORD_055**
+**COMENTÁRIO_WORD_056**
+**COMENTÁRIO_WORD_057**
+
+Último comentário Word real atual:
+
+**COMENTÁRIO_WORD_057**
+
+Próximo ID obrigatório:
+
+**COMENTÁRIO_WORD_058**
+
+Regra preservada:
+
+**COMENTÁRIO_WORD_058 não foi consumido neste fechamento.**
+
+---
+
+## 16. Separações preservadas
+
+### 16.1. Separação entre BLOCO 001 e BLOCO 002
+
+**BLOCO 001 permanece fechado.**
+
+**BLOCO 002 foi executado, mapeado, exportado e encerrado.**
+
+Não houve reabertura, reexecução ou regeneração de comentários do BLOCO 001.
+
+---
+
+### 16.2. Separação entre Bandeira, 1994 e Bandeira; Lago, 2008
+
+**BANDEIRA, 1994, p. 14**
+Vinculada ao **COMENTÁRIO_WORD_053** e aos dados quantitativos sobre casas comerciais.
+Status: **NÃO LIBERADA**
+
+**BANDEIRA; LAGO, 2008, p. 21**
+Vinculada ao **COMENTÁRIO_WORD_057** e à afirmação sobre Debret como pintor oficial do Império francês.
+Status: **NÃO LIBERADA**
+
+As duas referências permaneceram separadas.
+
+---
+
+### 16.3. Separação entre fonte visual Debret e trajetória biográfica de Debret
+
+**FONTE_VISUAL_DEBRET**
+Vinculada ao **COMENTÁRIO_WORD_054**.
+Status: **PENDENTE**
+
+**DEBRET_1793 / ESCOLA_NACIONAL_DE_PONTES_E_ESTRADAS_1793_P94 / BIBLIOGRAFIA_AGRUPADA_1805_PINTOR_OFICIAL**
+Vinculadas aos **COMENTÁRIOS_WORD_055, 056 e 057**.
+Status: **PENDENTE BVAA**
+
+Não houve mistura entre pendência visual e pendência biográfico-documental.
+
+---
+
+### 16.4. Separação entre PC30 e modo padrão
+
+**BLOCO 001:** executado em **MODO_COBERTURA_PRIORIDADE_CRITICA_30**.
+
+**BLOCO 002:** executado em **MODO_COBERTURA_PADRAO**.
+
+Após o BLOCO 002:
+
+**PC30: INATIVO**
+**MODO_COBERTURA_ATUAL: MODO_COBERTURA_PADRAO**
+
+O modo PC30 não foi ativado automaticamente após a migração.
+
+---
+
+## 17. Evidência de estabilidade operacional
+
+A versão **PC30_RC2_1** demonstrou estabilidade nos seguintes pontos:
+
+1. preservou estado após migração de chat;
+2. preservou a numeração sequencial dos comentários Word;
+3. não regenerou comentários já produzidos;
+4. não reabriu BLOCO 001;
+5. não confundiu pendências de Bandeira, 1994 com Bandeira; Lago, 2008;
+6. não confundiu fonte visual Debret com fontes textuais de apoio;
+7. não liberou fonte física não conferida;
+8. não liberou PDF apenas por existência ou localização;
+9. não tratou bibliografia agrupada como verificação documental;
+10. não transformou citação literal/tradução em fonte liberada;
+11. manteve BVAA/BVAA-Drive pendente quando não havia leitura documental;
+12. executou BLOCO 002 em modo padrão sem ativar PC30;
+13. gerou comentários Word apenas quando houve risco efetivo;
+14. preservou o próximo ID obrigatório;
+15. encerrou o BLOCO 002 com mapa, exporte e retomada de cobertura padrão.
+
+---
+
+## 18. Decisão final de homologação
+
+Decisão:
+
+**PC30_RC2_1_APROVADA_EM_HOMOLOGACAO_OPERACIONAL_LIMITADA**
+
+Condição:
+
+A versão está aprovada para **uso operacional limitado em blocos controlados**, com supervisão humana, preservando:
+
+1. BVAA;
+2. BVAA-Drive;
+3. travas de fonte visual;
+4. travas de fonte física;
+5. travas de citação literal;
+6. travas de tradução;
+7. travas de página bibliográfica;
+8. numeração sequencial;
+9. separação entre modo PC30 e modo padrão;
+10. preservação da matriz v0.2;
+11. separação entre fonte textual de apoio e fonte visual;
+12. separação entre referência localizada e referência liberada.
+
+---
+
+## 19. Restrições finais
+
+Esta homologação:
+
+**NÃO autoriza revisão integral automática da tese.**
+
+**NÃO autoriza uso operacional amplo.**
+
+**NÃO substitui a matriz v0.2.**
+
+**NÃO libera fontes documentais ou visuais pendentes.**
+
+**NÃO elimina necessidade de verificação manual de bibliografia, páginas, citações literais, tradução e pranchas/imagens.**
+
+**NÃO transforma fonte física identificada em fonte conferida.**
+
+**NÃO transforma PDF localizado em fonte liberada.**
+
+**NÃO transforma fonte textual de apoio em fonte visual.**
+
+**NÃO permite avançar automaticamente para BLOCO 003 sem comando humano.**
+
+---
+
+## 20. Estado final oficial
+
+AUDITORIA_PC30_RC2_1:
+
+**FECHADA**
+
+STATUS_FINAL:
+
+**HOMOLOGADA_OPERACIONALMENTE_DE_FORMA_LIMITADA_EM_BLOCOS**
+
+VERSÃO ATIVA:
+
+**AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_PC30_RC2_1_DRIVE_FIRST_BVAA**
+
+MATRIZ v0.2:
+
+**PRESERVADA**
+
+MODO-MÃE:
+
+**MODO_DEFESA_DISSERTACAO_TESE**
+
+MODO_COBERTURA_ATUAL:
+
+**MODO_COBERTURA_PADRAO**
+
+PC30:
+
+**INATIVO**
+
+ESCALA AUTORIZADA:
+
+**MODO_BLOCO_CONTROLADO**
+
+BLOCO_001:
+
+**FECHADO**
+
+BLOCO_002:
+
+**EXECUTADO, MAPEADO, EXPORTADO E ENCERRADO**
+
+BLOCO_003:
+
+**NÃO ABERTO**
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL:
+
+**COMENTÁRIO_WORD_057**
+
+PRÓXIMO_ID_OBRIGATÓRIO:
+
+**COMENTÁRIO_WORD_058**
+
+COMENTÁRIO_WORD_058:
+
+**NÃO CONSUMIDO**
+
+---
+
+## 21. Marcador final
+
+AUDITORIA_PC30_RC2_1: FECHADA
+
+STATUS_FINAL: HOMOLOGADA_OPERACIONALMENTE_DE_FORMA_LIMITADA_EM_BLOCOS
+
+ÚLTIMO_COMENTÁRIO_WORD_REAL: COMENTÁRIO_WORD_057
+
+PRÓXIMO_ID_OBRIGATÓRIO: COMENTÁRIO_WORD_058
+
+BLOCO_003: NÃO ABERTO
+
+FIM_DO_ARQUIVO

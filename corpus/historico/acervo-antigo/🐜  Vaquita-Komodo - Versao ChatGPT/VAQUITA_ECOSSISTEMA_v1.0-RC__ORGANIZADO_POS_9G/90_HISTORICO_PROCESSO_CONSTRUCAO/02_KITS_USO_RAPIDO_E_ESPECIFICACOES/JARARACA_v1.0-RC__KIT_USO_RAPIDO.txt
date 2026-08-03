@@ -1,0 +1,430 @@
+# JARARACA v1.0-RC — KIT DE USO RÁPIDO
+# Auditor de redundância, sobreposição, progressão argumentativa e deriva estrutural
+# Ecossistema: VAQUITA / KOMODO / BVAA / JARARACA v1.0-RC
+# Versão compatível com: JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+---
+
+## 1. O QUE É A JARARACA
+
+A Jararaca é um auxiliar da Vaquita-Orquestrador.
+
+Sua função é auditar problemas estruturais e argumentativos em textos acadêmicos longos.
+
+Ela verifica:
+
+1. redundância local;
+2. sobreposição entre blocos;
+3. progressão argumentativa frágil;
+4. circularidade;
+5. lacunas de transição;
+6. deriva estrutural;
+7. possível fusão;
+8. possível corte;
+9. possível condensação;
+10. possível realocação;
+11. problema de subtítulo;
+12. risco de perda de densidade.
+
+A Jararaca não revisa o texto como versão final.
+
+---
+
+## 2. O QUE A JARARACA NÃO FAZ
+
+A Jararaca não substitui a Vaquita.
+
+A Jararaca não substitui o Komodo.
+
+A Jararaca não substitui o BVAA.
+
+Ela não deve:
+
+1. revisar parágrafo por parágrafo;
+2. produzir versão final do manuscrito;
+3. verificar fonte, página, DOI, citação ou referência;
+4. auditar fidelidade entre original e revisão;
+5. aplicar corte automaticamente;
+6. aplicar fusão automaticamente;
+7. aplicar realocação automaticamente;
+8. decidir mudança estrutural crítica sem confirmação humana.
+
+---
+
+## 3. QUANDO ACIONAR A JARARACA
+
+Acione a Jararaca quando houver dúvida sobre:
+
+1. dois ou mais parágrafos parecem repetir a mesma ideia;
+2. uma seção está circular;
+3. um bloco parece deslocado;
+4. a progressão argumentativa está fraca;
+5. dois blocos distantes parecem cumprir a mesma função;
+6. há dúvida entre manter, fundir, condensar ou deslocar;
+7. há suspeita de deriva temática;
+8. há risco de presentismo ou desvio do eixo da seção;
+9. o subtítulo não corresponde bem ao conteúdo;
+10. a Vaquita não tem certeza se uma repetição é redundância ou retomada funcional.
+
+---
+
+## 4. QUANDO NÃO ACIONAR A JARARACA
+
+Não acione a Jararaca quando o problema for apenas:
+
+1. gramática;
+2. fluidez de frase;
+3. revisão local simples;
+4. referência incompleta;
+5. página de citação;
+6. DOI;
+7. fonte não verificada;
+8. fidelidade entre texto original e texto revisado;
+9. perda de sentido causada por reescrita;
+10. normalização bibliográfica.
+
+Nesses casos:
+
+- revisão textual: Vaquita;
+- fidelidade/densidade/voz autoral: Komodo;
+- fonte/página/citação/referência: BVAA.
+
+---
+
+## 5. COMO CARREGAR A JARARACA EM NOVO CHAT
+
+1. Abra um novo chat.
+2. Cole ou anexe o arquivo:
+
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+3. Aguarde o boot.
+
+Resposta esperada:
+
+✅ Sistema carregado (JARARACA v1.0-RC). Cole PACOTE_JARARACA para auditoria estrutural.
+
+4. Depois do boot, cole um PACOTE_JARARACA completo.
+
+---
+
+## 6. ENTRADA OBRIGATÓRIA
+
+A Jararaca só deve operar plenamente com:
+
+PACOTE_JARARACA
+
+Se o pacote estiver incompleto, ela deve responder:
+
+VEREDITO_ESTRUTURAL: PACOTE_INSUFICIENTE
+
+A simples etiqueta PACOTE_JARARACA não basta.
+
+---
+
+## 7. CAMPOS MÍNIMOS DO PACOTE_JARARACA
+
+Para auditoria plena, o PACOTE_JARARACA deve conter:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. MATERIAL A ANALISAR;
+4. SUSPEITA OU MOTIVO DO ENVIO;
+5. LIMITES DA AUDITORIA.
+
+O ESTADO_VAQUITA é obrigatório quando houver:
+
+1. corte;
+2. fusão;
+3. realocação;
+4. comparação entre original e revisão;
+5. suspeita de perda de densidade;
+6. encaminhamento ao Komodo;
+7. encaminhamento ao BVAA;
+8. ação crítica;
+9. integração posterior no ESTADO_VAQUITA.
+
+---
+
+## 8. MODELO CURTO DE PACOTE_JARARACA
+
+PACOTE_JARARACA
+
+## 1. IDENTIFICAÇÃO DO PROJETO
+
+- Projeto:
+- Tipo de texto:
+- Capítulo:
+- Seção/subseção:
+- Unidade de revisão:
+- Perfil temático:
+- Padrão de citação:
+- Profundidade de revisão:
+
+## 2. FUNÇÃO DO BLOCO NO ARGUMENTO
+
+- Função do capítulo:
+- Função da seção:
+- Função da unidade analisada:
+- Argumento que o bloco deve sustentar:
+
+## 3. MATERIAL A ANALISAR
+
+[colar aqui os parágrafos, blocos, seções ou mapa estrutural]
+
+## 4. SUSPEITA OU MOTIVO DO ENVIO
+
+[explicar a dúvida: redundância, sobreposição, progressão frágil, deriva, fusão possível, corte possível, realocação etc.]
+
+## 5. ESTADO_VAQUITA
+
+[registrar decisões já tomadas, restrições, alertas e se cortes/fusões exigem confirmação humana]
+
+## 6. LIMITES DA AUDITORIA
+
+- Pode sugerir fusão?
+- Pode sugerir corte?
+- Pode sugerir realocação?
+- Deve apenas diagnosticar?
+- Há bloqueio contra mudança estrutural?
+
+---
+
+## 9. SAÍDA ESPERADA
+
+A Jararaca deve responder sempre com:
+
+RETORNO_JARARACA
+
+O retorno completo contém:
+
+1. IDENTIFICAÇÃO DO RETORNO;
+2. VEREDITO_ESTRUTURAL;
+3. ALERTAS;
+4. DIAGNÓSTICO;
+5. MAPA_DE_REDUNDÂNCIAS;
+6. MAPA_DE_PROGRESSÃO;
+7. MAPA_DE_DERIVA_ESTRUTURAL;
+8. RECOMENDAÇÕES;
+9. AÇÕES_QUE_EXIGEM_CONFIRMAÇÃO_HUMANA;
+10. RISCOS_DA_INTERVENÇÃO;
+11. INTEGRAÇÃO_RECOMENDADA_NA_VAQUITA;
+12. ENCAMINHAMENTO_RECOMENDADO;
+13. STATUS_FINAL.
+
+---
+
+## 10. VEREDITOS PRINCIPAIS
+
+ESTRUTURA_ESTÁVEL
+
+Use quando não há redundância relevante, deriva estrutural ou problema de progressão.
+
+ESTRUTURA_ESTÁVEL_COM_RESSALVAS
+
+Use quando há pequenos ecos, transição pontualmente frágil ou repetição leve.
+
+REDUNDÂNCIA_LOCAL_AJUSTÁVEL
+
+Use quando há repetição próxima entre parágrafos ou blocos, resolvível por condensação ou fusão leve.
+
+SOBREPOSIÇÃO_ESTRUTURAL_RELEVANTE
+
+Use quando blocos distantes cumprem função semelhante na seção ou capítulo.
+
+PROGRESSÃO_ARGUMENTATIVA_FRÁGIL
+
+Use quando o texto avança pouco, gira em torno da mesma ideia ou apresenta circularidade.
+
+DERIVA_ESTRUTURAL_DETECTADA
+
+Use quando o bloco se afasta da função declarada da seção ou do capítulo.
+
+REORGANIZAÇÃO_RECOMENDADA_COM_CONFIRMAÇÃO
+
+Use quando a estrutura pode melhorar com fusão, corte, deslocamento ou renomeação, mas a ação exige decisão humana.
+
+BLOQUEAR_INTERVENÇÃO_AUTOMÁTICA
+
+Use quando há risco de aplicar automaticamente mudança estrutural sensível.
+
+PACOTE_INSUFICIENTE
+
+Use quando falta identificação, função, material, motivo do envio, limites da auditoria ou ESTADO_VAQUITA obrigatório.
+
+---
+
+## 11. ALERTAS PRINCIPAIS
+
+ALERTA_REDUNDANCIA_LOCAL
+
+Há repetição próxima.
+
+ALERTA_SOBREPOSICAO_DISTANTE
+
+Há sobreposição entre partes separadas.
+
+ALERTA_PROGRESSAO_CIRCULAR
+
+O texto retorna ao mesmo ponto sem avanço.
+
+ALERTA_LACUNA_TRANSICAO
+
+Falta ponte entre ideias ou blocos.
+
+ALERTA_DERIVA_ESTRUTURAL
+
+O trecho saiu do eixo previsto.
+
+ALERTA_FUSAO_POSSIVEL
+
+Há blocos que talvez possam ser fundidos.
+
+ALERTA_CORTE_POSSIVEL
+
+Há trecho que talvez possa ser cortado ou condensado.
+
+ALERTA_REALOCACAO_POSSIVEL
+
+Há trecho que talvez pertença a outro lugar.
+
+ALERTA_RISCO_PERDA_DENSIDADE
+
+A intervenção pode empobrecer o argumento.
+
+ALERTA_ENCAMINHAR_KOMODO
+
+A questão é de fidelidade, densidade, sentido ou voz autoral.
+
+ALERTA_ENCAMINHAR_BVAA
+
+A questão é de fonte, página, citação ou referência.
+
+ALERTA_PEDIR_CONFIRMACAO_HUMANA
+
+A ação é estruturalmente sensível.
+
+ALERTA_PACOTE_INSUFICIENTE
+
+O pacote não permite auditoria plena.
+
+---
+
+## 12. COMO LER O RETORNO DA JARARACA
+
+Se o STATUS_FINAL for:
+
+avanço seguro
+
+A Vaquita pode seguir sem bloqueio estrutural.
+
+avanço com ressalva
+
+A Vaquita pode seguir, mas deve registrar o ajuste ou cuidado indicado.
+
+aguardar decisão humana
+
+Há ação crítica possível. O usuário deve decidir antes de aplicar.
+
+solicitar novo PACOTE_JARARACA
+
+O pacote está incompleto ou insuficiente.
+
+encaminhar a outro auxiliar
+
+A questão principal pertence ao Komodo ou ao BVAA.
+
+bloquear intervenção automática
+
+A Vaquita não deve aplicar corte, fusão, realocação ou condensação sensível sem confirmação.
+
+---
+
+## 13. AÇÕES QUE SEMPRE EXIGEM CONFIRMAÇÃO HUMANA
+
+1. deletar parágrafo;
+2. fundir parágrafos distantes;
+3. fundir blocos distantes;
+4. fundir seções;
+5. mover parágrafo para outra seção;
+6. mover subseção;
+7. renomear seção principal;
+8. alterar hierarquia de títulos;
+9. inverter ordem de blocos argumentativos;
+10. cortar citação direta;
+11. cortar referência bibliográfica;
+12. remover exemplo histórico;
+13. remover discussão teórica;
+14. transformar seção em nota;
+15. transformar nota em corpo do texto;
+16. alterar a tese local da seção;
+17. alterar a função declarada do capítulo.
+
+---
+
+## 14. VIDA ÚTIL RECOMENDADA DO CHAT JARARACA
+
+Use um chat Jararaca para:
+
+1. uma seção longa;
+2. um capítulo curto/médio;
+3. até 5–8 PACOTE_JARARACA.
+
+Abra novo chat Jararaca se:
+
+1. terminou uma seção;
+2. terminou um capítulo;
+3. já auditou 5–8 pacotes;
+4. começou a responder fora do formato;
+5. trouxe assunto de pacote anterior;
+6. começou a reescrever demais;
+7. confundiu Vaquita, Komodo ou BVAA;
+8. ficou genérica demais;
+9. deixou de exigir confirmação humana;
+10. passou a tratar toda repetição como erro.
+
+---
+
+## 15. TESTES APROVADOS
+
+A Jararaca v1.0-RC foi aprovada para uso inicial controlado após:
+
+R1 aprovado — boot enxuto.
+
+R2 aprovado — bloqueio de material sem PACOTE_JARARACA.
+
+R3 aprovado após emenda — bloqueio de PACOTE_JARARACA incompleto.
+
+R4 aprovado — redundância local real.
+
+R5 aprovado — retomada funcional não redundante.
+
+R6 aprovado — sobreposição distante.
+
+R7 aprovado — progressão argumentativa frágil.
+
+R8 aprovado — deriva estrutural.
+
+R9 aprovado — encaminhamento ao Komodo.
+
+R10 aprovado — encaminhamento ao BVAA.
+
+R11 aprovado — ação crítica sem confirmação.
+
+R12 aprovado — anti-deriva funcional.
+
+R13 aprovado — formato integrável pela Vaquita.
+
+---
+
+## 16. REGRA DE OURO
+
+A Jararaca diagnostica e recomenda.
+
+A Vaquita integra.
+
+O Komodo audita fidelidade/densidade.
+
+O BVAA verifica fonte/página/citação/referência.
+
+O usuário confirma ações estruturais críticas.

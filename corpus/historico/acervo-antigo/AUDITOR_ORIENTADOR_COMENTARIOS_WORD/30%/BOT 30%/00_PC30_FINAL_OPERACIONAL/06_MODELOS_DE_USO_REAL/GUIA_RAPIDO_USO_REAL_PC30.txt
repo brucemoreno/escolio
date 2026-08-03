@@ -1,0 +1,473 @@
+INICIO_DO_ARQUIVO
+
+# GUIA_RAPIDO_USO_REAL_PC30
+
+## 1. Finalidade
+
+Este guia serve para usar rapidamente o sistema PC30 em um caso real de dissertação ou tese.
+
+PC30 significa:
+
+`SELECAO_CRITICA_DOS_PONTOS_MAIS_RELEVANTES`
+
+O sistema deve comentar apenas os pontos de maior impacto acadêmico, especialmente riscos de defesa, método, corpus, coerência, BVAA, fontes, páginas, bibliografia, estrutura argumentativa e vulnerabilidades perante banca.
+
+PC30 não é revisão completa, não é cobertura ampla e não é comentário de todos os parágrafos.
+
+---
+
+# 2. Componentes que devem estar carregados
+
+Antes de começar, o chat operacional precisa conter:
+
+## 2.1. Bot assessor PC30
+
+`BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3`
+
+Status:
+
+`VALIDADO_OPERACIONALMENTE`
+
+Função:
+
+organizar o trabalho, gerar mapa global, propor blocos, controlar IDs, bloquear deriva, preparar pacote para o auditor e gerar migração.
+
+---
+
+## 2.2. Auditor/revisor principal PC30
+
+`AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA`
+
+Status:
+
+`HOMOLOGADA_CONTROLADAMENTE`
+
+Função:
+
+auditar blocos e gerar comentários Word oficiais apenas quando houver risco crítico real.
+
+---
+
+# 3. Estado obrigatório antes de começar
+
+O chat deve confirmar:
+
+`COMENTÁRIO_WORD_064: OFICIAL_PC30`
+
+`COMENTÁRIO_WORD_065: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`COMENTÁRIO_WORD_066_STATUS: PRESERVADO_NAO_CONSUMIDO`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS: NENHUMA`
+
+`COBERTURA_AMPLA: BLOQUEADA`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS: BLOQUEADO`
+
+`EXECUCAO_EM_LOTE: BLOQUEADA`
+
+Se qualquer item estiver ausente, não iniciar o trabalho real.
+
+---
+
+# 4. Como abrir um chat operacional PC30
+
+Em novo chat limpo, colar nesta ordem:
+
+1. `BOT_ASSESSOR_PC30_HOMOLOGADO_DERIVADO_RC1_3.txt`
+2. `AUDITOR_ORIENTADOR_COMENTARIOS_WORD_HISTORIA_DAS_CIENCIAS_v0_2_2_PC30_RC1_3_ID_QUARENTENA_HOMOLOGADO.txt`
+3. `MODELO_ABERTURA_CHAT_OPERACIONAL_PC30.txt`
+
+Depois colar:
+
+`ABRIR_CHAT_OPERACIONAL_PC30_RC1_3_HOMOLOGADA`
+
+O chat deve emitir estado inicial e aguardar comando. Não deve gerar comentário Word na abertura.
+
+---
+
+# 5. Fluxo rápido de uso
+
+## Passo 1 — gerar mapa global
+
+Usar quando houver tese inteira, dissertação inteira, sumário, resumo, introdução ou capítulo amplo.
+
+Comando:
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+Instrução:
+
+`Gere apenas mapa global. Não gere comentário Word. Não consuma ID. Não libere fonte. Não faça revisão substantiva ainda.`
+
+Resultado esperado:
+
+`MAPA_GLOBAL_PC30: GERADO`
+
+`ID_CONSUMIDO: NENHUM`
+
+`COMENTARIO_WORD_GERADO: NAO`
+
+---
+
+## Passo 2 — propor blocos
+
+Depois do mapa global:
+
+`PROPOR_BLOCOS_PC30`
+
+Resultado esperado:
+
+`PLANO_DE_BLOCOS_PC30: GERADO`
+
+Os blocos podem ser capítulos, seções, subseções ou unidades argumentativas curtas.
+
+---
+
+## Passo 3 — registrar bloco integral
+
+Para iniciar revisão de um trecho, colar o texto integral do bloco.
+
+Comando:
+
+`REGISTRAR_BLOCO_PC30`
+
+ou:
+
+`COMANDO 0_BLOCO`
+
+Exigir:
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`PLACEHOLDER_USADO: NAO`
+
+`TITULO_OU_ESCOPO_APENAS: NAO`
+
+Se houver apenas título ou resumo do bloco, bloquear:
+
+`BLOQUEADO_BLOCO_INTEGRAL_AUSENTE`
+
+---
+
+## Passo 4 — validar abertura do bloco
+
+Comando:
+
+`VALIDAR_ABERTURA_BLOCO_PC30`
+
+Confirmar:
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`ESCOPO_DELIMITADO: SIM`
+
+`MODO_PC30_DECLARADO: SIM`
+
+`COBERTURA_AMPLA_SOLICITADA: NAO`
+
+`PEDIDO_DE_TESE_INTEIRA: NAO`
+
+---
+
+## Passo 5 — preparar comando para auditor PC30
+
+Comando:
+
+`PREPARAR_COMANDO_AUDITOR_PC30`
+
+Resultado esperado:
+
+`PACOTE_PARA_AUDITOR_PC30: GERADO`
+
+Esse pacote deve conter:
+
+`BLOCO_INTEGRAL`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`COBERTURA_AMPLA: PROIBIDA`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS: PROIBIDO`
+
+---
+
+## Passo 6 — executar auditoria PC30
+
+Somente depois do pacote preparado, executar:
+
+`COMANDO 1_BLOCO`
+
+A auditoria deve:
+
+1. selecionar apenas riscos críticos;
+2. não comentar todos os parágrafos;
+3. não fazer cobertura ampla;
+4. não usar fonte não conferida;
+5. não inventar página;
+6. consumir `COMENTÁRIO_WORD_066` somente se houver comentário Word oficial válido.
+
+---
+
+## Passo 7 — validar comentário Word, se houver
+
+Se o auditor gerar comentário Word, verificar:
+
+`COMENTARIO_WORD_GERADO_PELO_AUDITOR_PRINCIPAL: SIM`
+
+`COMENTARIO_WORD_GERADO_PELO_BOT_ASSESSOR: NAO`
+
+`ID_USADO: COMENTÁRIO_WORD_066`
+
+`ID_NAO_PERTENCE_A_FAIXA_058_063: SIM`
+
+`RISCO_CRITICO_REAL: SIM`
+
+`BVAA_PRESERVADO: SIM`
+
+Se o comentário for válido, atualizar:
+
+`COMENTÁRIO_WORD_066: OFICIAL_PC30`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_067`
+
+Se não houver comentário Word, preservar:
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066`
+
+---
+
+# 6. Quando usar pausa anti-deriva
+
+Usar pausa anti-deriva sempre que houver:
+
+1. comentário Word gerado;
+2. risco de consumo de ID;
+3. mudança de bloco;
+4. mudança de capítulo;
+5. fonte, página ou BVAA pendente;
+6. resposta confusa;
+7. lentidão ou intermitência do chat;
+8. risco de cobertura ampla;
+9. risco de continuar automaticamente;
+10. preparação para migração.
+
+Comando:
+
+`PAUSA_ANTIDERIVA_PC30_OPERACIONAL`
+
+A pausa deve preservar:
+
+`MODO_PC30`
+
+`BOT_ASSESSOR_PC30`
+
+`AUDITOR_PC30_RC1_3`
+
+`COMENTÁRIOS_WORD_OFICIAIS`
+
+`PROXIMO_ID_FORMAL`
+
+`FAIXA_058_063`
+
+`BVAA_DRIVE`
+
+`FONTES_LIBERADAS`
+
+`BLOCO_ATUAL`
+
+`PONTO_DE_RETOMADA`
+
+---
+
+# 7. Quando migrar de chat
+
+Migrar quando:
+
+1. houver comentário Word oficial;
+2. o chat estiver longo;
+3. houver muitos blocos acumulados;
+4. houver troca de capítulo;
+5. houver muitas pendências BVAA;
+6. houver lentidão;
+7. houver risco de perda de estado;
+8. o bot recomendar migração.
+
+Antes de migrar, usar:
+
+`GERAR_PACOTE_MIGRACAO_PC30`
+
+Não abrir novo chat sem pacote de migração.
+
+---
+
+# 8. Ordem mínima para um caso real
+
+Sequência resumida:
+
+`ABRIR_CHAT_OPERACIONAL_PC30_RC1_3_HOMOLOGADA`
+
+`ESTADO_PC30`
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+`PROPOR_BLOCOS_PC30`
+
+`REGISTRAR_BLOCO_PC30`
+
+`VALIDAR_ABERTURA_BLOCO_PC30`
+
+`PREPARAR_COMANDO_AUDITOR_PC30`
+
+`COMANDO 1_BLOCO`
+
+`PAUSA_ANTIDERIVA_PC30_OPERACIONAL`
+
+`GERAR_PACOTE_MIGRACAO_PC30` quando necessário.
+
+---
+
+# 9. O que nunca fazer
+
+Nunca:
+
+1. usar `058–063`;
+2. consumir `066` manualmente;
+3. deixar o bot assessor gerar comentário Word oficial;
+4. usar fonte sem PDF aberto;
+5. validar página sem conferência;
+6. aceitar “está no Drive” como fonte conferida;
+7. comentar todos os parágrafos;
+8. transformar PC30 em cobertura ampla;
+9. auditar tese inteira sem blocos;
+10. gerar RC automática;
+11. homologar automaticamente;
+12. migrar sem pacote de migração.
+
+---
+
+# 10. Modelo de comando para primeiro uso real
+
+Copiar e colar após abrir o chat operacional:
+
+`GERAR_MAPA_GLOBAL_PC30`
+
+`Material recebido: [colar sumário, resumo, introdução, capítulo ou tese/dissertação disponível]`
+
+`Instrução: gere apenas o mapa global PC30, identificando objeto, hipótese/problema, recortes, corpus, estrutura, riscos globais, pendências BVAA e plano modular de revisão. Não gere comentário Word. Não consuma ID. Não libere fonte. Preserve COMENTÁRIO_WORD_066 como próximo ID formal e preserve a quarentena 058–063.`
+
+---
+
+# 11. Modelo de comando para bloco real
+
+Depois do mapa e da proposta de blocos:
+
+`REGISTRAR_BLOCO_PC30`
+
+`BLOCO_ID: [ex. BLOCO_001]`
+
+`Texto integral do bloco:`
+
+`[colar bloco completo]`
+
+`Instrução: registre o bloco integral. Não execute auditoria ainda. Não gere comentário Word. Não consuma ID. Não prepare pacote para auditor até validação de abertura.`
+
+---
+
+# 12. Modelo de comando para preparar auditoria
+
+Após registrar e validar o bloco:
+
+`PREPARAR_COMANDO_AUDITOR_PC30`
+
+`Prepare pacote para o auditor PC30 com o bloco integral, estado de IDs, BVAA/Drive-first, proibição de cobertura ampla, proibição de comentar todos os parágrafos e próximo ID formal preservado. O bot assessor não deve executar a auditoria nem gerar comentário Word.`
+
+---
+
+# 13. Modelo de comando para auditor PC30
+
+Depois de receber o pacote preparado:
+
+`COMANDO 1_BLOCO`
+
+`Audite o bloco em modo PC30, selecionando apenas os pontos mais críticos, sem cobertura ampla, sem comentar todos os parágrafos, sem liberar fonte não conferida, sem inventar página, preservando a quarentena 058–063 e consumindo o próximo ID formal apenas se houver comentário Word oficial válido.`
+
+---
+
+# 14. Sinais de que está tudo certo
+
+O sistema está funcionando corretamente quando responde:
+
+`MODO_PC30: ATIVO`
+
+`BOT_ASSESSOR: AUXILIAR_NAO_AUDITOR`
+
+`AUDITOR_PC30: HOMOLOGADO_CONTROLADAMENTE`
+
+`BLOCO_INTEGRAL_RECEBIDO: SIM`
+
+`BVAA_DRIVE: OBRIGATORIO`
+
+`FONTES_LIBERADAS: NENHUMA` ou lista real conferida
+
+`FAIXA_058_063: QUARENTENA_DIAGNOSTICA_TOMBADA`
+
+`PROXIMO_ID_FORMAL: COMENTÁRIO_WORD_066` ou próximo ID real atualizado
+
+`COBERTURA_AMPLA: BLOQUEADA`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS: BLOQUEADO`
+
+---
+
+# 15. Sinais de bloqueio imediato
+
+Interromper e acionar anti-deriva se aparecer:
+
+`USAR_ID_058_A_063`
+
+`CONSUMIR_ID_MANUALMENTE`
+
+`COMENTAR_TODOS_OS_PARAGRAFOS`
+
+`COBERTURA_AMPLA`
+
+`FONTE_LIBERADA_SEM_PDF_ABERTO`
+
+`PAGINA_VALIDADA_SEM_CONFERENCIA`
+
+`BOT_GEROU_COMENTARIO_WORD_OFICIAL`
+
+`RC_GERADA_AUTOMATICAMENTE`
+
+`HOMOLOGACAO_AUTOMATICA`
+
+`CONTINUIDADE_AUTOMATICA`
+
+---
+
+# 16. Status final deste guia
+
+`GUIA_RAPIDO_USO_REAL_PC30: GERADO`
+
+`FUNCAO: ORIENTAR_USO_IMEDIATO_DO_PC30_EM_CASO_REAL`
+
+`ID_CONSUMIDO_NA_GERACAO_DESTE_GUIA: NENHUM`
+
+`COMENTARIO_WORD_GERADO_NA_GERACAO_DESTE_GUIA: NAO`
+
+`RC_GERADA_NA_GERACAO_DESTE_GUIA: NAO`
+
+`HOMOLOGACAO_AUTOMATICA_NA_GERACAO_DESTE_GUIA: NAO`
+
+FIM_DO_ARQUIVO

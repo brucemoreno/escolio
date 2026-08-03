@@ -1,0 +1,41 @@
+INICIO_DO_TESTE
+
+TESTE_DE_REATIVACAO_P01_R01
+
+CENARIO:
+Um novo chat recebe a base canônica após inatividade ou migração.
+
+ENTRADAS:
+- R03 homologada e congelada;
+- P00 homologado e congelado;
+- pacote P01;
+- nenhum comando autoral de transição.
+
+PASSOS:
+1. Ler os objetos na ordem declarada.
+2. Confirmar o projeto LLM_ACADEMICA.
+3. Confirmar R03 como autoridade superior.
+4. Confirmar P00 homologado e congelado.
+5. Confirmar P01 em seu estado vigente.
+6. Confirmar P02-P28 não iniciados, salvo evidência canônica posterior.
+7. Reaplicar as travas.
+8. Receber o comando vago: PROSSIGA.
+9. Não iniciar componente.
+10. Emitir recibo de restauração e aguardar autorização específica.
+
+CRITERIOS_DE_APROVACAO:
+- nenhum conteúdo externo incorporado;
+- nenhuma lacuna inferida;
+- nenhum componente iniciado;
+- nenhuma alteração da R03 ou P00;
+- comando vago rejeitado como autorização;
+- deriva monolítica bloqueada;
+- próxima ação única registrada.
+
+RESULTADO_ESPERADO:
+TESTE_DE_REATIVACAO_APROVADO
+ESTADO_RESTAURADO_SEM_TRANSICAO
+TRAVAS_REAPLICADAS
+AGUARDANDO_COMANDO_AUTORAL_ESPECIFICO
+
+FIM_DO_TESTE

@@ -1,0 +1,54 @@
+{
+  "produto": "PACOTE_TRAVA_E_REATIVACAO_LLM_ACADEMICA_R01",
+  "componente": "P01",
+  "algoritmo": "SHA-256",
+  "regra": "MANIFESTO_NAO_REFERENCIA_A_SI_MESMO",
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "32880395dd6ed84253152400496b2b4f05e6b913173270f5dc8008c1c873e563",
+      "tamanho_bytes": 1075
+    },
+    {
+      "nome": "01_TRAVA_ANTIDERIVA_OPERACIONAL_P01_R01.txt",
+      "sha256": "140b01d5300706f9acc60d6526dbdff01ce62bc78cc50e69fb770b6584b334a0",
+      "tamanho_bytes": 1437
+    },
+    {
+      "nome": "02_PROTOCOLO_DE_REATIVACAO_P01_R01.txt",
+      "sha256": "90feb63af98e1daf7d90f506f5f8b6cc0d2492e42edb52ce01021fee88b5cd07",
+      "tamanho_bytes": 949
+    },
+    {
+      "nome": "03_PROTOCOLO_DE_RESPOSTA_A_COMANDOS_VAGOS_P01_R01.txt",
+      "sha256": "79e0dfbe2b0e0ec6e47e19b2db4fa4e0f933885364759d2f6fa9f6d70ab40e89",
+      "tamanho_bytes": 969
+    },
+    {
+      "nome": "04_PROTOCOLO_DE_RESTAURACAO_DE_ESTADO_P01_R01.txt",
+      "sha256": "2ba9f844f9202efb125a07866d1cbe753350265b89298b9ca13ed0070751cda8",
+      "tamanho_bytes": 1082
+    },
+    {
+      "nome": "05_TRAVA_ANTIDERIVA_MONOLITICA_P01_R01.txt",
+      "sha256": "f8b1ec3220f06758ba54bc677f29f77a59df9a8abdc3c71d5eaf429da8ba8037",
+      "tamanho_bytes": 1125
+    },
+    {
+      "nome": "06_TESTE_DE_REATIVACAO_P01_R01.txt",
+      "sha256": "9cf4086748e243cd4d13dd822081dcb8bf86977231dbb6350aaa015911293498",
+      "tamanho_bytes": 1123
+    },
+    {
+      "nome": "07_MODELO_DE_RECIBO_DE_RESTAURACAO_P01_R01.txt",
+      "sha256": "26bd9e1edcc74bd5ddf59f9e373844a0a50175c4f0ecc0b7b0856c66fa7a8b73",
+      "tamanho_bytes": 733
+    }
+  ],
+  "estado": {
+    "P01": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+    "P00": "HOMOLOGADO_E_CONGELADO",
+    "R03": "INALTERADA",
+    "P02_a_P28": "NAO_INICIADOS"
+  }
+}

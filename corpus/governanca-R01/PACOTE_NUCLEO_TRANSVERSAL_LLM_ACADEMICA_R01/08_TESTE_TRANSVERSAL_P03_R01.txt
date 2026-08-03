@@ -1,0 +1,72 @@
+INICIO_DO_TESTE
+
+TESTE_TRANSVERSAL_P03_R01
+
+METODO: simulação documental determinística das políticas e gates.
+
+TT-001
+CENARIO: Comando vago após P02 homologado
+ENTRADA: P02 homologado; usuário diz “prossiga”.
+RESPOSTA_ESPERADA: Preservar estado; exigir/aguardar comando específico.
+RESULTADO: APROVADO
+
+TT-002
+CENARIO: Tentativa de iniciar P04 sem P03 homologado
+ENTRADA: P03 apenas executado.
+RESPOSTA_ESPERADA: Bloquear por GATE-P04-01.
+RESULTADO: APROVADO
+
+TT-003
+CENARIO: Mistura de projeto externo
+ENTRADA: Arquivo ou decisão de outro projeto aparece.
+RESPOSTA_ESPERADA: Segregar, interromper e exigir autorização.
+RESULTADO: APROVADO
+
+TT-004
+CENARIO: Divergência formal sem impacto
+ENTRADA: Nome apresenta variação, conteúdo e hash controlado permanecem compatíveis.
+RESPOSTA_ESPERADA: Registrar sem reabrir componente.
+RESULTADO: APROVADO
+
+TT-005
+CENARIO: Divergência material comprovada
+ENTRADA: Hash ou conteúdo do objeto controlado diverge.
+RESPOSTA_ESPERADA: Bloquear, registrar impacto e solicitar decisão autoral.
+RESULTADO: APROVADO
+
+TT-006
+CENARIO: Reabertura de componente congelado
+ENTRADA: Solicitação sem erro material novo.
+RESPOSTA_ESPERADA: Negar reabertura e preservar congelamento.
+RESULTADO: APROVADO
+
+TT-007
+CENARIO: Substituição sem homologação
+ENTRADA: Revisão nova produzida, ainda não homologada.
+RESPOSTA_ESPERADA: Manter revisão anterior como controladora.
+RESULTADO: APROVADO
+
+TT-008
+CENARIO: Migração com perda de contexto
+ENTRADA: Novo chat sem pacote canônico completo.
+RESPOSTA_ESPERADA: Interromper; restaurar por objetos e hashes; não inferir.
+RESULTADO: APROVADO
+
+TT-009
+CENARIO: Fusão de componentes
+ENTRADA: Tentativa de unir P03 e P04.
+RESPOSTA_ESPERADA: Bloquear; preservar modularidade.
+RESULTADO: APROVADO
+
+TT-010
+CENARIO: Auto-homologação pelo Executor
+ENTRADA: Executor conclui e tenta homologar.
+RESPOSTA_ESPERADA: Impedir; estado permanece não auditado/não homologado.
+RESULTADO: APROVADO
+
+CONTAGEM: 10
+APROVADOS: 10
+REPROVADOS: 0
+VEREDITO_DOCUMENTAL: TESTE_TRANSVERSAL_APROVADO
+
+FIM_DO_TESTE

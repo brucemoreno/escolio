@@ -1,0 +1,2266 @@
+# KIT MESTRE — ECOSSISTEMA VAQUITA v1.0-RC
+# Módulos: VAQUITA / KOMODO / BVAA / JARARACA / HANDOFF
+# Finalidade: guia unificado de uso, instalação, fluxo operacional e acionamento dos auxiliares
+# Status: versão mestre atualizada pós-FASE 9.G, com Handoff consolidado e integração completa Vaquita + Komodo + BVAA + Jararaca + Handoff aprovada tecnicamente
+
+---
+
+## 1. VISÃO GERAL DO ECOSSISTEMA
+
+O Ecossistema Vaquita v1.0-RC é uma arquitetura modular de revisão acadêmica profunda.
+
+Ele foi criado para revisar teses, dissertações, capítulos, artigos e projetos acadêmicos com alto controle de:
+
+1. densidade argumentativa;
+2. fidelidade textual;
+3. coerência estrutural;
+4. verificação bibliográfica;
+5. preservação de decisões;
+6. continuidade entre chats;
+7. prevenção de deriva;
+8. separação entre núcleo universal e casos específicos.
+
+O sistema funciona por chaining controlado:
+
+Vaquita revisa e orquestra.
+
+Komodo audita fidelidade, densidade, sentido e voz autoral.
+
+BVAA verifica fonte, página, citação, referência e pertinência documental.
+
+Jararaca audita redundância, sobreposição, progressão argumentativa e deriva estrutural.
+
+Handoff preserva e transfere estado entre chats.
+
+---
+
+## 2. STATUS DOS MÓDULOS
+
+Todos os módulos abaixo estão aprovados para uso inicial controlado.
+
+Status integrado pós-FASE 9.G:
+
+A FASE 9.G aprovou tecnicamente o teste integrado completo com os cinco módulos:
+
+Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+Essa aprovação valida a integração simultânea de retornos auxiliares pela Vaquita, a preservação do estado integrado pelo Handoff e a retomada controlada pela Vaquita destino, sem ação automática diante de bloqueio textual, pendência documental ou ressalva estrutural bloqueante.
+
+### Vaquita-Orquestrador v1.0-RC
+
+Status: aprovado para uso inicial controlado.
+
+Arquivo principal:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Bootstrap:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Função:
+
+Orquestrador principal da revisão acadêmica.
+
+### Komodo v1.0-RC
+
+Status: aprovado para uso inicial controlado.
+
+Arquivo principal:
+
+KOMODO_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Bootstrap backup:
+
+BOOTSTRAP_CARREGAMENTO_KOMODO_v1.0-RC.txt
+
+Função:
+
+Auditor de fidelidade, densidade, sentido e voz autoral.
+
+### BVAA v1.0-RC
+
+Status: aprovado para uso inicial controlado.
+
+Arquivo principal:
+
+BVAA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Função:
+
+Verificador bibliográfico/documental anti-alucinação.
+
+### Jararaca v1.0-RC
+
+Status: aprovada para uso inicial controlado.
+
+Arquivo principal:
+
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+Função:
+
+Auditora de redundância, sobreposição, progressão argumentativa e deriva estrutural.
+
+### Handoff v1.0-RC
+
+Status: aprovado para uso inicial controlado em versão consolidada única.
+
+Arquivo principal recomendado:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Arquivos históricos preservados:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+HANDOFF_v1.0-RC__EMENDA_ARQUITETURAL_CALIBRAGEM_SAIDA.txt
+
+HANDOFF_v1.0-RC__EMENDA_COMPLEMENTAR_GATE_SAIDA_PACOTE_INTEGRADO.txt
+
+Função:
+
+Módulo de continuidade, migração e preservação de contexto entre chats.
+
+Regra atualizada:
+
+Para uso operacional padrão do Handoff, carregar apenas HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt. As emendas separadas permanecem preservadas como histórico técnico e rastreabilidade arquitetural, mas não são mais arquivos obrigatórios de uso cotidiano.
+
+---
+
+## 3. REGRA MESTRA DE USO
+
+Use sempre a Vaquita como chat principal.
+
+Acione Komodo, BVAA, Jararaca ou Handoff apenas quando a Vaquita recomendar ou quando houver necessidade clara.
+
+Fluxo padrão:
+
+1. Abrir chat Vaquita.
+2. Carregar Vaquita com arquivo auditado + bootstrap.
+3. Enviar BLOCO 0.
+4. Executar COMANDO 0.
+5. Iniciar revisão com COMANDO 1.
+6. Avançar com PROXIMO / PRÓXIMO.
+7. Acionar auxiliares quando necessário.
+8. Integrar retornos auxiliares na Vaquita.
+9. Usar Handoff quando for necessário migrar ou preservar estado.
+
+---
+
+## 4. INSTALAÇÃO RÁPIDA DA VAQUITA
+
+### Passo 1 — abrir novo chat
+
+Abrir um novo chat limpo para a Vaquita.
+
+### Passo 2 — anexar arquivo principal
+
+Anexar:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+### Passo 3 — colar bootstrap
+
+Colar:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+### Passo 4 — aguardar boot
+
+Aguardar a Vaquita confirmar carregamento.
+
+### Passo 5 — iniciar projeto
+
+Enviar:
+
+BLOCO 0
+
+ou
+
+BLOCO 0 AVANÇADO
+
+conforme o caso.
+
+---
+
+## 5. COMANDOS CRÍTICOS DA VAQUITA
+
+Preservar literalmente:
+
+BLOCO 0
+
+BLOCO 0 AVANÇADO
+
+COMANDO 0
+
+COMANDO 1
+
+PROXIMO / PRÓXIMO
+
+IDENT_TXT
+
+AÇÃO NO MANUSCRITO
+
+ESTADO_VAQUITA
+
+ESTADO_ATUALIZADO
+
+PAUSA_REFRESH_LOCAL
+
+REFRESH_GATE_STRICT
+
+ROTEADOR_DE_AUDITORIA
+
+ENCAMINHAMENTO
+
+PACOTE_KOMODO
+
+PACOTE_BVAA
+
+PACOTE_JARARACA
+
+PACOTE_HANDOFF
+
+INTEGRAR_RETORNO_KOMODO
+
+INTEGRAR_RETORNO_BVAA
+
+INTEGRAR_RETORNO_JARARACA
+
+INTEGRAR_RETORNO_HANDOFF
+
+RETOMAR_VAQUITA_COM_HANDOFF
+
+---
+
+## 6. QUANDO USAR CADA MÓDULO
+
+### Use Vaquita quando precisar:
+
+1. revisar parágrafo por parágrafo;
+2. preservar estilo autoral;
+3. manter progressão do manuscrito;
+4. registrar ação no manuscrito;
+5. atualizar ESTADO_VAQUITA;
+6. decidir se aciona auxiliar;
+7. integrar retornos de Komodo, BVAA, Jararaca e Handoff.
+
+### Use Komodo quando precisar:
+
+1. conferir se a revisão preservou o sentido original;
+2. verificar perda de densidade argumentativa;
+3. avaliar voz autoral;
+4. checar se uma condensação apagou nuance;
+5. auditar fidelidade entre original e revisado;
+6. decidir se a Vaquita pode avançar com segurança.
+
+Entrada:
+
+PACOTE_KOMODO
+
+Saída:
+
+RETORNO_KOMODO
+
+Integração na Vaquita:
+
+INTEGRAR_RETORNO_KOMODO
+
+### Use BVAA quando precisar:
+
+1. verificar fonte;
+2. confirmar página;
+3. liberar ou bloquear citação literal;
+4. conferir referência;
+5. avaliar pertinência entre fonte e afirmação;
+6. impedir uso de fonte-coringa;
+7. pedir PDF, trecho paginado ou dados bibliográficos.
+
+Entrada:
+
+PACOTE_BVAA
+
+Saída:
+
+RETORNO_BVAA
+
+Integração na Vaquita:
+
+INTEGRAR_RETORNO_BVAA
+
+### Use Jararaca quando precisar:
+
+1. detectar redundância local;
+2. diferenciar redundância de retomada funcional;
+3. avaliar sobreposição distante;
+4. avaliar progressão argumentativa;
+5. detectar deriva estrutural;
+6. decidir se há fusão, corte, condensação ou realocação possível;
+7. preservar densidade antes de mexer na estrutura.
+
+Entrada:
+
+PACOTE_JARARACA
+
+Saída:
+
+RETORNO_JARARACA
+
+Integração na Vaquita:
+
+INTEGRAR_RETORNO_JARARACA
+
+### Use Handoff quando precisar:
+
+1. migrar chat;
+2. preservar ESTADO_VAQUITA;
+3. transferir revisão para novo chat;
+4. preservar retornos auxiliares;
+5. registrar teste, falha, emenda e reteste;
+6. criar pacote de migração;
+7. criar pacote condicional;
+8. evitar resumo destrutivo;
+9. preservar núcleo universal separado de caso específico.
+
+Entrada:
+
+PACOTE_HANDOFF
+
+Saídas possíveis:
+
+RETORNO_HANDOFF
+
+PACOTE_HANDOFF_DESENVOLVIMENTO
+
+PACOTE_HANDOFF_VAQUITA
+
+PACOTE_HANDOFF_MODULAR
+
+PACOTE_HANDOFF_CASO
+
+PACOTE_HANDOFF_CONDICIONAL
+
+PACOTE_DE_MIGRACAO
+
+Integração na Vaquita:
+
+INTEGRAR_RETORNO_HANDOFF
+
+RETOMAR_VAQUITA_COM_HANDOFF
+
+---
+
+## 7. O QUE CADA MÓDULO NÃO DEVE FAZER
+
+### Vaquita não deve:
+
+1. inventar página ou referência;
+2. declarar fonte confirmada sem BVAA;
+3. ignorar retorno do Komodo;
+4. aplicar corte/fusão crítica sem confirmação humana;
+5. avançar seção ignorando ESTADO_VAQUITA;
+6. tratar caso específico como regra universal.
+
+### Komodo não deve:
+
+1. revisar o manuscrito no lugar da Vaquita;
+2. verificar bibliografia como BVAA;
+3. reorganizar estrutura como Jararaca;
+4. aplicar corte ou fusão;
+5. inventar página, DOI ou referência.
+
+### BVAA não deve:
+
+1. revisar texto;
+2. auditar fidelidade;
+3. auditar redundância;
+4. completar referência por memória;
+5. inventar página;
+6. inventar citação literal;
+7. tratar obra conhecida como fonte verificada sem evidência.
+
+### Jararaca não deve:
+
+1. revisar parágrafo por parágrafo;
+2. auditar fidelidade como Komodo;
+3. verificar fonte como BVAA;
+4. aplicar corte/fusão como decisão final;
+5. tratar toda repetição como erro;
+6. aceitar PACOTE_JARARACA insuficiente como válido.
+
+### Handoff não deve:
+
+1. revisar manuscrito;
+2. auditar fidelidade;
+3. verificar fonte;
+4. auditar redundância;
+5. aprovar módulo não testado;
+6. resolver pendência;
+7. apagar falhas;
+8. transformar decisão aberta em decisão consolidada;
+9. confundir caso específico com núcleo universal.
+
+---
+
+## 8. FLUXO PADRÃO DE REVISÃO ACADÊMICA
+
+### Etapa 1 — Preparação
+
+Abrir chat Vaquita.
+
+Carregar:
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Colar:
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+Enviar BLOCO 0.
+
+### Etapa 2 — Mapeamento
+
+Executar COMANDO 0.
+
+A Vaquita deve reconstruir:
+
+1. tipo de texto;
+2. capítulo;
+3. seção;
+4. unidade de revisão;
+5. perfil temático;
+6. padrão de citação;
+7. profundidade de revisão;
+8. regras do projeto;
+9. estado inicial.
+
+### Etapa 3 — Revisão
+
+Executar COMANDO 1.
+
+A Vaquita revisa o primeiro trecho/parágrafo.
+
+Depois, usar:
+
+PROXIMO / PRÓXIMO
+
+### Etapa 4 — Auditorias auxiliares
+
+Acionar apenas quando necessário:
+
+PACOTE_KOMODO
+
+PACOTE_BVAA
+
+PACOTE_JARARACA
+
+### Etapa 5 — Integração
+
+Após receber retorno auxiliar, integrar na Vaquita:
+
+INTEGRAR_RETORNO_KOMODO
+
+INTEGRAR_RETORNO_BVAA
+
+INTEGRAR_RETORNO_JARARACA
+
+### Etapa 6 — Migração
+
+Quando o chat ficar longo, ou houver risco de deriva, acionar:
+
+PACOTE_HANDOFF
+
+ou pedir:
+
+“prepare pacote de migração para novo chat Vaquita”
+
+---
+
+## 9. FLUXO PADRÃO COM KOMODO
+
+Use quando houver dúvida sobre fidelidade, densidade ou voz autoral.
+
+### Entrada
+
+A Vaquita deve gerar:
+
+PACOTE_KOMODO
+
+O pacote deve conter:
+
+1. identificação do projeto;
+2. texto original;
+3. texto revisado;
+4. função do trecho;
+5. dúvida da Vaquita;
+6. critérios de auditoria;
+7. ESTADO_VAQUITA, se aplicável.
+
+### Saída
+
+Komodo devolve:
+
+RETORNO_KOMODO
+
+Vereditos:
+
+APROVADO
+
+APROVADO_COM_RESSALVAS
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+BLOQUEAR_AVANÇO
+
+### Integração
+
+Voltar à Vaquita e usar:
+
+INTEGRAR_RETORNO_KOMODO
+
+### Regra crítica pós-FASE 9.E
+
+Quando o Komodo devolver:
+
+CORRIGIR_ANTES_DE_AVANÇAR
+
+esse veredito deve ser tratado como bloqueio operacional, não como ressalva simples.
+
+O sistema não deve:
+
+1. transformar CORRIGIR_ANTES_DE_AVANÇAR em APROVADO_COM_RESSALVAS;
+2. avançar para PROXIMO sem correção;
+3. consolidar ação no manuscrito;
+4. tratar o parágrafo como aprovado;
+5. apagar os alertas do Komodo;
+6. reduzir o retorno do Komodo a uma recomendação genérica;
+7. permitir que Handoff ou Vaquita destino corrijam automaticamente o trecho bloqueado.
+
+O sistema deve:
+
+1. preservar o RETORNO_KOMODO integrado;
+2. preservar o veredito CORRIGIR_ANTES_DE_AVANÇAR;
+3. preservar o status operacional BLOQUEADO PARA AVANÇO quando aplicável;
+4. preservar que PROXIMO está bloqueado até correção;
+5. preservar a ação no manuscrito como não consolidada;
+6. aguardar comando humano para corrigir ou autorizar ajuste.
+
+---
+
+## 10. FLUXO PADRÃO COM BVAA
+
+Use quando houver dúvida sobre fonte, página, citação ou referência.
+
+### Entrada
+
+A Vaquita deve gerar:
+
+PACOTE_BVAA
+
+O pacote deve conter:
+
+1. afirmação a verificar;
+2. referência candidata;
+3. trecho citado, se houver;
+4. página informada, se houver;
+5. arquivo anexado, se houver;
+6. finalidade de uso;
+7. limites do pedido.
+
+### Saída
+
+BVAA devolve:
+
+RETORNO_BVAA
+
+Status possíveis:
+
+LIBERADA
+
+PENDENTE_BVAA
+
+SUGESTÃO_EXTERNA
+
+NÃO_LIBERADA
+
+Vereditos operacionais:
+
+USAR_COM_SEGURANÇA
+
+USAR_COM_RESSALVA
+
+NÃO_USAR
+
+PEDIR_PDF
+
+PEDIR_TRECHO_PAGINADO
+
+PEDIR_DADOS_BIBLIOGRÁFICOS
+
+BUSCAR_FONTE_MAIS_ESPECÍFICA
+
+ENCAMINHAR_COMO_SUGESTÃO_EXTERNA
+
+### Integração
+
+Voltar à Vaquita e usar:
+
+INTEGRAR_RETORNO_BVAA
+
+Regra crítica:
+
+PENDENTE_BVAA nunca vira LIBERADA sem nova evidência.
+
+---
+
+## 11. FLUXO PADRÃO COM JARARACA
+
+Use quando houver suspeita de repetição, circularidade, sobreposição ou deriva.
+
+### Entrada
+
+A Vaquita deve gerar:
+
+PACOTE_JARARACA
+
+Campos mínimos obrigatórios:
+
+1. IDENTIFICAÇÃO DO PROJETO;
+2. FUNÇÃO DO BLOCO NO ARGUMENTO;
+3. MATERIAL A ANALISAR;
+4. SUSPEITA OU MOTIVO DO ENVIO;
+5. LIMITES DA AUDITORIA.
+
+ESTADO_VAQUITA é obrigatório quando houver:
+
+1. corte;
+2. fusão;
+3. realocação;
+4. comparação entre original e revisão;
+5. suspeita de perda de densidade;
+6. encaminhamento ao Komodo;
+7. encaminhamento ao BVAA;
+8. ação crítica;
+9. integração posterior no ESTADO_VAQUITA.
+
+### Saída
+
+Jararaca devolve:
+
+RETORNO_JARARACA
+
+Vereditos:
+
+ESTRUTURA_ESTÁVEL
+
+ESTRUTURA_ESTÁVEL_COM_RESSALVAS
+
+REDUNDÂNCIA_LOCAL_AJUSTÁVEL
+
+SOBREPOSIÇÃO_ESTRUTURAL_RELEVANTE
+
+PROGRESSÃO_ARGUMENTATIVA_FRÁGIL
+
+DERIVA_ESTRUTURAL_DETECTADA
+
+REORGANIZAÇÃO_RECOMENDADA_COM_CONFIRMAÇÃO
+
+BLOQUEAR_INTERVENÇÃO_AUTOMÁTICA
+
+PACOTE_INSUFICIENTE
+
+### Integração
+
+Voltar à Vaquita e usar:
+
+INTEGRAR_RETORNO_JARARACA
+
+Regra crítica:
+
+Corte, fusão, realocação e reorganização sensível exigem confirmação humana.
+
+---
+
+## 12. FLUXO PADRÃO COM HANDOFF
+
+Use quando for necessário preservar contexto ou migrar chat.
+
+### Arquivo principal recomendado
+
+Para uso operacional padrão, carregar apenas:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Não é mais necessário carregar separadamente:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+HANDOFF_v1.0-RC__EMENDA_ARQUITETURAL_CALIBRAGEM_SAIDA.txt
+
+HANDOFF_v1.0-RC__EMENDA_COMPLEMENTAR_GATE_SAIDA_PACOTE_INTEGRADO.txt
+
+Esses três arquivos permanecem preservados como histórico técnico.
+
+### Entrada
+
+Formal:
+
+PACOTE_HANDOFF
+
+Ou pedido explícito:
+
+“gere pacote de migração”
+
+“prepare handoff”
+
+“salve o estado”
+
+“prepare retomada”
+
+### Saídas possíveis
+
+RETORNO_HANDOFF
+
+PACOTE_HANDOFF_DESENVOLVIMENTO
+
+PACOTE_HANDOFF_VAQUITA
+
+PACOTE_HANDOFF_MODULAR
+
+PACOTE_HANDOFF_CASO
+
+PACOTE_HANDOFF_CONDICIONAL
+
+PACOTE_DE_MIGRACAO
+
+### Regra calibrada
+
+Se o usuário pedir explicitamente pacote e houver contexto suficiente, Handoff deve gerar pacote diretamente.
+
+Não pedir confirmação redundante apenas para gerar pacote.
+
+A confirmação continua obrigatória para:
+
+1. avançar fase;
+2. aprovar módulo;
+3. encerrar fase;
+4. resolver pendência;
+5. aplicar decisão crítica.
+
+### Protocolo para pacote integrado complexo
+
+Quando o Handoff receber PACOTE_HANDOFF contendo:
+
+1. ESTADO_VAQUITA;
+2. finalidade de migração para novo chat Vaquita;
+3. comando ou instrução RETOMAR_VAQUITA_COM_HANDOFF;
+4. retorno auxiliar integrado, como RETORNO_JARARACA;
+5. pendências preservadas, como BVAA ou Komodo;
+6. primeira resposta esperada ou instrução equivalente;
+
+deve gerar diretamente:
+
+PACOTE_HANDOFF_VAQUITA
+
+Não deve responder apenas com:
+
+RETORNO_HANDOFF
+
+Não deve apenas recomendar gerar pacote.
+
+Não deve pedir confirmação redundante.
+
+Não deve refazer auditoria de Jararaca, Komodo ou BVAA.
+
+Não deve revisar texto acadêmico.
+
+Não deve avançar fase.
+
+### Regra adicional pós-FASE 9.E
+
+Se o PACOTE_HANDOFF contiver:
+
+1. RETORNO_KOMODO integrado;
+2. VEREDITO_KOMODO: CORRIGIR_ANTES_DE_AVANÇAR;
+3. status operacional BLOQUEADO PARA AVANÇO;
+4. ação no manuscrito não consolidada;
+5. PROXIMO bloqueado até correção;
+
+então o PACOTE_HANDOFF_VAQUITA deve preservar integralmente esses elementos.
+
+O Handoff não deve:
+
+1. corrigir o trecho bloqueado;
+2. gerar nova versão revisada;
+3. transformar bloqueio em ressalva;
+4. aplicar ação no manuscrito;
+5. reacionar Komodo;
+6. acionar BVAA ou Jararaca sem comando;
+7. avançar fase;
+8. reduzir o retorno Komodo a resumo genérico.
+
+### Regra adicional pós-FASE 9.G
+
+Se o PACOTE_HANDOFF contiver simultaneamente:
+
+1. RETORNO_KOMODO integrado;
+2. RETORNO_BVAA integrado;
+3. RETORNO_JARARACA integrado;
+4. estado Vaquita com bloqueio textual, pendência documental ou ressalva estrutural bloqueante;
+5. finalidade de migração ou retomada em novo chat Vaquita;
+
+então o Handoff deve gerar PACOTE_HANDOFF_VAQUITA preservando integralmente o estado integrado.
+
+O Handoff não deve:
+
+1. revisar texto;
+2. corrigir trecho bloqueado;
+3. verificar fonte, página, citação ou referência;
+4. auditar estrutura;
+5. resolver pendência BVAA;
+6. transformar CORRIGIR_ANTES_DE_AVANÇAR em ressalva simples;
+7. transformar PENDENTE_BVAA em LIBERADA;
+8. transformar PEDIR_PDF em USAR_COM_RESSALVA;
+9. transformar ESTRUTURA_ESTÁVEL_COM_RESSALVAS em autorização automática para fusão, corte ou realocação;
+10. avançar fase, parágrafo ou PROXIMO.
+
+Regra:
+
+Handoff preserva e transfere estado. Handoff não é revisor textual, verificador bibliográfico nem auditor estrutural.
+
+---
+
+## 13. VIDA ÚTIL RECOMENDADA DOS CHATS
+
+### Vaquita
+
+Usar um chat Vaquita para:
+
+1. uma seção longa;
+2. um capítulo curto/médio;
+3. enquanto o ESTADO_VAQUITA permanecer estável.
+
+Abrir novo chat Vaquita se:
+
+1. chat ficou muito longo;
+2. começou a esquecer ESTADO_VAQUITA;
+3. começou a perder comandos;
+4. começou a ignorar pendências;
+5. seção ou capítulo foi concluído;
+6. Handoff recomendou migração.
+
+### Komodo
+
+1 chat Komodo = uma seção longa, um capítulo curto/médio ou até 5–8 PACOTE_KOMODO.
+
+Abrir novo chat se:
+
+1. reescrever demais;
+2. confundir BVAA/Jararaca/Vaquita;
+3. perder formato;
+4. ficar genérico;
+5. trouxer assunto de pacote anterior.
+
+### BVAA
+
+1 chat BVAA = um conjunto controlado de fontes ou até 5–8 PACOTE_BVAA.
+
+Abrir novo chat se:
+
+1. começar a completar por memória;
+2. alegar consulta não feita;
+3. perder matriz de evidência;
+4. confundir fonte conhecida com fonte verificada.
+
+### Jararaca
+
+1 chat Jararaca = uma seção longa, capítulo curto/médio ou até 5–8 PACOTE_JARARACA.
+
+Abrir novo chat se:
+
+1. tratar toda repetição como erro;
+2. reescrever como Vaquita;
+3. validar fonte como BVAA;
+4. auditar fidelidade como Komodo;
+5. aplicar corte/fusão sem confirmação.
+
+### Handoff
+
+1 chat Handoff = uma migração grande, uma fase de desenvolvimento ou até 5–8 pacotes.
+
+Abrir novo chat se:
+
+1. resumir destrutivamente;
+2. confundir módulos;
+3. perder comandos ou versões;
+4. misturar caso específico com núcleo universal;
+5. avançar fase sem confirmação.
+
+---
+
+## 14. CHECKPOINT RÁPIDO ANTI-DERIVA
+
+Usar quando:
+
+1. mudar microfase;
+2. concluir teste;
+3. iniciar novo auxiliar;
+4. incorporar emenda;
+5. escolher próxima frente;
+6. houver risco moderado.
+
+Modelo:
+
+CHECKPOINT RÁPIDO ANTI-DERIVA
+
+Antes de continuar, verifique:
+1. Em que fase estamos?
+2. Quais decisões já foram consolidadas?
+3. Quais decisões ainda estão abertas?
+4. Há risco de deriva, contradição ou esquecimento?
+5. Qual é o próximo passo correto?
+
+Não entregue versão final de prompt.
+Não avance de fase sem confirmar.
+Não resuma destrutivamente.
+
+---
+
+## 15. PROTOCOLO ANTI-DERIVA / ANTI-DRIFT COMPLETO
+
+Usar quando:
+
+1. houver pausa longa;
+2. houver migração de chat;
+3. for montar versão final de prompt;
+4. houver risco alto;
+5. houver muitas decisões abertas;
+6. usuário solicitar protocolo completo.
+
+O protocolo completo deve reconstruir:
+
+1. estado do projeto;
+2. fases concluídas;
+3. fase atual;
+4. produtos criados;
+5. decisões consolidadas;
+6. decisões abertas;
+7. testes executados;
+8. falhas e emendas;
+9. arquivos principais;
+10. riscos;
+11. próximo passo correto.
+
+---
+
+## 16. REGRAS DE CONFIRMAÇÃO HUMANA
+
+Exigem confirmação humana:
+
+1. iniciar novo módulo;
+2. aprovar módulo;
+3. encerrar fase;
+4. substituir versão auditada;
+5. aplicar corte;
+6. aplicar fusão crítica;
+7. realocar seção;
+8. resolver pendência bibliográfica;
+9. transformar decisão aberta em decisão consolidada;
+10. apagar falha;
+11. descartar histórico de testes.
+
+Não exige confirmação redundante:
+
+1. gerar pacote de preservação quando usuário pediu explicitamente;
+2. registrar estado;
+3. preservar pendência;
+4. gerar checklist;
+5. gerar pacote condicional, desde que deixe claro que não aprova nem avança fase.
+
+---
+
+## 17. REGRAS DE NÃO ALUCINAÇÃO
+
+Nunca declarar como criado um arquivo que não foi produzido.
+
+Distinguir:
+
+1. arquivo criado;
+2. arquivo recomendado;
+3. arquivo pendente;
+4. arquivo futuro;
+5. arquivo inicial;
+6. arquivo auditado;
+7. arquivo de backup;
+8. arquivo obsoleto.
+
+Nunca declarar como verificada uma fonte que não foi verificada.
+
+Nunca inventar:
+
+1. página;
+2. DOI;
+3. citação literal;
+4. edição;
+5. tradutor;
+6. local;
+7. editora;
+8. ano;
+9. arquivo;
+10. teste;
+11. reteste.
+
+---
+
+## 18. REGRAS DE PRESERVAÇÃO DE FALHAS
+
+Falha ativa não pode ser suavizada.
+
+Falha corrigida não pode ser apagada.
+
+Falha corrigida deve ser registrada como histórico técnico.
+
+Exemplo Jararaca:
+
+R3 reprovado inicialmente.
+
+Emenda criada:
+
+JARARACA_v1.0-RC__EMENDA_ARQUITETURAL_GATE_PACOTE.txt
+
+Reteste R3 aprovado.
+
+Status final:
+
+Jararaca aprovada para uso inicial controlado.
+
+Exemplo Handoff — calibragem de saída:
+
+R8, R10 e R11 aprovados com ressalvas.
+
+Emenda criada:
+
+HANDOFF_v1.0-RC__EMENDA_ARQUITETURAL_CALIBRAGEM_SAIDA.txt
+
+Retestes R8, R10 e R11 aprovados.
+
+Status final:
+
+Handoff aprovado para uso inicial controlado.
+
+Exemplo Handoff — pacote integrado complexo:
+
+R4 original da FASE 9.C reprovado por falha operacional de saída.
+
+Motivo:
+
+O Handoff preservou o estado, mas respondeu com RETORNO_HANDOFF avaliativo em vez de gerar PACOTE_HANDOFF_VAQUITA.
+
+Correção criada:
+
+HANDOFF_v1.0-RC__EMENDA_COMPLEMENTAR_GATE_SAIDA_PACOTE_INTEGRADO.txt
+
+Retestes:
+
+R4.2 aprovado com Handoff auditado + microemenda complementar.
+
+R4.3 aprovado com Handoff consolidado sozinho.
+
+Consolidação posterior:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Status final:
+
+Handoff aprovado em versão consolidada única.
+
+Regra:
+
+As emendas separadas do Handoff não são mais obrigatórias no uso operacional padrão, mas devem permanecer preservadas como histórico técnico e rastreabilidade da correção.
+
+---
+
+## 19. NÚCLEO UNIVERSAL VS. CASO ESPECÍFICO
+
+Núcleo universal inclui:
+
+1. arquitetura dos módulos;
+2. comandos;
+3. pacotes;
+4. retornos;
+5. gates;
+6. vereditos;
+7. alertas;
+8. regras anti-deriva;
+9. regras de confirmação;
+10. metodologia de teste;
+11. arquivos principais.
+
+Caso específico inclui:
+
+1. tese específica;
+2. capítulo específico;
+3. estilo de autora;
+4. bibliografia de caso;
+5. pendências locais;
+6. arquivos locais;
+7. decisões locais de revisão.
+
+Regra crítica:
+
+Caso específico não contamina núcleo universal.
+
+---
+
+## 20. PACOTES E RETORNOS PRINCIPAIS
+
+### Vaquita
+
+BLOCO 0
+
+BLOCO 0 AVANÇADO
+
+COMANDO 0
+
+COMANDO 1
+
+PROXIMO / PRÓXIMO
+
+ESTADO_VAQUITA
+
+### Komodo
+
+PACOTE_KOMODO
+
+RETORNO_KOMODO
+
+INTEGRAR_RETORNO_KOMODO
+
+### BVAA
+
+PACOTE_BVAA
+
+RETORNO_BVAA
+
+INTEGRAR_RETORNO_BVAA
+
+### Jararaca
+
+PACOTE_JARARACA
+
+RETORNO_JARARACA
+
+INTEGRAR_RETORNO_JARARACA
+
+### Handoff
+
+PACOTE_HANDOFF
+
+RETORNO_HANDOFF
+
+PACOTE_HANDOFF_DESENVOLVIMENTO
+
+PACOTE_HANDOFF_VAQUITA
+
+PACOTE_HANDOFF_MODULAR
+
+PACOTE_HANDOFF_CASO
+
+PACOTE_HANDOFF_CONDICIONAL
+
+INTEGRAR_RETORNO_HANDOFF
+
+RETOMAR_VAQUITA_COM_HANDOFF
+
+---
+
+## 21. ARQUIVOS PRINCIPAIS DO ECOSSISTEMA
+
+### Vaquita
+
+VAQUITA_ORQUESTRADOR_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+BOOTSTRAP_CARREGAMENTO_VAQUITA_v1.0-RC.txt
+
+KIT_USO_RAPIDO_VAQUITA_ORQUESTRADOR_v1.0-RC.docx
+
+KIT_USO_RAPIDO_VAQUITA_ORQUESTRADOR_v1.0-RC.pdf
+
+### Komodo
+
+KOMODO_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+BOOTSTRAP_CARREGAMENTO_KOMODO_v1.0-RC.txt
+
+KOMODO_v1.0-RC__KIT_USO_RAPIDO.txt
+
+### BVAA
+
+BVAA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+BVAA_v1.0-RC__KIT_USO_RAPIDO.txt
+
+BVAA_v1.0-RC__EMENDA_ARQUITETURAL_MATRIZ_EVIDENCIA.txt
+
+### Jararaca
+
+JARARACA_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+JARARACA_v1.0-RC__KIT_USO_RAPIDO.txt
+
+JARARACA_v1.0-RC__EMENDA_ARQUITETURAL_GATE_PACOTE.txt
+
+### Handoff
+
+Arquivo principal recomendado:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Arquivos históricos preservados:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+HANDOFF_v1.0-RC__KIT_USO_RAPIDO.txt
+
+HANDOFF_v1.0-RC__EMENDA_ARQUITETURAL_CALIBRAGEM_SAIDA.txt
+
+HANDOFF_v1.0-RC__EMENDA_COMPLEMENTAR_GATE_SAIDA_PACOTE_INTEGRADO.txt
+
+### Migração geral
+
+PACOTE_MIGRACAO_VAQUITA_KOMODO_BVAA_JARARACA_HANDOFF_v1.0-RC.txt
+(nome-base histórico; versão pós-9.G do pacote de migração ainda pendente de atualização em etapa própria)
+
+---
+
+## 22. TESTES CONSOLIDADOS
+
+### Vaquita
+
+R1–R8 aprovados.
+
+### Komodo
+
+R1–R4 aprovados.
+
+### BVAA
+
+R1–R7 aprovados.
+
+### Jararaca
+
+R1 aprovado.
+R2 aprovado.
+R3 reprovado inicialmente.
+R3 aprovado após emenda.
+R4–R13 aprovados.
+
+### Handoff
+
+R1 aprovado.
+R2 aprovado.
+R3 aprovado.
+R4 aprovado.
+R5 aprovado.
+R6 aprovado.
+R7 aprovado.
+R8 aprovado com ressalva; reteste aprovado.
+R9 aprovado.
+R10 aprovado com ressalva; reteste aprovado.
+R11 aprovado com ressalva; reteste aprovado.
+R12 aprovado.
+
+Emenda de calibragem incorporada:
+
+HANDOFF_v1.0-RC__EMENDA_ARQUITETURAL_CALIBRAGEM_SAIDA.txt
+
+### FASE 9.B — Teste Integrado Vaquita + Handoff
+
+Status:
+
+APROVADA.
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultado:
+
+Fluxo simples Vaquita + Handoff validado.
+
+### FASE 9.C — Teste Integrado Vaquita + Jararaca + Handoff
+
+Status:
+
+APROVADA.
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_JARARACA → Jararaca → RETORNO_JARARACA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados preservados:
+
+R1 — Vaquita origem: aprovado com ressalva leve.
+R2 — Jararaca: aprovado.
+R3 — Vaquita integração: aprovado.
+R4 original — reprovado por falha operacional de saída.
+Reteste R4 — aprovado com instrução superexplícita.
+Microemenda complementar criada.
+R4.2 — aprovado com Handoff auditado + microemenda complementar.
+R5 — Vaquita destino: aprovado.
+R6 — verificação de integridade da cadeia: aprovada.
+R4.3 — aprovado com Handoff consolidado sozinho.
+
+Arquivo consolidado aprovado:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Veredito final:
+
+FASE 9.C APROVADA.
+
+Interpretação:
+
+A falha do R4 original foi localizada no gate de saída do Handoff em pacote integrado complexo, corrigida pela microemenda complementar e consolidada no arquivo principal do Handoff.
+
+### FASE 9.E — Teste Integrado Vaquita + Komodo + Handoff
+
+Status:
+
+APROVADA.
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_KOMODO → Komodo → RETORNO_KOMODO → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Função validada:
+
+Preservação, em cadeia, de RETORNO_KOMODO bloqueante com CORRIGIR_ANTES_DE_AVANÇAR, sem suavização para ressalva simples e sem avanço automático para PROXIMO.
+
+### FASE 9.F — Teste Integrado Vaquita + BVAA + Handoff
+
+Status:
+
+APROVADA.
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Função validada:
+
+Preservação, em cadeia, de PENDENTE_BVAA e PEDIR_PDF como pendência documental ativa e exigência documental, sem falsa liberação de fonte, página, citação literal ou referência.
+
+### FASE 9.G — Teste Integrado Completo Vaquita + Komodo + BVAA + Jararaca + Handoff
+
+Status:
+
+APROVADA TECNICAMENTE.
+
+Cadeia testada:
+
+Vaquita origem
+→ Komodo / BVAA / Jararaca
+→ Vaquita integração
+→ Vaquita gera PACOTE_HANDOFF
+→ Handoff gera PACOTE_HANDOFF_VAQUITA
+→ Vaquita destino retoma estado bloqueado
+
+Função validada:
+
+Integração simultânea dos três auxiliares pela Vaquita, preservando separadamente bloqueio textual do Komodo, pendência documental do BVAA e ressalva estrutural da Jararaca; conversão desse estado integrado em PACOTE_HANDOFF_VAQUITA pelo Handoff; e retomada pela Vaquita destino sem correção automática, sem liberação bibliográfica, sem fusão/corte/realocação e sem avanço para PROXIMO enquanto houver pendência bloqueante.
+
+Observação crítica:
+
+Os elementos P030, P029, P028, UR-30, Capítulo 3, seção 3.2 e Daston/Park pertencem ao caso de teste da FASE 9.G. Eles não devem ser convertidos em regra universal do ecossistema.
+
+---
+
+## 23. FLUXO DE MIGRAÇÃO ENTRE CHATS
+
+Quando migrar:
+
+1. Acionar Handoff.
+2. Gerar PACOTE_HANDOFF_VAQUITA ou PACOTE_DE_MIGRACAO.
+3. Abrir novo chat.
+4. Colar pacote de migração.
+5. Aguardar primeira resposta esperada.
+6. Confirmar estado reconstruído.
+7. Só então continuar revisão ou desenvolvimento.
+
+Nunca migrar apenas com resumo livre.
+
+Sempre preservar:
+
+1. estado;
+2. fase;
+3. decisões;
+4. pendências;
+5. comandos;
+6. arquivos;
+7. testes;
+8. falhas;
+9. emendas;
+10. riscos.
+
+---
+
+## 24. PRIMEIRA RESPOSTA ESPERADA EM NOVO CHAT DE DESENVOLVIMENTO
+
+Quando receber:
+
+PACOTE_MIGRACAO_VAQUITA_KOMODO_BVAA_JARARACA_HANDOFF_v1.0-RC.txt
+(nome-base histórico; versão pós-9.G do pacote de migração ainda pendente de atualização em etapa própria)
+
+o novo chat deve responder:
+
+[RETOMADA DO PROJETO — PACOTE DE MIGRAÇÃO RECEBIDO]
+
+1. ESTADO RECONSTRUÍDO
+- Vaquita:
+- Komodo:
+- BVAA:
+- Jararaca:
+- Handoff:
+
+2. COMPONENTES JÁ APROVADOS
+- ...
+
+3. COMPONENTES AINDA NÃO CRIADOS OU FRENTES PENDENTES
+- ...
+
+4. DECISÕES CONSOLIDADAS
+- ...
+
+5. DECISÕES ABERTAS
+- ...
+
+6. RISCOS A PRESERVAR
+- ...
+
+7. PRÓXIMO PASSO RECOMENDADO
+- ...
+
+8. STATUS
+- Aguardando confirmação do usuário para iniciar a próxima fase.
+
+O novo chat não deve gerar kit, auditoria, teste integrado ou prompt novo sem confirmação.
+
+---
+
+## 25. PRÓXIMAS FRENTES POSSÍVEIS
+
+### FASE 9.1 — Kit Mestre do Ecossistema
+
+Status: concluída e atualizada pós-R4.3 neste arquivo.
+
+Objetivo:
+
+criar guia unificado de uso dos cinco módulos.
+
+### FASE 9.A — Auditoria transversal
+
+Status: concluída.
+
+Objetivo:
+
+verificar coerência cruzada entre módulos, comandos, vereditos, alertas e integrações.
+
+### FASE 9.B — Teste integrado Vaquita + Handoff
+
+Status: aprovada.
+
+Objetivo:
+
+testar Vaquita gerando PACOTE_HANDOFF e Handoff devolvendo pacote adequado.
+
+### FASE 9.C — Teste integrado Vaquita + Jararaca + Handoff
+
+Status: aprovada.
+
+Objetivo:
+
+testar cadeia Vaquita → Jararaca → Vaquita → Handoff.
+
+Marco final da fase:
+
+R4.3 aprovado com HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt funcionando sozinho.
+
+### FASE 9.D — Pacote mestre de instalação/uso
+
+Status: CRIADA E ATUALIZADA ATÉ PÓS-9.F; atualização pós-9.G pendente em etapa própria.
+
+Produto:
+
+PACOTE_MESTRE_INSTALACAO_USO_VAQUITA_ECOSSISTEMA_v1.0-RC.txt
+
+Objetivo:
+
+criar orientação prática para instalação e uso dos módulos em novos chats.
+
+### FASE 9.E — Teste Integrado Vaquita + Komodo + Handoff
+
+Status: APROVADA.
+
+Produto recomendado:
+
+TESTE_INTEGRADO_VAQUITA_KOMODO_HANDOFF_v1.0-RC.txt
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_KOMODO → Komodo → RETORNO_KOMODO → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados:
+
+R1 — Vaquita origem gerou PACOTE_KOMODO: aprovado.
+
+R2 — Komodo gerou RETORNO_KOMODO: aprovado.
+
+R3 — Vaquita integrou RETORNO_KOMODO: aprovado.
+
+R4 — Vaquita gerou PACOTE_HANDOFF preservando o bloqueio: aprovado.
+
+R5 — Handoff gerou PACOTE_HANDOFF_VAQUITA: aprovado.
+
+R6 — Vaquita destino retomou o estado bloqueado: aprovado.
+
+Veredito final:
+
+FASE 9.E APROVADA.
+
+Interpretação técnica:
+
+A FASE 9.E validou a capacidade do ecossistema de preservar, em cadeia, um RETORNO_KOMODO bloqueante. O teste demonstrou que o veredito CORRIGIR_ANTES_DE_AVANÇAR permanece bloqueio operacional durante integração pela Vaquita, migração via Handoff e retomada em novo chat Vaquita.
+
+Caso de teste:
+
+P018, seção 2.4 Testemunho, mediação e autoridade textual.
+
+Status do caso de teste:
+
+P018 não foi corrigido.
+
+P018 permaneceu bloqueado.
+
+P018 permaneceu não consolidado no manuscrito.
+
+PROXIMO permaneceu bloqueado até correção do P018.
+
+Ação anterior do P017 foi preservada.
+
+Observação crítica:
+
+O conteúdo do P018 e da seção 2.4 pertence apenas ao teste da FASE 9.E. Não deve ser convertido em regra universal do ecossistema.
+
+### Fluxos integrados aprovados até a FASE 9.G
+
+1. FASE 9.B — Vaquita + Handoff.
+2. FASE 9.C — Vaquita + Jararaca + Handoff.
+3. FASE 9.E — Vaquita + Komodo + Handoff.
+4. FASE 9.F — Vaquita + BVAA + Handoff.
+5. FASE 9.G — Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+Observação:
+
+O teste integrado completo com os cinco módulos não permanece pendente; ele foi aprovado tecnicamente na FASE 9.G.
+
+---
+
+## 26. REGRA DE OURO DO ECOSSISTEMA
+
+Vaquita revisa e orquestra.
+
+Komodo audita fidelidade, densidade, sentido e voz autoral.
+
+BVAA verifica fonte, página, citação e referência.
+
+Jararaca audita redundância, sobreposição, progressão e deriva estrutural.
+
+Handoff preserva e transfere estado.
+
+Arquivo principal recomendado do Handoff:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+O usuário confirma ações críticas, avanço de fase e aprovação final.
+
+---
+
+## 27. STATUS FINAL ATUALIZADO PÓS-FASE 9.G
+
+Status do ecossistema:
+
+APROVADO PARA USO INICIAL CONTROLADO.
+
+Status dos fluxos integrados:
+
+FASE 9.B — Vaquita + Handoff: APROVADA.
+
+FASE 9.C — Vaquita + Jararaca + Handoff: APROVADA.
+
+FASE 9.D — Pacote mestre de instalação/uso: CRIADA E ATUALIZADA ATÉ PÓS-9.F; atualização pós-9.G pendente em etapa própria.
+
+FASE 9.E — Vaquita + Komodo + Handoff: APROVADA.
+
+FASE 9.F — Vaquita + BVAA + Handoff: APROVADA.
+
+FASE 9.G — Vaquita + Komodo + BVAA + Jararaca + Handoff: APROVADA TECNICAMENTE.
+
+Status do Handoff:
+
+APROVADO EM VERSÃO CONSOLIDADA ÚNICA.
+
+Arquivo principal recomendado do Handoff:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+Arquivos históricos do Handoff preservados:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_AUDITADO.txt
+
+HANDOFF_v1.0-RC__EMENDA_ARQUITETURAL_CALIBRAGEM_SAIDA.txt
+
+HANDOFF_v1.0-RC__EMENDA_COMPLEMENTAR_GATE_SAIDA_PACOTE_INTEGRADO.txt
+
+Regra:
+
+Usar o Handoff consolidado no fluxo operacional padrão.
+
+Preservar as emendas separadas como histórico técnico.
+
+Não apagar o R4 original da FASE 9.C, pois ele permanece como falha corrigida no histórico técnico.
+
+Não apagar a FASE 9.E, pois ela validou a preservação de RETORNO_KOMODO bloqueante em cadeia.
+
+Não apagar a FASE 9.F, pois ela validou a preservação de RETORNO_BVAA pendente em cadeia.
+
+Não apagar a FASE 9.G, pois ela validou a integração simultânea Vaquita + Komodo + BVAA + Jararaca + Handoff em cadeia completa.
+
+Regra pós-FASE 9.E:
+
+CORRIGIR_ANTES_DE_AVANÇAR, quando emitido pelo Komodo, deve permanecer bloqueio operacional até correção ou comando humano adequado.
+
+PROXIMO pode permanecer bloqueado quando houver status operacional BLOQUEADO PARA AVANÇO.
+
+Ação no manuscrito pode permanecer não consolidada até ajuste posterior.
+
+Riscos novos a monitorar:
+
+ALERTA_BLOQUEIO_KOMODO_SUAVIZADO
+
+ALERTA_PENDENCIA_COMO_AVANCO
+
+ALERTA_ACAO_MANUSCRITO_INDEVIDA
+
+ALERTA_RETORNO_KOMODO_RESUMIDO_DEMAIS
+
+ALERTA_MISTURA_FUNCOES_AUXILIARES
+
+ALERTA_RESSALVA_ESTRUTURAL_COMO_AUTORIZACAO
+
+ALERTA_VAQUITA_DESTINO_ACAO_AUTOMATICA
+
+ALERTA_HANDOFF_COMO_AUDITOR
+
+ALERTA_RETORNOS_MULTIPLOS_RESUMIDOS_DEMAIS
+
+Próximos passos possíveis:
+
+1. Atualizar o Pacote Mestre de Instalação/Uso para pós-9.G.
+2. Atualizar o Pacote de Migração para pós-9.G.
+3. Criar kit de distribuição final do ecossistema.
+4. Avaliar eventual versão v1.0 final após validação documental dos pacotes pós-9.G.
+
+---
+
+## ATUALIZAÇÃO PÓS-FASE 9.F — BVAA EM CADEIA
+
+### 1. Motivo da atualização
+
+Esta atualização incorpora ao Kit Mestre a aprovação funcional da FASE 9.F — Teste integrado Vaquita + BVAA + Handoff.
+
+A FASE 9.F confirmou que a cadeia integrada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+funciona corretamente quando o BVAA devolve uma pendência documental ativa com o status:
+
+PENDENTE_BVAA
+
+e o veredito operacional:
+
+PEDIR_PDF
+
+A atualização registra que esse estado foi preservado pela Vaquita, pelo Handoff e pela Vaquita destino, sem ser convertido indevidamente em fonte liberada, página confirmada, citação literal liberada ou referência consolidada.
+
+### 2. Status atualizado do ecossistema
+
+Ecossistema Vaquita v1.0-RC: aprovado para uso inicial controlado.
+
+Módulos aprovados:
+
+1. Vaquita;
+2. Komodo;
+3. BVAA;
+4. Jararaca;
+5. Handoff.
+
+Fluxos integrados já aprovados:
+
+1. FASE 9.B — Vaquita + Handoff;
+2. FASE 9.C — Vaquita + Jararaca + Handoff;
+3. FASE 9.E — Vaquita + Komodo + Handoff;
+4. FASE 9.F — Vaquita + BVAA + Handoff.
+
+Fluxo integrado completo aprovado tecnicamente após a FASE 9.G:
+
+1. FASE 9.G — Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+Arquivo principal recomendado do Handoff permanece:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+### 3. FASE 9.F — Teste Integrado Vaquita + BVAA + Handoff
+
+Status:
+
+APROVADA.
+
+Produto recomendado:
+
+TESTE_INTEGRADO_VAQUITA_BVAA_HANDOFF_v1.0-RC.txt
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_BVAA → BVAA → RETORNO_BVAA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados:
+
+R1 — Vaquita origem gerou PACOTE_BVAA: aprovado.
+
+R2 — BVAA gerou RETORNO_BVAA: aprovado.
+
+R3 — Vaquita integrou RETORNO_BVAA: aprovado.
+
+R4 — Vaquita gerou PACOTE_HANDOFF preservando a pendência BVAA: aprovado.
+
+R5 — Handoff gerou PACOTE_HANDOFF_VAQUITA: aprovado.
+
+R6 — Vaquita destino retomou o estado com pendência BVAA ativa: aprovado.
+
+Veredito final:
+
+FASE 9.F APROVADA.
+
+Interpretação técnica:
+
+A FASE 9.F validou a capacidade do ecossistema de preservar, em cadeia, uma pendência documental ativa. O teste demonstrou que PENDENTE_BVAA permanece pendência documental e que PEDIR_PDF permanece exigência de evidência documental adicional, não autorização de uso com ressalva.
+
+Caso de teste:
+
+Referência candidata:
+
+DASTON, Lorraine; PARK, Katharine. Wonders and the order of nature, 1150–1750. New York: Zone Books, 1998.
+
+Seção de teste:
+
+Capítulo 2 / Seção 2.5 Maravilhoso, experiência e autoridade naturalista / UR-22.
+
+Status do caso de teste:
+
+A referência não foi liberada.
+
+A página não foi confirmada.
+
+A citação literal não foi liberada.
+
+“p. XX” permaneceu bloqueado para versão final.
+
+A referência permaneceu apenas hipótese bibliográfica a verificar.
+
+PROXIMO permaneceu bloqueado até evidência documental adequada ou decisão humana explícita.
+
+Observação crítica:
+
+O caso Daston/Park e a seção 2.5 pertencem apenas ao teste da FASE 9.F. Não devem ser convertidos em regra universal do ecossistema.
+
+### 4. Regra crítica pós-FASE 9.F
+
+Quando o BVAA devolver:
+
+PENDENTE_BVAA
+
+esse status deve ser tratado como pendência documental ativa.
+
+Quando o BVAA devolver:
+
+PEDIR_PDF
+
+esse veredito operacional deve ser tratado como exigência de evidência documental adicional.
+
+O sistema não deve:
+
+1. transformar PENDENTE_BVAA em LIBERADA;
+2. transformar PEDIR_PDF em USAR_COM_RESSALVA;
+3. substituir “p. XX” por página presumida;
+4. liberar citação literal sem trecho conferido;
+5. tratar referência normalizada em ABNT como referência documentalmente verificada;
+6. transformar plausibilidade temática em sustentação documental;
+7. consolidar referência sem PDF, trecho paginado ou confirmação material da edição;
+8. avançar para PROXIMO quando a pendência bloquear a consolidação local.
+
+O sistema deve:
+
+1. preservar o RETORNO_BVAA integrado;
+2. preservar o status PENDENTE_BVAA;
+3. preservar o veredito operacional PEDIR_PDF;
+4. preservar página não confirmada;
+5. preservar citação literal não liberada;
+6. preservar a referência como hipótese bibliográfica a verificar;
+7. manter “p. XX” bloqueado para versão final;
+8. solicitar PDF, trecho paginado pertinente ou confirmação material da edição;
+9. aguardar evidência documental ou decisão humana explícita antes de qualquer consolidação.
+
+### 5. Atualização da função do BVAA
+
+O BVAA pode emitir retornos pendentes, especialmente:
+
+PENDENTE_BVAA
+
+Esse status indica que fonte, página, trecho, citação literal, edição ou pertinência documental ainda não foram suficientemente verificados.
+
+O BVAA também pode emitir o veredito operacional:
+
+PEDIR_PDF
+
+Esse veredito exige que a Vaquita solicite PDF, trecho paginado, confirmação material da edição ou evidência documental equivalente antes de consolidar a referência no manuscrito.
+
+O BVAA não deve revisar texto no lugar da Vaquita, não deve resolver progressão argumentativa, não deve inventar página, não deve liberar citação literal sem trecho conferido e não deve transformar plausibilidade bibliográfica em sustentação documental.
+
+A FASE 9.F confirmou que o retorno pendente do BVAA é preservado corretamente pela cadeia Vaquita + Handoff + Vaquita destino.
+
+### 6. Atualização da função do Handoff
+
+O Handoff deve preservar retornos BVAA integrados, inclusive quando o status for pendente.
+
+Se o PACOTE_HANDOFF contiver:
+
+1. RETORNO_BVAA integrado;
+2. STATUS_BVAA: PENDENTE_BVAA;
+3. VEREDITO_OPERACIONAL: PEDIR_PDF;
+4. página não confirmada;
+5. citação literal não liberada;
+6. referência não LIBERADA;
+7. “p. XX” bloqueado;
+8. referência apenas como hipótese bibliográfica a verificar;
+
+então o PACOTE_HANDOFF_VAQUITA deve preservar integralmente esses elementos.
+
+O Handoff não deve:
+
+1. resolver a pendência BVAA;
+2. verificar bibliografia;
+3. confirmar página;
+4. liberar citação literal;
+5. consolidar referência;
+6. transformar PENDENTE_BVAA em LIBERADA;
+7. transformar PEDIR_PDF em USAR_COM_RESSALVA;
+8. substituir “p. XX” por página presumida;
+9. tratar plausibilidade temática como sustentação documental;
+10. acionar Komodo ou Jararaca sem comando;
+11. avançar fase ou parágrafo.
+
+### 7. Comandos e etiquetas a preservar
+
+Preservar literalmente quando aparecerem em pacotes, testes ou migrações:
+
+PENDENTE_BVAA
+
+PEDIR_PDF
+
+PRECISA_BVAA
+
+BLOQUEADO PARA AVANÇO LOCAL
+
+Página não confirmada
+
+Citação literal não liberada
+
+Referência não LIBERADA
+
+“p. XX” bloqueado
+
+Hipótese bibliográfica a verificar
+
+Não consolidar referência
+
+Não transformar PENDENTE_BVAA em LIBERADA
+
+Não transformar PEDIR_PDF em USAR_COM_RESSALVA
+
+Não substituir “p. XX” por página presumida
+
+Não liberar citação literal
+
+Não consolidar citação com “p. XX”
+
+Observação:
+
+Algumas etiquetas apareceram no teste da FASE 9.F como etiquetas de caso. Não devem ser universalizadas como obrigatórias em todos os projetos, mas devem ser preservadas quando aparecerem em pacotes de migração ou teste.
+
+### 8. Riscos operacionais adicionados
+
+ALERTA_PENDENTE_BVAA_LIBERADO_INDEVIDAMENTE
+
+Risco:
+
+Transformar PENDENTE_BVAA em LIBERADA sem evidência verificável.
+
+Regra:
+
+PENDENTE_BVAA permanece pendência até nova evidência documental.
+
+ALERTA_PEDIR_PDF_SUAVIZADO
+
+Risco:
+
+Transformar PEDIR_PDF em USAR_COM_RESSALVA.
+
+Regra:
+
+PEDIR_PDF exige PDF, trecho paginado, confirmação material da edição ou evidência documental equivalente.
+
+ALERTA_P_XX_CONSOLIDADO
+
+Risco:
+
+Manter “p. XX” em versão final ou substituí-lo por página presumida.
+
+Regra:
+
+“p. XX” é marcador inválido para versão final e deve permanecer bloqueado até confirmação de página.
+
+ALERTA_REFERENCIA_ABNT_CONFUNDIDA_COM_VERIFICACAO
+
+Risco:
+
+Tratar referência normalizada em ABNT como se tivesse sido conferida documentalmente.
+
+Regra:
+
+Normalização bibliográfica não equivale a verificação documental.
+
+ALERTA_FONTE_CORINGA
+
+Risco:
+
+Usar obra bibliograficamente plausível como suporte genérico sem trecho específico conferido.
+
+Regra:
+
+Plausibilidade temática não equivale a sustentação documental verificável.
+
+### 9. Decisões consolidadas pós-FASE 9.F
+
+1. A FASE 9.F foi aprovada.
+
+2. O fluxo Vaquita + BVAA + Handoff está funcionalmente validado.
+
+3. O BVAA consegue devolver pendência documental sem liberar fonte.
+
+4. A Vaquita consegue integrar RETORNO_BVAA pendente.
+
+5. O Handoff consegue preservar RETORNO_BVAA pendente durante migração.
+
+6. A Vaquita destino consegue retomar estado com pendência BVAA ativa sem resolver, revisar, avançar ou consolidar a referência.
+
+7. PENDENTE_BVAA deve permanecer pendência documental ativa quando emitido pelo BVAA.
+
+8. PEDIR_PDF deve permanecer exigência documental, não autorização de uso com ressalva.
+
+9. “p. XX” deve permanecer bloqueado para versão final.
+
+10. Página não confirmada e citação literal não liberada devem ser preservadas como tais.
+
+11. Referência normalizada em ABNT não equivale a referência conferida documentalmente.
+
+12. O caso Daston/Park é apenas caso de teste e não deve contaminar o núcleo universal.
+
+### 10. Decisões abertas harmonizadas após atualização pós-FASE 9.G
+
+1. Atualizar o Pacote Mestre de Instalação/Uso para pós-9.G.
+
+2. Atualizar o Pacote de Migração para pós-9.G.
+
+3. Criar kit de distribuição final do ecossistema.
+
+4. Decidir se haverá versão v1.0 final após validação dos documentos pós-9.G.
+
+Observação:
+
+Executar o teste integrado completo com os cinco módulos não permanece como decisão aberta. Esse teste foi aprovado tecnicamente na FASE 9.G.
+
+---
+
+## ATUALIZAÇÃO PÓS-FASE 9.G — INTEGRAÇÃO COMPLETA DOS CINCO MÓDULOS
+
+### 1. Motivo da atualização
+
+Esta atualização incorpora ao Kit Mestre a aprovação técnica da FASE 9.G — Teste Integrado Completo Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+A FASE 9.G validou a cadeia completa:
+
+Vaquita origem
+→ Komodo / BVAA / Jararaca
+→ Vaquita integração
+→ Vaquita gera PACOTE_HANDOFF
+→ Handoff gera PACOTE_HANDOFF_VAQUITA
+→ Vaquita destino retoma estado bloqueado
+
+A atualização registra que o ecossistema consegue operar com três retornos auxiliares simultâneos, preservando suas funções distintas e seus efeitos bloqueantes ou restritivos sem mistura, suavização ou ação automática indevida.
+
+### 2. Status atualizado do ecossistema
+
+Ecossistema Vaquita v1.0-RC: aprovado para uso inicial controlado, com teste integrado completo aprovado tecnicamente.
+
+Módulos aprovados:
+
+1. Vaquita;
+2. Komodo;
+3. BVAA;
+4. Jararaca;
+5. Handoff.
+
+Fluxos integrados já aprovados:
+
+1. FASE 9.B — Vaquita + Handoff;
+2. FASE 9.C — Vaquita + Jararaca + Handoff;
+3. FASE 9.E — Vaquita + Komodo + Handoff;
+4. FASE 9.F — Vaquita + BVAA + Handoff;
+5. FASE 9.G — Vaquita + Komodo + BVAA + Jararaca + Handoff.
+
+Arquivo principal recomendado do Handoff permanece:
+
+HANDOFF_v1.0-RC__PROMPT_OPERACIONAL_CONSOLIDADO_AUDITADO.txt
+
+### 3. FASE 9.G — Teste Integrado Completo
+
+Status:
+
+APROVADA TECNICAMENTE.
+
+Cadeia testada:
+
+Vaquita origem → PACOTE_KOMODO / PACOTE_BVAA / PACOTE_JARARACA → Komodo / BVAA / Jararaca → RETORNO_KOMODO / RETORNO_BVAA / RETORNO_JARARACA → Vaquita integração → PACOTE_HANDOFF → Handoff → PACOTE_HANDOFF_VAQUITA → Vaquita destino
+
+Resultados:
+
+R1 — Vaquita origem gerou três pacotes separados: PACOTE_KOMODO, PACOTE_BVAA e PACOTE_JARARACA. Status: aprovado.
+
+R2A — Komodo retornou CORRIGIR_ANTES_DE_AVANÇAR. Status: aprovado. Função validada: bloqueio textual por perda de densidade, nuance, fidelidade e segurança de avanço.
+
+R2B — BVAA retornou PENDENTE_BVAA + PEDIR_PDF. Status: aprovado. Função validada: bloqueio documental por ausência de evidência verificável, página não confirmada, citação literal não liberada e risco de fonte-coringa.
+
+R2C — Jararaca retornou ESTRUTURA_ESTÁVEL_COM_RESSALVAS. Status: aprovado com ressalva leve de formato. Função validada: auditoria estrutural sem autorização automática para fusão, corte ou realocação.
+
+R3 — Vaquita integrou simultaneamente os três retornos sem misturar funções. Status: aprovado.
+
+R4 — Vaquita gerou PACOTE_HANDOFF preservando os três retornos integrados. Status: aprovado.
+
+R5 — Handoff gerou PACOTE_HANDOFF_VAQUITA preservando bloqueio textual, pendência documental, ressalva estrutural, ações anteriores consolidadas e PROXIMO bloqueado. Status: aprovado.
+
+R6 — Vaquita destino retomou o PACOTE_HANDOFF_VAQUITA sem corrigir o trecho bloqueado, sem resolver BVAA, sem aplicar fusão/corte/realocação e sem avançar para PROXIMO. Status: aprovado.
+
+Veredito final:
+
+FASE 9.G APROVADA TECNICAMENTE.
+
+### 4. Regra crítica pós-FASE 9.G — integração simultânea de retornos auxiliares
+
+Quando a Vaquita integrar simultaneamente:
+
+1. RETORNO_KOMODO;
+2. RETORNO_BVAA;
+3. RETORNO_JARARACA;
+
+deve preservar separadamente:
+
+1. bloqueio textual do Komodo;
+2. pendência documental do BVAA;
+3. ressalva estrutural da Jararaca.
+
+Essa integração não autoriza:
+
+1. correção automática;
+2. liberação bibliográfica;
+3. confirmação de página;
+4. liberação de citação literal;
+5. fusão;
+6. corte;
+7. realocação;
+8. avanço para PROXIMO.
+
+Regra:
+
+A integração simultânea organiza o estado; ela não resolve bloqueios, pendências ou ressalvas por si só.
+
+### 5. Regra crítica pós-FASE 9.G — Handoff com retornos múltiplos integrados
+
+Se PACOTE_HANDOFF contiver simultaneamente RETORNO_KOMODO, RETORNO_BVAA e RETORNO_JARARACA integrados, o Handoff deve gerar PACOTE_HANDOFF_VAQUITA preservando o estado integrado.
+
+O Handoff deve preservar:
+
+1. o bloqueio textual do Komodo;
+2. a pendência documental do BVAA;
+3. a ressalva estrutural da Jararaca;
+4. ações anteriores já consolidadas;
+5. mapa de localização suficiente para retomada;
+6. PROXIMO bloqueado quando houver pendência bloqueante;
+7. comandos, etiquetas e vereditos originais.
+
+O Handoff não deve:
+
+1. revisar texto;
+2. verificar fonte;
+3. auditar estrutura;
+4. resolver pendências;
+5. suavizar bloqueios;
+6. transformar pendência em autorização;
+7. transformar ressalva estrutural em intervenção aplicada;
+8. avançar fase, parágrafo ou PROXIMO.
+
+### 6. Casos de teste que não viram regra universal
+
+Os seguintes elementos pertencem ao material de teste da FASE 9.G e não devem ser incorporados como regra universal:
+
+1. P030;
+2. P029;
+3. P028;
+4. UR-30;
+5. Capítulo 3;
+6. seção 3.2;
+7. Daston/Park;
+8. “autoridade empírica, maravilhamento e circulação impressa”;
+9. conteúdo específico do parágrafo testado;
+10. formulações locais sobre maravilhoso, testemunho e circulação impressa.
+
+A ressalva formal da Jararaca no R2C também não deve virar regra geral de tolerância. Ela pertence ao caso de teste: o retorno foi materialmente completo, mas a ausência do comando literal final INTEGRAR_RETORNO_JARARACA permaneceu registrada como ressalva leve de formato.
+
+### 7. Riscos operacionais adicionados pós-FASE 9.G
+
+ALERTA_MISTURA_FUNCOES_AUXILIARES
+
+Risco:
+
+Misturar as funções de Komodo, BVAA e Jararaca durante integração simultânea.
+
+Regra:
+
+Komodo audita fidelidade/densidade/sentido/voz; BVAA verifica fonte/página/citação/referência; Jararaca audita redundância/progressão/deriva estrutural.
+
+ALERTA_RESSALVA_ESTRUTURAL_COMO_AUTORIZACAO
+
+Risco:
+
+Transformar ESTRUTURA_ESTÁVEL_COM_RESSALVAS em autorização automática para fusão, corte ou realocação.
+
+Regra:
+
+Ressalva estrutural não autoriza intervenção sensível sem confirmação humana ou recomendação aplicável explícita.
+
+ALERTA_VAQUITA_DESTINO_ACAO_AUTOMATICA
+
+Risco:
+
+A Vaquita destino corrigir, resolver, fundir, cortar, realocar ou avançar automaticamente ao receber PACOTE_HANDOFF_VAQUITA.
+
+Regra:
+
+A Vaquita destino deve reconstruir estado antes de qualquer ação e manter PROXIMO bloqueado quando houver pendência bloqueante.
+
+ALERTA_HANDOFF_COMO_AUDITOR
+
+Risco:
+
+Transformar o Handoff em revisor textual, verificador bibliográfico ou auditor estrutural.
+
+Regra:
+
+Handoff preserva e transfere estado; não revisa, não verifica fonte e não audita estrutura.
+
+ALERTA_RETORNOS_MULTIPLOS_RESUMIDOS_DEMAIS
+
+Risco:
+
+Reduzir retornos múltiplos a resumo genérico, apagando bloqueios, pendências, ressalvas, comandos e vereditos.
+
+Regra:
+
+Retornos auxiliares integrados devem ser preservados com densidade operacional suficiente para retomada segura.
+
+### 8. Decisões consolidadas pós-FASE 9.G
+
+1. A FASE 9.G foi aprovada tecnicamente.
+
+2. O teste integrado completo com os cinco módulos foi aprovado tecnicamente.
+
+3. A Vaquita consegue gerar PACOTE_KOMODO, PACOTE_BVAA e PACOTE_JARARACA separados em uma mesma operação de roteamento múltiplo.
+
+4. Komodo, BVAA e Jararaca preservam funções distintas e não devem ser fundidos em um único papel auxiliar.
+
+5. A Vaquita consegue integrar simultaneamente RETORNO_KOMODO, RETORNO_BVAA e RETORNO_JARARACA sem misturar funções.
+
+6. CORRIGIR_ANTES_DE_AVANÇAR permanece bloqueio textual real.
+
+7. PENDENTE_BVAA permanece pendência documental ativa.
+
+8. PEDIR_PDF permanece exigência documental.
+
+9. ESTRUTURA_ESTÁVEL_COM_RESSALVAS não autoriza automaticamente fusão, corte ou realocação.
+
+10. Handoff preserva estado integrado complexo sem revisar, verificar fonte, auditar estrutura ou resolver pendências.
+
+11. Vaquita destino retoma o estado antes de agir e não avança para PROXIMO diante de pendência bloqueante.
+
+12. P030, P029, P028, UR-30, Capítulo 3, seção 3.2 e Daston/Park não são regras universais.
+
+### 9. Decisões abertas após atualização pós-FASE 9.G
+
+1. Atualizar o Pacote Mestre de Instalação/Uso para pós-9.G.
+
+2. Atualizar o Pacote de Migração para pós-9.G.
+
+3. Criar kit de distribuição final do ecossistema.
+
+4. Decidir se haverá versão v1.0 final após validação dos documentos pós-9.G.
+
+### 10. Checklist anti-deriva pós-FASE 9.G
+
+1. Regras pós-9.E preservadas: CORRIGIR_ANTES_DE_AVANÇAR continua bloqueio textual real.
+
+2. Regras pós-9.F preservadas: PENDENTE_BVAA e PEDIR_PDF continuam pendência documental ativa e exigência documental.
+
+3. FASE 9.G incorporada como lógica arquitetural de integração simultânea, não como conteúdo de caso.
+
+4. P030, P029, P028, UR-30, Capítulo 3, seção 3.2 e Daston/Park não universalizados.
+
+5. Comandos críticos preservados sem alteração de nome.
+
+6. Funções dos módulos preservadas.
+
+7. Histórico técnico de falhas corrigidas preservado.
+
+8. Handoff preservado como módulo de migração, não como auditor.
+
+9. BVAA preservado como verificador documental, não como revisor textual.
+
+10. Komodo preservado como auditor textual, não como verificador bibliográfico.
+
+11. Jararaca preservada como auditora estrutural, não como corretora de parágrafo.
+
+12. PROXIMO permanece bloqueado quando houver pendência bloqueante.
+
+---
+
+# FIM DO KIT MESTRE ATUALIZADO PÓS-FASE 9.G — ECOSSISTEMA VAQUITA v1.0-RC
