@@ -19,11 +19,18 @@ no momento da materialização.
 
 **Status:** pendente de confirmação
 
-## Início do P23 (arquitetura, modelo, linguagem, infraestrutura)
+## Início do P23 (arquitetura, modelo, linguagem, infraestrutura, API, banco, RAG)
 
-**Status:** pendente
+**Status:** AUTORIZADO
+**Data:** 2026-08-06
+**Forma:** autorização verbal direta, com carta branca ao engenheiro
 
-Enquanto pendente, as decisões listadas em `open_decisions` do inventário
-— modelo, fornecedor, infraestrutura, linguagem, API, banco de dados, RAG,
-fine-tuning, arquitetura técnica, métricas, ambiente e implantação —
-permanecem não autorizadas formalmente.
+**Critério estabelecido pelo USUARIO_PROPONENTE:** mantém-se tudo que tenha
+relação com o funcionamento da ferramenta, por mínima que seja; descarta-se
+o que for apenas burocrático.
+
+**Consequência:** as decisões listadas em `open_decisions` do inventário —
+modelo, fornecedor, infraestrutura, linguagem, API, banco de dados, RAG,
+fine-tuning, arquitetura técnica, métricas, ambiente e implantação — deixam
+de estar pendentes. Decisões já tomadas antes desta autorização (Python,
+API Anthropic) ficam validadas retroativamente por este critério.
