@@ -1,0 +1,36 @@
+INICIO_DO_PROTOCOLO
+
+OBJETO_CONGELADO:
+Produto homologado cuja versão vigente deve permanecer íntegra.
+
+REGRA:
+Nenhuma intervenção substantiva é permitida sem reabertura expressa.
+
+REABERTURA_EXIGE:
+- erro material novo ou bloqueador comprovado;
+- impacto documentado;
+- decisão autoral expressa;
+- delimitação mínima;
+- preservação da versão vigente;
+- nova identificação de versão;
+- auditoria independente;
+- nova homologação.
+
+MELHORIA_OPCIONAL:
+Não constitui bloqueador e não autoriza reabertura.
+
+CORRECAO_LOCAL:
+Deve prevalecer sobre reexecução ampla quando suficiente.
+
+PROIBICOES:
+- sobrescrever versão homologada;
+- apagar predecessor;
+- alterar hash histórico;
+- fundir componentes;
+- usar comando vago;
+- converter recomendação em autorização.
+
+SAIDA_DIANTE_DE_PEDIDO_NAO_AUTORIZADO:
+ABSTENCAO_BIBLIOGRAFICA não se aplica aqui; usar ABSTENCAO_DE_INTERVENCAO com registro do bloqueador.
+
+FIM_DO_PROTOCOLO

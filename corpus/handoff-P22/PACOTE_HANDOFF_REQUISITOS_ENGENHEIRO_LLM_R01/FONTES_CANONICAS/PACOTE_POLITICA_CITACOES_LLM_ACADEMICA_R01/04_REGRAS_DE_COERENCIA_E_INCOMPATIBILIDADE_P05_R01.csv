@@ -1,0 +1,21 @@
+﻿regra_id;expressao_de_coerencia;severidade;acao_em_erro;fundamento
+RC-001;access_state=ACESSADA exige evidência de abertura/recuperação;BLOQUEANTE;REBAIXAR e registrar lacuna;Localização não equivale a acesso
+RC-002;reading_state=LIDA_PARCIALMENTE exige limites de leitura;BLOQUEANTE;VALIDACAO_PENDENTE;Leitura parcial deve ser delimitada
+RC-003;reading_state=LIDA_INTEGRALMENTE exige objeto completo e exame integral;BLOQUEANTE;REBAIXAR para parcial ou não realizada;Disponibilidade não prova leitura
+RC-004;page_or_folio material exige edition_or_version e PAGINA_CONFIRMADA;BLOQUEANTE;ABSTENCAO para uso paginado;Proíbe página inventada/transposta
+RC-005;validation_state=VALIDADA exige validator, validation_date e cadeia coerente;BLOQUEANTE;VALIDACAO_PENDENTE;Validação deve ser atribuível
+RC-006;sufficiency=EVIDENCIA_SUFICIENTE exige correspondência ao claim e escopo;BLOQUEANTE;EVIDENCIA_INSUFICIENTE;Quantidade não substitui adequação
+RC-007;confidence=ALTA é incompatível com EVIDENCIA_AUSENTE;BLOQUEANTE;REBAIXAR confiança e NAO_USAR;Confiança não cria evidência
+RC-008;confidence=ALTA com EVIDENCIA_INSUFICIENTE exige correção para BAIXA/MEDIA e nunca libera uso;BLOQUEANTE;NAO_USAR ou USO_CONDICIONAL;Probabilidade não é prova
+RC-009;usage_status=USO_LIBERADO exige VALIDADA e EVIDENCIA_SUFICIENTE;BLOQUEANTE;NAO_USAR;Liberação depende de validação e suficiência
+RC-010;LEITURA_INDIRETA exige fonte intermediária na proveniência;BLOQUEANTE;VALIDACAO_PENDENTE;Mediação não pode ser ocultada
+RC-011;evidence_level=D_AUSENTE é incompatível com VALIDADA;BLOQUEANTE;ABSTENCAO;Ausência não sustenta validação
+RC-012;Evidências conflitantes exigem sufficiency=CONFLITANTE até resolução/delimitação;BLOQUEANTE;NAO_USAR ou USO_CONDICIONAL;Conflito deve permanecer visível
+RC-013;Edições divergentes não compartilham paginação automaticamente;BLOQUEANTE;PAGINA_NAO_CONFIRMADA;Paginação é específica do suporte
+RC-014;Substituição exige nova versão e referência à predecessora;BLOQUEANTE;REJEITAR substituição silenciosa;Histórico imutável
+RC-015;INVALIDADA_POSTERIORMENTE é incompatível com USO_LIBERADO;BLOQUEANTE;NAO_USAR;Invalidação retira liberação
+RC-016;claim_id e source_id são imutáveis e não recicláveis;BLOQUEANTE;REJEITAR registro;Evita colisão e perda de proveniência
+RC-017;Uma evidência usada por múltiplas afirmações mantém source_id e relações separadas;MAIOR;CRIAR relação por claim;Evita fusão de escopos
+RC-018;Uma afirmação com múltiplas evidências mantém uma relação por source_id;MAIOR;SEPARAR relações;Permite auditoria individual
+RC-019;Pedido para inventar página/evidência gera ABSTENCAO e NAO_USAR;BLOQUEANTE;PARAR e registrar;Trava anti-invenção
+RC-020;Fonte parcial não sustenta alegação sobre conteúdo não disponível;BLOQUEANTE;LIMITAR escopo ou NAO_USAR;Preserva limites materiais

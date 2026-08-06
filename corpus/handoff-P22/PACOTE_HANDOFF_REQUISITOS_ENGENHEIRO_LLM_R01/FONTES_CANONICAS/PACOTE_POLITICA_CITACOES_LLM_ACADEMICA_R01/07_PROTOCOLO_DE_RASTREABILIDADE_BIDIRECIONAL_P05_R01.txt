@@ -1,0 +1,43 @@
+INICIO_DO_PROTOCOLO
+
+OBJETIVO:
+Permitir reconstrução completa nos dois sentidos sem memória externa.
+
+AFIRMACAO PARA EVIDENCIA:
+1. localizar claim_id;
+2. listar todas as relações e versões;
+3. para cada relação, resolver source_id;
+4. apresentar edição/versão, localização, trecho, estados, suficiência, confiança, uso e proveniência;
+5. não ocultar relações invalidadas, conflitantes ou substituídas.
+
+EVIDENCIA PARA AFIRMACOES:
+1. localizar source_id;
+2. listar todas as relações em que aparece;
+3. enumerar claim_id, escopo de uso e versão;
+4. indicar relações vigentes, condicionais, invalidadas e históricas;
+5. propagar evento de invalidação para revisão de todas as afirmações dependentes.
+
+CARDINALIDADES:
+- 1 claim : N evidências — uma relação por evidência.
+- 1 evidência : N claims — uma relação por afirmação.
+- N:N é representado por relações independentes, nunca por célula agregada opaca.
+
+AGREGACAO:
+A conclusão sobre uma afirmação não é obtida pela contagem de evidências. Deve existir regra explícita de composição, registrando contribuição, conflito, redundância e limites de cada relação.
+
+CONFLITOS:
+Evidências conflitantes permanecem acessíveis. A relação agregada fica CONFLITANTE/VALIDACAO_PENDENTE até resolução ou delimitação documentada.
+
+EDICOES:
+Cada edição/versão é distinguida. Página confirmada em uma edição não migra para outra sem nova confirmação.
+
+FONTE PARCIAL E LEITURA INDIRETA:
+Limites e mediação devem aparecer em ambas as direções da consulta. A fonte intermediária é rastreável como objeto próprio.
+
+INVALIDACAO E SUBSTITUICAO:
+A consulta padrão mostra a versão vigente e sinaliza toda cadeia histórica. Nenhuma versão anterior é apagada. A substituição não altera silenciosamente claims já registrados.
+
+CRITERIO DE SUCESSO:
+Dado apenas um claim_id ou source_id, é possível reconstruir todas as relações, versões, estados, autoridades e eventos relevantes.
+
+FIM_DO_PROTOCOLO

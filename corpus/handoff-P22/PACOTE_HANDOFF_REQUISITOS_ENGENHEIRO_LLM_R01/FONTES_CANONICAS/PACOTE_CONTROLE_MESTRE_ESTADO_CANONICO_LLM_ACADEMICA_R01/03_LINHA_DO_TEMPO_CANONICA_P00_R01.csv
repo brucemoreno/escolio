@@ -1,0 +1,7 @@
+﻿ordem,data_ou_marco,evento,efeito_canonico,fonte
+1,R01,Primeira revisão preservada,HISTORICA,R03 e termo externo de autoridade
+2,R02,Revisão auditada e posteriormente retificada,HISTORICA_SUBSTITUIDA,R03
+3,2026-08-01,Retificação final mínima da R02 para R03,R03_RETIFICADA,12_RECIBO_DE_RETIFICACAO_FINAL_MINIMA_R03.txt
+4,2026-08-01,Verificação final e homologação externa da R03,R03_HOMOLOGADA_E_CONGELADA,01_TERMO_DE_AUTORIDADE_ATUAL.txt
+5,2026-08-01,Autorização autoral AUTORIZO_INICIO_CONTROLADO_DO_P00,EXECUCAO_DOCUMENTAL_RESTRITA_AUTORIZADA,03_REGISTRO_DA_AUTORIZACAO_AUTORAL_P00_R01.txt
+6,2026-08-01,Execução documental do P00,P00_EXECUTADO_NAO_AUDITADO_NAO_HOMOLOGADO,02_COMANDO_UNICO_AUTORIZADO_DO_EXECUTOR_P00_R01.txt

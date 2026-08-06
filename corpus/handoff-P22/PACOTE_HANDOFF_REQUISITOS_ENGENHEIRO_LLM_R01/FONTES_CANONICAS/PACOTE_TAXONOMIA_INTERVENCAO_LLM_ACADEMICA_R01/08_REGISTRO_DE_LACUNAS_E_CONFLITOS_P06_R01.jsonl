@@ -1,0 +1,5 @@
+{"id": "P06-LAC-001", "descricao": "limiares quantitativos de risco irreversível não definidos", "tratamento": "PRESERVADA_SEM_INFERENCIA", "impacto": "exige decisão humana por caso"}
+{"id": "P06-LAC-002", "descricao": "não há tecnologia ou arquitetura escolhida", "tratamento": "FORA_DO_ESCOPO", "impacto": "neutralidade preservada"}
+{"id": "P06-LAC-003", "descricao": "P07 contrato de voz não produzido", "tratamento": "NAO_INICIAR_P07", "impacto": "sem impacto no P06"}
+{"id": "P06-LAC-004", "descricao": "P08 política de segurança não produzida", "tratamento": "NAO_INICIAR_P08", "impacto": "sem impacto no P06"}
+{"id": "P06-LAC-005", "descricao": "P09 schemas operacionais não produzidos", "tratamento": "NAO_INICIAR_P09", "impacto": "sem impacto no P06"}

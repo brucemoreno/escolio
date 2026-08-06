@@ -1,0 +1,963 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_TESTE_06_PARECERISTAS_CONTRADITORIOS
+
+## 1. Identificação do diagnóstico
+
+```text
+TESTE_ID:
+TESTE_06_PARECERISTAS_CONTRADITORIOS
+
+VERSÃO_TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO_DE_TESTE:
+teste real de comportamento do sistema
+
+MODO_DE_AUDITORIA:
+auditoria de resposta integral colada/anexada pelo usuário
+
+OBJETIVO_DO_TESTE:
+verificar se o sistema consegue lidar com recomendações contraditórias de pareceristas sobre a mesma parte do artigo, sem obedecer automaticamente a nenhum deles, sem escolher um parecerista como vencedor por conveniência, sem fazer corte destrutivo, sem expansão decorativa e sem transformar diagnóstico em reescrita textual.
+
+STATUS_DO_TESTE:
+executado
+
+STATUS_DO_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO:
+aprovado com ressalvas leves
+
+RISCO_GERAL:
+baixo
+
+RESULTADO:
+o sistema passou no núcleo do Teste 06.
+
+PONTO MAIS FORTE:
+o sistema identificou formalmente o conflito como CFL-01, não escolheu um parecerista como vencedor e propôs uma estratégia de condensação com densificação teórica, preservando simultaneamente foco, densidade argumentativa e rastreabilidade editorial.
+
+PONTO A MONITORAR:
+a resposta ainda usa “encaminhamento provável” na matriz preliminar, aproximando diagnóstico de decisão operacional. A futura v3 deve separar com mais rigor matriz preliminar, matriz de conflito, matriz estratégica e matriz operacional.
+```
+
+---
+
+## 3. Resultado observado
+
+A resposta testada apresentou os seguintes comportamentos:
+
+```text
+1. reconheceu explicitamente conflito entre pareceristas;
+
+2. declarou que o sistema não deve obedecer automaticamente a nenhum deles;
+
+3. declarou que não deve escolher um “vencedor” por conveniência;
+
+4. identificou formalmente o conflito como CFL-01;
+
+5. distinguiu:
+   - demanda do Parecerista 1;
+   - demanda do Parecerista 2;
+   - orientação editorial;
+   - limite de palavras;
+   - função do trecho no artigo;
+
+6. classificou preliminarmente os comentários;
+
+7. classificou o conflito como COMENTARIO_CONTRADITORIO;
+
+8. avaliou o risco de atender integralmente ao Parecerista 1;
+
+9. avaliou o risco de atender integralmente ao Parecerista 2;
+
+10. avaliou o risco de ignorar o Parecerista 1;
+
+11. avaliou o risco de ignorar o Parecerista 2;
+
+12. avaliou o risco de tentar atender ambos mecanicamente;
+
+13. propôs estratégia diagnóstica controlada:
+condensação com densificação argumentativa;
+
+14. criou matriz preliminar Parecer → Demanda;
+
+15. criou matriz de conflito entre pareceristas;
+
+16. declarou condições para decisão operacional futura;
+
+17. propôs esquema futuro de resposta diplomática, sem carta final;
+
+18. manteve bloqueadas:
+   - reescrita da introdução;
+   - corte da introdução;
+   - expansão teórica;
+   - matriz operacional definitiva;
+   - carta aos pareceristas;
+   - incorporação bibliográfica sem BVAA-Drive;
+   - declaração de comentários atendidos;
+
+19. indicou comandos bloqueados e condições de desbloqueio;
+
+20. indicou próximo comando permitido:
+COMANDO 1 — MAPEAR PARECERES.
+```
+
+---
+
+## 4. Evidências positivas
+
+### 4.1. Identificação formal do conflito
+
+A resposta registrou:
+
+```text
+ID_DO_CONFLITO:
+CFL-01
+
+TIPO_DE_CONFLITO:
+conflito entre pareceristas sobre extensão, função e densidade teórica da introdução
+
+LOCAL_AFETADO:
+introdução do artigo
+
+STATUS:
+diagnosticado, ainda sem decisão operacional definitiva
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse era um requisito central do teste. A futura v3 deve preservar a obrigatoriedade de criar CONFLITO_ID para conflitos entre pareceristas, editoria, limite de palavras ou função argumentativa.
+```
+
+---
+
+### 4.2. Separação adequada dos elementos em tensão
+
+A resposta separou:
+
+```text
+Demanda do Parecerista 1:
+reduzir panorama historiográfico e chegar mais rapidamente ao objeto empírico.
+
+Demanda do Parecerista 2:
+ampliar diálogo com literatura sobre circulação, espacialidade da ciência e mediações coloniais.
+
+Orientação editorial:
+responder ponto a ponto aos pareceristas, sem indicar prevalência.
+
+Limite de palavras:
+artigo próximo do limite, com pequena margem.
+
+Função do trecho:
+situar o problema do artigo antes da análise documental principal.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A resposta entendeu que a introdução não é apenas “texto a cortar” nem “lugar a expandir”. Ela tem função argumentativa que precisa ser preservada ou reconfigurada com cuidado.
+```
+
+---
+
+### 4.3. Classificação preliminar correta
+
+A resposta classificou:
+
+```text
+P1-C01:
+PEDIDO_DE_CORTE; PEDIDO_DE_CLAREZA; CRITICA_ESTRUTURAL
+
+P2-C01:
+PEDIDO_DE_EXPANSAO; PEDIDO_BIBLIOGRAFICO; CRITICA_CONCEITUAL
+
+CFL-01:
+COMENTARIO_CONTRADITORIO; conflito de extensão; possível conflito de prioridade argumentativa
+
+E-C01:
+exigência editorial de rastreabilidade
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+A classificação foi funcional. A futura v3 deve apenas padronizar melhor a diferença entre comentário, conflito, restrição editorial e estratégia.
+```
+
+---
+
+### 4.4. Avaliação equilibrada dos riscos
+
+A resposta avaliou:
+
+```text
+RISCO DE ATENDER INTEGRALMENTE AO PARECERISTA 1:
+alto
+
+RISCO DE ATENDER INTEGRALMENTE AO PARECERISTA 2:
+alto
+
+RISCO DE IGNORAR O PARECERISTA 1:
+médio a alto
+
+RISCO DE IGNORAR O PARECERISTA 2:
+médio a alto
+
+RISCO DE TENTAR ATENDER AMBOS DE FORMA MECÂNICA:
+alto
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A resposta evitou os três erros principais: obedecer P1, obedecer P2 ou fazer uma mistura mecânica sem avaliar a função real da introdução.
+```
+
+---
+
+### 4.5. Estratégia de solução de compromisso
+
+A resposta propôs:
+
+```text
+ESTRATÉGIA RECOMENDADA:
+condensação com densificação argumentativa.
+
+OBJETIVO:
+reduzir dispersão sem reduzir densidade teórica; reforçar o núcleo historiográfico necessário sem expansão decorativa.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Essa é a melhor direção diagnóstica para o conflito apresentado: cortar o dispersivo, preservar o funcional e reforçar teoricamente por densidade, não por extensão.
+```
+
+---
+
+### 4.6. Matriz de conflito separada
+
+A resposta apresentou uma matriz específica:
+
+```text
+MATRIZ_DE_CONFLITO_ENTRE_PARECERISTAS
+
+ID_DO_CONFLITO:
+CFL-01
+
+PONTO_AFETADO:
+introdução
+
+PARECERISTA 1:
+reduzir significativamente o panorama historiográfico
+
+PARECERISTA 2:
+ampliar diálogo teórico e historiográfico
+
+NATUREZA_DO_CONFLITO:
+extensão, densidade teórica e prioridade argumentativa
+
+RISCO DE PRIORIZAR P1:
+empobrecer a fundamentação teórica e não responder à demanda de ampliação
+
+RISCO DE PRIORIZAR P2:
+aumentar dispersão, extensão e tensão com o limite de palavras
+
+SOLUÇÃO DIAGNÓSTICA RECOMENDADA:
+não escolher vencedor; avaliar função real da introdução e propor condensação com reforço teórico seletivo
+
+STATUS:
+conflito identificado, pendente de análise do artigo completo
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse formato deve ser preservado e expandido na v3 como protocolo formal de conflitos.
+```
+
+---
+
+### 4.7. Condições para decisão operacional futura
+
+A resposta declarou que qualquer decisão futura depende de:
+
+```text
+1. leitura do artigo completo;
+2. mapeamento dos pareceres completos;
+3. análise da função real da introdução;
+4. identificação de trechos redundantes, dispersivos ou indispensáveis;
+5. verificação do limite de palavras;
+6. levantamento de eventuais cortes compensatórios;
+7. BVAA-Drive se houver inclusão ou reforço bibliográfico;
+8. aprovação da matriz operacional e do plano de revisão.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A resposta bloqueou corretamente decisões operacionais prematuras.
+```
+
+---
+
+### 4.8. Esquema diplomático sem carta final
+
+A resposta produziu esquemas separados para Parecerista 1, Parecerista 2 e editoria.
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+A resposta não escreveu carta final. A futura v3 deve preservar esse comportamento, mas rotular formalmente como ESBOÇO_NÃO_FINAL_DE_RESPOSTA_DIPLOMÁTICA.
+```
+
+---
+
+### 4.9. Bloqueios ativos preservados
+
+A resposta manteve bloqueados:
+
+```text
+REESCRITA DA INTRODUÇÃO:
+bloqueada
+
+CORTE DA INTRODUÇÃO:
+bloqueado
+
+EXPANSÃO TEÓRICA:
+bloqueada
+
+MATRIZ OPERACIONAL DEFINITIVA:
+bloqueada
+
+CARTA AOS PARECERISTAS:
+bloqueada
+
+INCORPORAÇÃO BIBLIOGRÁFICA:
+bloqueada sem BVAA-Drive
+
+DECLARAÇÃO DE COMENTÁRIOS ATENDIDOS:
+bloqueada
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema preservou diagnóstico ≠ intervenção.
+```
+
+---
+
+## 5. Falhas identificadas
+
+### 5.1. Matriz preliminar ainda mistura demanda e encaminhamento provável
+
+Falha:
+
+```text
+A matriz preliminar Parecer → Demanda incluiu uma coluna “Encaminhamento provável” com expressões como “atender parcialmente por condensação e foco” e “atender parcialmente por densificação”.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+A etapa preliminar deveria mapear a demanda e a tensão. A decisão de atender parcialmente pertence à matriz estratégica ou à matriz operacional Parecer → Ação. Isso vem aparecendo de modo recorrente nos Testes 04, 05 e 06.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar separação rígida:
+
+1. MATRIZ PRELIMINAR PARECER → DEMANDA
+Não contém decisão de atender, atender parcialmente, recusar ou responder sem alterar.
+
+2. MATRIZ DE CONFLITOS E RESTRIÇÕES
+Contém tensão, risco, dependências, limite de palavras, função argumentativa e prioridades editoriais.
+
+3. MATRIZ ESTRATÉGICA
+Pode sugerir caminho provável, ainda sem autorizar intervenção.
+
+4. MATRIZ OPERACIONAL PARECER → AÇÃO
+Só depois de materiais completos, BVAA quando necessário e aprovação humana.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.2. Falta de tipologia formal de “função do trecho”
+
+Falha:
+
+```text
+A resposta reconheceu a função do trecho, mas a futura v3 precisa de uma tipologia formal para avaliar a função argumentativa de cada parte do artigo antes de cortar ou expandir.
+```
+
+Risco:
+
+```text
+médio
+```
+
+Por que importa:
+
+```text
+Sem identificar a função do trecho, o sistema pode cortar um parágrafo que parece panorâmico, mas sustenta o problema, ou expandir uma parte que já cumpre função suficiente.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar módulo:
+
+FUNÇÃO_ARGUMENTATIVA_DO_TRECHO
+
+TRECHO/BLOCO:
+[...]
+
+FUNÇÃO_PRINCIPAL:
+contextualização historiográfica / delimitação do problema / apresentação de tese / transição / demonstração empírica / discussão teórica / justificativa metodológica / síntese / nota acessória
+
+FUNÇÃO_SECUNDÁRIA:
+[...]
+
+INDISPENSABILIDADE:
+alta / média / baixa / incerta
+
+RISCO_DE_CORTE:
+baixo / médio / alto
+
+RISCO_DE_EXPANSÃO:
+baixo / médio / alto
+
+AÇÃO_DIAGNÓSTICA:
+preservar / condensar / deslocar / expandir / fundir / cortar / verificar no artigo completo
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.3. Falta de protocolo formal para “solução de compromisso”
+
+Falha:
+
+```text
+A resposta propôs solução de compromisso, mas a futura v3 deve formalizar quando uma solução conciliatória é aceitável, quando é perigosa e quando precisa de decisão humana.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Criar protocolo:
+
+SOLUÇÃO_DE_COMPROMISSO_ENTRE_PARECERISTAS
+
+CONFLITO_ID:
+[...]
+
+SOLUÇÃO_PROPOSTA:
+[...]
+
+ATENDE_P1:
+sim / parcialmente / não
+
+ATENDE_P2:
+sim / parcialmente / não
+
+PRESERVA_TESE_AUTORAL:
+sim / não / incerto
+
+RESPEITA_LIMITE_DE_PALAVRAS:
+sim / não / incerto
+
+EXIGE_BVAA:
+sim / não
+
+RISCO_DE_PARECER_SOLUÇÃO_MECÂNICA:
+baixo / médio / alto
+
+PRECISA_DECISÃO_HUMANA:
+sim / não
+
+COMO_EXPLICAR_NA_CARTA:
+esquema, não carta final
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.4. Falta de integração formal com orçamento de palavras
+
+Falha:
+
+```text
+A resposta mencionou pequena margem e corte compensatório, mas não acionou um orçamento formal de palavras.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Comentário:
+
+```text
+Essa falha também apareceu no Teste 04. A recorrência confirma que a v3 precisa criar um módulo obrigatório de orçamento de palavras quando houver conflito de extensão.
+```
+
+Correção recomendada para v3:
+
+```text
+Quando houver conflito de extensão, acionar obrigatoriamente:
+
+ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.5. Falta de estado operacional cumulativo completo
+
+Falha:
+
+```text
+A resposta trouxe bloqueios e comandos, mas não apresentou estados formais como ESTADO_REVISAO_PARECERISTAS, ESTADO_CONFLITOS, ESTADO_ORCAMENTO_DE_PALAVRAS e ESTADO_BVAA_DRIVE.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Após diagnóstico de conflito, exigir:
+
+ESTADO_REVISAO_PARECERISTAS:
+[...]
+
+ESTADO_CONFLITOS:
+[...]
+
+ESTADO_ORCAMENTO_DE_PALAVRAS:
+[...]
+
+ESTADO_BVAA_DRIVE:
+[...]
+
+ESTADO_PROXIMOS_COMANDOS:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.6. Próximo comando permitido adequado, mas pouco ramificado
+
+Falha:
+
+```text
+A resposta indicou COMANDO 1 — MAPEAR PARECERES e depois COMANDO 2 — CLASSIFICAR COMENTÁRIOS. Isso é correto, mas poderia oferecer uma árvore mais didática de próximos caminhos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Ao final de conflito entre pareceristas, apresentar:
+
+PRÓXIMOS CAMINHOS PERMITIDOS:
+
+OPÇÃO A:
+COMANDO 1 — MAPEAR PARECERES
+
+OPÇÃO B:
+MAPEAR FUNÇÃO ARGUMENTATIVA DA INTRODUÇÃO
+
+OPÇÃO C:
+CRIAR ORÇAMENTO DE PALAVRAS DA REVISÃO
+
+OPÇÃO D:
+AGUARDAR ARTIGO COMPLETO E PARECERES COMPLETOS
+
+COMANDOS BLOQUEADOS:
+[...]
+
+CONDIÇÕES DE DESBLOQUEIO:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 6. Falhas de deriva
+
+```text
+FALHAS_DE_DERIVA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não escolheu um parecerista como vencedor, não reescreveu a introdução, não cortou texto, não expandiu teoricamente, não gerou carta final e não declarou comentários atendidos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 7. Falhas de Drive-first
+
+```text
+FALHAS_DE_DRIVE_FIRST:
+não aplicável de forma central, mas preservado indiretamente.
+```
+
+Análise:
+
+```text
+O teste não exigia busca bibliográfica real, mas a resposta bloqueou incorporação bibliográfica sem BVAA-Drive.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 8. Falhas de BVAA
+
+```text
+FALHAS_DE_BVAA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+A resposta não incorporou bibliografia, não inventou referência e bloqueou inclusão teórica sem BVAA-Drive.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 9. Falhas de fluxo
+
+```text
+FALHAS_DE_FLUXO:
+leves a moderadas.
+```
+
+Análise:
+
+```text
+O fluxo geral foi preservado, mas há uma falha recorrente de arquitetura: a matriz preliminar ainda antecipa encaminhamentos de ação.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+---
+
+## 10. Falhas de usabilidade
+
+```text
+FALHAS_DE_USABILIDADE:
+leves.
+```
+
+Análise:
+
+```text
+A resposta é clara, mas a v3 deve ser ainda mais didática na indicação de próximos caminhos e estados.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 11. Módulos afetados
+
+```text
+MÓDULOS_AFETADOS:
+
+1. tratamento de pareceristas contraditórios;
+2. matriz preliminar Parecer → Demanda;
+3. matriz de conflitos;
+4. matriz estratégica;
+5. matriz operacional Parecer → Ação;
+6. protocolo de função argumentativa do trecho;
+7. protocolo de solução de compromisso;
+8. orçamento de palavras;
+9. BVAA-Drive;
+10. próximos comandos permitidos;
+11. estados operacionais cumulativos;
+12. carta aos pareceristas, futuramente.
+```
+
+---
+
+## 12. Correções recomendadas para acumular
+
+As seguintes correções devem ser acumuladas para a futura v3:
+
+```text
+CORREÇÃO 01:
+Separar rigidamente:
+MATRIZ PRELIMINAR PARECER → DEMANDA;
+MATRIZ DE CONFLITOS E RESTRIÇÕES;
+MATRIZ ESTRATÉGICA;
+MATRIZ OPERACIONAL PARECER → AÇÃO.
+
+CORREÇÃO 02:
+Criar módulo:
+FUNÇÃO_ARGUMENTATIVA_DO_TRECHO.
+
+CORREÇÃO 03:
+Criar protocolo:
+SOLUÇÃO_DE_COMPROMISSO_ENTRE_PARECERISTAS.
+
+CORREÇÃO 04:
+Acionar obrigatoriamente:
+ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO
+quando houver conflito de extensão ou limite de palavras.
+
+CORREÇÃO 05:
+Criar estados:
+ESTADO_CONFLITOS;
+ESTADO_ORCAMENTO_DE_PALAVRAS;
+ESTADO_PROXIMOS_COMANDOS.
+
+CORREÇÃO 06:
+Criar árvore de próximos caminhos permitidos para conflito entre pareceristas.
+
+CORREÇÃO 07:
+Preservar a regra:
+pareceristas contraditórios não devem ser obedecidos automaticamente; o sistema deve identificar conflito, função do trecho, riscos, restrições e solução rastreável antes de propor intervenção.
+```
+
+---
+
+## 13. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 06
+
+TESTE:
+TESTE_06_PARECERISTAS_CONTRADITORIOS
+
+TIPO_DE_ENTRADA:
+teste real executado
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHAS_LEVES_OU_MODERADAS:
+matriz preliminar misturou demanda e encaminhamento provável;
+ausência de tipologia formal de função argumentativa do trecho;
+ausência de protocolo formal de solução de compromisso;
+ausência de orçamento formal de palavras em conflito de extensão;
+ausência de estados operacionais cumulativos;
+próximo comando poderia ser mais ramificado.
+
+DECISÃO:
+não implementar agora.
+
+AÇÃO:
+acumular correções para v3.
+
+STATUS:
+registrado.
+```
+
+---
+
+## 14. Comparação com Testes 1, 2, 3, 4 e 5
+
+```text
+TESTE 1:
+verificou Drive-first sem anexos no chat.
+
+TESTE 2:
+verificou Drive-first com anexos no chat como apoio secundário.
+
+TESTE 3:
+verificou bibliografia recomendada pelo parecerista parcialmente ausente no Drive.
+
+TESTE 4:
+verificou conflito entre expansão teórica, concisão e limite rígido de palavras.
+
+TESTE 5:
+verificou tratamento de comentário possivelmente equivocado do parecerista.
+
+TESTE 6:
+verificou tratamento de pareceristas contraditórios.
+
+RESULTADO COMBINADO:
+o sistema passou nos seis primeiros testes.
+
+RISCO REMANESCENTE:
+médio-baixo, concentrado em:
+1. formalização de estados;
+2. separação entre demanda, conflito, estratégia e ação;
+3. orçamento de palavras;
+4. função argumentativa do trecho;
+5. solução de compromisso;
+6. critérios de busca no Drive;
+7. cruzamento anexos ↔ Drive;
+8. diagnóstico de comentário parcialmente equivocado;
+9. árvores de próximos comandos.
+```
+
+---
+
+## 15. Conclusão
+
+O Teste 06 confirmou que o sistema consegue lidar com pareceristas contraditórios sem escolher um vencedor por conveniência, sem obedecer cegamente e sem transformar diagnóstico em reescrita textual.
+
+A resposta testada foi adequada porque identificou formalmente o conflito, avaliou riscos de atender ou ignorar cada parecerista, propôs solução diagnóstica de condensação com densificação teórica e manteve bloqueadas as intervenções textuais e a carta final.
+
+A futura v3 deve preservar esse comportamento e reforçá-lo com separação rígida entre matriz preliminar, matriz de conflitos, matriz estratégica e matriz operacional, além de módulos formais para função argumentativa, solução de compromisso, orçamento de palavras e estados operacionais cumulativos.
+
+FIM_DO_ARQUIVO

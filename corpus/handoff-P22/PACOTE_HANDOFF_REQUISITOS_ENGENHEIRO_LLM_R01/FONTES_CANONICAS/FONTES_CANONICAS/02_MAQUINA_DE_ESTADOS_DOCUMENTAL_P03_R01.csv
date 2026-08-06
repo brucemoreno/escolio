@@ -1,0 +1,11 @@
+﻿estado;descricao;entrada_permitida;evento;saida;autoridade;erro_bloqueante;reversivel
+NAO_INICIADO;Componente ainda não executado.;Cadastro no inventário canônico.;Comando específico após gate.;AUTORIZADO_PARA_EXECUCAO;USUARIO_PROPONENTE;Gate ou dependência ausente;SIM
+AUTORIZADO_PARA_EXECUCAO;Execução documental específica autorizada.;Dependências homologadas.;Executor inicia comando único.;EM_EXECUCAO_DOCUMENTAL;CHAT_EXECUTOR_DOCUMENTAL;Escopo ambíguo ou entrada material ausente;SIM
+EM_EXECUCAO_DOCUMENTAL;Produto em elaboração controlada.;Comando e fontes verificados.;Conclusão dos arquivos e testes.;EXECUTADO_NAO_AUDITADO;CHAT_EXECUTOR_DOCUMENTAL;Teste documental falho;SIM
+EXECUTADO_NAO_AUDITADO;Produto entregue, sem veredito.;Execução concluída.;Comando de auditoria independente.;EM_AUDITORIA;USUARIO_PROPONENTE/CHAT_AUDITOR_INDEPENDENTE;Produto incompleto;SIM
+EM_AUDITORIA;Auditoria independente em curso.;Objeto material e comando de auditoria.;Veredito.;APROVADO_PARA_DECISAO_AUTORAL ou REPROVADO_PARA_CORRECAO;CHAT_AUDITOR_INDEPENDENTE;Auditor corrige ou amplia escopo;SIM
+REPROVADO_PARA_CORRECAO;Bloqueador material confirmado.;Parecer de auditoria.;Comando autoral de correção local.;AUTORIZADO_PARA_CORRECAO;USUARIO_PROPONENTE;Correção sem comando;SIM
+APROVADO_PARA_DECISAO_AUTORAL;Auditoria aprova, sem homologar.;Parecer aprovado.;Decisão autoral.;HOMOLOGADO_E_CONGELADO ou AGUARDANDO_DECISAO;USUARIO_PROPONENTE;Auto-homologação;SIM
+HOMOLOGADO_E_CONGELADO;Versão vigente protegida.;Termo autoral e hash.;Uso como dependência ou reabertura excepcional.;PERMANECE_CONGELADO ou REABERTO_SOB_AUTORIZACAO;USUARIO_PROPONENTE;Alteração direta;SIM_PARA_VERSAO_ANTERIOR
+INTERROMPIDO_BLOQUEADO;Execução parada por ausência ou divergência material.;Falha documentada.;Correção da entrada e autorização de retomada.;ESTADO_RESTAURADO;USUARIO_PROPONENTE;Retomada automática;SIM
+ESTADO_RESTAURADO;Último estado seguro reconstituído.;Objetos canônicos verificados.;Novo comando específico.;AUTORIZADO_PARA_EXECUCAO ou AGUARDANDO_COMANDO;USUARIO_PROPONENTE;Contexto incompleto;SIM

@@ -1,0 +1,50 @@
+INICIO_DO_ARQUIVO
+
+PACOTE:
+PACOTE_SCHEMA_AFIRMACAO_EVIDENCIA_LLM_ACADEMICA_R01.zip
+
+COMPONENTE:
+P05 — SCHEMA AFIRMACAO–EVIDENCIA
+
+STATUS:
+EXECUTADO_DOCUMENTALMENTE
+NAO_AUDITADO
+NAO_HOMOLOGADO
+
+GATE_MATERIAL:
+APROVADO
+
+BASES:
+- R03 homologada, congelada e inalterada;
+- P00, P01, P02, P03 e P04 homologados e congelados;
+- P04 confirmado pelo termo externo e pelo SHA-256 b0cd325791f8950195084c6e539db8c0d660c7a417e0a9814b80ffa51890604f;
+- P06–P28 não iniciados.
+
+FINALIDADE:
+Definir um schema universal e tecnicamente neutro para vincular afirmações a evidências, preservando identificação, localização, acessibilidade, acesso, leitura, paginação, validação, recomendação e abstenção como dimensões distintas.
+
+ORDEM_DE_LEITURA:
+1. 01_SCHEMA_AFIRMACAO_EVIDENCIA_P05_R01.md
+2. 02_DICIONARIO_DE_DADOS_P05_R01.csv
+3. 03_VOCABULARIO_CONTROLADO_DE_STATUS_P05_R01.csv
+4. 04_REGRAS_DE_COERENCIA_E_INCOMPATIBILIDADE_P05_R01.csv
+5. 05_MATRIZ_DE_SUFICIENCIA_E_CONFIANCA_P05_R01.csv
+6. 06_PROTOCOLO_DE_IDENTIFICADORES_E_VERSIONAMENTO_P05_R01.txt
+7. 07_PROTOCOLO_DE_RASTREABILIDADE_BIDIRECIONAL_P05_R01.txt
+8. 08_REGISTRO_DE_LACUNAS_E_CONFLITOS_P05_R01.jsonl
+9. 09_TESTE_DE_RASTREABILIDADE_P05_R01.txt
+10. 10_DIAGNOSTICO_FINAL_P05_R01.txt
+11. MANIFESTO_SHA256.json
+
+TRAVAS:
+- não alterar R03;
+- não reabrir P00–P04;
+- não iniciar P06–P28;
+- não inventar IDs de objetos reais, páginas, fontes ou evidências;
+- não escolher tecnologia, banco, linguagem, API ou arquitetura;
+- não implementar e não homologar.
+
+REGRA_DOCUMENTAL:
+O manifesto interno não referencia a si mesmo. Exemplos são abstratos, identificados pelo prefixo EX- e não representam casos reais.
+
+FIM_DO_ARQUIVO

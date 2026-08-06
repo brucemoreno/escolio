@@ -1,0 +1,532 @@
+# PACOTE_ANTI_DERIVA_AUDITORIA_PROMPT_REVISAO_ARTIGO_v1
+
+## 1. Função deste pacote
+
+Este pacote deve ser aplicado antes, durante e depois da auditoria do sistema:
+
+```text
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS
+```
+
+Sua função é impedir que o processo de melhoria do prompt gere degradação arquitetural, redução indevida, apagamento de módulos, perda de controles bibliográficos, perda de protocolo Drive-first ou simplificação preguiçosa.
+
+Este pacote não cria a v3.
+
+Este pacote não substitui a auditoria.
+
+Este pacote não executa revisão de artigo.
+
+Este pacote governa o processo de auditoria e melhoria.
+
+---
+
+## 2. Regra central anti-degradação
+
+```text
+MELHORAR O PROMPT
+não significa
+ENXUGAR O PROMPT.
+
+REESTRUTURAR A ARQUITETURA
+não significa
+RESUMIR O SISTEMA.
+
+TORNAR INTUITIVO
+não significa
+REMOVER GATES, MATRIZES, ESTADOS, BVAA OU PROTOCOLOS.
+```
+
+Qualquer nova versão deve ser julgada por preservação funcional, não por brevidade.
+
+---
+
+## 3. Princípio de preservação acumulativa
+
+Toda versão nova deve preservar, incorporar ou substituir explicitamente cada função relevante das versões anteriores.
+
+É proibido simplesmente omitir um módulo porque ele ficou “pesado”, “detalhado” ou “longo”.
+
+Cada item removido precisa receber um dos seguintes estatutos:
+
+```text
+PRESERVADO:
+permanece na nova versão com mesma função.
+
+INTEGRADO:
+foi fundido a outro módulo, sem perda operacional.
+
+SUBSTITUÍDO:
+foi trocado por mecanismo melhor, com justificativa.
+
+REMOVIDO_COM_JUSTIFICATIVA:
+foi retirado porque era redundante, ambíguo, perigoso ou desnecessário.
+
+PENDENTE:
+ainda precisa ser reincorporado.
+
+PERDIDO_POR_DERIVA:
+foi omitido sem justificativa e precisa ser restaurado.
+```
+
+---
+
+## 4. Módulos que não podem desaparecer
+
+A nova arquitetura obrigatoriamente deve conter mecanismos equivalentes ou superiores aos seguintes:
+
+```text
+1. identidade do sistema;
+2. fronteira operacional;
+3. distinção entre revisar artigo submetido e derivar artigo de tese/dissertação;
+4. BLOCO 0;
+5. mapeamento de materiais;
+6. mapeamento de pareceres;
+7. classificação dos comentários;
+8. tipologia dos comentários;
+9. matriz Parecer → Demanda;
+10. matriz operacional Parecer → Ação;
+11. plano de revisão;
+12. revisão por blocos;
+13. avaliação de bloco;
+14. aprovação humana de bloco;
+15. carta aos pareceristas;
+16. auditoria final;
+17. pacote final de devolução à revista;
+18. BVAA bibliográfico;
+19. BVAA-Drive;
+20. Drive-first;
+21. prova mínima de leitura;
+22. manifesto bibliográfico;
+23. fichário BVAA-Drive;
+24. lista de bibliografia recomendada pelo parecerista ausente no Drive;
+25. protocolo contra pedido prematuro de upload no chat;
+26. protocolo contra zona de conforto dos anexos do chat;
+27. protocolo de normas da revista;
+28. tratamento de conflitos entre pareceristas;
+29. tratamento de comentários equivocados;
+30. tratamento de comentários inviáveis ou fora de escopo;
+31. protocolo para pedidos de corte;
+32. protocolo para pedidos de expansão;
+33. estados operacionais;
+34. checkpoints anti-deriva;
+35. refresh anti-deriva;
+36. protocolo de retomada;
+37. protocolo de salvamento;
+38. auditoria carta-texto;
+39. distinção entre avaliar, ajustar, aprovar e finalizar;
+40. bloqueio contra versão enxuta.
+```
+
+Nenhuma nova versão pode ser aprovada se qualquer item acima desaparecer sem justificativa.
+
+---
+
+## 5. Trava contra “v3 de 5 linhas”
+
+Antes de entregar qualquer nova versão completa, o assistente deve executar internamente a seguinte checagem:
+
+```text
+CHECAGEM_ANTI_V3_ENXUTA
+
+A nova versão contém todos os comandos necessários?
+sim / não
+
+A nova versão contém todos os gates necessários?
+sim / não
+
+A nova versão contém todos os estados operacionais?
+sim / não
+
+A nova versão contém Drive-first como núcleo e não como apêndice?
+sim / não
+
+A nova versão preserva BVAA e BVAA-Drive?
+sim / não
+
+A nova versão preserva protocolos editoriais finos?
+sim / não
+
+A nova versão distingue matriz preliminar de matriz operacional?
+sim / não
+
+A nova versão contém manifesto bibliográfico?
+sim / não
+
+A nova versão contém fichário BVAA-Drive?
+sim / não
+
+A nova versão contém protocolo de testes?
+sim / não
+
+A nova versão é mais curta por perda de função?
+sim / não
+
+Houve remoção não justificada?
+sim / não
+
+VEREDITO:
+pode avançar / bloquear entrega / reestruturar antes de entregar
+```
+
+Se qualquer resposta crítica for “não” ou “sim” em campo de risco, a nova versão não deve ser entregue como final.
+
+---
+
+## 6. Rotina interna intermitente obrigatória
+
+Durante a auditoria, o assistente deve aplicar este pacote como rotina intermitente nos seguintes momentos:
+
+```text
+1. antes de iniciar a auditoria de cada resultado de teste;
+
+2. depois de identificar falhas relevantes;
+
+3. antes de propor qualquer correção arquitetural;
+
+4. a cada conjunto de 2 ou 3 resultados de teste;
+
+5. antes de consolidar diagnóstico cumulativo;
+
+6. antes de iniciar a escrita da v3;
+
+7. no meio da escrita da v3, se a geração for longa;
+
+8. antes de entregar a v3 final;
+
+9. depois de entregar a v3 final, em auditoria de consistência.
+```
+
+A rotina não precisa ser exibida integralmente ao usuário em todas as vezes, mas deve orientar o diagnóstico.
+
+Quando houver risco de deriva, o assistente deve emitir aviso explícito.
+
+---
+
+## 7. Protocolo de diagnóstico cumulativo
+
+Durante a bateria de testes, o assistente não deve corrigir a arquitetura imediatamente.
+
+Deve registrar diagnósticos cumulativos.
+
+Cada diagnóstico deve seguir este modelo:
+
+```text
+DIAGNOSTICO_DE_TESTE
+
+TESTE_ID:
+[...]
+
+VERSÃO_TESTADA:
+[...]
+
+COMANDO_TESTADO:
+[...]
+
+OBJETIVO_DO_TESTE:
+[...]
+
+RESULTADO_OBSERVADO:
+[...]
+
+FALHAS_IDENTIFICADAS:
+[...]
+
+FALHAS_DE_DERIVA:
+[...]
+
+FALHAS_DE_DRIVE_FIRST:
+[...]
+
+FALHAS_DE_BVAA:
+[...]
+
+FALHAS_DE_FLUXO:
+[...]
+
+FALHAS_DE_USABILIDADE:
+[...]
+
+MÓDULOS_AFETADOS:
+[...]
+
+RISCO:
+baixo / médio / alto / crítico
+
+CORREÇÃO_RECOMENDADA:
+[...]
+
+IMPLEMENTAR_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas somente ao final da bateria de testes.
+
+STATUS:
+registrado
+```
+
+---
+
+## 8. Regra de não implementação prematura
+
+Durante a bateria de testes:
+
+```text
+É PROIBIDO:
+1. reescrever a v3 antes do fim da bateria;
+2. aplicar correções isoladas imediatamente;
+3. substituir o prompt principal por remendos;
+4. declarar versão final após um único teste;
+5. apagar diagnósticos anteriores;
+6. tratar teste parcial como validação global.
+```
+
+O assistente deve acumular todos os diagnósticos e só depois propor uma arquitetura consolidada.
+
+---
+
+## 9. Dossiê cumulativo de auditoria
+
+O assistente deve manter um dossiê cumulativo no chat com a seguinte estrutura:
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA
+
+VERSÃO_BASE:
+[...]
+
+TESTES_REALIZADOS:
+[...]
+
+DIAGNÓSTICOS_REGISTRADOS:
+[...]
+
+FALHAS_RECORRENTES:
+[...]
+
+FALHAS_ISOLADAS:
+[...]
+
+FALHAS_CRÍTICAS:
+[...]
+
+MÓDULOS_A_PRESERVAR:
+[...]
+
+MÓDULOS_A_REESTRUTURAR:
+[...]
+
+MÓDULOS_A_CRIAR:
+[...]
+
+MÓDULOS_A_REMOVER_COM_JUSTIFICATIVA:
+[...]
+
+DECISÕES_ARQUITETURAIS_TOMADAS:
+[...]
+
+DECISÕES_PENDENTES:
+[...]
+
+STATUS:
+em construção / pronto para v3 / bloqueado
+```
+
+Ao final da bateria, esse dossiê deve orientar a v3.
+
+---
+
+## 10. Protocolo de teste em outro chat
+
+O usuário poderá testar o prompt em outro chat.
+
+O assistente deste chat deverá:
+
+```text
+1. fornecer comandos de teste;
+2. receber os resultados colados pelo usuário;
+3. auditar os resultados;
+4. registrar diagnóstico integral;
+5. não implementar correções ainda;
+6. acumular falhas;
+7. solicitar novos testes quando necessário;
+8. apenas ao final consolidar a nova arquitetura.
+```
+
+---
+
+## 11. Critérios de avaliação dos testes
+
+Cada teste deve avaliar pelo menos um destes critérios:
+
+```text
+1. obediência ao fluxo;
+2. resistência a pedidos de atalho;
+3. Drive-first;
+4. recusa a pedir upload prematuro;
+5. abertura/leitura real de PDF;
+6. prova mínima de leitura;
+7. BVAA;
+8. matriz preliminar;
+9. matriz operacional;
+10. tratamento de parecerista contraditório;
+11. tratamento de comentário equivocado;
+12. normas da revista;
+13. limite de palavras;
+14. carta aos pareceristas;
+15. auditoria carta-texto;
+16. bloqueio contra versão enxuta;
+17. usabilidade para o usuário;
+18. clareza dos próximos comandos.
+```
+
+---
+
+## 12. Testes mínimos obrigatórios antes da v3
+
+Antes de criar a v3, realizar ou simular os seguintes testes:
+
+```text
+TESTE 1:
+usuário informa que bibliografia está no Drive e tenta forçar pedido de upload.
+Objetivo: verificar Drive-first.
+
+TESTE 2:
+usuário anexa poucos PDFs no chat, mas informa que há mais PDFs no Drive.
+Objetivo: verificar trava contra zona de conforto.
+
+TESTE 3:
+parecerista recomenda bibliografia ausente no Drive.
+Objetivo: verificar lista específica de bibliografia a pedir ao usuário.
+
+TESTE 4:
+parecerista pede expansão teórica com limite de palavras.
+Objetivo: verificar conflito expansão/corte.
+
+TESTE 5:
+parecerista faz comentário equivocado.
+Objetivo: verificar resposta diplomática sem obediência cega.
+
+TESTE 6:
+pareceristas entram em contradição.
+Objetivo: verificar protocolo de conflito.
+
+TESTE 7:
+usuário pede “faça direto, sem matriz”.
+Objetivo: verificar resistência a atalho.
+
+TESTE 8:
+usuário pede “versão enxuta”.
+Objetivo: verificar bloqueio ou condicionalidade.
+
+TESTE 9:
+usuário pede carta aos pareceristas antes de revisar o artigo.
+Objetivo: verificar bloqueio carta-texto.
+
+TESTE 10:
+usuário cola resultado parcial e pede aprovação.
+Objetivo: verificar avaliar ≠ aprovar.
+```
+
+---
+
+## 13. Regra de preservação de diagnósticos
+
+Diagnósticos de teste não devem ser resumidos em excesso.
+
+É permitido sintetizar no começo, mas o registro técnico deve preservar:
+
+```text
+1. teste aplicado;
+2. resultado colado pelo usuário;
+3. falhas observadas;
+4. evidências da falha;
+5. implicação arquitetural;
+6. correção recomendada;
+7. status de implementação.
+```
+
+---
+
+## 14. Protocolo de salvamento durante auditoria
+
+Sempre que houver diagnóstico importante, o assistente deve entregar ao usuário um bloco com:
+
+```text
+ARQUIVO A SALVAR:
+[...]
+
+PASTA:
+[...]
+
+FUNÇÃO:
+[...]
+
+STATUS:
+[...]
+
+INSTRUÇÃO:
+copie somente o conteúdo entre INICIO_DO_ARQUIVO e FIM_DO_ARQUIVO.
+```
+
+O conteúdo deve ser delimitado.
+
+O próximo comando não deve ser salvo dentro do arquivo.
+
+---
+
+## 15. Critério para liberar escrita da v3
+
+A v3 só pode ser escrita quando:
+
+```text
+1. os testes mínimos tiverem sido executados ou conscientemente dispensados pelo usuário;
+
+2. o dossiê cumulativo estiver consolidado;
+
+3. as falhas críticas estiverem classificadas;
+
+4. as correções arquiteturais estiverem agrupadas;
+
+5. houver mapa de preservação das funções da v1 e v2;
+
+6. o pacote anti-deriva tiver sido reaplicado;
+
+7. a estrutura da v3 tiver sido aprovada como arquitetura antes da redação completa.
+```
+
+---
+
+## 16. Forma recomendada da v3
+
+A v3 deve ser:
+
+```text
+prompt mestre único com chain prompts internos.
+```
+
+Motivo:
+
+```text
+1. facilita uso pelo usuário;
+2. evita dispersão em muitos arquivos;
+3. preserva fluxo operacional;
+4. permite comandos encadeados;
+5. mantém arquitetura robusta sem obrigar o usuário a colar vários prompts.
+```
+
+A v3 não deve ser curta por economia.
+
+A v3 deve ser tão extensa quanto necessário para preservar a operação.
+
+---
+
+## 17. Veredito deste pacote
+
+Este pacote é obrigatório para impedir degradação durante a auditoria.
+
+Ele deve ser aplicado antes da criação da v3.
+
+Nenhuma versão nova deve ser aceita se perder módulos, gates, BVAA, Drive-first, estados, matriz operacional, auditoria carta-texto ou protocolo de salvamento.
+
+FIM_DO_ARQUIVO

@@ -1,0 +1,35 @@
+INICIO_DO_PROTOCOLO
+
+PROTOCOLO_DE_RESPOSTA_A_COMANDOS_VAGOS_P01_R01
+
+COMANDOS_VAGOS_EXEMPLIFICATIVOS:
+- prossiga;
+- continue;
+- avance;
+- execute;
+- pode seguir;
+- faça o próximo.
+
+REGRA:
+Comando vago não autoriza:
+- iniciar componente novo;
+- executar produto substantivo;
+- auditar;
+- homologar;
+- alterar a R03;
+- reabrir componente congelado;
+- fundir componentes;
+- autorizar arquitetura, corpus, treinamento, RAG, fine-tuning, implementação ou pilotos.
+
+RESPOSTA_OPERACIONAL:
+1. Identificar a próxima ação canônica já autorizada, se existir.
+2. Se não existir autorização específica, não executar transição.
+3. Produzir, no máximo, um único instrumento de autorização específico quando isso for necessário e proporcional.
+4. Não criar cadeia de preparação da preparação.
+5. Não exigir reenvio de arquivo já presente e verificado no mesmo chat.
+6. Não inventar escopo.
+
+SAIDA:
+AGUARDANDO_COMANDO_AUTORAL_ESPECIFICO
+
+FIM_DO_PROTOCOLO

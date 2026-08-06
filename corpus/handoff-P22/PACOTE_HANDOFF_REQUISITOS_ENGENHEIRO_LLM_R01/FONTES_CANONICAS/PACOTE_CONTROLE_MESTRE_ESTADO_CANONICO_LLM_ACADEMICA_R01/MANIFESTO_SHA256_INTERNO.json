@@ -1,0 +1,64 @@
+{
+  "pacote": "PACOTE_CONTROLE_MESTRE_ESTADO_CANONICO_LLM_ACADEMICA_R01.zip",
+  "componente": "P00",
+  "revisao": "R01",
+  "status": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+  "autoridade_canonica": {
+    "revisao": "R03",
+    "estado": "HOMOLOGADA_E_CONGELADA",
+    "sha256_objeto": "0f7e3acf43d09562a4dbdc6adfccc3535b950b0e6548aa49fa81d127a3d1b39f"
+  },
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "816464b64b350a8ab18499776ad94436dce20439c3db8b71707725dfa2c77e53",
+      "tamanho_bytes": 1100
+    },
+    {
+      "nome": "01_ESTADO_CANONICO_CONSOLIDADO_P00_R01.txt",
+      "sha256": "eb86e419bc24783deb8c89352b77d8ae185313e07a3c46b72e0989bed49de376",
+      "tamanho_bytes": 1533
+    },
+    {
+      "nome": "02_MATRIZ_DE_PRECEDENCIA_P00_R01.csv",
+      "sha256": "58fd99bf9db1c6781066dfc6d4bb60b2eac9143eb0a6e0a86f69fb836357973b",
+      "tamanho_bytes": 409
+    },
+    {
+      "nome": "03_LINHA_DO_TEMPO_CANONICA_P00_R01.csv",
+      "sha256": "21db301e307bd35cb04da1c4b3b6f744b4a3efb33936fd0b809482e2107c2315",
+      "tamanho_bytes": 750
+    },
+    {
+      "nome": "04_INVENTARIO_CANONICO_DE_COMPONENTES_R03.csv",
+      "sha256": "e20ab9177f73ac3ac59d3fb0ca5693d7ef821e72ea11ec404756960035ecdc4a",
+      "tamanho_bytes": 16230
+    },
+    {
+      "nome": "05_INVENTARIO_CANONICO_DE_PACOTES_R03.csv",
+      "sha256": "86f605ada37c1ea7bc8f1b732b6917cebbfb23cd9de7bf6ce5052e27ec35954f",
+      "tamanho_bytes": 7266
+    },
+    {
+      "nome": "06_GOVERNANCA_CONGELADA_E_TRAVAS_P00_R01.txt",
+      "sha256": "4cc8c2f98161267ac9180c19ea4ee240d812d59e1e396e52273fae4c57565050",
+      "tamanho_bytes": 1648
+    },
+    {
+      "nome": "07_LACUNAS_NAO_INFERIVEIS_P00_R01.txt",
+      "sha256": "b73b4db0bd47eda64e35be3bb106e9ee1022b54928bf00ac7f50c71ee0e29746",
+      "tamanho_bytes": 825
+    },
+    {
+      "nome": "08_MAPA_DE_PROVENIENCIA_DOCUMENTAL_P00_R01.csv",
+      "sha256": "504f735230e74f8c197ab13ad06402515bf9e8052d56b720bea1f60b29775f18",
+      "tamanho_bytes": 1016
+    }
+  ],
+  "controles": {
+    "R03_alterada": false,
+    "P01_a_P28_iniciados": false,
+    "lacunas_preenchidas_por_inferencia": false,
+    "auto_homologacao": false
+  }
+}

@@ -1,0 +1,915 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_TESTE_03_BIBLIOGRAFIA_RECOMENDADA_AUSENTE_NO_DRIVE
+
+## 1. Identificação do diagnóstico
+
+```text
+TESTE_ID:
+TESTE_03_BIBLIOGRAFIA_RECOMENDADA_AUSENTE_NO_DRIVE
+
+VERSÃO_TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO_DE_TESTE:
+teste real de comportamento do sistema
+
+MODO_DE_AUDITORIA:
+auditoria de resposta integral colada/anexada pelo usuário
+
+OBJETIVO_DO_TESTE:
+verificar se o sistema consegue mapear bibliografia recomendada por parecerista, buscar no Google Drive, distinguir referência recomendada de referência localizada, PDF aberto, PDF lido e referência autorizada para uso, além de pedir apenas os PDFs específicos não localizados no Drive, sem solicitar upload indiscriminado.
+
+STATUS_DO_TESTE:
+executado
+
+STATUS_DO_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO:
+aprovado com ressalvas moderadas
+
+RISCO_GERAL:
+baixo a médio-baixo
+
+RESULTADO:
+o sistema passou no núcleo do Teste 03.
+
+PONTO MAIS FORTE:
+o sistema criou uma lista específica de bibliografia recomendada pelo parecerista ausente no Drive e não pediu upload indiscriminado de todos os PDFs.
+
+PONTO A MONITORAR:
+a busca no Drive foi documentada, mas a futura v3 deve exigir critérios mais formais de suficiência da busca, incluindo número mínimo de variações, busca por sobrenome, título completo, título parcial, grafias alternativas, erros prováveis de grafia e busca em todas as subpastas relevantes.
+```
+
+---
+
+## 3. Resultado observado
+
+A resposta testada apresentou os seguintes comportamentos:
+
+```text
+1. reconheceu explicitamente o Google Drive como repositório bibliográfico prioritário;
+
+2. declarou que não pediu upload no chat;
+
+3. declarou que não usou busca externa;
+
+4. declarou que não usou conhecimento bibliográfico prévio para fingir leitura;
+
+5. não escreveu seção nova;
+
+6. não criou matriz Parecer → Ação;
+
+7. não usou nenhuma referência na revisão;
+
+8. listou as pastas do Drive consultadas;
+
+9. identificou uma subpasta consultada;
+
+10. criou distinção operacional entre:
+   - referência recomendada pelo parecerista;
+   - referência localizada no Drive;
+   - PDF aberto;
+   - PDF lido;
+   - referência autorizada para uso no artigo;
+
+11. criou mapa das referências recomendadas pelo parecerista;
+
+12. registrou termos de busca usados para cada referência;
+
+13. registrou resultados de busca no Drive;
+
+14. classificou referências localizadas como ainda não abertas, não lidas e não autorizadas para uso;
+
+15. classificou referências não localizadas como ausentes no Drive;
+
+16. criou lista específica chamada:
+BIBLIOGRAFIA_RECOMENDADA_PELO_PARECERISTA_AUSENTE_NO_DRIVE;
+
+17. indicou ações específicas para as referências ausentes;
+
+18. bloqueou pedido genérico de upload de todos os PDFs;
+
+19. manteve revisão textual, nova seção, incorporação bibliográfica, matriz e carta bloqueadas;
+
+20. indicou próximo comando permitido para leitura controlada de referência localizada no Drive.
+```
+
+---
+
+## 4. Mapa sintético do desempenho por referência
+
+```text
+REFERÊNCIA 1:
+James A. Secord — “Knowledge in Transit”
+
+RESULTADO:
+localizada no Drive como Knowledge in Transit.pdf
+
+STATUS:
+localizada, mas ainda não aberta, não lida e não autorizada para uso
+
+AVALIAÇÃO:
+adequado
+
+OBSERVAÇÃO:
+o sistema não fingiu leitura e não usou a referência no artigo.
+```
+
+```text
+REFERÊNCIA 2:
+Lorraine Daston e Peter Galison — Objectivity
+
+RESULTADO:
+não localizada como obra específica no Drive
+
+STATUS:
+ausente no Drive após busca documentada
+
+AVALIAÇÃO:
+adequado, com ressalva
+
+OBSERVAÇÃO:
+o sistema registrou candidatos não correspondentes e pediu ação específica do usuário. A v3 deve exigir maior robustez dos termos de busca, incluindo título original completo, sobrenomes isolados, autores em ordem invertida e possíveis nomes de arquivo.
+```
+
+```text
+REFERÊNCIA 3:
+Steven Shapin — A Social History of Truth
+
+RESULTADO:
+não localizada como obra específica no Drive
+
+STATUS:
+ausente no Drive após busca documentada
+
+AVALIAÇÃO:
+adequado, com ressalva
+
+OBSERVAÇÃO:
+o sistema registrou candidatos não correspondentes e não fingiu leitura. A v3 deve exigir busca por “Shapin Truth”, “Social History”, “History of Truth”, “A Social History”, além de sobrenome isolado.
+```
+
+```text
+REFERÊNCIA 4:
+Kapil Raj — Relocating Modern Science
+
+RESULTADO:
+localizada no Drive como arquivo com grafia “Realocating Modern Science”
+
+STATUS:
+localizada, mas ainda não aberta, não lida e não autorizada para uso
+
+AVALIAÇÃO:
+adequado
+
+OBSERVAÇÃO:
+o sistema reconheceu a grafia divergente como candidato forte, mas não usou a obra sem leitura.
+```
+
+```text
+REFERÊNCIA 5:
+David N. Livingstone — Putting Science in Its Place
+
+RESULTADO:
+localizada no Drive como 3.Livingstone, David - Putting Science in its place.pdf
+
+STATUS:
+localizada, mas ainda não aberta, não lida e não autorizada para uso
+
+AVALIAÇÃO:
+adequado
+
+OBSERVAÇÃO:
+o sistema não confundiu localização com leitura.
+```
+
+---
+
+## 5. Evidências positivas
+
+### 5.1. Drive-first preservado
+
+A resposta declarou que:
+
+```text
+O Google Drive é o repositório bibliográfico prioritário.
+```
+
+Também declarou que:
+
+```text
+não pediu upload no chat;
+não usou busca externa;
+não usou conhecimento bibliográfico prévio para fingir leitura;
+não escreveu seção nova;
+não criou matriz Parecer → Ação;
+não usou nenhuma referência na revisão.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema respeitou o núcleo Drive-first e não recorreu a atalhos.
+```
+
+---
+
+### 5.2. Distinção entre localização e leitura
+
+A resposta diferenciou:
+
+```text
+REFERÊNCIA RECOMENDADA PELO PARECERISTA:
+obra ou autor indicado pelo parecerista para possível diálogo bibliográfico.
+
+REFERÊNCIA LOCALIZADA NO DRIVE:
+arquivo candidato encontrado nas pastas do Drive.
+
+PDF ABERTO:
+arquivo cujo conteúdo foi efetivamente acessado.
+
+PDF LIDO:
+arquivo examinado em trechos, seções ou páginas relevantes, com prova mínima de leitura.
+
+REFERÊNCIA AUTORIZADA PARA USO NO ARTIGO:
+referência localizada, aberta, lida em grau suficiente e registrada com prova mínima de leitura.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Essa distinção impede uma das derivas mais perigosas: tratar arquivo localizado como obra lida.
+```
+
+---
+
+### 5.3. Proibição de falsa leitura
+
+A resposta declarou:
+
+```text
+referência apenas localizada não é referência lida.
+Título, nome de arquivo, metadado ou presença no Drive não equivalem a leitura bibliográfica.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse comportamento deve ser preservado na v3 como regra-mãe de BVAA-Drive.
+```
+
+---
+
+### 5.4. Lista específica de bibliografia ausente no Drive
+
+A resposta criou a lista:
+
+```text
+BIBLIOGRAFIA_RECOMENDADA_PELO_PARECERISTA_AUSENTE_NO_DRIVE
+```
+
+E incluiu somente:
+
+```text
+1. Lorraine Daston e Peter Galison — Objectivity
+
+2. Steven Shapin — A Social History of Truth
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema não pediu todos os PDFs do Drive. Pediu apenas ações específicas sobre as referências recomendadas pelo parecerista que não foram localizadas.
+```
+
+---
+
+### 5.5. Pedido específico ao usuário
+
+Para as referências ausentes, o sistema indicou ações específicas:
+
+```text
+enviar o PDF específico;
+indicar caminho exato no Drive;
+confirmar se o arquivo está com outro nome;
+fornecer referência completa;
+autorizar busca externa posteriormente.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse é exatamente o comportamento esperado: pedido cirúrgico, não upload indiscriminado.
+```
+
+---
+
+### 5.6. Bloqueio operacional preservado
+
+A resposta manteve bloqueados:
+
+```text
+REVISÃO TEXTUAL:
+bloqueada
+
+NOVA SEÇÃO:
+bloqueada
+
+INCORPORAÇÃO BIBLIOGRÁFICA:
+bloqueada
+
+MATRIZ PARECER → AÇÃO:
+bloqueada
+
+CARTA AOS PARECERISTAS:
+bloqueada
+
+USO DAS REFERÊNCIAS LOCALIZADAS:
+bloqueado até abertura, leitura e prova mínima de leitura
+
+USO DAS REFERÊNCIAS AUSENTES:
+bloqueado até fornecimento do PDF específico, indicação de caminho no Drive, confirmação bibliográfica ou autorização posterior de busca externa
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema não avançou para intervenção textual ou bibliográfica antes da leitura.
+```
+
+---
+
+## 6. Falhas identificadas
+
+### 6.1. Critério de suficiência da busca ainda pouco formalizado
+
+Falha:
+
+```text
+A resposta informou termos de busca usados para cada referência, mas a futura v3 deve definir critérios mínimos de suficiência da busca antes de declarar uma referência ausente no Drive.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Uma referência pode estar no Drive com nome incompleto, grafia alternativa, sobrenome apenas, título abreviado, título em português, título em inglês, erro de OCR, erro de digitação ou nome de arquivo não padronizado.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar protocolo:
+
+CRITÉRIO_DE_BUSCA_SUFICIENTE_NO_DRIVE
+
+Antes de declarar referência ausente, buscar por:
+1. título completo;
+2. título parcial;
+3. sobrenome do autor principal;
+4. sobrenomes de coautores;
+5. combinação autor + palavra-chave do título;
+6. palavra-chave rara do título;
+7. grafias alternativas;
+8. erros prováveis de grafia;
+9. ano de publicação, se conhecido;
+10. editora ou periódico, se conhecido;
+11. subpastas diretamente relacionadas;
+12. nomes de arquivo com abreviações prováveis.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 6.2. A busca por Livingstone foi mínima
+
+Falha:
+
+```text
+Para Livingstone, a resposta registrou apenas o termo “Livingstone Putting Science”.
+```
+
+Risco:
+
+```text
+baixo, neste caso específico, porque a referência foi localizada.
+```
+
+Por que importa:
+
+```text
+Mesmo quando a referência é localizada, a v3 deve registrar se a busca foi mínima ou robusta. Em caso de localização bem-sucedida, a busca mínima é menos problemática, mas ainda deve ser classificada.
+```
+
+Correção recomendada para v3:
+
+```text
+Adicionar campo:
+
+ROBUSTEZ_DA_BUSCA:
+mínima / suficiente / ampla / exaustiva
+
+JUSTIFICATIVA_DA_ROBUSTEZ:
+[...]
+
+NECESSITA_BUSCA_COMPLEMENTAR?
+sim / não
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 6.3. A resposta não formalizou “múltiplos candidatos” como categoria autônoma
+
+Falha:
+
+```text
+A resposta mencionou candidatos não correspondentes ou incertos, mas não usou uma categoria operacional autônoma para múltiplos candidatos.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Em bibliotecas grandes, é comum encontrar múltiplos candidatos. O sistema precisa impedir escolha apressada do primeiro arquivo parecido.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar status:
+
+MULTIPLOS_CANDIDATOS_NO_DRIVE
+
+Campos:
+1. candidatos encontrados;
+2. grau de correspondência;
+3. motivo da incerteza;
+4. ação recomendada;
+5. precisa abrir candidatos?
+6. precisa decisão humana?
+7. pode usar algum deles?
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 6.4. Falta de “grau de correspondência” entre referência e arquivo encontrado
+
+Falha:
+
+```text
+O sistema classificou arquivos como localizados ou não localizados, mas não atribuiu grau de correspondência entre a referência recomendada e o arquivo encontrado.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Um nome de arquivo pode ser candidato forte, candidato provável, candidato incerto ou falso positivo. A v3 deve exigir essa classificação antes da abertura ou leitura.
+```
+
+Correção recomendada para v3:
+
+```text
+Adicionar campo:
+
+GRAU_DE_CORRESPONDÊNCIA:
+exato / forte / provável / incerto / fraco / falso positivo
+
+JUSTIFICATIVA:
+[...]
+
+AÇÃO:
+abrir / descartar / pedir decisão humana / buscar mais
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 6.5. O próximo comando permitido foi muito específico
+
+Falha:
+
+```text
+A resposta indicou como próximo comando permitido:
+COMANDO 4.1 — LER REFERÊNCIA NO DRIVE: Knowledge in Transit.
+
+Também permitiu, em sequência controlada, ler Kapil Raj ou Livingstone.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Por que importa:
+
+```text
+O próximo comando poderia ser formulado de modo mais flexível e didático, permitindo ao usuário escolher entre:
+1. ler uma das referências localizadas;
+2. pedir ao usuário os PDFs específicos ausentes;
+3. complementar a busca no Drive;
+4. parar a etapa.
+```
+
+Correção recomendada para v3:
+
+```text
+Ao final de etapa BVAA-Drive, apresentar:
+
+PRÓXIMOS CAMINHOS PERMITIDOS:
+
+OPÇÃO A:
+LER REFERÊNCIA LOCALIZADA NO DRIVE: [escolher referência]
+
+OPÇÃO B:
+PEDIR AO USUÁRIO PDF ESPECÍFICO AUSENTE: [listar referência]
+
+OPÇÃO C:
+AMPLIAR BUSCA NO DRIVE PARA REFERÊNCIA AUSENTE: [listar referência]
+
+OPÇÃO D:
+PARAR E AGUARDAR DECISÃO HUMANA
+
+COMANDOS BLOQUEADOS:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 6.6. Falta de estado operacional cumulativo completo
+
+Falha:
+
+```text
+A resposta trouxe bloqueios operacionais, mas não apresentou um ESTADO_REVISAO_PARECERISTAS completo após o teste, como ocorreu em testes anteriores.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Por que importa:
+
+```text
+A futura v3 deve padronizar a emissão do estado operacional após cada etapa crítica.
+```
+
+Correção recomendada para v3:
+
+```text
+Exigir após cada etapa:
+
+ESTADO_REVISAO_PARECERISTAS
+ESTADO_BVAA_DRIVE
+ESTADO_BIBLIOGRAFIA_RECOMENDADA
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 7. Falhas de deriva
+
+```text
+FALHAS_DE_DERIVA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não resumiu obras por conhecimento prévio, não inventou conteúdo, não pediu upload indiscriminado, não usou busca externa e não avançou para revisão textual.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 8. Falhas de Drive-first
+
+```text
+FALHAS_DE_DRIVE_FIRST:
+leves.
+```
+
+Análise:
+
+```text
+O sistema respeitou o Drive-first. A ressalva é que a futura v3 deve formalizar critérios de suficiência da busca no Drive antes de declarar referência ausente.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+---
+
+## 9. Falhas de BVAA
+
+```text
+FALHAS_DE_BVAA:
+leves.
+```
+
+Análise:
+
+```text
+O sistema preservou BVAA ao não tratar arquivo localizado como lido. Porém, a v3 deve reforçar categorias como:
+1. grau de correspondência;
+2. robustez da busca;
+3. múltiplos candidatos;
+4. critério de busca suficiente.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+---
+
+## 10. Falhas de fluxo
+
+```text
+FALHAS_DE_FLUXO:
+leves.
+```
+
+Análise:
+
+```text
+O fluxo foi preservado, mas o próximo passo precisa ser mais didático e menos unilateral.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 11. Falhas de usabilidade
+
+```text
+FALHAS_DE_USABILIDADE:
+leves.
+```
+
+Análise:
+
+```text
+A resposta foi tecnicamente clara, mas poderia orientar melhor o usuário com uma árvore de próximos caminhos permitidos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 12. Módulos afetados
+
+```text
+MÓDULOS_AFETADOS:
+
+1. BVAA-Drive;
+2. Drive-first;
+3. bibliografia recomendada pelo parecerista;
+4. busca em pastas do Drive;
+5. lista de bibliografia ausente no Drive;
+6. protocolo contra upload indiscriminado;
+7. prova mínima de leitura;
+8. próximos comandos permitidos;
+9. estados operacionais;
+10. critérios de suficiência de busca.
+```
+
+---
+
+## 13. Correções recomendadas para acumular
+
+As seguintes correções devem ser acumuladas para a futura v3:
+
+```text
+CORREÇÃO 01:
+Criar protocolo “CRITÉRIO_DE_BUSCA_SUFICIENTE_NO_DRIVE”.
+
+CORREÇÃO 02:
+Criar campo “ROBUSTEZ_DA_BUSCA”.
+
+CORREÇÃO 03:
+Criar categoria “MULTIPLOS_CANDIDATOS_NO_DRIVE”.
+
+CORREÇÃO 04:
+Criar campo “GRAU_DE_CORRESPONDÊNCIA” entre referência recomendada e arquivo encontrado.
+
+CORREÇÃO 05:
+Exigir que referências ausentes só sejam declaradas ausentes depois de busca suficiente, documentada e classificada.
+
+CORREÇÃO 06:
+Criar árvore de próximos caminhos permitidos após etapa BVAA-Drive.
+
+CORREÇÃO 07:
+Padronizar emissão de:
+ESTADO_REVISAO_PARECERISTAS;
+ESTADO_BVAA_DRIVE;
+ESTADO_BIBLIOGRAFIA_RECOMENDADA.
+
+CORREÇÃO 08:
+Preservar a regra:
+referência localizada no Drive não é referência lida;
+metadado não é leitura;
+nome de arquivo não é prova bibliográfica;
+PDF encontrado não autoriza uso no artigo.
+```
+
+---
+
+## 14. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 03
+
+TESTE:
+TESTE_03_BIBLIOGRAFIA_RECOMENDADA_AUSENTE_NO_DRIVE
+
+TIPO_DE_ENTRADA:
+teste real executado
+
+RESULTADO:
+aprovado com ressalvas moderadas
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHAS_LEVES_OU_MODERADAS:
+necessidade de critério formal de busca suficiente;
+necessidade de campo de robustez da busca;
+necessidade de status para múltiplos candidatos;
+necessidade de grau de correspondência;
+necessidade de árvore de próximos caminhos;
+necessidade de estados operacionais cumulativos após BVAA-Drive.
+
+DECISÃO:
+não implementar agora.
+
+AÇÃO:
+acumular correções para v3.
+
+STATUS:
+registrado.
+```
+
+---
+
+## 15. Comparação com Testes 1 e 2
+
+```text
+TESTE 1:
+verificou Drive-first sem anexos no chat.
+
+TESTE 2:
+verificou Drive-first com anexos no chat como apoio secundário.
+
+TESTE 3:
+verificou Drive-first aplicado a bibliografia recomendada pelo parecerista e ausente no Drive.
+
+RESULTADO COMBINADO:
+o sistema passou nos três testes iniciais de Drive-first/BVAA-Drive.
+
+RISCO REMANESCENTE:
+médio-baixo, concentrado em:
+1. formalização da evidência técnica de acesso;
+2. identificação preliminar de anexos;
+3. cruzamento anexos ↔ Drive;
+4. critério de busca suficiente;
+5. robustez da busca;
+6. grau de correspondência;
+7. múltiplos candidatos;
+8. próximos caminhos permitidos;
+9. estados operacionais cumulativos.
+```
+
+---
+
+## 16. Conclusão
+
+O Teste 03 confirmou que o sistema consegue lidar corretamente com bibliografia recomendada pelo parecerista que está parcialmente localizada no Drive e parcialmente ausente.
+
+O sistema localizou referências disponíveis, não fingiu leitura, não pediu upload indiscriminado e criou lista específica das obras ausentes no Drive.
+
+A futura v3 deve preservar esse comportamento e reforçá-lo com mecanismos mais formais de busca, correspondência e continuidade operacional.
+
+Os três primeiros testes indicam que o núcleo Drive-first está funcionando, mas ainda precisa de formalização mais robusta para uso em ambiente real com muitas pastas, subpastas, nomes de arquivo irregulares e bibliografia extensa.
+
+FIM_DO_ARQUIVO

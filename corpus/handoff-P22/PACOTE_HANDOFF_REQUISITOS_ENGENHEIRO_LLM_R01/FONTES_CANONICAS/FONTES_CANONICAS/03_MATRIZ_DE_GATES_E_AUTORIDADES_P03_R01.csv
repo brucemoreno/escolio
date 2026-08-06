@@ -1,0 +1,5 @@
+﻿gate_id;objeto;pre_condicao;autoridade_que_autoriza;executor;auditor;acao_permitida;acao_proibida;evidencia;saida
+GATE-P03-01;Início do P03;"P02 homologado; P00 e P01 preservados; R03 íntegra";USUARIO_PROPONENTE;CHAT_EXECUTOR_DOCUMENTAL;CHAT_AUDITOR_INDEPENDENTE;Executar exclusivamente P03;"Reabrir P00-P02; iniciar P04-P28";"Termos P01/P02; hashes; comando P03";P03_EXECUTADO_NAO_AUDITADO
+GATE-P03-02;Auditoria do P03;Quatro produtos entregues;USUARIO_PROPONENTE;CHAT_AUDITOR_INDEPENDENTE;CHAT_AUDITOR_INDEPENDENTE;Executar TESTE_TRANSVERSAL e auditar integridade;Corrigir ou homologar;Pacote, relatório, manifesto e comando;VEREDITO_DE_AUDITORIA
+GATE-P03-03;Homologação do P03;Parecer aprovado;USUARIO_PROPONENTE;USUARIO_PROPONENTE;CHAT_AUDITOR_INDEPENDENTE;Homologar e congelar por termo expresso;Homologação automática;Parecer, objeto e hash;P03_HOMOLOGADO_E_CONGELADO
+GATE-P04-01;Início do P04;P03 homologado e comando específico;USUARIO_PROPONENTE;CHAT_EXECUTOR_DOCUMENTAL;CHAT_AUDITOR_INDEPENDENTE;Executar P04 após autorização;Iniciar com P03 apenas executado ou auditado;Termo de homologação P03;P04_AUTORIZADO

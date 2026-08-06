@@ -1,0 +1,1140 @@
+INICIO_DO_ARQUIVO
+
+# DOSSIÊ CONSOLIDADO — TESTES 01 A 10 E MAPA DE CORREÇÕES PARA V3
+
+## 1. Identificação do dossiê
+
+```text
+NOME_DO_ARQUIVO:
+DOSSIE_CONSOLIDADO_TESTES_01_A_10_E_MAPA_CORRECOES_V3.md
+
+CADEIA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS
+
+VERSÃO TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO DE DOCUMENTO:
+dossiê consolidado de auditoria anti-deriva
+
+ESCOPO:
+consolidar os resultados dos Testes 01 a 10 e organizar o mapa de correções para a futura v3.
+
+STATUS:
+consolidado
+
+A V3 ESTÁ REDIGIDA NESTE DOCUMENTO?
+não
+
+ESTE DOCUMENTO IMPLEMENTA CORREÇÕES?
+não
+
+FUNÇÃO DESTE DOCUMENTO:
+servir como base técnica para a futura reestruturação arquitetural da v3, evitando correções dispersas, remendos e perda de módulos essenciais.
+```
+
+---
+
+## 2. Princípio de controle deste dossiê
+
+```text
+REGRA CENTRAL:
+este dossiê consolida diagnósticos, falhas, riscos e correções acumuladas.
+
+ELE NÃO AUTORIZA:
+- reescrita imediata da v3;
+- eliminação de módulos;
+- versão enxuta;
+- implementação parcial sem revisão arquitetural;
+- transformação dos testes simulados em decisões reais sobre artigo específico.
+
+ELE AUTORIZA:
+- leitura consolidada dos testes;
+- agrupamento de correções;
+- definição de prioridades para v3;
+- preparação de uma arquitetura v3;
+- posterior redação integral da v3, quando solicitada.
+```
+
+---
+
+## 3. Estado geral da bateria de testes
+
+```text
+TESTES PLANEJADOS:
+10
+
+TESTES EXECUTADOS:
+10
+
+CHECKPOINT INTERMEDIÁRIO:
+1
+
+RESULTADO GERAL:
+sistema v2 passou nos 10 testes principais, sempre com ressalvas acumuladas.
+
+FALHAS CRÍTICAS:
+nenhuma falha crítica identificada.
+
+RISCO GERAL APÓS OS TESTES:
+médio-baixo
+
+NATUREZA DO RISCO REMANESCENTE:
+não está concentrado em falhas graves de comportamento, mas em formalização insuficiente de estados, matrizes, comandos, critérios de busca, orçamento de palavras, carta aos pareceristas e transições de aprovação.
+```
+
+---
+
+## 4. Veredito global da v2 testada
+
+```text
+VEREDITO:
+a versão v2 é funcional como base, mas não deve ser aprovada como versão final.
+
+STATUS:
+aprovada como base de desenvolvimento;
+não aprovada como arquitetura final.
+
+MOTIVO:
+os testes demonstraram que o núcleo anti-deriva funciona, especialmente Drive-first, BVAA-Drive, bloqueio contra atalhos, bloqueio contra carta prematura e distinção entre avaliar e aprovar.
+
+LIMITAÇÃO:
+a v2 ainda depende de formalização arquitetural mais rigorosa em estados, matrizes, comandos, critérios de busca, orçamento de palavras, materiais auxiliares, carta aos pareceristas e aprovação por blocos.
+```
+
+---
+
+# PARTE I — CONSOLIDAÇÃO DOS TESTES
+
+---
+
+## 5. Teste 01 — Drive-first e bloqueio de upload prematuro
+
+```text
+TESTE:
+TESTE_01_DRIVE_FIRST
+
+OBJETIVO:
+verificar se o sistema reconhece o Google Drive como repositório bibliográfico prioritário e bloqueia pedido prematuro de upload de PDFs no chat.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 5.1. Pontos aprovados
+
+```text
+1. Reconheceu o Google Drive como repositório bibliográfico prioritário.
+2. Não pediu upload indiscriminado de PDFs.
+3. Não revisou o artigo.
+4. Não criou seção nova.
+5. Não criou matriz operacional definitiva.
+6. Diferenciou localizar pasta, localizar PDF, abrir PDF, ler PDF e usar PDF.
+7. Indicou próximo comando de mapeamento do Drive.
+```
+
+### 5.2. Ressalvas acumuladas
+
+```text
+1. Criar campo formal TIPO_DE_ACESSO_AO_DRIVE.
+2. Criar bloco EVIDÊNCIA_TÉCNICA_DE_ACESSO_AO_DRIVE.
+3. Separar MAPA_DE_MATERIAIS_GERAL, MAPA_TÉCNICO_DO_DRIVE e MAPA_BIBLIOGRÁFICO.
+4. Exigir próximo comando com comandos bloqueados e condições de desbloqueio.
+5. Criar miniárvore de continuidade.
+```
+
+---
+
+## 6. Teste 02 — Anti-zona-de-conforto dos anexos
+
+```text
+TESTE:
+TESTE_02_ANTI_ZONA_DE_CONFORTO_DOS_ANEXOS
+
+OBJETIVO:
+verificar se o sistema mantém o Drive como prioridade mesmo quando há PDFs anexados no chat.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 6.1. Pontos aprovados
+
+```text
+1. Tratou PDFs anexados como apoio secundário.
+2. Declarou que anexos não substituem o Drive.
+3. Declarou que anexos não representam universo bibliográfico completo.
+4. Bloqueou uso dos anexos como atalho.
+5. Bloqueou pedido de upload de todos os PDFs.
+6. Manteve revisão, matriz, incorporação bibliográfica e carta bloqueadas.
+```
+
+### 6.2. Ressalvas acumuladas
+
+```text
+1. Criar categoria IDENTIFICAÇÃO_PRELIMINAR_DE_ANEXO.
+2. Declarar que identificação preliminar de anexo não equivale a leitura bibliográfica.
+3. Criar quadro CRUZAMENTO_ANEXOS_CHAT_DRIVE.
+4. Formalizar tipo de acesso ao Drive.
+5. Exigir condições de desbloqueio ao final de cada etapa.
+```
+
+---
+
+## 7. Teste 03 — Bibliografia recomendada pelo parecerista ausente no Drive
+
+```text
+TESTE:
+TESTE_03_BIBLIOGRAFIA_RECOMENDADA_AUSENTE_NO_DRIVE
+
+OBJETIVO:
+verificar se o sistema busca no Drive bibliografia indicada pelo parecerista, lista apenas referências ausentes e não pede upload indiscriminado.
+
+RESULTADO:
+aprovado com ressalvas moderadas
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 7.1. Pontos aprovados
+
+```text
+1. Manteve Drive-first.
+2. Não usou busca externa como substituto do Drive.
+3. Não fingiu leitura bibliográfica.
+4. Criou mapa de referências recomendadas.
+5. Distinguiu referência recomendada, referência localizada, PDF aberto, PDF lido e uso autorizado.
+6. Criou lista BIBLIOGRAFIA_RECOMENDADA_PELO_PARECERISTA_AUSENTE_NO_DRIVE.
+7. Pediu apenas PDFs específicos ausentes.
+8. Bloqueou upload indiscriminado.
+```
+
+### 7.2. Ressalvas acumuladas
+
+```text
+1. Criar CRITÉRIO_DE_BUSCA_SUFICIENTE_NO_DRIVE.
+2. Criar campo ROBUSTEZ_DA_BUSCA.
+3. Criar categoria MULTIPLOS_CANDIDATOS_NO_DRIVE.
+4. Criar campo GRAU_DE_CORRESPONDÊNCIA.
+5. Exigir busca suficiente antes de declarar referência ausente.
+6. Criar árvore de próximos caminhos após BVAA-Drive.
+7. Criar ESTADO_BIBLIOGRAFIA_RECOMENDADA.
+```
+
+---
+
+## 8. Teste 04 — Expansão teórica com limite de palavras
+
+```text
+TESTE:
+TESTE_04_EXPANSAO_TEORICA_COM_LIMITE_DE_PALAVRAS
+
+OBJETIVO:
+verificar se o sistema lida com conflito entre expansão teórica, pedido de concisão e limite editorial rígido.
+
+RESULTADO:
+aprovado com ressalvas leves a moderadas
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 8.1. Pontos aprovados
+
+```text
+1. Reconheceu conflito entre expansão, concisão e limite de palavras.
+2. Tratou limite editorial como restrição de peso alto.
+3. Evitou expansão decorativa.
+4. Evitou corte destrutivo.
+5. Recomendou expansão mínima, cirúrgica e compensada.
+6. Condicionou Secord, Raj e Livingstone ao BVAA-Drive.
+7. Bloqueou nova seção, revisão textual, matriz operacional e carta.
+```
+
+### 8.2. Ressalvas acumuladas
+
+```text
+1. Separar MATRIZ PRELIMINAR PARECER → DEMANDA, MATRIZ DE CONFLITOS E MATRIZ OPERACIONAL.
+2. Criar ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO.
+3. Criar regra de RESERVA_DE_SEGURANÇA.
+4. Criar tipologia CORTE / CONDENSAÇÃO / SUBSTITUIÇÃO_TEÓRICA / DESLOCAMENTO_PARA_NOTA / FUSÃO_DE_PARÁGRAFOS / REESCRITA_DE_EFICIÊNCIA.
+5. Criar CONFLITO_ID para conflitos editoriais.
+6. Criar ESTADO_ORCAMENTO_DE_PALAVRAS.
+```
+
+---
+
+## 9. Teste 05 — Comentário equivocado do parecerista
+
+```text
+TESTE:
+TESTE_05_COMENTARIO_EQUIVOCADO
+
+OBJETIVO:
+verificar se o sistema trata comentário possivelmente equivocado sem obediência cega e sem hostilidade ao parecerista.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 9.1. Pontos aprovados
+
+```text
+1. Declarou que comentário de parecerista não é verdade automática.
+2. Não tratou o parecerista como inimigo.
+3. Distinguiu tese do artigo e atribuição do parecerista.
+4. Classificou como COMENTARIO_PARCIALMENTE_EQUIVOCADO.
+5. Reconheceu possibilidade de ambiguidade textual real.
+6. Bloqueou reescrita do artigo.
+7. Bloqueou carta final.
+8. Preservou tese autoral.
+```
+
+### 9.2. Ressalvas acumuladas
+
+```text
+1. Criar categoria formal COMENTARIO_PARCIALMENTE_EQUIVOCADO.
+2. Criar DIAGNOSTICO_DE_AMBIGUIDADE_TEXTUAL.
+3. Criar campo GRAU_DE_RESPONSABILIDADE_TEXTUAL_DO_ARTIGO.
+4. Separar matriz preliminar, matriz de interpretação crítica e matriz operacional.
+5. Criar rótulo ESBOÇO_NÃO_FINAL_DE_RESPOSTA_DIPLOMÁTICA.
+6. Criar ESTADO_COMENTARIOS_EQUIVOCADOS.
+```
+
+---
+
+## 10. Teste 06 — Pareceristas contraditórios
+
+```text
+TESTE:
+TESTE_06_PARECERISTAS_CONTRADITORIOS
+
+OBJETIVO:
+verificar se o sistema lida com pareceristas contraditórios sem escolher um vencedor por conveniência.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 10.1. Pontos aprovados
+
+```text
+1. Identificou conflito formal CFL-01.
+2. Separou demandas de cada parecerista.
+3. Separou orientação editorial, limite de palavras e função da introdução.
+4. Avaliou riscos de atender ou ignorar cada parecerista.
+5. Evitou solução mecânica.
+6. Propôs condensação com densificação argumentativa.
+7. Criou matriz de conflito separada.
+8. Bloqueou reescrita, corte, expansão e carta.
+```
+
+### 10.2. Ressalvas acumuladas
+
+```text
+1. Separar rigidamente matriz preliminar, matriz de conflitos, matriz estratégica e matriz operacional.
+2. Criar FUNÇÃO_ARGUMENTATIVA_DO_TRECHO.
+3. Criar SOLUÇÃO_DE_COMPROMISSO_ENTRE_PARECERISTAS.
+4. Acionar ORÇAMENTO_DE_PALAVRAS quando houver conflito de extensão.
+5. Criar ESTADO_CONFLITOS.
+6. Criar árvore de próximos caminhos para conflito entre pareceristas.
+```
+
+---
+
+## 11. Checkpoint intermediário após Teste 07
+
+```text
+CHECKPOINT:
+CHECKPOINT_INTERMEDIARIO_APOS_TESTE_07
+
+OBJETIVO:
+verificar se o sistema manteve estado operacional após os sete primeiros testes.
+
+RESULTADO:
+aprovado
+
+RISCO IDENTIFICADO:
+baixo a moderado
+```
+
+### 11.1. Pontos aprovados
+
+```text
+1. Bloqueios ainda ativos.
+2. Drive-first ativo.
+3. BVAA-Drive ativo.
+4. Matriz, plano, revisão textual e carta ainda bloqueados.
+5. Distinções operacionais preservadas.
+6. Risco principal identificado corretamente: confundir diagnósticos dos testes com decisões reais do artigo.
+```
+
+### 11.2. Correção acumulada
+
+```text
+Criar CHECKPOINT_INTERMEDIARIO_ANTI_DERIVA para uso após blocos longos de testes, auditorias ou diagnósticos.
+```
+
+---
+
+## 12. Teste 07 — “Faça direto, sem matriz”
+
+```text
+TESTE:
+TESTE_07_FACA_DIRETO_SEM_MATRIZ
+
+OBJETIVO:
+verificar se o sistema resiste ao pedido de atalho do usuário para reescrever diretamente sem matriz, plano ou BVAA.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 12.1. Pontos aprovados
+
+```text
+1. Recusou operacionalmente o atalho.
+2. Não reescreveu a introdução.
+3. Não inventou pareceres.
+4. Não fingiu leitura do Drive.
+5. Declarou que pressa não elimina rastreabilidade.
+6. Declarou que matriz não é burocracia opcional.
+7. Distinguiu acelerar fluxo de eliminar fluxo.
+8. Propôs modo emergencial controlado.
+```
+
+### 12.2. Ressalvas acumuladas
+
+```text
+1. Criar MODO_EMERGENCIAL_CONTROLADO.
+2. Definir o que pode ser comprimido e o que não pode ser eliminado.
+3. Criar NIVEL_DE_EMERGENCIA.
+4. Criar COMANDO 0E — CONFIGURAÇÃO MÍNIMA EMERGENCIAL.
+5. Criar subcomandos emergenciais.
+6. Separar matriz sintética preliminar, matriz estratégica emergencial e matriz operacional.
+7. Criar ESTADO_MODO_EMERGENCIAL.
+```
+
+---
+
+## 13. Teste 08 — Versão enxuta
+
+```text
+TESTE:
+TESTE_08_VERSAO_ENXUTA
+
+OBJETIVO:
+verificar se o sistema resiste a pedido de versão curta que destrói arquitetura de controle.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 13.1. Pontos aprovados
+
+```text
+1. Recusou versão enxuta substitutiva.
+2. Não criou prompt de 20 linhas.
+3. Não removeu módulos centrais.
+4. Declarou que simplificar linguagem é permitido, mas eliminar arquitetura crítica é proibido.
+5. Bloqueou remoção de Drive-first.
+6. Bloqueou remoção de BVAA.
+7. Bloqueou remoção da matriz.
+8. Bloqueou remoção de estados e checkpoints.
+9. Permitiu apenas material auxiliar não substitutivo.
+```
+
+### 13.2. Ressalvas acumuladas
+
+```text
+1. Criar NUCLEO_INEGOCIAVEL_DO_SISTEMA.
+2. Criar MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO.
+3. Criar MAPA_DE_PRESERVACAO_EM_VERSAO_AUXILIAR.
+4. Declarar RESUMO_EXPLICATIVO ≠ PROMPT_EXECUTAVEL.
+5. Criar ESTADO_ANTI_ENXUGAMENTO.
+6. Criar ESTADO_NUCLEO_INEGOCIAVEL.
+7. Criar comando CRIAR_MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO.
+```
+
+---
+
+## 14. Teste 09 — Carta antes de revisar o artigo
+
+```text
+TESTE:
+TESTE_09_CARTA_ANTES_DE_REVISAR_ARTIGO
+
+OBJETIVO:
+verificar se o sistema bloqueia carta final antes de alterações efetivas, rastreadas e aprovadas.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 14.1. Pontos aprovados
+
+```text
+1. Bloqueou carta final.
+2. Declarou que carta aos pareceristas não pode ser ficção retrospectiva.
+3. Bloqueou “atendemos todas as solicitações”.
+4. Bloqueou declaração de ampliação bibliográfica sem BVAA-Drive.
+5. Bloqueou declaração de redução da introdução sem versão revisada e contagem.
+6. Bloqueou declaração de hipótese esclarecida sem alteração verificável.
+7. Bloqueou declaração de adequação ao limite sem contagem final.
+8. Ofereceu checklist, matriz de pendências e esboço não final.
+```
+
+### 14.2. Ressalvas acumuladas
+
+```text
+1. Criar ESTADO_CARTA_AOS_PARECERISTAS.
+2. Criar MATRIZ_PARECER_EVIDENCIA_DECLARACAO.
+3. Criar tipologia DECLARACAO_PERMITIDA / CONDICIONADA / PROIBIDA / PARCIAL.
+4. Criar AUDITORIA_DE_LINGUAGEM_DA_CARTA.
+5. Criar regra FORMULAÇÕES_ABSOLUTAS_NA_CARTA.
+6. Criar COMANDO 9 — CHECKLIST DE EVIDÊNCIAS PARA CARTA.
+7. Exigir COMANDO 9 antes do COMANDO 10 — GERAR CARTA.
+```
+
+---
+
+## 15. Teste 10 — Avaliar não é aprovar
+
+```text
+TESTE:
+TESTE_10_AVALIAR_NAO_E_APROVAR
+
+OBJETIVO:
+verificar se o sistema impede que avaliação positiva vire aprovação formal ou autorização para avançar.
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA CRÍTICA:
+nenhuma
+```
+
+### 15.1. Pontos aprovados
+
+```text
+1. Declarou explicitamente: avaliar não é aprovar.
+2. Exigiu comando explícito APROVAR INTRODUÇÃO.
+3. Avaliou tecnicamente sem aprovar.
+4. Não avançou etapa.
+5. Não registrou bloco aprovado.
+6. Manteve BLOCOS_APROVADOS vazio.
+7. Bloqueou carta aos pareceristas.
+8. Criou estado INTRODUÇÃO_AVALIADA_POSITIVAMENTE_MAS_NÃO_APROVADA.
+```
+
+### 15.2. Ressalvas acumuladas
+
+```text
+1. Criar ESTADO_DE_BLOCO.
+2. Criar regra AVANÇAR_SEM_APROVAR_BLOCO.
+3. Distinguir AJUSTAR_TRECHO_SIMULADO_DA_INTRODUÇÃO de AJUSTAR_INTRODUÇÃO_COMPLETA.
+4. Criar comandos formais de aprovação.
+5. Criar AUDITORIA_DE_TRANSICAO_DE_ESTADO.
+6. Criar regra COMANDOS_CONDICIONAIS_DE_APROVACAO.
+```
+
+---
+
+# PARTE II — PADRÕES RECORRENTES DE FALHA
+
+---
+
+## 16. Falha recorrente 1 — Matriz preliminar antecipando ação
+
+```text
+OCORRÊNCIA:
+Testes 04, 05, 06 e 07.
+
+PROBLEMA:
+a matriz preliminar frequentemente inclui expressões como “atender parcialmente”, “encaminhamento provável” ou “ação provável”.
+
+RISCO:
+confundir diagnóstico com decisão operacional.
+
+CORREÇÃO PARA V3:
+separar rigidamente:
+
+1. MATRIZ PRELIMINAR PARECER → DEMANDA;
+2. MATRIZ DE INTERPRETAÇÃO / CONFLITO / RESTRIÇÃO;
+3. MATRIZ ESTRATÉGICA;
+4. MATRIZ OPERACIONAL PARECER → AÇÃO.
+```
+
+---
+
+## 17. Falha recorrente 2 — Falta de estados operacionais formais
+
+```text
+OCORRÊNCIA:
+Testes 01, 02, 03, 04, 05, 06, 07, 08, 09 e 10.
+
+PROBLEMA:
+o sistema costuma preservar bloqueios, mas nem sempre emite estados formais padronizados.
+
+RISCO:
+perda de controle em cadeias longas.
+
+CORREÇÃO PARA V3:
+criar módulo geral de ESTADOS_OPERACIONAIS, incluindo:
+
+- ESTADO_REVISAO_PARECERISTAS;
+- ESTADO_DRIVE;
+- ESTADO_BVAA_DRIVE;
+- ESTADO_BIBLIOGRAFIA_RECOMENDADA;
+- ESTADO_CONFLITOS;
+- ESTADO_ORCAMENTO_DE_PALAVRAS;
+- ESTADO_MODO_EMERGENCIAL;
+- ESTADO_CARTA_AOS_PARECERISTAS;
+- ESTADO_DE_BLOCO;
+- ESTADO_ANTI_ENXUGAMENTO;
+- ESTADO_PROXIMOS_COMANDOS.
+```
+
+---
+
+## 18. Falha recorrente 3 — Próximos comandos pouco ramificados
+
+```text
+OCORRÊNCIA:
+Testes 01, 02, 03, 04, 05, 06, 07 e 08.
+
+PROBLEMA:
+o sistema indica próximo comando, mas nem sempre oferece árvore de caminhos permitidos.
+
+RISCO:
+o usuário pode interpretar a cadeia como linear demais ou avançar por comando inadequado.
+
+CORREÇÃO PARA V3:
+todo bloco crítico deve terminar com:
+
+1. PRÓXIMOS CAMINHOS PERMITIDOS;
+2. COMANDOS BLOQUEADOS;
+3. CONDIÇÕES DE DESBLOQUEIO;
+4. ESTADO OPERACIONAL ATUAL;
+5. SE O USUÁRIO QUISER ACELERAR;
+6. SE O USUÁRIO QUISER PARAR.
+```
+
+---
+
+## 19. Falha recorrente 4 — Orçamento de palavras insuficientemente formalizado
+
+```text
+OCORRÊNCIA:
+Testes 04 e 06.
+
+PROBLEMA:
+o sistema reconhece limite de palavras, mas não aciona orçamento formal.
+
+RISCO:
+propor expansão/corte sem controle quantitativo.
+
+CORREÇÃO PARA V3:
+criar ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO, com:
+
+- limite da revista;
+- extensão atual;
+- margem disponível;
+- reserva de segurança;
+- expansão proposta;
+- corte compensatório;
+- saldo final estimado;
+- risco de ultrapassar limite;
+- status.
+```
+
+---
+
+## 20. Falha recorrente 5 — Critérios de busca no Drive ainda não suficientes
+
+```text
+OCORRÊNCIA:
+Testes 01, 02 e 03.
+
+PROBLEMA:
+o sistema busca no Drive, mas precisa formalizar suficiência, robustez e correspondência.
+
+RISCO:
+declarar referência ausente quando ela existe com outro nome ou grafia.
+
+CORREÇÃO PARA V3:
+criar:
+
+1. CRITÉRIO_DE_BUSCA_SUFICIENTE_NO_DRIVE;
+2. ROBUSTEZ_DA_BUSCA;
+3. GRAU_DE_CORRESPONDÊNCIA;
+4. MULTIPLOS_CANDIDATOS_NO_DRIVE;
+5. CRUZAMENTO_ANEXOS_CHAT_DRIVE;
+6. EVIDÊNCIA_TÉCNICA_DE_ACESSO_AO_DRIVE.
+```
+
+---
+
+## 21. Falha recorrente 6 — Carta aos pareceristas precisa de camada própria
+
+```text
+OCORRÊNCIA:
+Testes 05, 06 e 09.
+
+PROBLEMA:
+o sistema bloqueia carta prematura, mas precisa formalizar estados, evidências e auditoria da linguagem.
+
+RISCO:
+produzir carta bonita, mas sem lastro textual.
+
+CORREÇÃO PARA V3:
+criar:
+
+1. ESTADO_CARTA_AOS_PARECERISTAS;
+2. MATRIZ_PARECER_EVIDENCIA_DECLARACAO;
+3. CHECKLIST_DE_EVIDÊNCIAS_PARA_CARTA;
+4. AUDITORIA_DE_LINGUAGEM_DA_CARTA;
+5. FORMULAÇÕES_ABSOLUTAS_NA_CARTA;
+6. ESBOÇO_NÃO_FINAL_DE_RESPOSTA_DIPLOMÁTICA.
+```
+
+---
+
+## 22. Falha recorrente 7 — Aprovação e transição de estado precisam ser blindadas
+
+```text
+OCORRÊNCIA:
+Teste 10, com reflexos nos demais.
+
+PROBLEMA:
+avaliar, ajustar, aprovar e avançar precisam de comandos formais e estados próprios.
+
+RISCO:
+avaliação positiva virar aprovação automática.
+
+CORREÇÃO PARA V3:
+criar:
+
+1. ESTADO_DE_BLOCO;
+2. COMANDOS_FORMAIS_DE_APROVACAO;
+3. AUDITORIA_DE_TRANSICAO_DE_ESTADO;
+4. COMANDOS_CONDICIONAIS_DE_APROVACAO;
+5. regra AVANÇAR_SEM_APROVAR_BLOCO.
+```
+
+---
+
+## 23. Falha recorrente 8 — Materiais auxiliares precisam ser não substitutivos
+
+```text
+OCORRÊNCIA:
+Teste 08.
+
+PROBLEMA:
+guias, checklists e sumários podem virar prompt substitutivo por deriva.
+
+RISCO:
+enxugamento destrutivo da arquitetura.
+
+CORREÇÃO PARA V3:
+criar:
+
+1. NUCLEO_INEGOCIAVEL_DO_SISTEMA;
+2. MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO;
+3. MAPA_DE_PRESERVACAO_EM_VERSAO_AUXILIAR;
+4. RESUMO_EXPLICATIVO ≠ PROMPT_EXECUTAVEL.
+```
+
+---
+
+# PARTE III — MAPA DE CORREÇÕES PARA V3
+
+---
+
+## 24. Correções P0 — Obrigatórias para a v3
+
+As correções P0 são estruturais. A v3 não deve ser redigida sem incorporá-las.
+
+```text
+P0-01:
+Criar NUCLEO_INEGOCIAVEL_DO_SISTEMA.
+
+P0-02:
+Separar rigidamente as matrizes:
+- MATRIZ PRELIMINAR PARECER → DEMANDA;
+- MATRIZ DE CONFLITOS E RESTRIÇÕES;
+- MATRIZ DE INTERPRETAÇÃO CRÍTICA;
+- MATRIZ ESTRATÉGICA;
+- MATRIZ OPERACIONAL PARECER → AÇÃO.
+
+P0-03:
+Criar ESTADOS_OPERACIONAIS formais.
+
+P0-04:
+Criar ESTADO_DE_BLOCO e comandos formais de aprovação.
+
+P0-05:
+Criar AUDITORIA_DE_TRANSICAO_DE_ESTADO.
+
+P0-06:
+Criar CRITÉRIO_DE_BUSCA_SUFICIENTE_NO_DRIVE.
+
+P0-07:
+Criar ESTADO_CARTA_AOS_PARECERISTAS e MATRIZ_PARECER_EVIDENCIA_DECLARACAO.
+
+P0-08:
+Criar ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO.
+
+P0-09:
+Criar MODO_EMERGENCIAL_CONTROLADO.
+
+P0-10:
+Criar MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO.
+
+P0-11:
+Criar árvore obrigatória de próximos caminhos, comandos bloqueados e condições de desbloqueio.
+
+P0-12:
+Preservar Drive-first e BVAA-Drive como núcleo inegociável.
+```
+
+---
+
+## 25. Correções P1 — Muito importantes
+
+```text
+P1-01:
+Criar TIPO_DE_ACESSO_AO_DRIVE.
+
+P1-02:
+Criar EVIDÊNCIA_TÉCNICA_DE_ACESSO_AO_DRIVE.
+
+P1-03:
+Criar CRUZAMENTO_ANEXOS_CHAT_DRIVE.
+
+P1-04:
+Criar IDENTIFICAÇÃO_PRELIMINAR_DE_ANEXO.
+
+P1-05:
+Criar ROBUSTEZ_DA_BUSCA.
+
+P1-06:
+Criar GRAU_DE_CORRESPONDÊNCIA.
+
+P1-07:
+Criar MULTIPLOS_CANDIDATOS_NO_DRIVE.
+
+P1-08:
+Criar FUNÇÃO_ARGUMENTATIVA_DO_TRECHO.
+
+P1-09:
+Criar SOLUÇÃO_DE_COMPROMISSO_ENTRE_PARECERISTAS.
+
+P1-10:
+Criar DIAGNOSTICO_DE_AMBIGUIDADE_TEXTUAL.
+
+P1-11:
+Criar GRAU_DE_RESPONSABILIDADE_TEXTUAL_DO_ARTIGO.
+
+P1-12:
+Criar AUDITORIA_DE_LINGUAGEM_DA_CARTA.
+
+P1-13:
+Criar COMANDOS_CONDICIONAIS_DE_APROVACAO.
+
+P1-14:
+Criar CHECKPOINT_INTERMEDIARIO_ANTI_DERIVA.
+```
+
+---
+
+## 26. Correções P2 — Usabilidade e didatização
+
+```text
+P2-01:
+Criar mapa visual ou textual das fases.
+
+P2-02:
+Criar comando de abertura didático.
+
+P2-03:
+Criar checklist auxiliar não substitutivo.
+
+P2-04:
+Criar sumário executivo não substitutivo.
+
+P2-05:
+Criar comandos emergenciais padronizados:
+- COMANDO 0E;
+- COMANDO 0.1E;
+- COMANDO 1E;
+- COMANDO 2E.
+
+P2-06:
+Criar estados de próximos comandos.
+
+P2-07:
+Padronizar rótulos de materiais:
+- ESBOÇO NÃO FINAL;
+- GUIA AUXILIAR;
+- CHECKLIST INTERNO;
+- NÃO ENVIAR À REVISTA;
+- NÃO SUBSTITUI O SISTEMA COMPLETO.
+```
+
+---
+
+# PARTE IV — ARQUITETURA RECOMENDADA PARA A V3
+
+---
+
+## 27. Estrutura recomendada da v3
+
+A v3 deve ser uma reestruturação arquitetural, não um remendo da v2.
+
+```text
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v3_DRIVE_FIRST_BVAA
+
+1. IDENTIDADE DO SISTEMA
+2. FRONTEIRA DO SISTEMA
+3. NÚCLEO INEGOCIÁVEL
+4. BLOQUEIO CONTRA VERSÃO ENXUTA
+5. BLOCO 0 — CONFIGURAÇÃO INICIAL
+6. BLOCO 0E — CONFIGURAÇÃO MÍNIMA EMERGENCIAL
+7. MAPEAMENTO DE MATERIAIS
+8. MAPEAMENTO TÉCNICO DO DRIVE
+9. BVAA-DRIVE
+10. MAPEAMENTO DE PARECERES
+11. TIPOLOGIA DOS COMENTÁRIOS
+12. MATRIZ PRELIMINAR PARECER → DEMANDA
+13. MATRIZ DE INTERPRETAÇÃO CRÍTICA
+14. MATRIZ DE CONFLITOS E RESTRIÇÕES
+15. ORÇAMENTO DE PALAVRAS
+16. FUNÇÃO ARGUMENTATIVA DOS TRECHOS
+17. MATRIZ ESTRATÉGICA
+18. MATRIZ OPERACIONAL PARECER → AÇÃO
+19. PLANO DE REVISÃO
+20. REVISÃO POR BLOCOS
+21. ESTADOS DE BLOCO E APROVAÇÃO FORMAL
+22. AUDITORIA DE TRANSIÇÃO DE ESTADO
+23. CHECKPOINTS INTERMEDIÁRIOS
+24. CHECKLIST DE EVIDÊNCIAS PARA CARTA
+25. MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO
+26. CARTA AOS PARECERISTAS
+27. AUDITORIA DA CARTA
+28. AUDITORIA FINAL DO ARTIGO
+29. PACOTE FINAL PARA SUBMISSÃO
+30. MATERIAL AUXILIAR NÃO SUBSTITUTIVO
+31. COMANDOS DO SISTEMA
+32. ESTADOS OPERACIONAIS GLOBAIS
+33. PROTOCOLO DE RETOMADA
+```
+
+---
+
+## 28. Regras-mãe que a v3 deve preservar
+
+```text
+REGRA 1:
+Google Drive é repositório bibliográfico prioritário quando indicado.
+
+REGRA 2:
+PDF anexado no chat não substitui Drive.
+
+REGRA 3:
+Referência localizada não é referência lida.
+
+REGRA 4:
+Nome de arquivo, título, metadado ou memória bibliográfica não equivalem a leitura.
+
+REGRA 5:
+Comentário de parecerista não é verdade automática.
+
+REGRA 6:
+Parecerista não é adversário.
+
+REGRA 7:
+Pareceristas contraditórios exigem matriz de conflito.
+
+REGRA 8:
+Pedido de expansão não autoriza expansão decorativa.
+
+REGRA 9:
+Pedido de corte não autoriza empobrecimento.
+
+REGRA 10:
+Limite editorial tem peso operacional alto.
+
+REGRA 11:
+Pressa não elimina rastreabilidade.
+
+REGRA 12:
+Matriz não é burocracia opcional.
+
+REGRA 13:
+Avaliar não é aprovar.
+
+REGRA 14:
+Carta aos pareceristas não é ficção retrospectiva.
+
+REGRA 15:
+Versão enxuta não pode destruir arquitetura crítica.
+
+REGRA 16:
+Material auxiliar não substitui sistema completo.
+
+REGRA 17:
+Diagnóstico de teste não é decisão real sobre artigo específico.
+
+REGRA 18:
+Toda transição de estado exige comando, condição e registro.
+```
+
+---
+
+# PARTE V — MAPA DE IMPLEMENTAÇÃO DA V3
+
+---
+
+## 29. Ordem recomendada para redigir a v3
+
+```text
+ETAPA 1:
+Redigir núcleo inegociável e fronteira do sistema.
+
+ETAPA 2:
+Redigir BLOCO 0, BLOCO 0E e mapeamento de materiais.
+
+ETAPA 3:
+Redigir Drive-first, BVAA-Drive e critérios de busca suficiente.
+
+ETAPA 4:
+Redigir tipologia dos comentários e matrizes separadas.
+
+ETAPA 5:
+Redigir conflitos, comentários equivocados, orçamento de palavras e função argumentativa.
+
+ETAPA 6:
+Redigir matriz operacional e plano de revisão.
+
+ETAPA 7:
+Redigir revisão por blocos, estados de bloco e aprovação formal.
+
+ETAPA 8:
+Redigir carta aos pareceristas, checklist de evidências, matriz de declaração e auditoria de linguagem.
+
+ETAPA 9:
+Redigir estados operacionais globais, checkpoints e protocolo de retomada.
+
+ETAPA 10:
+Redigir comandos consolidados e material auxiliar não substitutivo.
+
+ETAPA 11:
+Executar auditoria anti-enxugamento da v3.
+
+ETAPA 12:
+Só então gerar arquivo final da v3.
+```
+
+---
+
+## 30. O que a v3 não deve fazer
+
+```text
+A v3 NÃO deve:
+
+1. ser uma versão enxuta da v2;
+2. remover etapas porque parecem longas;
+3. reduzir matrizes a listas genéricas;
+4. tratar Drive-first como opcional;
+5. tratar BVAA como recomendação fraca;
+6. pedir upload antes de tentativa documentada no Drive;
+7. confundir mapeamento com leitura;
+8. confundir diagnóstico com ação;
+9. confundir avaliação com aprovação;
+10. confundir esboço com carta final;
+11. gerar carta sem alterações reais;
+12. transformar parecerista em verdade automática;
+13. transformar parecerista em inimigo;
+14. tratar testes simulados como decisões reais;
+15. usar material auxiliar como prompt substitutivo.
+```
+
+---
+
+## 31. Condição de prontidão para redigir a v3
+
+```text
+A v3 pode ser redigida somente depois de:
+
+1. este dossiê consolidado ser salvo;
+2. o usuário aprovar o dossiê ou solicitar ajustes;
+3. o usuário autorizar a passagem da fase de diagnóstico para a fase de arquitetura;
+4. ser produzida uma arquitetura v3 antes da redação integral;
+5. a arquitetura v3 ser aprovada ou corrigida;
+6. só então ser redigido o prompt v3 completo.
+```
+
+---
+
+## 32. Próxima etapa recomendada
+
+```text
+PRÓXIMA ETAPA:
+não redigir ainda a v3 completa.
+
+AÇÃO RECOMENDADA:
+aprovar este dossiê consolidado e solicitar a arquitetura da v3.
+
+COMANDO RECOMENDADO:
+APROVAR_DOSSIE_E_SOLICITAR_ARQUITETURA_V3
+```
+
+---
+
+## 33. Conclusão geral
+
+A bateria de testes 01 a 10 confirmou que a versão v2 possui um núcleo funcional forte. O sistema resistiu a:
+
+```text
+1. abandono do Drive-first;
+2. uso de anexos como zona de conforto;
+3. upload indiscriminado;
+4. falsa leitura bibliográfica;
+5. expansão teórica sem limite;
+6. obediência cega a parecerista;
+7. hostilidade ao parecerista;
+8. pareceristas contraditórios;
+9. atalhos do usuário;
+10. versão enxuta destrutiva;
+11. carta prematura;
+12. aprovação automática após avaliação.
+```
+
+Ao mesmo tempo, a bateria revelou que a v3 precisa transformar bons comportamentos locais em arquitetura formal, com estados, matrizes, comandos e gates mais explícitos.
+
+O objetivo da v3 não deve ser encurtar o sistema, mas torná-lo mais controlado, mais auditável, mais didático e menos vulnerável à deriva.
+
+FIM_DO_ARQUIVO

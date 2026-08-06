@@ -1,0 +1,43 @@
+INICIO_DO_PROTOCOLO
+
+REGRA_CENTRAL:
+LEITURA é um estado documental comprovável, distinto de identificação, localização, acessibilidade e acesso.
+
+ESCALA_DE_LEITURA:
+1. LEITURA_NAO_REALIZADA
+2. LEITURA_INDIRETA
+3. LEITURA_PARCIAL
+4. LEITURA_INTEGRAL
+
+LEITURA_NAO_REALIZADA:
+Arquivo localizado, acessível ou aberto sem exame substantivo.
+
+LEITURA_INDIRETA:
+Conhecimento obtido por resenha, citação, catálogo, resumo, referência secundária ou relato. A fonte intermediária deve ser identificada.
+
+LEITURA_PARCIAL:
+Exame de parte delimitada. Registrar páginas, seção, capítulo, fólio ou marcador equivalente e finalidade da leitura.
+
+LEITURA_INTEGRAL:
+Exame do objeto completo na edição e suporte identificados. Exige:
+- objeto completo materialmente disponível;
+- edição/volume/suporte identificados;
+- registro explícito do exame integral;
+- inexistência de lacunas materiais conhecidas;
+- proveniência da evidência.
+
+PROIBICOES:
+- converter acesso em leitura;
+- converter leitura parcial em integral;
+- declarar leitura primária com base em fonte secundária;
+- declarar leitura de edição diferente;
+- preencher partes não lidas por memória ou conhecimento geral;
+- usar resumo, índice ou metadado como prova de leitura integral.
+
+ERRO:
+Qualquer declaração de leitura superior à evidência disponível.
+
+CORRECAO:
+Rebaixar o estado ao nível comprovado, preservar o registro anterior e registrar motivo, evidência e autoridade.
+
+FIM_DO_PROTOCOLO

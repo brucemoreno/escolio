@@ -1,0 +1,40 @@
+INICIO_DO_ARQUIVO
+
+LACUNAS_NAO_INFERIVEIS_DO_P00:
+
+LAC-00-01:
+Detalhamento final do futuro P00.
+ESTADO_APOS_ESTA_EXECUCAO:
+Somente as saídas mínimas expressamente autorizadas foram consolidadas.
+Nenhum detalhamento adicional foi inferido.
+
+LAC-00-02:
+Objeto que o P00 substituirá.
+VALOR_CANONICO:
+NAO_DEFINIDO
+
+LAC-00-03:
+Conteúdo operacional detalhado de cada artefato interno além das saídas mínimas registradas.
+TRATAMENTO:
+NAO_INFERIDO
+
+LACUNAS_GERAIS_PRESERVADAS:
+- arquitetura técnica;
+- plataforma;
+- modelo ou modelos;
+- fornecedor;
+- número de agentes;
+- corpus;
+- licenças;
+- privacidade;
+- treinamento;
+- RAG;
+- fine-tuning;
+- implementação;
+- pilotos.
+
+REGRA:
+Nenhuma lacuna poderá ser preenchida por inferência.
+Qualquer decisão exige autorização expressa do USUARIO_PROPONENTE.
+
+FIM_DO_ARQUIVO

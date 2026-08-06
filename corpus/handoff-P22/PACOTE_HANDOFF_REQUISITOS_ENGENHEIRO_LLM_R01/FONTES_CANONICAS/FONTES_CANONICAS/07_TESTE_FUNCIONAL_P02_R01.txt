@@ -1,0 +1,52 @@
+INICIO_DO_TESTE
+
+TESTE_FUNCIONAL_P02_R01
+
+OBJETO:
+Verificar se o catálogo consolida exclusivamente funções materialmente comprovadas.
+
+FONTE:
+PACOTE_ESPECIFICACAO_FUNCIONAL_LLM_ACADEMICA_R01.zip
+SHA-256:
+0798eb457fece6e5a0188622447840ba6eb212798976a13cc89162aa0249f634
+
+CASOS:
+1. Contar unidades funcionais expressamente definidas.
+   ESPERADO: cinco macrofunções e um requisito transversal.
+   RESULTADO: APROVADO.
+
+2. Verificar criação de função não presente na fonte.
+   ESPERADO: nenhuma função adicional.
+   RESULTADO: APROVADO.
+
+3. Verificar proveniência por função.
+   ESPERADO: arquivo, seção, matriz, teste ou anexo identificável.
+   RESULTADO: APROVADO.
+
+4. Verificar requisitos, limites, gates e saídas.
+   ESPERADO: presentes para todas as seis unidades.
+   RESULTADO: APROVADO.
+
+5. Verificar duplicidades.
+   ESPERADO: sobreposições classificadas sem fusão indevida.
+   RESULTADO: APROVADO.
+
+6. Verificar lacunas.
+   ESPERADO: inventário das 44 funções e funções adicionais não inferidos.
+   RESULTADO: APROVADO.
+
+7. Verificar invasão de P03-P28.
+   ESPERADO: nenhuma política, schema, arquitetura ou implementação produzida.
+   RESULTADO: APROVADO.
+
+8. Verificar estado do pacote-fonte.
+   ESPERADO: preservado como R01 de trabalho não homologada.
+   RESULTADO: APROVADO.
+
+RESULTADO_GLOBAL:
+TESTE_FUNCIONAL_P02_APROVADO_DOCUMENTALMENTE
+
+LIMITACAO:
+A aprovação deste teste não substitui auditoria independente nem homologação autoral.
+
+FIM_DO_TESTE

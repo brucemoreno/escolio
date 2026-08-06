@@ -1,0 +1,47 @@
+INICIO_DO_ARQUIVO
+
+PACOTE:
+PACOTE_TAXONOMIA_INTERVENCAO_LLM_ACADEMICA_R01
+
+COMPONENTE:
+P06 — TAXONOMIA UNIVERSAL DE INTERVENCAO
+
+STATUS:
+EXECUTADO_DOCUMENTALMENTE
+NAO_AUDITADO
+NAO_HOMOLOGADO
+
+AUTORIDADE_CANONICA:
+R03 HOMOLOGADA E CONGELADA
+P00–P05 HOMOLOGADOS E CONGELADOS
+
+FINALIDADE:
+Definir níveis universais de intervenção, permissões, gates, autoridades, escalonamento, regressão, reversibilidade e abstenção, com neutralidade tecnológica.
+
+ORDEM_DE_LEITURA:
+1. 00_LEIA_PRIMEIRO.txt
+2. 01_TAXONOMIA_UNIVERSAL_DE_INTERVENCAO_P06_R01.md
+3. 02_DICIONARIO_DE_NIVEIS_DE_INTERVENCAO_P06_R01.csv
+4. 03_MATRIZ_DE_PERMISSOES_GATES_E_AUTORIDADES_P06_R01.csv
+5. 04_MATRIZ_DE_ESCALONAMENTO_E_REGRESSAO_P06_R01.csv
+6. 05_PROTOCOLO_DE_AUTORIZACAO_E_ABSTENCAO_P06_R01.txt
+7. 06_PROTOCOLO_DE_INTERVENCAO_EM_OBJETOS_CONGELADOS_P06_R01.txt
+8. 07_MAPA_DE_PROVENIENCIA_E_REVERSIBILIDADE_P06_R01.jsonl
+9. 08_REGISTRO_DE_LACUNAS_E_CONFLITOS_P06_R01.jsonl
+10. 09_TESTE_DE_AUTORIZACAO_P06_R01.txt
+11. 10_DIAGNOSTICO_FINAL_P06_R01.txt
+12. MANIFESTO_SHA256.json
+
+TRAVAS:
+- recomendação não é autorização;
+- simulação não é execução;
+- execução não é validação;
+- validação não é homologação;
+- comando vago não amplia nível;
+- ausência de proibição não cria permissão;
+- objetos homologados e congelados não sofrem intervenção substantiva sem reabertura autorizada;
+- Controlador, Executor, Auditor e Homologador permanecem separados;
+- P07–P28 não iniciados;
+- R03 inalterada.
+
+FIM_DO_ARQUIVO

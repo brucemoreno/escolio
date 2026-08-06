@@ -1,0 +1,8 @@
+{"rule_id": "VOZ-R001", "classification": "REGRA_UNIVERSAL", "rule": "integridade documental prevalece sobre fluidez", "source": "VAQUITA", "transformation": "abstração normativa"}
+{"rule_id": "VOZ-R002", "classification": "REGRA_UNIVERSAL", "rule": "preservação de sentido, densidade e nuance", "source": "VAQUITA+KOMODO", "transformation": "consolidação convergente"}
+{"rule_id": "VOZ-R003", "classification": "REGRA_UNIVERSAL", "rule": "voz não produz fatos, referências ou evidências", "source": "VAQUITA", "transformation": "abstração normativa"}
+{"rule_id": "VOZ-R004", "classification": "CRITERIO_DERIVADO", "rule": "avaliação de voz não é reescrita", "source": "KOMODO", "transformation": "separação de papéis"}
+{"rule_id": "VOZ-R005", "classification": "REGRA_UNIVERSAL", "rule": "amostras são evidência e não texto a copiar", "source": "VAQUITA+COMANDO_P07", "transformation": "consolidação"}
+{"rule_id": "VOZ-R006", "classification": "REGRA_UNIVERSAL", "rule": "alteração forte exige gate P06", "source": "P06+COMANDO_P07", "transformation": "integração"}
+{"rule_id": "VOZ-R007", "classification": "CASO_HISTORICO", "rule": "perfis temáticos específicos", "source": "VAQUITA", "transformation": "isolado"}
+{"rule_id": "VOZ-R008", "classification": "LACUNA", "rule": "quantidade mínima absoluta de amostras não definida", "source": "COMANDO_P07", "transformation": "preservada"}

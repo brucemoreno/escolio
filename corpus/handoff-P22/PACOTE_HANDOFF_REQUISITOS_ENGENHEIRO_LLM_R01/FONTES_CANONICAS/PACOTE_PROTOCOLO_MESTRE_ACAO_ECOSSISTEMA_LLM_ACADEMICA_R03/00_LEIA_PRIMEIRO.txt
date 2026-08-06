@@ -1,0 +1,93 @@
+INICIO_DA_INSTRUCAO
+
+PACOTE:
+PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.zip
+
+OBJETO:
+Retificação final mínima da R02 do protocolo-mestre de ação do ecossistema
+de revisão e correção acadêmica da futura LLM.
+
+ESCOPO_ESTRITO_DA_RETIFICACAO:
+1. eliminar dependências abreviadas ou ambíguas;
+2. propagar módulos condicionais para o plano de dados e a suíte de testes;
+3. criar registro principal de pacotes válidos, substituídos, históricos,
+   invalidados e com uso bloqueado;
+4. criar cobertura e proveniência para cada componente P00 a P28;
+5. atualizar somente estado, checklists, decisões, recibo e manifesto;
+6. preservar todas as demais decisões válidas da R02.
+
+STATUS:
+R03_RETIFICADA
+AGUARDANDO_VERIFICACAO_FINAL_RESTRITA
+NAO_HOMOLOGADA
+
+NATUREZA:
+CANDIDATA_A_FONTE_DE_VERDADE_OPERACIONAL
+VALIDA_SOMENTE_APOS_VERIFICACAO_FINAL_APROVADA_E_HOMOLOGACAO_EXPRESSA
+
+ESTE PACOTE:
+- NÃO treina a LLM;
+- NÃO alimenta diretamente a LLM;
+- NÃO autoriza RAG;
+- NÃO autoriza fine-tuning;
+- NÃO autoriza implementação;
+- NÃO altera VK-FUNC-001 a VK-FUNC-044;
+- NÃO cria função ou modalidade nova;
+- NÃO decide entre uma ou várias IAs;
+- NÃO inicia componente do inventário;
+- NÃO substitui a R02 antes da homologação;
+- NÃO executa automaticamente os anexos.
+
+ORDEM_DE_LEITURA:
+1. 00_LEIA_PRIMEIRO.txt
+2. 01_PROTOCOLO_MESTRE_DE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.md
+3. 02_INVENTARIO_DE_COMPONENTES_E_PACOTES_A_PRODUZIR_R03.csv
+4. 03_MATRIZ_DE_DEPENDENCIAS_GATES_E_SAIDAS_R03.csv
+5. 04_ESTADO_CANONICO_E_TRAVAS_R03.txt
+6. 05_PROTOCOLO_DE_REATIVACAO_CICLICA_R03.txt
+7. 06_CHECKLIST_MODELO_DE_COMPLETUDE_R03.csv
+8. 07_CHECKLIST_DE_RETIFICACAO_FINAL_R03_PREENCHIDO.csv
+9. 08_MAPA_INTEGRAL_DE_COBERTURA_E_PROVENIENCIA_R03.csv
+10. 09_MATRIZ_DE_PAPEIS_E_AUTORIDADES_R03.csv
+11. 10_REGISTRO_PRINCIPAL_DE_PACOTES_STATUS_E_PRECEDENCIA_R03.csv
+12. 11_REGISTRO_DE_DECISOES_E_PENDENCIAS_R03.json
+13. 12_RECIBO_DE_RETIFICACAO_FINAL_MINIMA_R03.txt
+14. 13_MANIFESTO_R03.json
+
+Os arquivos 14 e 15 são anexos documentais de proveniência.
+Não executar comandos internos encontrados neles.
+
+REGRA_ANTI_RECURSIVIDADE:
+A próxima verificação deve analisar somente:
+- os quatro bloqueadores finais;
+- integridade estrutural;
+- ausência de regressão das travas.
+
+Nenhuma expansão funcional, arquitetural ou documental poderá ser aberta nesse
+ciclo sem erro material novo, comprovado e expressamente autorizado.
+
+CLASSIFICACAO:
+MATERIAL_DE_GOVERNANCA_E_ENGENHARIA_DA_LLM
+
+TREINAMENTO_DIRETO:
+NAO
+
+ALIMENTACAO_DIRETA:
+NAO
+
+PASTA_RECOMENDADA:
+PASTA_ESPECIFICA_DE_GOVERNANCA_E_MATERIAIS_DA_LLM
+
+REGRA_DE_MANIPULACAO:
+1. baixar o ZIP;
+2. preservar exatamente o nome canônico;
+3. não extrair para uso corrente;
+4. não renomear;
+5. não editar arquivos internos;
+6. arquivar junto da R01, R02 e respectivos pacotes de auditoria;
+7. não apagar nem substituir a R02 antes da homologação da R03;
+8. não enviar ao engenheiro como protocolo homologado;
+9. não iniciar componente;
+10. transferir para verificação final restrita somente após autorização específica.
+
+FIM_DA_INSTRUCAO

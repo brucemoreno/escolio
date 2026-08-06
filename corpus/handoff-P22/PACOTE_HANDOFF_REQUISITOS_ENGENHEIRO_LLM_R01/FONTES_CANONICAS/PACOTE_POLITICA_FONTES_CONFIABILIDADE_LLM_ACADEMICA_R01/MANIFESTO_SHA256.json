@@ -1,0 +1,75 @@
+{
+  "produto": "PACOTE_BVAA_UNIVERSAL_LLM_ACADEMICA_R01.zip",
+  "componente": "P04",
+  "revisao": "R01",
+  "status": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "da02d91142333ac044f03bd15c94a69e767a6d4a42b96f9ee6f90d1ac3f08c10",
+      "tamanho_bytes": 1439
+    },
+    {
+      "nome": "01_INVENTARIO_DE_MATERIAIS_BVAA_HISTORICOS_P04_R01.csv",
+      "sha256": "9d81ccf490326f2d536469bbcbab8948170e1e3f49a7522bec052dbbfe46a430",
+      "tamanho_bytes": 1441
+    },
+    {
+      "nome": "02_PROTOCOLO_BVAA_UNIVERSAL_P04_R01.md",
+      "sha256": "b13be91b29939c04bb22ebc494f4d6d08f6edf813aa7989deabca9fa2bf97474",
+      "tamanho_bytes": 4958
+    },
+    {
+      "nome": "03_MAQUINA_DE_ESTADOS_BIBLIOGRAFICOS_P04_R01.csv",
+      "sha256": "d4ba5d7edd96c3a7ba4c5635d847b04d21a13ac631dc1ea11ddf058aa6b642e4",
+      "tamanho_bytes": 4561
+    },
+    {
+      "nome": "04_MATRIZ_DE_LEITURA_LOCALIZACAO_VALIDACAO_E_RECOMENDACAO_P04_R01.csv",
+      "sha256": "4fff7a586d9b730e659628d9152e35ad1591c717c1bf97c22f50677e676bd80b",
+      "tamanho_bytes": 2227
+    },
+    {
+      "nome": "05_PROTOCOLO_DE_LEITURA_EFETIVA_P04_R01.txt",
+      "sha256": "d5eccb809aeebd31fc0cd6574fd9eee7d71a4df863333641550b707c003b26c2",
+      "tamanho_bytes": 1482
+    },
+    {
+      "nome": "06_PROTOCOLO_DE_LOCALIZACAO_E_PAGINACAO_P04_R01.txt",
+      "sha256": "177f6c0773e335fc63b6c43f0f659ffb9c86e5079db07c54132584181aa57960",
+      "tamanho_bytes": 1375
+    },
+    {
+      "nome": "07_PROTOCOLO_DE_RECOMENDACAO_E_ABSTENCAO_BIBLIOGRAFICA_P04_R01.txt",
+      "sha256": "71c1d50645917e1f3989054b2e598149e3cd94a8bdd51a3eb15152bdb70cffab",
+      "tamanho_bytes": 1489
+    },
+    {
+      "nome": "08_MAPA_DE_PROVENIENCIA_BVAA_P04_R01.jsonl",
+      "sha256": "efddade5d05ca6db35d00f3bddf8c2f9e7a476f2c24503df01dd797c54f4af3a",
+      "tamanho_bytes": 1659
+    },
+    {
+      "nome": "09_REGISTRO_DE_LACUNAS_E_CONFLITOS_BVAA_P04_R01.jsonl",
+      "sha256": "cdd38f0cf607be5cb4ce0ffab99b413ae5828e2c7c92673d545027615f8bbc0a",
+      "tamanho_bytes": 1302
+    },
+    {
+      "nome": "10_TESTE_BIBLIOGRAFICO_P04_R01.txt",
+      "sha256": "66732d5f9fe1d7b1bf50a47ec67b27bdfd99789169bdc3bcae59f522cabc05d4",
+      "tamanho_bytes": 2141
+    },
+    {
+      "nome": "11_DIAGNOSTICO_FINAL_P04_R01.txt",
+      "sha256": "4034ee484e7110678b426b51f769d3813a9cbb6a39e5e64f7463f67b8f42d4ef",
+      "tamanho_bytes": 996
+    }
+  ],
+  "controles": {
+    "R03_alterada": false,
+    "P00_P03_reabertos": false,
+    "P05_P28_iniciados": false,
+    "auto_homologacao": false,
+    "tecnologia_escolhida": false
+  }
+}

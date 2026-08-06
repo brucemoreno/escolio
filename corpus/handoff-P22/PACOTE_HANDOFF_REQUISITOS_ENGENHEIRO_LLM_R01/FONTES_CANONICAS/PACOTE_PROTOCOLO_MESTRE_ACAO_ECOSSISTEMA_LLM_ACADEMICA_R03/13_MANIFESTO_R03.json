@@ -1,0 +1,102 @@
+{
+  "pacote": "PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.zip",
+  "revisao": "R03",
+  "data": "2026-08-01",
+  "natureza": "governanca_e_engenharia_da_futura_LLM",
+  "status": "R03_RETIFICADA_AGUARDANDO_VERIFICACAO_FINAL_RESTRITA",
+  "candidata_a_fonte_de_verdade": true,
+  "fonte_de_verdade_homologada": false,
+  "escopo_da_retificacao": [
+    "FINAL-BLOQ-01",
+    "FINAL-BLOQ-02",
+    "FINAL-BLOQ-03",
+    "FINAL-BLOQ-04"
+  ],
+  "destinado_a_treinamento_direto": false,
+  "destinado_a_alimentacao_direta": false,
+  "salvar_na_pasta_especifica_da_LLM": true,
+  "substitui_R02_imediatamente": false,
+  "altera_inventario_VK_FUNC": false,
+  "autoriza_RAG": false,
+  "autoriza_fine_tuning": false,
+  "autoriza_implementacao": false,
+  "inicia_componentes": [],
+  "regra_anti_recursividade": true,
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "0f1e2754e55030d5431f5791191e5f9e9f7476fa0608b8f5254f428a043aab76",
+      "bytes": 3115
+    },
+    {
+      "nome": "01_PROTOCOLO_MESTRE_DE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.md",
+      "sha256": "51b16696311695ae2e8ed302a5365a35ccd1383e483598bdd7bd8b6a6e5e1b13",
+      "bytes": 17752
+    },
+    {
+      "nome": "02_INVENTARIO_DE_COMPONENTES_E_PACOTES_A_PRODUZIR_R03.csv",
+      "sha256": "e20ab9177f73ac3ac59d3fb0ca5693d7ef821e72ea11ec404756960035ecdc4a",
+      "bytes": 16230
+    },
+    {
+      "nome": "03_MATRIZ_DE_DEPENDENCIAS_GATES_E_SAIDAS_R03.csv",
+      "sha256": "827dd74f366486ab003be69e7f96ffc18ef8a75f42dfc2cb2f2dac358256b0fb",
+      "bytes": 4563
+    },
+    {
+      "nome": "04_ESTADO_CANONICO_E_TRAVAS_R03.txt",
+      "sha256": "ec83ab293922a925ca7faef8fa56e567d633ccc1929cf8fcfe9f887dd6799cd0",
+      "bytes": 1728
+    },
+    {
+      "nome": "05_PROTOCOLO_DE_REATIVACAO_CICLICA_R03.txt",
+      "sha256": "432d22b24947df5f60d4c35a554fcc1615d7dd1b57e9d8f687f47e6c27170103",
+      "bytes": 1622
+    },
+    {
+      "nome": "06_CHECKLIST_MODELO_DE_COMPLETUDE_R03.csv",
+      "sha256": "4881bf0ec28ae2e6d13c7e7ebe9fb71bc02c173f56b00d303789d76f98ed1d51",
+      "bytes": 1934
+    },
+    {
+      "nome": "07_CHECKLIST_DE_RETIFICACAO_FINAL_R03_PREENCHIDO.csv",
+      "sha256": "0bbabb5a33af06b8c56cb6e23b5b10f512e85aca54a53e5d0663f6a6d53ecd37",
+      "bytes": 1608
+    },
+    {
+      "nome": "08_MAPA_INTEGRAL_DE_COBERTURA_E_PROVENIENCIA_R03.csv",
+      "sha256": "8ebfaf4f45e5a88bb98edcdf0ba8fdcf71885a454067f1cbec15a56d53a6eaca",
+      "bytes": 11895
+    },
+    {
+      "nome": "09_MATRIZ_DE_PAPEIS_E_AUTORIDADES_R03.csv",
+      "sha256": "c808ebf4de5ffd74856612439da958f0b8057abe0511e004b7be46125035a7f4",
+      "bytes": 1862
+    },
+    {
+      "nome": "10_REGISTRO_PRINCIPAL_DE_PACOTES_STATUS_E_PRECEDENCIA_R03.csv",
+      "sha256": "86f605ada37c1ea7bc8f1b732b6917cebbfb23cd9de7bf6ce5052e27ec35954f",
+      "bytes": 7266
+    },
+    {
+      "nome": "11_REGISTRO_DE_DECISOES_E_PENDENCIAS_R03.json",
+      "sha256": "6974b60761ad1bd21722e65c58255ac65e7e230699a48fe9d2326146b9043f8f",
+      "bytes": 2960
+    },
+    {
+      "nome": "12_RECIBO_DE_RETIFICACAO_FINAL_MINIMA_R03.txt",
+      "sha256": "4b783ec974d9e8ed99d2ebd10fad9c730e7aa71972e2bfd3dc4006eb711bdf3f",
+      "bytes": 1215
+    },
+    {
+      "nome": "14_ANEXO_PROTOCOLO_MESTRE_R02_AUDITADO.zip",
+      "sha256": "4f96dab979700a5c802829ea13f691f3f4b5c0bf776ab446d4d9c82272b5967f",
+      "bytes": 4536535
+    },
+    {
+      "nome": "15_ANEXO_AUDITORIA_FINAL_R02.zip",
+      "sha256": "59d2f64fb898759cfc94e936d2a49a19aefe4fb1e2d2813b90a6d63bddf57c92",
+      "bytes": 4545440
+    }
+  ]
+}

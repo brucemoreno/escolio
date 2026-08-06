@@ -1,0 +1,41 @@
+INICIO_DO_PROTOCOLO
+
+REGRA:
+Nenhuma intervenção excede o nível explicitamente autorizado.
+
+VERIFICACOES_OBRIGATORIAS:
+1. objeto e projeto identificados;
+2. papel competente;
+3. nível solicitado;
+4. gate satisfeito;
+5. escopo delimitado;
+6. evidência disponível;
+7. reversibilidade definida;
+8. proveniência registrável;
+9. ausência de conflito com objeto congelado;
+10. ausência de mistura entre projetos.
+
+COMANDO_VAGO:
+"prossiga", "continue", "faça", "melhore" ou equivalentes não definem nível, objeto, escopo ou autoridade.
+RESULTADO: ABSTENCAO até esclarecimento.
+
+CONFLITO_DE_INSTRUCOES:
+Prevalece a autoridade canônica superior e a instrução mais restritiva compatível.
+Se persistir conflito material: interromper e registrar.
+
+ABSTENCAO_OBRIGATORIA:
+- escopo ambíguo;
+- autoridade ausente;
+- gate não satisfeito;
+- objeto congelado sem reabertura;
+- risco irreversível sem preservação;
+- mistura entre projetos;
+- recomendação tratada como ordem;
+- simulação tratada como execução;
+- Executor tentando homologar;
+- Auditor tentando corrigir.
+
+SAIDA:
+Registrar bloqueador, nível máximo ainda autorizado e uma única próxima ação.
+
+FIM_DO_PROTOCOLO

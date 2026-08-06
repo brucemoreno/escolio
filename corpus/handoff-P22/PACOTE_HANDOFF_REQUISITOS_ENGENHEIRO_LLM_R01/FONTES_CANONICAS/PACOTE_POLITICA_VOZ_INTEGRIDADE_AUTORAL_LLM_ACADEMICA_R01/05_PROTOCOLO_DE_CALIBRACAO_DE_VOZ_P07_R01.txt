@@ -1,0 +1,2 @@
+ETAPAS: identificar finalidade e contexto; registrar declaração; inventariar amostras autorizadas; separar forma e tema; identificar recorrências; classificar invariantes e elementos flexíveis; registrar conflitos; atribuir confiança; definir gate e reversão; validar antes de substituir.
+PROIBIDO: amostra única como voz completa; cópia mecânica; imitação; texto de terceiro sem autorização; caso histórico como regra universal.

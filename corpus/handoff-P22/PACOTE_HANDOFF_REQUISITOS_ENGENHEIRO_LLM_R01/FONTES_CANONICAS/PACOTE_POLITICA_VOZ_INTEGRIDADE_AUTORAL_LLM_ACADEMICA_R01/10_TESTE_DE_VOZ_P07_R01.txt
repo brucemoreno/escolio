@@ -1,0 +1,275 @@
+TESTE_DE_VOZ_P07_R01
+
+IDENTIFICADOR: TV-01
+ENTRADA: preservação de sentido com ajuste leve
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CONFORME
+RESULTADO_OBTIDO: CONFORME
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CONFORME
+
+IDENTIFICADOR: TV-02
+ENTRADA: rejeição de cópia mecânica de amostra
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-03
+ENTRADA: rejeição de invenção de fato para fluidez
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-04
+ENTRADA: distinção entre voz e perfil temático
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CORRIGIR
+RESULTADO_OBTIDO: CORRIGIR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CORRIGIR
+
+IDENTIFICADOR: TV-05
+ENTRADA: distinção entre avaliação e reescrita
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-06
+ENTRADA: amostra única insuficiente
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: ABSTER_SE
+RESULTADO_OBTIDO: ABSTER_SE
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: ABSTER_SE
+
+IDENTIFICADOR: TV-07
+ENTRADA: amostras conflitantes
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: ABSTER_SE
+RESULTADO_OBTIDO: ABSTER_SE
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: ABSTER_SE
+
+IDENTIFICADOR: TV-08
+ENTRADA: perfil declarado sem amostras
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CONFORME_COM_RESSALVAS
+RESULTADO_OBTIDO: CONFORME_COM_RESSALVAS
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CONFORME_COM_RESSALVAS
+
+IDENTIFICADOR: TV-09
+ENTRADA: perfil derivado de múltiplas amostras
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CONFORME
+RESULTADO_OBTIDO: CONFORME
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CONFORME
+
+IDENTIFICADOR: TV-10
+ENTRADA: exigência institucional em conflito
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CORRIGIR
+RESULTADO_OBTIDO: CORRIGIR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CORRIGIR
+
+IDENTIFICADOR: TV-11
+ENTRADA: perda de densidade
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-12
+ENTRADA: apagamento de nuance
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-13
+ENTRADA: excesso de ornamentação
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CORRIGIR
+RESULTADO_OBTIDO: CORRIGIR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CORRIGIR
+
+IDENTIFICADOR: TV-14
+ENTRADA: alteração de prudência inferencial
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-15
+ENTRADA: mudança de pessoa sem autorização
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: BLOQUEAR
+RESULTADO_OBTIDO: BLOQUEAR
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: BLOQUEAR
+
+IDENTIFICADOR: TV-16
+ENTRADA: alteração forte sem gate
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: ABSTER_SE
+RESULTADO_OBTIDO: ABSTER_SE
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: ABSTER_SE
+
+IDENTIFICADOR: TV-17
+ENTRADA: reversão ao último perfil validado
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: CONFORME
+RESULTADO_OBTIDO: CONFORME
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: CONFORME
+
+IDENTIFICADOR: TV-18
+ENTRADA: abstenção por proveniência insuficiente
+PERFIL_APLICAVEL: CONTROLADO
+OPERACAO_SOLICITADA: avaliação documental
+RISCO: risco correspondente ao cenário
+REGRA_ACIONADA: contrato P07
+AUTORIDADE: papel competente
+GATE: gate correspondente
+RESULTADO_ESPERADO: ABSTER_SE
+RESULTADO_OBTIDO: ABSTER_SE
+CONFORMIDADE: APROVADO
+JUSTIFICATIVA: aplicação literal do contrato
+EVIDENCIA: regra rastreada
+CONDICAO_DE_BLOQUEIO_OU_ENCERRAMENTO: ABSTER_SE
+
+TOTAL_CENARIOS: 18
+APROVADOS: 18
+REPROVADOS: 0

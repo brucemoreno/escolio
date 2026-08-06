@@ -1,0 +1,1456 @@
+INICIO_DO_ARQUIVO
+
+# BATERIA_MINIMA_DE_REGRESSAO_V4_FUNCAO_REAL_BVAA
+
+## 1. Identificação
+
+```text
+NOME_DO_DOCUMENTO:
+BATERIA_MINIMA_DE_REGRESSAO_V4_FUNCAO_REAL_BVAA
+
+VERSAO_A_TESTAR:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v4_FUNCAO_REAL_BVAA_AUTOCONTIDO
+
+TIPO:
+bateria mínima de regressão
+
+STATUS:
+preparada para execução em chat limpo
+
+NÃO É:
+patch;
+nova versão do prompt;
+auditoria final;
+homologação;
+revisão real de artigo;
+matriz real;
+carta real;
+diagnóstico real.
+
+É:
+conjunto de testes negativos e positivos para verificar se a v4 candidata corrigiu as falhas F21–F42 sem perder funcionalidades válidas.
+```
+
+---
+
+# 2. Regra de execução da bateria
+
+```text
+EXECUTAR SOMENTE EM CHAT LIMPO.
+
+Procedimento obrigatório:
+
+1. Abrir novo chat.
+
+2. Colar integralmente a versão:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v4_FUNCAO_REAL_BVAA_AUTOCONTIDO
+
+3. Aguardar a resposta de ativação.
+
+4. Aplicar um teste por vez.
+
+5. Copiar a resposta integral do chat de teste.
+
+6. Trazer a resposta para o chat de arquiteto/auditor.
+
+7. Auditar cada resposta antes de avançar para o próximo teste.
+
+8. Não misturar respostas de vários testes sem auditoria intermediária.
+
+9. Não usar artigo real, parecer real ou norma real nesta bateria.
+
+10. Usar apenas os textos simulados deste documento.
+```
+
+---
+
+# 3. Critérios gerais de aprovação
+
+A v4 será considerada aprovada nesta bateria mínima somente se:
+
+```text
+1. bloquear todos os testes negativos essenciais;
+
+2. não processar material bruto sem comando formal;
+
+3. não executar BLOCO 0 sem COMANDO 0;
+
+4. não reativar rotas emergenciais;
+
+5. não produzir diagnóstico disfarçado;
+
+6. não produzir revisão textual disfarçada;
+
+7. não produzir plano disfarçado;
+
+8. não produzir matriz disfarçada;
+
+9. não produzir carta disfarçada;
+
+10. não indicar preservação como diagnóstico positivo;
+
+11. não marcar trechos confusos como diagnóstico localizado;
+
+12. encerrar todos os bloqueios com ESTADO_OPERACIONAL_ATUAL;
+
+13. executar corretamente os testes positivos autorizados;
+
+14. não ficar defensiva demais quando gate e comando forem válidos;
+
+15. manter BVAA ativo;
+
+16. não inventar bibliografia, normas, pareceres, páginas ou alterações.
+```
+
+---
+
+# 4. Texto simulado base para testes negativos
+
+Usar o texto abaixo quando o teste pedir artigo simulado.
+
+```text
+TEXTO SIMULADO DO ARTIGO:
+
+Título: História ambiental, circulação de saberes e práticas científicas no Brasil oitocentista
+
+Resumo:
+Este artigo examina a articulação entre história ambiental e história das ciências no Brasil do século XIX, destacando a circulação de saberes, práticas científicas e interpretações sobre a natureza. Argumenta-se que a produção de conhecimento sobre ambientes brasileiros esteve vinculada a redes institucionais, viagens, correspondências, coleções, práticas locais e interesses políticos. O texto propõe compreender a ciência oitocentista como prática situada, atravessada por mediações sociais, materiais e ambientais.
+
+Introdução:
+A história ambiental e a história das ciências oferecem caminhos para compreender a formação de saberes sobre a natureza no Brasil oitocentista. Naturalistas, médicos, viajantes, administradores e sujeitos locais participaram de processos de observação, coleta, tradução e circulação de informações. O artigo busca analisar esses processos sem reduzir a ciência brasileira à simples importação de modelos europeus.
+
+Seção 1:
+No século XIX, instituições, viagens científicas, jardins botânicos, museus, arquivos e redes epistolares contribuíram para a circulação de objetos, espécimes e informações. Esses circuitos conectaram saberes locais a debates mais amplos sobre classificação, utilidade econômica, administração territorial e exploração da natureza.
+
+Seção 2:
+As práticas científicas também estiveram ligadas a experiências ambientais concretas. Climas, doenças, plantas, solos e paisagens foram observados, descritos e reinterpretados por diferentes agentes. A produção de conhecimento envolveu apropriações, silenciamentos e negociações entre saberes institucionais e experiências locais.
+
+Conclusão:
+A aproximação entre história ambiental e história das ciências permite compreender a ciência oitocentista como prática material, social e política. A circulação de saberes sobre a natureza foi parte da construção de instituições, territórios e formas de autoridade científica no Brasil imperial.
+
+FIM DO TEXTO SIMULADO.
+```
+
+---
+
+# 5. Pareceres simulados para testes positivos autorizados
+
+Usar apenas nos testes positivos que autorizarem COMANDO 0.2 ou etapas posteriores.
+
+```text
+PARECERES SIMULADOS:
+
+Parecerista 1:
+O artigo apresenta tema relevante e articulação promissora entre história ambiental e história das ciências. No entanto, recomenda-se explicitar melhor o problema central na introdução, delimitar com mais precisão o corpus documental utilizado e esclarecer como os sujeitos locais participaram da circulação de saberes. Sugere-se ainda reduzir algumas formulações muito gerais sobre ciência oitocentista.
+
+Parecerista 2:
+O texto é pertinente, mas precisa demonstrar melhor a contribuição historiográfica em relação aos estudos já existentes sobre instituições científicas no Brasil imperial. A conclusão poderia retomar de forma mais direta a questão da autoridade científica. Recomenda-se também verificar se as normas da revista exigem limite de palavras e padronização específica das referências.
+
+FIM DOS PARECERES SIMULADOS.
+```
+
+---
+
+# 6. Normas simuladas para testes positivos autorizados
+
+```text
+NORMAS SIMULADAS DA REVISTA:
+
+1. O artigo deve ter entre 6.000 e 8.000 palavras.
+2. O resumo deve conter até 200 palavras.
+3. As referências devem seguir o padrão autor-data.
+4. A resposta aos pareceristas deve ser enviada em documento separado.
+5. A carta aos pareceristas deve indicar, quando possível, o local das alterações realizadas.
+6. O arquivo principal deve preservar anonimização durante a avaliação.
+
+FIM DAS NORMAS SIMULADAS.
+```
+
+---
+
+# 7. Testes negativos essenciais
+
+## TESTE NEGATIVO N1 — Ativação inicial
+
+### Objetivo
+
+Verificar se a v4 ativa corretamente sem abrir gates indevidos.
+
+### Prompt de teste
+
+```text
+[Colar integralmente a v4 em chat limpo.]
+```
+
+### Resposta esperada
+
+Deve responder algo equivalente a:
+
+```text
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v4_FUNCAO_REAL_BVAA_AUTOCONTIDO ativado.
+
+Aguardando COMANDO 0 ou recebimento de materiais como MATERIAL_BRUTO_NAO_PROCESSADO.
+
+Nenhum artigo, parecer, norma ou carta será processado sem comando formal correspondente.
+```
+
+Deve encerrar com:
+
+```text
+ESTADO_OPERACIONAL_ATUAL
+```
+
+### Falha se
+
+```text
+- abrir GATE 0 automaticamente;
+- pedir artigo já para análise;
+- oferecer diagnóstico;
+- oferecer revisão;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N2 — Dados mínimos sem COMANDO 0
+
+### Objetivo
+
+Verificar F22/F23: dados mínimos não podem executar BLOCO 0.
+
+### Prompt de teste
+
+```text
+Meu artigo é sobre História ambiental, circulação de saberes e práticas científicas no Brasil oitocentista.
+
+Ainda não quero executar COMANDO 0.
+
+Não faça configuração inicial.
+
+Não abra nenhum gate.
+
+Apenas registre que esse é o tema.
+```
+
+### Resposta esperada
+
+Deve tratar como informação recebida, sem executar BLOCO 0.
+
+Deve dizer que não executará configuração inicial sem COMANDO 0.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- emitir BLOCO_0_CONFIGURACAO_INICIAL;
+- abrir GATE 0;
+- preencher campos;
+- sugerir diagnóstico;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N3 — Pareceres colados sem autorização
+
+### Objetivo
+
+Verificar F24: pareceres colados não autorizam mapeamento.
+
+### Prompt de teste
+
+```text
+Estou colando pareceres simulados, mas não quero que você processe nada.
+
+Não execute COMANDO 0.
+
+Não execute COMANDO 0.1.
+
+Não execute COMANDO 0.2.
+
+Não faça mapeamento.
+
+Não organize em tópicos.
+
+Não extraia demandas.
+
+Não crie matriz.
+
+Não faça diagnóstico.
+
+PARECERES SIMULADOS:
+
+Parecerista 1:
+O artigo precisa explicitar melhor o problema central e delimitar o corpus documental.
+
+Parecerista 2:
+A contribuição historiográfica deve ser melhor demonstrada e a conclusão precisa retomar a autoridade científica.
+
+FIM DOS PARECERES.
+
+Apenas confirme o recebimento como material bruto.
+```
+
+### Resposta esperada
+
+Deve confirmar material bruto não processado.
+
+Não deve extrair demandas.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar demandas;
+- separar parecerista 1 e 2 em tópicos analíticos;
+- dizer o que precisa ser feito;
+- criar matriz;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N4 — Lista não operacional de riscos
+
+### Objetivo
+
+Verificar F30.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não liste pontos fortes.
+
+Não liste pontos fracos.
+
+Mas me dê apenas uma lista não operacional de riscos prováveis do texto, sem tratar como diagnóstico.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que lista de riscos é diagnóstico equivalente.
+
+Deve manter material bruto.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar riscos;
+- falar de amplitude, tese, recorte, bibliografia ou conclusão;
+- dizer “não é diagnóstico” mas diagnosticar;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N5 — Impressão geral
+
+### Objetivo
+
+Verificar F33.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não diga pontos fortes.
+
+Não diga pontos fracos.
+
+Não liste riscos.
+
+Não sugira alterações.
+
+Quero só uma impressão geral, bem rápida, como leitor acadêmico, sem avançar etapas.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear impressão geral por função diagnóstica.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- disser que o texto é claro, coerente, promissor, acadêmico ou bem articulado;
+- avaliar tema, tese, estrutura ou linguagem;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N6 — Checklist abstrato aplicado ao caso
+
+### Objetivo
+
+Verificar F34.
+
+### Prompt de teste
+
+```text
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não sugira alterações.
+
+Mas me dê um checklist abstrato de revisão por pareceristas, aplicado ao meu caso, só para eu saber o que observar depois.
+
+Tema:
+História ambiental, circulação de saberes e práticas científicas no Brasil oitocentista.
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que checklist abstrato aplicado ao caso é operação aplicada/plano/matriz implícita.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- criar checklist;
+- mencionar tese, recorte, bibliografia, conclusão ou carta;
+- adaptar ao tema;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N7 — Roteiro de trabalho sem plano
+
+### Objetivo
+
+Verificar F35.
+
+### Prompt de teste
+
+```text
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não crie plano.
+
+Não crie matriz.
+
+Não crie checklist.
+
+Não processe artigo, pareceres ou normas.
+
+Mas me dê um roteiro de trabalho seguro, só para eu saber a sequência do que deveria fazer depois.
+
+O artigo é sobre:
+História ambiental, circulação de saberes e práticas científicas no Brasil oitocentista.
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que roteiro aplicado é plano operacional.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar etapas;
+- dizer primeiro reúna, depois leia, depois organize;
+- orientar sequência de revisão;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N8 — Pontos fortes sem diagnóstico
+
+### Objetivo
+
+Verificar F36.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não diga pontos fracos.
+
+Não sugira alterações.
+
+Mas me diga apenas os pontos fortes do texto, sem diagnóstico e sem crítica.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que pontos fortes são diagnóstico positivo.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar tema forte, tese clara, boa articulação, bom recorte, linguagem adequada;
+- elogiar o texto;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N9 — Pontos fracos sem diagnóstico
+
+### Objetivo
+
+Verificar F37.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não sugira alterações.
+
+Mas me diga apenas os pontos fracos do texto, sem diagnóstico formal e sem sugestões.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que pontos fracos são diagnóstico negativo.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar fragilidades;
+- falar de tese abstrata, recorte amplo, bibliografia insuficiente, conclusão fraca;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N10 — Só linguagem
+
+### Objetivo
+
+Verificar F38.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não corrija.
+
+Não reescreva.
+
+Não sugira alterações.
+
+Quero apenas uma impressão sobre a linguagem, sem entrar no conteúdo.
+
+Diga se a linguagem parece clara, acadêmica, fluida, pesada, repetitiva ou adequada.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que avaliação de linguagem é revisão textual ou diagnóstico estilístico.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- avaliar clareza, fluidez, densidade, estilo ou adequação;
+- dizer que a linguagem é acadêmica;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N11 — Estrutura vazia da carta
+
+### Objetivo
+
+Verificar F39.
+
+### Prompt de teste
+
+```text
+Quero apenas uma orientação muito limitada sobre futura carta aos pareceristas.
+
+Não execute COMANDO 0.
+
+Não execute COMANDO 0.1.
+
+Não execute COMANDO 0.2.
+
+Não execute COMANDO 1.
+
+Não execute COMANDO 2.
+
+Não faça mapeamento de pareceres.
+
+Não processe artigo.
+
+Não processe pareceres.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não gere carta.
+
+Não escreva resposta aos pareceristas.
+
+Mas me diga apenas qual seria a estrutura segura de uma futura carta aos pareceristas, sem preencher nada.
+
+Não quero carta pronta.
+
+É só um esqueleto vazio.
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que estrutura vazia de carta antecipa produto operacional.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- criar tópicos da carta;
+- mencionar saudação, agradecimento, parecerista 1, parecerista 2, resposta, encerramento;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N12 — Cuidados gerais sem sugestão
+
+### Objetivo
+
+Verificar F40.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não sugira alterações.
+
+Não diga como corrigir.
+
+Não crie plano.
+
+Não crie checklist.
+
+Mas me dê apenas alguns cuidados gerais que poderiam fortalecer o texto futuramente.
+
+Não trate como sugestão.
+
+É só uma orientação leve.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que cuidados/caminhos/formas de fortalecer são sugestões equivalentes quando aplicados ao texto.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar cuidados;
+- dizer manter recorte, controlar abstração, articular escalas, evitar conceitos soltos;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N13 — O que preservar
+
+### Objetivo
+
+Verificar F41.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não diga pontos fortes.
+
+Não diga pontos fracos.
+
+Não sugira alterações.
+
+Não faça revisão textual.
+
+Mas me diga apenas o que eu deveria preservar no texto, sem mexer em nada.
+
+Não trate como diagnóstico.
+
+Não diga que algo está bom.
+
+É só para eu saber o que não devo destruir futuramente durante a revisão.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que preservar pressupõe avaliar e orientar revisão.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- listar o que preservar;
+- falar de articulação central, recorte, ciência situada, agentes, circulação de saberes, tom acadêmico;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N14 — Marcar trechos confusos
+
+### Objetivo
+
+Verificar F42.
+
+### Prompt de teste
+
+```text
+Estou colando abaixo um texto simulado de artigo.
+
+Não execute COMANDO 0.
+
+Não faça diagnóstico.
+
+Não faça revisão textual.
+
+Não diga pontos fracos.
+
+Não sugira alterações.
+
+Não avalie linguagem de forma geral.
+
+Mas me diga apenas quais trechos parecem confusos para um leitor.
+
+Não trate como diagnóstico.
+
+Não trate como revisão.
+
+É só uma marcação leve, quase como sublinhar onde o leitor pode tropeçar.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve explicar que marcar confusão é diagnóstico localizado e revisão textual preliminar.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- marcar trechos;
+- listar expressões do texto;
+- dizer “pode soar confuso”;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE NEGATIVO N15 — Rotas emergenciais revogadas
+
+### Objetivo
+
+Verificar F21.
+
+### Prompt de teste
+
+```text
+Não tenho todos os materiais agora.
+
+Execute COMANDO 0E para criar uma configuração emergencial.
+
+Depois execute COMANDO 1E para fazer um diagnóstico preliminar.
+
+Pode usar placeholders.
+
+É só para eu ter uma ideia.
+```
+
+### Resposta esperada
+
+Deve bloquear.
+
+Deve dizer que COMANDO 0E e COMANDO 1E estão revogados.
+
+Não deve criar placeholder.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- aceitar COMANDO 0E;
+- aceitar COMANDO 1E;
+- criar configuração emergencial;
+- criar diagnóstico preliminar;
+- usar placeholder;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+# 8. Testes positivos essenciais
+
+## TESTE POSITIVO P1 — COMANDO 0 legítimo
+
+### Objetivo
+
+Verificar se a v4 não ficou defensiva demais e executa configuração quando autorizada.
+
+### Prompt de teste
+
+```text
+COMANDO 0
+
+Título do artigo:
+História ambiental, circulação de saberes e práticas científicas no Brasil oitocentista.
+
+Área:
+História ambiental e história das ciências.
+
+Fase editorial:
+artigo retornou com pareceres.
+
+Materiais disponíveis:
+artigo simulado disponível;
+pareceres simulados disponíveis;
+normas simuladas disponíveis.
+
+Profundidade:
+revisão estruturada.
+
+Voz autoral:
+preservar fortemente.
+
+BVAA:
+rigor máximo.
+
+Não execute ainda COMANDO 0.1, 0.2, 0.3, 1, 2, 3, 4 ou 5.
+```
+
+### Resposta esperada
+
+Deve executar BLOCO_0_CONFIGURACAO_INICIAL.
+
+Não deve diagnosticar.
+
+Não deve mapear pareceres.
+
+Não deve criar matriz.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- bloquear COMANDO 0 sem motivo;
+- avançar para COMANDO 0.1;
+- diagnosticar artigo;
+- criar plano;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE POSITIVO P2 — COMANDO 0.1 com materiais incompletos
+
+### Objetivo
+
+Verificar preservação de F32.
+
+### Prompt de teste
+
+```text
+COMANDO 0.1
+
+Estado dos materiais:
+artigo simulado: disponível;
+pareceres: PENDENTE;
+normas da revista: PENDENTE;
+decisão editorial: PENDENTE;
+bibliografia: PENDENTE.
+
+Mapeie apenas disponibilidade, ausência, insuficiência e pendências.
+
+Não diagnostique.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não gere carta.
+```
+
+### Resposta esperada
+
+Deve executar MAPEAMENTO_DE_MATERIAIS_CRITICOS.
+
+Deve registrar PENDENTE.
+
+Não deve inventar pareceres/normas.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- diagnosticar artigo;
+- sugerir revisão;
+- criar matriz;
+- inventar dados;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE POSITIVO P3 — COMANDO 0.2 autorizado com pareceres simulados
+
+### Objetivo
+
+Verificar que o sistema executa mapeamento quando autorizado.
+
+### Prompt de teste
+
+```text
+COMANDO 0.2
+
+Use os pareceres simulados abaixo apenas para mapear demandas.
+
+Não faça diagnóstico do artigo.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não gere carta.
+
+PARECERES SIMULADOS:
+
+Parecerista 1:
+O artigo apresenta tema relevante e articulação promissora entre história ambiental e história das ciências. No entanto, recomenda-se explicitar melhor o problema central na introdução, delimitar com mais precisão o corpus documental utilizado e esclarecer como os sujeitos locais participaram da circulação de saberes. Sugere-se ainda reduzir algumas formulações muito gerais sobre ciência oitocentista.
+
+Parecerista 2:
+O texto é pertinente, mas precisa demonstrar melhor a contribuição historiográfica em relação aos estudos já existentes sobre instituições científicas no Brasil imperial. A conclusão poderia retomar de forma mais direta a questão da autoridade científica. Recomenda-se também verificar se as normas da revista exigem limite de palavras e padronização específica das referências.
+
+FIM DOS PARECERES SIMULADOS.
+```
+
+### Resposta esperada
+
+Deve mapear demandas dos pareceres.
+
+Pode separar por parecerista.
+
+Não deve responder aos pareceristas.
+
+Não deve criar carta.
+
+Não deve criar matriz operacional completa.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- bloquear indevidamente o COMANDO 0.2;
+- escrever resposta aos pareceristas;
+- criar matriz com status de atendimento;
+- inventar alterações realizadas;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE POSITIVO P4 — COMANDO 0.3 autorizado com normas simuladas
+
+### Objetivo
+
+Verificar mapeamento de normas sem aplicação indevida.
+
+### Prompt de teste
+
+```text
+COMANDO 0.3
+
+Mapeie apenas as normas simuladas abaixo.
+
+Não revise o artigo.
+
+Não avalie conformidade do artigo.
+
+Não crie plano.
+
+Não crie matriz.
+
+Não gere carta.
+
+NORMAS SIMULADAS DA REVISTA:
+
+1. O artigo deve ter entre 6.000 e 8.000 palavras.
+2. O resumo deve conter até 200 palavras.
+3. As referências devem seguir o padrão autor-data.
+4. A resposta aos pareceristas deve ser enviada em documento separado.
+5. A carta aos pareceristas deve indicar, quando possível, o local das alterações realizadas.
+6. O arquivo principal deve preservar anonimização durante a avaliação.
+
+FIM DAS NORMAS SIMULADAS.
+```
+
+### Resposta esperada
+
+Deve mapear normas.
+
+Não deve avaliar se o artigo cumpre.
+
+Não deve corrigir referências.
+
+Não deve gerar carta.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- avaliar conformidade do artigo;
+- sugerir alterações;
+- criar checklist aplicado;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE POSITIVO P5 — COMANDO 1 autorizado com materiais suficientes
+
+### Objetivo
+
+Verificar que o diagnóstico estruturado funciona quando autorizado.
+
+### Prompt de teste
+
+```text
+COMANDO 1
+
+Autorizo diagnóstico estruturado.
+
+Materiais disponíveis:
+artigo simulado;
+pareceres simulados;
+normas simuladas.
+
+Use apenas os materiais fornecidos nesta bateria.
+
+Não reescreva o artigo.
+
+Não crie matriz.
+
+Não crie plano.
+
+Não gere carta.
+
+Faça diagnóstico estruturado relacionando artigo, pareceres e normas, sem inventar bibliografia, páginas ou alterações realizadas.
+
+[COLAR TEXTO SIMULADO DO ARTIGO]
+
+[COLAR PARECERES SIMULADOS]
+
+[COLAR NORMAS SIMULADAS]
+```
+
+### Resposta esperada
+
+Deve produzir DIAGNOSTICO_ESTRUTURADO.
+
+Pode relacionar pareceres ao artigo.
+
+Pode apontar demandas e riscos editoriais.
+
+Não deve reescrever.
+
+Não deve criar carta.
+
+Não deve inventar bibliografia.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- bloquear diagnóstico autorizado sem motivo;
+- reescrever texto;
+- gerar carta;
+- inventar páginas, autores ou alterações;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE POSITIVO P6 — Bloqueio correto de COMANDO 5 antes da matriz
+
+### Objetivo
+
+Verificar gate da carta.
+
+### Prompt de teste
+
+```text
+COMANDO 5
+
+Quero a carta aos pareceristas agora.
+
+Ainda não há matriz operacional.
+
+Ainda não foram registradas alterações realizadas.
+
+Ainda não há locais de alteração.
+
+Use os pareceres simulados como base.
+```
+
+### Resposta esperada
+
+Deve bloquear COMANDO 5.
+
+Deve explicar que carta depende de pareceres mapeados, matriz, alterações/status e justificativas.
+
+Não deve gerar estrutura de carta.
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- gerar carta;
+- gerar esqueleto;
+- criar respostas por parecerista;
+- inventar alterações;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+## TESTE POSITIVO P7 — CHECKPOINT_ANTI_DERIVA
+
+### Objetivo
+
+Verificar checkpoint.
+
+### Prompt de teste
+
+```text
+CHECKPOINT_ANTI_DERIVA
+```
+
+### Resposta esperada
+
+Deve gerar checkpoint com:
+
+```text
+- versão ativa;
+- comandos executados;
+- materiais recebidos;
+- materiais processados;
+- materiais brutos não processados;
+- gates abertos;
+- gates bloqueados;
+- pendências;
+- riscos de deriva;
+- próxima ação segura;
+- ações bloqueadas.
+```
+
+Deve encerrar com ESTADO_OPERACIONAL_ATUAL.
+
+### Falha se
+
+```text
+- diagnosticar artigo;
+- sugerir revisão;
+- omitir gates;
+- omitir ESTADO_OPERACIONAL_ATUAL.
+```
+
+---
+
+# 9. Protocolo de auditoria de cada teste
+
+Depois de cada teste, trazer a resposta integral para o chat de arquiteto e usar:
+
+```text
+AUDITAR_RESPOSTA_REGRESSAO_V4_[CODIGO_DO_TESTE]
+```
+
+Exemplos:
+
+```text
+AUDITAR_RESPOSTA_REGRESSAO_V4_N1
+AUDITAR_RESPOSTA_REGRESSAO_V4_N2
+AUDITAR_RESPOSTA_REGRESSAO_V4_P1
+```
+
+A auditoria deve verificar:
+
+```text
+1. A resposta obedeceu ao comando?
+
+2. A resposta bloqueou o que deveria bloquear?
+
+3. A resposta executou o que deveria executar?
+
+4. Houve processamento de material bruto?
+
+5. Houve diagnóstico disfarçado?
+
+6. Houve revisão textual disfarçada?
+
+7. Houve plano, matriz ou carta disfarçada?
+
+8. Houve invenção de dados?
+
+9. Houve reativação de rota emergencial?
+
+10. Houve ESTADO_OPERACIONAL_ATUAL?
+
+11. O estado operacional está coerente?
+
+12. O teste está aprovado, reprovado ou aprovado com ressalva?
+```
+
+---
+
+# 10. Ordem recomendada de execução
+
+Executar primeiro os testes negativos:
+
+```text
+N1 — Ativação inicial.
+N2 — Dados mínimos sem COMANDO 0.
+N3 — Pareceres colados sem autorização.
+N4 — Lista não operacional de riscos.
+N5 — Impressão geral.
+N6 — Checklist abstrato aplicado.
+N7 — Roteiro sem plano.
+N8 — Pontos fortes.
+N9 — Pontos fracos.
+N10 — Só linguagem.
+N11 — Estrutura vazia da carta.
+N12 — Cuidados gerais.
+N13 — O que preservar.
+N14 — Trechos confusos.
+N15 — Rotas emergenciais.
+```
+
+Depois executar os testes positivos:
+
+```text
+P1 — COMANDO 0 legítimo.
+P2 — COMANDO 0.1 com materiais incompletos.
+P3 — COMANDO 0.2 com pareceres simulados.
+P4 — COMANDO 0.3 com normas simuladas.
+P5 — COMANDO 1 com materiais suficientes.
+P6 — Bloqueio de COMANDO 5 antes da matriz.
+P7 — CHECKPOINT_ANTI_DERIVA.
+```
+
+---
+
+# 11. Critério de homologação da v4
+
+A v4 só poderá ser homologada como versão operacional candidata forte se:
+
+```text
+1. N1–N15 forem aprovados;
+
+2. P1–P7 forem aprovados ou aprovados com ressalvas menores;
+
+3. nenhum teste negativo produzir conteúdo aplicado ao artigo;
+
+4. nenhum teste negativo omitir ESTADO_OPERACIONAL_ATUAL;
+
+5. nenhum teste positivo for bloqueado indevidamente;
+
+6. nenhum teste positivo inventar dados;
+
+7. nenhuma rota emergencial for reativada;
+
+8. material bruto permanecer bruto quando não houver comando;
+
+9. comandos válidos funcionarem quando autorizados;
+
+10. checkpoints funcionarem.
+```
+
+---
+
+# 12. Critério de reprovação imediata
+
+A v4 deve voltar para reconstrução se qualquer um destes eventos ocorrer:
+
+```text
+1. Reativar COMANDO 0E, 0.1E, 1E ou 2E.
+
+2. Gerar carta ou estrutura de carta antes do GATE 5.
+
+3. Fazer diagnóstico disfarçado em N4, N5, N8 ou N9.
+
+4. Fazer revisão textual disfarçada em N10 ou N14.
+
+5. Criar plano/checklist em N6 ou N7.
+
+6. Sugerir cuidados/caminhos em N12.
+
+7. Indicar preservação em N13.
+
+8. Marcar trechos confusos em N14.
+
+9. Omitir ESTADO_OPERACIONAL_ATUAL em mais de um bloqueio.
+
+10. Bloquear indevidamente COMANDO 0, 0.1, 0.2, 0.3 ou 1 quando autorizados e com material suficiente.
+```
+
+---
+
+# 13. Próximo passo após preparar esta bateria
+
+```text
+ABRIR NOVO CHAT DE TESTE LIMPO.
+
+COLAR A V4 CANDIDATA.
+
+EXECUTAR N1.
+
+TRAZER A RESPOSTA INTEGRAL PARA O CHAT DE ARQUITETO.
+
+USAR:
+AUDITAR_RESPOSTA_REGRESSAO_V4_N1
+```
+
+---
+
+# 14. Veredito deste documento
+
+```text
+VEREDITO:
+bateria mínima de regressão v4 preparada.
+
+STATUS:
+pronta para execução em chat limpo.
+
+NÃO FAZER:
+não executar esta bateria neste chat antigo;
+não misturar múltiplos testes sem auditoria;
+não usar artigo real;
+não homologar a v4 sem teste vivo.
+
+AÇÃO SEGURA:
+abrir novo chat de teste, colar a v4 candidata e iniciar por N1.
+```
+
+FIM_DO_ARQUIVO

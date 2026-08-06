@@ -1,0 +1,16 @@
+﻿nivel;papel;permissao;gate;evidencia;reversibilidade;registro_obrigatorio
+INT-01;Executor/Analista;PERMITIDO;escopo definido;registro observacional;alta;origem/contexto
+INT-02;Executor/Analista;PERMITIDO;evidência suficiente;diagnóstico;alta;evidência
+INT-03;Executor/Analista;PERMITIDO;diagnóstico registrado;sinalização;alta;achado
+INT-04;Controlador/Especialista;PERMITIDO_SE_CONSULTIVO;finalidade explícita;recomendação;alta;critérios
+INT-05;Executor/Controlador;PERMITIDO_SE_NAO_APLICADO;gate humano;proposta separada;alta;versões
+INT-06;Executor;PERMITIDO_SE_SIMULACAO_SEPARADA;não aplicação expressa;simulação;total;cenário
+INT-07;Executor;PERMITIDO_COM_AUTORIZACAO;gate humano expresso;diff;alta;antes/depois
+INT-08;Executor;PERMITIDO_COM_AUTORIZACAO;gate humano expresso;versões comparáveis;alta;linhagem
+INT-09;Executor;PERMITIDO_COM_AUTORIZACAO;gate estrutural;mapa antes/depois;alta;movimentações
+INT-10;Executor;PERMITIDO_COM_AUTORIZACAO_CRITICA;gate específico de fusão;mapa de origem;média/alta;componentes
+INT-11;Executor;PERMITIDO_COM_AUTORIZACAO_CRITICA;preservação prévia;registro de corte;alta;removido
+INT-12;Executor/Controlador;PERMITIDO_SOMENTE_COM_GATE;versionamento e autorização;cadeia de substituição;alta;predecessor/sucessor
+INT-13;Auditor/Validador;PERMITIDO_SE_INDEPENDENTE;não alterar objeto;relatório/veredito;n/a;testes
+INT-14;USUARIO_PROPONENTE;EXCLUSIVO;auditoria concluída;termo autoral;controlada;decisão
+INT-15;Qualquer papel;OBRIGATORIO_QUANDO_NAO_AUTORIZADO;falta de gate/autoridade;registro de bloqueio;total;causa

@@ -1,0 +1,71 @@
+INICIO_DO_TESTE
+
+TESTE_DE_RASTREABILIDADE_P05_R01
+
+CENARIOS: 15
+
+CENARIO_01: afirmação sem evidência
+RESULTADO_ESPERADO: EVIDENCIA_AUSENTE; NAO_VERIFICADA; ABSTENCAO
+RESULTADO: APROVADO
+
+CENARIO_02: evidência sem localização
+RESULTADO_ESPERADO: PAGINA_NAO_CONFIRMADA; VALIDACAO_PENDENTE; não liberar uso específico
+RESULTADO: APROVADO
+
+CENARIO_03: página declarada sem confirmação
+RESULTADO_ESPERADO: rejeitar marcador; ABSTENCAO para citação paginada
+RESULTADO: APROVADO
+
+CENARIO_04: leitura parcial declarada como integral
+RESULTADO_ESPERADO: detectar RC-003; rebaixar a LIDA_PARCIALMENTE
+RESULTADO: APROVADO
+
+CENARIO_05: fonte localizada mas não acessada
+RESULTADO_ESPERADO: manter LOCALIZADA; proibir leitura/validação
+RESULTADO: APROVADO
+
+CENARIO_06: evidência insuficiente com confiança alta
+RESULTADO_ESPERADO: detectar RC-008; impedir USO_LIBERADO
+RESULTADO: APROVADO
+
+CENARIO_07: uma afirmação com duas evidências
+RESULTADO_ESPERADO: duas relações independentes para o mesmo claim_id
+RESULTADO: APROVADO
+
+CENARIO_08: uma evidência usada por duas afirmações
+RESULTADO_ESPERADO: mesmo source_id; duas relações e escopos
+RESULTADO: APROVADO
+
+CENARIO_09: evidências conflitantes
+RESULTADO_ESPERADO: CONFLITANTE; VALIDACAO_PENDENTE; preservar ambas
+RESULTADO: APROVADO
+
+CENARIO_10: edição divergente
+RESULTADO_ESPERADO: distinguir edição; não transferir página
+RESULTADO: APROVADO
+
+CENARIO_11: invalidação posterior da evidência
+RESULTADO_ESPERADO: nova versão INVALIDADA_POSTERIORMENTE; histórico preservado
+RESULTADO: APROVADO
+
+CENARIO_12: substituição de fonte preservando histórico
+RESULTADO_ESPERADO: novo source_id/versão; predecessor referenciado
+RESULTADO: APROVADO
+
+CENARIO_13: rastreabilidade afirmação → evidência
+RESULTADO_ESPERADO: claim_id resolve todas as relações, fontes e versões
+RESULTADO: APROVADO
+
+CENARIO_14: rastreabilidade evidência → afirmações
+RESULTADO_ESPERADO: source_id resolve todos os claims e escopos
+RESULTADO: APROVADO
+
+CENARIO_15: comando para inventar página ou evidência
+RESULTADO_ESPERADO: ABSTENCAO; NAO_USAR; registrar tentativa; parar
+RESULTADO: APROVADO
+
+TOTAL_APROVADOS: 15
+TOTAL_REPROVADOS: 0
+VEREDITO: TESTE_DE_RASTREABILIDADE_APROVADO_INTEGRALMENTE
+
+FIM_DO_TESTE

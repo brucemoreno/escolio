@@ -1,0 +1,25 @@
+﻿suficiencia;confianca;combinacao_permitida;estado_de_validacao_maximo;uso_maximo;regra
+NAO_AVALIADA;NAO_AVALIADA;SIM;NAO_VERIFICADA;NAO_USAR;Avaliação incompleta
+NAO_AVALIADA;BAIXA;SIM;NAO_VERIFICADA;NAO_USAR;Avaliação incompleta
+NAO_AVALIADA;MEDIA;NAO;NAO_VERIFICADA;NAO_USAR;Avaliação incompleta
+NAO_AVALIADA;ALTA;NAO;NAO_VERIFICADA;NAO_USAR;Avaliação incompleta
+EVIDENCIA_AUSENTE;NAO_AVALIADA;SIM;NAO_VERIFICADA;ABSTENCAO;Confiança média/alta sem evidência é incoerente
+EVIDENCIA_AUSENTE;BAIXA;SIM;NAO_VERIFICADA;ABSTENCAO;Confiança média/alta sem evidência é incoerente
+EVIDENCIA_AUSENTE;MEDIA;NAO;NAO_VERIFICADA;ABSTENCAO;Confiança média/alta sem evidência é incoerente
+EVIDENCIA_AUSENTE;ALTA;NAO;NAO_VERIFICADA;ABSTENCAO;Confiança média/alta sem evidência é incoerente
+EVIDENCIA_INSUFICIENTE;NAO_AVALIADA;SIM;VALIDACAO_PENDENTE;USO_CONDICIONAL ou NAO_USAR;Alta confiança não compensa insuficiência
+EVIDENCIA_INSUFICIENTE;BAIXA;SIM;VALIDACAO_PENDENTE;USO_CONDICIONAL ou NAO_USAR;Alta confiança não compensa insuficiência
+EVIDENCIA_INSUFICIENTE;MEDIA;SIM;VALIDACAO_PENDENTE;USO_CONDICIONAL ou NAO_USAR;Alta confiança não compensa insuficiência
+EVIDENCIA_INSUFICIENTE;ALTA;NAO;VALIDACAO_PENDENTE;USO_CONDICIONAL ou NAO_USAR;Alta confiança não compensa insuficiência
+EVIDENCIA_PARCIALMENTE_SUFICIENTE;NAO_AVALIADA;SIM;VALIDACAO_PENDENTE ou VALIDADA_DELIMITADA;USO_CONDICIONAL;Somente no segmento coberto
+EVIDENCIA_PARCIALMENTE_SUFICIENTE;BAIXA;SIM;VALIDACAO_PENDENTE ou VALIDADA_DELIMITADA;USO_CONDICIONAL;Somente no segmento coberto
+EVIDENCIA_PARCIALMENTE_SUFICIENTE;MEDIA;SIM;VALIDACAO_PENDENTE ou VALIDADA_DELIMITADA;USO_CONDICIONAL;Somente no segmento coberto
+EVIDENCIA_PARCIALMENTE_SUFICIENTE;ALTA;SIM;VALIDACAO_PENDENTE ou VALIDADA_DELIMITADA;USO_CONDICIONAL;Somente no segmento coberto
+EVIDENCIA_SUFICIENTE;NAO_AVALIADA;SIM;VALIDADA quando demais gates atendidos;USO_LIBERADO quando demais gates atendidos;Suficiência não implica automaticamente alta confiança
+EVIDENCIA_SUFICIENTE;BAIXA;SIM;VALIDADA quando demais gates atendidos;USO_LIBERADO quando demais gates atendidos;Suficiência não implica automaticamente alta confiança
+EVIDENCIA_SUFICIENTE;MEDIA;SIM;VALIDADA quando demais gates atendidos;USO_LIBERADO quando demais gates atendidos;Suficiência não implica automaticamente alta confiança
+EVIDENCIA_SUFICIENTE;ALTA;SIM;VALIDADA quando demais gates atendidos;USO_LIBERADO quando demais gates atendidos;Suficiência não implica automaticamente alta confiança
+CONFLITANTE;NAO_AVALIADA;SIM;VALIDACAO_PENDENTE;NAO_USAR ou USO_CONDICIONAL;Conflito impede liberação irrestrita
+CONFLITANTE;BAIXA;SIM;VALIDACAO_PENDENTE;NAO_USAR ou USO_CONDICIONAL;Conflito impede liberação irrestrita
+CONFLITANTE;MEDIA;SIM;VALIDACAO_PENDENTE;NAO_USAR ou USO_CONDICIONAL;Conflito impede liberação irrestrita
+CONFLITANTE;ALTA;NAO;VALIDACAO_PENDENTE;NAO_USAR ou USO_CONDICIONAL;Conflito impede liberação irrestrita

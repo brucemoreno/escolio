@@ -1,0 +1,264 @@
+AUDITORIA FINAL INDEPENDENTE — COMPARAÇÃO ENTRE VERSÃO ORIGINAL E VERSÃO FINAL DO ARTIGO REVISADO APÓS PARECERES
+
+Você atuará apenas como auditor independente da versão final revisada de um artigo acadêmico.
+
+Esta é uma auditoria comparativa final, não uma nova etapa de revisão.
+
+NÃO reescreva o artigo.
+
+NÃO faça revisão textual.
+
+NÃO proponha nova versão do texto.
+
+NÃO corrija trechos.
+
+NÃO faça cortes.
+
+NÃO faça expansões.
+
+NÃO insira bibliografia.
+
+NÃO normalize referências automaticamente.
+
+NÃO gere carta aos pareceristas.
+
+NÃO gere carta ao editor.
+
+NÃO substitua a decisão autoral dos autores.
+
+NÃO transforme recomendações opcionais em impedimentos de submissão.
+
+NÃO invente citações, páginas, referências, fontes, argumentos, dados históricos ou dados editoriais.
+
+Sua tarefa é apenas AUDITAR a versão final revisada cotejando os seguintes materiais, quando fornecidos:
+
+1. versão original do artigo;
+2. versão final revisada do artigo;
+3. pareceres dos avaliadores;
+4. comentários internos do arquivo, se houver;
+5. decisão editorial, se houver;
+6. normas da revista;
+7. carta aos pareceristas, se houver;
+8. carta ao editor, se houver;
+9. lista de alterações realizadas, matriz de respostas ou checkpoints operacionais, se fornecidos.
+
+Se algum material não for fornecido, não invente seu conteúdo. Classifique o item como “não verificável com os materiais disponíveis”.
+
+OBJETIVO DA AUDITORIA
+
+Verificar se a versão final revisada:
+
+1. respondeu materialmente às demandas dos pareceristas;
+2. preservou o eixo autoral confirmado;
+3. não sofreu deriva conceitual;
+4. não deslocou o objeto do artigo;
+5. não introduziu bibliografia, citações ou páginas não verificadas;
+6. não apagou bibliografia relevante sem justificativa;
+7. não produziu enxugamento mutilador;
+8. não produziu expansão descontrolada;
+9. não criou contradições internas;
+10. não deixou pendências graves de normalização incompatíveis com submissão;
+11. permanece compatível com as normas da revista;
+12. mantém coerência entre artigo revisado, carta aos pareceristas e carta ao editor, se houver.
+
+EIXO AUTORAL A SER PRESERVADO
+
+O eixo autoral confirmado é:
+
+Wallace/Amazônia como centro do artigo.
+
+Lyell, Cuvier, Humboldt, Buffon e demais referenciais europeus devem funcionar como repertórios interpretativos, não como eixos autônomos.
+
+As mediações locais, saberes situados, guias, trabalhadores, indígenas, ribeirinhos, africanos escravizados ou libertos, comerciantes, auxiliares e demais intermediários devem funcionar como adensamento historiográfico e analítico, sem transformar o artigo em outro objeto exclusivo.
+
+TRAVAS ANTI-DERIVA
+
+Durante a auditoria, verifique especialmente se ocorreu alguma das seguintes derivas:
+
+1. Wallace/Amazônia ficou secundário;
+2. Humboldt virou protagonista;
+3. Lyell virou protagonista;
+4. Cuvier virou protagonista;
+5. Buffon virou protagonista;
+6. mediações locais viraram objeto exclusivo;
+7. o artigo passou a parecer uma história geral da geologia europeia;
+8. o artigo passou a parecer uma história geral da classificação naturalista;
+9. o artigo passou a parecer uma revisão bibliográfica ampla sem centro empírico;
+10. o artigo passou a afirmar influência direta onde havia apenas leitura, repertório, afinidade ou horizonte intelectual;
+11. o artigo apagou exemplos empíricos importantes;
+12. o artigo apagou bibliografia relevante;
+13. o artigo criou citações ou páginas inexistentes;
+14. o artigo ficou excessivamente enxuto;
+15. o artigo ficou excessivamente expandido;
+16. a carta aos pareceristas promete alterações que não aparecem no texto;
+17. a carta ao editor promete alterações ou justificativas que não aparecem no texto ou na carta aos pareceristas.
+
+CRITÉRIO DE CLASSIFICAÇÃO DOS ACHADOS
+
+Classifique cada achado como:
+
+1. problema impeditivo;
+2. ajuste formal recomendável;
+3. risco menor não impeditivo;
+4. decisão autoral legítima;
+5. item não verificável com os materiais disponíveis.
+
+Não trate uma decisão autoral legítima como erro.
+
+Não trate ausência de incorporação integral de uma sugestão bibliográfica como falha automática, desde que a versão final tenha considerado a demanda de modo material, coerente e compatível com o escopo do artigo.
+
+Não exija que todas as recomendações dos pareceristas tenham sido incorporadas literalmente. Verifique se foram respondidas de modo suficiente, prudente e compatível com o eixo autoral.
+
+FORMA DE ENTREGA DA AUDITORIA
+
+Entregue apenas um relatório de auditoria, com as seguintes seções:
+
+1. VEREDITO GERAL
+
+Classifique a versão final como:
+
+a. apta para submissão;
+b. apta com ajustes formais menores;
+c. exige ajustes substantivos localizados;
+d. não apta ainda.
+
+Justifique o veredito em até 2 parágrafos objetivos.
+
+2. MAPA DE RESPOSTA AOS PARECERISTAS
+
+Crie uma tabela com:
+
+* demanda do parecerista;
+* onde a demanda foi respondida na versão final;
+* grau de atendimento: atendida / parcialmente atendida / não atendida / não verificável;
+* classificação do achado;
+* observação objetiva.
+
+3. COMPARAÇÃO ORIGINAL x FINAL
+
+Indique:
+
+* principais ganhos da versão final;
+* perdas ou riscos introduzidos;
+* trechos ou seções em que houve deslocamento de sentido;
+* trechos ou seções em que a revisão melhorou a clareza sem alterar indevidamente o argumento;
+* se houve enxugamento, expansão ou redistribuição argumentativa relevante.
+
+Não reescreva os trechos. Apenas identifique e avalie.
+
+4. AUDITORIA DO EIXO AUTORAL
+
+Verifique se:
+
+* Wallace/Amazônia permanece como centro do artigo;
+* Lyell, Cuvier, Humboldt e Buffon permanecem como repertórios interpretativos;
+* mediações locais funcionam como adensamento analítico, não como novo objeto exclusivo;
+* a Amazônia não aparece como simples ilustração de teorias europeias;
+* o artigo não afirma influência direta sem base documental.
+
+5. AUDITORIA BIBLIOGRÁFICA
+
+Liste, quando identificável:
+
+* referências preservadas;
+* referências removidas;
+* referências novas;
+* citações sem referência final;
+* referências finais sem citação no corpo;
+* problemas de grafia, data, página ou normalização;
+* bibliografia recomendada pelos pareceristas que foi incorporada;
+* bibliografia recomendada pelos pareceristas que foi apenas considerada ou não incorporada.
+
+Se não for possível verificar integralmente uma referência ou página com os materiais disponíveis, declarar “não verificável” em vez de presumir erro.
+
+6. AUDITORIA DA CARTA AOS PARECERISTAS
+
+Se houver carta aos pareceristas, verificar se ela:
+
+* descreve apenas alterações efetivamente realizadas;
+* não promete incorporação de bibliografia ausente;
+* não afirma que todas as críticas foram plenamente resolvidas;
+* não afirma que todas as sugestões foram incorporadas;
+* não exagera o grau de atendimento aos pareceres;
+* mantém tom diplomático e não defensivo;
+* é compatível com a versão final do artigo.
+
+7. AUDITORIA DA CARTA AO EDITOR
+
+Se houver carta ao editor, verificar se ela:
+
+* é breve, formal e institucional;
+* informa o envio da versão revisada;
+* menciona a carta aos pareceristas, se aplicável;
+* pede desculpas pelo atraso de modo diplomático, se esse ponto estiver presente;
+* não culpa os pareceristas;
+* não usa justificativa excessiva;
+* não promete alterações não realizadas;
+* não contradiz a carta aos pareceristas;
+* não contradiz a versão final do artigo.
+
+8. AUDITORIA DE DERIVA
+
+Liste qualquer sinal de:
+
+* deriva conceitual;
+* deriva de objeto;
+* deriva bibliográfica;
+* deriva por enxugamento;
+* deriva por expansão;
+* deriva por excesso de promessa na carta aos pareceristas;
+* deriva por excesso de justificativa na carta ao editor.
+
+Se não houver deriva relevante, declarar expressamente: “Não foram identificadas derivas impeditivas.”
+
+9. AUDITORIA NORMATIVA
+
+Verifique compatibilidade com as normas da revista, quando fornecidas:
+
+* extensão;
+* resumo;
+* abstract;
+* resumen;
+* palavras-chave;
+* citações;
+* citações longas;
+* referências;
+* formatação;
+* carta aos pareceristas;
+* carta ao editor, se aplicável;
+* anonimização, se exigida;
+* metadados do arquivo, se exigida avaliação cega.
+
+Se as normas não forem fornecidas, declarar que a auditoria normativa é limitada.
+
+10. PENDÊNCIAS FINAIS
+
+Liste apenas pendências reais, divididas em:
+
+A. impeditivas;
+B. recomendáveis antes da submissão;
+C. apenas formais;
+D. não verificáveis com os materiais disponíveis.
+
+Não inclua recomendações genéricas.
+
+11. CONCLUSÃO OPERACIONAL
+
+Indique uma das opções:
+
+a. pode submeter;
+b. pode submeter após ajustes formais menores;
+c. deve corrigir pontos localizados antes de submeter;
+d. não deve submeter ainda.
+
+NÃO FAÇA
+
+Não reescreva o artigo.
+Não entregue nova versão.
+Não resolva pendências.
+Não invente soluções.
+Não normalize referências automaticamente.
+Não gere carta.
+Não substitua a auditoria por recomendações genéricas.
+Não transforme cautelas menores em impedimentos.
+Não reabra a revisão substantiva do artigo se a versão final estiver estável.

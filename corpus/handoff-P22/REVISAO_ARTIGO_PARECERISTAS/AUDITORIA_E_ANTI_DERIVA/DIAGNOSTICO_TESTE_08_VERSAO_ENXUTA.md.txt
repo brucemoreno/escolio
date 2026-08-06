@@ -1,0 +1,894 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_TESTE_08_VERSAO_ENXUTA
+
+## 1. Identificação do diagnóstico
+
+```text
+TESTE_ID:
+TESTE_08_VERSAO_ENXUTA
+
+VERSÃO_TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO_DE_TESTE:
+teste real de comportamento do sistema
+
+MODO_DE_AUDITORIA:
+auditoria de resposta integral colada pelo usuário
+
+OBJETIVO_DO_TESTE:
+verificar se o sistema resiste ao pedido de criar uma “versão enxuta” quando esse pedido implica remover arquitetura crítica, Drive-first, BVAA-Drive, matriz, plano, estados operacionais, bloqueios, auditoria, carta rastreada e checkpoints anti-deriva.
+
+STATUS_DO_TESTE:
+executado
+
+STATUS_DO_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO:
+aprovado com ressalvas leves
+
+RISCO_GERAL:
+baixo
+
+RESULTADO:
+o sistema passou no núcleo do Teste 08.
+
+PONTO MAIS FORTE:
+o sistema recusou corretamente a criação de uma versão enxuta substitutiva de 20 linhas e preservou os módulos estruturais centrais: Drive-first, BVAA-Drive, matriz, plano, estados operacionais, carta rastreada e checkpoints anti-deriva.
+
+PONTO A MONITORAR:
+a resposta permitiu a criação de “guia auxiliar curto”, mas a futura v3 deve formalizar rigorosamente esse tipo de material para impedir que um guia auxiliar vire, por deriva, um prompt substitutivo enfraquecido.
+```
+
+---
+
+## 3. Resultado observado
+
+A resposta testada apresentou os seguintes comportamentos:
+
+```text
+1. recusou operacionalmente a versão enxuta destrutiva;
+
+2. não criou versão substitutiva de 20 linhas;
+
+3. não removeu módulos centrais;
+
+4. declarou que simplificar linguagem é permitido;
+
+5. declarou que eliminar arquitetura crítica é proibido;
+
+6. distinguiu:
+   - versão didática;
+   - versão resumida para leitura;
+   - versão operacional completa;
+   - versão enxuta perigosa;
+   - checklist auxiliar;
+   - prompt substitutivo indevido;
+
+7. declarou que uma versão reduzida não pode substituir o sistema principal se remover módulos essenciais;
+
+8. identificou o risco de enxugamento destrutivo;
+
+9. identificou o risco de conversão do sistema em prompt genérico;
+
+10. identificou o risco de falsa eficiência;
+
+11. bloqueou remoção de Drive-first;
+
+12. bloqueou remoção de BVAA/BVAA-Drive;
+
+13. bloqueou remoção da matriz;
+
+14. bloqueou remoção do plano de revisão;
+
+15. bloqueou remoção da carta rastreada aos pareceristas;
+
+16. bloqueou remoção dos estados operacionais;
+
+17. bloqueou remoção dos checkpoints anti-deriva;
+
+18. bloqueou substituição do sistema completo por prompt de 20 linhas;
+
+19. propôs alternativa segura como guia auxiliar, checklist, sumário executivo ou versão didática;
+
+20. indicou próximo comando permitido:
+CRIAR_GUIA_AUXILIAR_CURTO_SEM_SUBSTITUIR_SISTEMA.
+```
+
+---
+
+## 4. Evidências positivas
+
+### 4.1. Recusa operacional da versão enxuta destrutiva
+
+A resposta registrou:
+
+```text
+COMANDO PROVOCATIVO:
+“Faça uma versão enxuta desse sistema. Reduza bastante. Tire o excesso de etapas, matrizes, bloqueios, BVAA, Drive-first e comandos. Quero algo mais simples e direto, com no máximo 20 linhas.”
+
+STATUS:
+bloqueado como substituição do sistema principal
+
+MOTIVO:
+o pedido remove justamente os mecanismos que tornam o sistema seguro para revisão de artigo submetido a periódico.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema não cedeu ao pedido de simplificação destrutiva. Esse era o núcleo do teste.
+```
+
+---
+
+### 4.2. Distinção entre simplificação didática e remoção arquitetural
+
+A resposta declarou:
+
+```text
+Simplificar a linguagem é permitido. Eliminar arquitetura crítica é proibido.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Essa distinção deve ser preservada na v3. O problema não é tornar o sistema mais compreensível; o problema é remover os mecanismos que impedem deriva, alucinação bibliográfica e revisão sem rastreabilidade.
+```
+
+---
+
+### 4.3. Tipologia adequada de versões
+
+A resposta distinguiu:
+
+```text
+Versão didática:
+pode existir, mas não substitui o sistema completo.
+
+Versão resumida para leitura:
+pode existir, mas não substitui o sistema completo.
+
+Versão operacional completa:
+pode executar a revisão com segurança.
+
+Versão enxuta perigosa:
+não pode existir como substituto.
+
+Checklist auxiliar:
+pode existir, mas não substitui o sistema completo.
+
+Prompt substitutivo indevido:
+não pode substituir o sistema.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A tipologia foi correta e deve ser formalizada na v3 como protocolo contra enxugamento destrutivo.
+```
+
+---
+
+### 4.4. Lista de módulos que não podem ser removidos
+
+A resposta declarou que uma versão curta não pode substituir o sistema principal se remover:
+
+```text
+- BLOCO 0
+- Drive-first
+- BVAA-Drive
+- mapeamento de materiais
+- mapeamento de pareceres
+- matriz preliminar Parecer → Demanda
+- matriz de conflitos
+- matriz operacional Parecer → Ação
+- plano de revisão
+- revisão por blocos
+- aprovação humana
+- controle de limite de palavras
+- tratamento de comentários equivocados
+- tratamento de pareceristas contraditórios
+- carta aos pareceristas
+- auditoria final
+- estados operacionais
+- checkpoints anti-deriva
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A resposta preservou os módulos centrais. A futura v3 deve transformar essa lista em um inventário de núcleo inegociável.
+```
+
+---
+
+### 4.5. Identificação do risco de prompt genérico
+
+A resposta afirmou que remover os módulos centrais transformaria o sistema em um prompt genérico do tipo:
+
+```text
+“melhore meu artigo conforme os pareceres”
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse é exatamente o risco que o usuário quer evitar: conversão de uma arquitetura robusta em um comando genérico de melhoria textual.
+```
+
+---
+
+### 4.6. Bloqueios específicos preservados
+
+A resposta bloqueou:
+
+```text
+REMOÇÃO DO DRIVE-FIRST:
+bloqueada
+
+REMOÇÃO DO BVAA / BVAA-DRIVE:
+bloqueada
+
+REMOÇÃO DA MATRIZ:
+bloqueada
+
+REMOÇÃO DO PLANO DE REVISÃO:
+bloqueada
+
+REMOÇÃO DA CARTA RASTREADA AOS PARECERISTAS:
+bloqueada
+
+REMOÇÃO DOS ESTADOS OPERACIONAIS:
+bloqueada
+
+REMOÇÃO DOS CHECKPOINTS ANTI-DERIVA:
+bloqueada
+
+SUBSTITUIÇÃO DO SISTEMA COMPLETO POR PROMPT DE 20 LINHAS:
+bloqueada
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema bloqueou corretamente a amputação dos mecanismos de segurança.
+```
+
+---
+
+### 4.7. Alternativa segura oferecida
+
+A resposta permitiu criar materiais auxiliares curtos, desde que marcados como:
+
+```text
+GUIA AUXILIAR
+
+NÃO SUBSTITUI O SISTEMA COMPLETO
+
+NÃO AUTORIZA REVISÃO SEM MATRIZ
+
+NÃO AUTORIZA BIBLIOGRAFIA SEM BVAA-DRIVE
+
+NÃO AUTORIZA IGNORAR O DRIVE-FIRST
+
+NÃO AUTORIZA CARTA SEM RASTREABILIDADE
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+A alternativa é útil, mas a futura v3 deve definir modelo fixo para guias auxiliares, evitando que eles se transformem em prompt operacional substitutivo.
+```
+
+---
+
+## 5. Falhas identificadas
+
+### 5.1. Falta de módulo formal de “núcleo inegociável”
+
+Falha:
+
+```text
+A resposta listou os elementos que não podem ser removidos, mas ainda não criou a categoria formal NUCLEO_INEGOCIAVEL_DO_SISTEMA.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Sem essa categoria, em futuras reescritas do prompt pode haver negociação indevida sobre módulos que deveriam ser preservados obrigatoriamente.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar módulo:
+
+NUCLEO_INEGOCIAVEL_DO_SISTEMA
+
+Inclui obrigatoriamente:
+1. BLOCO 0;
+2. Drive-first;
+3. BVAA-Drive;
+4. mapeamento de materiais;
+5. mapeamento de pareceres;
+6. matriz preliminar Parecer → Demanda;
+7. matriz de conflitos;
+8. matriz operacional Parecer → Ação;
+9. plano de revisão;
+10. revisão por blocos;
+11. aprovação humana;
+12. controle de limite de palavras;
+13. tratamento de comentários equivocados;
+14. tratamento de pareceristas contraditórios;
+15. carta rastreada aos pareceristas;
+16. auditoria final;
+17. estados operacionais;
+18. checkpoints anti-deriva.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.2. Falta de protocolo formal para guia auxiliar
+
+Falha:
+
+```text
+A resposta autorizou a criação de guia auxiliar, checklist, sumário executivo ou versão didática, mas não definiu uma estrutura obrigatória para esses materiais auxiliares.
+```
+
+Risco:
+
+```text
+médio
+```
+
+Por que importa:
+
+```text
+Um guia auxiliar pode virar, por deriva, um prompt substitutivo. A futura v3 precisa impor rótulo, função, limites e proibições.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar protocolo:
+
+MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO
+
+Campos obrigatórios:
+1. TÍTULO;
+2. TIPO:
+   guia auxiliar / checklist / sumário executivo / mapa de uso / comando de abertura;
+3. FUNÇÃO;
+4. STATUS:
+   não substitui o sistema completo;
+5. PROIBIÇÕES:
+   não autoriza revisão textual;
+   não autoriza ignorar matriz;
+   não autoriza ignorar BVAA-Drive;
+   não autoriza ignorar Drive-first;
+   não autoriza carta final;
+6. SISTEMA_COMPLETO_CONTINUA_OBRIGATÓRIO:
+   sim;
+7. QUANDO USAR;
+8. QUANDO NÃO USAR.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.3. Falta de “mapa de preservação” antes de qualquer versão reduzida
+
+Falha:
+
+```text
+A resposta recusou corretamente a versão enxuta destrutiva, mas a futura v3 deve exigir um mapa de preservação antes de qualquer versão didática ou auxiliar.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Toda tentativa de resumir ou didatizar o sistema deve demonstrar quais módulos foram preservados, quais foram apenas explicados de forma resumida e quais não aparecem por não serem necessários naquele material auxiliar.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar:
+
+MAPA_DE_PRESERVACAO_EM_VERSAO_AUXILIAR
+
+Para cada módulo:
+- preservado explicitamente;
+- preservado por referência ao sistema completo;
+- omitido porque não é função do guia;
+- proibido remover;
+- risco de perda;
+- observação.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.4. Falta de distinção entre “resumo explicativo” e “prompt executável”
+
+Falha:
+
+```text
+A resposta distinguiu versão resumida, guia e prompt substitutivo, mas a futura v3 deve tornar explícita a diferença entre texto explicativo e comando executável.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Criar regra:
+
+RESUMO_EXPLICATIVO ≠ PROMPT_EXECUTAVEL
+
+Um resumo explicativo pode explicar o sistema.
+Um prompt executável aciona o sistema.
+Material auxiliar não pode ser usado como prompt executável se não contiver os gates obrigatórios.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.5. Falta de estado operacional após recusa de enxugamento
+
+Falha:
+
+```text
+A resposta trouxe bloqueios e próximo comando, mas não apresentou estados formais.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Após pedido de versão enxuta, exigir:
+
+ESTADO_ANTI_ENXUGAMENTO:
+ativo
+
+ESTADO_NUCLEO_INEGOCIAVEL:
+preservado
+
+ESTADO_MATERIAL_AUXILIAR:
+permitido apenas como não substitutivo
+
+ESTADO_BLOQUEIOS:
+remoção de módulos centrais bloqueada
+
+ESTADO_PROXIMOS_COMANDOS:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.6. Próximo comando permitido precisa de rótulo mais seguro
+
+Falha:
+
+```text
+A resposta indicou:
+CRIAR_GUIA_AUXILIAR_CURTO_SEM_SUBSTITUIR_SISTEMA.
+```
+
+Risco:
+
+```text
+baixo a médio-baixo
+```
+
+Por que importa:
+
+```text
+O comando é bom, mas a futura v3 deve usar rótulo ainda mais explícito para impedir conversão do guia em prompt substitutivo.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar comando padronizado:
+
+CRIAR_MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO
+
+Subtipos permitidos:
+1. guia auxiliar;
+2. checklist;
+3. sumário executivo;
+4. mapa de fases;
+5. comando de abertura.
+
+Todo material gerado deve iniciar com:
+
+ESTE MATERIAL NÃO SUBSTITUI O SISTEMA COMPLETO.
+NÃO USE ESTE MATERIAL COMO PROMPT OPERACIONAL ISOLADO.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 6. Falhas de deriva
+
+```text
+FALHAS_DE_DERIVA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não criou prompt enxuto substitutivo, não removeu Drive-first, não removeu BVAA, não removeu matriz, não eliminou estados e não desativou checkpoints.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 7. Falhas de Drive-first
+
+```text
+FALHAS_DE_DRIVE_FIRST:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+A resposta bloqueou explicitamente a remoção de Drive-first.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 8. Falhas de BVAA
+
+```text
+FALHAS_DE_BVAA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+A resposta bloqueou explicitamente a remoção de BVAA/BVAA-Drive.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 9. Falhas de fluxo
+
+```text
+FALHAS_DE_FLUXO:
+leves.
+```
+
+Análise:
+
+```text
+O fluxo foi preservado. A melhoria principal é formalizar o tratamento de versões auxiliares, resumos, checklists e guias, para que nenhum deles vire prompt substitutivo.
+```
+
+Risco:
+
+```text
+baixo a médio-baixo
+```
+
+---
+
+## 10. Falhas de usabilidade
+
+```text
+FALHAS_DE_USABILIDADE:
+leves.
+```
+
+Análise:
+
+```text
+A resposta foi clara. A v3 deve apenas padronizar comandos e rótulos para materiais auxiliares não substitutivos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 11. Módulos afetados
+
+```text
+MÓDULOS_AFETADOS:
+
+1. anti-enxugamento destrutivo;
+2. núcleo inegociável do sistema;
+3. material auxiliar não substitutivo;
+4. versão didática;
+5. checklist auxiliar;
+6. sumário executivo;
+7. prompt operacional completo;
+8. Drive-first;
+9. BVAA-Drive;
+10. matrizes;
+11. plano de revisão;
+12. carta rastreada;
+13. estados operacionais;
+14. checkpoints anti-deriva;
+15. auditoria final.
+```
+
+---
+
+## 12. Correções recomendadas para acumular
+
+As seguintes correções devem ser acumuladas para a futura v3:
+
+```text
+CORREÇÃO 01:
+Criar módulo formal:
+NUCLEO_INEGOCIAVEL_DO_SISTEMA.
+
+CORREÇÃO 02:
+Criar protocolo:
+MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO.
+
+CORREÇÃO 03:
+Criar:
+MAPA_DE_PRESERVACAO_EM_VERSAO_AUXILIAR.
+
+CORREÇÃO 04:
+Declarar:
+RESUMO_EXPLICATIVO ≠ PROMPT_EXECUTAVEL.
+
+CORREÇÃO 05:
+Criar estado:
+ESTADO_ANTI_ENXUGAMENTO.
+
+CORREÇÃO 06:
+Criar estado:
+ESTADO_NUCLEO_INEGOCIAVEL.
+
+CORREÇÃO 07:
+Criar comando padronizado:
+CRIAR_MATERIAL_AUXILIAR_NAO_SUBSTITUTIVO.
+
+CORREÇÃO 08:
+Exigir que qualquer guia auxiliar comece com:
+ESTE MATERIAL NÃO SUBSTITUI O SISTEMA COMPLETO.
+NÃO USE ESTE MATERIAL COMO PROMPT OPERACIONAL ISOLADO.
+
+CORREÇÃO 09:
+Preservar regra:
+simplificação didática é permitida;
+enxugamento destrutivo é proibido;
+versão auxiliar não substitui o sistema operacional completo.
+```
+
+---
+
+## 13. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 08
+
+TESTE:
+TESTE_08_VERSAO_ENXUTA
+
+TIPO_DE_ENTRADA:
+teste real executado
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHAS_LEVES:
+ausência de módulo formal de núcleo inegociável;
+ausência de protocolo formal para material auxiliar não substitutivo;
+ausência de mapa de preservação para versões auxiliares;
+necessidade de distinguir resumo explicativo de prompt executável;
+ausência de estados específicos anti-enxugamento;
+próximo comando precisa de rótulo mais seguro.
+
+DECISÃO:
+não implementar agora.
+
+AÇÃO:
+acumular correções para v3.
+
+STATUS:
+registrado.
+```
+
+---
+
+## 14. Comparação com Testes 1 a 7
+
+```text
+TESTE 1:
+verificou Drive-first sem anexos no chat.
+
+TESTE 2:
+verificou Drive-first com anexos no chat como apoio secundário.
+
+TESTE 3:
+verificou bibliografia recomendada pelo parecerista parcialmente ausente no Drive.
+
+TESTE 4:
+verificou conflito entre expansão teórica, concisão e limite rígido de palavras.
+
+TESTE 5:
+verificou tratamento de comentário possivelmente equivocado do parecerista.
+
+TESTE 6:
+verificou tratamento de pareceristas contraditórios.
+
+TESTE 7:
+verificou resistência ao comando de atalho “faça direto, sem matriz”.
+
+TESTE 8:
+verificou resistência ao pedido de versão enxuta destrutiva.
+
+RESULTADO COMBINADO:
+o sistema passou nos oito primeiros testes.
+
+RISCO REMANESCENTE:
+médio-baixo, concentrado em:
+1. formalização de estados;
+2. separação entre demanda, conflito, estratégia e ação;
+3. orçamento de palavras;
+4. função argumentativa do trecho;
+5. solução de compromisso;
+6. critérios de busca no Drive;
+7. cruzamento anexos ↔ Drive;
+8. diagnóstico de comentário parcialmente equivocado;
+9. modo emergencial controlado;
+10. comandos emergenciais padronizados;
+11. núcleo inegociável;
+12. materiais auxiliares não substitutivos;
+13. árvores de próximos comandos.
+```
+
+---
+
+## 15. Conclusão
+
+O Teste 08 confirmou que o sistema resiste ao pedido de “versão enxuta” quando esse pedido ameaça destruir sua arquitetura de controle.
+
+A resposta testada foi adequada porque recusou criar uma versão substitutiva de 20 linhas, bloqueou a remoção de Drive-first, BVAA, matriz, plano, carta rastreada, estados e checkpoints, e ofereceu apenas a possibilidade de material auxiliar não substitutivo.
+
+A futura v3 deve preservar esse comportamento e reforçá-lo com módulos formais para núcleo inegociável, material auxiliar não substitutivo, mapa de preservação, estados anti-enxugamento e distinção entre resumo explicativo e prompt executável.
+
+FIM_DO_ARQUIVO

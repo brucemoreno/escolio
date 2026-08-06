@@ -1,0 +1,70 @@
+{
+  "produto": "PACOTE_TAXONOMIA_INTERVENCAO_LLM_ACADEMICA_R01.zip",
+  "componente": "P06",
+  "revisao": "R01",
+  "status": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "37b5f673c015e5ad62bf855f2998f33c051698e4e08446034631d11757cf7093",
+      "tamanho_bytes": 1522
+    },
+    {
+      "nome": "01_TAXONOMIA_UNIVERSAL_DE_INTERVENCAO_P06_R01.md",
+      "sha256": "4773d4b41c44dd33247ead487222c23d4789f497e6c4408be4bbdc734960d2d1",
+      "tamanho_bytes": 2858
+    },
+    {
+      "nome": "02_DICIONARIO_DE_NIVEIS_DE_INTERVENCAO_P06_R01.csv",
+      "sha256": "caf9d441dfc3a30f9868442c14c870cfa13ced14747b0065809e90ac602fbea2",
+      "tamanho_bytes": 4551
+    },
+    {
+      "nome": "03_MATRIZ_DE_PERMISSOES_GATES_E_AUTORIDADES_P06_R01.csv",
+      "sha256": "caa3aebec87a7449fe1c950d023a19ed9b9a199e166570dcf48418456356852b",
+      "tamanho_bytes": 1612
+    },
+    {
+      "nome": "04_MATRIZ_DE_ESCALONAMENTO_E_REGRESSAO_P06_R01.csv",
+      "sha256": "5b46193711b8050767d0a06f3354e6ff6551c3dffb5d2dde000b845d9e791483",
+      "tamanho_bytes": 1296
+    },
+    {
+      "nome": "05_PROTOCOLO_DE_AUTORIZACAO_E_ABSTENCAO_P06_R01.txt",
+      "sha256": "556790fc46f1f95db4d7de70fac5d4dbeb34d2fc8dd7c7215db279008bbf616d",
+      "tamanho_bytes": 1189
+    },
+    {
+      "nome": "06_PROTOCOLO_DE_INTERVENCAO_EM_OBJETOS_CONGELADOS_P06_R01.txt",
+      "sha256": "b92c67a5432dc02de151a57ab4865e7977666d70a0fe027a42663de600031ee2",
+      "tamanho_bytes": 944
+    },
+    {
+      "nome": "07_MAPA_DE_PROVENIENCIA_E_REVERSIBILIDADE_P06_R01.jsonl",
+      "sha256": "32a16addfc5ffb7541f08ea2707272fd78f9792d6796ad92f33a8f8b0cc51399",
+      "tamanho_bytes": 945
+    },
+    {
+      "nome": "08_REGISTRO_DE_LACUNAS_E_CONFLITOS_P06_R01.jsonl",
+      "sha256": "8887804052d2cce9e67bdcf3e61857fb7c4541d1822c712164e8b657df4b1167",
+      "tamanho_bytes": 771
+    },
+    {
+      "nome": "09_TESTE_DE_AUTORIZACAO_P06_R01.txt",
+      "sha256": "7012e8dbe60791b03d4a06d8bc4f37884eb4cd0750bae52c7ff74f4600b7ef50",
+      "tamanho_bytes": 1919
+    },
+    {
+      "nome": "10_DIAGNOSTICO_FINAL_P06_R01.txt",
+      "sha256": "41eb8dcca26b85c66937899e429b6b342d65c96cc1bba71f7895005c8cecab52",
+      "tamanho_bytes": 789
+    }
+  ],
+  "controles": {
+    "R03_alterada": false,
+    "P00_P05_reexecutados_ou_reabertos": false,
+    "P07_P28_iniciados": false,
+    "auto_homologacao": false,
+    "conteudo_outro_projeto_importado": false
+  }
+}

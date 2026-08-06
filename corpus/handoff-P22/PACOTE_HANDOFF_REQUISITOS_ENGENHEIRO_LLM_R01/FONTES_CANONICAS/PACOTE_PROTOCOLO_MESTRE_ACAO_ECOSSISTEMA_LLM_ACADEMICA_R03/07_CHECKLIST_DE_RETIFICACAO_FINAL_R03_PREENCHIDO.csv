@@ -1,0 +1,10 @@
+item,exigencia_da_auditoria_R02,status_R03,evidencia_R03,limite_da_operacao
+FINAL-BLOQ-01,Eliminar dependência ambígua remanescente,RETIFICADO,"Protocolo seção 7; inventário com colunas obrigatórias/condicionais; matriz F4 com P10, P11, P12, P13 e P14 enumerados",Nenhuma função alterada
+FINAL-BLOQ-02,"Propagar P15, P16, P17 e P18 para P19 e P20 quando ativados",RETIFICADO,Inventário P19/P20/P22; matriz F5/F6; protocolo Fases 5 e 6,Módulos não ativados continuam não bloqueantes
+FINAL-BLOQ-03,Criar registro direto de pacotes válidos e invalidados,RETIFICADO,10_REGISTRO_PRINCIPAL_DE_PACOTES_STATUS_E_PRECEDENCIA_R03.csv,"Status não comprovado foi bloqueado, não inferido"
+FINAL-BLOQ-04,Criar cobertura e proveniência para cada P-ID,RETIFICADO,08_MAPA_INTEGRAL_DE_COBERTURA_E_PROVENIENCIA_R03.csv contém P00 a P28,Origens ainda não comprovadas marcadas para levantamento
+REGRESSAO-01,Preservar inventário VK-FUNC,PRESERVADO,VK-FUNC-001 a VK-FUNC-044 inalterados,Nenhum ID criado
+REGRESSAO-02,Preservar profiles e contextos,PRESERVADO,"Seis profiles V117; geografia, tempo e interseções separados",Nenhum módulo criado
+REGRESSAO-03,"Bloquear treinamento, RAG, fine-tuning e implementação",PRESERVADO,"Arquivos 00, 04 e 11",Nenhuma operação técnica iniciada
+REGRESSAO-04,Não homologar automaticamente,PRESERVADO,R03 aguarda verificação final restrita,Sem congelamento
+ANTI-REC-01,Impedir nova expansão no ciclo,ATIVO,00_LEIA_PRIMEIRO e 11_REGISTRO_DE_DECISOES_E_PENDENCIAS_R03.json,"Próxima verificação limitada aos quatro bloqueadores, integridade e regressão"

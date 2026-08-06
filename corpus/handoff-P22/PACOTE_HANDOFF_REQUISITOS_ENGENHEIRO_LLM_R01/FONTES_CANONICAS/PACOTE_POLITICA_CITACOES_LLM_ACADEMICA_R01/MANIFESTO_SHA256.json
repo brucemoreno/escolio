@@ -1,0 +1,70 @@
+{
+  "produto": "PACOTE_SCHEMA_AFIRMACAO_EVIDENCIA_LLM_ACADEMICA_R01.zip",
+  "componente": "P05",
+  "revisao": "R01",
+  "algoritmo": "SHA-256",
+  "regra": "MANIFESTO_NAO_REFERENCIA_A_SI_MESMO",
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "d6a7c79d55c4bf75e7b8dddebe15e67a9056c249190a68e075c9e273b1db09e3",
+      "tamanho_bytes": 1702
+    },
+    {
+      "nome": "01_SCHEMA_AFIRMACAO_EVIDENCIA_P05_R01.md",
+      "sha256": "ae4b32d908f9517c9fa6c73e976d08ad3332d602b0c40e7d62ca97bf8d86f17e",
+      "tamanho_bytes": 5229
+    },
+    {
+      "nome": "02_DICIONARIO_DE_DADOS_P05_R01.csv",
+      "sha256": "ef5ac97d8adf0f131d08b3111c224980fb75f9ec74b4ebcd94c1257dc7bd5eea",
+      "tamanho_bytes": 6270
+    },
+    {
+      "nome": "03_VOCABULARIO_CONTROLADO_DE_STATUS_P05_R01.csv",
+      "sha256": "4cb9040c476ee68d0c4e8735ac280978a916a4b1a97dabbcd7da4d2c88fd2645",
+      "tamanho_bytes": 2587
+    },
+    {
+      "nome": "04_REGRAS_DE_COERENCIA_E_INCOMPATIBILIDADE_P05_R01.csv",
+      "sha256": "68abefe938e34f04bb7355a601a89b8d8a8eafaae67ea1f50ff2177c08f30780",
+      "tamanho_bytes": 2948
+    },
+    {
+      "nome": "05_MATRIZ_DE_SUFICIENCIA_E_CONFIANCA_P05_R01.csv",
+      "sha256": "94cc68943ac5aca1bb855fc021ba001413dcf59dfd35e0f2368427f3a9108a5c",
+      "tamanho_bytes": 2987
+    },
+    {
+      "nome": "06_PROTOCOLO_DE_IDENTIFICADORES_E_VERSIONAMENTO_P05_R01.txt",
+      "sha256": "f236fe782d5b70e6c95e3099635f6654573c812c146890332eba06016a2a1f6a",
+      "tamanho_bytes": 2003
+    },
+    {
+      "nome": "07_PROTOCOLO_DE_RASTREABILIDADE_BIDIRECIONAL_P05_R01.txt",
+      "sha256": "73f05fe50564d51a67fd72265ebed8fad4de0c913570c31a13d18f045cf7f483",
+      "tamanho_bytes": 2023
+    },
+    {
+      "nome": "08_REGISTRO_DE_LACUNAS_E_CONFLITOS_P05_R01.jsonl",
+      "sha256": "4ceb6f1451bb82ac2a69fb46ec91bc99f834ec6eea48501e75b9fd5e01539d1e",
+      "tamanho_bytes": 1391
+    },
+    {
+      "nome": "09_TESTE_DE_RASTREABILIDADE_P05_R01.txt",
+      "sha256": "38390a9bd5672abc6359ee7e397916aac7210cc35dff9aca424ebfd1d3bbd199",
+      "tamanho_bytes": 2273
+    },
+    {
+      "nome": "10_DIAGNOSTICO_FINAL_P05_R01.txt",
+      "sha256": "36626310aa2328e1645f8fa7f0fc4dbdf35c26357bc8eb57c5441b881680283e",
+      "tamanho_bytes": 1277
+    }
+  ],
+  "estado": {
+    "P00_P04": "HOMOLOGADOS_E_CONGELADOS",
+    "P05": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+    "R03": "INALTERADA",
+    "P06_P28": "NAO_INICIADOS"
+  }
+}

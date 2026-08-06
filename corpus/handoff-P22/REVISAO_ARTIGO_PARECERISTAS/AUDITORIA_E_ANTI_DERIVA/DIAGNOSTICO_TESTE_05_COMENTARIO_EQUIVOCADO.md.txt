@@ -1,0 +1,868 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_TESTE_05_COMENTARIO_EQUIVOCADO
+
+## 1. Identificação do diagnóstico
+
+```text
+TESTE_ID:
+TESTE_05_COMENTARIO_EQUIVOCADO
+
+VERSÃO_TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO_DE_TESTE:
+teste real de comportamento do sistema
+
+MODO_DE_AUDITORIA:
+auditoria de resposta integral colada pelo usuário
+
+OBJETIVO_DO_TESTE:
+verificar se o sistema consegue lidar com comentário possivelmente equivocado de parecerista sem obedecer cegamente, sem tratar o parecerista como adversário, sem alterar a tese do artigo indevidamente, sem reescrever o artigo e sem gerar carta aos pareceristas antes da hora.
+
+STATUS_DO_TESTE:
+executado
+
+STATUS_DO_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO:
+aprovado com ressalvas leves
+
+RISCO_GERAL:
+baixo
+
+RESULTADO:
+o sistema passou no núcleo do Teste 05.
+
+PONTO MAIS FORTE:
+o sistema não tratou o comentário do parecerista como verdade automática e, ao mesmo tempo, não adotou tom defensivo ou hostil. Classificou a situação como comentário parcialmente equivocado, possivelmente derivado de ambiguidade textual.
+
+PONTO A MONITORAR:
+a resposta usou a expressão “atender parcialmente” já na etapa diagnóstica. Isso é aceitável como orientação preliminar, mas a futura v3 deve separar melhor diagnóstico, estratégia e decisão operacional.
+```
+
+---
+
+## 3. Resultado observado
+
+A resposta testada apresentou os seguintes comportamentos:
+
+```text
+1. reconheceu que o comentário do parecerista pode ser equivocado, parcialmente equivocado ou derivado de ambiguidade textual;
+
+2. declarou que comentário de parecerista não é verdade automática;
+
+3. declarou que o sistema não deve tratar o parecerista como adversário;
+
+4. evitou tom defensivo;
+
+5. distinguiu:
+   - o que o artigo afirma;
+   - o que o parecerista atribui ao artigo;
+   - a diferença central entre ambos;
+   - possível causa da leitura do parecerista;
+
+6. classificou o comentário como COMENTARIO_PARCIALMENTE_EQUIVOCADO;
+
+7. acrescentou classificações secundárias:
+   - PEDIDO_DE_CLAREZA;
+   - CRITICA_CONCEITUAL;
+
+8. avaliou risco de obedecer integralmente ao parecerista;
+
+9. avaliou risco de ignorar completamente o comentário;
+
+10. recomendou estratégia diagnóstica sem reescrever o artigo;
+
+11. criou matriz preliminar Parecer → Demanda;
+
+12. estabeleceu trava de preservação da tese autoral;
+
+13. propôs esquema diplomático futuro de resposta ao parecerista, sem redigir carta final;
+
+14. manteve bloqueadas:
+   - reescrita do artigo;
+   - reformulação da base teórica;
+   - matriz operacional definitiva;
+   - carta aos pareceristas;
+   - declaração de comentário atendido;
+   - alteração da tese do artigo;
+
+15. indicou comandos bloqueados e condições de desbloqueio;
+
+16. indicou próximo comando permitido:
+COMANDO 1 — MAPEAR PARECERES.
+```
+
+---
+
+## 4. Evidências positivas
+
+### 4.1. Comentário de parecerista não foi tratado como verdade automática
+
+A resposta declarou:
+
+```text
+Comentário de parecerista não é verdade automática: ele precisa ser interpretado, classificado e respondido com rastreabilidade.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse é um princípio central do sistema. O teste confirma que o assistente não obedeceu cegamente ao parecerista.
+```
+
+---
+
+### 4.2. O sistema não tratou o parecerista como inimigo
+
+A resposta declarou que o sistema:
+
+```text
+não deve tratar o parecerista como adversário nem responder em tom defensivo.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A resposta preservou a diplomacia editorial. Isso é fundamental para a futura carta aos pareceristas.
+```
+
+---
+
+### 4.3. Distinção correta entre tese do artigo e atribuição do parecerista
+
+A resposta distinguiu:
+
+```text
+O QUE O ARTIGO EFETIVAMENTE AFIRMA:
+O artigo rejeita uma compreensão linear da circulação científica como simples difusão de um centro europeu para periferias coloniais. Defende mediações locais, traduções, deslocamentos, redes de coleta, agentes intermediários e condições materiais situadas.
+
+O QUE O PARECERISTA ATRIBUI AO ARTIGO:
+O parecerista afirma que o artigo parece defender uma visão difusionista tradicional, eurocêntrica, na qual a ciência europeia se espalharia para espaços coloniais passivos.
+
+DIFERENÇA CENTRAL:
+A atribuição do parecerista contradiz a formulação explícita do trecho fornecido.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema protegeu a tese efetiva do artigo contra uma reformulação indevida baseada na leitura possivelmente equivocada do parecerista.
+```
+
+---
+
+### 4.4. Classificação equilibrada do comentário
+
+A resposta classificou o comentário como:
+
+```text
+CLASSIFICAÇÃO PRINCIPAL:
+COMENTARIO_PARCIALMENTE_EQUIVOCADO
+
+CLASSIFICAÇÕES SECUNDÁRIAS:
+PEDIDO_DE_CLAREZA
+CRITICA_CONCEITUAL
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A classificação foi prudente. O sistema não disse simplesmente “o parecerista está errado”. Reconheceu que a leitura pode revelar uma falha real de explicitação na introdução.
+```
+
+---
+
+### 4.5. Avaliação correta dos riscos
+
+A resposta avaliou:
+
+```text
+RISCO DE OBEDECER INTEGRALMENTE AO PARECERISTA:
+alto
+
+RISCO DE IGNORAR COMPLETAMENTE O COMENTÁRIO:
+médio a alto
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A resposta evitou dois extremos: reformular toda a base teórica sem necessidade ou descartar completamente a crítica.
+```
+
+---
+
+### 4.6. Estratégia recomendada sem reescrita prematura
+
+A resposta recomendou:
+
+```text
+atender parcialmente ao comentário, não por submissão à interpretação do parecerista, mas por reforço de clareza teórica.
+```
+
+E propôs ações futuras como:
+
+```text
+1. esclarecer já na introdução que o artigo não adota modelo difusionista linear;
+
+2. reforçar a oposição entre difusão linear e circulação situada;
+
+3. explicitar melhor os conceitos de mediação, tradução, redes, deslocamento e produção situada;
+
+4. verificar se o desenvolvimento do artigo sustenta essa posição de modo consistente;
+
+5. evitar reformulação total da base teórica se ela já é antidifusionista;
+
+6. preparar resposta diplomática futura indicando que o texto foi ajustado para tornar mais explícita uma posição que já orientava o argumento.
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+A estratégia é tecnicamente boa. A ressalva é que a expressão “atender parcialmente” pertence melhor à matriz estratégica ou operacional, não à matriz preliminar pura.
+```
+
+---
+
+### 4.7. Trava de preservação da tese autoral
+
+A resposta registrou:
+
+```text
+É PROIBIDO:
+reescrever o artigo como se ele tivesse defendido difusionismo tradicional, se o argumento original rejeita essa perspectiva.
+
+É PERMITIDO:
+reforçar, esclarecer e tornar mais visível a posição antidifusionista, desde que isso não substitua a tese do autor pela interpretação equivocada do parecerista.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Essa trava deve ser preservada na v3. Ela protege o artigo contra obediência cega ao parecerista.
+```
+
+---
+
+### 4.8. Esquema de resposta diplomática sem carta final
+
+A resposta produziu apenas um esquema:
+
+```text
+1. Agradecer a observação do parecerista.
+2. Reconhecer que a formulação anterior podia não explicitar suficientemente a posição teórica do artigo.
+3. Esclarecer que o objetivo do artigo não é defender um modelo difusionista linear.
+4. Informar que a introdução foi ajustada para deixar mais evidente a ênfase em circulação, mediações locais, tradução, redes e produção situada do conhecimento.
+5. Indicar o local do ajuste no artigo revisado.
+6. Evitar dizer que o parecerista “entendeu errado”.
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+O sistema não gerou carta final prematura. Porém, a futura v3 deve ter um rótulo formal para esse tipo de saída: ESBOÇO_NÃO_FINAL_DE_RESPOSTA_DIPLOMÁTICA.
+```
+
+---
+
+## 5. Falhas identificadas
+
+### 5.1. Matriz preliminar ainda misturou demanda e encaminhamento
+
+Falha:
+
+```text
+A matriz foi apresentada como preliminar e diagnóstica, mas incluiu “encaminhamento preliminar” com expressões como “atender parcialmente” e “não obedecer literalmente”.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+A matriz preliminar Parecer → Demanda deveria registrar atribuição, diagnóstico e demanda provável, sem ainda decidir ação. Expressões como “atender parcialmente” pertencem à matriz operacional ou, no máximo, a uma matriz estratégica posterior.
+```
+
+Correção recomendada para v3:
+
+```text
+Separar:
+
+1. MATRIZ PRELIMINAR PARECER → DEMANDA
+Mapeia comentário, atribuição, diagnóstico e demanda provável.
+
+2. MATRIZ DE INTERPRETAÇÃO CRÍTICA
+Avalia se o comentário é equivocado, parcialmente equivocado, ambíguo, pertinente ou fora de escopo.
+
+3. MATRIZ OPERACIONAL PARECER → AÇÃO
+Define atender, atender parcialmente, responder sem alterar, recusar diplomaticamente ou pedir decisão humana.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.2. Falta de protocolo formal para “ambiguidade textual real”
+
+Falha:
+
+```text
+A resposta reconheceu que a leitura do parecerista pode decorrer de ambiguidade textual, mas a futura v3 deve criar um protocolo específico para distinguir erro do parecerista de falha de explicitação do artigo.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Um parecerista pode estar errado e, ainda assim, revelar um problema real de legibilidade, sinalização ou arquitetura argumentativa.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar protocolo:
+
+DIAGNOSTICO_DE_AMBIGUIDADE_TEXTUAL
+
+ID_DO_COMENTARIO:
+[...]
+
+ATRIBUIÇÃO_DO_PARECERISTA:
+[...]
+
+O_ARTIGO_AFIRMA_ISSO?
+sim / não / parcialmente / incerto
+
+TRECHO_DO_ARTIGO_QUE_CONTRADIZ_A_ATRIBUIÇÃO:
+[...]
+
+POSSÍVEL_CAUSA_DA_LEITURA:
+ambiguidade na introdução / sinalização fraca / termo ambíguo / estrutura confusa / desenvolvimento contraditório / leitura equivocada / incerto
+
+AÇÃO_DIAGNÓSTICA_RECOMENDADA:
+verificar artigo completo / verificar introdução / mapear recorrência do problema / pedir decisão humana
+
+STATUS:
+diagnosticado / pendente de artigo completo / pendente de decisão humana
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.3. Falta de status formal para “comentário parcialmente equivocado”
+
+Falha:
+
+```text
+A resposta classificou corretamente como COMENTARIO_PARCIALMENTE_EQUIVOCADO, mas a futura v3 precisa definir esse tipo como categoria autônoma na tipologia dos comentários.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Adicionar à tipologia:
+
+COMENTARIO_PARCIALMENTE_EQUIVOCADO:
+comentário que atribui ao artigo algo que ele não sustenta integralmente, mas que pode revelar falha de explicitação, ambiguidade, sinalização insuficiente ou problema real de formulação.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.4. Falta de “grau de responsabilidade textual”
+
+Falha:
+
+```text
+A resposta reconheceu que a leitura do parecerista pode ser equivocada ou derivada de ambiguidade do artigo, mas não atribuiu grau de responsabilidade textual do próprio artigo pela leitura.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Nem todo comentário equivocado deve ser respondido da mesma forma. Se o artigo contribuiu para a ambiguidade, a resposta deve ser diferente de um caso em que o parecerista simplesmente atribuiu uma tese inexistente.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar campo:
+
+GRAU_DE_RESPONSABILIDADE_TEXTUAL_DO_ARTIGO:
+nenhum / baixo / médio / alto / incerto
+
+CRITÉRIO:
+- nenhum: o trecho fornecido contradiz claramente a leitura do parecerista;
+- baixo: há algum termo ambíguo, mas a tese geral está clara;
+- médio: a tese aparece, mas está mal sinalizada;
+- alto: o texto realmente permite a interpretação problemática;
+- incerto: exige leitura do artigo completo.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.5. Falta de rótulo para resposta diplomática não final
+
+Falha:
+
+```text
+A resposta apresentou um esquema de resposta diplomática futura, mas sem rótulo formal que impeça confusão com carta aos pareceristas.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Criar rótulo obrigatório:
+
+ESBOÇO_NÃO_FINAL_DE_RESPOSTA_DIPLOMÁTICA
+
+Regra:
+este esboço não é carta final, não deve ser enviado à revista, não prova atendimento ao parecerista e só pode ser convertido em carta após alterações efetivas, rastreadas e aprovadas.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.6. Próximo comando permitido foi adequado, mas poderia oferecer caminhos alternativos
+
+Falha:
+
+```text
+A resposta indicou COMANDO 1 — MAPEAR PARECERES como próximo comando permitido. Isso é correto, mas poderia oferecer também a alternativa de mapear o artigo completo quando ele estiver disponível.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Ao final de comentário equivocado, apresentar:
+
+PRÓXIMOS CAMINHOS PERMITIDOS:
+
+OPÇÃO A:
+COMANDO 1 — MAPEAR PARECERES
+
+OPÇÃO B:
+COMANDO 0 — MAPEAR MATERIAIS, se o artigo completo ainda não foi carregado
+
+OPÇÃO C:
+MAPEAR TRECHOS DO ARTIGO RELACIONADOS AO COMENTÁRIO
+
+OPÇÃO D:
+AGUARDAR ARTIGO COMPLETO E PARECER COMPLETO
+
+COMANDOS BLOQUEADOS:
+[...]
+
+CONDIÇÕES DE DESBLOQUEIO:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.7. Falta de estado operacional cumulativo completo
+
+Falha:
+
+```text
+A resposta trouxe bloqueios e comandos, mas não apresentou ESTADO_REVISAO_PARECERISTAS nem ESTADO_COMENTARIOS_EQUIVOCADOS.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Criar estado específico:
+
+ESTADO_COMENTARIOS_EQUIVOCADOS
+
+COMENTARIOS_EQUIVOCADOS:
+[...]
+
+COMENTARIOS_PARCIALMENTE_EQUIVOCADOS:
+[...]
+
+COMENTARIOS_AMBIGUOS:
+[...]
+
+COMENTARIOS_QUE_EXIGEM_ARTIGO_COMPLETO:
+[...]
+
+COMENTARIOS_QUE_EXIGEM_DECISAO_HUMANA:
+[...]
+
+STATUS:
+pendente / diagnosticado / integrado à matriz / respondido na carta
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 6. Falhas de deriva
+
+```text
+FALHAS_DE_DERIVA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não obedeceu cegamente ao parecerista, não reescreveu o artigo, não gerou carta final e não tratou o parecerista como inimigo.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 7. Falhas de BVAA
+
+```text
+FALHAS_DE_BVAA:
+não aplicável de forma central neste teste.
+```
+
+Análise:
+
+```text
+O teste não dependia de bibliografia aberta nem de leitura de PDF. Mesmo assim, o sistema não inventou referência, citação, página ou argumento bibliográfico.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 8. Falhas de fluxo
+
+```text
+FALHAS_DE_FLUXO:
+leves.
+```
+
+Análise:
+
+```text
+O fluxo foi preservado, mas a v3 deve separar melhor:
+1. diagnóstico de comentário equivocado;
+2. matriz preliminar de demanda;
+3. matriz de interpretação crítica;
+4. matriz operacional de ação;
+5. esboço não final de resposta diplomática.
+```
+
+Risco:
+
+```text
+baixo a médio-baixo
+```
+
+---
+
+## 9. Falhas de usabilidade
+
+```text
+FALHAS_DE_USABILIDADE:
+leves.
+```
+
+Análise:
+
+```text
+A resposta foi clara, mas a próxima versão deve orientar melhor o usuário com uma árvore de próximos caminhos permitidos e estados operacionais específicos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 10. Módulos afetados
+
+```text
+MÓDULOS_AFETADOS:
+
+1. tipologia dos comentários;
+2. tratamento de comentários equivocados;
+3. tratamento de comentários parcialmente equivocados;
+4. diagnóstico de ambiguidade textual;
+5. preservação da tese autoral;
+6. matriz preliminar Parecer → Demanda;
+7. matriz operacional Parecer → Ação;
+8. resposta diplomática aos pareceristas;
+9. bloqueio contra carta prematura;
+10. próximos comandos permitidos;
+11. estados operacionais cumulativos.
+```
+
+---
+
+## 11. Correções recomendadas para acumular
+
+As seguintes correções devem ser acumuladas para a futura v3:
+
+```text
+CORREÇÃO 01:
+Criar categoria formal:
+COMENTARIO_PARCIALMENTE_EQUIVOCADO.
+
+CORREÇÃO 02:
+Criar protocolo:
+DIAGNOSTICO_DE_AMBIGUIDADE_TEXTUAL.
+
+CORREÇÃO 03:
+Criar campo:
+GRAU_DE_RESPONSABILIDADE_TEXTUAL_DO_ARTIGO.
+
+CORREÇÃO 04:
+Separar:
+MATRIZ PRELIMINAR PARECER → DEMANDA;
+MATRIZ DE INTERPRETAÇÃO CRÍTICA;
+MATRIZ OPERACIONAL PARECER → AÇÃO.
+
+CORREÇÃO 05:
+Criar rótulo:
+ESBOÇO_NÃO_FINAL_DE_RESPOSTA_DIPLOMÁTICA.
+
+CORREÇÃO 06:
+Criar estado:
+ESTADO_COMENTARIOS_EQUIVOCADOS.
+
+CORREÇÃO 07:
+Criar árvore de próximos caminhos permitidos para comentário equivocado.
+
+CORREÇÃO 08:
+Preservar regra:
+parecerista pode estar errado, parcialmente correto ou ter identificado uma ambiguidade real; o sistema deve responder com diplomacia, rastreabilidade e preservação da tese autoral.
+```
+
+---
+
+## 12. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 05
+
+TESTE:
+TESTE_05_COMENTARIO_EQUIVOCADO
+
+TIPO_DE_ENTRADA:
+teste real executado
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHAS_LEVES:
+matriz preliminar misturou diagnóstico e encaminhamento;
+ausência de protocolo formal para ambiguidade textual;
+ausência de grau de responsabilidade textual do artigo;
+ausência de categoria autônoma para comentário parcialmente equivocado;
+ausência de rótulo para resposta diplomática não final;
+ausência de estado operacional específico para comentários equivocados.
+
+DECISÃO:
+não implementar agora.
+
+AÇÃO:
+acumular correções para v3.
+
+STATUS:
+registrado.
+```
+
+---
+
+## 13. Comparação com Testes 1, 2, 3 e 4
+
+```text
+TESTE 1:
+verificou Drive-first sem anexos no chat.
+
+TESTE 2:
+verificou Drive-first com anexos no chat como apoio secundário.
+
+TESTE 3:
+verificou bibliografia recomendada pelo parecerista parcialmente ausente no Drive.
+
+TESTE 4:
+verificou conflito entre expansão teórica, concisão e limite rígido de palavras.
+
+TESTE 5:
+verificou tratamento de comentário possivelmente equivocado do parecerista.
+
+RESULTADO COMBINADO:
+o sistema passou nos cinco primeiros testes.
+
+RISCO REMANESCENTE:
+médio-baixo, concentrado em:
+1. formalização de estados;
+2. separação entre demanda, interpretação crítica e ação;
+3. critérios de busca;
+4. cruzamento anexos ↔ Drive;
+5. orçamento de palavras;
+6. matriz de conflitos;
+7. protocolo de comentário parcialmente equivocado;
+8. diagnóstico de ambiguidade textual;
+9. árvores de próximos comandos.
+```
+
+---
+
+## 14. Conclusão
+
+O Teste 05 confirmou que o sistema consegue lidar com comentário possivelmente equivocado de parecerista sem obediência cega e sem hostilidade editorial.
+
+A resposta testada foi adequada porque reconheceu que o parecerista pode ter feito uma leitura equivocada, mas também percebeu que essa leitura pode revelar uma falha real de explicitação do artigo. A estratégia proposta foi correta: esclarecer e reforçar a posição do artigo sem substituir sua tese pela interpretação do parecerista.
+
+A futura v3 deve preservar esse comportamento e reforçá-lo com protocolos formais para comentário parcialmente equivocado, ambiguidade textual, grau de responsabilidade textual do artigo, resposta diplomática não final e estados operacionais específicos.
+
+FIM_DO_ARQUIVO

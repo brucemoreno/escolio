@@ -1,0 +1,7 @@
+﻿perfil;fontes;confianca;autoridade;gate
+PERFIL_NEUTRO_ACADEMICO_CONTROLADO;contrato universal + exigência institucional;NAO_APLICAVEL;Executor com autorização de uso neutro;GATE_NEUTRO
+PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS;múltiplas amostras autorizadas;MEDIA_OU_ALTA;Executor + Auditor;GATE_AMOSTRAS
+PERFIL_AUTORAL_DECLARADO_PELO_USUARIO;declaração autoral;MEDIA_OU_ALTA;USUARIO_PROPONENTE;GATE_DECLARACAO
+PERFIL_HIBRIDO_DECLARACAO_MAIS_AMOSTRAS;declaração + amostras;ALTA_SE_CONVERGENTE;USUARIO_PROPONENTE + Executor;GATE_HIBRIDO
+PERFIL_LOCAL_POR_GENERO_OU_SECAO;perfil vigente + restrição local;MEDIA_OU_ALTA;USUARIO_PROPONENTE/Controlador;GATE_LOCAL
+PERFIL_INSUFICIENTE_OU_CONFLITANTE;evidência insuficiente/conflitante;BAIXA;"Qualquer papel registra; usuário decide";GATE_ABSTENCAO

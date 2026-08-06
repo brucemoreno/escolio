@@ -1,0 +1,26 @@
+INICIO_DO_PROTOCOLO
+
+CONGELAMENTO:
+1. Somente o USUARIO_PROPONENTE homologa e congela.
+2. O objeto, sua revisão e seu SHA-256 devem constar do termo.
+3. Auditoria aprovada não equivale a homologação.
+4. Objeto congelado não pode ser editado in situ.
+
+REABERTURA:
+1. Exige erro material novo.
+2. Exige evidência documental e impacto comprovado.
+3. Exige autorização autoral específica.
+4. Gera revisão sucessora não homologada; preserva a controladora anterior.
+5. Divergência formal sem impacto é registrada, mas não reabre automaticamente.
+6. Divergência não comprovada preserva o estado.
+
+SUBSTITUICAO:
+1. Nova revisão só controla após auditoria aplicável e homologação expressa.
+2. A revisão anterior permanece histórica e recuperável.
+3. Material invalidado não pode ser reativado como vigente.
+4. Precedência deve constar de matriz e termo.
+
+REVERSIBILIDADE:
+Retorno sempre ocorre ao último objeto homologado e congelado, sem apagar trilha documental.
+
+FIM_DO_PROTOCOLO

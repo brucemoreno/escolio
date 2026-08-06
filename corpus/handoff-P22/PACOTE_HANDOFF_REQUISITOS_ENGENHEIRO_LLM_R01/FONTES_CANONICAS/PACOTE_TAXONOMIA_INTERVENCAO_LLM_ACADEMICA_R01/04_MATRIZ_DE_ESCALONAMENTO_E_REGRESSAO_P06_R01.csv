@@ -1,0 +1,14 @@
+﻿nivel_origem;nivel_destino;condicao_escalonamento;status;regressao_segura
+OBSERVACAO;DIAGNOSTICO;evidência suficiente;permitido;regredir a observação
+DIAGNOSTICO;SINALIZACAO;relevância confirmada;permitido;regredir ao diagnóstico
+SINALIZACAO;RECOMENDACAO;pedido consultivo ou autoridade competente;permitido;manter sinalização
+RECOMENDACAO;PROPOSTA;pedido de solução concreta;permitido;manter recomendação
+PROPOSTA;SIMULACAO;pedido expresso sem aplicação;permitido;descartar simulação preservando proposta
+SIMULACAO;EDICAO_LOCAL;autorização humana expressa;permitido;retornar à simulação
+EDICAO_LOCAL;REESCRITA;ampliação expressamente autorizada;permitido;restaurar versão anterior
+REESCRITA;REORGANIZACAO;gate estrutural específico;permitido;retornar à reescrita
+REORGANIZACAO;FUSAO;gate crítico específico;permitido;desfazer via mapa de origem
+REORGANIZACAO;CORTE;gate crítico + preservação;permitido;restaurar removido
+QUALQUER_EXECUCAO;VALIDACAO;produto concluído e autoridade independente;permitido;retornar ao estado pré-validação
+VALIDACAO;HOMOLOGACAO;veredito apto e decisão autoral;permitido apenas ao usuário;manter não homologado
+QUALQUER_NIVEL;ABSTENCAO;gate ausente/conflito/risco;obrigatório;retomar apenas com nova evidência

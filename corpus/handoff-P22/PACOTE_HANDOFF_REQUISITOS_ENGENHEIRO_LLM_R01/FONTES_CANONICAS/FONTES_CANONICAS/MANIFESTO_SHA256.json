@@ -1,0 +1,63 @@
+{
+  "produto": "PACOTE_NUCLEO_TRANSVERSAL_LLM_ACADEMICA_R01.zip",
+  "algoritmo": "SHA-256",
+  "regra_nao_circular": "Este manifesto não inclui o próprio hash.",
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "c32db6a43c16ecfdb7c44022cbb7d5b65ee7ae5aa94cb4dbd9e0cbe10b27a6a0",
+      "tamanho_bytes": 1035
+    },
+    {
+      "nome": "01_POLITICAS_TRANSVERSAIS_P03_R01.md",
+      "sha256": "90de052a597b170c95443926426bec51ce2216dc0e0b7be7aed7b2cc43568489",
+      "tamanho_bytes": 12362
+    },
+    {
+      "nome": "02_MAQUINA_DE_ESTADOS_DOCUMENTAL_P03_R01.csv",
+      "sha256": "30d1177398ab36287c9e3dc99850b6f8a9bdb88f9a5ffd3aec906ed6c028bd66",
+      "tamanho_bytes": 2145
+    },
+    {
+      "nome": "03_MATRIZ_DE_GATES_E_AUTORIDADES_P03_R01.csv",
+      "sha256": "67c5cecb1ea01f665d79e3b9c7e2fa00479453ca78a38dbca01e909673aed959",
+      "tamanho_bytes": 1144
+    },
+    {
+      "nome": "04_MATRIZ_DE_PROVENIENCIA_E_REVERSIBILIDADE_P03_R01.csv",
+      "sha256": "48151f4417156301d212b51843d6c35adf4caad1ecc91af9a30e8c83d56f896f",
+      "tamanho_bytes": 2862
+    },
+    {
+      "nome": "05_PROTOCOLO_DE_CONGELAMENTO_REABERTURA_E_SUBSTITUICAO_P03_R01.txt",
+      "sha256": "dd91c5f8fd0d335862ad825a2d64e1f13cc0c65134e7efe976b8d7a250dfac74",
+      "tamanho_bytes": 1003
+    },
+    {
+      "nome": "06_PROTOCOLO_DE_INTERRUPCAO_RETOMADA_E_RESTAURACAO_P03_R01.txt",
+      "sha256": "5b631f54a8230913286826144a9e867247a5ff8ea9fa33d9eea928dc58b4d4f9",
+      "tamanho_bytes": 819
+    },
+    {
+      "nome": "07_REGISTRO_DE_LACUNAS_E_CONFLITOS_TRANSVERSAIS_P03_R01.jsonl",
+      "sha256": "d9b50c825833d24e8816fa4d7532cfd8bf2bcb6af7c1606381d081ebe0360aaa",
+      "tamanho_bytes": 1225
+    },
+    {
+      "nome": "08_TESTE_TRANSVERSAL_P03_R01.txt",
+      "sha256": "5a3e2cce8a62ad60f9be922418919ea913e25a2e8d7c4d09771508cd9d6087ea",
+      "tamanho_bytes": 2084
+    },
+    {
+      "nome": "09_DIAGNOSTICO_FINAL_P03_R01.txt",
+      "sha256": "5ebf1207abade655314f2cfb2ec1b13c076a9d456d7f682e95e1f1a55ea460ed",
+      "tamanho_bytes": 715
+    }
+  ],
+  "estado": {
+    "P03": "EXECUTADO_NAO_AUDITADO_NAO_HOMOLOGADO",
+    "R03": "INALTERADA",
+    "P00_P01_P02": "HOMOLOGADOS_E_CONGELADOS",
+    "P04_P28": "NAO_INICIADOS"
+  }
+}

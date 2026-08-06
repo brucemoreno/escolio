@@ -1,0 +1,943 @@
+INICIO_DO_ARQUIVO
+
+# CHECKPOINT_ANTI_DERIVA_ARQUITETURA_V3
+
+## 1. Identificação
+
+```text
+CHECKPOINT_ID:
+CHECKPOINT_ANTI_DERIVA_ARQUITETURA_V3
+
+OBJETO_AUDITADO:
+ARQUITETURA_SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v3.md
+
+BASE DE COMPARAÇÃO:
+DOSSIE_CONSOLIDADO_TESTES_01_A_10_E_MAPA_CORRECOES_V3.md
+
+TIPO DE AUDITORIA:
+checkpoint anti-deriva arquitetural
+
+STATUS:
+executado
+
+VEREDITO:
+arquitetura forte, coerente e majoritariamente fiel ao dossiê, mas ainda não pronta para aprovação final sem correção pontual.
+
+A V3 COMPLETA PODE SER REDIGIDA AGORA?
+não
+
+MOTIVO:
+antes da redação integral do prompt v3, a arquitetura deve ser corrigida em pontos de ordem lógica, numeração de comandos, comandos ausentes e padronização de estados.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO_GERAL:
+APROVADA_COM_RESSALVAS_ESTRUTURAIS
+
+RISCO_DE_DERIVA:
+baixo a médio-baixo
+
+FALHA_CRÍTICA:
+nenhuma falha crítica de perda de núcleo
+
+FALHAS_ESTRUTURAIS:
+presentes, mas corrigíveis antes da redação da v3 completa
+
+DECISÃO:
+não redigir ainda o prompt v3 completo.
+```
+
+A arquitetura preservou os principais aprendizados dos Testes 01 a 10. Não houve enxugamento destrutivo, não houve perda do Drive-first, não houve perda do BVAA-Drive, não houve remoção das matrizes, não houve autorização de carta prematura e não houve apagamento da distinção entre avaliar e aprovar.
+
+Entretanto, há inconsistências internas que precisam ser corrigidas antes da redação do prompt v3 completo.
+
+---
+
+# PARTE I — PONTOS PRESERVADOS
+
+---
+
+## 3. Núcleo inegociável preservado
+
+A arquitetura preservou corretamente o núcleo inegociável do sistema.
+
+```text
+PRESERVADO:
+BLOCO 0;
+Drive-first;
+BVAA-Drive;
+mapeamento de materiais;
+mapeamento técnico do Drive;
+mapeamento de pareceres;
+tipologia dos comentários;
+matriz preliminar;
+matriz de interpretação crítica;
+matriz de conflitos;
+orçamento de palavras;
+matriz estratégica;
+matriz operacional;
+plano de revisão;
+revisão por blocos;
+aprovação humana;
+estados de bloco;
+auditoria de transição de estado;
+checklist de evidências para carta;
+matriz Parecer → Evidência → Declaração;
+carta rastreada;
+auditoria da carta;
+auditoria final;
+estados operacionais;
+checkpoints anti-deriva;
+protocolo de retomada.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura não virou versão enxuta e não perdeu os módulos que os testes demonstraram serem essenciais.
+```
+
+---
+
+## 4. Drive-first preservado
+
+A arquitetura preservou:
+
+```text
+Google Drive como repositório bibliográfico prioritário quando indicado;
+bloqueio contra upload prematuro;
+bloqueio contra uso de anexos como zona de conforto;
+distinção entre localizar pasta, localizar PDF, abrir PDF, ler PDF e usar PDF;
+critério de busca suficiente no Drive;
+grau de correspondência;
+robustez da busca;
+múltiplos candidatos.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura incorporou bem as correções dos Testes 01, 02 e 03.
+```
+
+---
+
+## 5. BVAA-Drive preservado
+
+A arquitetura preservou:
+
+```text
+referência localizada ≠ referência lida;
+nome de arquivo ≠ leitura;
+metadado ≠ leitura;
+memória bibliográfica ≠ leitura;
+uso bibliográfico exige localização, abertura, leitura e prova mínima;
+bibliografia recomendada pelo parecerista deve ser buscada no Drive antes de pedido ao usuário.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura mantém o bloqueio contra alucinação bibliográfica e falsa leitura.
+```
+
+---
+
+## 6. Matrizes separadas preservadas
+
+A arquitetura incluiu:
+
+```text
+MATRIZ PRELIMINAR PARECER → DEMANDA;
+MATRIZ DE INTERPRETAÇÃO CRÍTICA;
+MATRIZ DE CONFLITOS E RESTRIÇÕES;
+MATRIZ ESTRATÉGICA;
+MATRIZ OPERACIONAL PARECER → AÇÃO.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura respondeu corretamente à falha recorrente dos Testes 04, 05, 06 e 07, nos quais a matriz preliminar tendia a antecipar ação.
+```
+
+---
+
+## 7. Comentários equivocados e pareceristas contraditórios preservados
+
+A arquitetura preservou:
+
+```text
+COMENTARIO_EQUIVOCADO;
+COMENTARIO_PARCIALMENTE_EQUIVOCADO;
+COMENTARIO_CONTRADITORIO;
+MATRIZ DE INTERPRETAÇÃO CRÍTICA;
+MATRIZ DE CONFLITOS E RESTRIÇÕES;
+GRAU_DE_RESPONSABILIDADE_TEXTUAL_DO_ARTIGO;
+CONFLITO_ID.
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+A arquitetura incorporou os aprendizados dos Testes 05 e 06.
+```
+
+---
+
+## 8. Orçamento de palavras preservado
+
+A arquitetura incluiu módulo próprio para:
+
+```text
+LIMITE_DA_REVISTA;
+EXTENSAO_ATUAL;
+MARGEM_DISPONIVEL;
+RESERVA_DE_SEGURANCA;
+TETO_OPERACIONAL_RECOMENDADO;
+EXPANSAO_PROPOSTA;
+CORTE_COMPENSATORIO_NECESSARIO;
+SALDO_FINAL_ESTIMADO;
+RISCO_DE_ULTRAPASSAR_LIMITE;
+STATUS.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura corrigiu a fragilidade identificada nos Testes 04 e 06.
+```
+
+---
+
+## 9. Carta aos pareceristas preservada como etapa rastreada
+
+A arquitetura preservou:
+
+```text
+CHECKLIST_DE_EVIDENCIAS_PARA_CARTA;
+MATRIZ_PARECER_EVIDENCIA_DECLARACAO;
+ESTADO_CARTA_AOS_PARECERISTAS;
+AUDITORIA_DE_LINGUAGEM_DA_CARTA;
+FORMULAÇÕES_ABSOLUTAS_NA_CARTA;
+CARTA_FINAL_AUDITADA;
+CARTA_FINAL_APROVADA_PELO_USUARIO.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura incorporou corretamente o aprendizado do Teste 09: carta aos pareceristas não pode ser ficção retrospectiva.
+```
+
+---
+
+## 10. Avaliar ≠ aprovar preservado
+
+A arquitetura incluiu:
+
+```text
+ESTADO_DE_BLOCO;
+APROVAR_BLOCO;
+AUDITORIA_DE_TRANSICAO_DE_ESTADO;
+COMANDOS_CONDICIONAIS_DE_APROVACAO;
+bloqueio contra avaliação virar aprovação automática.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A arquitetura incorporou adequadamente o Teste 10.
+```
+
+---
+
+# PARTE II — FALHAS ESTRUTURAIS IDENTIFICADAS
+
+---
+
+## 11. Falha 1 — Inconsistência na ordem dos comandos da carta
+
+### Problema
+
+Na arquitetura, o **Módulo 31 — Comandos do Sistema** indicou:
+
+```text
+COMANDO 9 — CRIAR CHECKLIST DE EVIDÊNCIAS PARA CARTA
+
+COMANDO 10 — REVISAR BLOCO
+
+COMANDO 11 — AVALIAR BLOCO
+
+COMANDO 12 — AJUSTAR BLOCO
+
+COMANDO 13 — GERAR CARTA AOS PARECERISTAS
+```
+
+Isso cria uma inconsistência lógica, porque o checklist de evidências para carta deve ocorrer **depois** das alterações no artigo e da aprovação dos blocos, não antes da revisão por blocos.
+
+### Risco
+
+```text
+médio
+```
+
+### Por que importa
+
+O Teste 09 mostrou que a carta só pode ser preparada com lastro em alterações efetivas. Se o checklist de evidências aparece antes da revisão por blocos na numeração operacional, o sistema pode induzir preparação prematura da carta.
+
+### Correção obrigatória
+
+A numeração dos comandos deve ser corrigida.
+
+Sugestão:
+
+```text
+COMANDO 0 — PREENCHER BLOCO 0
+
+COMANDO 0E — CONFIGURAÇÃO MÍNIMA EMERGENCIAL
+
+COMANDO 0.1 — MAPEAR MATERIAIS
+
+COMANDO 0.2 — MAPEAR NORMAS DA REVISTA
+
+COMANDO 0.3 — MAPEAR GOOGLE DRIVE
+
+COMANDO 1 — MAPEAR PARECERES
+
+COMANDO 2 — CLASSIFICAR COMENTÁRIOS
+
+COMANDO 3 — CRIAR MATRIZ PRELIMINAR PARECER → DEMANDA
+
+COMANDO 4 — MAPEAR BIBLIOGRAFIA E BVAA-DRIVE
+
+COMANDO 5 — CRIAR MATRIZ DE INTERPRETAÇÃO CRÍTICA
+
+COMANDO 6 — CRIAR MATRIZ DE CONFLITOS E RESTRIÇÕES
+
+COMANDO 7 — CRIAR ORÇAMENTO DE PALAVRAS
+
+COMANDO 8 — MAPEAR FUNÇÃO ARGUMENTATIVA DOS TRECHOS
+
+COMANDO 9 — CRIAR MATRIZ ESTRATÉGICA
+
+COMANDO 10 — CRIAR MATRIZ OPERACIONAL PARECER → AÇÃO
+
+COMANDO 11 — APROVAR MATRIZ OPERACIONAL
+
+COMANDO 12 — CRIAR PLANO DE REVISÃO
+
+COMANDO 13 — APROVAR PLANO DE REVISÃO
+
+COMANDO 14 — REVISAR BLOCO
+
+COMANDO 15 — AVALIAR BLOCO
+
+COMANDO 16 — AJUSTAR BLOCO
+
+COMANDO 17 — APROVAR BLOCO
+
+COMANDO 18 — CRIAR CHECKLIST DE EVIDÊNCIAS PARA CARTA
+
+COMANDO 19 — CRIAR MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO
+
+COMANDO 20 — GERAR CARTA AOS PARECERISTAS
+
+COMANDO 21 — AUDITAR CARTA
+
+COMANDO 22 — APROVAR CARTA FINAL
+
+COMANDO 23 — AUDITORIA FINAL DO ARTIGO
+
+COMANDO 24 — GERAR PACOTE FINAL
+```
+
+Implementar agora neste checkpoint?
+
+```text
+não
+```
+
+Ação correta:
+
+```text
+corrigir a arquitetura antes da redação do prompt v3 completo.
+```
+
+---
+
+## 12. Falha 2 — Comando ausente para a Matriz Parecer → Evidência → Declaração
+
+### Problema
+
+A arquitetura criou o módulo:
+
+```text
+MÓDULO 25 — MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO
+```
+
+Mas a lista de comandos não incluiu comando específico para criá-la.
+
+### Risco
+
+```text
+médio
+```
+
+### Por que importa
+
+Essa matriz é o elo entre revisão textual e carta final. Sem comando próprio, a carta pode ser gerada diretamente após revisão sem a camada de evidência.
+
+### Correção obrigatória
+
+Criar comando específico:
+
+```text
+COMANDO 19 — CRIAR MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO
+```
+
+Regra:
+
+```text
+Esse comando deve ocorrer depois de blocos revisados/aprovados e antes da carta aos pareceristas.
+```
+
+---
+
+## 13. Falha 3 — Aprovação da matriz e do plano aparece como comando, mas também como gate
+
+### Problema
+
+A arquitetura inclui comandos formais de aprovação:
+
+```text
+APROVAR_MATRIZ_OPERACIONAL
+
+APROVAR_PLANO_DE_REVISAO
+```
+
+Mas a lista principal de comandos não integra claramente essas aprovações como etapas numeradas do fluxo.
+
+### Risco
+
+```text
+médio-baixo
+```
+
+### Por que importa
+
+A v3 precisa impedir que o usuário passe da matriz operacional para o plano, ou do plano para a revisão, sem aprovação explícita.
+
+### Correção recomendada
+
+Incluir no fluxo:
+
+```text
+COMANDO 11 — APROVAR MATRIZ OPERACIONAL
+
+COMANDO 13 — APROVAR PLANO DE REVISÃO
+```
+
+Ou, se não forem numerados, declarar que são gates obrigatórios não substituíveis.
+
+---
+
+## 14. Falha 4 — Módulo de normas da revista aparece nos comandos, mas não como módulo próprio
+
+### Problema
+
+A arquitetura inclui:
+
+```text
+COMANDO 0.2 — MAPEAR NORMAS DA REVISTA
+```
+
+e menciona normas em vários lugares, mas não criou um módulo autônomo para:
+
+```text
+NORMAS_DA_REVISTA
+```
+
+### Risco
+
+```text
+médio-baixo
+```
+
+### Por que importa
+
+As normas da revista afetam limite de palavras, formatação, referências, extensão, carta, anexos, resposta à editoria e exigências formais. Se ficarem dispersas, o sistema pode subestimar sua força operacional.
+
+### Correção recomendada
+
+Criar módulo próprio ou submódulo explícito:
+
+```text
+MÓDULO 08A — NORMAS DA REVISTA E DECISÃO EDITORIAL
+```
+
+Campos mínimos:
+
+```text
+1. periódico;
+2. tipo de decisão editorial;
+3. prazo, se houver;
+4. limite de palavras;
+5. normas de citação;
+6. normas de carta/resposta aos pareceristas;
+7. arquivos suplementares;
+8. exigências formais;
+9. conflito entre normas e pareceres;
+10. status.
+```
+
+---
+
+## 15. Falha 5 — Decisão editorial ainda está pouco destacada
+
+### Problema
+
+A arquitetura menciona decisão editorial, mas ela não aparece com força suficiente como camada distinta dos pareceres.
+
+### Risco
+
+```text
+médio-baixo
+```
+
+### Por que importa
+
+A decisão editorial pode ter prioridade operacional sobre comentários individuais dos pareceristas, especialmente em limite de palavras, prazo, escopo de revisão e exigência de resposta ponto a ponto.
+
+### Correção recomendada
+
+No módulo de normas/editoria, criar:
+
+```text
+DECISAO_EDITORIAL
+
+1. tipo de decisão;
+2. exigências explícitas;
+3. exigências implícitas;
+4. relação com pareceres;
+5. peso operacional;
+6. itens obrigatórios;
+7. itens negociáveis;
+8. impacto no plano de revisão;
+9. impacto na carta.
+```
+
+---
+
+## 16. Falha 6 — Comandos emergenciais precisam entrar no fluxo com mais nitidez
+
+### Problema
+
+A arquitetura criou:
+
+```text
+BLOCO 0E;
+COMANDO 0E;
+COMANDO 0.1E;
+COMANDO 1E;
+COMANDO 2E.
+```
+
+Mas esses comandos emergenciais ainda não foram integrados à lista principal com condições claras de uso.
+
+### Risco
+
+```text
+médio-baixo
+```
+
+### Correção recomendada
+
+Criar seção específica:
+
+```text
+COMANDOS EMERGENCIAIS
+
+COMANDO 0E — CONFIGURAÇÃO MÍNIMA EMERGENCIAL
+
+COMANDO 0.1E — MAPEAR MATERIAIS CRÍTICOS
+
+COMANDO 1E — MAPEAR PARECERES EM MODO SINTÉTICO
+
+COMANDO 2E — CRIAR MATRIZ SINTÉTICA PRELIMINAR
+
+REGRA:
+comandos emergenciais comprimem detalhamento, mas não eliminam gates.
+```
+
+---
+
+## 17. Falha 7 — Material auxiliar não substitutivo precisa de comando próprio na lista final
+
+### Problema
+
+A arquitetura cria o módulo de material auxiliar, mas a lista principal de comandos ainda não inclui um comando próprio.
+
+### Risco
+
+```text
+baixo a médio-baixo
+```
+
+### Correção recomendada
+
+Adicionar:
+
+```text
+COMANDO AUX — CRIAR MATERIAL AUXILIAR NÃO SUBSTITUTIVO
+```
+
+Regra:
+
+```text
+todo material auxiliar deve iniciar com:
+
+ESTE MATERIAL NÃO SUBSTITUI O SISTEMA COMPLETO.
+NÃO USE ESTE MATERIAL COMO PROMPT OPERACIONAL ISOLADO.
+```
+
+---
+
+## 18. Falha 8 — Estados operacionais globais estão corretos, mas precisam de formato de emissão
+
+### Problema
+
+A arquitetura lista estados globais, mas ainda não define um formato padrão de saída ao final de cada resposta operacional.
+
+### Risco
+
+```text
+médio-baixo
+```
+
+### Correção recomendada
+
+Criar modelo fixo:
+
+```text
+ESTADO_OPERACIONAL_ATUAL
+
+ESTADO_REVISAO_PARECERISTAS:
+[...]
+
+ESTADO_MATERIAIS:
+[...]
+
+ESTADO_DRIVE:
+[...]
+
+ESTADO_BVAA_DRIVE:
+[...]
+
+ESTADO_PARECERES:
+[...]
+
+ESTADO_MATRIZES:
+[...]
+
+ESTADO_BLOCOS:
+[...]
+
+ESTADO_CARTA_AOS_PARECERISTAS:
+[...]
+
+PROXIMOS_CAMINHOS_PERMITIDOS:
+[...]
+
+COMANDOS_BLOQUEADOS:
+[...]
+
+CONDICOES_DE_DESBLOQUEIO:
+[...]
+```
+
+---
+
+# PARTE III — COBERTURA DOS TESTES 01 A 10
+
+---
+
+## 19. Cobertura geral
+
+```text
+TESTE 01:
+coberto
+
+TESTE 02:
+coberto
+
+TESTE 03:
+coberto
+
+TESTE 04:
+coberto
+
+TESTE 05:
+coberto
+
+TESTE 06:
+coberto
+
+TESTE 07:
+coberto
+
+TESTE 08:
+coberto
+
+TESTE 09:
+coberto, mas exige correção de ordem dos comandos da carta
+
+TESTE 10:
+coberto
+```
+
+Veredito:
+
+```text
+A cobertura temática está adequada.
+A cobertura operacional exige correção de ordem e numeração antes do prompt v3 completo.
+```
+
+---
+
+## 20. Risco de enxugamento destrutivo
+
+```text
+RISCO:
+baixo
+```
+
+Justificativa:
+
+```text
+A arquitetura preservou 33 módulos, núcleo inegociável, Drive-first, BVAA-Drive, matrizes, estados, carta rastreada, auditoria e protocolo de retomada.
+```
+
+---
+
+## 21. Risco de deriva de contexto
+
+```text
+RISCO:
+baixo a médio-baixo
+```
+
+Justificativa:
+
+```text
+A arquitetura não perdeu os aprendizados centrais dos testes, mas apresenta risco de deriva operacional na lista de comandos, especialmente pela posição prematura do checklist de evidências para carta.
+```
+
+---
+
+## 22. Risco de prompt v3 nascer com erro de fluxo
+
+```text
+RISCO:
+médio
+```
+
+Justificativa:
+
+```text
+Se a v3 completa for redigida com a lista de comandos atual, o fluxo poderá mandar criar checklist de carta antes de revisar blocos, o que contradiz o Teste 09.
+```
+
+Correção:
+
+```text
+corrigir a arquitetura antes de redigir o prompt completo.
+```
+
+---
+
+# PARTE IV — MAPA DE CORREÇÕES DO CHECKPOINT
+
+---
+
+## 23. Correções obrigatórias antes da redação da v3 completa
+
+```text
+CORR-ARQ-01:
+Corrigir a ordem dos comandos principais.
+
+CORR-ARQ-02:
+Mover checklist de evidências para carta para depois da revisão e aprovação dos blocos.
+
+CORR-ARQ-03:
+Criar comando próprio para MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO.
+
+CORR-ARQ-04:
+Inserir aprovação da matriz operacional e aprovação do plano como gates explícitos na ordem de execução.
+
+CORR-ARQ-05:
+Criar módulo ou submódulo formal para NORMAS DA REVISTA E DECISÃO EDITORIAL.
+
+CORR-ARQ-06:
+Destacar DECISÃO EDITORIAL como camada própria de restrição e prioridade.
+
+CORR-ARQ-07:
+Formalizar comandos emergenciais em seção separada.
+
+CORR-ARQ-08:
+Criar comando para MATERIAL AUXILIAR NÃO SUBSTITUTIVO.
+
+CORR-ARQ-09:
+Definir formato fixo de emissão dos ESTADOS OPERACIONAIS ao final das respostas.
+```
+
+---
+
+## 24. Correções desejáveis, mas não impeditivas
+
+```text
+CORR-ARQ-P2-01:
+Padronizar grafia sem acento em rótulos técnicos, quando usados como comandos:
+ESBOCO_NAO_FINAL;
+ORCAMENTO_DE_PALAVRAS;
+FUNCAO_ARGUMENTATIVA.
+
+CORR-ARQ-P2-02:
+Criar exemplos mínimos de estados no prompt final.
+
+CORR-ARQ-P2-03:
+Criar exemplos mínimos de bloqueios.
+
+CORR-ARQ-P2-04:
+Criar exemplo de fluxo completo reduzido, mas não substitutivo.
+
+CORR-ARQ-P2-05:
+Criar quadro de “nunca fazer” no início do prompt completo.
+```
+
+---
+
+# PARTE V — DECISÃO DO CHECKPOINT
+
+---
+
+## 25. Decisão
+
+```text
+ARQUITETURA_V3:
+não aprovada ainda como base final para redação do prompt completo.
+
+STATUS:
+aprovada como arquitetura preliminar forte;
+pendente de correção arquitetural pontual.
+
+PRÓXIMA AÇÃO:
+corrigir a arquitetura v3 com base neste checkpoint.
+
+NÃO FAZER AINDA:
+não redigir o prompt v3 completo.
+```
+
+---
+
+## 26. Por que não redigir ainda o prompt v3 completo
+
+```text
+MOTIVO 1:
+há inconsistência na ordem dos comandos.
+
+MOTIVO 2:
+o checklist de evidências para carta aparece cedo demais na lista de comandos.
+
+MOTIVO 3:
+falta comando próprio para a matriz Parecer → Evidência → Declaração.
+
+MOTIVO 4:
+normas da revista e decisão editorial precisam de módulo próprio.
+
+MOTIVO 5:
+é mais seguro corrigir a arquitetura antes de gerar um prompt longo.
+```
+
+---
+
+## 27. Veredito final do checkpoint
+
+```text
+VEREDITO_FINAL:
+CHECKPOINT APROVADO
+
+RESULTADO:
+a arquitetura v3 é sólida, mas deve ser corrigida antes da redação do prompt completo.
+
+RISCO SE PROSSEGUIR SEM CORREÇÃO:
+médio
+
+RISCO SE CORRIGIR AGORA:
+baixo
+
+AÇÃO RECOMENDADA:
+corrigir a arquitetura v3 e só depois solicitar o prompt v3 completo.
+```
+
+---
+
+## 28. Próximo comando recomendado
+
+```text
+CORRIGIR_ARQUITETURA_V3_COM_BASE_NO_CHECKPOINT
+```
+
+FIM_DO_ARQUIVO

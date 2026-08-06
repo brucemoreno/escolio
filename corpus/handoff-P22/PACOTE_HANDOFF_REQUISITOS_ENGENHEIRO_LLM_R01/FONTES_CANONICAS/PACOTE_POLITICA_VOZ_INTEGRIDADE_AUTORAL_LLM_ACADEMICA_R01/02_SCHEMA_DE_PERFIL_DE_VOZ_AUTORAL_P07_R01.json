@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Perfil de Voz Autoral P07 R01",
+  "type": "object",
+  "required": [
+    "profile_id",
+    "profile_type",
+    "purpose",
+    "scope",
+    "dimensions",
+    "evidence",
+    "confidence",
+    "authorization",
+    "versioning",
+    "provenance",
+    "reversibility",
+    "status"
+  ],
+  "properties": {
+    "profile_id": {
+      "type": "string"
+    },
+    "profile_type": {
+      "enum": [
+        "PERFIL_NEUTRO_ACADEMICO_CONTROLADO",
+        "PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS",
+        "PERFIL_AUTORAL_DECLARADO_PELO_USUARIO",
+        "PERFIL_HIBRIDO_DECLARACAO_MAIS_AMOSTRAS",
+        "PERFIL_LOCAL_POR_GENERO_OU_SECAO",
+        "PERFIL_INSUFICIENTE_OU_CONFLITANTE"
+      ]
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "object"
+    },
+    "dimensions": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "confidence": {
+      "enum": [
+        "BAIXA",
+        "MEDIA",
+        "ALTA",
+        "NAO_APLICAVEL"
+      ]
+    },
+    "authorization": {
+      "type": "object"
+    },
+    "versioning": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "array"
+    },
+    "reversibility": {
+      "type": "object"
+    },
+    "abstention_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "RASCUNHO",
+        "VALIDACAO_PENDENTE",
+        "VALIDADO",
+        "HOMOLOGADO",
+        "ABSTENCAO"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

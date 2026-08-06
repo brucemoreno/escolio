@@ -1,0 +1,896 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_TESTE_04_EXPANSAO_TEORICA_COM_LIMITE_DE_PALAVRAS
+
+## 1. Identificação do diagnóstico
+
+```text
+TESTE_ID:
+TESTE_04_EXPANSAO_TEORICA_COM_LIMITE_DE_PALAVRAS
+
+VERSÃO_TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO_DE_TESTE:
+teste real de comportamento do sistema
+
+MODO_DE_AUDITORIA:
+auditoria de resposta integral colada/anexada pelo usuário
+
+OBJETIVO_DO_TESTE:
+verificar se o sistema consegue diagnosticar conflito entre pedido de expansão teórica, pedido de concisão e limite editorial rígido de palavras, sem obedecer cegamente aos pareceristas, sem escrever nova seção, sem criar matriz operacional definitiva, sem incorporar bibliografia não lida e sem ultrapassar o limite formal da revista.
+
+STATUS_DO_TESTE:
+executado
+
+STATUS_DO_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO:
+aprovado com ressalvas leves a moderadas
+
+RISCO_GERAL:
+baixo a médio-baixo
+
+RESULTADO:
+o sistema passou no núcleo do Teste 04.
+
+PONTO MAIS FORTE:
+o sistema reconheceu corretamente que a exigência editorial de limite de palavras tem peso operacional alto e que o pedido de expansão teórica só pode ser atendido de modo cirúrgico, compensado e condicionado a BVAA-Drive.
+
+PONTO A MONITORAR:
+a resposta apresentou uma matriz preliminar Parecer → Demanda, mas já incluiu encaminhamentos próximos de decisão operacional, como “atender parcialmente”. A futura v3 deve separar com mais rigor matriz preliminar de demanda, matriz estratégica e matriz operacional Parecer → Ação.
+```
+
+---
+
+## 3. Resultado observado
+
+A resposta testada apresentou os seguintes comportamentos:
+
+```text
+1. reconheceu explicitamente o conflito entre:
+   - pedido de expansão teórica;
+   - pedido de concisão;
+   - exigência editorial formal de limite de palavras;
+
+2. registrou que o artigo tem 7.850 palavras para limite de 8.000;
+
+3. registrou margem operacional de apenas 150 palavras;
+
+4. declarou que não há espaço para expansão teórica ampla sem corte compensatório ou substituição de trechos existentes;
+
+5. atribuiu peso operacional alto à orientação editorial;
+
+6. classificou preliminarmente os comentários dos pareceristas e da editoria;
+
+7. identificou o risco de expansão decorativa;
+
+8. identificou o risco de corte destrutivo;
+
+9. criou matriz preliminar Parecer → Demanda;
+
+10. avaliou riscos de atender ou não atender cada demanda;
+
+11. recomendou estratégia controlada:
+   expansão mínima, cirúrgica e compensada por cortes internos;
+
+12. condicionou uso de Secord, Raj e Livingstone a BVAA-Drive;
+
+13. bloqueou nova seção, revisão textual, expansão efetiva, incorporação bibliográfica, matriz operacional definitiva e carta aos pareceristas;
+
+14. listou comandos bloqueados e condições de desbloqueio;
+
+15. indicou próximo comando permitido para mapeamento bibliográfico/BVAA-Drive.
+```
+
+---
+
+## 4. Evidências positivas
+
+### 4.1. Reconhecimento adequado do conflito
+
+A resposta registrou:
+
+```text
+CONFLITO IDENTIFICADO:
+
+1. Parecerista 1:
+pede ampliação teórica e diálogo com Secord, Raj e Livingstone.
+
+2. Parecerista 2:
+pede maior objetividade e redução de extensão.
+
+3. Editoria:
+impõe limite rígido de palavras.
+
+4. Situação textual:
+artigo com 7.850 palavras para limite de 8.000.
+
+5. Margem disponível:
+150 palavras.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema reconheceu corretamente que a situação não pode ser resolvida por obediência simples a um parecerista. Há conflito entre demandas e uma restrição editorial superior.
+```
+
+---
+
+### 4.2. Peso operacional da orientação editorial
+
+A resposta declarou que a orientação editorial sobre limite de palavras tem peso operacional alto.
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A exigência editorial de limite de palavras foi corretamente tratada como condição formal de submissão, não como sugestão opcional.
+```
+
+---
+
+### 4.3. Classificação preliminar dos comentários
+
+A resposta classificou:
+
+```text
+Parecerista 1:
+pedido de expansão; pedido bibliográfico; crítica conceitual/teórica
+
+Parecerista 2:
+pedido de corte/concisão; crítica estrutural/estilística
+
+Editoria:
+exigência editorial formal
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+A classificação é coerente. A futura v3 deve apenas padronizar melhor os níveis: comentário, demanda, conflito, restrição editorial e ação possível.
+```
+
+---
+
+### 4.4. Proteção contra expansão decorativa e corte destrutivo
+
+A resposta identificou dois riscos:
+
+```text
+RISCO 1 — EXPANSÃO DECORATIVA:
+inserir autores apenas para satisfazer parecerista, sem integração real ao argumento.
+
+RISCO 2 — CORTE DESTRUTIVO:
+reduzir densidade argumentativa, apagar mediações conceituais ou fragilizar a demonstração para ganhar palavras.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse é um ponto forte. O sistema protege simultaneamente contra excesso de expansão e contra empobrecimento por corte mecânico.
+```
+
+---
+
+### 4.5. Estratégia controlada recomendada
+
+A resposta recomendou:
+
+```text
+expansão teórica mínima, cirúrgica e compensada por cortes internos.
+```
+
+E especificou:
+
+```text
+1. Não criar nova seção autônoma neste momento.
+
+2. Identificar trechos redundantes ou alongados no artigo.
+
+3. Substituir parte desses trechos por formulações teoricamente mais densas.
+
+4. Inserir Secord, Raj e/ou Livingstone apenas se houver leitura BVAA-Drive suficiente.
+
+5. Evitar enumeração decorativa de autores.
+
+6. Usar no máximo um parágrafo curto, uma nota estratégica ou uma formulação integrada a parágrafo já existente.
+
+7. Fazer corte compensatório equivalente ou superior à expansão.
+
+8. Responder ao parecerista 1 como atendimento parcial e controlado.
+
+9. Responder ao parecerista 2 indicando que a ampliação teórica foi feita sem aumento global indevido.
+
+10. Preservar o limite editorial como condição superior.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+A solução é tecnicamente sólida: não recusa automaticamente a expansão nem aceita aumento indiscriminado do artigo.
+```
+
+---
+
+### 4.6. Condicionamento da expansão ao BVAA-Drive
+
+A resposta declarou que qualquer expansão teórica com Secord, Raj ou Livingstone depende de:
+
+```text
+1. localizar a referência no Google Drive;
+2. abrir o PDF correspondente;
+3. ler trechos relevantes;
+4. registrar prova mínima de leitura;
+5. definir o nível de acesso bibliográfico;
+6. só então autorizar uso no artigo.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema preservou o núcleo BVAA-Drive e não usou nome de autor como se fosse leitura bibliográfica.
+```
+
+---
+
+### 4.7. Bloqueios operacionais preservados
+
+A resposta manteve bloqueados:
+
+```text
+NOVA SEÇÃO:
+bloqueada
+
+REVISÃO TEXTUAL:
+bloqueada
+
+EXPANSÃO TEÓRICA EFETIVA:
+bloqueada até BVAA-Drive e plano aprovado
+
+INCORPORAÇÃO DE SECORD, RAJ OU LIVINGSTONE:
+bloqueada até localização, abertura, leitura e prova mínima de leitura
+
+MATRIZ OPERACIONAL DEFINITIVA PARECER → AÇÃO:
+bloqueada nesta etapa diagnóstica
+
+CARTA AOS PARECERISTAS:
+bloqueada
+
+USO DE CITAÇÃO, PÁGINA, DOI OU ARGUMENTO ESPECÍFICO:
+bloqueado sem leitura verificável
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+O sistema não avançou para redação nem para carta antes das etapas obrigatórias.
+```
+
+---
+
+## 5. Falhas identificadas
+
+### 5.1. Matriz preliminar ainda misturou demanda e encaminhamento
+
+Falha:
+
+```text
+A resposta criou uma “Matriz preliminar Parecer → Demanda”, mas incluiu na coluna de encaminhamento preliminar expressões como “atender parcialmente” e “cumprir obrigatoriamente”.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+A matriz preliminar deveria mapear demanda, tensão e restrição, sem ainda decidir ação. A decisão “atender parcialmente” pertence melhor à matriz estratégica ou à matriz operacional Parecer → Ação.
+```
+
+Correção recomendada para v3:
+
+```text
+Separar três níveis:
+
+1. MATRIZ PRELIMINAR PARECER → DEMANDA
+Registra apenas o que foi pedido, por quem, onde incide, que tipo de demanda é e qual tensão cria.
+
+2. MATRIZ DE CONFLITOS E RESTRIÇÕES
+Registra conflitos entre pareceristas, limite de palavras, normas editoriais, riscos e dependências BVAA.
+
+3. MATRIZ OPERACIONAL PARECER → AÇÃO
+Só depois define atender, atender parcialmente, responder sem alterar, recusar diplomaticamente ou pedir decisão humana.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.2. Falta de orçamento formal de palavras
+
+Falha:
+
+```text
+A resposta reconheceu a margem de 150 palavras e deu exemplo de corte compensatório, mas não criou um quadro formal de orçamento de palavras.
+```
+
+Risco:
+
+```text
+médio
+```
+
+Por que importa:
+
+```text
+Quando há limite rígido de palavras, a revisão precisa controlar saldo textual. Sem orçamento formal, o sistema pode propor expansão e corte de modo conceitualmente correto, mas operacionalmente impreciso.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar módulo:
+
+ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO
+
+LIMITE_DA_REVISTA:
+[...]
+
+EXTENSÃO_ATUAL:
+[...]
+
+MARGEM_DISPONÍVEL:
+[...]
+
+RESERVA_DE_SEGURANÇA:
+[...]
+
+TETO_OPERACIONAL_RECOMENDADO:
+[...]
+
+EXPANSÃO_PROPOSTA:
+[...]
+
+CORTE_COMPENSATÓRIO_NECESSÁRIO:
+[...]
+
+SALDO_FINAL_ESTIMADO:
+[...]
+
+RISCO_DE_ULTRAPASSAR_LIMITE:
+baixo / médio / alto
+
+STATUS:
+seguro / exige corte / bloqueado
+```
+
+Regra recomendada:
+
+```text
+Quando o artigo estiver muito próximo do limite, o sistema deve trabalhar com uma reserva de segurança, por exemplo 50 a 100 palavras abaixo do teto, para evitar ultrapassagem por ajustes finais, metadados, notas ou pequenas alterações de estilo.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.3. Falta de diferenciação entre corte, condensação e substituição
+
+Falha:
+
+```text
+A resposta fala em corte compensatório e substituição de trechos redundantes, mas a futura v3 deve distinguir formalmente corte, condensação e substituição teórica.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Nem todo ganho de espaço deve ser tratado como corte. Em artigo de Ciências Humanas, muitas vezes o procedimento correto é condensação argumentativa ou substituição de trecho fraco por formulação mais densa.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar tipologia:
+
+CORTE:
+remoção de trecho sem substituição equivalente.
+
+CONDENSAÇÃO:
+redução de palavras mantendo função argumentativa.
+
+SUBSTITUIÇÃO_TEÓRICA:
+troca de trecho menos eficiente por formulação teoricamente mais densa.
+
+DESLOCAMENTO_PARA_NOTA:
+transferência de informação secundária para nota, se permitido pela revista.
+
+FUSÃO_DE_PARÁGRAFOS:
+integração de ideias próximas para reduzir redundância.
+
+REESCRITA_DE_EFICIÊNCIA:
+melhoria de densidade sem perda de conteúdo.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.4. Falta de status específico para conflito entre pareceristas
+
+Falha:
+
+```text
+A resposta reconheceu o conflito, mas não gerou um identificador formal de conflito, como CFL-01.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Por que importa:
+
+```text
+Conflitos entre pareceristas precisam ser rastreados como objetos próprios, especialmente para depois aparecerem na carta aos pareceristas.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar protocolo:
+
+CONFLITO_ID:
+CFL-01
+
+COMENTÁRIOS_ENVOLVIDOS:
+P1-C01 / P2-C01 / E-C01
+
+NATUREZA_DO_CONFLITO:
+expansão teórica / concisão / limite editorial
+
+DESCRIÇÃO:
+[...]
+
+RESTRIÇÃO_SUPERIOR:
+limite editorial de palavras
+
+RISCO:
+[...]
+
+SOLUÇÃO_RECOMENDADA:
+[...]
+
+STATUS:
+diagnosticado / pendente de decisão / resolvido no plano / resolvido no texto / explicado na carta
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.5. Próximo comando permitido ainda ficou estreito
+
+Falha:
+
+```text
+A resposta indicou COMANDO 4 — MAPEAR BIBLIOGRAFIA E BVAA-DRIVE e leituras específicas como próximos comandos, mas poderia apresentar uma árvore de caminhos permitidos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Ao final de conflitos com limite de palavras, apresentar:
+
+PRÓXIMOS CAMINHOS PERMITIDOS:
+
+OPÇÃO A:
+MAPEAR BIBLIOGRAFIA E BVAA-DRIVE
+
+OPÇÃO B:
+CRIAR ORÇAMENTO DE PALAVRAS DA REVISÃO
+
+OPÇÃO C:
+MAPEAR TRECHOS CANDIDATOS A CONDENSAÇÃO
+
+OPÇÃO D:
+AGUARDAR ARTIGO E PARECERES COMPLETOS
+
+COMANDOS BLOQUEADOS:
+[...]
+
+CONDIÇÕES DE DESBLOQUEIO:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.6. Falta de estado operacional cumulativo completo
+
+Falha:
+
+```text
+A resposta trouxe bloqueios, mas não apresentou ESTADO_REVISAO_PARECERISTAS, ESTADO_BVAA_DRIVE e ESTADO_ORCAMENTO_DE_PALAVRAS.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Correção recomendada para v3:
+
+```text
+Após teste ou etapa de conflito, exigir estados:
+
+ESTADO_REVISAO_PARECERISTAS:
+[...]
+
+ESTADO_BVAA_DRIVE:
+[...]
+
+ESTADO_CONFLITOS:
+[...]
+
+ESTADO_ORCAMENTO_DE_PALAVRAS:
+[...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 6. Falhas de deriva
+
+```text
+FALHAS_DE_DERIVA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não escreveu seção, não criou carta, não fingiu leitura bibliográfica e não obedeceu cegamente a nenhum parecerista.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 7. Falhas de Drive-first
+
+```text
+FALHAS_DE_DRIVE_FIRST:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema condicionou a expansão com Secord, Raj e Livingstone à localização, abertura, leitura e prova mínima de leitura no Drive.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 8. Falhas de BVAA
+
+```text
+FALHAS_DE_BVAA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não inventou citação, página, DOI, argumento de autor ou referência. Também não mobilizou nomes de autores como se fossem bibliografia lida.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 9. Falhas de fluxo
+
+```text
+FALHAS_DE_FLUXO:
+leves a moderadas.
+```
+
+Análise:
+
+```text
+O fluxo geral foi preservado, mas a v3 deve separar melhor:
+1. matriz preliminar de demanda;
+2. matriz de conflitos;
+3. matriz operacional de ação;
+4. orçamento formal de palavras;
+5. plano de corte/condensação;
+6. autorização de expansão bibliográfica após BVAA-Drive.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+---
+
+## 10. Falhas de usabilidade
+
+```text
+FALHAS_DE_USABILIDADE:
+leves.
+```
+
+Análise:
+
+```text
+A resposta foi clara, mas a próxima versão deve ser mais didática no fim da etapa, oferecendo caminhos alternativos permitidos, não apenas um próximo comando principal.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 11. Módulos afetados
+
+```text
+MÓDULOS_AFETADOS:
+
+1. matriz preliminar Parecer → Demanda;
+2. matriz de conflitos;
+3. matriz operacional Parecer → Ação;
+4. protocolo de limite de palavras;
+5. protocolo de expansão teórica;
+6. protocolo de corte, condensação e substituição;
+7. BVAA-Drive;
+8. Drive-first;
+9. próximos comandos permitidos;
+10. estados operacionais cumulativos;
+11. carta aos pareceristas, futuramente.
+```
+
+---
+
+## 12. Correções recomendadas para acumular
+
+As seguintes correções devem ser acumuladas para a futura v3:
+
+```text
+CORREÇÃO 01:
+Separar formalmente:
+MATRIZ PRELIMINAR PARECER → DEMANDA;
+MATRIZ DE CONFLITOS E RESTRIÇÕES;
+MATRIZ OPERACIONAL PARECER → AÇÃO.
+
+CORREÇÃO 02:
+Criar módulo “ORÇAMENTO_DE_PALAVRAS_DA_REVISÃO”.
+
+CORREÇÃO 03:
+Criar regra de “RESERVA_DE_SEGURANÇA” quando o artigo estiver próximo do limite máximo.
+
+CORREÇÃO 04:
+Criar tipologia:
+CORTE;
+CONDENSAÇÃO;
+SUBSTITUIÇÃO_TEÓRICA;
+DESLOCAMENTO_PARA_NOTA;
+FUSÃO_DE_PARÁGRAFOS;
+REESCRITA_DE_EFICIÊNCIA.
+
+CORREÇÃO 05:
+Criar protocolo de conflito formal com CONFLITO_ID.
+
+CORREÇÃO 06:
+Criar estado específico:
+ESTADO_ORCAMENTO_DE_PALAVRAS.
+
+CORREÇÃO 07:
+Criar árvore de próximos caminhos permitidos para conflitos expansão/limite.
+
+CORREÇÃO 08:
+Preservar a regra:
+pedido de expansão não autoriza expansão decorativa;
+pedido de corte não autoriza empobrecimento;
+limite editorial tem peso operacional alto;
+qualquer expansão teórica depende de BVAA-Drive.
+```
+
+---
+
+## 13. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 04
+
+TESTE:
+TESTE_04_EXPANSAO_TEORICA_COM_LIMITE_DE_PALAVRAS
+
+TIPO_DE_ENTRADA:
+teste real executado
+
+RESULTADO:
+aprovado com ressalvas leves a moderadas
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHAS_LEVES_OU_MODERADAS:
+matriz preliminar misturou demanda e encaminhamento;
+ausência de orçamento formal de palavras;
+ausência de reserva de segurança;
+ausência de tipologia formal de corte/condensação/substituição;
+ausência de CONFLITO_ID;
+próximo comando poderia oferecer árvore de caminhos;
+ausência de estados operacionais cumulativos.
+
+DECISÃO:
+não implementar agora.
+
+AÇÃO:
+acumular correções para v3.
+
+STATUS:
+registrado.
+```
+
+---
+
+## 14. Comparação com Testes 1, 2 e 3
+
+```text
+TESTE 1:
+verificou Drive-first sem anexos no chat.
+
+TESTE 2:
+verificou Drive-first com anexos no chat como apoio secundário.
+
+TESTE 3:
+verificou bibliografia recomendada pelo parecerista parcialmente ausente no Drive.
+
+TESTE 4:
+verificou conflito entre expansão teórica, concisão e limite rígido de palavras.
+
+RESULTADO COMBINADO:
+o sistema passou nos quatro testes iniciais.
+
+RISCO REMANESCENTE:
+médio-baixo, concentrado em:
+1. formalização de estados;
+2. critérios de busca;
+3. cruzamento anexos ↔ Drive;
+4. orçamento de palavras;
+5. matriz de conflitos;
+6. separação entre demanda, conflito e ação;
+7. árvore de próximos comandos.
+```
+
+---
+
+## 15. Conclusão
+
+O Teste 04 confirmou que o sistema não obedece cegamente ao pedido de expansão teórica nem ao pedido de corte. Ele reconhece a exigência editorial de limite de palavras como restrição superior e recomenda uma estratégia de expansão mínima, cirúrgica e compensada por cortes internos.
+
+A resposta testada foi adequada porque manteve bloqueadas a redação, a matriz operacional, a incorporação bibliográfica e a carta aos pareceristas.
+
+A futura v3 deve preservar esse comportamento e reforçá-lo com módulos formais para orçamento de palavras, conflito entre pareceristas, distinção entre demanda e ação, e tipologia de corte/condensação/substituição.
+
+FIM_DO_ARQUIVO

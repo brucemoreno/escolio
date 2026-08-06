@@ -1,0 +1,561 @@
+{
+  "project_id": "LLM_ACADEMICA",
+  "package_name": "PACOTE_HANDOFF_REQUISITOS_ENGENHEIRO_LLM_R01.zip",
+  "package_revision": "R01",
+  "package_purpose": "HANDOFF_DE_REQUISITOS_E_GOVERNANCA_AO_ENGENHEIRO",
+  "materialization_authority": "USUARIO_PROPONENTE",
+  "architecture_controller": "CHAT_CONTROLADOR_ARQUITETO_EXCLUSIVO",
+  "documentary_executor": "CHAT_EXECUTOR_DOCUMENTAL",
+  "canonical_state": "P22_HOMOLOGADO_E_CONGELADO_DOCUMENTALMENTE",
+  "transfer_authorized": false,
+  "engineer_contact_authorized": false,
+  "implementation_authorized": false,
+  "p23_start_authorized": false,
+  "receipt_created": false,
+  "objects": [
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.zip",
+      "component": "R03",
+      "canonical_name": "PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R03",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 9114311,
+      "sha256": "0f7e3acf43d09562a4dbdc6adfccc3535b950b0e6548aa49fa81d127a3d1b39f",
+      "material_origin": "/mnt/data/PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03(1)(1) (4).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_R03",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_CONTROLE_MESTRE_ESTADO_CANONICO_LLM_ACADEMICA_R01.zip",
+      "component": "P00",
+      "canonical_name": "PACOTE_CONTROLE_MESTRE_ESTADO_CANONICO_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 14133,
+      "sha256": "c791f75a8457957d7328c37b6b9025102bd167f46ae4d40ed3af23bc433ae16c",
+      "material_origin": "/mnt/data/PACOTE_CONTROLE_MESTRE_ESTADO_CANONICO_LLM_ACADEMICA_R01(2) (11).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P00",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_TRAVA_E_REATIVACAO_LLM_ACADEMICA_R01.zip",
+      "component": "P01",
+      "canonical_name": "PACOTE_TRAVA_E_REATIVACAO_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 6972,
+      "sha256": "43ae6295feb9f57b0142b89315e53d9a44b8ca187a7ca8d3e5d7174b4b7469a0",
+      "material_origin": "/mnt/data/PACOTE_TRAVA_E_REATIVACAO_LLM_ACADEMICA_R01 (18).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P01",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_CONTRATO_CIENTISTA_ACADEMICO_LLM_R01.zip",
+      "component": "P02",
+      "canonical_name": "PACOTE_CONTRATO_CIENTISTA_ACADEMICO_LLM_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 13758,
+      "sha256": "909235690a9d08951d038779ba571a11dfe5f28bf10eecaa5923e980df3467dd",
+      "material_origin": "/mnt/data/PACOTE_CATALOGO_FUNCIONAL_LLM_ACADEMICA_R01(4).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P02",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_MODOS_OPERACIONAIS_LLM_ACADEMICA_R01.zip",
+      "component": "P03",
+      "canonical_name": "PACOTE_MODOS_OPERACIONAIS_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 12379,
+      "sha256": "e1e79005482f3a60f3ea2f63a4cbd1b21a35731c73332c907a0e81a669a4a4bf",
+      "material_origin": "/mnt/data/PACOTE_NUCLEO_TRANSVERSAL_LLM_ACADEMICA_R01(1)(1) (11).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P03",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_POLITICA_FONTES_CONFIABILIDADE_LLM_ACADEMICA_R01.zip",
+      "component": "P04",
+      "canonical_name": "PACOTE_POLITICA_FONTES_CONFIABILIDADE_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 14538,
+      "sha256": "b0cd325791f8950195084c6e539db8c0d660c7a417e0a9814b80ffa51890604f",
+      "material_origin": "/mnt/data/PACOTE_BVAA_UNIVERSAL_LLM_ACADEMICA_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P04",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_POLITICA_CITACOES_LLM_ACADEMICA_R01.zip",
+      "component": "P05",
+      "canonical_name": "PACOTE_POLITICA_CITACOES_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 16080,
+      "sha256": "fa0f6f56b67a7a498c93d941a3eeee1f46e11843eff936913f573ab0c23bf8f3",
+      "material_origin": "/mnt/data/PACOTE_SCHEMA_AFIRMACAO_EVIDENCIA_LLM_ACADEMICA_R01(1)(1) (6).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P05",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_TAXONOMIA_INTERVENCAO_LLM_ACADEMICA_R01.zip",
+      "component": "P06",
+      "canonical_name": "PACOTE_TAXONOMIA_INTERVENCAO_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 11760,
+      "sha256": "4a3049e2dd6eea213ce0542f3728c89182935a3b1c86d218df3bf31e85c8b480",
+      "material_origin": "/mnt/data/PACOTE_TAXONOMIA_INTERVENCAO_LLM_ACADEMICA_R01%20%281%29 (4).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P06",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_POLITICA_VOZ_INTEGRIDADE_AUTORAL_LLM_ACADEMICA_R01.zip",
+      "component": "P07",
+      "canonical_name": "PACOTE_POLITICA_VOZ_INTEGRIDADE_AUTORAL_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 9039,
+      "sha256": "6b825aba9c6d91a6c8a023806772103b9312db30d7f3e093c2f417fc026489aa",
+      "material_origin": "/mnt/data/PACOTE_CONTRATO_VOZ_AUTORAL_LLM_ACADEMICA_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P07",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_SEGURANCA_PRIVACIDADE_LLM_ACADEMICA_R01.zip",
+      "component": "P08",
+      "canonical_name": "PACOTE_SEGURANCA_PRIVACIDADE_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 9585,
+      "sha256": "e9f53c4d46a282e43f217422b796b35be498222f1276c051f14a5a0607f397e7",
+      "material_origin": "/mnt/data/PACOTES_HOMOLOGADOS_P02_A_P14_LLM_ACADEMICA_R01(1).zip::PACOTE_POLITICA_SEGURANCA_PRIVACIDADE_LLM_ACADEMICA_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P08",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_CONTRATO_STATUS_LLM_ACADEMICA_R01.zip",
+      "component": "P09",
+      "canonical_name": "PACOTE_CONTRATO_STATUS_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 11038,
+      "sha256": "ee237a30f3b05b7e9505c1bde1497a744bf1ac87e3382d950a5fe8d51c88c03b",
+      "material_origin": "/mnt/data/PACOTES_HOMOLOGADOS_P02_A_P14_LLM_ACADEMICA_R01(1).zip::PACOTE_SCHEMAS_CONTRATOS_LLM_ACADEMICA_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P09",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_FUNCAO_AVALIACAO_CRITICA_PROJETOS_R01.zip",
+      "component": "P10",
+      "canonical_name": "PACOTE_FUNCAO_AVALIACAO_CRITICA_PROJETOS_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 14190,
+      "sha256": "e751c515ffac469dcbf0878c4a45961bdb656dea59371a0fef497ec5a0651897",
+      "material_origin": "/mnt/data/PACOTES_HOMOLOGADOS_P02_A_P14_LLM_ACADEMICA_R01(1).zip::PACOTE_FUNCAO_DERIVACAO_CAPITULO_ARTIGOS_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P10",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_FUNCAO_REVISAO_TESE_DISSERTACAO_R01.zip",
+      "component": "P11",
+      "canonical_name": "PACOTE_FUNCAO_REVISAO_TESE_DISSERTACAO_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 22327,
+      "sha256": "7835c9327c737881b0c7f0d7b093acc7c8547aba4d3d0e965c23a8535170d451",
+      "material_origin": "/mnt/data/PACOTES_HOMOLOGADOS_P02_A_P14_LLM_ACADEMICA_R01(1).zip::PACOTE_FUNCAO_REVISAO_TESE_DISSERTACAO_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P11",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_FUNCAO_REVISAO_RELATORIO_IC_R01.zip",
+      "component": "P12",
+      "canonical_name": "PACOTE_FUNCAO_REVISAO_RELATORIO_IC_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 19776,
+      "sha256": "3ea40175e7bb3110c47db9df1f21dade9c467a1561a18d490811cd94bc2c8b54",
+      "material_origin": "/mnt/data/PACOTES_HOMOLOGADOS_P02_A_P14_LLM_ACADEMICA_R01(1).zip::PACOTE_FUNCAO_REVISAO_RELATORIO_IC_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P12",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_FUNCAO_COMENTARIOS_AUDITORIA_POR_BLOCOS_R01.zip",
+      "component": "P13",
+      "canonical_name": "PACOTE_FUNCAO_COMENTARIOS_AUDITORIA_POR_BLOCOS_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 20637,
+      "sha256": "3a785fdc77c3a9621f57de8d1db80581a5c56faaa26b622eda18d287e9ffa12a",
+      "material_origin": "/mnt/data/PACOTES_HOMOLOGADOS_P02_A_P14_LLM_ACADEMICA_R01(1).zip::PACOTE_FUNCAO_COMENTARIOS_WORD_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P13",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_FUNCAO_REVISAO_RESPOSTA_PARECERISTAS_R01.zip",
+      "component": "P14",
+      "canonical_name": "PACOTE_FUNCAO_REVISAO_RESPOSTA_PARECERISTAS_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 25221,
+      "sha256": "40549d30fb52f84fc990f05deafd45b29dadce3872384f69e9020e5a4397df98",
+      "material_origin": "/mnt/data/PACOTE_FUNCAO_INCORPORACAO_PARECERES_R01 (1).zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P14",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_PLANO_DE_DADOS_LLM_ACADEMICA_R01.zip",
+      "component": "P19",
+      "canonical_name": "PACOTE_PLANO_DE_DADOS_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 21411,
+      "sha256": "7a3df4f4f96c2f5a66cd2fb8fbd79c3da2f3f291979d7248aca68f1adaf81d13",
+      "material_origin": "/mnt/data/PACOTE_PLANO_DE_DADOS_LLM_ACADEMICA_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P19",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "FONTES_CANONICAS/PACOTE_SUITE_TESTES_LLM_ACADEMICA_R01.zip",
+      "component": "P20",
+      "canonical_name": "PACOTE_SUITE_TESTES_LLM_ACADEMICA_R01.zip",
+      "object_nature": "PACOTE_CANONICO_ZIP",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL_E_FUTURA_IMPLEMENTACAO_AUTORIZADA",
+      "size_bytes": 29828,
+      "sha256": "09791c6798dce8d2bcb5baaffd5399af1cdb1b48242c3d7529836cd1fef081ea",
+      "material_origin": "/mnt/data/PACOTE_SUITE_TESTES_LLM_ACADEMICA_R01.zip",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P20",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "NAO_RECOMPACTAR_ZIP_INTERNO",
+        "NAO_TRATAR_COMO_AUTORIZACAO_DE_IMPLEMENTACAO"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR_SEM_AUTORIZACAO",
+        "NAO_REINTERPRETAR_ESTADO_CANONICO"
+      ]
+    },
+    {
+      "internal_path": "COMPONENTES_CONDICIONAIS/P21_CORPUS_SUPERVISIONADO_AUDITADO_HOMOLOGADO_R01.md",
+      "component": "P21",
+      "canonical_name": "P21_CORPUS_SUPERVISIONADO_AUDITADO_HOMOLOGADO_R01.md",
+      "object_nature": "CONTRATO_DOCUMENTAL_HOMOLOGADO",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO_DOCUMENTALMENTE_NAO_ATIVADO",
+      "applicability": "APLICAVEL_SOMENTE_COMO_CONTRATO_DOCUMENTAL",
+      "use_condition": "NAO_UTILIZAVEL_COMO_CORPUS_MATERIAL",
+      "size_bytes": 156922,
+      "sha256": "a40ad2921e7932586016188dc3792a5adf11a7e04c12592aca1f0e0c26f5142f",
+      "material_origin": "/mnt/data/P21_CORPUS_SUPERVISIONADO_AUDITADO_HOMOLOGADO_R01.md",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P21",
+      "limitations": [
+        "P21_NAO_ATIVADO",
+        "P21_SEM_CORPUS_REAL",
+        "GATES_P21_CONCEDIDOS_ZERO"
+      ],
+      "prohibitions": [
+        "NAO_CRIAR_CORPUS",
+        "NAO_CRIAR_PARES_OU_EXEMPLOS",
+        "NAO_AUTORIZAR_TREINAMENTO"
+      ]
+    },
+    {
+      "internal_path": "01_P22_CONTRATO_DOCUMENTAL_FUNCIONAL_INTEGRAL_CORRIGIDO_R01.md",
+      "component": "P22",
+      "canonical_name": "01_P22_CONTRATO_DOCUMENTAL_FUNCIONAL_INTEGRAL_CORRIGIDO_R01.md",
+      "object_nature": "CONTRATO_DOCUMENTAL_HOMOLOGADO",
+      "revision": "R01",
+      "canonical_state": "HOMOLOGADO_E_CONGELADO_DOCUMENTALMENTE",
+      "applicability": "APLICAVEL",
+      "use_condition": "HANDOFF_DOCUMENTAL_NAO_TRANSFERIDO",
+      "size_bytes": 99422,
+      "sha256": "084bcee8792d6b8584438ab2e19fdf7fc252b2110268423a68bde24ecd417cd1",
+      "material_origin": "/mnt/data/01_P22_CONTRATO_DOCUMENTAL_FUNCIONAL_INTEGRAL_CORRIGIDO_R01(2).md",
+      "genealogical_reference": "GENEALOGIA_CANONICA_P22",
+      "limitations": [
+        "NAO_ALTERAR_BYTES",
+        "GATE_DE_INTEGRIDADE_NAO_CONCEDIDO",
+        "TRANSFERENCIA_NAO_AUTORIZADA"
+      ],
+      "prohibitions": [
+        "NAO_TRANSFERIR",
+        "NAO_CRIAR_RECIBO",
+        "NAO_INICIAR_P23"
+      ]
+    },
+    {
+      "internal_path": "00_INVENTARIO_HANDOFF_P22_R01.json",
+      "component": "P22",
+      "canonical_name": "00_INVENTARIO_HANDOFF_P22_R01.json",
+      "object_kind": "INVENTARIO_INTERNO",
+      "revision": "R01",
+      "canonical_state": "P22_PACOTE_REMATERIALIZADO_APOS_CORRECAO_LOCALIZADA",
+      "applicability": "APLICAVEL",
+      "use_condition": "SOMENTE_REFERENCIA_DOCUMENTAL",
+      "size_bytes": 23401,
+      "sha256": null,
+      "integrity_reference": "HASH_EXTERNO_CALCULADO_APOS_SERIALIZACAO",
+      "self_hash_status": "NAO_APLICAVEL_POR_AUTORREFERENCIA_CRIPTOGRAFICA",
+      "limitations": [
+        "O_HASH_DO_PROPRIO_INVENTARIO_E_CALCULADO_EXTERNAMENTE_APOS_A_SERIALIZACAO"
+      ],
+      "prohibitions": [
+        "NENHUM_HASH_AUTORREFERENTE_PODE_SER_INVENTADO_OU_INSERIDO_NO_PROPRIO_CONTEUDO"
+      ]
+    }
+  ],
+  "exclusions": [
+    "PACOTE_DE_MIGRACAO_INTEGRAL_COMO_ARQUIVO_ANINHADO",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "CORPUS_P21",
+    "MATERIAL_CANDIDATO_P21",
+    "PAR_P21",
+    "EXEMPLO_P21",
+    "LOTE_P21",
+    "VERSAO_REAL_DE_CORPUS_P21",
+    "TESTE_P20_COMO_DADO",
+    "GABARITO_P20_COMO_DADO",
+    "RESULTADO_P20_COMO_DADO",
+    "VERSOES_HISTORICAS_DO_P22",
+    "PARECERES_DE_AUDITORIA_COMO_OBJETOS_DE_IMPLEMENTACAO",
+    "RECIBO",
+    "CREDENCIAIS",
+    "SEGREDOS",
+    "DADOS_REAIS_NAO_AUTORIZADOS"
+  ],
+  "non_applicabilities": [
+    "P15_NAO_ATIVADO",
+    "P16_NAO_ATIVADO",
+    "P17_NAO_ATIVADO",
+    "P18_NAO_ATIVADO",
+    "P21_APLICAVEL_SOMENTE_COMO_CONTRATO_DOCUMENTAL",
+    "P21_NAO_ATIVADO",
+    "P21_SEM_CORPUS_REAL",
+    "GATES_P21_CONCEDIDOS_ZERO"
+  ],
+  "open_decisions": [
+    "MODELO",
+    "FORNECEDOR",
+    "INFRAESTRUTURA",
+    "LINGUAGEM",
+    "API",
+    "BANCO_DE_DADOS",
+    "RAG",
+    "FINE_TUNING",
+    "ARQUITETURA_TECNICA",
+    "METRICAS_EMPIRICAS",
+    "AMBIENTE_DE_PRODUCAO",
+    "ESTRATEGIA_DE_IMPLANTACAO"
+  ],
+  "limitations": [
+    "P22_HOMOLOGADO_E_CONGELADO_DOCUMENTALMENTE",
+    "P22_PACOTE_MATERIALIZADO_NESTA_ACAO",
+    "P22_NAO_TRANSFERIDO",
+    "P22_SEM_RECIBO",
+    "GATE_DE_MATERIALIZACAO_DO_PACOTE_P22_CONCEDIDO",
+    "GATE_DE_INTEGRIDADE_DO_PACOTE_P22_NAO_CONCEDIDO",
+    "GATE_DE_AUTORIZACAO_DE_TRANSFERENCIA_NAO_CONCEDIDO",
+    "GATE_DE_RECEBIMENTO_PELO_ENGENHEIRO_NAO_CONCEDIDO",
+    "GATE_DE_AUTORIZACAO_DE_INICIO_DO_P23_NAO_CONCEDIDO"
+  ],
+  "objects_declared_count": 21,
+  "zip_objects_observed_count": 21,
+  "inventory_self_record_present": true,
+  "inventory_self_hash_embedded": false,
+  "inventory_self_hash_external": true
+}

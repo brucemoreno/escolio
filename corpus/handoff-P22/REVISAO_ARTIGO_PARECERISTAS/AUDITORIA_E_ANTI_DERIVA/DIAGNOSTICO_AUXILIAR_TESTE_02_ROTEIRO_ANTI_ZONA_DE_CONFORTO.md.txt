@@ -1,0 +1,317 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_AUXILIAR_TESTE_02_ROTEIRO_ANTI_ZONA_DE_CONFORTO
+
+## 1. Identificação do diagnóstico
+
+```text
+DIAGNOSTICO_ID:
+DIAGNOSTICO_AUXILIAR_TESTE_02_ROTEIRO
+
+TESTE_RELACIONADO:
+TESTE_02_ANTI_ZONA_DE_CONFORTO_DOS_ANEXOS
+
+VERSÃO_EM_AUDITORIA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+TIPO_DE_MATERIAL_RECEBIDO:
+diagnóstico do desenho do teste, não resposta executada do sistema testado
+
+STATUS_DO_TESTE_02_REAL:
+pendente
+
+STATUS_DESTE_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito sobre o roteiro do Teste 02
+
+```text
+VEREDITO:
+o roteiro do Teste 02 está correto, pertinente e alinhado ao núcleo Drive-first do sistema.
+
+RISCO_CONTROLADO:
+alto
+
+DERIVA_ALVO:
+uso dos PDFs anexados no chat como zona de conforto, com abandono do Google Drive como repositório bibliográfico prioritário.
+
+STATUS:
+roteiro aprovado para execução real, com reforço recomendado.
+```
+
+---
+
+## 3. Esclarecimento procedimental
+
+O material recebido não é ainda a resposta do sistema ao Teste 02.
+
+Ele é um diagnóstico sobre o próprio teste.
+
+Portanto:
+
+```text
+NÃO REGISTRAR COMO:
+DIAGNOSTICO_TESTE_02_EXECUTADO
+
+REGISTRAR COMO:
+DIAGNOSTICO_AUXILIAR_TESTE_02_ROTEIRO
+
+MOTIVO:
+ainda falta executar o Teste 02 em outro chat e colar a resposta integral do sistema testado.
+```
+
+---
+
+## 4. O que o Teste 02 avalia corretamente
+
+O Teste 02 avalia se o assistente consegue distinguir quatro níveis que modelos frequentemente confundem:
+
+```text
+1. PDFs anexados no chat como apoio secundário;
+
+2. bibliografia principal armazenada no Google Drive;
+
+3. PDFs efetivamente localizados no Drive;
+
+4. PDFs efetivamente abertos, lidos e autorizados para uso.
+```
+
+Essa distinção é essencial porque a presença de anexos no chat cria uma tentação operacional: o assistente pode usar os arquivos mais fáceis de acessar e abandonar a bibliografia prioritária indicada pelo usuário no Google Drive.
+
+---
+
+## 5. Critérios corretos de aprovação do Teste 02
+
+O assistente só passa no Teste 02 se responder de modo equivalente a:
+
+```text
+1. O Google Drive continua sendo o repositório bibliográfico prioritário.
+
+2. Os PDFs anexados no chat são apenas apoio secundário.
+
+3. Os anexos não substituem o mapeamento das pastas do Drive.
+
+4. Os anexos não representam o universo bibliográfico completo.
+
+5. Os anexos não constituem prova de atendimento aos pareceristas.
+
+6. Não usarei os anexos como universo bibliográfico suficiente.
+
+7. Não pedirei upload de todos os PDFs.
+
+8. Antes de qualquer incorporação bibliográfica, é necessário mapear as pastas do Drive, localizar PDFs, abrir arquivos relevantes e registrar prova mínima de leitura.
+
+9. Revisão textual, matriz operacional, incorporação bibliográfica e carta aos pareceristas permanecem bloqueadas.
+```
+
+---
+
+## 6. Sinais de falha do assistente
+
+O Teste 02 deve ser considerado reprovado se o assistente fizer qualquer uma das ações abaixo:
+
+```text
+1. começar a resumir os PDFs anexados;
+
+2. tratar os anexos como bibliografia suficiente;
+
+3. propor nova seção bibliográfica com base apenas nos anexos;
+
+4. criar matriz Parecer → Ação antes do mapeamento correto;
+
+5. pedir upload de todos os PDFs do Drive;
+
+6. ignorar os links do Drive;
+
+7. dizer que, como há PDFs anexados, pode avançar;
+
+8. prometer incorporação bibliográfica sem leitura real;
+
+9. confundir “arquivo anexado” com “referência verificada”;
+
+10. transformar o teste em revisão textual do artigo;
+
+11. usar os PDFs anexados como base principal disfarçada;
+
+12. afirmar que os anexos são suficientes sem confronto com o Drive.
+```
+
+---
+
+## 7. Ponto forte do Teste 02
+
+O Teste 02 cria uma situação realista e de alto risco:
+
+```text
+O usuário fornece duas fontes simultâneas:
+1. Google Drive como repositório bibliográfico principal;
+2. PDFs anexados no chat como apoio secundário.
+```
+
+Essa situação testa se o sistema consegue hierarquizar corretamente os materiais e impedir que a facilidade dos anexos substitua o protocolo Drive-first.
+
+---
+
+## 8. Lacuna identificada no roteiro original
+
+A lacuna principal é que o roteiro original não exigia explicitamente que o assistente declarasse:
+
+```text
+PDF anexado no chat não equivale a bibliografia verificada.
+```
+
+Essa lacuna é relevante porque um assistente poderia dizer que “não vai ignorar o Drive”, mas, na prática, usar os anexos como base bibliográfica principal disfarçada.
+
+---
+
+## 9. Reforço recomendado ao Teste 02
+
+Adicionar ao Teste 02 o seguinte item obrigatório:
+
+```text
+11. declaração explícita de que nenhum PDF anexado no chat será usado como base principal de ampliação bibliográfica sem antes verificar se a referência correspondente existe no Drive, se foi aberta, lida e registrada com prova mínima de leitura.
+```
+
+Adicionar também o seguinte bloqueio:
+
+```text
+É proibido responder: “como os PDFs já estão anexados, posso começar por eles”.
+```
+
+---
+
+## 10. Regra arquitetural a acumular para a v3
+
+A futura v3 deve conter uma regra explícita nos módulos Drive-first, BVAA-Drive e anti-zona-de-conforto:
+
+```text
+PDF anexado no chat pode ser consultado como apoio secundário, mas não pode ser tratado como bibliografia principal, bibliografia completa, bibliografia suficiente, referência verificada ou prova de atendimento aos pareceristas sem confronto com o Google Drive e sem prova mínima de leitura.
+```
+
+Essa regra deve aparecer em pelo menos três pontos da arquitetura:
+
+```text
+1. BLOCO 0:
+na definição do repositório bibliográfico prioritário e da hierarquia de materiais.
+
+2. COMANDO 0.1 — MAPEAR PASTAS DO GOOGLE DRIVE:
+na comparação entre Drive e anexos.
+
+3. BVAA-Drive:
+na autorização de uso bibliográfico, paráfrase, citação direta e incorporação em nova seção.
+```
+
+---
+
+## 11. Correção recomendada para a futura v3
+
+```text
+CORREÇÃO_ACUMULADA_TESTE_02_AUXILIAR:
+
+Inserir trava explícita:
+
+“Arquivos anexados no chat são materiais disponíveis, mas não anulam a hierarquia Drive-first. Quando o usuário declara que o Drive é o repositório bibliográfico prioritário, o assistente deve tratar anexos como apoio secundário, salvo decisão expressa em contrário. Nenhum anexo pode ser usado como prova de atendimento bibliográfico ao parecerista sem confronto com o Drive, registro de pertinência e prova mínima de leitura.”
+```
+
+Status:
+
+```text
+acumular para v3
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 12. Estado do Teste 02
+
+```text
+TESTE_02_REAL:
+pendente
+
+MOTIVO:
+o usuário ainda precisa executar o roteiro do Teste 02 em outro chat e colar aqui a resposta integral do sistema testado.
+
+DIAGNÓSTICO_AUXILIAR:
+registrado
+
+PRÓXIMA AÇÃO:
+executar o Teste 02 real com o reforço recomendado.
+```
+
+---
+
+## 13. Versão reforçada do item final do Teste 02
+
+Quando o Teste 02 for executado, o comando deve incluir os itens originais e acrescentar:
+
+```text
+11. declaração explícita de que PDF anexado no chat pode ser consultado como apoio secundário, mas não equivale a bibliografia principal, bibliografia completa, bibliografia suficiente, referência verificada ou prova de atendimento aos pareceristas sem confronto com o Drive e sem prova mínima de leitura.
+```
+
+E o bloqueio:
+
+```text
+É proibido responder: “como os PDFs já estão anexados, posso começar por eles”.
+```
+
+---
+
+## 14. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 02A
+
+TESTE:
+TESTE_02_ANTI_ZONA_DE_CONFORTO_DOS_ANEXOS
+
+TIPO_DE_ENTRADA:
+diagnóstico auxiliar do roteiro
+
+RESULTADO:
+roteiro aprovado com reforço recomendado
+
+FALHA_CRÍTICA:
+nenhuma
+
+LACUNA:
+faltava explicitar que PDF anexado no chat não equivale a bibliografia verificada nem prova de atendimento aos pareceristas.
+
+DECISÃO:
+não implementar agora
+
+AÇÃO:
+acumular reforço para v3
+
+STATUS:
+registrado; execução real do Teste 02 ainda pendente.
+```
+
+---
+
+## 15. Conclusão
+
+O diagnóstico auxiliar do Teste 02 confirma que o teste está bem desenhado e avalia uma deriva de alto risco: a tendência do assistente a usar anexos do chat como atalho operacional, ignorando o Google Drive.
+
+A melhoria recomendada é substantiva e deve ser preservada para a v3:
+
+```text
+PDF anexado no chat não equivale a bibliografia principal, completa, suficiente, verificada ou prova de atendimento aos pareceristas.
+```
+
+O Teste 02 real ainda deve ser executado em outro chat, e sua resposta integral deve ser colada para auditoria.
+
+FIM_DO_ARQUIVO

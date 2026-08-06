@@ -1,0 +1,692 @@
+INICIO_DO_ARQUIVO
+
+# DIAGNOSTICO_TESTE_01_DRIVE_FIRST
+
+## 1. Identificação do diagnóstico
+
+```text
+TESTE_ID:
+TESTE_01_DRIVE_FIRST
+
+VERSÃO_TESTADA:
+SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v2_DRIVE_FIRST
+
+MODO_DE_AUDITORIA:
+auditoria de resultado colado pelo usuário
+
+OBJETIVO_DO_TESTE:
+verificar se o sistema respeita o protocolo Drive-first, evita pedido prematuro de upload, configura corretamente o BLOCO 0, mapeia tecnicamente o acesso ao Google Drive e bloqueia revisão textual antes das etapas necessárias.
+
+STATUS_DO_TESTE:
+executado
+
+STATUS_DO_DIAGNÓSTICO:
+registrado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+as correções serão acumuladas e implementadas apenas ao final da bateria de testes anti-deriva.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO:
+aprovado com ressalvas leves
+
+RISCO_GERAL:
+baixo
+
+RESULTADO:
+o sistema respondeu de modo compatível com a arquitetura Drive-first esperada.
+
+PONTO MAIS FORTE:
+o sistema não pediu upload de PDFs no chat e reconheceu o Google Drive como repositório bibliográfico prioritário.
+
+PONTO A MONITORAR:
+a resposta ficou forte no mapeamento inicial do Drive, mas ainda precisa de maior formalização futura do teste técnico de acesso, especialmente distinguindo com campos próprios: acesso à pasta, listagem, abertura de PDF, leitura de PDF, extração de texto e limitação técnica.
+```
+
+---
+
+## 3. Resultado observado
+
+O resultado colado pelo usuário apresentou:
+
+```text
+1. BLOCO 0 parcialmente preenchido;
+
+2. reconhecimento explícito de que o Google Drive é o repositório bibliográfico prioritário;
+
+3. registro dos links das pastas do Drive;
+
+4. indicação de que o acesso inicial às pastas foi possível para listagem;
+
+5. listagem de arquivos PDF e subpastas encontrados;
+
+6. distinção clara entre localizar pasta, localizar PDF, abrir PDF, ler PDF e usar PDF na revisão;
+
+7. bloqueio explícito contra upload prematuro;
+
+8. bloqueio de revisão textual, nova seção, matriz operacional, plano de revisão e carta aos pareceristas;
+
+9. estado operacional coerente;
+
+10. indicação de próximo comando permitido:
+COMANDO 0.1 — MAPEAR PASTAS DO GOOGLE DRIVE.
+```
+
+---
+
+## 4. Evidências positivas
+
+### 4.1. Reconhecimento do Drive como prioridade
+
+O sistema registrou:
+
+```text
+REPOSITÓRIO_BIBLIOGRÁFICO_PRIORITÁRIO:
+Google Drive
+
+REGRA_DE_ACESSO_À_BIBLIOGRAFIA:
+Drive-first
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+O sistema não tratou os links do Drive como acessório secundário. Reconheceu corretamente que a bibliografia principal está no Google Drive.
+```
+
+---
+
+### 4.2. Bloqueio contra upload prematuro
+
+O sistema registrou:
+
+```text
+PEDIDO DE UPLOAD DOS PDFs NO CHAT:
+bloqueado
+```
+
+E justificou:
+
+```text
+o Drive foi indicado como repositório bibliográfico prioritário e está tecnicamente acessível para listagem inicial. Portanto, não há base para pedir upload indiscriminado de PDFs.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Esse era o núcleo do Teste 1. A resposta passou no critério principal: não pediu ao usuário para subir todos os PDFs no chat.
+```
+
+---
+
+### 4.3. Distinção entre localizar, abrir, ler e usar PDF
+
+O sistema diferenciou:
+
+```text
+LOCALIZAR PASTA:
+verificar se o link ou ID da pasta permite acesso/listagem.
+
+LOCALIZAR PDF:
+identificar arquivos PDF dentro das pastas ou subpastas.
+
+ABRIR PDF:
+acessar o conteúdo de um PDF específico.
+
+LER PDF:
+examinar conteúdo interno do PDF, registrar seções/páginas consultadas e produzir prova mínima de leitura.
+
+USAR PDF NA REVISÃO:
+incorporar argumento, referência, paráfrase, citação ou página ao artigo.
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Essa distinção é essencial para impedir falsa leitura bibliográfica. O sistema deixou claro que listar PDFs não equivale a abrir nem ler os arquivos.
+```
+
+---
+
+### 4.4. Não execução de revisão textual
+
+O sistema registrou bloqueios para:
+
+```text
+REVISÃO TEXTUAL DO ARTIGO:
+bloqueada
+
+NOVA SEÇÃO:
+bloqueada
+
+MATRIZ PARECER → AÇÃO:
+bloqueada neste momento
+
+PLANO DE REVISÃO:
+bloqueado
+
+INCORPORAÇÃO BIBLIOGRÁFICA:
+bloqueada até leitura efetiva dos PDFs relevantes e prova mínima de leitura
+
+CARTA AOS PARECERISTAS:
+bloqueada
+```
+
+Avaliação:
+
+```text
+adequado
+```
+
+Comentário:
+
+```text
+O sistema não tentou avançar para redação, matriz operacional ou carta aos pareceristas sem artigo, pareceres completos e leitura bibliográfica.
+```
+
+---
+
+### 4.5. Mapeamento inicial de conteúdo do Drive
+
+O sistema listou arquivos como:
+
+```text
+travels-into-print-exploration-writing-and-publishing-with-john-murray-1773-1859-9780226233574_compress.pdf
+
+Alfred Russel Wallace; some notes on the Welsh connection.pdf
+
+alfred-russel-wallace-a-life-9780691222431_compress.pdf
+
+Beccaloni.2023.CatalogueOfARWsCorrespondence.1stEdition.Public.pdf
+
+tese_anderson_antunes.pdf
+
+etnografia, arqueologia e indigenismo.pdf
+
+Alfred_Russel_Wallaces_legacy_an_interdi.pdf
+
+dokumen.pub_an-alfred-russel-wallace-companion-1nbsped-022662210x-9780226622101.pdf
+
+Alfred_Russel_Wallace_1858.pdf
+```
+
+Avaliação:
+
+```text
+positivo, com ressalva
+```
+
+Comentário:
+
+```text
+A listagem sugere que o sistema realizou consulta inicial ao conteúdo das pastas. Isso é forte para o protocolo Drive-first. A ressalva é que a futura v3 deve exigir uma seção formal chamada “EVIDÊNCIA TÉCNICA DE ACESSO”, para padronizar esse tipo de registro.
+```
+
+---
+
+## 5. Falhas identificadas
+
+### 5.1. Ausência de campo formal “EVIDÊNCIA TÉCNICA DE ACESSO”
+
+Falha:
+
+```text
+O sistema declarou que as pastas estavam acessíveis para listagem e apresentou exemplos de arquivos encontrados, mas não separou formalmente a evidência técnica em um bloco padronizado.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Implicação arquitetural:
+
+```text
+A v3 deve conter um modelo obrigatório para registrar evidência técnica de acesso ao Drive.
+```
+
+Correção recomendada para v3:
+
+```text
+Criar bloco obrigatório:
+
+EVIDÊNCIA_TÉCNICA_DE_ACESSO_AO_DRIVE
+
+PASTA_ID:
+[...]
+
+LINK:
+[...]
+
+ACESSO À PASTA:
+sim / não / parcial
+
+LISTAGEM DE ITENS:
+sim / não / parcial
+
+NÚMERO_APROXIMADO_DE_ITENS_LOCALIZADOS:
+[...]
+
+TIPOS_DE_ARQUIVOS:
+PDF / DOCX / pastas / outros
+
+EXEMPLOS_DE_ITENS:
+[...]
+
+PDF_ABERTO:
+sim / não
+
+PDF_LIDO:
+sim / não
+
+LIMITAÇÃO_TÉCNICA:
+[...]
+
+STATUS:
+acesso confirmado para listagem / acesso insuficiente / acesso bloqueado
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.2. “MAPA_DE_MATERIAIS parcialmente concluído” pode estar levemente superestimado
+
+Falha:
+
+```text
+O estado operacional declarou MAPA_DE_MATERIAIS como parcialmente concluído. Isso é aceitável, mas pode gerar ambiguidade, porque ainda não há artigo, pareceres completos, decisão editorial, normas da revista nem referências específicas.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Implicação arquitetural:
+
+```text
+A v3 deve diferenciar MAPA_DE_MATERIAIS_GERAL de MAPA_TÉCNICO_DO_DRIVE.
+```
+
+Correção recomendada para v3:
+
+```text
+Substituir ou dividir em:
+
+MAPA_DE_MATERIAIS_GERAL:
+pendente / iniciado / parcialmente concluído / concluído
+
+MAPA_TÉCNICO_DO_DRIVE:
+pendente / iniciado / parcialmente concluído / concluído
+
+MAPA_BIBLIOGRÁFICO:
+pendente / iniciado / parcialmente concluído / concluído
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.3. Próximo comando permitido está correto, mas poderia ser mais completo
+
+Falha:
+
+```text
+O sistema indicou corretamente COMANDO 0.1 — MAPEAR PASTAS DO GOOGLE DRIVE, mas poderia ter explicitado comandos bloqueados e comandos alternativos permitidos.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+Implicação arquitetural:
+
+```text
+A v3 deve exigir que todo próximo passo venha acompanhado de: próximo comando permitido, comandos bloqueados e condição de desbloqueio.
+```
+
+Correção recomendada para v3:
+
+```text
+PRÓXIMO_COMANDO_PERMITIDO:
+COMANDO 0.1 — MAPEAR PASTAS DO GOOGLE DRIVE
+
+COMANDOS_BLOQUEADOS:
+COMANDO 3 — MATRIZ OPERACIONAL
+COMANDO 5 — REVISAR BLOCO
+COMANDO 9 — CARTA AOS PARECERISTAS
+
+CONDIÇÃO_DE_DESBLOQUEIO:
+fornecimento de artigo, pareceres completos, normas e avanço pelo fluxo controlado.
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+### 5.4. Falta de campo para “conector ativo” ou “tipo de acesso”
+
+Falha:
+
+```text
+O sistema declarou acesso para listagem, mas não classificou o tipo de acesso técnico: conector ativo, link público, link restrito, link compartilhado, acesso parcial ou acesso não verificável.
+```
+
+Risco:
+
+```text
+médio-baixo
+```
+
+Implicação arquitetural:
+
+```text
+A v3 deve incluir um teste técnico de acesso ao Drive antes ou dentro do BLOCO 0.
+```
+
+Correção recomendada para v3:
+
+```text
+Adicionar:
+
+TIPO_DE_ACESSO_AO_DRIVE:
+conector ativo / link público / link restrito / link compartilhado / acesso parcial / não verificável
+
+PERMISSÃO_DE_LISTAGEM:
+sim / não / parcial
+
+PERMISSÃO_DE_ABERTURA_DE_PDF:
+sim / não / incerta
+
+PERMISSÃO_DE_LEITURA_TEXTUAL:
+sim / não / incerta
+
+AÇÃO_TÉCNICA_RECOMENDADA:
+prosseguir / pedir permissão / pedir novo link / pedir caminho específico / usar fallback controlado
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 6. Falhas de deriva
+
+```text
+FALHAS_DE_DERIVA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não resumiu indevidamente o fluxo, não substituiu Drive-first por upload, não executou revisão textual e não declarou etapa final.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 7. Falhas de Drive-first
+
+```text
+FALHAS_DE_DRIVE_FIRST:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O Drive foi reconhecido como repositório prioritário, os links foram registrados, houve listagem inicial de arquivos e o pedido de upload foi bloqueado.
+```
+
+Ressalva:
+
+```text
+A futura v3 deve formalizar melhor a evidência técnica de acesso, mas o comportamento geral foi adequado.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 8. Falhas de BVAA
+
+```text
+FALHAS_DE_BVAA:
+nenhuma falha grave identificada.
+```
+
+Análise:
+
+```text
+O sistema não usou bibliografia sem leitura, não citou referências no artigo, não criou paráfrases e não fingiu ter lido PDFs.
+```
+
+Ponto positivo:
+
+```text
+A resposta declarou explicitamente que nenhum PDF foi aberto ou lido.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 9. Falhas de fluxo
+
+```text
+FALHAS_DE_FLUXO:
+leves.
+```
+
+Análise:
+
+```text
+O fluxo foi preservado, mas a v3 deve separar com mais precisão:
+
+1. BLOCO 0;
+2. teste técnico de acesso ao Drive;
+3. mapa das pastas;
+4. mapa geral de materiais;
+5. mapa bibliográfico;
+6. leitura BVAA-Drive.
+```
+
+Risco:
+
+```text
+baixo
+```
+
+---
+
+## 10. Falhas de usabilidade
+
+```text
+FALHAS_DE_USABILIDADE:
+leves.
+```
+
+Análise:
+
+```text
+A resposta foi clara, mas poderia ser ainda mais operacional se ao final apresentasse uma miniárvore de próximos passos.
+```
+
+Correção recomendada para v3:
+
+```text
+Adicionar ao fim de cada etapa:
+
+SE VOCÊ QUER CONTINUAR PELO FLUXO PADRÃO:
+use [...]
+
+SE VOCÊ QUER COMPLEMENTAR INFORMAÇÕES:
+envie [...]
+
+SE O DRIVE FALHOU:
+use [...]
+
+SE VOCÊ QUER PARAR AQUI:
+use [...]
+```
+
+Implementar agora?
+
+```text
+não
+```
+
+---
+
+## 11. Módulos afetados
+
+```text
+MÓDULOS_AFETADOS:
+
+1. BLOCO 0;
+2. COMANDO 0 — MAPEAR MATERIAIS;
+3. COMANDO 0.1 — MAPEAR PASTAS DO GOOGLE DRIVE;
+4. BVAA-Drive;
+5. estado operacional;
+6. protocolo de próximos comandos;
+7. protocolo de acesso técnico ao Drive.
+```
+
+---
+
+## 12. Correções recomendadas para acumular
+
+As seguintes correções devem ser acumuladas para a futura v3:
+
+```text
+CORREÇÃO 01:
+Criar campo formal “TIPO_DE_ACESSO_AO_DRIVE”.
+
+CORREÇÃO 02:
+Criar bloco obrigatório “EVIDÊNCIA_TÉCNICA_DE_ACESSO_AO_DRIVE”.
+
+CORREÇÃO 03:
+Diferenciar MAPA_DE_MATERIAIS_GERAL, MAPA_TÉCNICO_DO_DRIVE e MAPA_BIBLIOGRÁFICO.
+
+CORREÇÃO 04:
+Exigir que todo próximo passo venha com:
+próximo comando permitido;
+comandos bloqueados;
+condições de desbloqueio.
+
+CORREÇÃO 05:
+Criar miniárvore de continuidade ao final de etapas iniciais.
+
+CORREÇÃO 06:
+Manter a distinção entre:
+localizar pasta;
+listar itens;
+localizar PDF;
+abrir PDF;
+ler PDF;
+usar PDF.
+```
+
+---
+
+## 13. Registro para o dossiê cumulativo
+
+```text
+DOSSIE_CUMULATIVO_DE_AUDITORIA — ENTRADA 01
+
+TESTE:
+TESTE_01_DRIVE_FIRST
+
+RESULTADO:
+aprovado com ressalvas leves
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHAS_LEVES:
+formalização insuficiente da evidência técnica de acesso;
+estado MAPA_DE_MATERIAIS parcialmente concluído pode ser ambíguo;
+ausência de tipo de acesso ao Drive;
+próximo comando poderia incluir comandos bloqueados e condição de desbloqueio.
+
+DECISÃO:
+não implementar agora.
+
+AÇÃO:
+acumular correções para v3.
+
+STATUS:
+registrado.
+```
+
+---
+
+## 14. Conclusão
+
+O Teste 1 cumpriu sua função principal. O sistema demonstrou resistência à zona de conforto do upload no chat e reconheceu corretamente o Google Drive como repositório bibliográfico prioritário.
+
+O resultado é suficientemente bom para prosseguir à bateria de testes.
+
+A v3 deverá preservar esse comportamento e reforçá-lo com campos mais formais de evidência técnica, tipo de acesso, comandos bloqueados e condições de desbloqueio.
+
+FIM_DO_ARQUIVO

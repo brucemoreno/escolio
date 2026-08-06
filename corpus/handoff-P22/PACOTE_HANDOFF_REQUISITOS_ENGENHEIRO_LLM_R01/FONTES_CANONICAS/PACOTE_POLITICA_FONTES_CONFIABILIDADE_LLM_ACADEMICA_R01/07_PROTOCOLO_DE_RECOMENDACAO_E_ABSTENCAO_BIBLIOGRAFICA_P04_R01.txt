@@ -1,0 +1,40 @@
+INICIO_DO_PROTOCOLO
+
+CADEIA_DE_RECOMENDACAO:
+CONHECIMENTO_NOMINAL → IDENTIFICACAO → LOCALIZACAO → ACESSO → LEITURA → VALIDACAO → RECOMENDACAO
+
+REGRA:
+Nenhuma etapa posterior é inferida automaticamente a partir da anterior.
+
+RECOMENDACAO_CONDICIONAL:
+Permitida quando a obra está identificada e há justificativa de pertinência, mas faltam acesso, leitura ou validação. A condição pendente deve ser explícita.
+
+RECOMENDADA:
+Exige leitura e validação suficientes para a finalidade declarada, com escopo, edição, suporte e limites registrados.
+
+LIMITES:
+- leitura parcial autoriza recomendação apenas no limite do trecho examinado;
+- localização sem acesso autoriza recomendar obtenção, não conteúdo;
+- conhecimento nominal autoriza apenas pista;
+- obra conhecida não é fonte verificada;
+- recomendação não converte uma fonte em “fonte-coringa”.
+
+ABSTENCAO_BIBLIOGRAFICA:
+Obrigatória diante de:
+- obra não identificada;
+- edição incerta;
+- acesso não comprovado;
+- leitura não comprovada;
+- página/citação não confirmada;
+- metadado conflitante;
+- fonte secundária apresentada como leitura primária;
+- evidência incompatível com a afirmação;
+- comando para inventar dados.
+
+SAIDA_DA_ABSTENCAO:
+Declarar o que não pode ser comprovado, registrar a evidência ausente e indicar uma única ação documental necessária.
+
+REVERSAO:
+Somente mediante nova evidência material, preservando o histórico do estado anterior.
+
+FIM_DO_PROTOCOLO

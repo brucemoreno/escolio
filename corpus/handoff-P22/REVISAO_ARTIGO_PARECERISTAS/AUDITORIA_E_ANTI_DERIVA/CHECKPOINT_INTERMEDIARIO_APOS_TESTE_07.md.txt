@@ -1,0 +1,199 @@
+INICIO_DO_ARQUIVO
+
+# CHECKPOINT_INTERMEDIARIO_APOS_TESTE_07
+
+## 1. Identificação
+
+```text
+CHECKPOINT_ID:
+CHECKPOINT_INTERMEDIARIO_APOS_TESTE_07
+
+MOMENTO:
+após execução dos Testes 01 a 07
+
+FUNÇÃO:
+verificar se o sistema mantém bloqueios, Drive-first, BVAA-Drive, distinções operacionais e controle anti-deriva antes de avançar para o Teste 08.
+
+STATUS:
+executado
+
+VEREDITO:
+aprovado
+
+IMPLEMENTAR_CORREÇÕES_AGORA?
+não
+
+MOTIVO:
+o checkpoint serve apenas para controle de estado. As correções continuam acumuladas para a futura v3.
+```
+
+---
+
+## 2. Estado operacional informado pelo outro chat
+
+```text
+BLOQUEIOS ATIVOS:
+- revisão textual bloqueada;
+- reescrita da introdução bloqueada;
+- nova seção bloqueada;
+- matriz operacional Parecer → Ação definitiva bloqueada;
+- plano de revisão bloqueado;
+- carta aos pareceristas bloqueada;
+- incorporação bibliográfica bloqueada sem BVAA-Drive;
+- pedido genérico de upload de PDFs bloqueado;
+- uso de anexos como zona de conforto bloqueado;
+- uso de bibliografia apenas localizada como se fosse lida bloqueado;
+- uso de comentário de parecerista como verdade automática bloqueado.
+```
+
+```text
+DRIVE-FIRST:
+ativo
+
+BVAA-DRIVE:
+ativo
+```
+
+```text
+MATRIZ, PLANO, REVISÃO TEXTUAL E CARTA:
+continuam bloqueados sem autorização, sem materiais completos, sem matriz aprovada, sem plano aprovado e sem leitura bibliográfica verificável quando houver demanda bibliográfica.
+```
+
+---
+
+## 3. Distinções operacionais preservadas
+
+O outro chat declarou que continuam ativas as seguintes distinções:
+
+```text
+diagnóstico ≠ matriz preliminar
+
+matriz preliminar ≠ matriz operacional definitiva
+
+matriz operacional ≠ revisão textual
+
+revisão textual ≠ bloco aprovado
+
+esquema de resposta ≠ carta final aos pareceristas
+
+localizar referência ≠ abrir PDF
+
+abrir PDF ≠ ler PDF
+
+ler PDF ≠ autorizar uso automático no artigo
+```
+
+Avaliação:
+
+```text
+muito adequado
+```
+
+Comentário:
+
+```text
+Essas distinções são essenciais para impedir que os testes simulados virem autorização indevida para revisar, aprovar, incorporar bibliografia ou redigir carta aos pareceristas.
+```
+
+---
+
+## 4. Risco de deriva acumulada
+
+O outro chat classificou o risco como:
+
+```text
+baixo a moderado
+```
+
+Justificativa informada:
+
+```text
+os testes anteriores acumularam muitos cenários simulados, mas o estado ainda está controlado porque nenhuma etapa diagnóstica foi convertida em aprovação, revisão textual, matriz definitiva ou carta final.
+```
+
+Principal risco identificado:
+
+```text
+confundir os diagnósticos dos testes com decisões operacionais reais do artigo.
+```
+
+Avaliação:
+
+```text
+correto
+```
+
+Comentário:
+
+```text
+Esse é exatamente o risco principal neste momento da bateria. Os testes estão produzindo diagnósticos úteis, mas nenhum deles deve ser tratado como decisão real sobre um artigo específico.
+```
+
+---
+
+## 5. Veredito do checkpoint
+
+```text
+VEREDITO:
+checkpoint aprovado
+
+ESTADO:
+controlado
+
+RISCO:
+baixo a moderado
+
+FALHA CRÍTICA:
+nenhuma
+
+DERIVA GRAVE:
+não identificada
+
+AÇÃO:
+prosseguir para o Teste 08
+```
+
+---
+
+## 6. Observação para a futura v3
+
+Este checkpoint reforça a necessidade de incluir na futura v3 um módulo formal de estado acumulado após bateria de testes, especialmente para impedir que:
+
+```text
+1. diagnóstico seja confundido com aprovação;
+
+2. matriz preliminar seja confundida com matriz operacional;
+
+3. esquema de resposta seja confundido com carta final;
+
+4. referência localizada seja confundida com referência lida;
+
+5. testes simulados sejam confundidos com decisões reais do artigo;
+
+6. bloqueios sejam esquecidos após muitos comandos sucessivos.
+```
+
+---
+
+## 7. Correção acumulada para v3
+
+```text
+CORREÇÃO:
+Criar módulo obrigatório de CHECKPOINT_INTERMEDIARIO_ANTI_DERIVA para ser usado após blocos longos de testes, auditorias ou diagnósticos.
+
+FUNÇÃO:
+confirmar bloqueios ativos, estados operacionais, distinções críticas, riscos de deriva e próximos comandos permitidos.
+
+STATUS:
+correção acumulada para v3.
+```
+
+---
+
+## 8. Conclusão
+
+O checkpoint após o Teste 07 confirma que o sistema mantém os bloqueios estruturais e as distinções operacionais essenciais.
+
+O sistema continua apto a avançar para o Teste 08.
+
+FIM_DO_ARQUIVO

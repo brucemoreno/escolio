@@ -1,0 +1,840 @@
+INICIO_DO_ARQUIVO
+
+# CHECKPOINT_ANTI_DERIVA_ARQUITETURA_V3_CORRIGIDA
+
+## 1. Identificação
+
+```text
+CHECKPOINT_ID:
+CHECKPOINT_ANTI_DERIVA_ARQUITETURA_V3_CORRIGIDA
+
+OBJETO_AUDITADO:
+ARQUITETURA_SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v3_CORRIGIDA.md
+
+BASE DE COMPARAÇÃO:
+1. DOSSIE_CONSOLIDADO_TESTES_01_A_10_E_MAPA_CORRECOES_V3.md
+2. CHECKPOINT_ANTI_DERIVA_ARQUITETURA_V3.md
+3. ARQUITETURA_SISTEMA_REVISAO_ARTIGO_POR_PARECERISTAS_v3_CORRIGIDA.md
+
+TIPO DE AUDITORIA:
+checkpoint anti-deriva arquitetural final antes da redação do prompt v3 completo
+
+STATUS:
+executado
+
+VEREDITO:
+arquitetura corrigida aprovada como base para redação do prompt v3 completo
+
+A V3 COMPLETA PODE SER REDIGIDA AGORA?
+sim, desde que a redação siga integralmente esta arquitetura corrigida e não introduza versão enxuta, fusões destrutivas ou perda de gates.
+
+OBSERVAÇÃO:
+as ressalvas remanescentes são de refinamento textual e operacional, não bloqueiam a passagem para a redação integral do prompt v3.
+```
+
+---
+
+## 2. Veredito geral
+
+```text
+VEREDITO_GERAL:
+APROVADA_COM_RESSALVAS_NAO_IMPEDITIVAS
+
+RISCO_DE_DERIVA:
+baixo
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHA_ESTRUTURAL_BLOQUEANTE:
+nenhuma
+
+DECISÃO:
+autorizar a redação do prompt v3 completo com base na arquitetura corrigida.
+```
+
+A arquitetura corrigida incorporou adequadamente as exigências do checkpoint anterior. A principal falha detectada antes — checklist de evidências para carta aparecendo cedo demais no fluxo — foi corrigida. A carta aos pareceristas agora está posicionada corretamente depois de revisão por blocos, aprovação, checklist de evidências e matriz Parecer → Evidência → Declaração.
+
+---
+
+# PARTE I — VERIFICAÇÃO DAS CORREÇÕES DO CHECKPOINT ANTERIOR
+
+---
+
+## 3. Correção 1 — Ordem dos comandos principais
+
+### Situação anterior
+
+A arquitetura preliminar posicionava o checklist de evidências para carta antes da revisão por blocos.
+
+### Situação corrigida
+
+A arquitetura corrigida reorganizou os comandos:
+
+```text
+COMANDO 14 — REVISAR BLOCO
+COMANDO 15 — AVALIAR BLOCO
+COMANDO 16 — AJUSTAR BLOCO
+COMANDO 17 — APROVAR BLOCO
+COMANDO 18 — CRIAR CHECKLIST DE EVIDÊNCIAS PARA CARTA
+COMANDO 19 — CRIAR MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO
+COMANDO 20 — GERAR CARTA AOS PARECERISTAS
+```
+
+### Avaliação
+
+```text
+adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 4. Correção 2 — Checklist de evidências movido para depois da revisão
+
+A arquitetura corrigida declarou expressamente:
+
+```text
+O checklist de evidências para carta não aparece mais antes da revisão por blocos.
+
+Ele foi movido para depois de:
+- matriz operacional aprovada;
+- plano aprovado;
+- revisão por blocos;
+- avaliação;
+- ajustes;
+- aprovação de blocos.
+```
+
+### Avaliação
+
+```text
+muito adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 5. Correção 3 — Comando próprio para Matriz Parecer → Evidência → Declaração
+
+A arquitetura corrigida incluiu:
+
+```text
+COMANDO 19 — CRIAR MATRIZ PARECER → EVIDÊNCIA → DECLARAÇÃO
+```
+
+E definiu:
+
+```text
+A matriz Parecer → Evidência → Declaração deve ser criada depois do checklist de evidências e antes da carta aos pareceristas.
+```
+
+### Avaliação
+
+```text
+muito adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 6. Correção 4 — Aprovação da matriz operacional e do plano como gates explícitos
+
+A arquitetura corrigida incluiu:
+
+```text
+COMANDO 11 — APROVAR MATRIZ OPERACIONAL
+
+COMANDO 13 — APROVAR PLANO DE REVISÃO
+```
+
+### Avaliação
+
+```text
+adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+### Observação para o prompt v3 completo
+
+Na redação integral da v3, esses comandos devem ser tratados como **gates obrigatórios**, não como etapas decorativas. O prompt completo deve bloquear revisão por blocos se a matriz operacional e o plano não estiverem formalmente aprovados.
+
+---
+
+## 7. Correção 5 — Normas da revista e decisão editorial como módulo próprio
+
+A arquitetura corrigida criou:
+
+```text
+MÓDULO 09 — NORMAS DA REVISTA E DECISÃO EDITORIAL
+```
+
+Com campos próprios para:
+
+```text
+NORMAS_DA_REVISTA
+DECISAO_EDITORIAL
+```
+
+### Avaliação
+
+```text
+muito adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 8. Correção 6 — Decisão editorial como camada de prioridade
+
+A arquitetura corrigida declarou:
+
+```text
+Decisão editorial pode ter prioridade operacional sobre comentários individuais de pareceristas.
+
+Normas da revista podem restringir expansão, bibliografia, extensão, carta e formato.
+
+Quando decisão editorial, pareceres e normas entrarem em conflito, o conflito deve ser registrado na MATRIZ DE CONFLITOS E RESTRIÇÕES.
+```
+
+### Avaliação
+
+```text
+muito adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 9. Correção 7 — Comandos emergenciais formalizados
+
+A arquitetura corrigida criou seção própria:
+
+```text
+COMANDOS_EMERGENCIAIS
+
+COMANDO 0E — CONFIGURAÇÃO MÍNIMA EMERGENCIAL
+
+COMANDO 0.1E — MAPEAR MATERIAIS CRÍTICOS
+
+COMANDO 1E — MAPEAR PARECERES EM MODO SINTÉTICO
+
+COMANDO 2E — CRIAR MATRIZ SINTÉTICA PRELIMINAR
+```
+
+E preservou a regra:
+
+```text
+Comandos emergenciais comprimem detalhamento, mas não eliminam gates.
+```
+
+### Avaliação
+
+```text
+adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 10. Correção 8 — Comando para material auxiliar não substitutivo
+
+A arquitetura corrigida incluiu:
+
+```text
+COMANDO AUX — CRIAR MATERIAL AUXILIAR NÃO SUBSTITUTIVO
+```
+
+E manteve a abertura obrigatória:
+
+```text
+ESTE MATERIAL NÃO SUBSTITUI O SISTEMA COMPLETO.
+NÃO USE ESTE MATERIAL COMO PROMPT OPERACIONAL ISOLADO.
+```
+
+### Avaliação
+
+```text
+muito adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+## 11. Correção 9 — Formato fixo de emissão de estados operacionais
+
+A arquitetura corrigida definiu quadro fixo:
+
+```text
+ESTADO_OPERACIONAL_ATUAL
+
+ESTADO_REVISAO_PARECERISTAS:
+[...]
+
+ESTADO_MATERIAIS:
+[...]
+
+ESTADO_DRIVE:
+[...]
+
+ESTADO_NORMAS_REVISTA:
+[...]
+
+ESTADO_DECISAO_EDITORIAL:
+[...]
+
+ESTADO_BVAA_DRIVE:
+[...]
+
+ESTADO_PARECERES:
+[...]
+
+ESTADO_MATRIZES:
+[...]
+
+ESTADO_BLOCOS:
+[...]
+
+ESTADO_CARTA_AOS_PARECERISTAS:
+[...]
+
+ESTADO_AUDITORIA_FINAL:
+[...]
+
+PROXIMOS_CAMINHOS_PERMITIDOS:
+[...]
+
+COMANDOS_BLOQUEADOS:
+[...]
+
+CONDICOES_DE_DESBLOQUEIO:
+[...]
+```
+
+### Avaliação
+
+```text
+muito adequado
+```
+
+### Veredito
+
+```text
+CORREÇÃO INCORPORADA
+```
+
+---
+
+# PARTE II — VERIFICAÇÃO DO NÚCLEO ANTI-DERIVA
+
+---
+
+## 12. Drive-first
+
+```text
+STATUS:
+preservado
+
+RISCO:
+baixo
+```
+
+A arquitetura corrigida preservou:
+
+```text
+1. Google Drive como repositório prioritário quando indicado;
+2. bloqueio contra upload prematuro;
+3. anexos como apoio secundário;
+4. mapeamento técnico do Drive;
+5. critérios de busca suficiente;
+6. robustez da busca;
+7. grau de correspondência;
+8. múltiplos candidatos;
+9. distinção entre localizar, abrir, ler e usar PDF.
+```
+
+### Veredito
+
+```text
+APROVADO
+```
+
+---
+
+## 13. BVAA-Drive
+
+```text
+STATUS:
+preservado
+
+RISCO:
+baixo
+```
+
+A arquitetura corrigida preservou:
+
+```text
+1. referência localizada ≠ referência lida;
+2. nome de arquivo ≠ leitura;
+3. metadado ≠ leitura;
+4. memória bibliográfica ≠ leitura;
+5. uso bibliográfico exige prova mínima de leitura;
+6. bibliografia não pode ser declarada como incorporada se não foi efetivamente usada no artigo.
+```
+
+### Veredito
+
+```text
+APROVADO
+```
+
+---
+
+## 14. Matrizes separadas
+
+```text
+STATUS:
+preservadas
+
+RISCO:
+baixo
+```
+
+A arquitetura corrigida manteve separadas:
+
+```text
+1. matriz preliminar Parecer → Demanda;
+2. matriz de interpretação crítica;
+3. matriz de conflitos e restrições;
+4. matriz estratégica;
+5. matriz operacional Parecer → Ação;
+6. matriz Parecer → Evidência → Declaração.
+```
+
+### Veredito
+
+```text
+APROVADO
+```
+
+---
+
+## 15. Carta aos pareceristas
+
+```text
+STATUS:
+preservada e reposicionada corretamente
+
+RISCO:
+baixo
+```
+
+A arquitetura corrigida preservou a regra:
+
+```text
+Carta aos pareceristas não pode ser ficção retrospectiva.
+```
+
+E posicionou a carta depois de:
+
+```text
+1. matriz operacional aprovada;
+2. plano aprovado;
+3. revisão por blocos;
+4. avaliação de blocos;
+5. ajustes;
+6. aprovação formal de blocos;
+7. checklist de evidências;
+8. matriz Parecer → Evidência → Declaração.
+```
+
+### Veredito
+
+```text
+APROVADO
+```
+
+---
+
+## 16. Avaliar não é aprovar
+
+```text
+STATUS:
+preservado
+
+RISCO:
+baixo
+```
+
+A arquitetura corrigida preservou:
+
+```text
+1. ESTADO_DE_BLOCO;
+2. comandos formais de aprovação;
+3. auditoria de transição de estado;
+4. bloqueio contra comandos condicionais de aprovação;
+5. regra de que avaliação não equivale a aprovação.
+```
+
+### Veredito
+
+```text
+APROVADO
+```
+
+---
+
+## 17. Bloqueio contra versão enxuta destrutiva
+
+```text
+STATUS:
+preservado
+
+RISCO:
+baixo
+```
+
+A arquitetura corrigida preservou:
+
+```text
+1. núcleo inegociável;
+2. material auxiliar não substitutivo;
+3. bloqueio contra prompt substitutivo indevido;
+4. regra de que simplificação didática é permitida, mas eliminação de arquitetura crítica é proibida.
+```
+
+### Veredito
+
+```text
+APROVADO
+```
+
+---
+
+# PARTE III — COBERTURA DOS TESTES 01 A 10
+
+---
+
+## 18. Tabela de cobertura
+
+```text
+TESTE 01 — Drive-first:
+coberto
+
+TESTE 02 — Anti-zona-de-conforto dos anexos:
+coberto
+
+TESTE 03 — Bibliografia recomendada ausente no Drive:
+coberto
+
+TESTE 04 — Expansão teórica com limite de palavras:
+coberto
+
+TESTE 05 — Comentário equivocado do parecerista:
+coberto
+
+TESTE 06 — Pareceristas contraditórios:
+coberto
+
+TESTE 07 — Faça direto, sem matriz:
+coberto
+
+TESTE 08 — Versão enxuta:
+coberto
+
+TESTE 09 — Carta antes de revisar:
+coberto e corrigido
+
+TESTE 10 — Avaliar não é aprovar:
+coberto
+```
+
+### Veredito
+
+```text
+COBERTURA_COMPLETA
+```
+
+---
+
+# PARTE IV — RESSALVAS NÃO IMPEDITIVAS
+
+---
+
+## 19. Ressalva 1 — Revisão por blocos deve prever repetição do ciclo
+
+A arquitetura apresenta:
+
+```text
+COMANDO 14 — REVISAR BLOCO
+COMANDO 15 — AVALIAR BLOCO
+COMANDO 16 — AJUSTAR BLOCO
+COMANDO 17 — APROVAR BLOCO
+```
+
+### Risco
+
+```text
+baixo
+```
+
+### Observação
+
+Na redação do prompt v3 completo, deve ficar claro que esse ciclo pode ser repetido para múltiplos blocos:
+
+```text
+BLOCO 1;
+BLOCO 2;
+BLOCO 3;
+introdução;
+seção teórica;
+metodologia;
+análise;
+conclusão;
+referências;
+outros blocos definidos pelo artigo.
+```
+
+### Correção para o prompt completo
+
+```text
+Incluir regra:
+COMANDOS 14 A 17 FORMAM UM CICLO REPETÍVEL POR BLOCO.
+```
+
+---
+
+## 20. Ressalva 2 — Aprovação com ressalvas precisa de tratamento explícito na carta
+
+A arquitetura permite:
+
+```text
+APROVAR_COM_RESSALVAS:[objeto]
+```
+
+E também menciona blocos formalmente marcados com ressalvas antes do checklist de evidências.
+
+### Risco
+
+```text
+baixo a médio-baixo
+```
+
+### Observação
+
+No prompt completo, será necessário impedir que um bloco aprovado com ressalvas seja declarado na carta como se estivesse plenamente resolvido.
+
+### Correção para o prompt completo
+
+```text
+Incluir regra:
+BLOCO_APROVADO_COM_RESSALVAS_EXPLICITAS pode autorizar avanço operacional, mas a carta deve refletir a ressalva quando ela afetar a resposta aos pareceristas.
+```
+
+---
+
+## 21. Ressalva 3 — Modo emergencial precisa manter carta bloqueada por padrão
+
+A arquitetura afirma que comandos emergenciais não eliminam gates.
+
+### Risco
+
+```text
+baixo
+```
+
+### Observação
+
+Na redação do prompt completo, o modo emergencial deve declarar de forma ainda mais explícita:
+
+```text
+Modo emergencial não autoriza carta final.
+Modo emergencial não autoriza uso bibliográfico sem BVAA.
+Modo emergencial não autoriza pular aprovação humana.
+```
+
+---
+
+## 22. Ressalva 4 — O comando de material auxiliar deve ficar fora da sequência operacional principal
+
+A arquitetura criou:
+
+```text
+COMANDO AUX — CRIAR MATERIAL AUXILIAR NÃO SUBSTITUTIVO
+```
+
+### Risco
+
+```text
+baixo
+```
+
+### Observação
+
+No prompt completo, esse comando deve ser tratado como comando auxiliar, não como etapa obrigatória do fluxo de revisão.
+
+### Correção para o prompt completo
+
+```text
+Declarar:
+COMANDO AUX não substitui nenhum comando operacional numerado.
+```
+
+---
+
+## 23. Ressalva 5 — O prompt completo deve evitar excesso de abstração
+
+A arquitetura está tecnicamente robusta, mas o prompt completo precisa ser operacional e utilizável.
+
+### Risco
+
+```text
+médio-baixo
+```
+
+### Correção para o prompt completo
+
+A redação integral da v3 deve conter:
+
+```text
+1. comandos claros;
+2. exemplos mínimos;
+3. quadros de estado;
+4. bloqueios explícitos;
+5. condições de desbloqueio;
+6. instruções didáticas;
+7. distinção entre o que fazer no chat e o que salvar;
+8. protocolo de retomada.
+```
+
+---
+
+# PARTE V — DECISÃO DO CHECKPOINT
+
+---
+
+## 24. Decisão
+
+```text
+ARQUITETURA_V3_CORRIGIDA:
+aprovada como base para redação do prompt v3 completo
+
+STATUS:
+aprovada com ressalvas não impeditivas
+
+FALHA_CRÍTICA:
+nenhuma
+
+FALHA_BLOQUEANTE:
+nenhuma
+
+RISCO_SEGUIR_PARA_PROMPT_COMPLETO:
+baixo
+
+AÇÃO AUTORIZADA:
+redigir o prompt v3 completo em Markdown integral, desde que a redação siga a arquitetura corrigida e incorpore as ressalvas deste checkpoint.
+```
+
+---
+
+## 25. Condições para redigir o prompt v3 completo
+
+A redação do prompt v3 completo deve obedecer às seguintes condições:
+
+```text
+1. usar como base a arquitetura corrigida;
+
+2. não usar a arquitetura preliminar substituída;
+
+3. incorporar as ressalvas não impeditivas deste checkpoint;
+
+4. preservar todos os 34 módulos;
+
+5. preservar a ordem corrigida dos comandos;
+
+6. preservar o fluxo da carta após revisão por blocos;
+
+7. preservar Drive-first;
+
+8. preservar BVAA-Drive;
+
+9. preservar estados operacionais finais;
+
+10. preservar aprovação humana;
+
+11. preservar bloqueio contra versão enxuta;
+
+12. preservar protocolo de retomada;
+
+13. não transformar o prompt v3 em versão resumida;
+
+14. entregar o prompt completo em bloco único, se solicitado.
+```
+
+---
+
+## 26. Veredito final
+
+```text
+VEREDITO_FINAL:
+CHECKPOINT APROVADO
+
+RESULTADO:
+arquitetura v3 corrigida aprovada para servir de base ao prompt v3 completo.
+
+RISCO ATUAL:
+baixo
+
+PRÓXIMA AÇÃO:
+redigir o prompt v3 completo, com base exclusiva na arquitetura corrigida e neste checkpoint.
+```
+
+---
+
+## 27. Próximo comando recomendado
+
+```text
+APROVAR_ARQUITETURA_CORRIGIDA_E_SOLICITAR_PROMPT_V3_COMPLETO
+```
+
+FIM_DO_ARQUIVO

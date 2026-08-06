@@ -1,0 +1,77 @@
+{
+  "pacote": "PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.zip",
+  "revisao": "R03",
+  "status": "R03_RETIFICADA_AGUARDANDO_VERIFICACAO_FINAL_RESTRITA",
+  "autoridade": {
+    "fonte_de_verdade": false,
+    "condicao": "VERIFICACAO_FINAL_RESTRITA_APROVADA_E_HOMOLOGACAO_EXPRESSA"
+  },
+  "retificacao_de": {
+    "pacote_R02": "PACOTE_PROTOCOLO_MESTRE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R02.zip",
+    "sha256_R02": "4f96dab979700a5c802829ea13f691f3f4b5c0bf776ab446d4d9c82272b5967f",
+    "pacote_auditoria_final_R02": "PACOTE_AUDITORIA_FINAL_PROTOCOLO_MESTRE_LLM_ACADEMICA_R02.zip",
+    "sha256_auditoria_final_R02": "59d2f64fb898759cfc94e936d2a49a19aefe4fb1e2d2813b90a6d63bddf57c92"
+  },
+  "bloqueadores_finais_retificados": [
+    "FINAL-BLOQ-01_DEPENDENCIA_AMBIGUA_REMANESCENTE",
+    "FINAL-BLOQ-02_MODULOS_CONDICIONAIS_NAO_PROPAGADOS_A_DADOS_E_TESTES",
+    "FINAL-BLOQ-03_REGISTRO_DIRETO_DE_PACOTES_VALIDOS_E_INVALIDADOS_AUSENTE",
+    "FINAL-BLOQ-04_MAPA_DE_COBERTURA_E_PROVENIENCIA_INCOMPLETO"
+  ],
+  "decisoes_preservadas": [
+    "Arquitetura técnica permanece não decidida.",
+    "VK-FUNC-001 a VK-FUNC-044 não foram alterados.",
+    "Os seis profiles V117 permanecem canônicos.",
+    "Contextos geográficos, temporais e interseções permanecem separados.",
+    "Treinamento, RAG, fine-tuning e implementação permanecem não autorizados.",
+    "Bibliografia nova exige leitura efetiva e localização confirmada.",
+    "Suíte de testes deve ser congelada antes de exemplos supervisionados.",
+    "Comando vago não autoriza transição.",
+    "Nenhum componente do inventário foi iniciado."
+  ],
+  "regra_anti_recursividade": {
+    "proxima_verificacao": [
+      "verificar_os_quatro_bloqueadores_finais",
+      "verificar_integridade",
+      "verificar_ausencia_de_regressao_das_travas"
+    ],
+    "proibido_sem_novo_erro_material_comprovado": [
+      "abrir_nova_expansao_funcional",
+      "abrir_nova_expansao_arquitetural",
+      "abrir_nova_expansao_documental",
+      "criar_novo_bloqueador_por_preferencia"
+    ]
+  },
+  "pendencias": [
+    {
+      "id": "PEND-001",
+      "objeto": "Verificação final restrita da R03",
+      "status": "PENDENTE"
+    },
+    {
+      "id": "PEND-002",
+      "objeto": "Homologação da R03",
+      "status": "BLOQUEADA_ATE_VERIFICACAO_FINAL_RESTRITA_APROVADA"
+    },
+    {
+      "id": "PEND-003",
+      "objeto": "Conclusão do levantamento funcional",
+      "status": "EM_ABERTO_SEM_EFEITO_NESTE_CICLO"
+    },
+    {
+      "id": "PEND-004",
+      "objeto": "Produção dos componentes do inventário",
+      "status": "NAO_INICIADA_E_NAO_AUTORIZADA"
+    },
+    {
+      "id": "PEND-005",
+      "objeto": "Decisão entre uma ou várias IAs",
+      "status": "ADIADA_ATE_HANDOFF_E_COMPARATIVO_ARQUITETURAL"
+    }
+  ],
+  "proxima_acao_unica_autorizada": null,
+  "estado_final": [
+    "PROTOCOLO_MESTRE_R03_RETIFICADO",
+    "AGUARDANDO_COMANDO_AUTORAL_ESPECIFICO_PARA_VERIFICACAO_FINAL_RESTRITA"
+  ]
+}

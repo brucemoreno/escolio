@@ -1,0 +1,76 @@
+{
+  "produto": "PACOTE_CONTRATO_VOZ_AUTORAL_LLM_ACADEMICA_R01.zip",
+  "componente": "P07",
+  "revisao": "R01",
+  "status": "EXECUTADO_DOCUMENTALMENTE_NAO_AUDITADO_NAO_HOMOLOGADO",
+  "arquivos": [
+    {
+      "nome": "00_LEIA_PRIMEIRO.txt",
+      "sha256": "b95d4b3424c69ea8c9bea35e3429a960c5db4ed7a1df09a2d6f6a856b70de5e0",
+      "tamanho_bytes": 384
+    },
+    {
+      "nome": "01_CONTRATO_UNIVERSAL_DE_VOZ_AUTORAL_P07_R01.md",
+      "sha256": "b25b8d8107f37b411e9eebc3b33f93a09c4d9ab1967d269d1d2d428c4a0917b5",
+      "tamanho_bytes": 1833
+    },
+    {
+      "nome": "02_SCHEMA_DE_PERFIL_DE_VOZ_AUTORAL_P07_R01.json",
+      "sha256": "ff06954b3a3749a9e3855fa6362c1284d65d0c211df885f82ba0af0bd4354b12",
+      "tamanho_bytes": 1566
+    },
+    {
+      "nome": "03_DICIONARIO_DE_DIMENSOES_DE_VOZ_P07_R01.csv",
+      "sha256": "6d0ab37bbc8f237f442ff16dea132bd66665464144cc6e666ef87ad0bad4e6f9",
+      "tamanho_bytes": 3049
+    },
+    {
+      "nome": "04_MATRIZ_DE_PERFIS_FONTES_CONFIANCA_E_AUTORIDADE_P07_R01.csv",
+      "sha256": "e5f10730f8f311b711dc19c7fc0a1c6f5d81558b916ae704fd775e9b60227876",
+      "tamanho_bytes": 807
+    },
+    {
+      "nome": "05_PROTOCOLO_DE_CALIBRACAO_DE_VOZ_P07_R01.txt",
+      "sha256": "09be406d202c92bccea852946e342a15e31b0d22ef914652346d63bebb043fdd",
+      "tamanho_bytes": 444
+    },
+    {
+      "nome": "06_PROTOCOLO_DE_AVALIACAO_DE_FIDELIDADE_AUTORAL_P07_R01.txt",
+      "sha256": "6b98ad5fc415e8fef754c6b4c85b1d102660bede672e2b7a1575b86f853e7f2c",
+      "tamanho_bytes": 522
+    },
+    {
+      "nome": "07_PROTOCOLO_DE_CONFLITOS_ABSTENCAO_E_REVERSAO_P07_R01.txt",
+      "sha256": "8c9118cdd96e927b150c6a51946abff3dc7044414a11c5b300a952c72895c1d6",
+      "tamanho_bytes": 498
+    },
+    {
+      "nome": "08_MAPA_DE_PROVENIENCIA_DAS_REGRAS_DE_VOZ_P07_R01.jsonl",
+      "sha256": "f300140664c5d11334d28dcb80972548db02a235e8134a50ce7c8d7155bbc3f5",
+      "tamanho_bytes": 1420
+    },
+    {
+      "nome": "09_REGISTRO_DE_LACUNAS_E_CONFLITOS_P07_R01.jsonl",
+      "sha256": "4974365b0cca8d0b16207d639235f2b848861028ee9a7352a2ff7829f7c59632",
+      "tamanho_bytes": 616
+    },
+    {
+      "nome": "10_TESTE_DE_VOZ_P07_R01.txt",
+      "sha256": "07c4b48cb8d217ffcde072b78293edc6252e84742a9f01dca07dd40ff932e8cf",
+      "tamanho_bytes": 8442
+    },
+    {
+      "nome": "11_DIAGNOSTICO_FINAL_P07_R01.txt",
+      "sha256": "5a910c4509ce7422cb263e7138f2c8634f729c9d2d8ab1696f4e8dcb364801be",
+      "tamanho_bytes": 454
+    }
+  ],
+  "controles": {
+    "comandos_historicos_executados": false,
+    "manuscrito_real_revisado": false,
+    "casos_historicos_universalizados": false,
+    "R03_alterada": false,
+    "P00_P06_reabertos": false,
+    "P08_P28_iniciados": false
+  }
+}

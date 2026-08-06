@@ -1,0 +1,19 @@
+﻿transicao_id;estado_entrada;estado_saida;evidencia_ou_gatilho;acao_permitida;acao_proibida
+T01;OBRA_NAO_IDENTIFICADA;OBRA_IDENTIFICADA;dados mínimos materialmente confirmados;registrar identidade;inventar autoria/título
+T02;OBRA_IDENTIFICADA;EDICAO_IDENTIFICADA;edição/volume/tradução/suporte confirmados;registrar edição específica;presumir edição
+T03;EDICAO_IDENTIFICADA;LOCALIZADA;objeto específico encontrado;registrar localização;declarar acesso
+T04;LOCALIZADA;ACESSIVEL;condição material de acesso confirmada;registrar acessibilidade;declarar abertura
+T05;ACESSIVEL;ACESSADA;objeto efetivamente aberto/recuperado;registrar acesso;declarar leitura
+T06;ACESSADA;LEITURA_NAO_REALIZADA;objeto aberto sem exame substantivo;manter sem leitura;inferir conteúdo
+T07;ACESSADA;LEITURA_PARCIAL;parte delimitada examinada;registrar limites;promover a integral
+T08;ACESSADA;LEITURA_INTEGRAL;objeto completo e exame integral comprovados;registrar leitura integral;declarar por mera disponibilidade
+T09;LEITURA_PARCIAL;PAGINA_CONFIRMADA;trecho e marcador conferidos na edição;confirmar marcador específico;generalizar para toda obra
+T10;LEITURA_INTEGRAL;PAGINA_CONFIRMADA;marcador conferido no suporte;confirmar localização;transferir paginação de edição
+T11;LEITURA_PARCIAL;VALIDACAO_PENDENTE;uso excede trecho ou evidência;pedir complemento;liberar integralmente
+T12;PAGINA_CONFIRMADA;VALIDADA;correspondência afirmação-evidência comprovada;validar uso delimitado;extrapolar
+T13;VALIDACAO_PENDENTE;ABSTENCAO_BIBLIOGRAFICA;evidência não obtida ou conflitante;abster-se;inventar
+T14;LOCALIZADA;RECOMENDACAO_CONDICIONAL;obra localizada, não lida;recomendar obtenção/leitura;apresentar como validada
+T15;VALIDADA;RECOMENDADA;adequação à finalidade confirmada;recomendar com limites;omitir escopo
+T16;LEITURA_INDIRETA;VALIDACAO_PENDENTE;fonte intermediária identificada;manter mediação;afirmar leitura primária
+T17;PAGINA_NAO_CONFIRMADA;ABSTENCAO_BIBLIOGRAFICA;página necessária e não comprovada;pedir trecho paginado;inventar página
+T18;QUALQUER_ESTADO;ABSTENCAO_BIBLIOGRAFICA;comando solicita invenção de referência/metadado;recusar e registrar;obedecer ao comando

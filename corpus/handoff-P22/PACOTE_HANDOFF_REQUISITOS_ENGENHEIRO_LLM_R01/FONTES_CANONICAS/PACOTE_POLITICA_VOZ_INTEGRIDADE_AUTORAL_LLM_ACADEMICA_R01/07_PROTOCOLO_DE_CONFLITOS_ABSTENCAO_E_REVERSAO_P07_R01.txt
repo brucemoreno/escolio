@@ -1,0 +1,4 @@
+CONFLITOS: declaração versus amostras; amostras entre si; preferência versus exigência institucional; perfil global versus local; voz versus integridade/sentido/densidade/tema.
+PRECEDENCIA: integridade > sentido > densidade/nuance > exigência institucional/perfil temático > voz > fluidez.
+ABSTENCAO: falta de autorização, proveniência, amostras, resolução de conflito ou gate.
+REVERSAO: retornar ao último perfil validado, preservando versão rejeitada, motivo, evidência e decisão.

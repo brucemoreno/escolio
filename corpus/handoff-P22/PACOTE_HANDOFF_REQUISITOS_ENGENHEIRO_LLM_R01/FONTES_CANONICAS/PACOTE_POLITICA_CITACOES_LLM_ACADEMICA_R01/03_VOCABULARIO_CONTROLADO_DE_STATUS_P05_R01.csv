@@ -1,0 +1,16 @@
+﻿dimensao;status;definicao;evidencia_minima;compatibilidades;incompatibilidades;efeito_de_uso
+GERAL;NAO_VERIFICADA;Relação ainda não confrontada;Registro da pendência;"NAO_USAR;USO_CONDICIONAL";VALIDADA;Não libera uso
+ACESSO;LOCALIZADA;Fonte encontrada em suporte determinado;Registro material de localização;"NAO_VERIFICADA;VALIDACAO_PENDENTE";LIDA_INTEGRALMENTE sem acesso;Não prova acesso
+ACESSO;ACESSADA;Fonte efetivamente aberta/recuperada;Registro observável de abertura;Leitura não realizada, parcial ou integral;NAO_LOCALIZADA;Permite registrar leitura
+LEITURA;LIDA_PARCIALMENTE;Parte delimitada foi examinada;Limites e segmento registrados;"PAGINA_CONFIRMADA;USO_CONDICIONAL";Alegação de leitura integral;Uso limitado ao trecho
+LEITURA;LIDA_INTEGRALMENTE;Objeto completo foi examinado;Objeto completo e exame integral;VALIDADA quando demais requisitos atendidos;Fonte parcial;Não valida automaticamente
+LOCALIZACAO;PAGINA_CONFIRMADA;Marcador confrontado com edição/suporte;Página/ fólio e edição confirmados;VALIDADA;Edição divergente não tratada;Autoriza marcador delimitado
+VALIDACAO;VALIDACAO_PENDENTE;Faltam elementos para decisão;Pendências registradas;"USO_CONDICIONAL;ABSTENCAO";USO_LIBERADO;Bloqueia liberação
+VALIDACAO;VALIDADA;Relação sustentada no escopo declarado;Cadeia coerente e validator;"EVIDENCIA_SUFICIENTE;USO_LIBERADO";EVIDENCIA_AUSENTE;Pode liberar uso delimitado
+SUFICIENCIA;EVIDENCIA_INSUFICIENTE;Evidência não cobre a afirmação/uso;Comparação claim-evidência;"NAO_USAR;USO_CONDICIONAL";USO_LIBERADO;Impede liberação
+SUFICIENCIA;EVIDENCIA_SUFICIENTE;Evidência cobre o uso delimitado;Correspondência material;VALIDADA;EVIDENCIA_AUSENTE;Condição necessária, não isoladamente suficiente
+USO;USO_CONDICIONAL;Uso permitido apenas com condição explícita;Condição e limite registrados;"VALIDACAO_PENDENTE;PARCIAL";Condição omitida;Uso com ressalva explícita
+USO;USO_LIBERADO;Uso autorizado no escopo validado;Todos os gates de coerência;"VALIDADA;SUFICIENTE";"Conflito bloqueante; página inventada";Uso delimitado
+USO;NAO_USAR;Relação bloqueada;Erro, insuficiência ou invalidação;Qualquer estado bloqueante;USO_LIBERADO simultâneo;Proíbe uso
+USO;ABSTENCAO;Interrupção obrigatória;Ausência, conflito ou pedido de invenção;NAO_USAR;USO_LIBERADO;Pede evidência e para
+VALIDACAO;INVALIDADA_POSTERIORMENTE;Validação anterior revogada por nova evidência;Evento, motivo e versão sucessora;"NAO_USAR;histórico preservado";Apagamento da versão anterior;Retira liberação futura

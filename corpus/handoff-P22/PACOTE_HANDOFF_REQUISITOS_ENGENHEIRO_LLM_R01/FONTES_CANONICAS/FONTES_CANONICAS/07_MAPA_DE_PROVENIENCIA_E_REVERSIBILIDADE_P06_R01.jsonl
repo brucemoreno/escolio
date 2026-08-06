@@ -1,0 +1,6 @@
+{"id": "P06-PROV-001", "elemento": "separação de papéis", "fonte": "P03 homologado", "reversibilidade": "preservação integral"}
+{"id": "P06-PROV-002", "elemento": "comando vago não autoriza transição", "fonte": "P03 homologado/R03", "reversibilidade": "regressão ao último estado autorizado"}
+{"id": "P06-PROV-003", "elemento": "congelamento, reabertura e substituição", "fonte": "P03 homologado", "reversibilidade": "versão anterior preservada"}
+{"id": "P06-PROV-004", "elemento": "uma única próxima ação", "fonte": "P03 homologado", "reversibilidade": "interrupção sem avanço"}
+{"id": "P06-PROV-005", "elemento": "níveis mínimos de intervenção", "fonte": "15_COMANDO_UNICO_EXECUTOR_DOCUMENTAL_P06_R01.txt", "reversibilidade": "cada nível definido separadamente"}
+{"id": "P06-PROV-006", "elemento": "P05 apenas como estado global", "fonte": "TERMO_DE_HOMOLOGACAO_P05_R01.txt", "reversibilidade": "sem uso substantivo"}

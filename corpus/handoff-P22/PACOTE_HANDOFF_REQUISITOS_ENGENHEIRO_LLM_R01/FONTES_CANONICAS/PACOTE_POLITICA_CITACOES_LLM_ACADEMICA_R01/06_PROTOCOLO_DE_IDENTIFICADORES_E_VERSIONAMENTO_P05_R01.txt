@@ -1,0 +1,30 @@
+INICIO_DO_PROTOCOLO
+
+1. CLASSES DE ID
+- CLAIM: CLM-<DOMINIO>-<IDENTIFICADOR_UNICO>.
+- SOURCE: SRC-<TIPO>-<IDENTIFICADOR_UNICO>.
+- RELACAO: chave composta claim_id + source_id + relation_version.
+- EXEMPLO: prefixo EX-, proibido fora de exemplos abstratos.
+
+2. UNICIDADE
+Cada ID é único no ecossistema documental aplicável. Antes de emitir novo ID, verificar índice existente. Colisão bloqueia gravação. Um mesmo objeto material reutiliza seu source_id; objetos materialmente distintos, inclusive edições divergentes, não compartilham identidade por conveniência.
+
+3. IMUTABILIDADE
+IDs não são editados, reciclados ou transferidos. Correção de metadado não muda identidade quando o objeto permanece o mesmo; erro de identidade cria novo registro e marca o anterior como invalidado, preservado.
+
+4. VERSIONAMENTO
+relation_version inicia em 1. Toda alteração substantiva em evidência, localização, validação, suficiência, confiança ou uso cria versão sucessora. A versão sucessora referencia a predecessora em provenance/notes. A predecessora permanece legível e não é sobrescrita.
+
+5. SUBSTITUICAO
+Substituir fonte exige: novo source_id quando o objeto muda; motivo; data; autoridade; relação predecessora; efeito sobre claims associados. É proibida substituição silenciosa.
+
+6. INVALIDACAO POSTERIOR
+Nova evidência que invalida relação anterior gera versão com INVALIDADA_POSTERIORMENTE e NAO_USAR. Claims dependentes são enumerados por rastreabilidade reversa e reavaliados, sem apagar o estado histórico anterior.
+
+7. PREVENCAO DE PERDA DE PROVENIENCIA
+Todo registro inclui origem material, método de obtenção, versão/edição, responsável e data. Importação sem proveniência é rejeitada ou mantida como EVIDENCIA_AUSENTE/VALIDACAO_PENDENTE.
+
+8. REVERSIBILIDADE
+Reversão significa criar novo evento restaurador referenciado; nunca remover eventos anteriores. A controladora vigente é identificada por versão e decisão autorizada.
+
+FIM_DO_PROTOCOLO
