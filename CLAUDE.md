@@ -352,19 +352,39 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
 
 ## 14. Roadmap
 
-**Existe:** schema P05 + 20 regras RC (Python) · ingestão PDF (Python) · máquina P03 (JS).
+**Peças 1 a 6 construídas.** 561 testes passando (`pytest tests/`, 2026-08-07). Ressalva que vale
+para tudo abaixo: **nenhuma chamada à API foi feita ainda** [BL-007]. Todo teste verifica código
+contra a spec; nada foi verificado contra documento real, e nenhum piloto supervisionado
+existe — homologação documental não é ativação operacional [P11 §42].
 
-**A construir, em ordem de dependência:**
+| # | Peça | Onde | Testes | `LACUNAS.md` | Pendente |
+|---|---|---|---|---|---|
+| — | Schema P05 + 20 regras RC | `escolio/` | 91 | 11 | BL-002 — tradução para `ClaimEvidence` [P09 §12], com aliases, sem apagar distinções |
+| — | Ingestão PDF | `escolio/ingestao/` | 53 | 12 | BL-010 — as quatro lacunas de `funcoes-P10-P14.md` §8 nunca foram gravadas aqui |
+| — | Máquina documental P03 | `handoff/` (JS) | — | — | BL-005 — única parte fora do Python; inconsistência declarada, não resolvida |
+| 1 | Envelope P09 e sua validação | `escolio/contrato/` | 87 | 9 | BL-011 `function_id` fora da correspondência request↔response · BL-013 `Response.interventions` ainda desligado |
+| 2 | Níveis P06 + `InterventionRecord` | `escolio/intervencao/` | 51 | 10 | BL-013 · objeto congelado continua sem campo no P09 §13 |
+| 3 | Adaptador ingestão → `InputItem` | `escolio/adaptadores/` | 11 | — | BL-003 `MaterialUnit` [P19 §9] só na regra de identidade; os 26 campos restantes exigem fluxo homologado com gate humano · BL-014 |
+| 4 | **X01** — máquina bibliográfica P04 | `escolio/bvaa/` | 77 | 10 | `CON-P05-001` mantido aberto: três vocabulários, nenhum vencedor, nenhuma conversão em runtime |
+| 5 | Perfil de voz do autor avaliado (P07) | `escolio/voz/` | 56 | 25 | perfil de **quem comenta** bloqueado por §13.1; `style/style_card.md` sem destino |
+| 6 | Roteador de função — **um módulo por função** | `escolio/funcoes/` | 135 | 29 | BL-011 · BL-012 · BL-013 · BL-014 |
 
-1. Envelope P09 e sua validação — o contrato que falta e do qual tudo depende.
-2. Níveis P06 + `InterventionRecord`.
-3. Adaptador ingestão → `InputItem` [P09 §6] com `material_id` [P19 §9-10].
-4. Completar **X01**: máquina bibliográfica P04 (17 estados) sobre o schema P05, com os aliases
-   do `CON-P05-001`.
-5. Perfil de voz do autor avaliado (P07). O perfil de quem comenta está bloqueado por §13.1.
-6. Roteador de função e etapas por função — **um módulo por função**.
-7. Ingestão segura P08.
-8. Suíte de testes nas 20 categorias do P20.
+**A construir:**
 
-**Sem mapa em `docs/spec/`:** P08, P20, R03. Consultar antes de qualquer sessão que dependa
-deles. P19 tem mapa em `docs/spec/mapa-P19.md`.
+7. **Ingestão segura P08.** Bloqueada por leitura antes de qualquer coisa: o P08 não tem mapa em
+   `docs/spec/` [BL-009].
+8. **Suíte de testes nas 20 categorias do P20.** Idem [BL-009]. Os 561 testes atuais são de
+   unidade por pacote e **não** correspondem às categorias do P20 — não confundir um com o outro.
+
+**Sem mapa em `docs/spec/`:** P08, P20, R03 [BL-009]. Consultar antes de qualquer sessão que
+dependa deles. P19 tem mapa em `docs/spec/mapa-P19.md`.
+
+**O que a peça 6 fechou, e o que deixou aberto.** Fechou o catálogo das seis funções e as
+verificações de correspondência que o P09 §4.2.3-4.2.5 exige e que o envelope sozinho não podia
+fazer. Deixou aberto, por ausência de fonte: **nenhum documento define como se escolhe a função**
+[LAC-FUNC-001] — o roteador confere e recusa, nunca elege, e não existe `selecionar_funcao`;
+nenhuma fonte enumera operações por função [LAC-FUNC-005]; nenhum dos 91 gates tem posição
+declarada [LAC-FUNC-007]. Enquanto `classification.functions` não for populado [BL-014], todo
+`InputItem` vindo da ingestão é `INDETERMINADO` e **nenhuma função é elegível** — o roteador está
+correto e inerte, e é assim que deve permanecer até que declarar material para uma função seja
+ato humano registrado.

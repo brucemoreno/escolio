@@ -79,7 +79,7 @@ P19/roteador de função". O roteador lê, não declara — declarar material pa
 `CURADOR_DE_DADOS` + `USUARIO_PROPONENTE` sob o P19. Consequência prática hoje: todo `InputItem`
 vindo da ingestão resulta em `AdmissaoDeMaterial.INDETERMINADO`, e nenhuma função é elegível.
 
-### BL-015 — o CLAUDE.md §13.3 apoia-se em premissa falsa
+### BL-015 — o CLAUDE.md §13.3 apoiava-se em premissa falsa — RESOLVIDO PARCIALMENTE
 A questão aberta pergunta se capítulo de livro e relatório de pós-doutorado seriam "P15+,
 generalização autorizada de P11, ou fora de escopo". O inventário canônico da R03
 (`02_INVENTARIO_DE_COMPONENTES_E_PACOTES_A_PRODUZIR_R03.csv`) desmente a primeira alternativa:
@@ -88,8 +88,14 @@ nenhum é camada `FUNCAO`, e a camada `FUNCAO` termina em P14. Não há componen
 sexta macrofunção, e a R03 está homologada e congelada. As quatro candidatas da R03 CAMADA B
 ("revisão de artigo antes da submissão", "incorporação de comentários de qualificação ou defesa",
 "auditoria bibliográfica e documental autônoma", "revisão de projeto de pesquisa ou proposta de
-financiamento") também não têm componente atribuído. O CLAUDE.md não foi alterado: corrigir §13.3
-e §13.4 é ato de governança, não de sessão técnica.
+financiamento") também não têm componente atribuído.
+
+**Em 2026-08-07, por instrução do professor:** §13.3 corrigido — a alternativa "P15+" saiu e a
+pergunta ficou binária (generalização autorizada de P11, ou fora de escopo). §14 atualizado com
+o estado real das peças 1-6. **§13.4 permanece como está**: continua correto ao registrar
+"revisão de artigo antes da submissão" como candidata não incorporada; o que o achado acrescenta
+é que incorporá-la esbarra no mesmo obstáculo — não há componente livre. Alterar §13.4 não foi
+pedido e não corrige erro factual. Registro completo em `docs/spec/claude-md-mudancas.md` §7.
 
 ## Ambiente e medição
 
