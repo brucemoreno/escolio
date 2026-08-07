@@ -26,9 +26,13 @@ material real fora do fluxo homologado com gates humanos; é trabalho futuro de
 `CURADOR_DE_DADOS` + `USUARIO_PROPONENTE`, não deste adaptador. Ver
 `escolio/ingestao/LACUNAS.md` LAC-ING-012.
 
-### BL-004 — máquina bibliográfica P04 (X01)
-Existe o schema P05; não existe a máquina de 17 estados do P04/03, nem os aliases para os 9
-estados mínimos da R03 CAMADA D. É o que falta para X01 estar completa.
+### BL-004 — máquina bibliográfica P04 (X01) — RESOLVIDO
+`escolio/bvaa/` implementa os 17 estados [P04/03] e as 18 transições (T01-T18, T18 curinga
+`QUALQUER_ESTADO`) [P04/04], o protocolo de abstenção com os 7 gatilhos consolidados de
+P04 §11/§07, e `escolio/bvaa/correspondencia.py` documenta a correspondência com R03 CAMADA
+D e os três campos do P05 (`access_state`/`reading_state`/`validation_state`) sem fundir os
+vocabulários — CON-P05-001 permanece três vocabulários distintos, nenhum escolhido como
+vencedor. Ver `escolio/bvaa/LACUNAS.md`.
 
 ### BL-005 — `handoff/` está em JavaScript
 O resto do projeto é Python. Decidir: portar, ou registrar a razão de manter as duas linguagens.
