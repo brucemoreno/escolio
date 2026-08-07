@@ -42,6 +42,54 @@ Não é urgente; é inconsistência declarada.
 Os 15 níveis `INT-01…INT-15`, escalonamento, regressão segura [P06 §7, §8] e `InterventionRecord`
 [P09 §13] implementados. Pendente: ligar `Response.interventions` (`escolio/contrato/resposta.py`)
 a `InterventionRecord` quando o roteador de função existir — ver comentário lá.
+O roteador passou a existir em 2026-08-07 (`escolio/funcoes/`); a ligação continua pendente
+porque altera arquivo existente — ver BL-013.
+
+## Aberto em 2026-08-07, na sessão do roteador de função (item 6)
+
+Nenhum arquivo existente foi alterado naquela sessão. Os cinco itens abaixo são exatamente as
+integrações que exigiriam alterá-los.
+
+### BL-011 — `exige_correspondencia_request_response` não confere `function_id`
+`escolio/contrato/resposta.py:250-258` confere `request_id`, `project_id` e `component_id`. O
+P09 §8.1 exige também: "`response.function_id` deve corresponder à função da requisição". A
+linha faltante nasceu em `escolio/funcoes/roteador.py::exige_correspondencia_de_funcao` para não
+tocar em `resposta.py`. Enquanto durar, há **duas** funções de correspondência e quem chama
+precisa das duas. Decidir: mover a verificação para `resposta.py` (que passaria a depender do
+catálogo, hoje deliberadamente fora do envelope) ou manter separadas e documentar o par.
+
+### BL-012 — fixtures de teste usam `function_id` com valor de componente
+`tests/contrato/test_requisicao.py:18-19` e `tests/contrato/test_resposta.py:37-38` passam
+`component_id="P12", function_id="P12"`. O catálogo do item 6 fixou `function_id` no namespace do
+P02 (`LLM-ACA-F03`) e `component_id` no da R03 (`P12`) — ver `escolio/funcoes/LACUNAS.md`,
+LAC-FUNC-002. Os fixtures **não quebram** (o `Request` só verifica não-vazio) mas registram uma
+convenção que o catálogo contradiz. Migrar ou declarar que os fixtures são propositalmente
+agnósticos ao catálogo.
+
+### BL-013 — `Response.interventions` continua desligado
+Sucessor direto do BL-006. `InterventionRecord` existe em `escolio/intervencao/registro.py`;
+`Response` (`escolio/contrato/resposta.py:139-140`) omite o campo com comentário explícito. Ligar
+altera `resposta.py`. A dependência que faltava — o roteador — já não é o bloqueio.
+
+### BL-014 — `InputItem.classification.functions` não é populado por ninguém
+O campo existe (`escolio/contrato/entrada.py:36`) e o roteador **lê** dele a única informação de
+função que o envelope carrega [P09 §6]. Quem deveria preenchê-lo não existe:
+`escolio/adaptadores/ingestao_para_input_item.py:70-75` declara que isso "é trabalho de
+P19/roteador de função". O roteador lê, não declara — declarar material para uma função é ato de
+`CURADOR_DE_DADOS` + `USUARIO_PROPONENTE` sob o P19. Consequência prática hoje: todo `InputItem`
+vindo da ingestão resulta em `AdmissaoDeMaterial.INDETERMINADO`, e nenhuma função é elegível.
+
+### BL-015 — o CLAUDE.md §13.3 apoia-se em premissa falsa
+A questão aberta pergunta se capítulo de livro e relatório de pós-doutorado seriam "P15+,
+generalização autorizada de P11, ou fora de escopo". O inventário canônico da R03
+(`02_INVENTARIO_DE_COMPONENTES_E_PACOTES_A_PRODUZIR_R03.csv`) desmente a primeira alternativa:
+P15 é `PROFILES`, P16 `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18 `INTERSECOES` —
+nenhum é camada `FUNCAO`, e a camada `FUNCAO` termina em P14. Não há componente livre para uma
+sexta macrofunção, e a R03 está homologada e congelada. As quatro candidatas da R03 CAMADA B
+("revisão de artigo antes da submissão", "incorporação de comentários de qualificação ou defesa",
+"auditoria bibliográfica e documental autônoma", "revisão de projeto de pesquisa ou proposta de
+financiamento") também não têm componente atribuído. O CLAUDE.md não foi alterado: corrigir §13.3
+e §13.4 é ato de governança, não de sessão técnica.
 
 ## Ambiente e medição
 

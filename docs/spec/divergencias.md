@@ -196,6 +196,48 @@ mais caro. Enquanto não decidido: nenhum código converte um estado de um vocab
 outro operacionalmente; a conversão, quando um chamador precisar dela, é responsabilidade
 de quem chama, não de `escolio/bvaa/` [`escolio/bvaa/LACUNAS.md`, `LAC-BVAA-002`].
 
+### 4.4 `OUT_OF_SCOPE` — abstenção ou recusa? P11 §34 contra P14 PS14-08
+
+Acrescentado em 2026-08-07, na sessão do roteador de função.
+
+Pedido que não incide sobre o objeto da função tem dois tratamentos incompatíveis no acervo, e
+nenhuma fonte reconcilia os dois.
+
+**Leitura A — abstenção com categoria `OUT_OF_SCOPE`.** É a linha transversal do contrato de
+runtime: a matriz de validação mínima do P09 §23 mapeia "Operação fora do escopo" para
+`ABSTAINED/OUT_OF_SCOPE`, e o P11 §34 é o único contrato de função que repete o mapeamento
+explicitamente — *"pedido fora do escopo → `OUT_OF_SCOPE`"*, dentro do enum canônico que ele
+declara usar com exclusividade [P11 §24.3]. Sustenta-se também em P09 §4.2.17: *"ausência
+legítima de autoridade, sem falha formal, produz abstenção localizada"* — material não declarado
+para a função é falta de declaração, não defeito de contrato.
+
+**Leitura B — sucesso da avaliação com intervenção recusada.** É o que o P14 faz no caso análogo
+mais próximo do acervo. PS14-08 ("Demanda fora do escopo") produz `SUCCESS` para avaliação de
+admissibilidade, `error=null`, `abstention=null`, `block=null`,
+`InterventionRecord.disposition=REFUSED` e decisão `NAO_APLICAVEL` — com o warning *"fora do
+escopo não deve ser usado para evitar crítica pertinente"*. O raciocínio é o mesmo que o P12
+TA12-14 formula por extenso para outro caso: quando a condição é **materialmente conhecida**, a
+avaliação se conclui com `SUCCESS` e o que se recusa é a intervenção; a abstenção fica reservada
+para o que não se pôde decidir. Sob esta leitura, `ABSTAINED` para um escopo que se sabe
+incompatível é usar abstenção para evitar tarefa decidível — o que o P09 §15.1 proíbe.
+
+**Estado das fontes, que agrava a divergência.** `OUT_OF_SCOPE` é membro de enum em P12 (§28.3,
+§37), P13 (§31.2) e P14 (§51.2) e **nenhuma condição mapeia para ele** em nenhum dos três. Em P10
+a condição existe — §32.2 lista "pedido fora do escopo" e manda usar `ABSTAINED` — mas a lista de
+categorias do próprio P10 (§28.2) tem cinco membros e não inclui `OUT_OF_SCOPE`: o contrato manda
+usar uma categoria que ele não declara. Isso é defeito da fonte, não ambiguidade de leitura.
+
+**Não resolvida.** Implementado sob a Leitura A em
+`escolio/funcoes/roteador.py::abstencao_por_fora_de_escopo`, por três razões que não escolhem
+vencedor doutrinário: o P09 é contrato de runtime e prevalece sobre o caso particular de um
+contrato de função; o caso do roteador é material não declarado **na porta**, ao passo que
+PS14-08 é demanda fora de escopo **dentro** de uma execução legítima já iniciada — podem não ser
+o mesmo objeto; e a abstenção é reversível por construção (`resume_conditions` exige a condição
+objetiva de retomada, P09 §15.1), enquanto um `SUCCESS` com `REFUSED` fecha o caso. Se o
+professor decidir pela Leitura B, trocar depois é local: uma função, um teste. Enquanto não
+decidir, nenhum código converte um tratamento no outro
+[`escolio/funcoes/LACUNAS.md`, LAC-FUNC-010].
+
 ---
 
 ## Fechamento

@@ -144,7 +144,107 @@ fonte citada.
 
 ---
 
-## 7. Escopo de leitura desta sessão
+## 7. Correções posteriores — o que a peça 6 apurou (2026-08-07)
+
+Três afirmações do CLAUDE.md não sobreviveram à leitura integral dos cinco contratos, do P02 e
+do inventário canônico da R03, feita para o item 6 do roadmap (roteador de função). Todas as
+três eram minhas, escritas na reescrita de 2026-08-06 sem a leitura que agora foi feita.
+Detalhamento em `escolio/funcoes/LACUNAS.md`.
+
+### 7.1 §3 — a tabela tipo → função é construção minha, não spec
+
+**O que estava escrito:** uma tabela "Tipos de documento → função" sem marcação, seguida de
+`ABSTAINED/OUT_OF_SCOPE` "para tipo sem função" — como se "tipo de documento" fosse categoria da
+especificação e o sistema pudesse classificar um documento nela.
+
+**O que a fonte diz:** nada. Nenhuma fonte enumera tese, dissertação, relatório de IC, artigo,
+capítulo de livro ou relatório de pós-doutorado como valores controlados. `InputItem` [P09 §6]
+não tem campo de tipo. O `material_type` do P19 §17 tem dezesseis categorias
+(`INSTRUCOES`, `POLITICAS`, `CONTRATOS_E_SCHEMAS`, `DOCUMENTOS_DO_USUARIO`, …) e é taxonomia de
+governança de dados: uma tese e um relatório de IC são ambos `DOCUMENTOS_DO_USUARIO`. O único
+campo do envelope que carrega função é `InputItem.classification.functions`, **declarado por
+autoridade competente, nunca derivado do conteúdo**.
+
+**Correção:** tabela mantida e marcada `[PROPOSTA]`, com a ressalva de que é orientação de
+leitura e nada em código a consulta — preferi marcar a remover porque o mapeamento continua útil
+para orientar quem lê, desde que não se confunda com regra. Acrescentado o que de fato governa o
+roteamento, incluindo o tratamento de `functions` vazio: indeterminado, sem conceder
+elegibilidade, no precedente literal do P19 §17 para `material_type=null`.
+[LAC-FUNC-009]
+
+**Consequência prática que o texto anterior escondia:** ninguém popula
+`classification.functions` hoje. O adaptador de ingestão declara explicitamente que isso "é
+trabalho de P19/roteador de função", e o roteador **lê**, não declara. Todo `InputItem` vindo da
+ingestão resulta `INDETERMINADO`, e nenhuma função é elegível. Registrado em `docs/backlog.md`,
+BL-014.
+
+### 7.2 §4 — `GATE_DE_SELECAO` "dentro do E4" não tem base
+
+**O que estava escrito:** "O `GATE_DE_SELECAO` do P13 é documental, não liberável autonomamente,
+e fica **dentro do E4** [P13 §32.1]."
+
+**O que a fonte diz:** `GATE_DE_SELECAO` ocorre **uma única vez** em todo o P13 — o bullet de
+§32.1 — sem definição do que libera, de quem concede ou de onde cai entre as 29 etapas do §43. A
+operação de seleção está em §10 (dez condições de comentabilidade, oito resultados) e §12
+(matriz de seletividade), que nunca nomeiam o gate. O padrão é geral: dos **91 gates nomeados**
+nos cinco contratos — P10 12, P11 18, P12 16, P13 17, P14 28 — nenhum é ligado a um índice de
+etapa. As listas de gates e de fluxo modular são disjuntas, sem tabela de correspondência. O
+único gate posicionado em todo o acervo é o piloto supervisionado real do P11, "como gate de
+ativação operacional" na Etapa 25 [P11 §38, §1] — e ele não está entre os 91.
+
+**Como o erro entrou:** por semelhança de nome. `GATE_DE_SELECAO` parece corresponder à etapa 10
+("seleção de unidades comentáveis") como `GATE_DE_MATRIZ` parece corresponder à etapa 16 do P14
+("matriz de demandas"). Semelhança de nome não é afirmação da fonte. Em código, `Gate.etapa` é
+`None` nos 91, e há teste que falha se alguém preencher.
+
+**Correção:** o parágrafo passou a dizer que nenhum contrato declara posição de gate, com o
+`GATE_DE_SELECAO` como caso extremo. A parte que sobrevive intacta é o princípio — gates não
+moram todos numa fase — que continua correto e continua sendo o motivo de a espinha não poder
+virar executor genérico. [LAC-FUNC-007, LAC-FUNC-011]
+
+### 7.3 §13.3 — "P15+" para capítulo de livro e pós-doutorado
+
+**O que estava escrito:** "Capítulo de livro e relatório de pós-doutorado não têm função nem
+candidatura: P15+, generalização autorizada de P11, ou fora de escopo?"
+
+**O que a fonte diz:** P15–P18 não são vagas de função. No inventário canônico da R03
+(`02_INVENTARIO_DE_COMPONENTES_E_PACOTES_A_PRODUZIR_R03.csv`), P15 é `PROFILES` (profiles
+temáticos canônicos), P16 `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS` e P18
+`INTERSECOES` — todos condicionais, nenhum na camada `FUNCAO`. A camada `FUNCAO` tem exatamente
+cinco componentes, P10 a P14, e termina ali. Não há componente livre no inventário para uma
+sexta macrofunção, e a R03 está homologada e congelada.
+
+**Correção:** a alternativa "P15+" foi removida da pergunta, que fica binária —
+generalização autorizada de P11, ou fora de escopo. Registrado também em `docs/backlog.md`,
+BL-015. [LAC-FUNC-015]
+
+### 7.4 Dois itens adjacentes, observados e **não** alterados
+
+Ambos decorrem do mesmo achado de 7.3 e do mesmo trabalho, mas alterá-los não foi pedido e não é
+correção de erro factual — fica para decisão.
+
+- **§13.4** ("Revisão de artigo antes da submissão — candidata não incorporada [R03 CAMADA B]").
+  As quatro candidatas da R03 CAMADA B — esta, "incorporação de comentários de qualificação ou
+  defesa", "auditoria bibliográfica e documental autônoma" e "revisão de projeto de pesquisa ou
+  proposta de financiamento" — **também não têm componente atribuído** no inventário. O item
+  continua correto como está; o que muda é que incorporá-las tem o mesmo obstáculo que o §13.3
+  agora nomeia.
+- **§14** lista o roteador de função como item 6 "a construir". Ele passou a existir em
+  `escolio/funcoes/`. Atualizar o roadmap é ato de governança do estado do projeto, não desta
+  correção.
+
+### 7.5 O que a peça 6 **não** corrigiu, e por quê
+
+**§6, "P13 para em `SINALIZACAO`/`RECOMENDACAO`".** É leitura, não citação: nenhum contrato
+declara teto numérico de intervenção. O P13 proíbe que o comentário execute reescrita, fusão,
+corte, substituição ou reorganização [§4.4] e exige registrar `intervention_level` por
+comentário [§28], mas nunca nomeia um nível `INT-nn` como teto. A leitura é defensável e o texto
+não foi alterado; `DeclaracaoDeFuncao` simplesmente **não tem** campo de teto, porque criá-lo
+exigiria preencher os seis por inferência. [LAC-FUNC-016]
+
+---
+
+## 8. Escopo de leitura desta sessão
 
 **Lidos integralmente:** R03 (protocolo-mestre), P06 (taxonomia de intervenção, todos os
 arquivos), P07 (contrato de voz + schema + dicionário + matriz), P09 (schemas/contratos),

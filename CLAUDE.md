@@ -55,7 +55,13 @@ Catálogo **fechado** em seis unidades; ampliar exige nova fonte e decisão auto
 
 X01 é função, não camada de apoio. É a que `escolio/` (schema P05 + 20 regras RC) implementa.
 
-### Tipos de documento → função
+### Tipos de documento → função — `[PROPOSTA]`
+
+**Nenhuma fonte enumera tipos de documento acadêmico.** Não existe campo de tipo no `InputItem`
+[P09 §6], e o `material_type` do P19 §17 é taxonomia de governança de dados (`INSTRUCOES`,
+`POLITICAS`, `DOCUMENTOS_DO_USUARIO`, …), na qual uma tese e um relatório de IC recebem o mesmo
+valor. A tabela abaixo é leitura minha do objeto declarado em §1/§2 de cada contrato: serve para
+orientar quem lê, não é regra executável e nada em código a consulta.
 
 | Tipo | Função | Situação |
 |---|---|---|
@@ -65,8 +71,12 @@ X01 é função, não camada de apoio. É a que `escolio/` (schema P05 + 20 regr
 | Relatório de pós-doutorado | **nenhuma** | P12 é IC e proíbe densidade de tese [P12 §3.1]; P11 é tese/dissertação |
 | Capítulo de livro | **nenhuma** | P10 recebe capítulo como *entrada* para extrair artigos |
 
-**Tipo sem função não é generalizado para o P11.** `function_id` desconhecido não é aceito por
-inferência [P09 §4.2.6]; operação fora de escopo produz `ABSTAINED/OUT_OF_SCOPE` [P09 §23].
+**O que governa o roteamento é `InputItem.classification.functions`** [P09 §6] — lista declarada
+por autoridade competente, nunca derivada do conteúdo. O sistema não classifica documento.
+`function_id` desconhecido não é aceito por inferência [P09 §4.2.6]; material não declarado para
+a função produz `ABSTAINED/OUT_OF_SCOPE` [P09 §23]; `functions` vazio é **indeterminado** e não
+concede elegibilidade — precedente literal do P19 §17 para `material_type=null`.
+**Tipo sem função não é generalizado para o P11.**
 
 ## 4. Pipeline
 
@@ -90,8 +100,12 @@ análise e sua ordem interna. Em código: **um módulo por função**, nunca um 
 escopos, gates, papéis, produtos ou decisões", não "converter eficiência operacional em
 supressão de autonomia".
 
-**Gates não moram todos no E5.** O `GATE_DE_SELECAO` do P13 é documental, não liberável
-autonomamente, e fica **dentro do E4** [P13 §32.1]. A posição de cada gate é da função.
+**Gates não moram todos no E5 — e nenhum contrato diz onde moram.** Dos 91 gates nomeados nos
+cinco contratos, **nenhum** é ligado a uma etapa: as listas de gates e de fluxo modular são
+disjuntas, sem tabela de correspondência. `GATE_DE_SELECAO` do P13 é o caso extremo — ocorre uma
+única vez no contrato, como item nu de `§32.1`, sem dizer o que libera nem onde cai entre as 29
+etapas. Semelhança de nome entre gate e etapa não é afirmação da fonte e não vira posição
+[`escolio/funcoes/LACUNAS.md`, LAC-FUNC-007, LAC-FUNC-011].
 
 Invariantes de ordem, verbatim: `MATRIZ_PRECEDE_PLANO`, `PLANO_PRECEDE_REVISAO`,
 `REVISAO_VERIFICADA_PRECEDE_CARTA` [P14 §3.43-45] · do global para o local [P11 §2] · sem núcleo
@@ -319,8 +333,12 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
    abstratos"; os contratos usam P07 para a voz do *autor avaliado*. Duas leituras registradas em
    `docs/spec/divergencias.md`. Enquanto não resolver, `style/style_card.md` não tem destino.
 2. **Aplicação de texto:** substituído ou lado a lado, e quem assina.
-3. **Capítulo de livro e relatório de pós-doutorado** não têm função nem candidatura: P15+,
-   generalização autorizada de P11, ou fora de escopo?
+3. **Capítulo de livro e relatório de pós-doutorado** não têm função nem candidatura:
+   generalização autorizada de P11, ou fora de escopo? A terceira alternativa que constava aqui
+   — "P15+" — **caiu**: no inventário canônico da R03, P15 é `PROFILES`, P16
+   `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18 `INTERSECOES`. A camada `FUNCAO`
+   termina em P14 e a R03 está homologada e congelada — não há vaga numerada para uma sexta
+   macrofunção.
 4. **Revisão de artigo antes da submissão** — candidata não incorporada [R03 CAMADA B].
 5. **Forma da carta branca:** ato coletivo vs. itemizado, contra `P01/05` (§2).
 6. **Armazenar `histórico de resolução` e `exemplos de comentários aceitos`** é livre sob o P19?
