@@ -99,16 +99,43 @@ pedido e não corrige erro factual. Registro completo em `docs/spec/claude-md-mu
 
 ## Ambiente e medição
 
-### BL-007 — instalar o SDK `anthropic` e configurar chave
-O venv não tem `anthropic` e `ANTHROPIC_API_KEY` está indefinida. Sem isso não roda
-`count_tokens`, e a contagem de tokens da tese de referência fica pendente em `docs/custos.md`.
-Enquanto durar, todo valor em tokens e em US$ é ordem de grandeza, não medição.
+### BL-007 — instalar o SDK `anthropic` e configurar chave — RESOLVIDO
+Resolvido em 2026-08-07. `anthropic` e `python-dotenv` instalados no venv via `pip` (não `uv` —
+não há `pyproject.toml`/`uv.lock` no repositório; a convenção do CLAUDE.md §12 permanece
+declarada, não seguida na prática). Chave em `.env`, fora do git (`.gitignore` atualizado antes
+do arquivo existir; confirmado com `git check-ignore -v .env`).
 
-### BL-008 — contagem de unidades por documento
-Todo cálculo de custo de fan-out usa "~1200 unidades", que é chute. O parser em
-`escolio/ingestao/` produz o número exato. Rodá-lo sobre `data/gold/` significa processar o
-conjunto reservado de avaliação [LAC-ING-001] — **depende de decisão do professor**. Alternativa
-sem essa decisão: medir sobre `data/dev/` e extrapolar por página, registrando a extrapolação.
+`count_tokens` chamado uma única vez contra `data/gold/tese_natalia.pdf`, modelo
+`claude-sonnet-5`: **259.399 tokens de input**. Não é geração — `count_tokens` não produz
+resposta de modelo. Esta foi a primeira chamada à API de qualquer tipo neste projeto.
+`docs/custos.md` atualizado com o número medido, a régua por página recalculada e a constatação
+de que a faixa antiga (3,5–4,5 car./token) subestimava por quase o dobro: o valor real é 2,345
+car./token. Script de medição foi temporário e removido após o uso — não faz parte do repositório.
+
+**O que isto não resolve:** a contagem de unidades de fan-out ("~1200 unidades") continua chute
+— mediu-se tokens do documento inteiro, não unidades. Ver BL-008.
+
+### BL-008 — contagem de unidades por documento — RESOLVIDO PARCIALMENTE
+Resolvido por extrapolação, não por medição direta de `data/gold/`, em 2026-08-07. Rodar o
+parser sobre `data/gold/tese_natalia.pdf` continua não autorizado — consumiria o conjunto
+reservado para avaliação das heurísticas de ingestão [LAC-ING-001] — e o professor confirmou
+usar a alternativa já prevista aqui: medir sobre `data/dev/` e extrapolar.
+
+Contagem real (`escolio.ingestao.parser.parse_pdf` sobre
+`data/dev/Relatorio_Final_PIBIC-Bolsa-CNPq-e-UEM - Ricardo Antonio Esteves dos Santos.pdf`,
+33 páginas): 143 parágrafos, 4 citações recuadas, 4 notas de rodapé, 4 figuras, 138 citações no
+corpo, 60 referências, 14 seções — 367 unidades brutas. Unidade de análise do P13 definida como
+parágrafo + citação recuada + nota + figura (citações no corpo são ponteiros internos ao
+parágrafo já contado; referências são lista bibliográfica, não candidata a comentário local) =
+155 unidades, 4,70/página. Extrapolado linearmente para 272 páginas: **1.281 unidades** —
+substitui o "~1200" chutado. Ver `docs/custos.md`, seção "BL-008 — unidades de fan-out, medidas
+por extrapolação", para a definição completa de unidade de análise e as ressalvas da
+extrapolação.
+
+**O que continua pendente:** medição direta sobre `data/gold/` (a extrapolação presume
+densidade de unidades por página constante, não verificado); e a mesma contagem para as outras
+quatro funções (P10, P11, P12, P14), cada uma com sua própria noção de unidade de análise
+[`docs/spec/funcoes-P10-P14.md` §7] — só o P13 foi calculado.
 
 ## Mapeamento de spec pendente
 
