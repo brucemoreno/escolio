@@ -58,16 +58,28 @@ disciplina de `escolio/LACUNAS.md`, `escolio/bvaa/LACUNAS.md` e `escolio/contrat
   a classificação pendente, **não conceder elegibilidade**, não criar valor categorial
   concorrente. Ver `AdmissaoDeMaterial.INDETERMINADO`.
 
-- **LAC-FUNC-015 — tipo sem função não tem vaga numerada para onde ir.** O CLAUDE.md §13.3
-  registra como questão aberta se capítulo de livro e relatório de pós-doutorado seriam "P15+".
-  O inventário canônico da R03 desmente a premissa: P15 é `PROFILES`, P16
-  `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18 `INTERSECOES` — nenhum é camada
-  `FUNCAO`, e a camada `FUNCAO` termina em P14. Não há componente livre no inventário para
-  uma sexta macrofunção, e a R03 está homologada e congelada. As quatro candidatas da R03
-  CAMADA B — revisão de artigo antes da submissão, incorporação de comentários de qualificação
-  ou defesa, auditoria bibliográfica autônoma, revisão de projeto de pesquisa — também não têm
-  componente atribuído. Registrado em `docs/backlog.md`, BL-015; o CLAUDE.md não foi alterado
-  nesta sessão.
+- **LAC-FUNC-015 — tipo sem função não tem vaga numerada para onde ir, e a R03 não está
+  congelada nem homologada.** O CLAUDE.md §13.3 registra como questão aberta se capítulo de
+  livro e relatório de pós-doutorado seriam "P15+". O inventário canônico da R03 desmente a
+  premissa: P15 é `PROFILES`, P16 `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18
+  `INTERSECOES` — nenhum é camada `FUNCAO`, e a camada `FUNCAO` termina em P14. Não há
+  componente livre no inventário para uma sexta macrofunção.
+  **Correção sobre o estado da R03** (leitura integral de `docs/spec/mapa-R03.md`,
+  2026-08-07): a R03 **não está homologada nem congelada** — está `R03_RETIFICADA`,
+  `AGUARDANDO_VERIFICACAO_FINAL_RESTRITA`, `NAO_HOMOLOGADA` [R03 arquivo 00, arquivo 04]. A
+  versão anterior deste item afirmava o contrário; corrigido. Isso não abre a porta para
+  ampliar o catálogo por conveniência — `LAC-P02-005` já exige "nova fonte e decisão autoral
+  específica" para qualquer ampliação, independente do estado de homologação da R03 — mas
+  significa que "reabrir a R03" não é uma barreira adicional inexistente: a R03 já está aberta,
+  aguardando o próprio usuário decidir a verificação final.
+  As quatro candidatas da R03 CAMADA B — revisão de artigo antes da submissão, incorporação de
+  comentários de qualificação ou defesa, auditoria bibliográfica autônoma, revisão de projeto
+  de pesquisa ou proposta de financiamento — também não têm componente atribuído
+  [`docs/spec/mapa-R03.md §3`]. Somando os dois tipos de documento sem função (capítulo de
+  livro, relatório de pós-doutorado, já citados) às quatro candidatas: **seis itens sem
+  componente**, todos sob a mesma trava `LAC-P02-005`. Nenhum foi incorporado nesta sessão.
+  Registrado em `docs/backlog.md`, BL-015; decisão de reabrir P02/R03 para atribuir componente
+  a qualquer um dos seis é exclusiva do `USUARIO_PROPONENTE` [CLAUDE.md §1].
 
 ## Identificadores
 
@@ -144,6 +156,28 @@ disciplina de `escolio/LACUNAS.md`, `escolio/bvaa/LACUNAS.md` e `escolio/contrat
   identificadores, integridade de versões, existência de referências, compatibilidade formal de
   dependências — e não nomeia gate algum. `ClasseDeGate.AUTOMATICAMENTE_VERIFICAVEL` existe no
   vocabulário e não é usada por nenhuma declaração. É assim que a fonte está.
+
+- **LAC-FUNC-018 — nenhuma fonte liga papel a "autoridade competente pelo objeto".** O P08
+  cita essa expressão quatro vezes como quem decide escalonamento humano
+  [P08 §3.6 abstenção segura; §5.6 autoridade decisória; §11.4 autoridade sobre retenção;
+  §13.6 responsabilidade em incidente] — sempre no nível do **objeto** (este documento, este
+  incidente, esta retenção), não no nível de fase do protocolo. Buscado explicitamente contra
+  duas fontes candidatas e não encontrado em nenhuma: nem o P08 nomeia o papel, nem a matriz de
+  papéis e autoridades da R03 [`09_MATRIZ_DE_PAPEIS_E_AUTORIDADES_R03.csv`;
+  `docs/spec/mapa-R03.md §2.1`] usa a expressão ou equivalente — a R03 define autoridade **por
+  fase do protocolo-mestre** (quem aprova o catálogo, quem aprova os schemas), eixo diferente de
+  "quem decide sobre este objeto específico". P08 §5.6 é explícito sobre o efeito da lacuna:
+  "na ausência dessa definição, não se presume autoridade" — mesmo padrão do P19 §73 (curador
+  não concede a si próprio) e do CLAUDE.md (homologação exclusiva do `USUARIO_PROPONENTE`).
+  A leitura mais provável — `USUARIO_PROPONENTE`, dado que sua `autoridade_de_aprovacao=FINAL`
+  e "nenhum outro papel pode substituir sua decisão" [R03 §4.1] — é inferência minha por
+  analogia entre autoridade-de-fase e autoridade-de-objeto, não afirmação literal de nenhuma
+  fonte, e não deve ser codificada como se fosse. **Consequência:** bloqueia diretamente a peça
+  7 do roadmap (ingestão segura) nos passos 13 ("validar autoridade") e 15 ("bloquear operação
+  não autorizada") do protocolo de 20 passos do P08 §12 — o código não tem como decidir hoje
+  *quem* recebe o escalonamento quando `PI-07` (instrução ambígua) ou um caso PR-09 (dado
+  sensível) exigir decisão humana; só pode decidir *que* deve escalonar. Registrado também em
+  `docs/spec/mapa-P08.md §5` e `docs/spec/mapa-R03.md §2.1, §9`.
 
 - **LAC-FUNC-013 — a R03 CAMADA B só menciona "gates humanos"; os contratos declaram também
   gates documentais.** A lista dos doze campos obrigatórios não prevê a classe documental, que

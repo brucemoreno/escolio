@@ -238,9 +238,208 @@ professor decidir pela Leitura B, trocar depois é local: uma função, um teste
 decidir, nenhum código converte um tratamento no outro
 [`escolio/funcoes/LACUNAS.md`, LAC-FUNC-010].
 
+### 4.5 Estado da própria R03 — `NAO_HOMOLOGADA` (R03) contra `HOMOLOGADA E CONGELADA` (P00)
+
+Acrescentado em 2026-08-07, na sessão de leitura integral da R03, a pedido explícito do
+professor ("confronte com o P00/01_ESTADO_CANONICO_CONSOLIDADO... se houver contradição,
+registre sem resolver").
+
+Duas fontes do mesmo pacote de handoff declaram estados opostos para o mesmo objeto — a R03
+propriamente dita.
+
+**Fonte A — a R03 se declara não homologada, três vezes, na própria R03.** Bloco `STATUS:`,
+texto idêntico nas três ocorrências:
+
+- `00_LEIA_PRIMEIRO.txt:19-22` — `R03_RETIFICADA` / `AGUARDANDO_VERIFICACAO_FINAL_RESTRITA` /
+  `NAO_HOMOLOGADA`.
+- `04_ESTADO_CANONICO_E_TRAVAS_R03.txt:11-15` — mesmo bloco `STATUS:`.
+- `12_RECIBO_DE_RETIFICACAO_FINAL_MINIMA_R03.txt:64-67` — mesmo bloco `STATUS:`, no recibo da
+  própria retificação R02→R03.
+
+Reforçado em `01_PROTOCOLO_MESTRE_DE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.md §1`: "Ela somente
+poderá exercer autoridade de fonte de verdade após: 1. auditoria final; 2. homologação
+expressa; 3. congelamento da revisão; 4. registro de precedência sobre a R01." — condicional,
+não cumprido. E em `11_REGISTRO_DE_DECISOES_E_PENDENCIAS_R03.json`, `PEND-002`: "Homologação da
+R03" com `status: "BLOQUEADA_ATE_VERIFICACAO_FINAL_RESTRITA_APROVADA"`.
+
+**Fonte B — o P00 declara a R03 homologada e congelada, e antecipa o próprio conflito.**
+`corpus/handoff-P22/.../PACOTE_CONTROLE_MESTRE_ESTADO_CANONICO_LLM_ACADEMICA_R01/01_ESTADO_CANONICO_CONSOLIDADO_P00_R01.txt`:
+
+- Linha 15-16: `AUTORIDADE_CANONICA_VIGENTE:` / `R03 HOMOLOGADA E CONGELADA`.
+- Linha 39-42: `ESTADO_DA_R03:` / `INALTERADA` / `HOMOLOGADA` / `CONGELADA`.
+- Linha 28-29, e este é o ponto que agrava a divergência em vez de só constatá-la: **o próprio
+  P00 antecipa e resolve o conflito a seu favor**, verbatim: "O termo externo de homologação e
+  congelamento prevalece sobre estados internos pré-homologação do objeto R03." — ou seja, o
+  P00 sabe que a R03 se autodeclara não homologada (states internos) e declara que um "termo
+  externo" (não presente neste arquivo, não citado, não anexado) teria decidido o contrário.
+  Nenhum termo de homologação foi encontrado nesta leitura — nem no pacote da R03 (arquivos 00
+  a 13), nem no próprio P00. O P00 também registra, linha 21-22, um
+  `SHA256_OBJETO_CANONICO: 0f7e3acf43d09562a4dbdc6adfccc3535b950b0e6548aa49fa81d127a3d1b39f`
+  para o zip da R03 — hash que `13_MANIFESTO_R03.json` da própria R03 nunca declara (o
+  manifesto marca o hash do próprio pacote como "calculado após geração", isto é, inexistente
+  no momento em que a R03 foi escrita). Não é possível, sem baixar e hashear o zip real,
+  confirmar se esse hash corresponde ao pacote R03 lido nesta sessão.
+
+**Terceiro dado, que não resolve, só documenta a extensão do conflito.** O próprio P00 se
+autodeclara, na mesma respiração, não auditado e não homologado: `ESTADO_DO_P00:` /
+`EXECUTADO_DOCUMENTALMENTE_SOB_CONTROLE` / `NAO_AUDITADO` / `NAO_HOMOLOGADO` (linhas 31-34) —
+um documento que não é ele próprio homologado declara homologada a R03 que lhe é superior na
+regra de precedência que ele mesmo enuncia (`R03 > R02 > R01`, linha 24-25). Isso é estranho
+por dentro do próprio P00, independente da R03: um artefato não homologado afirmando o estado
+de homologação do que está acima dele na cadeia de precedência que ele mesmo declara.
+
+**Resposta do `CHAT_CONTROLADOR_ARQUITETO` a esta divergência (2026-08-07).** Consultado sobre
+o conflito acima, o arquiteto respondeu em **hipótese condicional** — não afirmou nada sobre o
+conteúdo do acervo, nem verificou arquivo algum; a busca que segue e sua conclusão de ausência
+são desta sessão, não dele. A resposta estabelece doutrina, não fato:
+
+- **P00 pode transportar ou referenciar estado; não pode constituí-lo.**
+  `P00_DECLARAR(R03_HOMOLOGADA) ≠ HOMOLOGAR(R03)`. Um artefato de governança que registra "R03
+  homologada" está fazendo uma afirmação sobre um evento — a homologação — que teria de ter
+  ocorrido em outro lugar, por outro ato. A declaração não é o ato.
+- **A autoridade de homologação é humana e exclusiva do `USUARIO_PROPONENTE`.** Nem
+  `CHAT_EXECUTOR_DOCUMENTAL`, nem `CHAT_AUDITOR_INDEPENDENTE`, nem o P00, nem a própria R03 têm
+  autoridade para se autodeclarar homologados. Coerente com `R03 §4.1` ("nenhum outro papel
+  pode substituir sua decisão") e com o padrão já registrado em `LAC-FUNC-018` ("na ausência de
+  definição, não se presume autoridade" [P08 §5.6]) — aqui aplicado à homologação em si, não a
+  um objeto de conteúdo.
+- **Se o ato externo de homologação não puder ser demonstrado, a R03 permanece no último
+  estado materialmente demonstrável: `NAO_HOMOLOGADA`, `NAO_CONGELADA`.** Regra de precedência
+  por evidência, não por declaração — o P00 declara um estado; a R03 (arquivos 00, 04, 12,
+  todos internos ao próprio pacote candidato) demonstra outro, com texto repetido e
+  auto-consistente. Na falta do ato, prevalece o que é demonstrável, não o que é declarado por
+  terceiro.
+- **Dois objetos nomeados pelo arquiteto, como os que teriam de existir para o ato ser
+  demonstrável** — citados por ele em hipótese, não confirmados por ele como presentes: um
+  pacote de homologação e congelamento (`02_ORIGINAL_PACOTE_HOMOLOGACAO_E_CONGELAMENTO_R03.zip`,
+  com hash informado pelo arquiteto como `sha256 a02423e5...`, hash parcial/truncado) e um
+  objeto homologado do próprio protocolo (`03_OBJETO_HOMOLOGADO_PROTOCOLO_MESTRE_R03.zip`).
+
+**Busca feita nesta sessão contra o acervo local (`corpus/`), não pelo arquiteto: ambos os
+objetos estão ausentes.** `Grep` por `02_ORIGINAL_PACOTE_HOMOLOGACAO`,
+`03_OBJETO_HOMOLOGADO_PROTOCOLO_MESTRE` e pelo prefixo de hash `a02423e5` em todo `corpus/` não
+retornou nenhum arquivo. Nem no pacote da R03 (arquivos 00-15), nem no pacote do P00, nem em
+nenhuma das três cópias duplicadas do acervo (`governanca-R01/`, `FONTES_CANONICAS/`,
+`FONTES_CANONICAS/FONTES_CANONICAS/`). Esta é uma constatação de busca — ausência no que existe
+localmente — não uma prova de que os objetos nunca existiram ou de que a homologação não
+ocorreu por algum outro registro fora deste `corpus/`.
+
+**A divergência permanece registrada, não resolvida.** A doutrina do arquiteto dá o critério de
+desempate (demonstrável > declarado, na ausência do ato) e reduz a pergunta a uma questão de
+fato — os dois objetos existem em algum lugar, ou não —, mas não a decide: esta sessão não pode
+confirmar nem negar a existência dos dois zips fora do que está em `corpus/`. Consequência
+operacional enquanto durar: `docs/spec/mapa-R03.md` continua tratando a R03 como
+`NAO_HOMOLOGADA`, agora por dois fundamentos — leitura literal triplamente repetida dentro do
+próprio pacote da R03, e a doutrina de precedência por evidência que o arquiteto estabeleceu.
+Se os dois objetos aparecerem, revisar. Decisão de buscá-los, de considerá-los suficientes, e de
+declarar a R03 homologada é exclusiva do `USUARIO_PROPONENTE`.
+
+### 4.6 `Classification` e `Constraints` — quatro achados de 2026-08-07, de duas naturezas
+
+Acrescentado em 2026-08-07, na sessão de especificação da camada operacional do P08
+(`docs/spec/operacional-P08.md` §9), por instrução do professor. Apareceram ao cruzar o
+`[P09 §6]` com o código das peças 1 e 3, e **os quatro são sobre o mesmo bloco**:
+`InputItem.classification`, mais um adjacente em `Request.constraints`.
+
+**Os quatro não têm a mesma natureza, e tratá-los como um só item seria erro.** Dois são
+**defeito** — não há leitura que os defenda; dois são **divergência** de verdade, com duas
+leituras e decisão do professor.
+
+#### Grupo 1 — defeito do adaptador da peça 3: valor fora do eixo
+
+Não são divergências. Nenhuma leitura do P08 ou do P09 os sustenta; são erros a corrigir.
+Registrados aqui porque foram achados nesta sessão e porque o eixo que violam é o do P08 §4.
+Backlog: `BL-016`.
+
+`escolio/adaptadores/ingestao_para_input_item.py` grava:
+
+1. **`state="ORIGEM_DESCONHECIDA"`** — `ORIGEM_DESCONHECIDA` é um dos cinco rótulos de
+   **confiança** de `[P08 §4.1]`, não um dos nove de **estado** (`ORIGINAL`,
+   `COPIA_VERIFICADA`, `DERIVADO`, `EM_ANALISE`, `HOMOLOGADO`, `CONGELADO`, `SUPERADO`,
+   `ARQUIVADO`, `DESTINADO_A_DESCARTE`). É rótulo de um eixo escrito no campo de outro. O
+   `[P08 §4]` declara os quatro eixos "independentes"; misturá-los colapsa dois vocabulários
+   em um, contra CLAUDE.md §7. O `[P09 §6.1]` manda marcar `ORIGEM_DESCONHECIDA` o item sem
+   proveniência suficiente — mas não diz em qual campo, e o valor pertence a `trust`.
+
+   **Correção de 2026-08-07, na tentativa de corrigir:** este item **não é conserto de mesma
+   forma** que o item 2, e a primeira redação desta seção errou ao supô-lo. Não existe valor
+   correto a pôr em `state`. `[P09 §6]` declara `state: string` **sem `| null`** — e o P09 é
+   deliberado, marcando `| null` explicitamente em `acquired_at`, `integrity_reference`,
+   `authority_basis` e `retention.*` no mesmo bloco. Já `[P08 §4.1]` não tem, entre os nove
+   estados, nenhum que signifique "ainda não classificado": o eixo de confiança tem
+   `ORIGEM_DESCONHECIDA` para esse caso, o de estado não tem equivalente. O schema exige uma
+   string e nenhuma é defensável sem inferência. **Por decisão do professor, o valor errado
+   ficou preservado e nomeado**, com dois testes que o caracterizam como defeito — ver
+   `docs/coleta.md` `CO-013`. É a mesma classe de defeito de `LAC-SEG-001`: o `InputItem` do
+   P09 não representa "ainda não avaliado" em nenhum dos três lugares onde precisaria.
+2. **`trust="NAO_AVALIADA"`** — não é nenhum dos cinco rótulos de confiança de `[P08 §4.1]`.
+   O rótulo que a fonte dá para "não sei" é `ORIGEM_DESCONHECIDA`. `"NAO_AVALIADA"` existe no
+   projeto, mas em outro lugar e para outro objeto: são os enums `Sufficiency`/`Confidence` do
+   P05 (`escolio/vocabulario.py`). É importação de vocabulário alheio ao eixo.
+
+Efeito combinado dos dois: hoje o adaptador grava, nos dois campos, exatamente os dois valores
+trocados de lugar — `trust` recebe um rótulo do P05 e `state` recebe o rótulo de `trust`.
+
+**Por que passaram.** O `[P09 §6]` tipa `trust: string` e `state: string`, e o código os
+implementa como `str` — nenhuma validação podia recusar. O defeito é do adaptador; a **causa
+que o permitiu** é a divergência do Grupo 2, item 3.
+
+#### Grupo 2 — divergência de tipo contra `[P09 §6]`
+
+Aqui há decisão a tomar, porque corrigir altera `escolio/contrato/`, que implementa schema
+homologado, e mexe em testes existentes. Backlog: `BL-017`.
+
+3. **`classification.sensitivity` — `list[str]` onde a fonte declara `[SensitivityLabel]`.**
+   `[P09 §6]`, verbatim do schema: `sensitivity: [SensitivityLabel]`. O código tem
+   `sensitivity: list[str] = field(default_factory=list)` (`escolio/contrato/entrada.py:34`).
+   Consequência material, não estética: `SensitivityLabel` tem três campos (`category`,
+   `source_policy`, `justification`) e a regra `[P09 §20.1]` — "`source_policy` deve
+   identificar a política aplicável; quando pertinente, deve identificar P08" e
+   "`OTHER_CONTROLLED` exige `justification` não nula" — **é inexprimível em `str`**. O passo 5
+   do protocolo de `[P08 §12]` ("classificar sensibilidade") escreveria num campo que não
+   comporta o que a fonte manda registrar, e o vínculo textual entre rótulo e P08 se perde.
+4. **`Constraints.privacy_classification` — `list[SensitivityCategory]` onde a fonte declara
+   `[SensitivityLabel]`.** `[P09 §6]`: `privacy_classification: [SensitivityLabel]`; o código
+   (`escolio/contrato/requisicao.py:40`) usa a categoria nua. Mesma perda: categoria sem
+   `source_policy` nem `justification`.
+
+**Leitura A — é sub-especificação do P09 a ser corrigida no código.** O P09 declara
+`[SensitivityLabel]` em três lugares (`§6` duas vezes, `§8` uma) e o código honra o tipo em
+dois deles — `SecurityFlags.sensitivity_labels` e `SensitivityLabel.category` estão corretos
+(`escolio/contrato/resposta.py:88-100`, `payloads.py:210-214`), com `SensitivityCategory`
+trazendo os nove valores de `[P09 §20]` sem divergência alguma. A inconsistência é do código,
+em dois pontos de quatro, e o alvo é óbvio: widen para `list[SensitivityLabel]`.
+
+**Leitura B — o lado de entrada é deliberadamente frouxo porque não classifica.** `trust` e
+`state` são `string` no próprio P09, sem enum — o que sugere que o envelope de **entrada**
+transporta classificação declarada por terceiro, sem se responsabilizar por validá-la, ao
+contrário do lado de **saída**, onde o sistema afirma e por isso tipa. Sob esta leitura,
+`sensitivity: list[str]` acompanha `trust: string`/`state: string` por coerência de camada, e
+apertar só `sensitivity` produziria um bloco meio tipado meio livre — pior que os dois
+extremos.
+
+**Não resolvida.** Passou a `docs/coleta.md` `CO-012` em 2026-08-07, como decisão do professor;
+registro técnico com arquivo:linha em `BL-017`. **As duas leituras acima são as canônicas** —
+`CO-012` e `BL-017` as resumem em uma linha e apontam para cá, em vez de transcrevê-las.
+
+As duas leituras concordam num ponto que já era acionável e não dependia da decisão: **os dois
+valores do Grupo 1 estão errados sob qualquer das duas** — `str` livre não autoriza gravar
+rótulo de outro eixo. **Executado em 2026-08-07:** `trust` corrigido para `ORIGEM_DESCONHECIDA`
+em três sítios; `state` preservado como defeito nomeado, por `CO-013`. Nenhuma das duas leituras
+do Grupo 2 foi prejudicada.
+
+Consequência enquanto não decidido: o passo 5 de `[P08 §12]` fica especificado em
+`operacional-P08.md` §5 e **não implementável com fidelidade** — registrado ali, não contornado
+por conversão silenciosa. Nenhum código converte `str` em `SensitivityLabel` nem o inverso,
+mesma disciplina de `CON-P05-001` (§4.3).
+
 ---
 
 ## Fechamento
 
 Este documento não resolve nenhuma das contradições listadas, nem decide os candidatos a
 autorização expressa da seção 3. Todos ficam registrados para decisão do professor.
+
+Exceção parcial, registrada em 2026-08-07: os dois itens do **Grupo 1 da §4.6 não são
+contradição** — são defeito sem leitura que os defenda, e a §4.6 os separa por isso. Ficam no
+backlog como correção (`BL-016`), não como decisão do professor.

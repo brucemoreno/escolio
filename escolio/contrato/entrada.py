@@ -30,9 +30,30 @@ class Provenance:
 
 @dataclass
 class Classification:
+    """Quatro eixos independentes [P08 §4]. Rótulo de um eixo não vale no campo de outro.
+
+    `trust` — cinco rótulos [P08 §4.1]: CONFIAVEL_CANONICO, CONFIAVEL_NAO_CANONICO,
+    NAO_CONFIAVEL, SUSPEITO, ORIGEM_DESCONHECIDA.
+
+    `state` — nove rótulos [P08 §4.1]: ORIGINAL, COPIA_VERIFICADA, DERIVADO, EM_ANALISE,
+    HOMOLOGADO, CONGELADO, SUPERADO, ARQUIVADO, DESTINADO_A_DESCARTE.
+
+    O default de `state` abaixo é DEFEITO CONHECIDO E PRESERVADO — ver CO-013 em
+    docs/coleta.md. ORIGEM_DESCONHECIDA é rótulo de `trust`, não de `state`. Não foi
+    substituído porque não existe valor correto a colocar: [P09 §6] declara `state: string`
+    sem `| null` (e marca `| null` explicitamente em acquired_at, integrity_reference,
+    authority_basis e retention.*), enquanto os nove estados de [P08 §4.1] não incluem
+    nenhum que signifique "ainda não classificado". Trocar por um dos nove seria inferência
+    [P00/07; P09 §4.2.14]. Mesma classe de defeito de LAC-SEG-001
+    (docs/spec/operacional-P08.md §10): o InputItem não representa "ainda não avaliado".
+
+    `trust` e `state` são `str` e não enum porque [P09 §6] os tipa `string` — o vocabulário
+    fechado é do P08, e apertar o tipo aqui é decisão pendente, não conserto.
+    """
+
     trust: str
     sensitivity: list[str] = field(default_factory=list)
-    state: str = "ORIGEM_DESCONHECIDA"
+    state: str = "ORIGEM_DESCONHECIDA"  # DEFEITO PRESERVADO — CO-013, docstring acima
     functions: list[str] = field(default_factory=list)
 
 
@@ -72,8 +93,12 @@ class InputItem:
     content_consistency: ContentConsistency = field(
         default_factory=lambda: ContentConsistency(status=ConsistencyStatus.NOT_APPLICABLE)
     )
+    # trust=ORIGEM_DESCONHECIDA: [P09 §6.1] "item sem proveniência suficiente deve ser
+    # marcado como ORIGEM_DESCONHECIDA". Era "NAO_AVALIADA" até 2026-08-07 — valor dos
+    # enums Sufficiency/Confidence do P05 (escolio/vocabulario.py), vocabulário de outro
+    # componente num campo do eixo de confiança do P08 [BL-016].
     classification: Classification = field(
-        default_factory=lambda: Classification(trust="NAO_AVALIADA")
+        default_factory=lambda: Classification(trust="ORIGEM_DESCONHECIDA")
     )
     authority: Authority = field(default_factory=Authority)
     processing: Processing = field(default_factory=Processing)

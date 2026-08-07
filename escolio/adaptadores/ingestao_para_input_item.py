@@ -91,7 +91,15 @@ def input_item_de_documento(documento: DocumentoIngerido) -> InputItem:
         ),
         content_consistency=ContentConsistency(status=ConsistencyStatus.NOT_APPLICABLE),
         classification=Classification(
-            trust="NAO_AVALIADA",
+            # [P09 §6.1]: item sem proveniência suficiente é ORIGEM_DESCONHECIDA. O código
+            # sabe de onde leu o arquivo; não sabe quem o produziu nem se é cópia fiel —
+            # DTA-16 (docs/spec/operacional-P08.md §5), DECISAO_TECNICA_ABERTA, não
+            # requisito. Sair de ORIGEM_DESCONHECIDA exige autoridade humana.
+            trust="ORIGEM_DESCONHECIDA",
+            # DEFEITO CONHECIDO E PRESERVADO — CO-013. ORIGEM_DESCONHECIDA é rótulo do eixo
+            # de confiança [P08 §4.1], não de estado, mas nenhum dos nove estados significa
+            # "ainda não classificado" e [P09 §6] não admite nulo aqui. Ver docstring de
+            # Classification em escolio/contrato/entrada.py.
             state="ORIGEM_DESCONHECIDA",
         ),
     )

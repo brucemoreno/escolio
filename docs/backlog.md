@@ -97,6 +97,92 @@ o estado real das peças 1-6. **§13.4 permanece como está**: continua correto 
 é que incorporá-la esbarra no mesmo obstáculo — não há componente livre. Alterar §13.4 não foi
 pedido e não corrige erro factual. Registro completo em `docs/spec/claude-md-mudancas.md` §7.
 
+## Aberto em 2026-08-07, na sessão de especificação da camada operacional do P08
+
+Nenhum arquivo de código foi alterado naquela sessão — o entregável foi
+`docs/spec/operacional-P08.md`. Os dois itens abaixo foram achados ao cruzar `[P09 §6]` com o
+código das peças 1 e 3, e estão registrados com as duas leituras em
+`docs/spec/divergencias.md` §4.6. **São de naturezas diferentes e não devem ser fundidos num
+item só.**
+
+### BL-016 — adaptador da peça 3 grava dois valores fora do eixo — RESOLVIDO PARCIALMENTE
+**Em 2026-08-07:** `trust` corrigido em **três** sítios (não dois — o terceiro só apareceu ao
+procurar): `escolio/contrato/entrada.py` (o default de `InputItem.classification`),
+`escolio/adaptadores/ingestao_para_input_item.py:94` e
+`tests/funcoes/test_roteador.py:38`, que passava `trust="NAO_AVALIADA"` **explicitamente** e por
+isso não seria alcançado pela troca do default. Valor novo: `ORIGEM_DESCONHECIDA` [P09 §6.1].
+Cinco testes novos em `tests/contrato/test_entrada.py` e quatro em
+`tests/adaptadores/test_ingestao_para_input_item.py`; suíte em **570 passando** (era 561).
+
+**`state` NÃO foi corrigido, por decisão expressa do professor** — ver `CO-013` em
+`docs/coleta.md`. Não é o mesmo conserto: descobriu-se que não existe valor correto a pôr.
+`[P09 §6]` declara `state: string` sem `| null` (marcando `| null` em cinco campos vizinhos, logo
+deliberadamente), e nenhum dos nove estados de `[P08 §4.1]` significa "ainda não classificado".
+O valor errado ficou **preservado e nomeado**, com dois testes que o caracterizam como defeito
+(asseveram que está *fora* do eixo correto) para que ninguém o "conserte" por inferência.
+
+**Correção de premissa, registrada porque o erro foi meu:** a primeira redação deste item — e a
+instrução que ela gerou — descrevia os dois valores como "trocados entre si". **Não são.**
+`ORIGEM_DESCONHECIDA` de fato pertence a `trust`, mas `NAO_AVALIADA` não tem casa no eixo de
+estado: uma troca literal moveria um valor do P05 para `state` e criaria defeito novo. Só metade
+se moveu; a outra metade foi apagada.
+
+Diagnóstico original, preservado:
+`escolio/adaptadores/ingestao_para_input_item.py:93-96` grava
+`Classification(trust="NAO_AVALIADA", state="ORIGEM_DESCONHECIDA")`. Os dois valores estão
+errados, e trocados entre si:
+
+- `ORIGEM_DESCONHECIDA` é um dos cinco rótulos de **confiança** de `[P08 §4.1]`, não um dos nove
+  de **estado**. Pertence a `trust`, não a `state`.
+- `NAO_AVALIADA` não é nenhum dos cinco rótulos de confiança. É valor dos enums
+  `Sufficiency`/`Confidence` do **P05** (`escolio/vocabulario.py`) — outro objeto, outro eixo.
+  O rótulo do P08 para "não sei" é `ORIGEM_DESCONHECIDA`, e `[P09 §6.1]` manda usá-lo para item
+  sem proveniência suficiente.
+
+`[P08 §4]` declara os quatro eixos "independentes"; escrever rótulo de um no campo de outro
+colapsa dois vocabulários em um, contra CLAUDE.md §7. Passou porque `[P09 §6]` tipa `trust` e
+`state` como `string` e o código os implementa como `str` — nenhuma validação podia recusar.
+
+**Não é divergência: nenhuma leitura do P08 ou do P09 defende esses dois valores.** É correção,
+e **não dependia da decisão do BL-017** — valia sob qualquer das duas leituras registradas lá.
+
+A frase que aqui dizia "`state` sem valor até haver base para afirmá-lo" **estava errada** e foi
+o que a execução desmentiu: `[P09 §6]` não admite nulo em `state`. Daí `CO-013`.
+
+### BL-017 — `sensitivity` e `privacy_classification` têm tipo divergente de `[P09 §6]`
+Duas ocorrências, mesma natureza:
+
+- `escolio/contrato/entrada.py:34` — `sensitivity: list[str]`; `[P09 §6]` declara
+  `sensitivity: [SensitivityLabel]`.
+- `escolio/contrato/requisicao.py:40` — `privacy_classification: list[SensitivityCategory]`;
+  `[P09 §6]` declara `privacy_classification: [SensitivityLabel]`.
+
+Consequência material, não estética: `SensitivityLabel` (`escolio/contrato/payloads.py:210-214`)
+tem `category`, `source_policy` e `justification`, e as regras de `[P09 §20.1]` —
+"`source_policy` deve identificar a política aplicável; quando pertinente, deve identificar P08"
+e "`OTHER_CONTROLLED` exige `justification` não nula" — **são inexprimíveis em `str` e em
+`SensitivityCategory` nua**. O passo 5 do protocolo de `[P08 §12]` ("classificar sensibilidade")
+escreveria num campo incapaz de registrar o vínculo com o P08 que o P09 manda registrar.
+
+O código honra `[SensitivityLabel]` em dois outros pontos (`SecurityFlags.sensitivity_labels`,
+`escolio/contrato/resposta.py:88-100`; `SensitivityLabel.category`), e `SensitivityCategory`
+(`vocabulario.py:204-213`) tem os nove valores de `[P09 §20]` **sem divergência** — logo a
+inconsistência é de dois pontos em quatro.
+
+**Exige decisão, não só correção**, porque altera `escolio/contrato/`, que implementa schema
+homologado, e porque há leitura que defende o estado atual (o lado de entrada é frouxo por
+desenho, acompanhando `trust: string`/`state: string`; apertar só `sensitivity` deixaria o bloco
+meio tipado). As duas leituras estão em `docs/spec/divergencias.md` §4.6, Grupo 2.
+
+**Em 2026-08-07 passou a `docs/coleta.md` `CO-012`** como decisão do professor, permanecendo aqui
+como registro técnico (é este item que carrega arquivo:linha). As duas leituras ficam canônicas
+em `divergencias.md` §4.6 — não duplicadas em `CO-012` nem aqui, para não divergirem em três
+cópias.
+
+**Consequência enquanto não decidido:** o passo 5 de `[P08 §12]` fica especificado em
+`docs/spec/operacional-P08.md` §5 e não implementável com fidelidade. Nenhum código converte
+`str` em `SensitivityLabel` nem o inverso — mesma disciplina de `CON-P05-001`.
+
 ## Ambiente e medição
 
 ### BL-007 — instalar o SDK `anthropic` e configurar chave — RESOLVIDO

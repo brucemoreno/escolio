@@ -35,7 +35,12 @@ def item(input_id="IN-1", functions=None):
         input_id=input_id,
         type=InputType.DOCUMENT,
         provenance=Provenance(source="data/dev/x.pdf", source_type="PDF"),
-        classification=Classification(trust="NAO_AVALIADA", functions=list(functions or [])),
+        # trust=ORIGEM_DESCONHECIDA [P09 §6.1] — era "NAO_AVALIADA", valor do P05 num campo
+        # do eixo de confiança do P08 [BL-016]. O roteador não lê `trust`, só `functions`:
+        # a troca não altera nenhuma asserção deste módulo.
+        classification=Classification(
+            trust="ORIGEM_DESCONHECIDA", functions=list(functions or [])
+        ),
     )
 
 

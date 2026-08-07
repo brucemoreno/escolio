@@ -53,6 +53,25 @@ Nenhuma chamada à API do projeto foi feita ainda [BL-007] — vale a fortiori a
 `escolio/funcoes/p10.py` [item 6 do roadmap]. O diagnóstico de núcleos publicáveis não pode
 rodar; o par serviria hoje só para leitura manual comparativa contra o contrato.
 
+### CO-010 — Localizar (ou confirmar ausência de) os objetos de homologação da R03
+**Bloqueia:** decidir se a R03 é `NAO_HOMOLOGADA` (leitura literal do próprio pacote, arquivos
+00/04/12) ou `HOMOLOGADA E CONGELADA` (leitura do P00,
+`01_ESTADO_CANONICO_CONSOLIDADO_P00_R01.txt:15-16, 39-42`) — divergência registrada em
+`docs/spec/divergencias.md §4.5`. Afeta o peso de citação de `[R03 §N]` em todo o CLAUDE.md e
+nos mapas: se homologada, a R03 deixa de ser candidata e passa a fonte de verdade vigente.
+**O que falta:** dois objetos nomeados pelo `CHAT_CONTROLADOR_ARQUITETO` em hipótese
+condicional — ele não afirmou que existem, só que a existência de um deles seria o que tornaria
+o ato de homologação demonstrável:
+- `02_ORIGINAL_PACOTE_HOMOLOGACAO_E_CONGELAMENTO_R03.zip` (sha256 informado pelo arquiteto,
+  parcial: `a02423e5...`);
+- `03_OBJETO_HOMOLOGADO_PROTOCOLO_MESTRE_R03.zip`.
+**Estado da busca (desta sessão, não do arquiteto):** ausentes em todo `corpus/` local —
+nenhuma das três cópias do acervo de handoff os contém. Constatação de busca, não prova de
+inexistência: podem existir fora do que está sincronizado neste repositório.
+**Doutrina aplicável enquanto o item não for resolvido** [`docs/spec/divergencias.md §4.5`]:
+`P00_DECLARAR(R03_HOMOLOGADA) ≠ HOMOLOGAR(R03)`; sem o ato demonstrável, a R03 permanece no
+último estado materialmente demonstrável — `NAO_HOMOLOGADA`, `NAO_CONGELADA`.
+
 ### CO-004 — Base de consentimento para `data/`
 **Bloqueia:** qualquer uso de `data/gold/` além de contagem, e qualquer envio de material de
 aluno à API.
@@ -61,6 +80,71 @@ nunca existiu. `data/gold/tese_natalia.pdf` tem o nome do autor no próprio arqu
 regra de anonimização na ingestão.
 **Decisão associada:** autorizar ou não rodar o parser sobre `data/gold/` para contar unidades
 (BL-008).
+
+### CO-012 — Tipo de `sensitivity` e de `privacy_classification`: apertar para `SensitivityLabel` ou manter frouxo?
+Aberto em 2026-08-07, na sessão de especificação da camada operacional do P08. Registro técnico
+com arquivo:linha em `docs/backlog.md` `BL-017`; **as duas leituras canônicas estão em
+`docs/spec/divergencias.md` §4.6, Grupo 2** — não transcritas aqui para não divergirem em três
+cópias.
+
+**Bloqueia, com escopo estreito:** a sessão que implementar o **passo 5 do protocolo de
+`[P08 §12]`** ("classificar sensibilidade") produziria resultado inválido mesmo rodando sem
+erro. `SensitivityLabel` tem `category`, `source_policy` e `justification`, e as regras de
+`[P09 §20.1]` — "`source_policy` deve identificar a política aplicável; quando pertinente, deve
+identificar P08" e "`OTHER_CONTROLLED` exige `justification` não nula" — são inexprimíveis nos
+tipos atuais. Não bloqueia o resto da peça 7.
+
+**O que está em conflito:** `[P09 §6]` declara `sensitivity: [SensitivityLabel]` e
+`privacy_classification: [SensitivityLabel]`; o código tem `list[str]`
+(`escolio/contrato/entrada.py`) e `list[SensitivityCategory]`
+(`escolio/contrato/requisicao.py:40`). O mesmo P09 é honrado em dois outros pontos
+(`SecurityFlags.sensitivity_labels`, `SensitivityLabel.category`) — a inconsistência é de dois
+pontos em quatro.
+
+**As duas leituras, em uma linha cada** (íntegras em `divergencias.md` §4.6): **A** — é
+sub-especificação do código, e o alvo é `list[SensitivityLabel]`; **B** — o lado de *entrada* é
+frouxo por desenho, acompanhando `trust: string`/`state: string`, e apertar só `sensitivity`
+deixaria o bloco meio tipado.
+
+**Por que é decisão e não conserto:** altera `escolio/contrato/`, que implementa schema
+homologado, e há leitura que defende o estado atual. **Não é material a coletar — é decisão a
+tomar**, como `CO-001` e `CO-007`.
+
+### CO-013 — `classification.state` não tem valor correto em fonte alguma
+Aberto em 2026-08-07, junto de `CO-012`, e **da mesma família**: em ambos a pergunta é se o
+campo consegue expressar o que a fonte exige. Aqui é pior — não é questão de tipo, é ausência de
+membro no vocabulário.
+
+**Bloqueia, com escopo estreito:** a sessão que implementar o **passo 6 do protocolo de
+`[P08 §12]`** ("classificar estado").
+
+**O conflito, e ele se fecha:**
+- `[P09 §6]` declara `state: string` — **sem `| null`**. O P09 é deliberado quanto a isso: no
+  mesmo bloco marca `| null` explicitamente em `acquired_at`, `integrity_reference`,
+  `authority_basis`, `retention.purpose` e `retention.condition`. Onde não marcou, não admite
+  nulo.
+- `[P08 §4.1]` enumera nove estados — `ORIGINAL`, `COPIA_VERIFICADA`, `DERIVADO`, `EM_ANALISE`,
+  `HOMOLOGADO`, `CONGELADO`, `SUPERADO`, `ARQUIVADO`, `DESTINADO_A_DESCARTE` — e **nenhum
+  significa "ainda não classificado"**. O eixo de confiança tem `ORIGEM_DESCONHECIDA` para esse
+  caso; o de estado não tem equivalente.
+
+Logo o schema exige uma string e não existe string que não seja inferência. Mesma classe de
+defeito de `LAC-SEG-001` (`docs/spec/operacional-P08.md` §10): o `InputItem` do P09 não
+representa "ainda não avaliado" — `trust` escapa por sorte de vocabulário, `state` não tem
+saída, `security` só tem `False`.
+
+**Estado atual, por decisão expressa do professor em 2026-08-07:** o valor errado foi
+**preservado, não substituído**. `entrada.py` e `escolio/adaptadores/ingestao_para_input_item.py`
+seguem com `state="ORIGEM_DESCONHECIDA"` — rótulo do eixo de confiança num campo de estado —
+com comentário citando este item, e dois testes o **caracterizam como defeito** (asserção de que
+o valor está *fora* do eixo correto), de modo que "consertar" sem decidir isto faz o teste falhar.
+`trust` foi corrigido na mesma sessão [`BL-016`]; `state` não.
+
+**As três saídas possíveis, nenhuma escolhida:** (i) `EM_ANALISE` — único dos nove que denota
+estado provisório, mas `[P08 §4.3]` o reserva para divergência entre estado declarado e
+comprovado, e aqui não há estado declarado; (ii) tornar o campo `str | None`, divergindo de
+`[P09 §6]`; (iii) manter o defeito nomeado até surgir fonte. Escolher (i) ou (ii) é ato seu, não
+conclusão do sistema.
 
 ---
 
@@ -85,6 +169,52 @@ autoral específica [`LAC-P02-005`].
 `docs/autorizacao.md` é ato coletivo cobrindo doze decisões; o `P01/05` proíbe "emitir
 autorização coletiva". Ver `docs/spec/divergencias.md` §4.2. Reemitir em forma itemizada resolve
 sob qualquer das duas leituras.
+
+### CO-011 — As quatro formulações de autoridade humana do P08: são a mesma coisa? A que papel correspondem?
+Aberto em 2026-08-07, na sessão de especificação da camada operacional do P08.
+
+**As duas perguntas, na ordem em que importam:**
+
+1. **São a mesma autoridade?** O P08 invoca autoridade humana em quatro passagens, e usa uma
+   formulação **diferente** em cada uma:
+   - `§3.6` (abstenção segura) — "solicitar **decisão humana** somente quando a continuação
+     depender realmente dela";
+   - `§5.6` (autoridade decisória) — "decide **a autoridade definida pelo projeto para o objeto
+     correspondente**";
+   - `§11.4` (retenção) — "devem ser submetidos à **autoridade competente pelo objeto**";
+   - `§13.6` (incidente) — "**A autoridade competente** deve: decidir contenção; autorizar
+     retomada; decidir comunicação institucional; resolver conflitos de retenção; encerrar
+     formalmente o incidente".
+
+   Só `§11.4` usa a expressão literal "autoridade competente pelo objeto". As outras três são
+   formulações distintas, e **nenhuma fonte diz que designam a mesma autoridade**. Tratá-las como
+   sinônimas é inferência; tratá-las como quatro autoridades distintas também é. Os objetos
+   diferem — continuação de operação, conflito documental, conflito de retenção, incidente — o
+   que admite tanto uma autoridade única quanto competências separadas.
+
+2. **A que papel de `[R03 §4]` corresponde cada uma?** Nenhuma seção do P08 liga qualquer das
+   quatro a papel algum. Verificado contra o P08 integral e contra a matriz de papéis da R03.
+   O P08 é neutro quanto a organograma por desenho: `§17` declara que não define "autoridade
+   institucional específica de privacidade ou segurança".
+
+**O que já foi decidido, e por isso este item não bloqueia.** Em 2026-08-07 o professor declarou
+a lacuna **preservada** — razão: o `[P08 §5.6]` veda presumir a autoridade ("Na ausência dessa
+definição, não se presume autoridade"), e escolher um default seria a inferência que a regra
+proíbe. O mecanismo de escalonamento está especificado por inteiro, com o destinatário como
+parâmetro não resolvido que **levanta exceção em vez de escolher alguém**. Ver
+`docs/spec/operacional-P08.md` §8.1 e `LAC-SEG-005`.
+
+**O que a resposta mudaria, se vier.** Os passos 13 (validar autoridade) e 15 (bloquear operação
+não autorizada) do protocolo de `[P08 §12]` passariam a se completar, e os cenários adversariais
+17 (conflito entre fontes) e 19 (descarte destruiria evidência) sairiam de `BLOQUEADO`
+[P08 §15.3]. Enquanto não vier, o `BLOQUEADO` é legítimo sob `[P08 §15.5]` e não reprova o P08.
+
+**Não é decisão a tomar por leitura — é fonte a encontrar, ou ato autoral a emitir.** A leitura
+de que `USUARIO_PROPONENTE` seria "a autoridade óbvia" (plausível: homologação, autorização de
+dados e aceitação de risco são exclusivamente suas, CLAUDE.md §2) **foi considerada e recusada**
+como default automático, precisamente por ser a inferência que `§5.6` veda. Se o professor
+quiser vinculá-la, é ato expresso dele, não conclusão do sistema — e pode ser itemizado por
+formulação, se as quatro não forem a mesma coisa.
 
 ### CO-008 — Estado de auditoria de P10, P12, P13 e P14
 Os quatro permanecem `NAO_AUDITADO_APOS_CORRECAO` ou equivalente; só o P11 está homologado
