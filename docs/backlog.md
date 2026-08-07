@@ -31,9 +31,10 @@ estados mínimos da R03 CAMADA D. É o que falta para X01 estar completa.
 O resto do projeto é Python. Decidir: portar, ou registrar a razão de manter as duas linguagens.
 Não é urgente; é inconsistência declarada.
 
-### BL-006 — máquina P06 e `InterventionRecord`
-Os 15 níveis `INT-01…INT-15`, as regras de escalonamento e a regressão segura [P06 §7, §8] não
-existem em código. Dependem do envelope P09.
+### BL-006 — máquina P06 e `InterventionRecord` — RESOLVIDO em `escolio/intervencao/`
+Os 15 níveis `INT-01…INT-15`, escalonamento, regressão segura [P06 §7, §8] e `InterventionRecord`
+[P09 §13] implementados. Pendente: ligar `Response.interventions` (`escolio/contrato/resposta.py`)
+a `InterventionRecord` quando o roteador de função existir — ver comentário lá.
 
 ## Ambiente e medição
 
