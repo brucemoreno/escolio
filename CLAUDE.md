@@ -371,13 +371,18 @@ existe — homologação documental não é ativação operacional [P11 §42].
 
 **A construir:**
 
-7. **Ingestão segura P08.** Bloqueada por leitura antes de qualquer coisa: o P08 não tem mapa em
-   `docs/spec/` [BL-009].
+7. **Ingestão segura P08.** Lido integralmente e mapeado em `docs/spec/mapa-P08.md`
+   (2026-08-07). O P08 fornece critério normativo (modelo de ameaças, PI-01…PI-08, PR-01…PR-11,
+   protocolo de 20 passos) — o que falta é operacionalização técnica (classificador, threshold,
+   escalonamento), decisão de implementação a especificar, não lacuna de spec [confirmado por
+   `CHAT_CONTROLADOR_ARQUITETO`, 2026-08-07]. `InputItem.security` [P09 §6]: código produz o
+   valor inicial a partir do P08, modelo participa da classificação semântica sem inventar
+   categoria, curador só em caso ambíguo/crítico — ver mapa §3, §6.1.
 8. **Suíte de testes nas 20 categorias do P20.** Idem [BL-009]. Os 561 testes atuais são de
    unidade por pacote e **não** correspondem às categorias do P20 — não confundir um com o outro.
 
-**Sem mapa em `docs/spec/`:** P08, P20, R03 [BL-009]. Consultar antes de qualquer sessão que
-dependa deles. P19 tem mapa em `docs/spec/mapa-P19.md`.
+**Sem mapa em `docs/spec/`:** P20, R03 [BL-009]. Consultar antes de qualquer sessão que
+dependa deles. P19 tem mapa em `docs/spec/mapa-P19.md`; P08 em `docs/spec/mapa-P08.md`.
 
 **O que a peça 6 fechou, e o que deixou aberto.** Fechou o catálogo das seis funções e as
 verificações de correspondência que o P09 §4.2.3-4.2.5 exige e que o envelope sozinho não podia
