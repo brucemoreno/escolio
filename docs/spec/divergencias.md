@@ -136,6 +136,66 @@ linguagem — sustenta as seções de autorização, de modelos e de convençõe
 em forma **itemizada**, uma entrada por decisão. Doze entradas. Sob a Leitura A, sana o vício;
 sob a Leitura B, não custa nada.
 
+### 4.3 CON-P05-001 — três vocabulários bibliográficos: convergência ou camadas separadas?
+
+Registrado como conflito não resolvido desde a implementação do P05
+[`escolio/LACUNAS.md`, `CON-P05-001`] e mantido como tal na implementação da máquina de
+estados do P04 [`escolio/bvaa/LACUNAS.md`, `LAC-BVAA-001`, `LAC-BVAA-002`]. Nenhuma das três
+fontes — P04/03, R03 CAMADA D, P05 — resolve a divergência entre si; cada uma foi escrita
+sem referência às outras duas.
+
+**Os três vocabulários, o que cada um estrutura:**
+
+- **P04/03** [`03_MAQUINA_DE_ESTADOS_BIBLIOGRAFICOS_P04_R01.csv`] — máquina de estado único:
+  17 estados, uma obra ocupa exatamente um estado por vez, numa cadeia de ciclo de vida
+  (identificação → localização → acesso → leitura → validação → recomendação/abstenção).
+- **P05** [`escolio/vocabulario.py`: `AccessState`, `ReadingState`, `ValidationState`] — três
+  campos paralelos e independentes de `RelacaoAfirmacaoEvidencia`. Uma afirmação pode estar
+  `ACESSADA` (access_state) e `LIDA_PARCIALMENTE` (reading_state) e `VALIDACAO_PENDENTE`
+  (validation_state) simultaneamente — não é uma máquina de estado único, é uma estrutura de
+  registro com três eixos independentes.
+- **R03 CAMADA D** [`01_PROTOCOLO_MESTRE_DE_ACAO_ECOSSISTEMA_LLM_ACADEMICA_R03.md`] — 9
+  estados mínimos, sem os campos de evidência mínima/autoridade/ação/condição de erro que
+  P04/03 declara para cada estado.
+
+**Leitura A — os três deveriam convergir para um único vocabulário canônico.** Os três
+tratam do mesmo domínio material (identificação, acesso, leitura e validação de uma fonte
+bibliográfica) e usam rótulos frequentemente idênticos ou quase idênticos
+(`PAGINA_CONFIRMADA`/`PAGINA_NAO_CONFIRMADA` aparecem literalmente iguais em P04/03 e em
+`ValidationState` do P05). Rótulos coincidentes sugerem que a spec pretendia um único
+domínio de estado, fragmentado em três documentos por terem sido produzidos em momentos
+distintos do projeto (R03 é anterior; P04 e P05 vieram depois, sem reconciliação entre si).
+Sob esta leitura, `CON-P05-001` é uma lacuna de coordenação editorial entre pacotes, e a
+tarefa correta seria escolher um vocabulário canônico (provavelmente P04/03, por ser o mais
+completo estruturalmente) e migrar os outros dois para aliases dele.
+
+**Leitura B — os três governam camadas diferentes por desenho, e convergir perderia
+informação.** P04/03 é uma máquina de estado único porque modela *processo* (onde uma obra
+está no ciclo de verificação). P05 é estrutura de *registro* de uma relação
+afirmação-evidência já instanciada, com três dimensões que são independentes por
+necessidade: o schema precisa poder expressar "acesso confirmado, leitura ainda parcial,
+validação ainda pendente" como um estado combinado válido — algo que uma máquina de estado
+único não representa sem multiplicar os 17 estados de P04 pelas combinações dos três eixos
+de P05 (o que nenhuma fonte propõe). R03 CAMADA D, por sua vez, tem menos estados e nenhum
+campo de evidência/autoridade — compatível com ser um resumo de governança de alto nível
+para a camada de política transversal, não uma máquina operacional com o mesmo grau de
+detalhe do P04. Sob esta leitura, forçar convergência apagaria a distinção funcional que
+cada vocabulário foi desenhado para ter, e a divergência de rótulos entre P04 e P05
+(idênticos em alguns pontos, ausentes em outros) é coincidência de domínio compartilhado,
+não indício de que deveriam ser o mesmo enum.
+
+**Não resolvida.** As duas leituras concordam que nenhuma fonte, lida literalmente, ordena
+a convergência — a diferença é se a ausência de uma ordem explícita é lacuna de coordenação
+(Leitura A) ou desenho pretendido (Leitura B). Implementado sob a Leitura B por ser a opção
+reversível: `escolio/bvaa/` mantém os três vocabulários distintos, com
+`escolio/bvaa/correspondencia.py` documentando célula a célula onde correspondem e onde não
+correspondem, sem função de tradução automática em tempo de execução. Se o professor
+decidir pela Leitura A, migrar depois é mecânico (a tabela de correspondência já existe);
+o inverso — destruir uma fusão já feita para recuperar três vocabulários distintos — seria
+mais caro. Enquanto não decidido: nenhum código converte um estado de um vocabulário em
+outro operacionalmente; a conversão, quando um chamador precisar dela, é responsabilidade
+de quem chama, não de `escolio/bvaa/` [`escolio/bvaa/LACUNAS.md`, `LAC-BVAA-002`].
+
 ---
 
 ## Fechamento
