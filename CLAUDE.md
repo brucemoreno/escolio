@@ -208,7 +208,7 @@ Sem tocar em Python. Definida pelas entradas do próprio P13:
 
 | O que ajusta | Campo | Origem |
 |---|---|---|
-| Voz **do autor avaliado**, a preservar — 30 dimensões `VOZ-D01…D30`, 24 obrigatórias | `perfil de voz`, JSON conforme schema P07 | P13 §6.2 (**obrigatória**); P07/02, P07/03 |
+| Voz **do autor avaliado**, a preservar — 30 dimensões `VOZ-D01…D30`, 26 obrigatórias, 4 opcionais (`D16-D19`) | `perfil de voz`, JSON conforme schema P07 | P13 §6.2 (**obrigatória**); P07/02, P07/03 |
 | Tom do comentário, detalhamento | `preferência de tom`, `nível de detalhamento` | P13 §6.3 |
 | Léxico | `glossário`, `termos preferidos` | P13 §6.3 |
 | Escopo | `zonas excluídas`, `tipos de comentário autorizados`, `prioridades do autor` | P13 §6.3 |

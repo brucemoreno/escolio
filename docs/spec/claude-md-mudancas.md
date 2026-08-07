@@ -113,7 +113,38 @@ Ambas em `docs/spec/divergencias.md`, cada uma com as duas leituras:
 
 ---
 
-## 6. Escopo de leitura desta sessão
+## 6. Correção posterior — contagem errada em §9 (encontrada em 2026-08-07)
+
+**"24 obrigatórias" estava errado.** A reescrita de 2026-08-06 registrou, em §9, "30 dimensões
+`VOZ-D01…D30`, 24 obrigatórias" para o perfil de voz do autor avaliado [P07]. A contagem literal
+do CSV fonte, `03_DICIONARIO_DE_DIMENSOES_DE_VOZ_P07_R01.csv`, é **26 obrigatórias e 4
+opcionais** (`VOZ-D16` `preferencias_lexicais`, `VOZ-D17` `termos_desaconselhados`, `VOZ-D18`
+`abertura_encerramento`, `VOZ-D19` `recursos_retoricos` — as únicas quatro linhas marcadas
+`opcional`; as 26 restantes são `obrigatória`).
+
+O erro só foi detectado na sessão seguinte, ao implementar `escolio/voz/` (item 5 do roadmap) e
+contar as linhas do CSV diretamente para `escolio/voz/dimensoes.py::DEFINICOES` — nenhuma
+verificação de contagem foi feita contra o CSV durante a reescrita de 2026-08-06 em si; "24" foi
+escrito sem recontar a fonte. Corrigido em §9 para "26 obrigatórias, 4 opcionais (D16-D19)".
+Registrado em `escolio/voz/LACUNAS.md` no momento da implementação, e aqui para não ficar só no
+LACUNAS de um módulo — este é um defeito da reescrita do CLAUDE.md, não do módulo.
+
+**Auditoria das demais contagens do documento**, feita na mesma sessão desta correção: 15
+níveis `INT-01…INT-15` [P06/01 §2] — confere (15 linhas no CSV, 15 membros em
+`escolio/intervencao/niveis.py::NivelIntervencao`). 17 estados [P04/03] — confere (17 linhas no
+CSV, 17 membros em `escolio/bvaa/vocabulario.py::EstadoBibliografico`). 20 regras de coerência
+[P05/04] — confere (20 linhas RC-001..020 no CSV, todas as 20 tratadas em
+`escolio/regras_coerencia.py`). Cinco valores de `status` do envelope (`SUCCESS |
+PARTIAL_SUCCESS | ABSTAINED | ERROR | BLOCKED`) [P09 §8.2] — confere com
+`escolio/contrato/vocabulario.py::ResponseStatus`. Citação `[P09 §21.43]` — o item 43 existe na
+lista de invariantes do §21 do P09 e diz exatamente o que o CLAUDE.md paráfrasea. "Oito fases"
+não é uma alegação que exista no documento — o pipeline é citado corretamente como sete etapas
+(E1–E7) em toda parte. Nenhuma outra contagem numérica do documento foi encontrada divergente da
+fonte citada.
+
+---
+
+## 7. Escopo de leitura desta sessão
 
 **Lidos integralmente:** R03 (protocolo-mestre), P06 (taxonomia de intervenção, todos os
 arquivos), P07 (contrato de voz + schema + dicionário + matriz), P09 (schemas/contratos),
