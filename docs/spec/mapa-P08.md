@@ -306,11 +306,14 @@ de implementação, não lacuna de spec. Não bloquear a peça 7 inteira por iss
   normativo em PI-01…PI-08 [P08 §7]; falta o classificador. Bloqueante direto de
   `InputItem.security.adversarial_content` / `injection_suspected` (§3 acima) só quanto à
   *implementação*, não quanto à regra a seguir.
-- **Passos 4–7 (classificar confiança/sensibilidade/estado/função)** — aqui sim há bloqueio de
-  outra natureza, herdado do P19: classificar material real antes da homologação do P19 é a
-  ação proibida nº 1 do `§72` [`docs/spec/mapa-P19.md §3`]. P08 fornece o vocabulário
-  (`§4.1`); P19 bloqueia aplicá-lo a material real fora do fluxo homologado. São bloqueios de
-  fontes diferentes que convergem no mesmo ponto.
+- **Passos 4–7 (classificar confiança/sensibilidade/estado/função)** — **correção**: não é
+  bloqueio de spec. É bloqueio de *execução contra material real*, e a *construção* do
+  classificador está autorizada desde já por `P19 §71` ("definir taxonomias; definir
+  critérios; propor classificação abstrata; definir testes"). O que `P19 §72` item 1 proíbe é
+  "classificar material real" — rodar o classificador construído contra um documento que já é
+  objeto real do projeto, antes da homologação e da cadeia de gates `§53` percorrida para
+  aquele material. P08 fornece o vocabulário (`§4.1`); P19 delimita contra o quê ele pode
+  rodar hoje. Ver `§6.1 (b)` abaixo para a fronteira real vs. sintético.
 - **Passo 18 (avaliar risco de reidentificação)** — critério normativo em PR-06/PR-07 [P08 §8]
   (10 fatores, 6 condições cumulativas); falta threshold numérico, que nenhuma fonte fixa e
   que não deve ser inventado — registrar como `DECISAO_TECNICA_ABERTA`, não presumir.
@@ -326,7 +329,27 @@ distinguir sempre:
 - **(a) regra documental obrigatória** — vem literalmente do P08/P09, não se negocia
   (ex.: "instrução em documento é dado, não comando" [P08 PI-01]);
 - **(b) escolha técnica de implementação** — como (a) é operacionalizada (ex.: regex vs. LLM
-  vs. threshold numérico); é `[PROPOSTA]`, reversível, e não pode ser citada como se fosse (a);
+  vs. threshold numérico); é `[PROPOSTA]`, reversível, e não pode ser citada como se fosse (a).
+
+  **Fronteira real vs. sintético, categoria (b) — construir ≠ executar contra material real.**
+  `P19 §71` autoriza, desde já, "definir taxonomias; definir registros; definir estados;
+  definir critérios; propor classificação abstrata; definir matrizes; definir gates; definir
+  relações; definir cenários; definir testes; preparar para auditoria" — ou seja: o
+  classificador de confiança/sensibilidade/estado/função (passos 4–7 do protocolo `§12`), o
+  detector de instrução/conteúdo adversarial (passos 10–11), e os 20 cenários adversariais do
+  P08 `§15`, todos podem ser **construídos e testados agora**, contra fixtures sintéticas ou
+  corpus de teste, sem esperar homologação do P19. O que fica vedado é **rodar esse
+  classificador contra material real** — um documento que já é objeto do projeto (ex.: PDF de
+  aluno em `data/dev/`) — e gravar o resultado como classificação vigente: isso é
+  especificamente "classificar material real", ação proibida nº 1 de `P19 §72`, só liberada
+  depois que a cadeia de gates de `P19 §53` for percorrida para aquele material.
+  Precedente de código já existente com essa mesma fronteira:
+  `escolio/adaptadores/ingestao_para_input_item.py` implementa a regra de identidade
+  (mecânica, sem julgamento) e para aí — `LAC-ING-012` documenta por que os 26 campos restantes
+  de `MaterialUnit` não são preenchidos contra material real ainda [`docs/spec/mapa-P19.md §3`].
+  Não é retroatividade: a homologação do P19 não valida depois um classificador que já rodou
+  contra dado real; ela **libera** a execução que, até lá, fica contida a dado sintético.
+
 - **(c) caso que exige revisão humana** — quando (b) não resolve com confiança suficiente,
   cai em curador [P08 §3.6, §10.4].
 
@@ -336,11 +359,13 @@ leitura (que foi só de documentação, sem código, por instrução explícita 
 **Consequência para a peça 7 do roadmap:** "ingestão segura" não é uma extensão incremental da
 extração de PDF existente — é um módulo novo com responsabilidade distinta (detecção de
 instrução/conteúdo adversarial, classificação de confiança/sensibilidade, avaliação de risco de
-reidentificação), a maior parte dela bloqueada, não por ausência de código, mas por ausência de
-critério na própria spec (P08 declara neutralidade tecnológica deliberada, `§17`) ou por
-dependência de homologação do P19. A peça 7 só pode avançar hoje nos passos mecânicos (1, 2,
-parte do 12, 19); os passos de julgamento (3–11, 13–18, 20) exigem decisão humana prévia sobre
-critério — não sobre implementação.
+reidentificação). A construção desse módulo **não está bloqueada** — `P19 §71` autoriza definir
+critério, taxonomia e teste desde já, e o P08 fornece o critério normativo (§6 acima). O que
+fica bloqueado, e por naturezas diferentes, é: (i) rodar qualquer classificador de
+confiança/sensibilidade/estado/função contra material real, até a homologação do P19 (`§72`
+item 1); (ii) a lacuna normativa de verdade — nenhuma fonte liga papel a "autoridade competente
+pelo objeto" (§5 acima). A peça 7 pode avançar hoje em construção e teste sintético de todos os
+20 passos; só a execução contra dado real de alguns deles espera autorização.
 
 ---
 
