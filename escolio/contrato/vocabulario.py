@@ -1,0 +1,213 @@
+"""Vocabulário controlado do P09 — fonte: P09_SCHEMAS_CONTRATOS_CORRIGIDO_R04.md.
+
+Vocabulário próprio do envelope de runtime, distinto do vocabulário P05 em
+escolio/vocabulario.py. Em particular, `Sufficiency` e `Confidence` aqui têm
+rótulos e cardinalidade diferentes dos homônimos do P05 — ver
+escolio/contrato/LACUNAS.md e docs/backlog.md BL-002. Nenhum dos dois
+vocabulários é alias do outro; a divergência é preservada, não reconciliada
+(mesmo tratamento dado a CON-P05-001).
+"""
+
+from enum import Enum
+
+ARQUIVO_P09 = "P09_SCHEMAS_CONTRATOS_CORRIGIDO_R04.md"
+
+
+class AuthorizationStatus(str, Enum):
+    VALID = "VALID"
+    INVALID = "INVALID"
+    UNVERIFIED = "UNVERIFIED"
+    CONFLICTED = "CONFLICTED"
+
+
+class VersionMode(str, Enum):
+    EXACT = "EXACT"
+    MINIMUM = "MINIMUM"
+    COMPATIBLE_MAJOR = "COMPATIBLE_MAJOR"
+    RANGE = "RANGE"
+    ANY = "ANY"
+
+
+class RequiredState(str, Enum):
+    HOMOLOGATED = "HOMOLOGATED"
+    ACTIVE = "ACTIVE"
+    AVAILABLE = "AVAILABLE"
+
+
+class CompatibilityStatus(str, Enum):
+    COMPATIBLE = "COMPATIBLE"
+    INCOMPATIBLE = "INCOMPATIBLE"
+    UNVERIFIED = "UNVERIFIED"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+
+
+class InputType(str, Enum):
+    DOCUMENT = "DOCUMENT"
+    TEXT = "TEXT"
+    DATASET = "DATASET"
+    IMAGE = "IMAGE"
+    AUDIO = "AUDIO"
+    VIDEO = "VIDEO"
+    CODE = "CODE"
+    LINK = "LINK"
+    COMMAND = "COMMAND"
+    METADATA = "METADATA"
+    OTHER = "OTHER"
+
+
+class ConsistencyStatus(str, Enum):
+    CONSISTENT = "CONSISTENT"
+    DIVERGENT = "DIVERGENT"
+    UNVERIFIED = "UNVERIFIED"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+
+
+class PreferredSource(str, Enum):
+    INLINE = "INLINE"
+    REFERENCE = "REFERENCE"
+    NONE = "NONE"
+
+
+class ContextType(str, Enum):
+    PROJECT_STATE = "PROJECT_STATE"
+    POLICY = "POLICY"
+    PRIOR_DECISION = "PRIOR_DECISION"
+    SOURCE = "SOURCE"
+    CONSTRAINT = "CONSTRAINT"
+    HISTORY = "HISTORY"
+    OTHER = "OTHER"
+
+
+class Canonicality(str, Enum):
+    CANONICAL = "CANONICAL"
+    NON_CANONICAL = "NON_CANONICAL"
+    HISTORICAL = "HISTORICAL"
+    UNKNOWN = "UNKNOWN"
+
+
+class ResponseStatus(str, Enum):
+    SUCCESS = "SUCCESS"
+    PARTIAL_SUCCESS = "PARTIAL_SUCCESS"
+    ABSTAINED = "ABSTAINED"
+    ERROR = "ERROR"
+    BLOCKED = "BLOCKED"
+
+
+class ProvenanceStatus(str, Enum):
+    VERIFIED = "VERIFIED"
+    PARTIAL = "PARTIAL"
+    UNKNOWN = "UNKNOWN"
+    CONFLICTED = "CONFLICTED"
+
+
+class ClaimType(str, Enum):
+    """§12 — vocabulário próprio de ClaimEvidence, distinto do ClaimType do P05."""
+
+    FACT = "FACT"
+    INTERPRETATION = "INTERPRETATION"
+    RECOMMENDATION = "RECOMMENDATION"
+    INFERENCE = "INFERENCE"
+    LIMITATION = "LIMITATION"
+
+
+class Sufficiency(str, Enum):
+    SUFFICIENT = "SUFFICIENT"
+    PARTIAL = "PARTIAL"
+    INSUFFICIENT = "INSUFFICIENT"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+
+
+class Confidence(str, Enum):
+    HIGH = "HIGH"
+    MEDIUM = "MEDIUM"
+    LOW = "LOW"
+    UNDETERMINED = "UNDETERMINED"
+
+
+class ClaimStatus(str, Enum):
+    SUPPORTED = "SUPPORTED"
+    PARTIALLY_SUPPORTED = "PARTIALLY_SUPPORTED"
+    UNSUPPORTED = "UNSUPPORTED"
+    CONFLICTED = "CONFLICTED"
+
+
+class ErrorCategory(str, Enum):
+    VALIDATION = "VALIDATION"
+    INTEGRITY = "INTEGRITY"
+    DEPENDENCY = "DEPENDENCY"
+    AUTHORIZATION = "AUTHORIZATION"
+    SECURITY = "SECURITY"
+    PROCESSING = "PROCESSING"
+    FORMAT = "FORMAT"
+    RESOURCE = "RESOURCE"
+    INTERNAL = "INTERNAL"
+
+
+class ErrorSeverity(str, Enum):
+    INFO = "INFO"
+    WARNING = "WARNING"
+    MAJOR = "MAJOR"
+    CRITICAL = "CRITICAL"
+
+
+class AbstentionCategory(str, Enum):
+    INSUFFICIENT_AUTHORITY = "INSUFFICIENT_AUTHORITY"
+    INSUFFICIENT_EVIDENCE = "INSUFFICIENT_EVIDENCE"
+    UNKNOWN_PROVENANCE = "UNKNOWN_PROVENANCE"
+    OUT_OF_SCOPE = "OUT_OF_SCOPE"
+    SAFETY_RISK = "SAFETY_RISK"
+    PRIVACY_RISK = "PRIVACY_RISK"
+    UNRESOLVED_CONFLICT = "UNRESOLVED_CONFLICT"
+    AMBIGUITY = "AMBIGUITY"
+    POLICY_CONSTRAINT = "POLICY_CONSTRAINT"
+
+
+class BlockCategory(str, Enum):
+    MISSING_OBJECT = "MISSING_OBJECT"
+    MISSING_DEPENDENCY = "MISSING_DEPENDENCY"
+    ACCESS_DENIED = "ACCESS_DENIED"
+    CANONICAL_SOURCE_ABSENT = "CANONICAL_SOURCE_ABSENT"
+    INCIDENT_ACTIVE = "INCIDENT_ACTIVE"
+    FROZEN_OBJECT = "FROZEN_OBJECT"
+    GOVERNANCE_CONFLICT = "GOVERNANCE_CONFLICT"
+
+
+class LimitationType(str, Enum):
+    DATA = "DATA"
+    SOURCE = "SOURCE"
+    METHOD = "METHOD"
+    SCOPE = "SCOPE"
+    AUTHORITY = "AUTHORITY"
+    PRIVACY = "PRIVACY"
+    SECURITY = "SECURITY"
+    TECHNOLOGY = "TECHNOLOGY"
+    LEGAL = "LEGAL"
+    INSTITUTIONAL = "INSTITUTIONAL"
+
+
+class Materiality(str, Enum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+
+
+class WarningCategory(str, Enum):
+    UNCERTAINTY = "UNCERTAINTY"
+    CONFLICT = "CONFLICT"
+    SENSITIVITY = "SENSITIVITY"
+    SECURITY = "SECURITY"
+    PARTIALITY = "PARTIALITY"
+    DEPRECATION = "DEPRECATION"
+    VERSION_DIVERGENCE = "VERSION_DIVERGENCE"
+
+
+class SensitivityCategory(str, Enum):
+    PUBLIC = "PUBLIC"
+    INTERNAL = "INTERNAL"
+    RESTRICTED = "RESTRICTED"
+    CONFIDENTIAL = "CONFIDENTIAL"
+    PERSONAL_DATA = "PERSONAL_DATA"
+    SENSITIVE_PERSONAL_DATA = "SENSITIVE_PERSONAL_DATA"
+    SECURITY_SENSITIVE = "SECURITY_SENSITIVE"
+    LEGALLY_PROTECTED = "LEGALLY_PROTECTED"
+    OTHER_CONTROLLED = "OTHER_CONTROLLED"
