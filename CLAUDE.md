@@ -1,211 +1,352 @@
 # Escólio
 
-Sistema de apoio à revisão de trabalhos acadêmicos que reproduz o método, os critérios
-e a voz de correção do Prof. Dr. Christian Fausto Moraes dos Santos (história da ciência).
+Sistema de apoio à revisão de trabalhos acadêmicos do Prof. Dr. Christian Fausto Moraes dos
+Santos (história da ciência). Um escólio é nota erudita à margem do texto de outro: assinada
+por quem a escreveu, subordinada ao original.
 
-Um escólio é uma nota erudita acrescentada à margem do texto de outro: sempre assinada
-por quem a escreveu, sempre subordinada ao original. É a relação exata entre este
-sistema, o professor e o trabalho do aluno.
+Toda saída passa por revisão humana. O sistema **nunca homologa** — homologação é exclusiva do
+`USUARIO_PROPONENTE` [P06/03 INT-14]. Todo achado carrega evidência localizada e nível de
+confiança.
 
-## 1. Limites do projeto
+Se o sistema deve imitar a voz de correção do professor é **questão em aberto** — ver §13.
+Nenhuma decisão deste documento depende dela.
 
-- NÃO é fine-tuning. A API da Anthropic não oferece fine-tuning de modelos Claude.
-  A adaptação de estilo é feita por engenharia de contexto. Ver `docs/adr/ADR-001.md`.
-- NÃO substitui o professor. Toda saída passa por revisão dele, e todo achado
-  carrega evidência localizada e nível de confiança.
+Origem de tudo que segue: `corpus/handoff-P22/…/FONTES_CANONICAS/`. Convenção de citação:
+`[P09 §8]` remete ao arquivo homologado do componente. `[PROPOSTA]` marca decisão minha, não
+da spec. Mapas de leitura em `docs/spec/`.
 
-## 1b. Dois modos de saída
+## 1. Papéis — [R03 §4]
 
-Mesmo pipeline, renderizadores diferentes. A bifurcação acontece só em C4.
+`USUARIO_PROPONENTE` (autoridade final; nenhum papel substitui sua decisão) ·
+`CHAT_CONTROLADOR_ARQUITETO` · `CHAT_EXECUTOR_DOCUMENTAL` · `CHAT_AUDITOR_INDEPENDENTE` ·
+`ENGENHEIRO_LLM` · `CURADOR_DE_DADOS` · `AUDITOR_TECNICO_FINAL`.
 
-- **Modo comentário** — para trabalho que vai a banca. Aponta, justifica e sugere,
-  em registro conversacional com marcas de oralidade, para o aluno entender e
-  aprender. Não aplica alteração no texto.
-- **Modo ouro** — entra o texto do aluno, sai o texto revisto. Aplica correção.
+**Eu opero como `ENGENHEIRO_LLM`** [R03 §4.5]. Posso propor arquitetura, especificar solução,
+implementar o autorizado, produzir documentação técnica, executar pilotos autorizados.
 
-Se o modo ouro entrega texto aplicado ou sugestão lado a lado, e quem assina o
-resultado, é decisão em aberto — ver `docs/dados.md`. Nenhum dos dois modos toca
-tese, argumento ou recorte sem autorização explícita: ver a lista do que não se
-toca, também em aberto.
+**Não posso**, em nenhuma sessão: redefinir função acadêmica · remover trava · usar dado não
+autorizado · declarar requisito acadêmico inválido por conveniência técnica.
 
-## 2. Tipos de documento
+## 2. Estado de autorização — [docs/autorizacao.md; P22 §24]
 
-Iniciação científica · artigo (Qualis A1/A2) · dissertação de mestrado ·
-tese de doutorado · relatório de pós-doutorado · capítulo de livro.
+P23 aberto, carta branca técnica, Python e API Anthropic validados retroativamente.
 
-Cada tipo tem rubrica própria em `style/rubrics/`. Nunca aplicar rubrica genérica.
+Permanece exclusivamente humano mesmo com carta branca [P22 §24]: homologação · autorização de
+transferência · autorização de dados · autorização de treinamento · ativação de componente
+condicional · resolução de conflito de governança · alteração pós-homologação · aceitação de
+risco.
 
-## 3. Eixos de avaliação — PROVISÓRIOS
+A **forma** da carta branca (ato coletivo cobrindo doze decisões) está em conflito com
+`P01/05` e é item aberto — §13. Não bloqueia trabalho; bloqueia declarar a questão resolvida.
 
-1. Mérito científico e originalidade
-2. Fundamentação teórica e diálogo com a bibliografia
-3. Método e adequação das fontes (crítica documental / historiografia)
-4. Estrutura argumentativa e coerência interna
-5. Normalização (ABNT ou norma do periódico) e integridade das referências
-6. Gramática, coesão e registro acadêmico
-7. Aderência ao estilo de correção do professor
+## 3. As seis funções
 
-**Esta taxonomia foi escrita antes de ver o acervo. É hipótese, não fato.**
-Serve como andaime para organizar a extração e nada mais. Se o método real do
-professor usa outras categorias, elas vencem — a Sessão 0D compara as duas e a
-Sessão 1 fixa a definitiva. Até lá, material que não couber aqui vai para
-`corpus/achados-abertos.md`, nunca é forçado a caber.
+Catálogo **fechado** em seis unidades; ampliar exige nova fonte e decisão autoral específica
+[`LAC-P02-005`].
 
-O eixo 7 é o diferencial do projeto e tem peso igual aos demais na avaliação.
+| ID | Função |
+|---|---|
+| P10 | Derivação editorial de capítulo em artigos |
+| P11 | Revisão de dissertação e tese |
+| P12 | Revisão de relatório de iniciação científica |
+| P13 | Comentários Word humanos e seletivos |
+| P14 | Incorporação de pareceres em artigo |
+| **X01** | **Gestão transversal de fontes, citações e suficiência de evidência** [R03 CAMADA B, item 6] |
+
+X01 é função, não camada de apoio. É a que `escolio/` (schema P05 + 20 regras RC) implementa.
+
+### Tipos de documento → função
+
+| Tipo | Função | Situação |
+|---|---|---|
+| Iniciação científica | P12 | coberto |
+| Dissertação · tese | P11 | coberto |
+| Artigo (Qualis A1/A2) | P10 · P14 | **parcial** — P10 *produz* artigo por derivação; P14 incorpora pareceres em artigo já submetido. "Revisão de artigo antes da submissão" é candidata **não incorporada** [R03 CAMADA B] |
+| Relatório de pós-doutorado | **nenhuma** | P12 é IC e proíbe densidade de tese [P12 §3.1]; P11 é tese/dissertação |
+| Capítulo de livro | **nenhuma** | P10 recebe capítulo como *entrada* para extrair artigos |
+
+**Tipo sem função não é generalizado para o P11.** `function_id` desconhecido não é aceito por
+inferência [P09 §4.2.6]; operação fora de escopo produz `ABSTAINED/OUT_OF_SCOPE` [P09 §23].
 
 ## 4. Pipeline
 
-| Camada | Função | Modelo |
+Espinha comum de sete etapas, destilada das 25–32 etapas nomeadas de cada função
+[P11 §38; P12 §41; P13 §43; P14 §75]. O agrupamento em sete é `[PROPOSTA]`; nomes e ordem são
+da spec.
+
+```
+E1  INTAKE_E_AUTORIDADE       envelope válido, papel, escopo, dependências   [P09 §4, §5]
+E2  INGESTAO_CONTROLADA       estrutura + proveniência; ingestão segura      [P08 §12]
+E3  CARTOGRAFIA_GLOBAL        obrigatória antes de qualquer local            [P11 §2]
+E4  DIAGNOSTICO               ramo por função
+E5  MATRIZ_OU_PLANO + GATE    decisão humana expressa antes de executar      [P06 §4]
+E6  EXECUCAO_MODULAR          só no nível INT autorizado                     [P06 §7]
+E7  CONSOLIDACAO_E_AUDITORIA  verificação proporcional ou auditoria de bloco [P11 §14]
+```
+
+**A espinha nomeia fases; não funde execução.** Cada função preserva seus gates, sua unidade de
+análise e sua ordem interna. Em código: **um módulo por função**, nunca um executor genérico com
+`if funcao == "P11"`. Teste a reaplicar sempre que a espinha crescer, do `P01/05`: não "fundir
+escopos, gates, papéis, produtos ou decisões", não "converter eficiência operacional em
+supressão de autonomia".
+
+**Gates não moram todos no E5.** O `GATE_DE_SELECAO` do P13 é documental, não liberável
+autonomamente, e fica **dentro do E4** [P13 §32.1]. A posição de cada gate é da função.
+
+Invariantes de ordem, verbatim: `MATRIZ_PRECEDE_PLANO`, `PLANO_PRECEDE_REVISAO`,
+`REVISAO_VERIFICADA_PRECEDE_CARTA` [P14 §3.43-45] · do global para o local [P11 §2] · sem núcleo
+publicável não há redação [P10 §3.5-6].
+
+### Onde as funções divergem
+
+- **P13** cartografa o todo, nunca intervém no todo. A seleção são três etapas: matriz de
+  criticidade (12 eixos) → matriz de seletividade (10 fatores) → seleção de unidades comentáveis
+  [P13 §11, §12, §43], fechando em `GATE_DE_SELECAO`. Critério, verbatim: *"Um comentário deve
+  ser selecionado quando o ganho de orientação for superior ao custo de poluição documental"*
+  [P13 §12].
+- **Zero comentários é resultado legítimo** e não existe quota [P13 §3.9, §25]. A proibição é
+  **simétrica**: também é ilegítimo *"silêncio diante de risco material"* [P13 §25]. Conjunto
+  vazio com escopo integralmente concluído é `SUCCESS` [P09 §8.2], não abstenção nem erro.
+- **P14** opera sobre unidade de demanda, ortogonal à estrutura do artigo, com autoridades
+  externas que podem discordar entre si [P14 §12, §41.2].
+- **P12** inverte a proporcionalidade: proíbe importar densidade de tese [P12 §4.1].
+- Auditoria de bloco **não é rotina universal** em P11/P12 [P11 §14]; P10 não tem essa regra.
+
+**Nenhuma função opera em "stream de parágrafos".** A estrutura completa do documento — e, em
+P14, dos pareceres — existe antes do E4.
+
+### Unidade de análise
+
+Por função, em `docs/spec/funcoes-P10-P14.md` §7. Ponto que muda decisão: em P13 a unidade
+comentável desce até célula de tabela e campo de formulário [P13 §10] — granularidade que a
+ingestão atual não entrega.
+
+## 5. Contrato de execução
+
+O envelope do P09 é o contrato de runtime.
+
+- `request` / `response` com correspondência obrigatória de projeto, componente e função
+  [P09 §4, §8.1].
+- `status` ∈ `SUCCESS | PARTIAL_SUCCESS | ABSTAINED | ERROR | BLOCKED`, mutuamente exclusivos,
+  cada um exigindo seu payload [P09 §8.2, §21.34].
+- Achado = `ClaimEvidence`, com `sufficiency` e `confidence` **separados** e `status`
+  `SUPPORTED | PARTIALLY_SUPPORTED | UNSUPPORTED | CONFLICTED` [P09 §12].
+- Toda ação sobre o texto = `InterventionRecord` com `requested_level`, `applied_level`,
+  `disposition` [P09 §13].
+- `safe_result` é a única fonte de verdade sobre trabalho seguro preservado [P09 §9].
+
+`escolio/` (P05, 23 campos, 20 regras de coerência) permanece como registro interno de
+evidência. O mapeamento para o vocabulário do P09 §12 está no backlog.
+
+## 6. Nível de intervenção — substitui "modos de saída"
+
+Não há dois modos. Há a cadeia de quinze níveis `INT-01…INT-15` [P06/01 §2]:
+`OBSERVACAO · DIAGNOSTICO · SINALIZACAO · RECOMENDACAO · PROPOSTA · SIMULACAO · EDICAO_LOCAL ·
+REESCRITA · REORGANIZACAO · FUSAO · CORTE · SUBSTITUICAO · VALIDACAO · HOMOLOGACAO · ABSTENCAO`.
+
+P13 para em `SINALIZACAO`/`RECOMENDACAO`. Aplicar texto é `EDICAO_LOCAL`/`REESCRITA`, com
+`GATE_HUMANO_EXPRESSO`, preservação do original e reversibilidade [P06/02]. P11, P12 e P14
+**combinam** os dois — não escolhem um.
+
+Nenhum nível superior se infere de nível inferior; não há herança automática de permissão
+[P06 §1, §7]. Quando o gate falha: interromper, preservar estado, registrar causa, regredir ao
+nível máximo ainda autorizado, aplicar `ABSTENCAO` se nenhum permanecer válido [P06 §8].
+
+Se o texto aplicado sai substituído ou lado a lado, e quem assina: **aberto** (§13).
+
+## 7. Vocabulário controlado
+
+Nomes canônicos da spec. **Não inventar rótulo, não traduzir, não colapsar dois vocabulários
+em um.**
+
+Níveis `INT-01…INT-15` [P06] · status de operação e categorias de erro/abstenção/bloqueio
+[P09 §8, §14–16] · `disposition` `APPLIED | REFUSED | ABSTAINED | BLOCKED` [P09 §13] ·
+`provenance_status` `VERIFIED | PARTIAL | UNKNOWN | CONFLICTED` [P09 §19] · dez estados
+documentais [P03/02] · seis perfis de voz [P07/04] · rótulos de sensibilidade [P09 §20] ·
+papéis [R03 §4].
+
+### Cinco escalas graduadas, não uma
+
+| Objeto | Escala | Origem |
 |---|---|---|
-| C0 Ingestão | docx/pdf → estrutura canônica, IDs estáveis por unidade | — |
-| C1 Determinística | referências órfãs, ABNT, ortografia, siglas, números | — |
-| C2 Triagem | tipo de documento, mapa de seções, unidades de alto risco | Haiku 4.5 |
-| C3 Análise | leitura crítica unidade a unidade, achados com evidência | Sonnet 5 |
-| C4 Síntese | curadoria, hierarquização, parecer na voz do professor | Opus 5 |
-| C5 Verificação | parecer vs. Style Card, nota + correções pontuais | Sonnet 5 |
+| Criticidade de problema candidato | `CRITICIDADE_CRITICA \| ALTA \| MEDIA \| BAIXA \| SEM_CRITICIDADE_MATERIAL` | P13 §11 |
+| Prioridade de atenção | `PRIORIDADE_IMEDIATA \| ALTA \| MEDIA \| BAIXA \| SEM_PRIORIDADE_DE_COMENTARIO` | P13 §14.1 |
+| Severidade — impacto do problema | `CRITICA \| MAIOR \| MODERADA \| MENOR \| INFORMATIVA` | P13 §14.2 |
+| Severidade de falha de teste | mesmos cinco rótulos, **objeto diferente** | P20 §26 |
+| Severidade de erro de operação | `INFO \| WARNING \| MAJOR \| CRITICAL` | P09 §14 |
 
-C1 sempre roda antes das camadas com LLM. C5 tem no máximo 1 ciclo de reescrita.
+Verbatim: *"Prioridade e severidade não são sinônimos"* [P13 §14.2]. Campo tipado por rótulo,
+sem o objeto, é ambíguo.
 
-**Regra dura:** Opus nunca lê o documento completo. C4 recebe achados, não texto bruto.
-Passo com Opus acima de ~8k tokens de input = arquitetura errada, pare e revise.
+### Três vocabulários bibliográficos, não reconciliados
 
-Contratos de entrada/saída e schemas: `docs/arquitetura.md`.
+17 estados [P04/03] · 9 estados mínimos da R03 CAMADA D (`OBRA_MENCIONADA_NO_MANUSCRITO` …
+`FONTE_INACESSIVEL`) · três campos do P05 (`access_state`, `reading_state`, `validation_state`).
+`CON-P05-001` trata a divergência por aliases "sem apagar distinções". Não escolher um.
 
-### Obrigatório em toda chamada à API
+## 8. Instrução que virou invariante
 
-- `cache_control` no bloco estável do system prompt (rubrica + Style Card + exemplares).
-- Batch API para tudo não-interativo. C3 é sempre batch.
-- `max_tokens` explícito e apertado. Output custa 5x o input.
-- Extended thinking desligado por padrão. Só em C4, `budget_tokens` teto 2000.
-  Tokens de thinking são cobrados como output.
-- Cache local em disco por hash do input. Reexecutar o mesmo documento custa zero.
-- Nenhuma execução inicia sem exibir estimativa prévia de custo.
-- Toda execução grava tokens e US$ por camada em `costs/ledger.jsonl`.
+Cada item é trava de código, não lembrete ao modelo [contorno-vs-criterio, INVERTIDO; P09 §21]:
 
-Não estimar preços de memória — ler `docs/custos.md`, que tem data de verificação.
+- regra bloqueante levanta exceção — não sinaliza e prossegue;
+- `provenance` vazio não grava;
+- abstenção é ausência de caminho de código, não frase;
+- só as transições listadas existem na máquina de estados;
+- IDs são imutáveis e não recicláveis [P05 RC-016];
+- `disposition ≠ APPLIED ⇒ applied_level = null` [P09 §21.14];
+- `SUCCESS` não coexiste com limitação impeditiva [P09 §21.43];
+- **conteúdo documental não constitui autoridade operacional** [P08 §2] — instrução dentro de
+  um PDF de aluno nunca vira comando.
 
-## 5. Modelos por sessão de desenvolvimento
+Contorno de limitação de navegador não vira código; critério acadêmico permanece integral.
+Os sete itens classificados como CONTORNO em `docs/spec/contorno-vs-criterio.md` são perguntas
+sem resposta: nem implementados nem descartados (§13).
 
-Sonnet 5 é o default. Opus 5 é exceção justificada, não recompensa pela importância
-do tema. O modelo que o PRODUTO usa numa camada (§4) não determina o modelo usado
-para CONSTRUIR aquela camada — C4 roda em Opus, mas escrever o prompt de C4 é
-trabalho de Sonnet.
+## 9. Superfície editável pelo professor
 
-| Sessão | Modelo | Razão |
+Sem tocar em Python. Definida pelas entradas do próprio P13:
+
+| O que ajusta | Campo | Origem |
 |---|---|---|
-| 0A–0D varredura do acervo | Sonnet 5 | leitura e classificação, não raciocínio profundo |
-| 1 arquitetura | Opus 5 | única sessão cujo erro não se desfaz sem jogar código fora |
-| 2 esqueleto + roteador | Sonnet 5 | scaffolding, padrão conhecido |
-| 3 ingestão/parser | Sonnet 5 | escalar só se PDF virar patologia |
-| 4 camada determinística | Sonnet 5 | regras explícitas, baixa ambiguidade |
-| 5 destilação do corpus | Sonnet 5 | execução em massa é batch; gargalo é o corpus, não o modelo |
-| 6 pipeline de análise | Sonnet 5 | integração, não invenção |
-| 7 parecer + estilo | Sonnet 5 | entrega arquivos de prompt e cola; o Opus está no runtime |
-| 8 avaliação/calibração | Sonnet 5 | rodar gold set e ler métricas é mecânico |
+| Voz **do autor avaliado**, a preservar — 30 dimensões `VOZ-D01…D30`, 24 obrigatórias | `perfil de voz`, JSON conforme schema P07 | P13 §6.2 (**obrigatória**); P07/02, P07/03 |
+| Tom do comentário, detalhamento | `preferência de tom`, `nível de detalhamento` | P13 §6.3 |
+| Léxico | `glossário`, `termos preferidos` | P13 §6.3 |
+| Escopo | `zonas excluídas`, `tipos de comentário autorizados`, `prioridades do autor` | P13 §6.3 |
+| Contexto conhecido | `lista de problemas sistêmicos conhecidos` | P13 §6.3 |
+| Contenção de volume | `limite de comentários desejado` — **orienta, não obriga** | P13 §6.3 |
 
-### Escalada para Opus
+**Não existe arquivo de limiares de criticidade, e não deve existir.** A matriz é fixa no
+contrato: 12 eixos → 5 classes, e *"não pode ser reduzida a contagem mecânica"* [P13 §11].
+Fixar limiar numérico é ação proibida — "transformar criticidade em quota" [P13 §34] — e viola
+`PC30_SIGNIFICA_CRITICIDADE_E_NAO_QUOTA` [P13 §3.9]. Editável é **critério e escopo**, nunca o
+corte numérico.
 
-Escalar é resposta a evidência, nunca precaução. Só depois de Sonnet ter produzido
-algo concreto e insuficiente, e com a insuficiência nomeada. Casos previstos:
+**Procedência sobrevive à destilação.** Todo item de artefato editado à mão carrega a origem:
+`[acervo:arquivo]` · `[diff:capítulo]` · `[entrevista]` · `[INFERIDO]`. Quem edita precisa
+distinguir o que veio dele do que foi deduzido. O `provenance` obrigatório do P05 [P05/02] e a
+POL-005 cobrem *registros*; estes marcadores cobrem markdown. Retrofit depois é caro.
 
-- Sessão 5, se o Style Card sair genérico — sem léxico próprio, sem hierarquia
-  de severidade reconhecível pelo professor.
-- Sessão 8, se o gold set for mal e a causa não for óbvia. Diagnóstico, não execução.
-- Qualquer sessão em que Sonnet errou duas vezes seguidas no mesmo ponto.
+### Calibragem pelo que o professor de fato comenta
 
-Ao escalar: abrir sessão nova só para o problema, com o contexto mínimo, e voltar
-para Sonnet em seguida. Trocar de modelo no meio de uma sessão é sinal de que a
-sessão tem tema demais.
+Existe na spec e não exige autorização nova: `exemplos de comentários aceitos` e
+`histórico de resolução` são entradas opcionais [P13 §6.3], e `P13Comment.resolution`
+(`ACEITO | RECUSADO | PENDENTE_DE_DECISAO`) registra o que ele aceitou [P13 §31.5.2].
 
-## 6. Disciplina de sessão
+**É contexto por execução, não treinamento.** Congelar esse histórico em corpus supervisionado
+é P21 — `CONDICIONAL / NAO_AUTORIZADO`, dependente de P19, P20 congelada, decisão de privacidade,
+decisão de licença e autorização autoral [R03 CAMADA K]. Entrada por execução: livre. Corpus de
+treino: bloqueado. Não cruzar essa linha por conveniência.
 
-Uma sessão = um tema. Assunto fora do tema vai para `docs/backlog.md` e **não é
-executado**, mesmo que seja rápido, mesmo que eu peça no impulso — me lembre da regra.
+## 10. Modelos e custo
 
-Ao encerrar: gravar `docs/sessions/NN-<tema>.md` com decisões, entregáveis,
-pendências, riscos abertos e custo da sessão.
+Preços, janelas, mínimos de cache, regras de batch, régua por tamanho de documento e a mecânica
+de thinking/effort: **`docs/custos.md`**, com data de verificação. **Não estimar de memória e
+não duplicar aqui.** Tudo nesta seção é `[PROPOSTA]` — a spec é silenciosa sobre modelo
+[P09 §25; R03 §3], e a carta branca autoriza decidir, não dispensa marcar.
 
-## 7. Convenções técnicas
+Três fatos governam a tabela abaixo, e só eles precisam ser lembrados a cada sessão:
 
-- Python 3.11+, `uv`, `ruff`, `pytest`.
-- Sem framework de agentes. Chamadas diretas ao SDK `anthropic`.
-- Prompts em `prompts/*.md`, versionados. Nunca hardcoded em `.py`.
-- Artefatos de estilo (`style/style_card.md`, `style/rubrics/`, `style/exemplars/`)
-  são editáveis pelo professor sem tocar em código. Tratar como interface de usuário.
-- **Procedência sobrevive à destilação.** Todo item nesses artefatos carrega a
-  origem: `[acervo:arquivo]`, `[diff:capítulo]`, `[entrevista]` ou `[INFERIDO]`.
-  Quem edita precisa distinguir o que veio dele do que foi deduzido. Retrofit
-  disso depois é caro; a regra vale desde o primeiro artefato gerado.
-- Schema fixo de achado: `{id, unidade_id, eixo, gravidade, evidencia,
-  diagnostico, sugestao, confianca}`.
+1. **Haiku não vê documento inteiro acima de ~100 páginas** — janela de 200K contra 1M dos
+   demais.
+2. **O gasto dominante é o fan-out por unidade, não ler o documento**, e output custa 5× input.
+   Alavancas: agrupar unidades por chamada — o contrato governa a unidade de *análise*
+   [P13 §10], não a granularidade da *requisição* — e escolher entre batch e cache por
+   `p < 1,25u`.
+3. **O julgamento caro é decidir não agir.** Zero comentários é legítimo [P13 §3.9], abstenção
+   não é erro [P09 §15], e o modelo barato erra para o lado de produzir saída. Também caros:
+   diagnóstico argumentativo/historiográfico [P11 §38], autonomia de núcleo [P10 §2],
+   pareceristas em conflito [P14 §41.2].
 
-## 8. Dados
+| Etapa | Modelo | `effort` |
+|---|---|---|
+| E1 intake / envelope | nenhum — schema, não julgamento [P09 §22.1] | — |
+| E2 ingestão estrutural | nenhum — já em Python | — |
+| E2b injection / privacidade | Haiku, por unidade [P08 §2, §12] | `low` |
+| E3 cartografia global | Haiku ≤100 pág.; Sonnet ≥200; medir entre | `medium` |
+| E4 diagnóstico por unidade | Sonnet | `medium` |
+| E4b criticidade, 12 eixos [P13 §11] | Sonnet | `low`–`medium` |
+| E4c seletividade → seleção | Opus **propõe**; `GATE_DE_SELECAO` libera [P13 §32.1] | `high`–`xhigh` |
+| E5 matriz / plano + gate | Opus — decisão irreversível [P14 §3.43-45] | `xhigh` |
+| E6 execução no nível INT | Sonnet — escopo estreito [P06 §7] | `medium` |
+| E7 auditoria / regressão | determinístico + Sonnet — RC-001..020 são código | `medium` |
 
-Dois acervos distintos, com regras opostas:
+**Obrigatório em toda chamada:** `cache_control` no bloco estável do system prompt ·
+`max_tokens` explícito · **`output_config.effort` explícito** — omitir roda em `high`, que é
+desperdício silencioso · estimativa prévia de custo · registro de tokens e US$ por etapa em
+`costs/ledger.jsonl` · cache local em disco por hash do input.
+`cache_read_input_tokens` zerado em requisições de prefixo idêntico **aborta a execução** — é
+defeito, não ruído. `budget_tokens` **não existe mais**: enviar retorna 400.
 
-- `corpus/prompts-christian/` — os prompts do professor. **Versionado no git.**
-  Somente leitura: nunca editar, renomear ou reformatar. É material de origem.
-- `data/` — trabalhos de alunos (manuscritos e versões corrigidas).
-  **Nunca vai para o git**, está no `.gitignore`. Anonimizar autor e instituição
-  na ingestão. Base de consentimento em `docs/dados.md`.
+## 11. Disciplina
 
-Quando este arquivo disser "corpus" sem qualificar, refere-se ao acervo de prompts.
+- **Nada inferido.** Lacuna não se preenche por plausibilidade [P00/07; P05 §4; P09 §4.2.14].
+- **Lacuna documentada** em `LACUNAS.md` por módulo — padrão provado em `escolio/` e
+  `escolio/ingestao/`.
+- **Indeterminado em vez de chute.** Precedentes: RG-002 (nível hierárquico ambíguo), RG-007
+  (citação narrativa não reconhecida).
+- **Divergência nunca se reconcilia em silêncio** [P01/04]. As duas versões vão registradas em
+  `docs/spec/divergencias.md` e a decisão é do professor.
+- **Número não medido não se apresenta como medido.** Contagem de tokens vem de `count_tokens`,
+  não de estimativa.
+- **Uma sessão, um tema.** Assunto fora do tema vai para `docs/backlog.md` e não é executado.
+- **Próxima ação única** [P03 POL-012].
+- **Sucesso é silencioso, falha é detalhada.** Arquivo criado = uma linha: caminho + o que
+  mudou. Sem preâmbulo, sem recapitulação, sem fecho oferecendo próximos passos. Nunca suprimir:
+  stack trace completo, divergência entre o pedido e o entendido, decisão que fecha porta futura.
 
-## 9. Método de validação: três fontes
+### Validação por três fontes
 
-Todo item do Style Card, das rubricas e da calibragem de gravidade se valida
-cruzando três fontes independentes:
+Todo item de estilo, rubrica e calibragem de gravidade se valida cruzando: **declarado** (acervo
+de prompts, entrevistas) · **praticado** (o que ele aceitou de fato) · **tácito** (o que só
+existe na divergência entre os dois). Declarado e ausente na prática costuma ser aspiração;
+praticado e ausente no declarado é conhecimento tácito, e é o material mais valioso do projeto.
 
-- **Declarado** — acervo de prompts e entrevistas. O que ele diz que faz.
-- **Praticado** — o diff do capítulo corrigido. O que ele aceitou de fato.
-  Registra critério de aceitação, não geração espontânea: ele escolheu entre
-  propostas da IA em vez de escrever do zero. Sinal legítimo, porém mais estreito.
-- **Tácito** — o que só existe na divergência entre os dois.
+## 12. Convenções técnicas
 
-**Divergência nunca é ruído a reconciliar em silêncio.** Declarado e ausente na
-prática costuma ser aspiração; praticado e ausente no declarado é conhecimento
-tácito, e é o material mais valioso do projeto. Toda divergência é registrada com
-as duas versões e vai para o professor decidir. Nunca resolver por conta própria,
-nunca escolher a versão mais plausível.
+Python 3.11+, `uv`, `ruff`, `pytest`. Chamadas diretas ao SDK `anthropic`, sem framework de
+agentes. Prompts em `prompts/*.md`, versionados, nunca hardcoded em `.py`. Validado
+retroativamente por `docs/autorizacao.md`.
 
-Vale para critérios, taxonomia, severidade, léxico e escopo. O que ele nunca
-respondeu permanece marcado como aberto, não vira default silencioso.
+Schema de material e classificação de dados: **`P19`**. Este documento não duplica regra de
+dados. O que vale sempre: `data/` nunca vai para o git; anonimizar autor e instituição na
+ingestão; `corpus/prompts-christian/` é somente leitura, material de origem.
 
-## 10. Coleta pendente
+Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é Python.
 
-`docs/coleta.md` registra o material que falta, de quem depende e o que bloqueia.
-É dependência externa, não backlog: item bloqueante ali impede a sessão
-correspondente de produzir resultado válido, mesmo que ela rode sem erro.
-Consultar antes de iniciar qualquer sessão que dependa de corpus.
+## 13. ABERTO — não vira default silencioso
 
-## 11. Verbosidade e economia de contexto
+1. **Eixo 7 / voz de quem comenta.** P07 diz "imitação de pessoa real é substituída por atributos
+   abstratos"; os contratos usam P07 para a voz do *autor avaliado*. Duas leituras registradas em
+   `docs/spec/divergencias.md`. Enquanto não resolver, `style/style_card.md` não tem destino.
+2. **Aplicação de texto:** substituído ou lado a lado, e quem assina.
+3. **Capítulo de livro e relatório de pós-doutorado** não têm função nem candidatura: P15+,
+   generalização autorizada de P11, ou fora de escopo?
+4. **Revisão de artigo antes da submissão** — candidata não incorporada [R03 CAMADA B].
+5. **Forma da carta branca:** ato coletivo vs. itemizado, contra `P01/05` (§2).
+6. **Armazenar `histórico de resolução` e `exemplos de comentários aceitos`** é livre sob o P19?
+   O P13 §6.3 os autoriza como *entrada*; a regra de *retenção* é P19, ainda não lido integralmente.
+7. **P10 revisa capítulo de livro como entregável?** Minha leitura diz que não — é inferência do
+   objeto declarado, não exclusão literal.
+8. **Homologação documental ≠ ativação operacional** [P11 §42] — adotar como regra de sessão?
+9. **Os sete itens CONTORNO** de `docs/spec/contorno-vs-criterio.md`.
+10. P10/P12/P13/P14 seguem `NAO_AUDITADO_APOS_CORRECAO`; contradição homologado vs.
+    não-homologado em `docs/spec/autoridade-e-lacunas.md` §2.
 
-Princípio: **sucesso é silencioso, falha é detalhada.** O que importa vai para
-disco, não para o chat. Disco é grátis, contexto não.
+## 14. Roadmap
 
-Reportar apenas: o que foi construído, o que exige decisão minha, e erros.
+**Existe:** schema P05 + 20 regras RC (Python) · ingestão PDF (Python) · máquina P03 (JS).
 
-**Na sua saída**
-- Não anunciar o que vai fazer. Fazer e reportar o resultado.
-- Não recapitular meu pedido nem resumir o que acabou de escrever.
-- Arquivo criado ou editado = uma linha: caminho + o que mudou. Não colar o conteúdo.
-- Decisão tomada por conta própria = uma linha marcada `[ASSUMIDO]`.
-- Sem preâmbulo, sem elogio ao pedido, sem fecho oferecendo próximos passos.
+**A construir, em ordem de dependência:**
 
-**Em comandos**
-- `pytest -q --tb=line`. Rerodar em verbose apenas o teste que falhou.
-- Saída potencialmente longa vai por `head`, `tail`, `grep` ou `wc`. Nunca despejar bruto.
-- Não ler arquivo que você escreveu nesta sessão e não foi alterado por fora.
-- Não listar diretório inteiro para checar se um arquivo existe — teste o caminho.
-- Ao mostrar mudança em arquivo, mostrar só as linhas alteradas.
+1. Envelope P09 e sua validação — o contrato que falta e do qual tudo depende.
+2. Níveis P06 + `InterventionRecord`.
+3. Adaptador ingestão → `InputItem` [P09 §6] com `material_id` [P19 §9-10].
+4. Completar **X01**: máquina bibliográfica P04 (17 estados) sobre o schema P05, com os aliases
+   do `CON-P05-001`.
+5. Perfil de voz do autor avaliado (P07). O perfil de quem comenta está bloqueado por §13.1.
+6. Roteador de função e etapas por função — **um módulo por função**.
+7. Ingestão segura P08.
+8. Suíte de testes nas 20 categorias do P20.
 
-**Salvaguardas — o que nunca é suprimido**
-- Erro real: stack trace completo, sem truncar. Diagnóstico ruim custa mais que tokens.
-- Divergência entre o que eu pedi e o que você entendeu: sempre explicitar.
-- Decisão que fecha porta futura: sempre explicitar antes de executar.
-- Se você suprimiu algo e depois precisou dele, diga — o limite está errado, ajusto.
-
-**Observabilidade fica em disco**
-`costs/ledger.jsonl` é a fonte de verdade de gasto; consultar por agregação, nunca
-imprimir o arquivo. Relatório de fim de sessão vai para `docs/sessions/NN-*.md`,
-não para o chat — no chat, só o caminho do arquivo gravado.
+**Sem mapa em `docs/spec/`:** P08, P19, P20, R03. Consultar antes de qualquer sessão que dependa
+deles.

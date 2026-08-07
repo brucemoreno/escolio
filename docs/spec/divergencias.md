@@ -82,6 +82,63 @@ Tem afinidade de princípio com POL-012 do P03 ("Próxima ação única" — "Re
 
 ---
 
+---
+
+## 4. Acrescentado em 2026-08-06 (sessão de reescrita do CLAUDE.md)
+
+### 4.1 P07 × eixo 7 — de quem é a voz que o contrato governa?
+
+**Leitura A — o P07 governa também a voz de quem comenta.** O contrato enuncia, entre os
+princípios: *"imitação de pessoa real é substituída por atributos abstratos"*
+[P07/01_CONTRATO_UNIVERSAL_DE_VOZ_AUTORAL_P07_R01.md, seção Princípios]. O enunciado é
+universal, sem restringir-se ao autor avaliado. Sob esta leitura, a primeira frase do CLAUDE.md
+anterior ("reproduz o método, os critérios e a **voz de correção** do Prof. Christian") e o eixo
+7 ("aderência ao estilo de correção do professor") colidem com o contrato. Caminho compatível:
+`PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS` ou `PERFIL_HIBRIDO_DECLARACAO_MAIS_AMOSTRAS`
+[P07/04_MATRIZ_DE_PERFIS_FONTES_CONFIANCA_E_AUTORIDADE_P07_R01.csv], expresso nas 30 dimensões
+`VOZ-D01…D30`, sem nome de pessoa.
+
+**Leitura B — o P07 rege só a voz do autor avaliado.** A finalidade declarada é *"Preservar,
+avaliar e controlar a voz autoral em textos acadêmicos"* [P07/01, Finalidade], e a hierarquia
+que o contrato fixa termina em "voz autoral > fluidez" — trata-se da voz do texto sob revisão.
+O P13 confirma: entre as entradas obrigatórias está `perfil de voz` [P13 §6.2], e a matriz de
+criticidade tem o eixo **Voz — "A intervenção apaga ou deforma voz autoral?"** [P13 §11]. É a
+voz a proteger, não a voz de quem escreve o comentário. Sob esta leitura, a voz de quem comenta
+é **lacuna aberta**, não proibição, e o eixo 7 descreve algo que nenhum dos contratos contempla.
+
+**Não resolvida.** Consequência operacional enquanto durar: `style/style_card.md` não tem
+destino declarado, e nenhuma decisão de arquitetura pode depender da resposta.
+
+### 4.2 `docs/autorizacao.md` × `P01/05` — autorização coletiva é válida?
+
+**Leitura A — a forma coletiva viola a trava.** `docs/autorizacao.md` registra um ato verbal
+único que declara que "as decisões listadas em `open_decisions` do inventário — modelo,
+fornecedor, infraestrutura, linguagem, API, banco de dados, RAG, fine-tuning, arquitetura
+técnica, métricas, ambiente e implantação — deixam de estar pendentes", e valida decisões
+anteriores "retroativamente". Contra o texto literal de
+`P01/05_TRAVA_ANTIDERIVA_MONOLITICA_P01_R01.txt`, três proibições são tocadas: *"emitir
+autorização coletiva"*; *"presumir autorização futura"* (a validação retroativa é a imagem
+espelhada); *"iniciar P(n+1) sem decisão autoral específica"*. O próprio `autorizacao.md`
+registra que o inventário mantém `transfer_authorized: false`, e o P22 §30 exige onze
+pré-condições em ordem antes do P23.
+
+**Leitura B — a trava vincula o executor, não o proponente.** R03 §4.1 faz do
+`USUARIO_PROPONENTE` a autoridade final: "pode autorizar fases, aprovar ou rejeitar decisões,
+congelar revisões, autorizar handoffs, autorizar uso de dados, autorizar treinamento, RAG ou
+implementação", e "nenhum outro papel pode substituir sua decisão". As proibições do `P01/05`
+são dirigidas a quem executa — impedem *presumir* autorização coletiva, não necessariamente
+*conceder* uma.
+
+**Não resolvida, e material.** A carta branca é o que autoriza decidir arquitetura, modelo e
+linguagem — sustenta as seções de autorização, de modelos e de convenções técnicas do CLAUDE.md.
+
+**Caminho que fecha a questão sem depender de interpretação:** reemitir `docs/autorizacao.md`
+em forma **itemizada**, uma entrada por decisão. Doze entradas. Sob a Leitura A, sana o vício;
+sob a Leitura B, não custa nada.
+
+---
+
 ## Fechamento
 
-Este documento não resolve nenhuma das contradições listadas na seção 2, nem decide os candidatos a autorização expressa da seção 3. Ambos ficam registrados para decisão do professor.
+Este documento não resolve nenhuma das contradições listadas, nem decide os candidatos a
+autorização expressa da seção 3. Todos ficam registrados para decisão do professor.
