@@ -348,5 +348,5 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
 7. Ingestão segura P08.
 8. Suíte de testes nas 20 categorias do P20.
 
-**Sem mapa em `docs/spec/`:** P08, P19, P20, R03. Consultar antes de qualquer sessão que dependa
-deles.
+**Sem mapa em `docs/spec/`:** P08, P20, R03. Consultar antes de qualquer sessão que dependa
+deles. P19 tem mapa em `docs/spec/mapa-P19.md`.

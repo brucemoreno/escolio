@@ -108,6 +108,26 @@ em memória).
   reduz mas não elimina a ambiguidade — candidato sem correspondência
   fica marcado indeterminado, nunca aceito ou descartado às cegas.
 
+## Reconciliação com P09 — feita, parcial (item 3 do roadmap)
+
+- **LAC-ING-012 — `DocumentoIngerido` → `InputItem` existe; `MaterialUnit` (P19 §9) não.**
+  `escolio/adaptadores/ingestao_para_input_item.py` converte `DocumentoIngerido` em
+  `InputItem` [P09 §6], um por documento (não um por unidade interna — parágrafo, seção
+  etc. permanecem estrutura interna, sem virar `InputItem` próprio; nenhuma fonte pede essa
+  granularidade). Implementa apenas a regra de identidade de `material_id` [P19 §10]:
+  único, independente do nome do arquivo, estável entre cópias — derivado de
+  `hash_documento`. Os outros 26 campos de `MaterialUnit` [P19 §9] —
+  `owner_or_controller`, `license_status`, `authorization_basis`, `authorized_purposes`,
+  `retention_class`, `audit_status`, `human_gate`, etc. — não foram implementados: exigem
+  decisão humana de autorização/titularidade/licença que nenhum parser produz, e P19
+  §71–73 proíbem classificar material real fora do fluxo homologado com gates
+  (`GATE_DE_ADMISSAO_DE_MATERIAL` e outros). Ver
+  `escolio/adaptadores/ingestao_para_input_item.py` (docstring do módulo) para o raciocínio
+  completo. `FORMATO.md` ainda descreve o schema de ingestão como não-definitivo; a
+  reconciliação com P09 §6 está feita para o nível de documento, não para os campos de
+  `classification`, `processing`, `security`, `retention` de `InputItem` (deixados no
+  padrão do dataclass) nem para `MaterialUnit`.
+
 ## Não estrutural — não bloqueou a implementação
 
 Nenhuma lacuna encontrada exigiu parar e perguntar de forma

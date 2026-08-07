@@ -18,10 +18,13 @@ Nenhuma chamada à API existe ainda, mas a regra antiga do CLAUDE.md ("`budget_t
 Falta uma camada de tradução explícita, com aliases, **sem apagar distinções** — o mesmo
 tratamento que o `CON-P05-001` dá à divergência P04/P05. Não alterar o schema P05.
 
-### BL-003 — ingestão → `InputItem` e `material_id`
-`escolio/ingestao/FORMATO.md` declara que o contrato "virá do P09". O P09 chegou.
-`DocumentoIngerido` precisa de um adaptador para `InputItem` [P09 §6] e de `material_id`
-[P19 §9-10]. `FORMATO.md` deve registrar que a reconciliação está pendente, não feita.
+### BL-003 — ingestão → `InputItem` e `material_id` — RESOLVIDO PARCIALMENTE
+`escolio/adaptadores/ingestao_para_input_item.py` implementa `InputItem` [P09 §6] por
+documento e `material_id` [P19 §10, regra de identidade apenas]. Não implementado:
+`MaterialUnit` [P19 §9] completo (26 campos restantes) — P19 §71-73 proíbem classificar
+material real fora do fluxo homologado com gates humanos; é trabalho futuro de
+`CURADOR_DE_DADOS` + `USUARIO_PROPONENTE`, não deste adaptador. Ver
+`escolio/ingestao/LACUNAS.md` LAC-ING-012.
 
 ### BL-004 — máquina bibliográfica P04 (X01)
 Existe o schema P05; não existe a máquina de 17 estados do P04/03, nem os aliases para os 9
