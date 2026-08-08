@@ -260,10 +260,10 @@ origem confiável, não é vista até esta peça ser construída.
 
 ## Mapeamento de spec pendente
 
-### BL-009 — P08, P19, P20 e R03 sem mapa em `docs/spec/`
-Foram lidos por amostragem ou citados de segunda mão. Cada um merece uma sessão de leitura com
-mapa próprio, no padrão de `funcoes-P10-P14.md`. O P19 é o mais urgente: bloqueia o item 6 da
-lista ABERTO do CLAUDE.md (retenção do histórico de resolução).
+### BL-009 — P08, P19, P20 e R03 sem mapa em `docs/spec/` — `RESOLVIDO`
+Todos os quatro lidos integralmente e mapeados: `docs/spec/mapa-P08.md`, `docs/spec/mapa-P19.md`,
+`docs/spec/mapa-P20.md` (2026-08-08), `docs/spec/mapa-R03.md` (2026-08-07). Nenhuma fonte
+citada neste item permanece sem mapa.
 
 ### BL-010 — lacunas de ingestão nunca gravadas nos artefatos canônicos
 A §8 de `docs/spec/funcoes-P10-P14.md` levantou quatro lacunas — extração de

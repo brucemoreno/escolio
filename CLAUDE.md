@@ -372,11 +372,20 @@ existe — homologação documental não é ativação operacional [P11 §42].
 
 **A construir:**
 
-8. **Suíte de testes nas 20 categorias do P20.** Idem [BL-009]. Os 656 testes atuais são de
-   unidade por pacote e **não** correspondem às categorias do P20 — não confundir um com o outro.
+8. **Suíte de testes nas 20 categorias do P20.** P20 lido integralmente 2026-08-08 —
+   `docs/spec/mapa-P20.md`. Os 656 testes atuais são de unidade por pacote e **não**
+   correspondem às categorias do P20 nem se tornam `P20TestCase` por proximidade; contam,
+   na melhor hipótese, como fonte `APROVEITAVEL_COM_REFORMULACAO` sob a mesma régua que o
+   P20 aplicou a T-001–T-020 [P20 §11, §60.2]. Peça 8 é produzir schemas tipados
+   (`P20TestCase`/`P20AnswerKey`/`P20TraceabilityRecord`) e matriz de cobertura — nunca
+   suíte "congelada": isso exige auditoria independente e homologação, fora da minha
+   autoridade [P20 §32, §8]. P21 (exemplos supervisionados) permanece bloqueado até P19 e
+   P20 estarem **ambos** homologados e congelados, com não contaminação confirmada
+   [P20 §41] — reforça o item 6 aberto em §13.
 
-**Sem mapa em `docs/spec/`:** P20, R03 [BL-009]. Consultar antes de qualquer sessão que
-dependa deles. P19 tem mapa em `docs/spec/mapa-P19.md`; P08 em `docs/spec/mapa-P08.md`.
+**Mapas de spec** [BL-009, `RESOLVIDO`]: P19 em `docs/spec/mapa-P19.md`; P08 em
+`docs/spec/mapa-P08.md`; P20 em `docs/spec/mapa-P20.md` (2026-08-08); R03 em
+`docs/spec/mapa-R03.md` (2026-08-07). Nenhuma fonte está sem mapa agora.
 
 **O que a peça 6 fechou, e o que deixou aberto.** Fechou o catálogo das seis funções e as
 verificações de correspondência que o P09 §4.2.3-4.2.5 exige e que o envelope sozinho não podia
