@@ -352,7 +352,7 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
 
 ## 14. Roadmap
 
-**Peças 1 a 6 construídas.** 561 testes passando (`pytest tests/`, 2026-08-07). Ressalva que vale
+**Peças 1 a 7 construídas.** 656 testes passando (`pytest tests/`, 2026-08-08). Ressalva que vale
 para tudo abaixo: **nenhuma chamada à API foi feita ainda** [BL-007]. Todo teste verifica código
 contra a spec; nada foi verificado contra documento real, e nenhum piloto supervisionado
 existe — homologação documental não é ativação operacional [P11 §42].
@@ -368,17 +368,11 @@ existe — homologação documental não é ativação operacional [P11 §42].
 | 4 | **X01** — máquina bibliográfica P04 | `escolio/bvaa/` | 77 | 10 | `CON-P05-001` mantido aberto: três vocabulários, nenhum vencedor, nenhuma conversão em runtime |
 | 5 | Perfil de voz do autor avaliado (P07) | `escolio/voz/` | 56 | 25 | perfil de **quem comenta** bloqueado por §13.1; `style/style_card.md` sem destino |
 | 6 | Roteador de função — **um módulo por função** | `escolio/funcoes/` | 135 | 29 | BL-011 · BL-012 · BL-013 · BL-014 |
+| 7 | Ingestão segura P08 — camada operacional | `escolio/seguranca/` | 86 | 9 | BL-018 `InputItem.security` sem campo para "ainda não analisado" · BL-019 passos 5/6 do protocolo bloqueados por `CO-012`/`CO-013` · BL-020 camada de modelo (E2b, Haiku) preparada, não construída |
 
 **A construir:**
 
-7. **Ingestão segura P08.** Lido integralmente e mapeado em `docs/spec/mapa-P08.md`
-   (2026-08-07). O P08 fornece critério normativo (modelo de ameaças, PI-01…PI-08, PR-01…PR-11,
-   protocolo de 20 passos) — o que falta é operacionalização técnica (classificador, threshold,
-   escalonamento), decisão de implementação a especificar, não lacuna de spec [confirmado por
-   `CHAT_CONTROLADOR_ARQUITETO`, 2026-08-07]. `InputItem.security` [P09 §6]: código produz o
-   valor inicial a partir do P08, modelo participa da classificação semântica sem inventar
-   categoria, curador só em caso ambíguo/crítico — ver mapa §3, §6.1.
-8. **Suíte de testes nas 20 categorias do P20.** Idem [BL-009]. Os 561 testes atuais são de
+8. **Suíte de testes nas 20 categorias do P20.** Idem [BL-009]. Os 656 testes atuais são de
    unidade por pacote e **não** correspondem às categorias do P20 — não confundir um com o outro.
 
 **Sem mapa em `docs/spec/`:** P20, R03 [BL-009]. Consultar antes de qualquer sessão que
