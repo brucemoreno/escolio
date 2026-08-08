@@ -223,6 +223,41 @@ densidade de unidades por página constante, não verificado); e a mesma contage
 quatro funções (P10, P11, P12, P14), cada uma com sua própria noção de unidade de análise
 [`docs/spec/funcoes-P10-P14.md` §7] — só o P13 foi calculado.
 
+## Aberto em 2026-08-08, na sessão de implementação da ingestão segura (item 7)
+
+Nenhum arquivo existente foi alterado naquela sessão. `escolio/seguranca/` (7 módulos de código,
+656 testes no total da suíte — eram 570) implementa os 27 RD e 25 DTA de
+`docs/spec/operacional-P08.md`. Os três itens abaixo são exatamente as integrações que
+exigiriam alterar código existente.
+
+### BL-018 — `InputItem.security` não tem onde expressar "ainda não analisado"
+`escolio.seguranca.registro.RegistroDeAnalise` (LAC-SEG-001) mantém esse estado num registro
+externo, por `input_id`, porque `escolio/contrato/entrada.py::Security` (três booleanos, default
+`False`, sem `__post_init__`) não tem campo para a distinção que `PR-03 [P08 §8]` exige. Ligar os
+dois — de modo que `InputItem.security` reflita o registro externo — alteraria `entrada.py` ou o
+adaptador `escolio/adaptadores/ingestao_para_input_item.py`. Decidir: acrescentar campo ao
+schema (divergiria da forma literal de `[P09 §6]`, três booleanos "nem um mais") ou manter os
+dois objetos desacoplados e documentar que todo consumidor de `InputItem.security` deve também
+consultar `RegistroDeAnalise` antes de tratar `False` como "limpo".
+
+### BL-019 — passos 5 e 6 do protocolo P08 dependem de `CO-012`/`CO-013`, ainda sem decisão
+`escolio.seguranca.protocolo` marca os passos "classificar sensibilidade" e "classificar estado"
+como `BLOQUEADO_POR_LACUNA_NORMATIVA`, não por lacuna de spec, mas porque implementá-los com
+fidelidade exigiria alterar `escolio/contrato/entrada.py`
+(`Classification.sensitivity: list[str]` → `[SensitivityLabel]`, `CO-012`) ou aceitar que
+`Classification.state` não tem valor que signifique "não classificado" (`CO-013`, defeito já
+preservado por decisão do professor). Nenhuma decisão nova é tomada aqui; o bloqueio populariza,
+em código executável, decisões que já estavam pendentes em `docs/coleta.md`.
+
+### BL-020 — camada de modelo (E2b, Haiku) preparada, não construída
+`escolio.seguranca.deteccao` implementa a camada determinística inteira (PI-03/PI-05 literais) e
+o envelope que uma chamada de modelo usaria (`delimita_como_dado`, enum fechado de saída), mas
+nenhuma chamada ao SDK `anthropic` foi feita. Construir a chamada real exige `prompts/*.md`
+(CLAUDE.md §12 o exige; não existe no repositório) e um cliente — ambos fora do escopo desta
+sessão. Consequência declarada em `LAC-SEG-004`/`LAC-SEG-009`
+(`escolio/seguranca/LACUNAS.md`): injeção puramente semântica sem padrão literal, em unidade de
+origem confiável, não é vista até esta peça ser construída.
+
 ## Mapeamento de spec pendente
 
 ### BL-009 — P08, P19, P20 e R03 sem mapa em `docs/spec/`
