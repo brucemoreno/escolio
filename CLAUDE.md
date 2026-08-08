@@ -337,8 +337,10 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
    generalização autorizada de P11, ou fora de escopo? A terceira alternativa que constava aqui
    — "P15+" — **caiu**: no inventário canônico da R03, P15 é `PROFILES`, P16
    `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18 `INTERSECOES`. A camada `FUNCAO`
-   termina em P14 e a R03 está homologada e congelada — não há vaga numerada para uma sexta
-   macrofunção.
+   termina em P14 — não há vaga numerada para uma sexta macrofunção. O argumento não depende
+   do estado de homologação da R03, que é ele próprio divergência aberta
+   [`docs/spec/divergencias.md` §4.5]: a R03 se declara `NAO_HOMOLOGADA` três vezes e o termo
+   externo de homologação alegado pelo P00 não foi encontrado no acervo.
 4. **Revisão de artigo antes da submissão** — candidata não incorporada [R03 CAMADA B].
 5. **Forma da carta branca:** ato coletivo vs. itemizado, contra `P01/05` (§2).
 6. **Armazenar `histórico de resolução` e `exemplos de comentários aceitos`** é livre sob o P19?
