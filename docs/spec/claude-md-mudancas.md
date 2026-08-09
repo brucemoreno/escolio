@@ -244,7 +244,37 @@ exigiria preencher os seis por inferência. [LAC-FUNC-016]
 
 ---
 
-## 8. Escopo de leitura desta sessão
+## 8. Correção posterior — §6, teto de intervenção do P13 (encontrada em 2026-08-09)
+
+**Supera a entrada §7.5 (2026-08-07).** Aquela entrada concluiu que "P13 para em
+`SINALIZACAO`/`RECOMENDACAO`" era "leitura, não citação" e deixou o texto do CLAUDE.md
+intacto, porque, na leitura feita até então, "nenhum contrato declara teto numérico de
+intervenção" — o P13 proibiria reescrita/fusão/corte/substituição/reorganização [§4.4] e
+exigiria registrar `intervention_level` [§28], mas sem nomear um teto explícito.
+
+**Informação nova que a entrada de 2026-08-07 não tinha:** o §4.4 do P13 nomeia, sim, um teto —
+só não do lado "não pode" que aquela sessão leu, e sim do lado "pode": *"O comentário pode:
+observar; diagnosticar; sinalizar; recomendar; propor; formular pergunta orientadora; indicar
+gate."* Os cinco primeiros verbos são os cinco primeiros nomes da cadeia `INT-01…INT-15` [P06] —
+`OBSERVACAO`, `DIAGNOSTICO`, `SINALIZACAO`, `RECOMENDACAO`, `PROPOSTA` — e a lista é fechada
+("pode" enumera exaustivamente o permitido, mesma leitura fechada dada a
+`escalonamento_permitido` em `escolio/intervencao/niveis.py` e ao invariante do CLAUDE.md §8
+"só as transições listadas existem"). O teto real, portanto, é **`PROPOSTA` (INT-05)** — um
+nível acima de `RECOMENDACAO` (INT-04), que era o que o CLAUDE.md citava.
+
+**Como o erro sobreviveu à correção anterior:** a sessão de 2026-08-07 (peça 6, roteador de
+função) leu o P13 por amostragem (§6.2, §6.3, §11, §12, §14, §25, §31.5, §32.1, §43 — ver §8
+desta página) e não incluiu §4.4 no que leu integralmente. A leitura literal de §4.4, feita na
+sessão 5 do plano de `escolio/comentarios/` (`docs/spec/plano-P13.md`), encontrou o teto que
+faltava.
+
+**Correção:** CLAUDE.md §6 passou a citar `[P13 §4.4]` e a nomear `PROPOSTA` como teto, com os
+cinco verbos da fonte entre aspas, em vez de "SINALIZACAO/RECOMENDACAO". Detalhamento em
+`escolio/comentarios/LACUNAS.md`, seção "Sessão 5".
+
+---
+
+## 9. Escopo de leitura desta sessão
 
 **Lidos integralmente:** R03 (protocolo-mestre), P06 (taxonomia de intervenção, todos os
 arquivos), P07 (contrato de voz + schema + dicionário + matriz), P09 (schemas/contratos),

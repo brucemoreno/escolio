@@ -158,7 +158,9 @@ Não há dois modos. Há a cadeia de quinze níveis `INT-01…INT-15` [P06/01 §
 `OBSERVACAO · DIAGNOSTICO · SINALIZACAO · RECOMENDACAO · PROPOSTA · SIMULACAO · EDICAO_LOCAL ·
 REESCRITA · REORGANIZACAO · FUSAO · CORTE · SUBSTITUICAO · VALIDACAO · HOMOLOGACAO · ABSTENCAO`.
 
-P13 para em `SINALIZACAO`/`RECOMENDACAO`. Aplicar texto é `EDICAO_LOCAL`/`REESCRITA`, com
+P13 vai até `PROPOSTA` (INT-05) — teto nomeado, não inferido: `[P13 §4.4]` lista o que o
+comentário "pode" fazer como "observar; diagnosticar; sinalizar; recomendar; propor", os cinco
+primeiros nomes da cadeia P06. Aplicar texto é `EDICAO_LOCAL`/`REESCRITA`, com
 `GATE_HUMANO_EXPRESSO`, preservação do original e reversibilidade [P06/02]. P11, P12 e P14
 **combinam** os dois — não escolhem um.
 

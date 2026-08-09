@@ -228,3 +228,152 @@ estado do BVAA (`EstadoBibliografico`) e da relação P05
 - Integrações P06/P07 (`intervention_level`, `authority_required`, `gate`,
   `voice_impact`) e P08 (`privacy_classification`) — sessões 5 e adiada do
   plano; não tocadas aqui.
+
+## Sessão 5 — integração P06 (níveis de intervenção)/P07 (voz autoral) [§4.4, §4.5, §28, §29]
+
+`escolio/comentarios/aplicacao_p06_p07.py` implementa o adaptador que valida
+e popula `intervention_level`, `gate` e `voice_impact` no `P13Comment`.
+`P13Comment` não foi alterado — os três campos continuam `str`; o módulo
+valida antes de gravar, mesmo padrão da sessão 4. Nenhuma chamada a LLM.
+
+### CLAUDE.md §6 ("P13 para em SINALIZACAO/RECOMENDACAO") — leitura, não citação literal
+
+Verificado contra a fonte: **não é frase literal do contrato P13.** §4.4
+lista "o comentário pode: observar; diagnosticar; sinalizar; recomendar;
+propor" — cinco verbos, correspondentes a `OBSERVACAO, DIAGNOSTICO,
+SINALIZACAO, RECOMENDACAO, PROPOSTA` (`NivelIntervencao`, INT-01 a INT-05).
+O teto real do contrato é **PROPOSTA (INT-05)**, um nível acima de
+`RECOMENDACAO` citado no CLAUDE.md. `NIVEIS_PERMITIDOS_P13` implementa os
+cinco, não os dois — a leitura do CLAUDE.md §6 é uma simplificação
+(provavelmente por PROPOSTA raramente aparecer em exemplo), não um erro
+que este módulo deveria repetir. Registrar aqui para quem ler o CLAUDE.md
+sem cruzar com a fonte.
+
+### Leitura fechada de §4.4 — não é lacuna, é a leitura mais literal
+
+§4.4 nomeia cinco verbos permitidos e onze proibidos ("executar reescrita;
+fundir; cortar; substituir; reorganizar; alterar dado; alterar argumento;
+alterar corpus; alterar método; alterar objetivo; alterar conclusão"), dos
+quais cinco correspondem a nomes de nível (`REESCRITA`, `FUSAO`, `CORTE`,
+`SUBSTITUICAO`, `REORGANIZACAO`) e seis a ações de conteúdo (cobertas pelo
+catálogo de gates de §32.2, não por um nível). Isso deixa cinco níveis da
+cadeia de 15 sem menção em nenhuma das duas listas: `SIMULACAO`,
+`EDICAO_LOCAL`, `VALIDACAO`, `HOMOLOGACAO`, `ABSTENCAO`.
+`valida_intervention_level_permitido` trata a lista "pode" como exaustiva
+(fechada) e rejeita os cinco não nomeados junto com os explicitamente
+proibidos — mesma disciplina de `escalonamento_permitido`
+(`escolio/intervencao/niveis.py`, "somente estas existem") e do
+invariante do CLAUDE.md §8 ("só as transições listadas existem na máquina
+de estados"). Alternativa rejeitada: tratar os cinco não nomeados como
+"indeterminado, aceitar por ausência de proibição explícita" — isso
+inverteria o ônus da prova que o resto do projeto aplica consistentemente
+(nada é permitido por omissão).
+
+### `authority_required` — não retipado, vocabulário fechado ausente na fonte
+
+Diferente de `gate` (§32 nomeia 17 tokens em `SCREAMING_SNAKE_CASE`, um
+catálogo controlado verificável) e de `intervention_level` (reusa
+`NivelIntervencao`, já um enum de outra peça), `authority_required` não
+tem catálogo fechado de tokens em nenhuma seção da fonte. A única tabela
+candidata é §5 ("PERFIS, AUTORIDADES E RESPONSABILIDADES"), mas sua coluna
+`Perfil` é prosa em português ("Bolsista ou estudante",
+"Usuário-proponente"), não vocabulário controlado — diferente de §13/§32,
+onde os próprios rótulos já vêm em formato de token. Tipar `authority_required`
+a partir de §5 exigiria inventar um formato de token que a fonte nunca
+declarou para este campo — mesma inferência já recusada para os nove
+fatores de `MatrizSeletividade` (sessão 2) e para a associação
+tipo-de-comentário/template em §15 (sessão 3). Permanece `str`, validado
+apenas quanto à obrigatoriedade em `comentario.py` (sessão 1).
+
+### `voice_impact` reusa `ResultadoDeFidelidade` (P07) — decisão, não fusão
+
+§4.5: "O P13: aplica P07; registra impacto sobre voz." `ResultadoDeFidelidade`
+(`escolio/voz/vocabulario.py`) é literalmente o resultado que o protocolo
+de avaliação de fidelidade autoral do P07 já produz para o impacto de um
+texto candidato sobre a voz do autor avaliado — mesma disciplina da sessão
+4, que reusou `ValidationState` para `verification_status` apoiada em uma
+frase equivalente de §4.3. Não fundido com nenhum dos outros vocabulários
+de status já catalogados em CLAUDE.md §7.
+
+### Regras verificáveis implementadas
+
+- `§28` — "`CORRECAO_LOCAL` não autoriza reescrita forte":
+  `valida_correcao_local_nao_autoriza_reescrita_forte` rejeita
+  `comment_type=CORRECAO_LOCAL` com `gate=GATE_DE_REESCRITA_FORTE`.
+- `§13` item 12 + `§32` — `comment_type=GATE_HUMANO` exige um gate nomeado
+  do catálogo, não `NENHUM`: o próprio propósito deste tipo é indicar um
+  gate; `NENHUM` esvaziaria a indicação. Não é frase literal isolada — é
+  a leitura mais direta de "indicar gate" [§4.4] combinada ao catálogo de
+  §32, verificada com PS13-07 (`GATE_HUMANO` + `GATE_DE_ALTERACAO_DE_CONCLUSAO`).
+- `§4.5` — bloqueio de fidelidade (`ResultadoDeFidelidade.BLOQUEAR`) exige
+  `comment_type=ALERTA_DE_VOZ`: "evita formulação substitutiva; evita
+  reescrever como orientador" só é verificável em código como recusa de
+  gravar o bloqueio sob qualquer outro `comment_type` — verificado com
+  TA13-12 e PS13-08.
+
+### Não implementado nesta sessão — fora de escopo, não lacuna
+
+- Construção do payload `ABSTAINED/AMBIGUITY` com
+  `cause_code=P13_CAUSE_VOICE_PROFILE_INSUFFICIENT` [§29] — é envelope P09,
+  sessão 8 do plano. Esta sessão só expõe `perfil_insuficiente(perfil)` e a
+  constante do `cause_code`, para a sessão 8 reusar sem reinventar o
+  predicado.
+- `recommended_action` — já existe em `comentario.py` (sessão 1); §28 o
+  cita de novo ("todo comentário deve registrar... recommended_action"),
+  mas nenhuma regra nova de §28/§29 se aplica a este campo especificamente.
+- Privacidade (`privacy_classification`, `GATE_DE_TRATAMENTO_DE_PRIVACIDADE`
+  em uso real) — sessão adiada; o token do gate está catalogado em
+  `GateCatalogoP13` porque §32 o lista, mas nenhuma lógica de privacidade é
+  construída aqui.
+
+## Sessão 6 — comentário-matriz e remissões [§23, §24]
+
+`escolio/comentarios/matriz.py` implementa `TemplateComentarioMatriz`
+(§23, dez itens), `TemplateRemissao` (§23, três itens) e
+`CriterioConsolidacao`/`decidir_consolidacao` (§24). `registrar_comentario_matriz_e_remissoes`
+liga os três à integridade referencial já existente em
+`RegistroDeComentarios` (sessão 1) e ao catálogo de `CommentType`
+(sessão 3). Nenhum arquivo de sessão anterior foi alterado. Testes:
+PS13-04, TA13-14, TA13-15 [§45/§46].
+
+### `decidir_consolidacao` — leitura da estrutura de §24, não citação isolada
+
+§24 declara dois blocos de prosa ("deve ser consolidada quando" / "não
+deve ser consolidada quando"), sem conectivo lógico explícito
+("e"/"ou") entre os itens de cada bloco. A leitura implementada:
+
+- as cinco condições afirmativas são conjunção (todas exigidas) — uma
+  condição isolada (ex.: só "há risco de poluição", sem "a causa é a
+  mesma") não sustentaria consolidar ocorrências de causas diferentes;
+- as cinco exceções são vetos independentes (qualquer uma basta para
+  recusar), porque cada uma descreve isoladamente um risco que a
+  consolidação criaria (ocultar problema específico, decisões
+  diferentes, etc.) — mesmo padrão de veto único já usado em
+  `valida_correcao_local_nao_autoriza_reescrita_forte` (sessão 5).
+
+Não é a única leitura gramaticalmente possível da fonte (um leitor
+poderia exigir só uma das cinco condições afirmativas). Registrado aqui
+para quem precisar contestar essa leitura contra o professor.
+
+### "Remissão incompreensível" [§23] — não verificável em código
+
+"Não deve haver remissão vazia ou incompreensível" tem duas metades:
+"vazia" é verificável (`TemplateRemissao` exige os três campos não
+vazios); "incompreensível" não tem critério objetivo declarado na fonte
+e não é verificado — mesma disciplina de itens sem critério objetivo já
+registrados na sessão 3 (§18).
+
+### `decisao_humana_necessaria` — não retipado, mesma disciplina da sessão 2
+
+§23 nomeia o item ("decisão humana necessária") sem declarar tipo (nem
+enum, nem booleano). Permanece `str`, mesma leitura já aplicada aos nove
+fatores de `MatrizSeletividade` (sessão 2) e a `authority_required`
+(sessão 5): tipar por analogia seria inferência.
+
+### Fora de escopo desta sessão, não lacuna
+
+- Produção do comentário individual para uma ocorrência cuja
+  consolidação `decidir_consolidacao` recusa — decisão de quem chama
+  `registrar_comentario_matriz_e_remissoes`; este módulo só consolida.
+- Extensão do envelope P09 com os payloads de PS13-04 — sessão 8 do
+  plano.
