@@ -354,9 +354,12 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
 
 ## 14. Roadmap
 
-**Peças 1 a 7 construídas.** 656 testes passando (`pytest tests/`, 2026-08-08). Ressalva que vale
-para tudo abaixo: **nenhuma chamada à API foi feita ainda** [BL-007]. Todo teste verifica código
-contra a spec; nada foi verificado contra documento real, e nenhum piloto supervisionado
+**Peças 1 a 7 construídas**, mais `escolio/cliente/` — infraestrutura que as sete peças exigem
+para executar, sem ser peça numerada do roadmap [não decide o que perguntar; isso é das funções,
+que ainda não existem]. 701 testes passando (`pytest tests/`, 2026-08-08: 656 das sete peças + 45
+do cliente). Ressalva que vale para tudo abaixo: **nenhuma chamada à API foi feita ainda**
+[BL-007] — os testes do cliente usam mock do SDK `anthropic`, não a API real. Todo teste verifica
+código contra a spec; nada foi verificado contra documento real, e nenhum piloto supervisionado
 existe — homologação documental não é ativação operacional [P11 §42].
 
 | # | Peça | Onde | Testes | `LACUNAS.md` | Pendente |
@@ -364,6 +367,7 @@ existe — homologação documental não é ativação operacional [P11 §42].
 | — | Schema P05 + 20 regras RC | `escolio/` | 91 | 11 | BL-002 — tradução para `ClaimEvidence` [P09 §12], com aliases, sem apagar distinções |
 | — | Ingestão PDF | `escolio/ingestao/` | 53 | 12 | BL-010 — as quatro lacunas de `funcoes-P10-P14.md` §8 nunca foram gravadas aqui |
 | — | Máquina documental P03 | `handoff/` (JS) | — | — | BL-005 — única parte fora do Python; inconsistência declarada, não resolvida |
+| — | Cliente da API | `escolio/cliente/` | 45 | 9 | timeout de 900s `[PROPOSTA]`, não medido contra latência real; SDK não expõe fator de backoff além de `max_retries`; estado de prefixo cobre só o último prefixo estável, não sequências com prefixos intercalados |
 | 1 | Envelope P09 e sua validação | `escolio/contrato/` | 87 | 9 | BL-011 `function_id` fora da correspondência request↔response · BL-013 `Response.interventions` ainda desligado |
 | 2 | Níveis P06 + `InterventionRecord` | `escolio/intervencao/` | 51 | 10 | BL-013 · objeto congelado continua sem campo no P09 §13 |
 | 3 | Adaptador ingestão → `InputItem` | `escolio/adaptadores/` | 11 | — | BL-003 `MaterialUnit` [P19 §9] só na regra de identidade; os 26 campos restantes exigem fluxo homologado com gate humano · BL-014 |
