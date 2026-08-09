@@ -22,13 +22,28 @@ controle ao chamador. Percorrer as 29 etapas de um documento real exige 29
 
 ## Por que a maioria das etapas não executa nesta sessão
 
-Sem chamada à API [instrução desta sessão]. Cada etapa que a fonte descreve
-como diagnóstico, seleção de conteúdo ou redação (juízo humano ou de
-modelo) permanece um ponto de extensão explícito — o orquestrador não o
-preenche por conveniência nem interpola um valor plausível [CLAUDE.md §11].
-Uma etapa some do caminho feliz sem se tornar aprovação silenciosa:
-`ResultadoDeEtapa.tipo` distingue seis causas de parada (`CausaDeParada`),
-cada uma com critério próprio — nunca uma genérica "não implementado".
+Cada etapa que a fonte descreve como diagnóstico, seleção de conteúdo ou
+redação (juízo humano ou de modelo) permanece um ponto de extensão
+explícito — o orquestrador não o preenche por conveniência nem interpola um
+valor plausível [CLAUDE.md §11]. Uma etapa some do caminho feliz sem se
+tornar aprovação silenciosa: `ResultadoDeEtapa.tipo` distingue seis causas de
+parada (`CausaDeParada`), cada uma com critério próprio — nunca uma genérica
+"não implementado".
+
+**Sessão de 2026-08-09 (ligação ao cliente da API) — etapas 8, 9, 16, 17 e
+18 deixam de ser pontos de extensão permanentes.** `escolio/funcoes/
+ponte_modelo_p13.py` liga essas cinco etapas a `escolio/cliente/`: quando o
+chamador fornece `EntradaEtapaP13.cliente` (uma `ClienteAnthropic`) junto
+com os candidatos de entrada daquela etapa (`unidades_para_matriz_
+criticidade`, ou os `candidatos_para_*` das etapas 16-18), o handler chama a
+API em vez de parar. Fornecer o objeto final já construído
+(`matrizes_criticidade`, `comentarios_matriz`, ...) continua tendo
+prioridade — chamar o modelo é o caminho alternativo, não o único. Sem
+`cliente` e sem entrada, o comportamento é idêntico ao de antes desta
+sessão: `PARADA`/`PONTO_DE_EXTENSAO_DE_MODELO`. As etapas 11-15
+(`PONTO_DE_EXTENSAO_DE_MODELO`, sem objeto de sessão anterior que ligue
+candidato a verificação — LAC-FUNC-019) e 19-24 (`SEM_FONTE_DE_
+VERIFICACAO`) não são tocadas por esta sessão.
 
 ## BL-022 resolvido aqui, não nos módulos de sessão 1-6
 
@@ -76,6 +91,7 @@ from escolio.comentarios.vocabulario import (
     COMMENT_TYPE_COMENTARIO_MATRIZ,
     COMMENT_TYPE_REMISSAO_A_COMENTARIO_MATRIZ,
 )
+from escolio.funcoes import ponte_modelo_p13 as ponte
 from escolio.funcoes.declaracao import Etapa
 from escolio.funcoes.p13 import DECLARACAO as DECLARACAO_P13
 from escolio.funcoes.roteador import AdmissaoDeMaterial, DecisaoDeRoteamento
@@ -166,7 +182,14 @@ class EntradaEtapaP13:
     inferido. Nenhum campo aqui introduz um schema novo de sessão anterior
     — cada um é ou um tipo já validado por `escolio/comentarios/`, ou um
     booleano de confirmação (etapas 3 e 5, que não têm objeto de sessão
-    anterior a aceitar)."""
+    anterior a aceitar).
+
+    `cliente` e os campos `unidades_para_*`/`candidatos_para_*` abaixo são
+    desta sessão (ligação ao modelo, etapas 8, 9, 16-18
+    [`escolio/funcoes/ponte_modelo_p13.py`]). Fornecer o objeto já
+    construído (`matrizes_criticidade`, `comentarios_matriz`, ...) continua
+    tendo prioridade sobre chamar o modelo — a etapa só chama a API quando
+    o objeto final não veio e `cliente` + os candidatos de entrada vieram."""
 
     dependencias_obrigatorias_confirmadas: bool = False
     documento: DocumentoIngerido | None = None
@@ -176,6 +199,12 @@ class EntradaEtapaP13:
     comentarios_matriz: list[P13Comment] | None = None
     comentarios_individuais: list[P13Comment] | None = None
     remissoes: list[P13Comment] | None = None
+    cliente: object | None = None
+    unidades_para_matriz_criticidade: list[str] | None = None
+    candidatos_para_comentario_matriz: list[MatrizSeletividade] | None = None
+    candidatos_para_comentarios_individuais: list[MatrizSeletividade] | None = None
+    candidatos_para_remissoes: list[MatrizSeletividade] | None = None
+    matrix_comment_id_por_remissao: dict[str, str] | None = None
 
 
 @dataclass
@@ -340,29 +369,50 @@ def _etapa_7_identificacao_das_unidades(ctx: ContextoExecucaoP13, _e: EntradaEta
 
 
 def _etapa_8_matriz_de_criticidade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
-    if e.matrizes_criticidade is None:
-        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            "classe de criticidade é sempre declarada por quem avalia — \"a matriz não pode ser "
-            "reduzida a contagem mecânica\" [§11]; este orquestrador não calcula nem infere valor"
-        )
-    for m in e.matrizes_criticidade:
+    matrizes = e.matrizes_criticidade
+    if matrizes is None:
+        if e.cliente is not None and e.unidades_para_matriz_criticidade:
+            matrizes = ponte.gerar_matrizes_criticidade(
+                documento=ctx.documento,
+                unit_ids=e.unidades_para_matriz_criticidade,
+                cliente=e.cliente,
+                sequence_id=ctx.document_id,
+            )
+        else:
+            return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+                "classe de criticidade é sempre declarada por quem avalia — \"a matriz não pode ser "
+                "reduzida a contagem mecânica\" [§11]; este orquestrador não calcula nem infere valor "
+                "sem `cliente` e `unidades_para_matriz_criticidade` [escolio/funcoes/ponte_modelo_p13.py]"
+            )
+    for m in matrizes:
         _exige_unit_id_conhecido(m.unit_id, ctx.unidades_conhecidas, "MatrizCriticidade")
-    ctx.matrizes_criticidade = list(e.matrizes_criticidade)
+    ctx.matrizes_criticidade = list(matrizes)
     return TipoDeResultadoEtapa.EXECUTADA, None, f"{len(ctx.matrizes_criticidade)} MatrizCriticidade aceita(s) [§11]"
 
 
 def _etapa_9_matriz_de_seletividade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
-    if e.matrizes_seletividade is None:
-        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            "os dez fatores de seletividade [§12] são julgamento sobre o candidato; não calculados aqui"
-        )
-    for m in e.matrizes_seletividade:
+    matrizes = e.matrizes_seletividade
+    if matrizes is None:
+        if e.cliente is not None and ctx.matrizes_criticidade:
+            matrizes = ponte.gerar_matrizes_seletividade(
+                documento=ctx.documento,
+                matrizes_criticidade=ctx.matrizes_criticidade,
+                cliente=e.cliente,
+                sequence_id=ctx.document_id,
+            )
+        else:
+            return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+                "os dez fatores de seletividade [§12] são julgamento sobre o candidato; não calculados "
+                "aqui sem `cliente` e `MatrizCriticidade` já aceitas na etapa 8 "
+                "[escolio/funcoes/ponte_modelo_p13.py]"
+            )
+    for m in matrizes:
         _exige_unit_id_conhecido(m.unit_id, ctx.unidades_conhecidas, "MatrizSeletividade")
     try:
-        exige_referencia_valida_a_criticidade(e.matrizes_seletividade, ctx.matrizes_criticidade)
+        exige_referencia_valida_a_criticidade(matrizes, ctx.matrizes_criticidade)
     except ErroDeComentario as erro:
         raise ErroDeExecucaoP13("BL-024", str(erro)) from erro
-    ctx.matrizes_seletividade = list(e.matrizes_seletividade)
+    ctx.matrizes_seletividade = list(matrizes)
     return TipoDeResultadoEtapa.EXECUTADA, None, f"{len(ctx.matrizes_seletividade)} MatrizSeletividade aceita(s) [§12, BL-024]"
 
 
@@ -382,12 +432,35 @@ def _etapa_diagnostico_sem_schema(nome_curto: str):
     return handler
 
 
-def _etapa_elaboracao(campo: str, comment_type_esperado: str | None, destino: str):
+def _etapa_elaboracao(
+    campo: str,
+    comment_type_esperado: str | None,
+    destino: str,
+    *,
+    campo_candidatos: str | None = None,
+    campo_matrix_map: str | None = None,
+):
     def handler(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
         comentarios = getattr(e, campo)
+        if comentarios is None and campo_candidatos is not None:
+            candidatos = getattr(e, campo_candidatos)
+            if e.cliente is not None and candidatos:
+                mapa = getattr(e, campo_matrix_map) if campo_matrix_map else None
+                comentarios = ponte.gerar_comentarios(
+                    documento=ctx.documento,
+                    document_id=ctx.document_id,
+                    document_version=ctx.document_version,
+                    module_id="P13",
+                    candidatos=candidatos,
+                    cliente=e.cliente,
+                    comment_type_esperado=comment_type_esperado,
+                    matrix_comment_id_por_candidato=mapa,
+                    sequence_id=ctx.document_id,
+                )
         if comentarios is None:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-                f"{destino} é redação — juízo humano ou de modelo, não preenchido nesta sessão"
+                f"{destino} é redação — juízo humano ou de modelo, não preenchido nesta sessão "
+                f"sem `cliente` e candidatos selecionados [escolio/funcoes/ponte_modelo_p13.py]"
             )
         for c in comentarios:
             if comment_type_esperado is not None and c.comment_type != comment_type_esperado:
@@ -455,9 +528,25 @@ _HANDLERS = {
     13: _etapa_diagnostico_sem_schema("verificação de voz"),
     14: _etapa_diagnostico_sem_schema("verificação de privacidade"),
     15: _etapa_diagnostico_sem_schema("identificação de problemas sistêmicos"),
-    16: _etapa_elaboracao("comentarios_matriz", COMMENT_TYPE_COMENTARIO_MATRIZ, "comentários-matriz"),
-    17: _etapa_elaboracao("comentarios_individuais", None, "comentários individuais"),
-    18: _etapa_elaboracao("remissoes", COMMENT_TYPE_REMISSAO_A_COMENTARIO_MATRIZ, "remissões"),
+    16: _etapa_elaboracao(
+        "comentarios_matriz",
+        COMMENT_TYPE_COMENTARIO_MATRIZ,
+        "comentários-matriz",
+        campo_candidatos="candidatos_para_comentario_matriz",
+    ),
+    17: _etapa_elaboracao(
+        "comentarios_individuais",
+        None,
+        "comentários individuais",
+        campo_candidatos="candidatos_para_comentarios_individuais",
+    ),
+    18: _etapa_elaboracao(
+        "remissoes",
+        COMMENT_TYPE_REMISSAO_A_COMENTARIO_MATRIZ,
+        "remissões",
+        campo_candidatos="candidatos_para_remissoes",
+        campo_matrix_map="matrix_comment_id_por_remissao",
+    ),
     19: _etapa_verificacao_sem_correspondencia("verificação de densidade"),
     20: _etapa_verificacao_sem_correspondencia("verificação de repetição"),
     21: _etapa_verificacao_sem_correspondencia("verificação de acionabilidade"),

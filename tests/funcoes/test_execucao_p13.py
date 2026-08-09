@@ -6,6 +6,8 @@ módulo substitui em parte: o que aquele teste fazia escrevendo Python solto
 entre as peças, `avancar()` agora faz por uma função de orquestração.
 """
 
+from unittest.mock import MagicMock
+
 import pytest
 
 from escolio.comentarios.comentario import P13Comment
@@ -16,6 +18,7 @@ from escolio.contrato.entrada import Classification, InputItem, Provenance
 from escolio.contrato.referencia import SemanticVersion
 from escolio.contrato.requisicao import Authorization, ExpectedOutput, Request, Requester, Scope
 from escolio.contrato.vocabulario import AuthorizationStatus, InputType
+from escolio.funcoes import ponte_modelo_p13 as ponte
 from escolio.funcoes import roteador
 from escolio.funcoes.execucao_p13 import (
     CausaDeParada,
@@ -285,3 +288,181 @@ class TestEtapaQueNaoPodeExecutar:
         assert estado.encerrado is True
         with pytest.raises(ErroDeExecucaoP13):
             avancar(estado)
+
+
+def _cliente_fake(blocos: list[dict]) -> MagicMock:
+    cliente = MagicMock()
+    cliente.chamar.return_value = MagicMock(blocos=blocos)
+    return cliente
+
+
+def _bloco_criticidade(problem_id="PROB-0001", unit_id="UNI-PAR-0001", classe="CRITICIDADE_MEDIA"):
+    avaliacao = {eixo.value: f"avaliação {eixo.value}" for eixo in EixoCriticidade}
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_CRITICIDADE,
+        "input": {
+            "matrizes": [
+                {
+                    "problem_id": problem_id,
+                    "unit_id": unit_id,
+                    "avaliacao_por_eixo": avaliacao,
+                    "classe": classe,
+                    "justificativa_classe": "Síntese sintética.",
+                }
+            ]
+        },
+    }
+
+
+def _bloco_seletividade(selection_id="SEL-0001", candidate_problem_id="PROB-0001"):
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_SELETIVIDADE,
+        "input": {
+            "matrizes": [
+                {
+                    "selection_id": selection_id,
+                    "unit_id": "UNI-PAR-0001",
+                    "candidate_problem_id": candidate_problem_id,
+                    "criticality": "CRITICIDADE_MEDIA",
+                    "material_impact": "x",
+                    "novelty": "x",
+                    "recurrence": "x",
+                    "matrix_comment_coverage": "x",
+                    "actionability": "x",
+                    "evidence_sufficiency": "x",
+                    "human_decision_required": "x",
+                    "privacy_risk": "x",
+                    "selection_decision": "COMENTAR",
+                    "selection_rationale": "x",
+                }
+            ]
+        },
+    }
+
+
+class TestEtapasLigadasAoModelo:
+    """Sessão de 2026-08-09 — etapas 8 e 9 chamam a API via `cliente`
+    (mockado) quando não recebem o objeto final já construído."""
+
+    def _estado_ate_etapa_7(self, documento):
+        estado = estado_roteado([item_declarado_para_f04()])
+        avancar(estado)  # 1
+        avancar(estado)  # 2
+        avancar(estado, EntradaEtapaP13(dependencias_obrigatorias_confirmadas=True))  # 3
+        avancar(estado, EntradaEtapaP13(documento=documento))  # 4
+        avancar(estado, EntradaEtapaP13(document_version="1.0.0"))  # 5
+        avancar(estado)  # 6
+        avancar(estado)  # 7
+        return estado
+
+    def test_etapa_8_chama_modelo_quando_cliente_e_unidades_fornecidos(self):
+        documento = documento_sintetico()
+        estado = self._estado_ate_etapa_7(documento)
+        cliente = _cliente_fake([_bloco_criticidade()])
+
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente, unidades_para_matriz_criticidade=["UNI-PAR-0001"]),
+        )
+
+        assert estado.concluidas == 8
+        assert len(estado.contexto.matrizes_criticidade) == 1
+        cliente.chamar.assert_called_once()
+
+    def test_etapa_8_sem_cliente_continua_parando_como_antes(self):
+        documento = documento_sintetico()
+        estado = self._estado_ate_etapa_7(documento)
+
+        avancar(estado, EntradaEtapaP13(unidades_para_matriz_criticidade=["UNI-PAR-0001"]))
+
+        assert estado.concluidas == 7
+        assert estado.historico[-1].causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+
+    def test_etapa_9_usa_matrizes_de_criticidade_da_etapa_8_como_candidatos(self):
+        documento = documento_sintetico()
+        estado = self._estado_ate_etapa_7(documento)
+        cliente_criticidade = _cliente_fake([_bloco_criticidade()])
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente_criticidade, unidades_para_matriz_criticidade=["UNI-PAR-0001"]),
+        )
+        assert estado.concluidas == 8
+
+        cliente_seletividade = _cliente_fake([_bloco_seletividade()])
+        avancar(estado, EntradaEtapaP13(cliente=cliente_seletividade))
+
+        assert estado.concluidas == 9
+        assert len(estado.contexto.matrizes_seletividade) == 1
+        _, kwargs = cliente_seletividade.chamar.call_args
+        assert kwargs["model"] == ponte.MODEL_ETAPA_9
+        assert kwargs["effort"] == ponte.EFFORT_ETAPA_9
+
+    def test_etapa_16_elabora_comentario_matriz_a_partir_de_candidato_selecionado(self):
+        documento = documento_sintetico()
+        estado = self._estado_ate_etapa_7(documento)
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                cliente=_cliente_fake([_bloco_criticidade()]),
+                unidades_para_matriz_criticidade=["UNI-PAR-0001"],
+            ),
+        )
+        avancar(estado, EntradaEtapaP13(cliente=_cliente_fake([_bloco_seletividade()])))
+        avancar(estado)  # 10 — seleção determinística
+        assert estado.concluidas == 10
+        candidato = estado.contexto.selecionados[0]
+
+        # Etapas 11-15 continuam ponto de extensão permanente nesta sessão
+        # [LAC-FUNC-019] — simula que já foram concluídas, mesma técnica de
+        # test_document_id_diverge_do_material_id_levanta_bl_022.
+        from escolio.funcoes.execucao_p13 import ResultadoDeEtapa
+        from escolio.funcoes.p13 import DECLARACAO as DECLARACAO_P13
+
+        estado.historico.extend(
+            ResultadoDeEtapa(etapa=DECLARACAO_P13.etapa(n), tipo=TipoDeResultadoEtapa.EXECUTADA, justificativa="simulado")
+            for n in range(11, 16)
+        )
+        assert estado.concluidas == 15
+
+        bloco = {
+            "type": "tool_use",
+            "name": ponte._FERRAMENTA_COMENTARIOS,
+            "input": {
+                "comentarios": [
+                    {
+                        "comment_id": "CMT-0001",
+                        "selection_id": candidato.selection_id,
+                        "unit_id": candidato.unit_id,
+                        "anchor_start": "0",
+                        "anchor_end": "10",
+                        "anchor_text_hash": "sha256:x",
+                        "comment_type": "COMENTARIO_MATRIZ",
+                        "priority": "PRIORIDADE_MEDIA",
+                        "severity": "MODERADA",
+                        "problem": "x",
+                        "evidence": "x",
+                        "impact": "x",
+                        "recommended_action": "x",
+                        "intervention_level": "INT-04",
+                        "authority_required": "USUARIO_PROPONENTE",
+                        "gate": "GATE_DE_VALIDACAO_FINAL",
+                        "source_status": "VERIFICADA",
+                        "voice_impact": "NENHUM",
+                        "privacy_classification": "PUBLIC",
+                        "reversible": True,
+                    }
+                ]
+            },
+        }
+        cliente = _cliente_fake([bloco])
+
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente, candidatos_para_comentario_matriz=[candidato]),
+        )
+
+        assert estado.concluidas == 16
+        assert len(estado.contexto.todos_comentarios) == 1
+        assert estado.contexto.todos_comentarios[0].status is P13CommentStatus.DRAFT

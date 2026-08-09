@@ -325,6 +325,54 @@ tentativa que não executa não avança `concluidas` (`EstadoDeExecucaoP13.concl
   16-18; divergência levanta `ErroDeExecucaoP13`, nunca passa silenciosa. Ver docs/backlog.md,
   BL-022, para a justificativa completa da escolha entre `material_id` e `input_id`.
 
+## Sessão de ligação ao cliente da API (2026-08-09) — etapas 8, 9, 16-18
+
+`escolio/funcoes/ponte_modelo_p13.py` liga as etapas 8, 9, 16, 17 e 18 a `escolio/cliente/`.
+Não altera o comportamento sem `cliente`: as cinco etapas continuam `PONTO_DE_EXTENSAO_DE_MODELO`
+quando `EntradaEtapaP13.cliente` não é fornecido, exatamente como antes desta sessão — os testes
+de `TestEtapaQueNaoPodeExecutar` (anteriores a esta sessão) não foram alterados e continuam
+passando. Etapas 11-15 (LAC-FUNC-019) e 19-24 (LAC-FUNC-020) não são tocadas — instrução
+explícita da sessão.
+
+- **Modelo/effort por etapa dentro do intervalo declarado no CLAUDE.md §10 é escolha desta
+  sessão, não valor novo de spec.** A tabela já marca E4b (etapa 8) como Sonnet `low`-`medium` e
+  E4c (etapa 9) como Opus `high`-`xhigh` — ambos intervalos, não pontos. `ponte_modelo_p13.py`
+  fixa `medium` para a etapa 8 e `high` para a etapa 9 (o extremo mais barato de cada intervalo).
+  Se o professor preferir o outro extremo, é constante isolada em `MODEL_ETAPA_8`/`EFFORT_ETAPA_8`
+  etc., não espalhada pelo código.
+- **`max_tokens` por etapa (8.000 nas três chamadas) não vem de nenhuma fonte.**
+  `docs/custos.md` registra que "output por chamada não medido" e estima ~150 tok/unidade para
+  diagnóstico interno do E4 — a etapa 8/9/16-18 aqui não é o mesmo fan-out de 20 unidades/chamada
+  daquele cálculo (cada chamada desta ponte cobre o lote de `unit_ids`/candidatos que o chamador
+  passar, não fixado em 20), então o número de `docs/custos.md` não se aplica diretamente. 8.000
+  é `[PROPOSTA]` desta sessão, generoso e não medido; revisar após a primeira execução real.
+- **Como o modelo produz o "problema candidato" da etapa 8 não tem fonte própria.** Nenhum
+  contrato descreve o objeto "problema candidato" antes de ele existir dentro da matriz de
+  criticidade — §11 avalia um problema já identificado, não diz como identificá-lo. Esta sessão
+  decidiu que a própria chamada da etapa 8 faz as duas coisas (identificar candidato + avaliar
+  os 12 eixos), instruído em `prompts/p13_matriz_criticidade.md`; uma unidade sem problema
+  material é omitida da resposta, nunca forçada. `[PROPOSTA]`, não extração de contrato.
+- **Roteamento de candidato selecionado (etapa 10) para comentário-matriz / individual / remissão
+  (etapas 16-18) não é decidido pelo orquestrador.** Nenhuma fonte liga `SelectionDecision` a "vira
+  comentário-matriz" vs. "vira comentário individual" mecanicamente — `REMETER_A_COMENTARIO_MATRIZ`
+  é o único valor do enum que nomeia o destino, e mesmo esse não diz qual comentário-matriz.
+  `EntradaEtapaP13` ganhou três campos (`candidatos_para_comentario_matriz`,
+  `candidatos_para_comentarios_individuais`, `candidatos_para_remissoes`) para que quem chama
+  decida a classificação — mesma disciplina de já exigir os objetos `comentarios_*` prontos
+  quando não se usa o modelo. O vínculo remissão→comentário-matriz
+  (`matrix_comment_id_por_remissao`, chave `selection_id`) também é decidido por quem chama, nunca
+  inferido do texto do modelo — `ponte_modelo_p13.gerar_comentarios` descarta o
+  `matrix_comment_id` que o modelo eventualmente devolver e usa o do chamador.
+- **Catálogo completo dos 15 `comment_type` [§13] não existe em código** (mesma lacuna já
+  registrada em `escolio/comentarios/LACUNAS.md` — comment_type permanece `str`). O prompt de
+  elaboração instrui o modelo a inventar um `comment_type` descritivo para comentário individual;
+  só `COMENTARIO_MATRIZ`/`REMISSAO_A_COMENTARIO_MATRIZ` são checados contra um valor fixo, porque
+  são os dois únicos citados por extenso em §31.5.4.
+- **`status=DRAFT` é decisão de engenharia da ponte, não da fonte.** Todo `P13Comment` produzido
+  pelo modelo nasce `DRAFT` — é o primeiro estado do ciclo em §31.5.1 e nenhum comentário recém-
+  redigido já teria passado por revisão humana; não é extração de regra, é a leitura mais óbvia do
+  próprio nome do enum.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **Execução de qualquer etapa.** Não há `executar` em nenhum dos nove módulos, e é deliberado:
