@@ -317,9 +317,13 @@ praticado e ausente no declarado é conhecimento tácito, e é o material mais v
 
 ## 12. Convenções técnicas
 
-Python 3.11+, `uv`, `ruff`, `pytest`. Chamadas diretas ao SDK `anthropic`, sem framework de
-agentes. Prompts em `prompts/*.md`, versionados, nunca hardcoded em `.py`. Validado
-retroativamente por `docs/autorizacao.md`.
+Python 3.11+, `ruff`, `pytest` — adotados; `pyproject.toml` na raiz declara os dois como
+dev-dependencies. `uv` permanece **não adotado**: sem o binário nesta máquina, o ambiente real é
+`.venv` + `pip` [`docs/backlog.md` BL-007]. `pyproject.toml` já é compatível com `uv` quando ele
+existir; declará-lo como convenção em uso antes disso seria o mesmo defeito que o README já
+registrava. Chamadas diretas ao SDK `anthropic`, sem framework de agentes. Prompts em
+`prompts/*.md`, versionados, nunca hardcoded em `.py`. Validado retroativamente por
+`docs/autorizacao.md`.
 
 Schema de material e classificação de dados: **`P19`**. Este documento não duplica regra de
 dados. O que vale sempre: `data/` nunca vai para o git; anonimizar autor e instituição na

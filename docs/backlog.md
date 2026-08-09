@@ -185,7 +185,7 @@ cópias.
 
 ## Ambiente e medição
 
-### BL-007 — instalar o SDK `anthropic` e configurar chave — RESOLVIDO
+### BL-007 — instalar o SDK `anthropic` e configurar chave — RESOLVIDO PARCIALMENTE
 Resolvido em 2026-08-07. `anthropic` e `python-dotenv` instalados no venv via `pip` (não `uv` —
 não há `pyproject.toml`/`uv.lock` no repositório; a convenção do CLAUDE.md §12 permanece
 declarada, não seguida na prática). Chave em `.env`, fora do git (`.gitignore` atualizado antes
@@ -200,6 +200,34 @@ car./token. Script de medição foi temporário e removido após o uso — não 
 
 **O que isto não resolve:** a contagem de unidades de fan-out ("~1200 unidades") continua chute
 — mediu-se tokens do documento inteiro, não unidades. Ver BL-008.
+
+**Em 2026-08-08, sessão de instalação de dependências e `pyproject.toml`:** `pdfplumber` e
+`anthropic` já estavam instalados no `.venv` (confirmado: `pdfplumber==0.11.10`,
+`anthropic==0.120.2`; a falha vista antes vinha de rodar `pytest` com o `python3` do sistema, não
+com `.venv/bin/python` — não havia dependência de fato faltando). Suíte completa rodada com
+`.venv/bin/python -m pytest`: **753 passando** (não 701 — o número subiu com a sessão 1 do P13,
+`escolio/comentarios/`, 52 testes novos, entre a medição de 701 e esta sessão).
+
+`pyproject.toml` criado na raiz do repositório: `[project.dependencies]` (`anthropic`,
+`pdfplumber`, `python-dotenv`) e `[dependency-groups] dev` (`pytest`, `ruff`), `[tool.uv]
+package = false` (não há artefato a empacotar — `escolio/` é importado por caminho relativo à
+raiz, uso local), `[tool.pytest.ini_options]` e `[tool.ruff]` mínimos. `ruff==0.16.2` instalado no
+`.venv` via `pip` para poder configurá-lo e testá-lo.
+
+**O que isto não resolve — `uv` propriamente dito continua ausente.** Não há binário `uv` nesta
+máquina, `pipx` não está instalado, e `pip install --user uv` falha
+(`externally-managed-environment`, PEP 668, Python do sistema gerenciado pelo `apt`). Instalar
+`uv` exigiria `curl -LsSf https://astral.sh/uv/install.sh | sh` (baixa e executa script remoto,
+grava em `~/.local/bin` ou similar) ou `apt install pipx` (pacote de sistema) — as duas mudam
+estado fora do repositório e fora do `.venv` do projeto, por isso não executadas sem autorização
+explícita. `pyproject.toml` está pronto para `uv sync` assim que `uv` existir; até lá, `.venv` +
+`pip` continua sendo o caminho real, exatamente como já registrado acima.
+
+**Achado incidental, não corrigido nesta sessão:** `ruff check .` aponta 87 problemas
+pré-existentes (34 corrigíveis com `--fix`) em código já escrito antes de o linter existir no
+projeto — nenhum arquivo alterado para corrigi-los aqui, por ser fora do tema desta sessão
+("instalar dependências e criar `pyproject.toml`", não "lint da base"). Rodar
+`.venv/bin/ruff check .` para a lista completa antes de uma sessão dedicada a limpá-los.
 
 ### BL-008 — contagem de unidades por documento — RESOLVIDO PARCIALMENTE
 Resolvido por extrapolação, não por medição direta de `data/gold/`, em 2026-08-07. Rodar o

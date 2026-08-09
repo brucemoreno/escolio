@@ -33,13 +33,13 @@ nenhum piloto supervisionado existe. Homologação documental não é ativação
 
 ## Rodar
 
-Não há `pyproject.toml` nem `requirements.txt`. O `CLAUDE.md` §12 declara `uv` e `ruff` como
-convenção, mas na prática o ambiente foi montado com `pip` e o `ruff` não está instalado —
-discrepância registrada em `docs/backlog.md` `BL-007`, não resolvida.
+`pyproject.toml` na raiz declara as dependências e o grupo dev (`pytest`, `ruff`). `uv` continua
+**não adotado** nesta máquina — sem o binário instalado, o ambiente real é `.venv` + `pip`, não
+`uv sync` — discrepância registrada em `docs/backlog.md` `BL-007`, não resolvida.
 
 ```bash
 python3 -m venv .venv                 # Python 3.11+ (o venv atual roda 3.12.3)
-./.venv/bin/pip install anthropic python-dotenv pdfplumber pytest
+./.venv/bin/pip install anthropic python-dotenv pdfplumber pytest ruff
 
 ./.venv/bin/python -m pytest tests/ -q
 ```

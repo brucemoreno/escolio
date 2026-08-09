@@ -1,0 +1,29 @@
+[project]
+name = "escolio"
+version = "0.1.0"
+description = "Apoio à revisão de trabalhos acadêmicos — Prof. Dr. Christian Fausto Moraes dos Santos"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.120.2",
+    "pdfplumber>=0.11.10",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.2",
+]
+
+[tool.uv]
+# Chamadas diretas ao SDK anthropic, sem framework de agentes [CLAUDE.md
+# §12]. `escolio/` é importado por caminho relativo à raiz do repositório
+# (uso local, nunca publicado); não há artefato a empacotar/instalar.
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
