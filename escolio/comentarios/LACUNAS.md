@@ -377,3 +377,148 @@ fatores de `MatrizSeletividade` (sessão 2) e a `authority_required`
   `registrar_comentario_matriz_e_remissoes`; este módulo só consolida.
 - Extensão do envelope P09 com os payloads de PS13-04 — sessão 8 do
   plano.
+
+## Sessão 7 — auditoria final interna [§25, §44]
+
+`escolio/comentarios/auditoria.py` implementa `auditar_lote`, um checklist
+que roda os 25 itens de §44, nesta ordem literal, sobre um `LoteDeAuditoria`
+(comentários da sessão 1 + matrizes das sessões 2-6). "A auditoria não
+corrige comentários" [§44] — nenhuma função grava, corrige ou reordena um
+`P13Comment`; todo item só lê e classifica. Testes: TA13-17, TA13-18,
+TA13-19 [§46], mais a proibição simétrica de §25 (zero comentários
+legítimo / silêncio diante de risco material ilegítimo).
+
+### Item 15 — privacidade P08: N/A explícito, não fabricado
+
+Por instrução desta sessão e por `docs/spec/plano-P13.md` §"Sessão
+adiada": a integração P08 aguarda `CO-012`/`CO-013`. `_item_privacidade_p08`
+retorna sempre `VeredictoChecklist.NAO_APLICAVEL`, nunca `APROVADO` — não
+existe caminho de código que avalie privacidade neste módulo, e o
+`RelatorioAuditoriaFinal` exige exatamente 25 itens (nenhum a menos), então
+o item precisa existir e declarar N/A, não ser omitido.
+
+### `NAO_VERIFICAVEL_NESTA_SESSAO` — quarto veredito, não aprovação silenciosa
+
+Além de `APROVADO`/`REPROVADO`/`NAO_APLICAVEL` (este último reservado ao
+item 15), o módulo declara `NAO_VERIFICAVEL_NESTA_SESSAO` para dois casos
+distintos, nunca fundidos com N/A:
+
+- **Critério não declarado na fonte** — itens `TOM` (17) e
+  `PROPORCIONALIDADE` (19): §44 nomeia os itens, mas nenhuma seção do
+  contrato declara um critério objetivo mensurável para nenhum dos dois
+  (diferente de "ancoragem" ou "gates", que têm campo e catálogo
+  verificáveis). Mesma disciplina de "remissão incompreensível" em
+  `matriz.py` (sessão 6) e de `authority_required` em
+  `aplicacao_p06_p07.py` (sessão 5): não inventar um critério que a fonte
+  não declarou.
+- **Dado ausente no lote fornecido** — itens `SELETIVIDADE`/`CRITICIDADE`
+  sem `matrizes_seletividade`, `AUSENCIA_DE_COMENTARIO_COSMETICO` sem
+  `efeitos_linguisticos`, `AUSENCIA_LEGITIMA_DE_COMENTARIOS` com lote
+  totalmente vazio, `ENVELOPES_P09` sem `verificacoes_envelope`. Estes
+  quatro campos de `LoteDeAuditoria` são opcionais porque a fonte de dados
+  correspondente (matrizes de seletividade, template de efeito
+  linguístico, extensão do envelope P09) é de sessão própria (2, 3, 8) e
+  pode não estar disponível no momento em que a auditoria roda sobre um
+  lote parcial; a ausência vira item indeterminado, nunca aprovado por
+  omissão.
+
+`RelatorioAuditoriaFinal.veredicto_final` reflete isso: `REPROVADO` em
+qualquer item vence; senão, `NAO_VERIFICAVEL_NESTA_SESSAO` em qualquer item
+força `AUDITORIA_INDETERMINADA` — só todos os 25 itens em
+`APROVADO`/`NAO_APLICAVEL` produzem `AUDITORIA_APROVADA`. Um lote
+totalmente vazio (nenhum comentário, nenhuma matriz) é
+`AUDITORIA_INDETERMINADA`, não `AUDITORIA_APROVADA` — "sucesso vazio" só é
+legítimo quando a ausência de comentários é justificada por decisões de
+seletividade presentes [§25, §3.9, item 6], não pela simples ausência de
+qualquer dado.
+
+### Proibição simétrica de §25 — como as duas pontas ficaram verificáveis
+
+Nem `P13Comment` nem `MatrizSeletividade` têm campo que ligue um
+comentário produzido ao candidato que o originou (nenhuma sessão anterior
+declarou `candidate_problem_id`/`selection_id` em `P13Comment` — ver
+"Fora de escopo" da sessão 1). Por isso os dois lados da proibição
+simétrica são verificados em `MatrizSeletividade`, não cruzando contra
+`lote.comentarios`:
+
+- **Item 6 (ausência legítima)** — zero comentários é `APROVADO` quando
+  toda `MatrizSeletividade` do lote tem `selection_decision != COMENTAR`;
+  é `REPROVADO` quando alguma matriz decidiu `COMENTAR` mas nenhum
+  comentário foi produzido (decisão não atendida).
+- **Item 7 (silêncio ilegítimo)** — `REPROVADO` quando existe
+  `MatrizSeletividade` com `criticality` em `CRITICIDADE_CRITICA`/`ALTA` e
+  `selection_decision=NAO_COMENTAR_SEM_PROBLEMA_MATERIAL`: contradição
+  literal (criticidade alta declarada, mas a decisão nega "problema
+  material"). `AGUARDAR_EVIDENCIA`, `AGUARDAR_GATE`, `ABSTER_SE`,
+  `BLOQUEADO` e `NAO_COMENTAR_POR_REPETICAO` não entram nesta reprovação —
+  são não-comentário justificado por motivo diferente de "sem problema",
+  e nenhuma fonte os equipara a silêncio.
+
+Isto não requer nem inventa uma correspondência comentário↔candidato:
+ambos os itens leem só `MatrizSeletividade`, que já carrega `criticality`
+e `selection_decision` como campos próprios (sessão 2). Item 25
+(densidade justificada) é derivado destes dois: `REPROVADO` se quota
+(item 4) ou silêncio (item 7) reprovarem, `APROVADO` caso contrário — não
+é um item independente, é a leitura composta de §25 verbatim ("não existe
+quota" + "não... silêncio diante de risco material").
+
+### Item 16 (envelopes P09) — reusa `Response`/`SafeResult` reais, não os reimplementa
+
+`verifica_consistencia_envelope_p09` constrói um `escolio.contrato.resposta.Response`
+mínimo (ids fixos de teste, `component_id`/`function_id="P13"`) só para
+disparar as validações já existentes de P09 §8.2/§9/§21.34 — nenhuma regra
+de `Response`/`SafeResult` é duplicada. `P13RequestExtension`/
+`P13ResultExtension` (sessão 8) não são construídos aqui: o item verifica
+consistência `status`×`safe_result.available`×payload quando o lote
+informa candidatos via `VerificacaoEnvelope`, e fica
+`NAO_VERIFICAVEL_NESTA_SESSAO` quando não informa — não fabrica um
+envelope P13 que a sessão 8 ainda não define.
+
+### Itens que reusam validação já existente sem duplicá-la
+
+- Item 1 (seletividade) reusa `exige_referencia_valida_a_criticidade`
+  (BL-024, sessão 2).
+- Item 9 (remissões) reusa `RegistroDeComentarios.registrar` (sessão 1) —
+  registra os comentários-matriz do lote antes dos demais e deixa o
+  próprio registro rejeitar remissão órfã, em vez de reimplementar a
+  checagem de integridade referencial.
+- Item 14 (voz P07) reusa `ResultadoDeFidelidade` (P07) e a mesma regra de
+  `valida_alerta_de_voz_quando_bloqueado` (sessão 5, verificada por
+  leitura direta do enum, não por chamada à função porque esta espera um
+  objeto `AvaliacaoDeFidelidade` que o lote de auditoria não reconstrói).
+- Item 22 (gates) reusa `valida_correcao_local_nao_autoriza_reescrita_forte`
+  e `valida_gate_humano_tem_gate_nomeado` (sessão 5) diretamente.
+- Item 23 (ausência de reescrita substitutiva) não tem verificação própria
+  — é derivado do resultado do item 13 (nível P06): REESCRITA já é
+  rejeitada por `NIVEIS_PERMITIDOS_P13` (sessão 5), então "nenhuma
+  reescrita substitutiva" é a mesma checagem lida pelo ângulo do
+  invariante de §4.4, não uma segunda regra independente.
+
+### Item 24 (ausência de implementação Word) — decisão de leitura, não citação isolada
+
+§43 lista "piloto Word real posterior" e "ativação operacional posterior"
+como etapas 28-29, fora desta fase; `P13CommentStatus.INSERTED` (sessão 1)
+é o único ponto do schema atual que nomeia uma inserção efetiva no
+documento. `_item_ausencia_de_implementacao_word` reprova qualquer
+comentário do lote com `status=INSERTED`, lendo isso como o único sinal
+verificável em código de que a fase de inserção Word teria sido
+alcançada. Nenhuma outra parte do código (`escolio/comentarios/`) importa
+biblioteca de manipulação de `.docx` — condição estrutural, não verificada
+por este item, apenas observada aqui como coerente com a leitura.
+
+### Fora de escopo desta sessão, não lacuna
+
+- Ligação `comment_id -> candidate_problem_id`/`selection_id` — ausente em
+  todas as sessões anteriores (ver nota da seção "Proibição simétrica"
+  acima); não introduzida aqui porque isso alteraria `P13Comment`
+  (sessão 1), e a instrução desta sessão foi "não altere código
+  existente".
+- Item 5 (ausência de comentário cosmético) só verifica quando o lote
+  informa `efeitos_linguisticos` (mapa `comment_id -> efeito` de §15) —
+  `P13Comment` não tem campo `efeito`; a informação só existe em
+  `TemplateComentarioLinguistico` (sessão 3), que por sua vez não tem
+  campo que o ligue a um `comment_id`. Sem essa ligação, o item depende de
+  entrada externa explícita, nunca de inferência a partir do texto do
+  comentário.
+- Extensão do envelope P09 com `P13ResultExtension` carregando o
+  `RelatorioAuditoriaFinal` — sessão 8 do plano.
