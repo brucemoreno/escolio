@@ -298,3 +298,104 @@ A §8 de `docs/spec/funcoes-P10-P14.md` levantou quatro lacunas — extração d
 objetivo/hipótese/método, comparação entre versões, granularidade de célula de tabela, ingestão
 de parecer editorial — que **não** foram gravadas em `escolio/ingestao/LACUNAS.md` nem em
 `docs/coleta.md`. Continuam só no entregável daquela sessão.
+
+## Aberto em 2026-08-09, na sessão de teste de integração ponta a ponta
+
+`tests/integracao/test_pipeline_p13.py` (2 testes, suíte em 784) monta o primeiro percurso que
+liga ingestão → adaptador → roteador → matrizes P13 → registro de comentários — cada peça só
+tinha teste de unidade até aqui. O percurso **completa** dos dois lados (caminho feliz até
+`RegistroDeComentarios.registrar`, e abstenção por `INDETERMINADO`), mas só porque o teste
+fabrica manualmente cada elo que o código não fabrica. Nenhum arquivo de código foi alterado
+nesta sessão — só o teste e este registro. Os desencaixes abaixo são o que a montagem revelou,
+além dos já conhecidos (BL-003, BL-014):
+
+## Aberto em 2026-08-09, na sessão de correção BL-021 a BL-025
+
+BL-023, BL-024 e BL-025 corrigidos nesta sessão. BL-021 e BL-022 avaliados e confirmados pelo
+professor como decisão de arquitetura, não correção — nenhuma fonte declara orquestração
+explícita entre módulos nem convenção de ID compartilhada, então "consertar" exigiria escolher
+uma forma que a spec não dá. Permanecem abaixo, registrados, sem código alterado para eles.
+
+### BL-021 — nenhum orquestrador liga roteador → matrizes P13 → comentário — DECISÃO DE ARQUITETURA, NÃO CORRIGIDO
+Depois de `roteador.rotear()` confirmar `AdmissaoDeMaterial.DECLARADO`, não existe nenhuma
+função que chame `MatrizCriticidade`, `MatrizSeletividade` ou `P13Comment` a partir da decisão
+de roteamento. `escolio/funcoes/p13.py` é puramente declarativo (`DECLARACAO`, 29 etapas como
+dados) — "nada aqui executa" é literal, não lacuna. `escolio/comentarios/` não importa nada de
+`escolio/funcoes/` nem de `escolio/contrato/`. O teste de integração é hoje o único lugar do
+repositório que invoca as duas peças em sequência, e fá-lo escrevendo Python solto entre elas,
+não chamando uma função de orquestração — porque ela não existe.
+
+**Em 2026-08-09, confirmado pelo professor:** este item é decisão de arquitetura, não correção —
+nenhuma fonte declara a forma da orquestração (função única, pipeline, evento), e escolher uma
+seria inventar estrutura sem fonte. Não implementado nesta sessão.
+
+### BL-022 — `unit_id`/`document_id` não têm gerador nem validador compartilhado — DECISÃO DE ARQUITETURA, NÃO CORRIGIDO
+`Paragrafo.unit_id` (ingestão), `MatrizCriticidade.unit_id`, `MatrizSeletividade.unit_id` e
+`P13Comment.unit_id` são todos `str` soltos, cada um validado só por não-vazio dentro do próprio
+módulo. Nada no código impede que os quatro divirjam silenciosamente (erro de digitação,
+`unit_id` de documento diferente) — o teste de integração só os mantém iguais porque foi escrito
+para isso. O mesmo vale para `P13Comment.document_id`: não há fonte nem código dizendo se deve
+ser `InputItem.input_id` (P09 §6.1) ou `material_id_de_documento(...)` (P19 §10, namespace
+distinto por decisão de BL-003) — o teste escolheu `material_id` sem que isso seja regra.
+
+**Em 2026-08-09, confirmado pelo professor:** decisão de arquitetura, não correção — pelo mesmo
+motivo de BL-021: nenhuma fonte declara convenção de ID entre módulos, e um gerador/validador
+compartilhado fixaria uma convenção que a spec não dá. Não implementado nesta sessão.
+
+### BL-023 — `selection_decision` não é tipado; os oito resultados de seleção do P13 não existem em código — RESOLVIDO
+`p13.DECLARACAO.decisoes` enumera oito resultados de seleção da etapa 10 — `COMENTAR`,
+`NAO_COMENTAR_SEM_PROBLEMA_MATERIAL`, `NAO_COMENTAR_POR_REPETICAO`,
+`REMETER_A_COMENTARIO_MATRIZ`, `AGUARDAR_EVIDENCIA`, `AGUARDAR_GATE`, `ABSTER_SE`, `BLOQUEADO`
+[§10] — como string literal dentro de uma tupla de documentação. `MatrizSeletividade.selection_decision`
+(`escolio/comentarios/seletividade.py`) é `str` livre, sem `__post_init__` que confira
+pertencimento a esse conjunto. Confirmado por script avulso (não incorporado a
+`tests/integracao/`, só para checar a hipótese): `MatrizSeletividade(..., selection_decision="COMentar", ...)`
+constrói sem erro — qualquer string não vazia passa, inclusive grafia errada da própria fonte.
+Só `seletividade.SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL` está nomeado como
+constante; os outros sete resultados não têm constante nem enum.
+
+**Em 2026-08-09:** `SelectionDecision` (enum, `escolio/comentarios/seletividade.py`) fecha os
+oito valores do §10; `MatrizSeletividade.selection_decision` passou de `str` livre para exigir
+membro do enum, com `__post_init__` rejeitando string crua ou grafia errada. Alias antigo
+preservado. Testes novos em `tests/comentarios/test_seletividade.py`
+(`test_selection_decision_string_crua_rejeita` falha antes da correção, passa depois). Ver
+`escolio/comentarios/LACUNAS.md`.
+
+### BL-024 — `MatrizSeletividade.candidate_problem_id` não referencia `MatrizCriticidade` de fato — RESOLVIDO
+`aplicar_selecao`/`ordenar_por_criticidade` ordenam por `criticality` (campo copiado à mão do
+`MatrizCriticidade.classe` correspondente), mas nada verifica que `candidate_problem_id` aponta
+para um `problem_id` de uma `MatrizCriticidade` que de fato existe, nem que `criticality` bate
+com a classe que essa matriz declarou. Duas matrizes podem divergir (`classe` diferente do
+`criticality` copiado) sem erro — mesma classe de defeito de BL-022, objeto diferente.
+
+**Em 2026-08-09:** `exige_referencia_valida_a_criticidade` (`escolio/comentarios/seletividade.py`)
+confere as duas coisas — `candidate_problem_id` aponta para uma `MatrizCriticidade` existente, e
+`criticality` bate com a `classe` dessa matriz — e levanta `ErroDeComentario` quando não. Função
+avulsa, não amarrada a `aplicar_selecao`: quem tem as duas listas em mãos chama; não pressupõe o
+orquestrador de BL-021. Testes novos em `tests/comentarios/test_seletividade.py`. Ver
+`escolio/comentarios/LACUNAS.md`.
+
+### BL-025 — `p13.DECLARACAO.operacoes_autorizadas` vazio: verificação de operação sempre inconclusiva para F04 — RESOLVIDO PARCIALMENTE
+Confirmado ao rodar `roteador.rotear()` com `operation="CARTOGRAFIA_GLOBAL"`: como
+`escolio/funcoes/p13.py` não popula `operacoes_autorizadas` (default `frozenset()`),
+`verificar_operacao` retorna sempre `conclusiva=False` para qualquer valor de `operation` sob
+F04 — não só para os que "parecem" corretos. Já registrado como padrão geral em LAC-FUNC-005;
+este item confirma que, na prática, **nenhuma** string de operação é rejeitada para P13/F04 hoje,
+inclusive valores sem relação alguma com o contrato (ex.: `operation="HOMOLOGAR_TUDO"` passaria
+pelo roteador sem levantar, desde que não estivesse em `prohibited_operations` da própria
+requisição). Não é bug do roteador — é ausência de fonte, mas o efeito prático (nenhuma
+recusa por incompatibilidade de operação em P13) só ficou visível ao executar o percurso.
+
+**Em 2026-08-09:** a lacuna de fonte (LAC-FUNC-005) não fechou e não devia fechar — inventar
+vocabulário de operação por função violaria CLAUDE.md §11 e quebraria
+`tests/funcoes/test_modulos_de_funcao.py::test_nenhuma_funcao_declara_operacoes_autorizadas`, que
+trava exatamente essa disciplina. O que fechou foi o caso concreto do backlog:
+`roteador.exige_operacao_nao_homologa` bloqueia, para qualquer `function_id` e independente de
+`operacoes_autorizadas`, toda `operation` que peça homologação (`"HOMOLOGACAO"`, `"INT-14"`,
+qualquer valor começado por `"HOMOLOGAR"` — cobre `"HOMOLOGAR_TUDO"`). Fundamento não é contrato
+de função: é CLAUDE.md §1/§2 ("o sistema nunca homologa"), que nenhuma carta branca suspende.
+`rotear()` chama essa checagem incondicionalmente, antes de qualquer resolução de função. Uma
+`operation` inventada e alheia à homologação (`"LER_TUDO_DUAS_VEZES"`, por exemplo) continua
+inconclusiva, como antes — a lacuna de enumeração geral permanece aberta, só o caso de maior
+risco fechou. Testes novos em `tests/funcoes/test_roteador.py`. Ver `escolio/funcoes/LACUNAS.md`,
+LAC-FUNC-005.

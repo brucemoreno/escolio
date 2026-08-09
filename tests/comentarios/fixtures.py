@@ -1,6 +1,6 @@
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import ClasseCriticidade, EixoCriticidade, MatrizCriticidade
-from escolio.comentarios.seletividade import MatrizSeletividade
+from escolio.comentarios.seletividade import MatrizSeletividade, SelectionDecision
 from escolio.comentarios.vocabulario import P13CommentStatus
 
 
@@ -66,7 +66,7 @@ def matriz_seletividade_base(**overrides):
         evidence_sufficiency="Evidência suficiente.",
         human_decision_required="Não.",
         privacy_risk="Nenhum.",
-        selection_decision="Comentar.",
+        selection_decision=SelectionDecision.COMENTAR,
         selection_rationale="Ganho de orientação supera custo de poluição documental.",
     )
     campos.update(overrides)

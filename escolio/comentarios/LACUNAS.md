@@ -84,26 +84,40 @@ estrutura de dados e validação de forma, não julgamento automático.
 
 ### Tipagem adiada para sessões próprias
 
-Os dez fatores de `MatrizSeletividade` que não são `criticality`
+Nove dos dez fatores de `MatrizSeletividade` que não são `criticality`
 (`material_impact`, `novelty`, `recurrence`, `matrix_comment_coverage`,
 `actionability`, `evidence_sufficiency`, `human_decision_required`,
-`privacy_risk`, `selection_decision`, `selection_rationale`) permanecem
-`str`. §12 lista os nomes dos campos, sem declarar tipo (nem enum, nem
-booleano) para nenhum deles — inclusive `human_decision_required` e
-`privacy_risk`, cujo nome sugeriria booleano por analogia com
-`reversible` (sessão 1), mas analogia não é declaração da fonte. Tipar
-agora seria inferência. `selection_decision` recebe só a constante literal
-citada em §45/PS13-01
-(`SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL`); o restante do
-vocabulário de decisão de seleção não está enumerado em nenhuma fonte.
+`privacy_risk`, `selection_rationale`) permanecem `str`. §12 lista os
+nomes dos campos, sem declarar tipo (nem enum, nem booleano) para nenhum
+deles — inclusive `human_decision_required` e `privacy_risk`, cujo nome
+sugeriria booleano por analogia com `reversible` (sessão 1), mas analogia
+não é declaração da fonte. Tipar agora seria inferência.
+
+**`selection_decision` — RESOLVIDO em BL-023.** Diferente dos nove acima,
+o §10 enumera os oito resultados da etapa de seleção
+(`COMENTAR`, `NAO_COMENTAR_SEM_PROBLEMA_MATERIAL`,
+`NAO_COMENTAR_POR_REPETICAO`, `REMETER_A_COMENTARIO_MATRIZ`,
+`AGUARDAR_EVIDENCIA`, `AGUARDAR_GATE`, `ABSTER_SE`, `BLOQUEADO`) — a fonte
+existe, só não tinha virado enum. `SelectionDecision` (`seletividade.py`)
+fecha os oito valores; `MatrizSeletividade.selection_decision` exige
+membro do enum, não string livre. `SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL`
+permanece como alias do membro homônimo, por compatibilidade com
+`§45/PS13-01`.
 
 ### Fora de escopo desta sessão, não lacuna
 
-- Vínculo entre `MatrizCriticidade.problem_id` e
-  `MatrizSeletividade.candidate_problem_id` — nenhuma regra de integridade
-  referencial entre as duas matrizes é citada em §11/§12; um registro
-  cruzado (padrão `RegistroDeComentarios`) seria inferência sem fonte que
-  o exija nesta sessão.
 - Catálogo dos 15 `comment_type`, integração com `P13Comment.priority`/
   `severity` (que permanecem `str` em `comentario.py`), comentário-matriz e
   remissões — sessões 3 e 6 do plano.
+
+**Vínculo entre `MatrizCriticidade.problem_id` e
+`MatrizSeletividade.candidate_problem_id` — RESOLVIDO em BL-024.** A nota
+anterior aqui dizia que a ausência de checagem não era lacuna, por não
+haver regra de integridade referencial citada em §11/§12. O teste de
+integração de 2026-08-09 mostrou a consequência prática: nada impedia
+`criticality` de divergir da `classe` que a `MatrizCriticidade` referenciada
+de fato declarou. `exige_referencia_valida_a_criticidade` (`seletividade.py`)
+fecha isso — confere que `candidate_problem_id` aponta para uma
+`MatrizCriticidade` existente e que `criticality` bate com `classe` —, sem
+inventar regra de fonte: é checagem de consistência entre dois objetos que
+o próprio código já constrói, não uma nova exigência de conteúdo.

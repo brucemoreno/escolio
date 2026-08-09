@@ -23,6 +23,7 @@ from escolio.funcoes.roteador import (
     exige_funcao_conhecida,
     exige_funcao_pertence_ao_componente,
     exige_operacao_compativel,
+    exige_operacao_nao_homologa,
     rotear,
     verificar_material,
     verificar_operacao,
@@ -140,6 +141,46 @@ def test_verificacao_de_operacao_e_inconclusiva_em_todas_as_seis():
 
 def test_operacao_inconclusiva_nao_levanta():
     assert exige_operacao_compativel(FuncaoId.F04, "OPERACAO_INVENTADA") is None
+
+
+# --- bloqueio global anti-homologação (CLAUDE.md §1-§2; BL-025) ---
+
+
+def test_operacao_de_homologacao_por_nome_rejeita():
+    with pytest.raises(ErroDeRoteamento) as exc:
+        exige_operacao_nao_homologa("HOMOLOGACAO")
+    assert exc.value.regra_id == "CLAUDE.md-§1-§2"
+
+
+def test_operacao_de_homologacao_pelo_nivel_int14_rejeita():
+    with pytest.raises(ErroDeRoteamento):
+        exige_operacao_nao_homologa("INT-14")
+
+
+def test_operacao_homologar_tudo_rejeita():
+    # BL-025 — exemplo literal do backlog: string sem relação com o
+    # contrato de nenhuma função, que hoje passaria pelo roteador porque
+    # `operacoes_autorizadas` fica vazio nas seis [LAC-FUNC-005].
+    with pytest.raises(ErroDeRoteamento):
+        exige_operacao_nao_homologa("HOMOLOGAR_TUDO")
+
+
+def test_operacao_comum_nao_rejeita():
+    assert exige_operacao_nao_homologa("CARTOGRAFIA_GLOBAL") is None
+
+
+def test_rotear_rejeita_operacao_de_homologacao_mesmo_sem_prohibited_operations():
+    # O bloqueio é global: independe de operacoes_autorizadas (vazio para
+    # as seis funções) e de scope.prohibited_operations (declarado por
+    # requisição, não é invariante do sistema).
+    with pytest.raises(ErroDeRoteamento) as exc:
+        rotear(
+            requisicao_base(
+                operation="HOMOLOGAR_TUDO",
+                scope=Scope(allowed_operations=[], prohibited_operations=[]),
+            )
+        )
+    assert exc.value.regra_id == "CLAUDE.md-§1-§2"
 
 
 # --- correspondência de função request↔response (P09 §8.1) ---

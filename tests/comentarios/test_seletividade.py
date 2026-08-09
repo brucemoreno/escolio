@@ -4,10 +4,12 @@ from escolio.comentarios.criticidade import ClasseCriticidade
 from escolio.comentarios.erros import ErroDeComentario
 from escolio.comentarios.seletividade import (
     SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL,
+    SelectionDecision,
     aplicar_selecao,
+    exige_referencia_valida_a_criticidade,
     ordenar_por_criticidade,
 )
-from tests.comentarios.fixtures import matriz_seletividade_base
+from tests.comentarios.fixtures import matriz_criticidade_base, matriz_seletividade_base
 
 
 def test_seletividade_minima_valida():
@@ -41,6 +43,57 @@ def test_campo_obrigatorio_vazio_rejeita(campo):
 def test_criticality_fora_do_enum_rejeita():
     with pytest.raises(ErroDeComentario):
         matriz_seletividade_base(criticality="CRITICIDADE_MEDIA")  # string crua
+
+
+# --- BL-023: selection_decision tipado, oito resultados do §10 ---
+
+
+def test_selection_decision_aceita_os_oito_valores_do_10():
+    for valor in SelectionDecision:
+        s = matriz_seletividade_base(selection_decision=valor)
+        assert s.selection_decision is valor
+
+
+def test_selection_decision_string_crua_rejeita():
+    # Confirma BL-023: antes da correção, qualquer string não vazia
+    # passava, inclusive grafia errada ("COMentar").
+    with pytest.raises(ErroDeComentario):
+        matriz_seletividade_base(selection_decision="COMentar")
+
+
+def test_selection_decision_fora_do_enum_rejeita():
+    with pytest.raises(ErroDeComentario):
+        matriz_seletividade_base(selection_decision="COMENTAR")  # string crua, não o enum
+
+
+# --- BL-024: candidate_problem_id deve referenciar MatrizCriticidade real ---
+
+
+def test_referencia_a_criticidade_inexistente_rejeita():
+    candidato = matriz_seletividade_base(candidate_problem_id="PROB-FANTASMA")
+    with pytest.raises(ErroDeComentario):
+        exige_referencia_valida_a_criticidade([candidato], [matriz_criticidade_base()])
+
+
+def test_criticality_divergente_da_matriz_referenciada_rejeita():
+    matriz = matriz_criticidade_base(
+        problem_id="PROB-0001", classe=ClasseCriticidade.CRITICIDADE_CRITICA
+    )
+    candidato = matriz_seletividade_base(
+        candidate_problem_id="PROB-0001", criticality=ClasseCriticidade.CRITICIDADE_BAIXA
+    )
+    with pytest.raises(ErroDeComentario):
+        exige_referencia_valida_a_criticidade([candidato], [matriz])
+
+
+def test_referencia_valida_e_criticidade_coerente_nao_rejeita():
+    matriz = matriz_criticidade_base(
+        problem_id="PROB-0001", classe=ClasseCriticidade.CRITICIDADE_MEDIA
+    )
+    candidato = matriz_seletividade_base(
+        candidate_problem_id="PROB-0001", criticality=ClasseCriticidade.CRITICIDADE_MEDIA
+    )
+    assert exige_referencia_valida_a_criticidade([candidato], [matriz]) is None
 
 
 class TestPS13_01_AusenciaLegitima:

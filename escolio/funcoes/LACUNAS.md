@@ -118,6 +118,28 @@ disciplina de `escolio/LACUNAS.md`, `escolio/bvaa/LACUNAS.md` e `escolio/contrat
   alhures: P09 §4.2.8 incide sobre `request.scope.allowed_operations` e é validada em
   `escolio/contrato/requisicao.py`.
 
+  **BL-025 — a lacuna permanece; o que fechou foi o caso extremo.** O teste de integração de
+  2026-08-09 confirmou que, na prática, *nenhuma* string de `operation` é hoje rejeitada por
+  incompatibilidade com F04/P13 — inclusive `HOMOLOGAR_TUDO`. Continua correto não popular
+  `operacoes_autorizadas` por inferência: essa lacuna não fecha sem fonte. O que fechou foi
+  diferente: `roteador.exige_operacao_nao_homologa` bloqueia, **fora** do mecanismo de
+  `operacoes_autorizadas` e para qualquer função, qualquer `operation` que peça homologação —
+  fundamentado não em contrato de função, mas no invariante do próprio CLAUDE.md §1/§2 ("o
+  sistema nunca homologa") e em `NivelIntervencao.HOMOLOGACAO` [P06 §2]. Isso não substitui a
+  enumeração ausente: uma `operation` inventada e inofensiva (`"LER_TUDO_DUAS_VEZES"`, por
+  exemplo) continua inconclusiva, exatamente como antes.
+
+  **Lacuna residual em `exige_operacao_nao_homologa`: normaliza caixa e espaço, não acento.**
+  `valor = operation.strip().upper()` faz `"HOMOLOGAR_TUDO"` e `"  homologacao "` baterem, mas
+  `"HOMOLOGAÇÃO"` não bate com `"HOMOLOGACAO"` nem com o prefixo `"HOMOLOGAR"` — `.upper()` não
+  remove diacrítico. Hoje não é brecha real: o vocabulário canônico da spec é sem acento
+  (`NivelIntervencao.HOMOLOGACAO.value == "INT-14"`, e os nomes de nível em P06 são todos
+  ASCII), e nada no código produz `operation` a partir de texto livre. Vira brecha se `operation`
+  passar a ser derivada de entrada não controlada (ex.: texto digitado por um solicitante, ou
+  extraído de um documento) sem normalização prévia de acento — nesse caso, adicionar
+  normalização (`unicodedata.normalize("NFKD", ...)` ou equivalente) deixa de ser polimento e
+  passa a ser a mesma classe de correção que fechou BL-025, não extensão de escopo nova.
+
 ## Gates
 
 - **LAC-FUNC-007 — nenhum dos 91 gates nomeados nos cinco contratos tem posição declarada.**

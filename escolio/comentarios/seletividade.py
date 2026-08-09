@@ -15,15 +15,33 @@ deterministicamente, a ordenação por criticidade e a rejeição de quota
 """
 
 from dataclasses import dataclass
+from enum import Enum
 
-from escolio.comentarios.criticidade import ClasseCriticidade
+from escolio.comentarios.criticidade import ClasseCriticidade, MatrizCriticidade
 from escolio.comentarios.erros import ErroDeComentario
 
 ARQUIVO_FONTE = "P13_CONTRATO_FUNCIONAL_COMENTARIOS_WORD_HOMOLOGADO_R01.md"
 
+
+class SelectionDecision(str, Enum):
+    """Os oito resultados da etapa 10 — seleção de unidades comentáveis
+    [§10]. Internos ao P13, não substituem status P09 [§10]."""
+
+    COMENTAR = "COMENTAR"
+    NAO_COMENTAR_SEM_PROBLEMA_MATERIAL = "NAO_COMENTAR_SEM_PROBLEMA_MATERIAL"
+    NAO_COMENTAR_POR_REPETICAO = "NAO_COMENTAR_POR_REPETICAO"
+    REMETER_A_COMENTARIO_MATRIZ = "REMETER_A_COMENTARIO_MATRIZ"
+    AGUARDAR_EVIDENCIA = "AGUARDAR_EVIDENCIA"
+    AGUARDAR_GATE = "AGUARDAR_GATE"
+    ABSTER_SE = "ABSTER_SE"
+    BLOQUEADO = "BLOQUEADO"
+
+
 # §45, PS13-01 — literal da coluna "Decisão" do cenário de ausência
 # legítima de comentário.
-SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL = "NAO_COMENTAR_SEM_PROBLEMA_MATERIAL"
+SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL = (
+    SelectionDecision.NAO_COMENTAR_SEM_PROBLEMA_MATERIAL
+)
 
 _CAMPOS_STR_OBRIGATORIOS = (
     "selection_id",
@@ -37,7 +55,6 @@ _CAMPOS_STR_OBRIGATORIOS = (
     "evidence_sufficiency",
     "human_decision_required",
     "privacy_risk",
-    "selection_decision",
     "selection_rationale",
 )
 
@@ -58,7 +75,7 @@ class MatrizSeletividade:
     evidence_sufficiency: str
     human_decision_required: str
     privacy_risk: str
-    selection_decision: str
+    selection_decision: SelectionDecision
     selection_rationale: str
 
     def __post_init__(self) -> None:
@@ -74,6 +91,13 @@ class MatrizSeletividade:
                 "12",
                 "criticality deve ser um membro de ClasseCriticidade",
                 detalhe=repr(self.criticality),
+            )
+        if not isinstance(self.selection_decision, SelectionDecision):
+            raise ErroDeComentario(
+                "10",
+                "selection_decision deve ser um membro de SelectionDecision — oito "
+                "resultados da etapa 10 [§10], não string livre",
+                detalhe=repr(self.selection_decision),
             )
 
 
@@ -93,6 +117,34 @@ def ordenar_por_criticidade(candidatos: list[MatrizSeletividade]) -> list[Matriz
     de entrada entre si, mas a ordem de entrada nunca decide entre classes
     diferentes."""
     return sorted(candidatos, key=lambda c: _ORDEM_CRITICIDADE[c.criticality])
+
+
+def exige_referencia_valida_a_criticidade(
+    candidatos: list[MatrizSeletividade],
+    matrizes_criticidade: list[MatrizCriticidade],
+) -> None:
+    """BL-024: `candidate_problem_id` deve apontar para uma `MatrizCriticidade`
+    de fato existente [§11, §12], e `criticality` deve bater com a `classe`
+    que essa matriz declarou. Sem isto, duas matrizes podiam divergir
+    (`classe` diferente do `criticality` copiado à mão) sem erro."""
+    por_problem_id = {m.problem_id: m for m in matrizes_criticidade}
+    for c in candidatos:
+        matriz = por_problem_id.get(c.candidate_problem_id)
+        if matriz is None:
+            raise ErroDeComentario(
+                "11-12",
+                "candidate_problem_id não referencia nenhuma MatrizCriticidade existente",
+                detalhe=f"selection_id={c.selection_id!r} candidate_problem_id={c.candidate_problem_id!r}",
+            )
+        if c.criticality != matriz.classe:
+            raise ErroDeComentario(
+                "11-12",
+                "criticality diverge da classe declarada pela MatrizCriticidade referenciada",
+                detalhe=(
+                    f"selection_id={c.selection_id!r} criticality={c.criticality!r} "
+                    f"!= MatrizCriticidade[{matriz.problem_id!r}].classe={matriz.classe!r}"
+                ),
+            )
 
 
 def aplicar_selecao(

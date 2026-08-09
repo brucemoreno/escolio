@@ -32,6 +32,7 @@ from escolio.funcoes.catalogo import COMPONENTE_POR_FUNCAO, declaracao_de, funca
 from escolio.funcoes.declaracao import DeclaracaoDeFuncao
 from escolio.funcoes.erros import ErroDeRoteamento
 from escolio.funcoes.vocabulario import FuncaoId
+from escolio.intervencao.niveis import NivelIntervencao
 
 
 class AdmissaoDeMaterial(str, Enum):
@@ -158,6 +159,37 @@ def exige_operacao_compativel(funcao_id: FuncaoId, operation: str) -> None:
         )
 
 
+# CLAUDE.md §1-§2: "O sistema nunca homologa — homologação é exclusiva do
+# USUARIO_PROPONENTE." Diferente de `operacoes_autorizadas` [LAC-FUNC-005],
+# que fica vazio nas seis funções porque nenhum contrato enumera operação
+# por função, esta não é uma regra de função: é invariante do projeto,
+# válida para qualquer function_id, e por isso não pode virar mais uma
+# entrada inventada em `operacoes_autorizadas` — nasce fora do catálogo de
+# função, ao lado dele. Cobre o identificador canônico do nível [P06 §2,
+# NivelIntervencao.HOMOLOGACAO] e a forma verbal com que uma `operation`
+# livre poderia pedi-lo (ex.: BL-025, "HOMOLOGAR_TUDO").
+OPERACOES_QUE_HOMOLOGAM = frozenset({"HOMOLOGACAO", NivelIntervencao.HOMOLOGACAO.value})
+_PREFIXO_OPERACAO_DE_HOMOLOGACAO = "HOMOLOGAR"
+
+
+def exige_operacao_nao_homologa(operation: str) -> None:
+    """Bloqueio global, independente de função e de `operacoes_autorizadas`.
+
+    Ao contrário de `exige_operacao_compativel`, que só recusa quando a
+    fonte da função declara operações e a pedida não está entre elas, esta
+    verificação nunca é inconclusiva: a regra que ela aplica não vem de um
+    contrato de função, vem do documento de governança do projeto
+    [CLAUDE.md §1, §2], que nenhuma carta branca [P22 §24] suspende."""
+    valor = operation.strip().upper()
+    if valor in OPERACOES_QUE_HOMOLOGAM or valor.startswith(_PREFIXO_OPERACAO_DE_HOMOLOGACAO):
+        raise ErroDeRoteamento(
+            "CLAUDE.md-§1-§2",
+            "o sistema nunca homologa — homologação é exclusiva do USUARIO_PROPONENTE",
+            arquivo_origem="CLAUDE.md",
+            detalhe=f"operation={operation!r}",
+        )
+
+
 def exige_correspondencia_de_funcao(request, response) -> None:
     """P09 §8.1: "`response.function_id` deve corresponder à função da
     requisição".
@@ -264,6 +296,7 @@ def rotear(request) -> DecisaoDeRoteamento:
     universal para etapas posteriores" [P10 §29.4]; "Gate documental
     satisfeito não autoriza automaticamente intervenção substantiva"
     [P11 §28.3]. Passar por aqui é condição necessária, nunca suficiente."""
+    exige_operacao_nao_homologa(request.operation)
     funcao = exige_funcao_conhecida(request.function_id)
     exige_funcao_pertence_ao_componente(funcao, request.component_id)
     exige_operacao_compativel(funcao, request.operation)
