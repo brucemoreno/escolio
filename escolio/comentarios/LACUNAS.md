@@ -171,3 +171,60 @@ fecha isso — confere que `candidate_problem_id` aponta para uma
 `MatrizCriticidade` existente e que `criticality` bate com `classe` —, sem
 inventar regra de fonte: é checagem de consistência entre dois objetos que
 o próprio código já constrói, não uma nova exigência de conteúdo.
+
+## Sessão 4 — integração P04 (BVAA)/P05 no comentário [§19, §20, §26, §27]
+
+`escolio/comentarios/aplicacao_p04_p05.py` implementa o adaptador que lê o
+estado do BVAA (`EstadoBibliografico`) e da relação P05
+(`RelacaoAfirmacaoEvidencia`) e popula `source_status` [§19, §31.5] no
+`P13Comment`, mais `claim_id`/`evidence_ids` no schema mínimo próprio de
+§27 (`AplicacaoP05DoComentario`). `P13Comment` não foi alterado —
+`source_status` continua `str`; o módulo valida antes de gravar.
+
+### CON-P05-001 — permanece aberto, não resolvido aqui
+
+- **`SourceStatusComentario` é um quarto vocabulário, não fundido aos
+  outros três.** Os 9 estados literais de §19 ("fonte identificada" …
+  "sustentação não liberada") não são `EstadoBibliografico` (P04, 17
+  estados), não são `AccessState`/`ReadingState`/`ValidationState` (P05) e
+  não são os 9 estados mínimos de R03 CAMADA D — mesma disciplina de
+  `escolio/bvaa/correspondencia.py` (LAC-BVAA-001).
+- **Nenhuma função deriva `SourceStatusComentario` a partir de
+  `EstadoBibliografico`.** Nenhuma fonte declara essa correspondência
+  (diferente da tabela de `escolio/bvaa/correspondencia.py`, que cobre P04
+  × R03 × P05 mas nunca cita os rótulos de §19). Construir essa derivação
+  seria inventar uma quinta linha de correspondência não pedida nesta
+  sessão. Em vez disso, `valida_source_status_compativel_com_bvaa` inverte
+  o problema: recebe os dois valores já decididos por quem comenta e
+  **rejeita** quando o `SourceStatusComentario` afirma mais do que o
+  `EstadoBibliografico` atual sustenta [§26]. Nunca escolhe nem corrige o
+  valor.
+- **O requisito mínimo por status (`_REQUISITO_MINIMO`) é decisão de
+  implementação, não citação literal.** A fonte não numera qual estado
+  BVAA cada um dos 9 rótulos de §19 exige — só declara, em prosa, que
+  "sem acesso verificável" bloqueia leitura/passagem/página/sustentação
+  específica [§26] e que "conferido" não pode ser declarado com a fonte
+  "apenas localizada" [§19]. O mapeamento de cada rótulo ao nó mínimo da
+  máquina BVAA (`ACESSADA` para leitura/passagem/abertura, `PAGINA_CONFIRMADA`
+  para página, `VALIDADA` para sustentação específica) é a leitura mais
+  literal possível dessas duas frases, verificada com os cenários PS13-05
+  e PS13-06 [§45]; não é uma "sexta linha" da tabela de correspondência
+  porque não afirma equivalência de estado, só ordem mínima exigida.
+
+### Fora de escopo desta sessão, não lacuna
+
+- **"não confirma imagem" [§26]** — nenhum campo de `P13Comment` [§31.5]
+  ou do schema de §19 representa "imagem"; a regra não tem onde ser
+  verificada em código nesta sessão. Não implementada.
+- **Agregação de múltiplas `RelacaoAfirmacaoEvidencia` para a mesma
+  `claim_id`** — `construir_aplicacao_p05` aceita no máximo uma relação por
+  chamada; isto é `LAC-P05-003` (`escolio/LACUNAS.md`), lacuna já aberta,
+  não resolvida aqui.
+- **Tipo de `verification_status` [§27]** — a fonte não declara enum para
+  este campo. Reusa `ValidationState` (P05) apoiado na frase literal de
+  §4.3 ("O P13: indica estado de verificação"), não em correspondência de
+  nome de campo — documentado como decisão, não como lacuna, porque há uma
+  frase da fonte que a sustenta.
+- Integrações P06/P07 (`intervention_level`, `authority_required`, `gate`,
+  `voice_impact`) e P08 (`privacy_classification`) — sessões 5 e adiada do
+  plano; não tocadas aqui.
