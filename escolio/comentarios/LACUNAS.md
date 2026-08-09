@@ -61,3 +61,49 @@ plano, e tipar agora seria antecipar decisão de sessão futura:
 - `P13CommentReferral`, `criticality_matrix`, `selectivity_matrix`,
   catálogo de 15 `comment_type`, integrações P04/P06/P07/P08, envelope
   `P13RequestExtension`/`P13ResultExtension` — sessões 2 a 10 do plano.
+
+## Sessão 2 — matriz de criticidade e matriz de seletividade
+
+`escolio/comentarios/criticidade.py` (`MatrizCriticidade`, `EixoCriticidade`,
+`ClasseCriticidade`) e `escolio/comentarios/seletividade.py`
+(`MatrizSeletividade`, `ordenar_por_criticidade`, `aplicar_selecao`)
+implementam §11 e §12. Sem chamada a LLM nesta sessão — a classificação é
+estrutura de dados e validação de forma, não julgamento automático.
+
+### Não é lacuna — decisão de design exigida pela fonte
+
+- **Não existe função que derive `MatrizCriticidade.classe` a partir de
+  `avaliacao_por_eixo`.** "A matriz não pode ser reduzida a contagem
+  mecânica" [§11] proíbe exatamente esse tipo de função; `classe` é sempre
+  campo declarado por quem avalia. Isto não é lacuna — é a leitura literal
+  da proibição.
+- **`aplicar_selecao` não aceita `quota_percentual`/`quota_quantidade`
+  como critério de seleção** — só os aceita para rejeitá-los
+  [§34.3-34.4]. Não existe caminho de código que aplique um percentual ou
+  quantidade fixa; isso é o requisito de TA13-16, não uma omissão.
+
+### Tipagem adiada para sessões próprias
+
+Os dez fatores de `MatrizSeletividade` que não são `criticality`
+(`material_impact`, `novelty`, `recurrence`, `matrix_comment_coverage`,
+`actionability`, `evidence_sufficiency`, `human_decision_required`,
+`privacy_risk`, `selection_decision`, `selection_rationale`) permanecem
+`str`. §12 lista os nomes dos campos, sem declarar tipo (nem enum, nem
+booleano) para nenhum deles — inclusive `human_decision_required` e
+`privacy_risk`, cujo nome sugeriria booleano por analogia com
+`reversible` (sessão 1), mas analogia não é declaração da fonte. Tipar
+agora seria inferência. `selection_decision` recebe só a constante literal
+citada em §45/PS13-01
+(`SELECTION_DECISION_NAO_COMENTAR_SEM_PROBLEMA_MATERIAL`); o restante do
+vocabulário de decisão de seleção não está enumerado em nenhuma fonte.
+
+### Fora de escopo desta sessão, não lacuna
+
+- Vínculo entre `MatrizCriticidade.problem_id` e
+  `MatrizSeletividade.candidate_problem_id` — nenhuma regra de integridade
+  referencial entre as duas matrizes é citada em §11/§12; um registro
+  cruzado (padrão `RegistroDeComentarios`) seria inferência sem fonte que
+  o exija nesta sessão.
+- Catálogo dos 15 `comment_type`, integração com `P13Comment.priority`/
+  `severity` (que permanecem `str` em `comentario.py`), comentário-matriz e
+  remissões — sessões 3 e 6 do plano.
