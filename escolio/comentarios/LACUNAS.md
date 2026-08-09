@@ -522,3 +522,92 @@ por este item, apenas observada aqui como coerente com a leitura.
   comentário.
 - Extensão do envelope P09 com `P13ResultExtension` carregando o
   `RelatorioAuditoriaFinal` — sessão 8 do plano.
+
+## Sessão 8 — extensão do envelope P09 [§31.1-31.4, §31.6, §29]
+
+`escolio/comentarios/aplicacao_p09.py` implementa `P13RequestExtension`
+(§31.3), `P13ResultExtension` (§31.4), o exemplo canônico de §29
+(`constroi_abstencao_perfil_de_voz_insuficiente`) e três builders de
+`Response` P13-específicos para as três formas de payload de §31.6
+(`resposta_p13_abstained`, `resposta_p13_blocked`, `resposta_p13_error`).
+Nenhum arquivo existente foi alterado. Testes:
+`tests/comentarios/test_aplicacao_p09.py`.
+
+### §31.6 não gerou regra nova — só reafirma o que a peça 1 já impõe
+
+As três formas de payload de §31.6 (ABSTAINED, BLOCKED, "somente ERROR pode
+utilizar safe_result") são exatamente o que `Response.__post_init__`
+(`escolio/contrato/resposta.py`, peça 1) já impõe para qualquer
+`function_id` — nenhuma delas é uma regra nova do P13. Os três builders só
+fixam `function_id="P13"` e a forma de `safe_result` que cada status exige;
+nenhuma validação de `Response`/`SafeResult` é duplicada. Mesma leitura já
+registrada por `verifica_consistencia_envelope_p09` (sessão 7,
+`auditoria.py`, item 16).
+
+### `cause_code` — campo citado em §29/§30, ausente do schema de `AbstentionPayload`
+
+`AbstentionPayload` (P09 §15, `escolio/contrato/payloads.py`) não tem campo
+`cause_code`. O campo não é do envelope P09 — só aparece nos exemplos de
+§29 e §30 dos contratos de função. Sem campo dedicado, e sem nenhuma outra
+seção do P09 ou do P13 que diga onde colocá-lo, `constroi_abstencao_
+perfil_de_voz_insuficiente` registra o valor literalmente dentro de
+`reason` — o único campo de texto livre obrigatório do payload — em vez de
+acrescentar um campo a `AbstentionPayload` (alteraria código existente,
+fora do escopo desta sessão, e a instrução da sessão foi "não altere
+código existente; se a integração exigir mudança, registre em
+`docs/backlog.md` e pare"). Registrado também em `docs/backlog.md` como
+BL-026.
+
+O exemplo de §30 (`cause_code=P13_CAUSE_PRIVACY_PROCESSING_CONDITION_ABSENT`,
+`category=PRIVACY_RISK`) **não foi construído aqui** — pertence à sessão de
+privacidade (P08), que permanece adiada [`docs/spec/plano-P13.md`, "Sessão
+adiada"]. Quando essa sessão rodar, a mesma convenção (`cause_code` dentro
+de `reason`) deve ser reaplicada, não reinventada.
+
+### `P13CommentReferral` e `UnitDecision` — tipos citados uma única vez, sem schema em nenhuma seção
+
+`matrix_referrals: [P13CommentReferral]` e `units_without_comment:
+[UnitDecision]` (§31.4) citam dois tipos que não aparecem em nenhuma outra
+linha do arquivo-fonte — confirmado por busca textual no documento
+completo. Diferente de `ResultItem` (P09 §8), cuja abertura tem licença
+explícita da própria fonte (P09 §25: "linguagem concreta de schema é
+lacuna legítima, pertencente à implementação posterior"), aqui não há
+frase equivalente autorizando a abertura — mas também não há nenhuma outra
+frase que declare os campos de nenhum dos dois tipos.
+
+Candidata rejeitada por analogia de nome: `TemplateRemissao` (§23, sessão
+6, `matriz.py`) parece semanticamente próxima de "`P13CommentReferral`" —
+mas nenhuma frase da fonte declara essa correspondência, e associar por
+semelhança de nome é exatamente a inferência que a sessão 3 já recusou
+para `CommentType`/template (ver "Não é lacuna — leitura literal do
+catálogo", sessão 3). Os dois campos permanecem `list[object]` em
+`P13ResultExtension` — mesmo tratamento dado aos `[any]` genuinamente
+abertos do mesmo parágrafo (`source_pending_items`,
+`evidence_pending_items`, `voice_warnings`, `p13_traceability`,
+`limitations`).
+
+### Assimetria entre `Result.content` (aberto) e `Request` (sem campo aberto) — observada, não corrigida
+
+`Response.result.content` (`escolio/contrato/resposta.py`) já é `object |
+None` — `P13ResultExtension` encaixa ali sem exigir qualquer alteração de
+`Response` (`test_result_com_p13_result_extension` demonstra isso).
+`Request` (`escolio/contrato/requisicao.py`) não tem campo equivalente:
+nenhum de seus campos aceita um objeto aberto para carregar uma extensão
+específica de função — `ContextItem` (§7) é desenhado para *apontar* para
+conteúdo externo via `content_reference: str`, não para embutir um objeto.
+Por isso `P13RequestExtension` é construído e validado como objeto
+independente, sem um ponto de anexação testado ao lado de `Request` — a
+ausência de simetria é observação desta sessão, não uma alteração proposta
+a `requisicao.py` (alterar o schema da peça 1 está fora do escopo; ver
+BL-026 em `docs/backlog.md`).
+
+### Herança de BL-011/BL-013 — não corrigida aqui, por instrução da sessão
+
+`resposta_p13_abstained`/`resposta_p13_blocked`/`resposta_p13_error` fixam
+`function_id="P13"`, mas não implementam a correspondência de `function_id`
+entre requisição e resposta que falta em
+`exige_correspondencia_request_response` (BL-011), nem anexam
+`InterventionRecord` a `Response` (BL-013, `Response.interventions`
+continua omitido). O P13 herda as duas pendências tal como estão —
+corrigi-las alteraria `escolio/contrato/resposta.py`, fora do escopo desta
+sessão por instrução explícita.

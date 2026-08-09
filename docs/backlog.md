@@ -386,6 +386,35 @@ pelo roteador sem levantar, desde que não estivesse em `prohibited_operations` 
 requisição). Não é bug do roteador — é ausência de fonte, mas o efeito prático (nenhuma
 recusa por incompatibilidade de operação em P13) só ficou visível ao executar o percurso.
 
+## Aberto em 2026-08-09, na sessão 8 do plano P13 (extensão do envelope P09)
+
+Nenhum arquivo existente foi alterado nesta sessão (`escolio/contrato/`, `escolio/comentarios/`
+das sessões 1-7). `escolio/comentarios/aplicacao_p09.py` implementa `P13RequestExtension`,
+`P13ResultExtension` e os builders de payload de §31.6. Os dois itens abaixo são exatamente as
+integrações que exigiriam alterar código existente da peça 1 — por instrução da sessão, registrados
+aqui e não executados.
+
+### BL-026 — `cause_code` (§29/§30) sem campo em `AbstentionPayload`; `Request` sem campo aberto para extensão de função
+Dois achados da mesma sessão, de natureza distinta, registrados juntos por terem a mesma causa
+raiz (campo que o contrato de função cita e o envelope P09 não provê):
+
+- `AbstentionPayload` (P09 §15, `escolio/contrato/payloads.py`) não tem campo `cause_code`. O P13
+  §29 (`P13_CAUSE_VOICE_PROFILE_INSUFFICIENT`) e §30 (`P13_CAUSE_PRIVACY_PROCESSING_CONDITION_ABSENT`)
+  citam esse campo em exemplo, mas nenhuma seção do P09 o declara. `constroi_abstencao_perfil_de_
+  voz_insuficiente` (sessão 8) registra o valor dentro de `reason`, por não haver campo dedicado nem
+  instrução para acrescentar um a `AbstentionPayload`. Se outras funções (P10-P14) citarem
+  `cause_code` do mesmo jeito, decidir então se `AbstentionPayload` ganha o campo — mudança na peça
+  1, que esta sessão não estava autorizada a fazer.
+- `Response.result.content` é `object | None` — `P13ResultExtension` encaixa ali sem alterar
+  `Response`. `Request` (`escolio/contrato/requisicao.py`) não tem campo equivalente: nenhum de
+  seus campos aceita um objeto aberto para uma extensão específica de função. `P13RequestExtension`
+  (sessão 8) existe como objeto independente, sem ponto de anexação a `Request`. Decidir, quando o
+  roteador de função (peça 6) precisar de fato transportar extensões de entrada: acrescentar campo a
+  `Request`, ou usar `ContextItem` como indireção (aponta para a extensão por `content_reference`,
+  não a embute) — nenhuma das duas foi escolhida aqui.
+
+Ver `escolio/comentarios/LACUNAS.md`, "Sessão 8", para o detalhamento de cada achado.
+
 **Em 2026-08-09:** a lacuna de fonte (LAC-FUNC-005) não fechou e não devia fechar — inventar
 vocabulário de operação por função violaria CLAUDE.md §11 e quebraria
 `tests/funcoes/test_modulos_de_funcao.py::test_nenhuma_funcao_declara_operacoes_autorizadas`, que
