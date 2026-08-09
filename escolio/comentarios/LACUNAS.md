@@ -110,6 +110,56 @@ permanece como alias do membro homônimo, por compatibilidade com
   `severity` (que permanecem `str` em `comentario.py`), comentário-matriz e
   remissões — sessões 3 e 6 do plano.
 
+## Sessão 3 — catálogo dos 15 tipos de comentário e templates estruturais
+
+`escolio/comentarios/tipos.py` implementa `CommentType` (os 15 valores de
+§13) e os quatro templates estruturais que a fonte declara dentro de
+§15-18: `TemplateComentarioLinguistico` (§15), `TemplateAlertaEstrutural`
+(§16), `TemplateAlertaArgumentativo` (§17), `TemplateAlertaMetodologico`
+(§18). Sem chamada a LLM — mesma disciplina da sessão 2: validação de
+forma, não julgamento automático de qual tipo/template usar para um
+diagnóstico concreto.
+
+### Não é lacuna — leitura literal do catálogo
+
+- **Nenhum `CommentType` corresponde a "comentário linguístico".** §13
+  enumera 15 tipos; nenhum se chama `ALERTA_LINGUISTICO` ou
+  `COMENTARIO_LINGUISTICO`, e nenhuma seção da fonte declara qual dos 15
+  tipos deve ser usado para veicular o template de §15.
+  `TemplateComentarioLinguistico` por isso não está em `_TEMPLATE_POR_TIPO`
+  e não é alcançável por `valida_template_por_tipo` — só existe como função
+  de validação avulsa. Associar por analogia a `DIAGNOSTICO` ou
+  `CORRECAO_LOCAL` seria inferência, mesmo padrão recusado para
+  `intervention_level`/`priority` na sessão 1.
+- **§18 (comentário metodológico) não declara lista de campos** como
+  §16/§17 fazem ("deve indicar"/"deve distinguir"). Só enumera oito
+  condições de aplicabilidade e uma disjunção fechada de ação ("decisão
+  necessária" ou "solicitar explicitação"). `TemplateAlertaMetodologico`
+  tipa exatamente isso (`CondicaoMetodologica`, `AcaoMetodologica`) e não
+  inventa campos livres (`problem`, `recommended_action`) que a fonte não
+  nomeia para esta seção especificamente.
+- **`solucao_factual_inventada` em `TemplateAlertaArgumentativo`** cita o
+  invariante 21 (§3, "comentário não pode inventar solução factual"), não
+  uma frase literal de §17 — §17 não repete essa proibição, mas o
+  invariante geral se aplica a qualquer comentário e o critério de falha
+  de TA13-08 ("solução factual inventada") o torna verificável aqui.
+
+### Fora de escopo desta sessão, não lacuna
+
+- `ALERTA_DE_EVIDENCIA` [§20] e `ALERTA_BIBLIOGRAFICO` [§19] — templates
+  próprios fora de §15-18; sessão 4 do plano (testes TA13-10, TA13-11).
+- `ALERTA_DE_VOZ` [§21] — sessão 5.
+- `ALERTA_DE_PRIVACIDADE` [§22] — sessão adiada (integração P08).
+- `COMENTARIO_MATRIZ` / `REMISSAO_A_COMENTARIO_MATRIZ` — template próprio
+  em §23; sessão 6.
+- `DIAGNOSTICO`, `CORRECAO_LOCAL`, `SUGESTAO`, `PERGUNTA_ORIENTADORA`,
+  `GATE_HUMANO`, `DECISAO_PENDENTE` — catalogados em `CommentType`, sem
+  template estrutural declarado em nenhuma seção da fonte; nenhuma sessão
+  do plano os atribui a uma seção específica.
+- Retipar `P13Comment.comment_type` (sessão 1, `comentario.py`) de `str`
+  para `CommentType` — não pedido nesta sessão e alteraria código
+  existente; ver `docs/backlog.md` se uma sessão futura exigir.
+
 **Vínculo entre `MatrizCriticidade.problem_id` e
 `MatrizSeletividade.candidate_problem_id` — RESOLVIDO em BL-024.** A nota
 anterior aqui dizia que a ausência de checagem não era lacuna, por não
