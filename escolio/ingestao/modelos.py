@@ -21,7 +21,17 @@ descartada por fragmentar uma unidade lógica sem necessidade.
 Unidades que por natureza não atravessam página no fluxo deste parser
 (Secao, ItemDeReferencia, Figura, CitacaoNoCorpo, que aponta para dentro
 de um Paragrafo já resolvido) mantêm um único campo `pagina`.
-"""
+
+Campos de página são `int | None`, sem valor default (quem constrói
+continua obrigado a decidir e passar algo, só que agora `None` é uma
+resposta válida). Motivo: `.docx` não grava página real no arquivo — a
+paginação só existe quando o Word renderiza para impressão, e muda a cada
+edição do documento. Forçar um inteiro ali seria fabricar um número não
+medido [CLAUDE.md §11]. O parser de PDF (`parser.py`) não muda de
+comportamento — continua sempre passando inteiros reais. O parser de
+`.docx` (`parser_docx.py`) passa `None` e localiza por
+`Paragrafo.paragrafo_ordinal` + `secao_id` em vez de página — ver
+escolio/ingestao/LACUNAS.md."""
 
 from dataclasses import dataclass, field
 
@@ -42,7 +52,7 @@ class Secao:
 
     unit_id: str
     titulo: str
-    pagina: int
+    pagina: int | None
     nivel: NivelHierarquia | None
     secao_pai_id: str | None = None
     indeterminado: bool = False
@@ -61,11 +71,15 @@ class Paragrafo:
 
     unit_id: str
     texto: str
-    pagina_inicio: int
-    pagina_fim: int
+    pagina_inicio: int | None
+    pagina_fim: int | None
     secao_id: str | None
     notas_de_rodape_ids: list[str] = field(default_factory=list)
     citacoes_no_corpo_ids: list[str] = field(default_factory=list)
+    paragrafo_ordinal: int | None = None
+    """Posição sequencial do parágrafo na ordem de leitura do documento,
+    base 0. Localizador de origem `.docx` (sem página real) — `None` para
+    parágrafos de origem PDF, que já têm `pagina_inicio`/`pagina_fim`."""
 
 
 @dataclass
@@ -84,7 +98,7 @@ class NotaDeRodape:
     unit_id: str
     numero: str
     texto: str
-    pagina_chamada: int
+    pagina_chamada: int | None
     unit_id_chamador: str | None
     posicao_na_chamada: int | None
     indeterminado: bool = False
@@ -102,8 +116,8 @@ class CitacaoRecuada:
 
     unit_id: str
     texto: str
-    pagina_inicio: int
-    pagina_fim: int
+    pagina_inicio: int | None
+    pagina_fim: int | None
     secao_id: str | None
     autor_data_associado: str | None = None
     notas_de_rodape_ids: list[str] = field(default_factory=list)
@@ -134,7 +148,7 @@ class ItemDeReferencia:
 
     unit_id: str
     texto: str
-    pagina: int
+    pagina: int | None
     subsecao: str | None = None
     """Nome da subseção da lista de referências a que pertence (ex.:
     'Fonte Primária'), quando o documento distingue mais de uma lista —
@@ -149,7 +163,7 @@ class Figura:
 
     unit_id: str
     tipo: TipoUnidade
-    pagina: int
+    pagina: int | None
     legenda: str | None
     credito: str | None
     numeracao: str | None
@@ -182,7 +196,7 @@ class DocumentoIngerido:
 
     hash_documento: str
     caminho_original: str
-    num_paginas: int
+    num_paginas: int | None
     metadados: Metadados
     secoes: list[Secao] = field(default_factory=list)
     paragrafos: list[Paragrafo] = field(default_factory=list)

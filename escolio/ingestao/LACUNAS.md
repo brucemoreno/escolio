@@ -128,6 +128,82 @@ em memória).
   `classification`, `processing`, `security`, `retention` de `InputItem` (deixados no
   padrão do dataclass) nem para `MaterialUnit`.
 
+## Parser de .docx (2026-08-09) — módulo novo, não substitui o de PDF
+
+`escolio/ingestao/parser_docx.py` — calibrado contra os 3 capítulos reais em
+`data/capitulos/` (`1- Endoparasitoses.docx`, `2- Ectoparasitoses.docx`,
+`3- Terapêuticas.docx`), fornecidos pelo professor para o piloto real de P11. Mesma
+disciplina de zero-inferência do parser de PDF; decisões e lacunas próprias, listadas aqui em
+vez de misturadas com as de LAC-ING-001 a 011 (que são do documento de PDF).
+
+- **LAC-ING-013 — `.docx` não tem página real; localização é parágrafo + seção + ordinal.**
+  Decisão de arquitetura (não de heurística): `Secao.pagina`, `Paragrafo.pagina_inicio/
+  pagina_fim`, `NotaDeRodape.pagina_chamada`, `CitacaoRecuada.pagina_inicio/pagina_fim`,
+  `ItemDeReferencia.pagina`, `Figura.pagina` e `DocumentoIngerido.num_paginas` foram
+  relaxados de `int` para `int | None` em `modelos.py` (sem valor default — quem constrói
+  continua obrigado a decidir, `None` passa a ser resposta válida). Motivo: a paginação de um
+  `.docx` só existe quando o Word renderiza para impressão — não é dado gravado no XML — e
+  muda a cada edição do documento. Converter para PDF só para obter um número congelaria uma
+  localização falsamente estável (parecia precisa, ficaria errada na próxima edição do
+  professor). Decisão do professor: usar `Paragrafo.paragrafo_ordinal` (novo campo, posição
+  sequencial de leitura, base 0) + `secao_id` como localizador — mesma folga que o contrato já
+  dá em `contrato/referencia.py::Location.page: str | None` e em
+  `P13Comment.anchor_start/anchor_end/anchor_text_hash` (strings opacas, sem acoplamento a
+  página). O parser de PDF não muda de comportamento — continua sempre passando inteiros
+  reais.
+
+- **LAC-ING-014 — detecção de título por estilo Word não se aplica: os 3 documentos reais só
+  usam o estilo "Normal".** Nenhum "Heading 1/2/3" nem variante PT-BR ("Título N") foi usado —
+  todo título (capítulo e seção) é um parágrafo comum inteiramente em negrito. Heurística
+  adotada: `_paragrafo_e_titulo` (todo run com texto não-vazio tem `bold=True` — mesmo
+  critério RG-001 do parser de PDF, "linha inteira em negrito", não ênfase parcial),
+  verificado sem falso positivo contra os 3 documentos (nenhum parágrafo de corpo tem run
+  parcialmente negrito com texto não vazio). Diferente do parser de PDF, aqui existe sinal
+  para separar dois níveis: o primeiro título do documento é `CAPITULO`; títulos
+  subsequentes que casam com `PADRAO_SECAO_NUMERADA` (`^\d+\s*[-–.]\s*\S`, calibrado contra os
+  3 documentos — só um nível de numeração "N-" observado, nenhum "N.M-") são `SECAO`. Título
+  em negrito que não é nem o primeiro nem numerado cai em `indeterminado=True` — não
+  observado nos 3 documentos reais, mas o ramo existe para não forçar nível em documento
+  futuro com padrão diferente.
+
+- **LAC-ING-015 — citação recuada por indentação, não por `x0` (não existe em `.docx`).**
+  `paragraph.paragraph_format.left_indent` mede 113,4pt nos blocos de citação longa dos 3
+  documentos e é `None` em todo parágrafo comum — sem caso intermediário observado. Limiar
+  adotado (`LIMIAR_INDENTACAO_CITACAO_RECUADA_PT = 50.0`) é generosamente abaixo do valor
+  medido, mesmo raciocínio de folga do `X0_MINIMO_CITACAO_RECUADA` do parser de PDF.
+
+- **LAC-ING-016 — notas de rodapé lidas de `word/footnotes.xml` diretamente via `zipfile` +
+  `lxml`, não pela API pública do `python-docx` (1.2.0).** `Document.part` não expõe
+  `footnotes_part` nesta versão instalada — tentativa de acesso levanta `AttributeError`.
+  Leitura direta do XML do pacote é **mais confiável que a heurística visual do parser de
+  PDF**: o Word já grava a nota como dado estruturado
+  (`<w:footnoteReference w:id="n"/>` no corpo, corpo da nota em `footnotes.xml`), não como
+  texto solto num rodapé renderizado — não há heurística de posição a calibrar, só
+  correspondência de `id`. `posicao_na_chamada` continua aproximada (soma do texto dos runs
+  anteriores ao run que contém a referência): o XML não grava índice de caractere nativo para
+  o ponto de inserção da chamada. Resultado desta calibração: **0 notas indeterminadas** nos 3
+  documentos reais (todas as 22+12+15 chamadas resolveram `unit_id_chamador`) — ver
+  `tests/ingestao/test_parser_docx.py::TestNotasDeRodape`.
+
+- **LAC-ING-017 — sem lista de referências separada nos 3 documentos reais; citação é só por
+  nota de rodapé.** Nenhum dos 3 capítulos tem seção "Referências"/"Bibliografia" ao final —
+  `DocumentoIngerido.referencias` fica sempre `[]` para este parser nesta calibração. Sem
+  lista de referências, não há `sobrenomes_conhecidos` para cross-checar citação narrativa
+  ("Nome (ano)") — `encontrar_citacoes_narrativas` é chamada com conjunto vazio, então toda
+  citação narrativa nasce `indeterminado=True` (nunca confirmada às cegas), mesma disciplina
+  de RG-007. Também não há figura/tabela/quadro nos 3 documentos — `Figura` não é extraído por
+  este parser (`figuras=[]` sempre); se um capítulo futuro tiver imagem/tabela, a extração
+  precisa ser desenhada contra um caso real, não adivinhada aqui.
+
+- **LAC-ING-018 — `hifens_de_fim_de_linha_preservados` sempre 0 para `.docx`.** A contagem
+  existe no modelo por causa do parser de PDF (hifenização de quebra de linha física de texto
+  renderizado). `.docx` não wrapeia texto corrido em linhas físicas armazenadas — a
+  reflowagem é só visual, no render do Word — então o conceito não se aplica; o parser de
+  `.docx` nunca incrementa esse contador.
+
+- **Escopo de dados deste parser**: `data/capitulos/`, não `data/dev/` (que é do parser de
+  PDF). `data/gold/` continua barrado para os dois. Ver `escolio/ingestao/erros.py`.
+
 ## Não estrutural — não bloqueou a implementação
 
 Nenhuma lacuna encontrada exigiu parar e perguntar de forma

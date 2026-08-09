@@ -363,10 +363,17 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
 **Peças 1 a 7 construídas**, mais `escolio/cliente/` — infraestrutura que as sete peças exigem
 para executar, sem ser peça numerada do roadmap [não decide o que perguntar; isso é das funções,
 que ainda não existem]. 701 testes passando (`pytest tests/`, 2026-08-08: 656 das sete peças + 45
-do cliente). Ressalva que vale para tudo abaixo: **nenhuma chamada à API foi feita ainda**
-[BL-007] — os testes do cliente usam mock do SDK `anthropic`, não a API real. Todo teste verifica
-código contra a spec; nada foi verificado contra documento real, e nenhum piloto supervisionado
-existe — homologação documental não é ativação operacional [P11 §42].
+do cliente) — mais os testes do orquestrador de P11 e P13 adicionados em 2026-08-09. **Correção
+factual (2026-08-09): a frase "nenhuma chamada à API foi feita ainda" [BL-007] está desatualizada
+— `escolio/funcoes/execucao_p13.py` + `ponte_modelo_p13.py` já rodaram contra a API real nesta
+mesma data** (`costs/ledger.jsonl`, `sequence_id=MAT-DOC-piloto2026080901`, `claude-sonnet-5` e
+`claude-opus-5`, ~US$0,27 em 3 chamadas). Isso vale só para P13, e só para as etapas 8, 9 e 16-18
+— o resto do roadmap continua exato: testes do cliente usam mock do SDK `anthropic`, todo outro
+teste verifica código contra a spec, nada foi verificado contra documento real de aluno, e nenhum
+piloto supervisionado completo existe — homologação documental não é ativação operacional
+[P11 §42]. P11 ainda não teve chamada real; `escolio/funcoes/execucao_p11.py` +
+`ponte_modelo_p11.py` (2026-08-09) implementam só as etapas 1-6, sem execução real ainda —
+pendente do professor enviar a tese anonimizada.
 
 | # | Peça | Onde | Testes | `LACUNAS.md` | Pendente |
 |---|---|---|---|---|---|
@@ -379,7 +386,7 @@ existe — homologação documental não é ativação operacional [P11 §42].
 | 3 | Adaptador ingestão → `InputItem` | `escolio/adaptadores/` | 11 | — | BL-003 `MaterialUnit` [P19 §9] só na regra de identidade; os 26 campos restantes exigem fluxo homologado com gate humano · BL-014 |
 | 4 | **X01** — máquina bibliográfica P04 | `escolio/bvaa/` | 77 | 10 | `CON-P05-001` mantido aberto: três vocabulários, nenhum vencedor, nenhuma conversão em runtime |
 | 5 | Perfil de voz do autor avaliado (P07) | `escolio/voz/` | 56 | 25 | perfil de **quem comenta** bloqueado por §13.1; `style/style_card.md` sem destino |
-| 6 | Roteador de função — **um módulo por função** | `escolio/funcoes/` | 135 | 29 | BL-011 · BL-012 · BL-013 · BL-014 |
+| 6 | Roteador de função — **um módulo por função** | `escolio/funcoes/` | 135 | 29 | BL-011 · BL-012 · BL-013 · BL-014 · orquestradores reais: P13 completo até etapa 18 (piloto real 2026-08-09); P11 só etapas 1-6 (sem piloto real ainda) |
 | 7 | Ingestão segura P08 — camada operacional | `escolio/seguranca/` | 86 | 9 | BL-018 `InputItem.security` sem campo para "ainda não analisado" · BL-019 passos 5/6 do protocolo bloqueados por `CO-012`/`CO-013` · BL-020 camada de modelo (E2b, Haiku) preparada, não construída |
 
 **A construir:**

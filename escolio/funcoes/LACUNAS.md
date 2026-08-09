@@ -373,6 +373,47 @@ explícita da sessão.
   redigido já teria passado por revisão humana; não é extração de regra, é a leitura mais óbvia do
   próprio nome do enum.
 
+## Sessão de orquestração do P11 (2026-08-09) — primeira fatia real (etapas 1-6)
+
+`escolio/funcoes/execucao_p11.py` + `escolio/funcoes/ponte_modelo_p11.py` — segundo módulo de
+execução desta pasta, mesmo padrão do P13 (`avancar()` de no-máximo-uma-etapa, POL-012). Escopo
+desta sessão: só as etapas 1-6 (E1 intake/autoridade/dependências, E2 ingestão, E3 cartografia
+global, e a primeira etapa de E4 — diagnóstico de estabilidade). Não generaliza `execucao_p13.py`
+— "um módulo por função, nunca um executor genérico" [CLAUDE.md §4] — só reaproveita a forma
+estrutural (mesmas seis `CausaDeParada`).
+
+- **Cartografia global (etapa 5) funde agregação estrutural e identificação de unidades.** P11
+  não tem etapa nomeada equivalente a "identificação das unidades" do P13 (etapa 7 de lá) — a
+  única etapa nomeada de E3 em P11 é a cartografia global (etapa 5). `[PROPOSTA]`: nenhuma fonte
+  diz que os dois atos são o mesmo; fundir aqui é leitura de engenharia desta sessão, para que a
+  etapa 6 tenha uma base de `unit_id` conhecidos contra a qual conferir `evidence_ids` (mesma
+  disciplina de BL-022 em P13).
+- **Etapa 2 exige `nivel_intervencao_autorizado`, diferente do padrão de `execucao_p13.py`.**
+  "Nível de intervenção autorizado" é uma das 20 `ENTRADAS_MINIMAS` [P11 §6.1] e uma das 15
+  `PRECONDICOES` [P11 §7] — ausente do padrão P13 porque F04/P13 não lista o item da mesma forma
+  entre suas entradas mínimas. O campo é coletado nesta etapa porque a fonte o exige antes de
+  outras verificações; nenhuma etapa desta sessão (teto alcançado: `DIAGNOSTICO`, INT-02) o
+  consome para autorizar aplicação de texto.
+- **Diagnóstico de estabilidade (etapa 6) usa `escolio.contrato.afirmacao.ClaimEvidence` [P09
+  §12] como saída, não um objeto novo.** A pergunta desta etapa ("a obra está estável?") produz
+  exatamente achados com afirmação, suficiência e confiança — vocabulário que o P09 já declara.
+  Decisão desta sessão: nenhum achado usa `status=CONFLICTED` (o schema da ferramenta nem oferece
+  esse valor) — esta etapa não concilia fontes divergentes, e permitir `CONFLICTED` exigiria
+  também `source_references` preenchidas, que o schema não pede. Uma sessão futura que precise de
+  `CONFLICTED` aqui terá de resolver isso.
+- **Etapas 7-22 continuam sem handler real, por falta de objeto de sessão, mesma disciplina de
+  LAC-FUNC-019/020.** Diagnóstico estrutural/argumentativo/historiográfico (7-9), mapa de
+  afirmações-evidências (10), plano modular (11), decisão humana (12), revisão modular/local
+  (13-14), controle de voz/BVAA/afirmação-evidência (15-17), consolidação (18) e avanço modular
+  (20) são `PONTO_DE_EXTENSAO_DE_MODELO`; verificação proporcional/auditoria de bloco (19),
+  verificação global de regressão (21) e auditoria final (22) são `SEM_FONTE_DE_VERIFICACAO` —
+  diferente de P13, `escolio/comentarios/auditoria.py` não tem equivalente para os produtos de
+  P11 (cartografia, diagnóstico, plano modular, unidades revistas), então a etapa 22 aqui não
+  chama nenhum `auditar_lote` como a etapa 25 de P13 chama. Fechar cada uma exige prompt e schema
+  próprios — trabalho de sessão futura, não desta.
+- **`max_tokens=8_000` para a etapa 6 é `[PROPOSTA]` não medida**, mesmo raciocínio de
+  `ponte_modelo_p13.py` — revisar após a primeira execução real contra a tese do professor.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **Execução de qualquer etapa.** Não há `executar` em nenhum dos nove módulos, e é deliberado:

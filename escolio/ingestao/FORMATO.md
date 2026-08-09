@@ -1,5 +1,13 @@
 # FORMATO — saída do ingestor de PDF acadêmico
 
+**Este documento descreve o parser de PDF (`parser.py`) especificamente.** O parser de `.docx`
+(`parser_docx.py`, 2026-08-09) produz o mesmo `DocumentoIngerido`, mas com regras de detecção
+próprias e sem página real — ver seção "Localização em `.docx`" ao final deste arquivo e
+`escolio/ingestao/LACUNAS.md` (LAC-ING-013 a 018). Onde este documento diz "toda unidade
+rastreável até a página", isso é requisito do parser de PDF; para `.docx` o requisito
+equivalente é "toda unidade rastreável até parágrafo + seção", porque página não é dado que o
+formato grava.
+
 Contrato **não definitivo**: virá do P09 e esta estrutura terá de ser
 reconciliada com ele depois. O que está fixado agora é o que o prompt
 exige: IDs estáveis e determinísticos, toda unidade rastreável até a(s)
@@ -353,3 +361,49 @@ desenvolvimento para o relatório completo). Campos:
 - Normalização de hífen de fim de linha (ver RG-004).
 - Detecção de coluna múltipla — este corpus é de coluna única; a ordem
   de leitura por `top` assume isso (ver `layout.py` e LACUNAS.md).
+
+## Localização em `.docx`: parágrafo + seção + ordinal, não página
+
+Tudo acima descreve o parser de PDF. `parser_docx.py` (2026-08-09) produz o mesmo
+`DocumentoIngerido`, calibrado contra os 3 capítulos reais em `data/capitulos/`, mas com uma
+diferença estrutural deliberada: **nenhuma unidade tem página**.
+
+`.docx` não grava paginação no arquivo — ela só existe quando o Word renderiza para impressão,
+recalculada a cada abertura a partir de margem/fonte/impressora, e muda a cada edição do
+documento. Um número de página extraído hoje (ex.: convertendo para PDF só para obter um)
+ficaria errado assim que o professor editasse o `.docx` de novo — seria uma localização
+falsamente estável, pior que não ter página nenhuma. Por isso `Secao.pagina`,
+`Paragrafo.pagina_inicio/pagina_fim`, `CitacaoRecuada.pagina_inicio/pagina_fim`,
+`NotaDeRodape.pagina_chamada` e `DocumentoIngerido.num_paginas` são sempre `None` para
+documentos de origem `.docx` (o tipo foi relaxado para `int | None` em `modelos.py` para
+acomodar isso, sem afetar o parser de PDF, que continua sempre passando inteiros reais).
+
+O localizador equivalente para `.docx` é **`Paragrafo.paragrafo_ordinal`** (posição sequencial
+de leitura, base 0) combinado com `secao_id` (a seção/título mais recente antes da unidade).
+Isso não é menos preciso que página — é mais preciso (uma página cobre ~500 palavras; um
+ordinal de parágrafo aponta para um parágrafo só) e não descasa do documento vivo quando o
+professor edita o texto. É também o mesmo tipo de folga que o contrato do sistema já reserva
+em outro lugar: `contrato/referencia.py::Location.page` é `str | None`, não `int`
+obrigatório, e o produto final de comentário (`P13Comment.anchor_start/anchor_end/
+anchor_text_hash`) já localiza por posição de caractere e hash de trecho, não por página.
+
+**Detecção de título sem estilo Word**: os 3 documentos reais não usam nenhum estilo de
+título do Word ("Heading N"/"Título N") — todo cabeçalho é um parágrafo comum inteiramente em
+negrito. O primeiro parágrafo totalmente em negrito é o título do capítulo
+(`NivelHierarquia.CAPITULO`); parágrafos totalmente em negrito subsequentes que casam com
+`^\d+\s*[-–.]\s*\S` ("1- Introdução.", "2- ...") são seção (`NivelHierarquia.SECAO`) — só um
+nível de numeração observado, nenhuma subseção "N.M-". Título em negrito fora desses dois
+casos fica `indeterminado=True`, nunca forçado a um nível.
+
+**Citação recuada por indentação** (`paragraph_format.left_indent`, medido em 113,4pt nos
+blocos reais, limiar adotado 50pt) substitui o `x0` do PDF, que não existe em `.docx`.
+
+**Notas de rodapé são lidas do XML estruturado do Word** (`word/footnotes.xml` +
+`<w:footnoteReference>` no corpo), não por heurística visual — mais confiável que o parser de
+PDF nesse ponto, porque o Word já grava a nota como dado estruturado, não texto solto num
+rodapé renderizado. Resultado nos 3 documentos reais: 0 notas indeterminadas (todas as
+49 chamadas resolveram parágrafo/citação de origem).
+
+**Sem lista de referências nos 3 documentos reais** — citação é só por nota de rodapé;
+`referencias` e `figuras` ficam sempre vazios para este parser nesta calibração. Ver
+`escolio/ingestao/LACUNAS.md` (LAC-ING-013 a 018) para o raciocínio completo de cada decisão.
