@@ -292,12 +292,47 @@ disciplina de `escolio/LACUNAS.md`, `escolio/bvaa/LACUNAS.md` e `escolio/contrat
   `LLM-ACA-F0x`. Não quebram — `requisicao.py` só verifica não-vazio — mas divergem do catálogo.
   Não foram alterados. Registrado em BL-012.
 
+## Sessão de orquestração do P13 (2026-08-09) — BL-021/BL-022
+
+`escolio/funcoes/execucao_p13.py` é o primeiro módulo desta pasta com `avancar()` — não revoga a
+nota abaixo ("Execução de qualquer etapa"), a implementa: `avancar()` só executa a etapa que
+`DeclaracaoDeFuncao.proxima_etapa(concluidas)` nomeia, nunca mais de uma por chamada, e uma
+tentativa que não executa não avança `concluidas` (`EstadoDeExecucaoP13.concluidas` só conta
+`EXECUTADA`, quebrando na primeira que não for). Forma decidida pelo professor, não inferida
+[docs/backlog.md, BL-021].
+
+- **LAC-FUNC-019 — etapas 11-15 nunca aceitam entrada nesta sessão.** Diferente das etapas 8/9
+  (`MatrizCriticidade`/`MatrizSeletividade` têm schema de sessão 2, aceito via `EntradaEtapaP13`),
+  nenhuma sessão anterior definiu um objeto que ligue "candidato selecionado" a "verificação de
+  fonte/evidência/voz/privacidade" ou a "problema sistêmico identificado". Sem esse objeto, o
+  orquestrador não tem o que aceitar — `CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO` marca isso como
+  permanente nesta sessão, não como "dado ainda não enviado" (`ENTRADA_NAO_FORNECIDA`, reservado a
+  etapas com schema de aceitação já definido). Consequência: nenhum percurso real avança além da
+  etapa 10 sem uma sessão futura que desenhe esse objeto — não inventado aqui por analogia com
+  `aplicacao_p04_p05.py`/`aplicacao_p06_p07.py`, que validam um `P13Comment` já existente, não um
+  candidato pré-redação.
+- **LAC-FUNC-020 — etapas 19-24 do fluxo (§43) não correspondem a nenhum item do checklist de §44.**
+  `escolio/comentarios/auditoria.py` implementa os 25 itens de §44 num único `auditar_lote`, mas
+  nenhuma seção do contrato liga "verificação de densidade"/"repetição"/"acionabilidade"/"tom"/
+  "gates"/"consolidação" (nomes de §43) aos itens de §44 um a um — mesma disciplina de
+  LAC-FUNC-007 (gate sem posição declarada): semelhança de nome não é correspondência da fonte.
+  Só a etapa 25, "auditoria final", tem o mesmo nome do título de §44 nas duas fontes — por isso
+  só ela chama `auditar_lote` em `execucao_p13.py`; as seis anteriores ficam
+  `CausaDeParada.SEM_FONTE_DE_VERIFICACAO`.
+- **BL-022 resolvido aqui, não nos módulos de origem.** `document_id` canônico =
+  `material_id_de_documento(documento)` [P19 §10, `[PROPOSTA]`]; `unit_id` conhecido = o conjunto
+  reunido na etapa 7 a partir de `DocumentoIngerido`. Os dois são conferidos nas etapas 8, 9 e
+  16-18; divergência levanta `ErroDeExecucaoP13`, nunca passa silenciosa. Ver docs/backlog.md,
+  BL-022, para a justificativa completa da escolha entre `material_id` e `input_id`.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **Execução de qualquer etapa.** Não há `executar` em nenhum dos nove módulos, e é deliberado:
   POL-012 proíbe "executar encadeamento automático" e permite "registrar exatamente uma próxima
   ação permitida ou nenhuma automática". `DeclaracaoDeFuncao.proxima_etapa` devolve o sucessor
-  ordinal, um só, e devolvê-lo não o autoriza.
+  ordinal, um só, e devolvê-lo não o autoriza. **`escolio/funcoes/execucao_p13.py` (sessão
+  seguinte) implementa isto — ver acima — sem contradizer a nota: continua não havendo
+  encadeamento automático, só a próxima ação, sob pedido explícito.**
 
 - **`Response.interventions`.** Ligar `InterventionRecord` ao envelope de resposta estava
   reservado em `docs/backlog.md` BL-006 para "quando o roteador de função existir". O roteador

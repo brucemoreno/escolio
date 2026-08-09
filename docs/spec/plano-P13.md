@@ -33,8 +33,36 @@ duas decisões provavelmente invalidam depois.
 | 6 | Comentário-matriz e remissões [§23, §24] | Algoritmo de consolidação; testes PS13-04, TA13-14, TA13-15 | Sessões 2, 3 | Nenhum |
 | 7 | Auditoria final interna — densidade, repetição, acionabilidade, tom, gates [§25, §44] | Checklist rodando os itens de `§44` exceto o item 15 (privacidade); testes TA13-17, TA13-18, TA13-19 | Sessões 2–6 | Item 15 do checklist (`privacidade P08`) fica `N/A` até a sessão de privacidade rodar — não impede o restante |
 | 8 | Extensão do envelope P09 — `P13RequestExtension`/`P13ResultExtension`/payloads [§31.1–31.4, §31.6] | Builders de request/response; testes de forma dos payloads `ABSTAINED`/`BLOCKED`/`ERROR` | Sessões 1–7; `escolio/contrato/` | Não corrige `BL-011`/`BL-013` como efeito colateral — são pendências de outras peças, só herdadas aqui |
-| 9 | Módulo P13 no roteador — "um módulo por função" | `escolio/funcoes/p13.py` análogo aos outros cinco; testes com `classification.functions=["P13"]` sintético | Sessão 8; `escolio/funcoes/` | Ativação real inerte por `BL-014` (ato humano, fora do escopo de código) |
+| 9 | Módulo P13 no roteador — "um módulo por função" — **JÁ EXISTIA, ver nota abaixo** | `escolio/funcoes/p13.py` análogo aos outros cinco; testes com `classification.functions=["P13"]` sintético | Sessão 8; `escolio/funcoes/` | Ativação real inerte por `BL-014` (ato humano, fora do escopo de código) |
 | 10 | Suíte integrada — 10 cenários `PS13` + 20 testes `TA13`, fim a fim | 18/20 testes e 9/10 cenários rodando; `PS13-09` e `TA13-13` marcados `PENDENTE — bloqueado por CO-012/CO-013` (não fabricados); `LACUNAS.md` do módulo P13 | Sessões 1–9 | Cobertura completa (10/10, 20/20) só fecha depois da sessão adiada |
+
+## Nota de 2026-08-09 — sessão 9 já construída antes deste plano prever a sessão
+
+`escolio/funcoes/p13.py` **já existe** desde a sessão do roteador de função ("peça 6" do
+roadmap principal, `CLAUDE.md §14`, 2026-08-07) — anterior à primeira sessão deste plano P13
+(sessão 1, `escolio/comentarios/`). É `DeclaracaoDeFuncao` completa: 29 etapas [§43], 17 gates
+[§32.1, §32.2], 18 entradas mínimas [§6.1], 9 precondições [§7], `dependencias_obrigatorias`
+P02-P09, sem depender de P11/P12. Testado em `tests/funcoes/test_modulos_de_funcao.py` (contagens
+e etapas verbatim) e `tests/funcoes/test_roteador.py` (rotear/verificar_material com
+`classification.functions` sintético — valor real é `["LLM-ACA-F04"]`, o identificador do P02
+para o P13, não a string literal `"P13"`; ver `LAC-FUNC-002` no namespace `component_id` vs.
+`function_id`). `test_rotear_requisicao_coerente_valido` já exercita exatamente o cenário que
+esta sessão pedia: material declarado sinteticamente para F04/P13, roteado sem exceção.
+
+Mais além disso, `tests/integracao/test_pipeline_p13.py` (sessão avulsa de teste de integração,
+2026-08-09, anterior a esta constatação) já percorre roteador → matriz de criticidade → matriz
+de seletividade → `RegistroDeComentarios`, com material declarado e indeterminado. Essa sessão
+registrou `BL-021`/`BL-022` em `docs/backlog.md`: **não existe orquestrador** ligando
+`escolio/funcoes/p13.py` a `escolio/comentarios/` — `escolio/comentarios/` não importa nada de
+`escolio/funcoes/` nem de `escolio/contrato/` — e o professor confirmou, na mesma data, que
+construir esse orquestrador é **decisão de arquitetura, não correção**, não executada sem
+instrução própria.
+
+**Consequência para esta sessão 9:** o entregável literal do plano (`escolio/funcoes/p13.py`
+análogo aos outros cinco + testes com `functions` sintético) está feito, com origem anterior a
+este documento. O que o plano parecia esperar além disso — o módulo "no roteador" *funcionando*
+com as peças de `escolio/comentarios/` — é exatamente `BL-021`, já registrado e já recusado.
+Nenhum código foi alterado nesta sessão; só este registro e a linha da tabela acima.
 
 ## Sessão adiada — Integração P08 (privacidade do comentário)
 

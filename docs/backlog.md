@@ -309,6 +309,30 @@ fabrica manualmente cada elo que o código não fabrica. Nenhum arquivo de códi
 nesta sessão — só o teste e este registro. Os desencaixes abaixo são o que a montagem revelou,
 além dos já conhecidos (BL-003, BL-014):
 
+## Aberto em 2026-08-09, na sessão 9 do plano P13 (módulo no roteador) — nenhum código alterado
+
+Instrução da sessão: construir `escolio/funcoes/p13.py` "análogo aos outros cinco", com testes de
+`classification.functions=["P13"]` sintético, reusando `escolio/funcoes/` (peça 6) e
+`escolio/comentarios/` (sessões 1-8). Ao verificar o estado atual antes de escrever qualquer
+código: **o entregável literal já existe**, construído em 2026-08-07 (sessão do roteador,
+`CLAUDE.md §14`), antes mesmo da primeira sessão deste plano P13. `escolio/funcoes/p13.py` é
+`DeclaracaoDeFuncao` completa (29 etapas, 17 gates, 18 entradas mínimas, dependências P02-P09);
+`tests/funcoes/test_roteador.py::test_rotear_requisicao_coerente_valido` já roteia material
+declarado sinteticamente para F04/P13 sem exceção — o mesmo cenário que esta sessão pediria.
+
+O que a sessão parecia pedir além disso — o módulo "no roteador" produzindo algo com as peças de
+`escolio/comentarios/`, não só existindo ao lado delas — é `BL-021`/`BL-022` abaixo, já
+registrados na sessão de teste de integração do mesmo dia (2026-08-09) e já avaliados e
+confirmados pelo professor como **decisão de arquitetura, não correção**: nenhuma fonte declara a
+forma da orquestração entre roteador e comentários, e escolher uma inventaria estrutura sem
+fonte. Construir agora duplicaria trabalho existente (o módulo) ou executaria uma decisão já
+recusada (o orquestrador). Por instrução da própria sessão — "não altere código existente; se a
+integração exigir mudança, registre e pare" — nenhum arquivo de código foi tocado.
+`docs/spec/plano-P13.md` sessão 9 e esta entrada são o único produto.
+
+**Próxima ação única, se o professor quiser reabrir isto:** decidir a forma do orquestrador de
+BL-021 (função única, pipeline, evento) — decisão dele, não inferível daqui.
+
 ## Aberto em 2026-08-09, na sessão de correção BL-021 a BL-025
 
 BL-023, BL-024 e BL-025 corrigidos nesta sessão. BL-021 e BL-022 avaliados e confirmados pelo
@@ -316,31 +340,68 @@ professor como decisão de arquitetura, não correção — nenhuma fonte declar
 explícita entre módulos nem convenção de ID compartilhada, então "consertar" exigiria escolher
 uma forma que a spec não dá. Permanecem abaixo, registrados, sem código alterado para eles.
 
-### BL-021 — nenhum orquestrador liga roteador → matrizes P13 → comentário — DECISÃO DE ARQUITETURA, NÃO CORRIGIDO
-Depois de `roteador.rotear()` confirmar `AdmissaoDeMaterial.DECLARADO`, não existe nenhuma
-função que chame `MatrizCriticidade`, `MatrizSeletividade` ou `P13Comment` a partir da decisão
-de roteamento. `escolio/funcoes/p13.py` é puramente declarativo (`DECLARACAO`, 29 etapas como
-dados) — "nada aqui executa" é literal, não lacuna. `escolio/comentarios/` não importa nada de
-`escolio/funcoes/` nem de `escolio/contrato/`. O teste de integração é hoje o único lugar do
-repositório que invoca as duas peças em sequência, e fá-lo escrevendo Python solto entre elas,
-não chamando uma função de orquestração — porque ela não existe.
+### BL-021 — nenhum orquestrador liga roteador → matrizes P13 → comentário — RESOLVIDO
+Depois de `roteador.rotear()` confirmar `AdmissaoDeMaterial.DECLARADO`, não existia nenhuma
+função que chamasse `MatrizCriticidade`, `MatrizSeletividade` ou `P13Comment` a partir da decisão
+de roteamento. `escolio/funcoes/p13.py` continua puramente declarativo — "nada aqui executa"
+segue literal, não é revogado.
 
-**Em 2026-08-09, confirmado pelo professor:** este item é decisão de arquitetura, não correção —
-nenhuma fonte declara a forma da orquestração (função única, pipeline, evento), e escolher uma
-seria inventar estrutura sem fonte. Não implementado nesta sessão.
+**Em 2026-08-09, por instrução expressa do professor: forma decidida.** Um módulo de execução
+por função, `escolio/funcoes/execucao_p13.py` — não um executor genérico [CLAUDE.md §4]. Ele
+percorre as 29 etapas declaradas em `p13.py` e chama o que `escolio/comentarios/` (sessões 1-8)
+já implementou, mas **nunca mais de uma etapa por chamada**: `avancar(estado, entrada)` calcula
+`DeclaracaoDeFuncao.proxima_etapa(concluidas)` e executa só essa etapa, nunca a seguinte — releitura
+literal de POL-012 ("registrar exatamente uma próxima ação permitida ou nenhuma automática"), já
+citada como razão de nenhum módulo de função ter `executar` (`escolio/funcoes/LACUNAS.md`, "Não
+incluído nesta peça"). Isso não contradiz aquele registro: continua não havendo encadeamento
+automático; o que existe agora é a próxima ação, executável sob pedido explícito.
 
-### BL-022 — `unit_id`/`document_id` não têm gerador nem validador compartilhado — DECISÃO DE ARQUITETURA, NÃO CORRIGIDO
+Sem chamada à API [instrução da sessão]. Toda etapa que exige juízo humano ou de modelo — matriz
+de criticidade e seletividade (§11-12), verificação de fontes/evidência/voz/privacidade e
+identificação de problemas sistêmicos (etapas 11-15), redação de comentários (16-18) — é um ponto
+de extensão explícito, nunca preenchido por inferência: `CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO`
+marca exatamente essas etapas em `ResultadoDeEtapa`, distinta de `ENTRADA_NAO_FORNECIDA` (a etapa
+tem schema de aceitação — ex. `matrizes_criticidade` — só não veio preenchido nesta chamada) e de
+`SEM_FONTE_DE_VERIFICACAO` (etapas 19-24: nenhuma seção liga o nome da etapa a um critério
+verificável distinto do checklist de §44, que só corresponde nominalmente à etapa 25 "auditoria
+final" — mesmo nome nas duas fontes, por isso só essa etapa chama `auditoria.auditar_lote`
+diretamente). Etapas 26-29 (`Etapa.fase is None`) são `FORA_DO_FLUXO_DE_EXECUCAO`,
+incondicionalmente — decisão autoral, homologação documental, piloto Word real e ativação
+operacional são atos humanos ou pós-homologação; "o sistema nunca homologa" [CLAUDE.md §1-§2].
+
+**Consequência prática, registrada e não escondida:** dado que 11-15 nunca aceitam entrada nesta
+sessão, nenhum percurso real avança além da etapa 10 (seleção) — as etapas 16-25 só são exercidas
+em teste simulando historicamente que uma sessão futura as completou
+(`tests/funcoes/test_execucao_p13.py`, `TestPercursoCompletoAteOPontoDeExtensao.
+test_document_id_diverge_do_material_id_levanta_bl_022`). Isto não é lacuna deste módulo: é o
+ponto de extensão declarado fazendo exatamente o que deveria — recusar-se a inventar juízo.
+Testes: percurso feliz E1-E4 até a seleção e parada no primeiro ponto de extensão; etapa sem
+entrada suficiente parando sem avançar nem pular para a próxima; material não declarado parando
+na etapa 1; disciplina de "não reexecutar após o fim do fluxo".
+
+### BL-022 — `unit_id`/`document_id` não têm gerador nem validador compartilhado — RESOLVIDO
 `Paragrafo.unit_id` (ingestão), `MatrizCriticidade.unit_id`, `MatrizSeletividade.unit_id` e
-`P13Comment.unit_id` são todos `str` soltos, cada um validado só por não-vazio dentro do próprio
-módulo. Nada no código impede que os quatro divirjam silenciosamente (erro de digitação,
-`unit_id` de documento diferente) — o teste de integração só os mantém iguais porque foi escrito
-para isso. O mesmo vale para `P13Comment.document_id`: não há fonte nem código dizendo se deve
-ser `InputItem.input_id` (P09 §6.1) ou `material_id_de_documento(...)` (P19 §10, namespace
-distinto por decisão de BL-003) — o teste escolheu `material_id` sem que isso seja regra.
+`P13Comment.unit_id` continuam todos `str` soltos nos módulos de sessão 1-6 — não alterados.
 
-**Em 2026-08-09, confirmado pelo professor:** decisão de arquitetura, não correção — pelo mesmo
-motivo de BL-021: nenhuma fonte declara convenção de ID entre módulos, e um gerador/validador
-compartilhado fixaria uma convenção que a spec não dá. Não implementado nesta sessão.
+**Em 2026-08-09, por instrução expressa do professor: a orquestração de BL-021 expôs a
+divergência, e a resolução mora inteiramente em `escolio/funcoes/execucao_p13.py`**, o único
+lugar que tem os dois lados da relação (documento e artefatos derivados) ao mesmo tempo:
+
+- `document_id` canônico, `[PROPOSTA]`: `material_id_de_documento(documento)` [P19 §10], não
+  `InputItem.input_id` [P09 §6.1] — `material_id` é estável entre cópias e independente da
+  requisição que o menciona; `input_id` é identidade de item de uma requisição específica, sem
+  garantia de se repetir entre duas requisições sobre o mesmo documento. `P13Comment.document_id`
+  divergente do `material_id` levanta `ErroDeExecucaoP13` na etapa em que o comentário é
+  registrado (16, 17 ou 18) — nunca passa silencioso.
+- `unit_id` conhecido = o conjunto reunido na etapa 7 (`ContextoExecucaoP13.unidades_conhecidas`,
+  a partir de `Paragrafo`/`CitacaoRecuada`/`NotaDeRodape`/`Figura` de `DocumentoIngerido`).
+  `MatrizCriticidade.unit_id`, `MatrizSeletividade.unit_id` e `P13Comment.unit_id` são conferidos
+  contra esse conjunto nas etapas 8, 9 e 16-18, respectivamente; divergência levanta
+  `ErroDeExecucaoP13`.
+
+Isto não substitui BL-024 (`exige_referencia_valida_a_criticidade`, sessão 2) — continua sendo a
+checagem entre `MatrizSeletividade` e `MatrizCriticidade`; a camada nova é contra a estrutura do
+documento, que nenhuma sessão anterior tinha em mãos ao lado dos artefatos derivados.
 
 ### BL-023 — `selection_decision` não é tipado; os oito resultados de seleção do P13 não existem em código — RESOLVIDO
 `p13.DECLARACAO.decisoes` enumera oito resultados de seleção da etapa 10 — `COMENTAR`,
