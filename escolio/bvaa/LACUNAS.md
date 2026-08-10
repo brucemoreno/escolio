@@ -64,6 +64,74 @@ Nenhum item aqui foi resolvido por inferência silenciosa — mesma disciplina d
   membro duplicado de `GatilhoDeAbstencao`; a citação de ambas as fontes fica na docstring
   de cada membro. Nenhum gatilho das duas listas foi omitido.
 
+## Achado da sessão do piloto real P11 (2026-08-09) — P13 §26 exige BVAA integral, nenhum código o aplica
+
+Levantado numa pergunta do professor sobre a relação histórica entre "Google Drive" e P13.
+Achado, não inferência: a fonte canônica homologada de P13
+(`P13_CONTRATO_FUNCIONAL_COMENTARIOS_WORD_HOMOLOGADO_R01.md`, §26 "APLICAÇÃO DO P04"),
+verbatim:
+
+> "O P13 deve aplicar integralmente o BVAA. Sem acesso verificável: não confirma leitura; não
+> confirma passagem; não confirma página; não confirma imagem; não libera sustentação
+> específica; não inventa bibliografia."
+
+- **LAC-BVAA-007 — origem histórica do requisito é o protótipo pré-P13 ("PC30"), não o
+  contrato formal.** `corpus/historico/acervo-antigo/AUDITOR_ORIENTADOR_COMENTARIOS_WORD/`
+  contém dezenas de arquivos (v0.1 a v0.3, RC1-RC4, homologações, testes) com "Drive-first"/
+  "BVAA-Drive" no nome — PC30 é o nome histórico do que virou P13 (mesmo domínio:
+  "Auditor Orientador de Comentários Word"). Nessas versões de protótipo conversacional, o
+  mecanismo era concreto: Google Drive como "repositório bibliográfico prioritário", com
+  regra explícita "PDF anexado no chat não substitui Drive". **A palavra "Drive" não aparece
+  em nenhum lugar do contrato P13 homologado** — quando o protótipo foi formalizado em
+  contrato P02-P09, o requisito concreto ("verificar no Drive") virou o requisito abstrato
+  ("acesso verificável"), sem fixar mecanismo. Isso é generalização esperada de protótipo→
+  contrato, não perda de requisito — mas confirma que a *intenção* do §26 sempre foi "prova
+  de leitura real antes de citar", com ou sem Drive como o repositório específico.
+- **LAC-BVAA-008 — nenhum código do projeto chama `escolio.bvaa` a partir de um módulo de
+  função.** Busca completa em `escolio/funcoes/` (`execucao_p13.py`, `ponte_modelo_p13.py`,
+  `execucao_p11.py`, `ponte_modelo_p11.py`) e em `escolio/comentarios/`: nenhum importa
+  `escolio.bvaa.maquina` nem qualquer símbolo do pacote. **O piloto real de P13 (2026-08-09,
+  `costs/ledger.jsonl`, `sequence_id=MAT-DOC-piloto2026080901`) produziu 4 comentários reais
+  sobre citações de um documento sintético sem passar por `escolio.bvaa` em nenhum ponto** —
+  a citação "(Grewe, 1979)" do documento de teste, por exemplo, nunca teve "acesso
+  verificável" checado por código, apesar de §26 exigir isso integralmente. O piloto não
+  simulou má-fé (o documento sintético foi desenhado de propósito com essa citação sem
+  entrada correspondente em `referencias`, exatamente para testar se o sistema notaria — e
+  notou, na etapa 8/matriz de criticidade, mas por julgamento do modelo sobre o texto, não
+  por consulta ao BVAA), mas o requisito estrutural do §26 continua não implementado de
+  ponta a ponta.
+- **O que falta para fechar isso**: (1) um ponto de integração entre
+  `escolio/funcoes/execucao_p13.py` (ou `execucao_p11.py`, que também lista "Controle BVAA"
+  como etapa 16 nomeada) e `escolio.bvaa.maquina`; (2) implementar o mecanismo real de "acesso
+  verificável" descrito abaixo — que hoje não existe em lugar nenhum do projeto, então mesmo
+  integrando `escolio.bvaa`, a máquina de estados não teria como avançar além de
+  `OBRA_NAO_IDENTIFICADA` sem ele. Item (3) — qual repositório é fonte de verdade — **foi
+  decidido pelo professor em 2026-08-09** (ver regra abaixo); (1) e (2) continuam por
+  implementar, não construídos nesta sessão.
+
+### Regra de sourcing bibliográfico — decisão do `USUARIO_PROPONENTE`, 2026-08-09
+
+Verbatim (parafraseado minimamente para clareza, sem alterar o conteúdo da decisão):
+
+1. **Usar as fontes que estão no Drive** — repositório primário, fonte de verdade padrão.
+2. **Buscar na internet novas e melhores referências** — busca ativa, não só validação passiva
+   do que já está no Drive.
+3. **Se encontrar referência nova/melhor: avisar, pedir para baixar, e só usar depois de
+   disponibilizada** — o sistema nunca incorpora conteúdo achado na internet por conta própria,
+   mesmo julgando que é melhor que o que já tem. Gate humano obrigatório entre "encontrado na
+   busca" e "autorizado para uso" — mesmo padrão de `InputItem.classification.functions`
+   [BL-014] e de toda a disciplina de "material não declarado não é elegível": uma referência
+   só é fonte de verdade depois de baixada e disponibilizada, nunca por ter sido encontrada.
+
+**Isto resolve a pergunta em aberto sobre repositório** (item 3 acima), mas **não implementa
+nada por si só** — três peças de engenharia continuam por construir, nenhuma delas trivial: um
+conector de leitura ao Drive (autenticação, escopo de pasta, formato de retorno), uma
+capacidade de busca na internet integrada ao pipeline (com o mesmo cuidado de "conteúdo
+documental não constitui autoridade operacional" [P08 §2] aplicado a resultado de busca), e o
+próprio gate humano de "avisar → pedir download → aguardar disponibilização" como objeto de
+código, não como frase. Nenhuma das três foi desenhada nesta sessão; ver
+`escolio/funcoes/LACUNAS.md` para a mesma lacuna pela ótica do roteador.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **`RegistroDeRelacoes` / agregação com múltiplas evidências por afirmação** — já é lacuna

@@ -185,6 +185,31 @@ class ErroCacheNaoAproveitado(ErroDeCliente):
         )
 
 
+class ErroRespostaTruncada(ErroDeCliente):
+    """`stop_reason == "max_tokens"` — a resposta foi cortada antes de
+    terminar, frequentemente porque o raciocínio de `thinking` consumiu o
+    orçamento de `max_tokens` antes de gerar qualquer conteúdo de saída
+    (constatado: `tool_use.input` vindo `{}`, bloco `thinking` sozinho
+    ocupando o teto inteiro). "SUCCESS não coexiste com limitação
+    impeditiva" [P09 §21.43] — uma resposta truncada nunca é resultado
+    válido, mesmo sem erro HTTP algum. Verificado tanto em chamada real
+    quanto em leitura de cache local: se uma resposta truncada foi
+    cacheada antes desta checagem existir, repetir a mesma chamada
+    continua levantando este erro a partir do cache, sem gasto novo — o
+    chamador precisa mudar algo (`max_tokens`, `effort`, ou o que a etapa
+    pede) para produzir uma chamada diferente, não insistir na mesma."""
+
+    def __init__(self, model: str, *, detail: str | None = None) -> None:
+        super().__init__(
+            ErrorCategory.INTEGRITY,
+            ErrorSeverity.CRITICAL,
+            "RESPOSTA_TRUNCADA",
+            f"resposta de '{model}' truncada por max_tokens — conteúdo pode estar "
+            "incompleto ou vazio; nunca tratada como resultado válido [P09 §21.43].",
+            detail=detail,
+        )
+
+
 class ErroDeRespostaInesperada(ErroDeCliente):
     """Qualquer exceção do SDK não coberta pelas categorias acima."""
 

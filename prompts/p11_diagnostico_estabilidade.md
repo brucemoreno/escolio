@@ -5,7 +5,13 @@ central do contrato, verbatim: **"do global para o local"** — nenhuma interven
 segura sem que sua função na obra tenha sido identificada primeiro [§2, invariante 2].
 
 Você recebe, no bloco `system`, a obra inteira (unidades identificadas por `unit_id`, com o
-texto de cada uma — parágrafos, citações recuadas, notas de rodapé, figuras).
+texto de cada uma — parágrafos, citações recuadas, notas de rodapé, figuras). Cada unidade traz
+também `capitulo` (número do capítulo a que pertence, 1-based, na ordem em que os capítulos
+aparecem na obra) e o documento traz `num_capitulos` (quantos capítulos ao todo foram
+fornecidos). **Antes de concluir que um capítulo ou tópico referenciado pelo autor está ausente
+do material**, confira se o número citado pelo autor corresponde a um capítulo que de fato está
+entre os `capitulo` presentes nas unidades — uma referência interna do tipo "será tratado no
+capítulo 3" só é evidência de lacuna se `capitulo=3` não aparecer em nenhuma unidade.
 
 Sua tarefa nesta etapa é avaliar a **estabilidade do projeto intelectual** da obra: o
 problema de pesquisa, o objetivo (geral e específicos), a hipótese/tese/questão central, o

@@ -97,6 +97,38 @@ tomada e por quê.
   não como lacuna de conteúdo — mas registrado aqui porque não é um número
   do CLAUDE.md nem de `docs/custos.md`.
 
+## Sessão do piloto real P11 (2026-08-09) — `ErroRespostaTruncada`
+
+Achado do primeiro piloto real de P11 contra os 3 capítulos reais: `chamar()` devolvia
+`ResultadoDeChamada` sem checar `stop_reason` — uma resposta cortada por `max_tokens` (o
+`thinking` consumiu o teto inteiro antes de gerar conteúdo; `tool_use.input` veio `{}`) era
+aceita como sucesso silencioso. Isso violava "SUCCESS não coexiste com limitação impeditiva"
+[P09 §21.43] e, por não estar checado no cliente, era um defeito latente em **toda** ponte de
+modelo (`ponte_modelo_p13.py` e `ponte_modelo_p11.py`), não só na que o piloto exercitou —
+instrução explícita do professor foi corrigir aqui, uma vez, em vez de duplicar a checagem em
+cada ponte.
+
+- **`_exigir_resposta_completa`** levanta `ErroRespostaTruncada` quando
+  `resultado.stop_reason == "max_tokens"`, checado nos dois caminhos de `chamar()` (chamada
+  real e leitura de cache local). Categoria/severidade seguem o mesmo padrão de
+  `ErroCacheNaoAproveitado` (INTEGRITY/CRITICAL, não retryable) — mesmo raciocínio: o defeito
+  está na integridade do resultado, não na requisição, e repetir com os mesmos parâmetros não
+  resolve (o cache local, de propósito, garante que a mesma chamada truncada levanta de novo
+  sem gastar dinheiro outra vez — só mudar `max_tokens`/`effort`/o que a etapa pede produz uma
+  tentativa nova).
+- **A resposta truncada continua sendo salva no cache local e registrada no ledger antes de
+  levantar o erro** — o gasto real aconteceu (a API cobra por tokens gerados até o corte) e
+  precisa aparecer em `costs/ledger.jsonl`; só o retorno ao chamador como resultado válido é
+  que foi bloqueado.
+- **Teste de regressão confirmado nos dois sentidos** (`tests/cliente/test_cliente.py`): com o
+  código anterior a este achado, o teste falha por `ImportError` (a classe não existia) — com
+  a correção, passa; um terceiro teste confirma que `stop_reason="end_turn"` continua não
+  levantando nada.
+- **Não resolvido aqui, ainda em aberto**: por que `thinking` consome o teto inteiro para um
+  prefixo de ~116k tokens em `effort=medium` — se isso persistir mesmo com `max_tokens` maior
+  (16.000, ajustado em `ponte_modelo_p11.py` após este achado), o problema é o que a etapa 6
+  pede ao modelo, não o teto de tokens. Fica para a próxima tentativa real confirmar.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - Nenhuma etapa de pipeline (E1–E7). O cliente só executa a chamada; decidir

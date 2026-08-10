@@ -25,7 +25,12 @@ import anthropic
 from .cache_local import CacheLocal, RespostaCache
 from .configuracao import ConfiguracaoDeRobustez
 from .custo import CustoCalculado, calcular_custo
-from .erros import ErroCacheNaoAproveitado, ErroEffortAusente, ErroMaxTokensAusente
+from .erros import (
+    ErroCacheNaoAproveitado,
+    ErroEffortAusente,
+    ErroMaxTokensAusente,
+    ErroRespostaTruncada,
+)
 from .estado_prefixo import EstadoPrefixo
 from .estado_prefixo import carregar as carregar_estado_prefixo
 from .estado_prefixo import salvar as salvar_estado_prefixo
@@ -214,7 +219,7 @@ class ClienteAnthropic:
             veio_do_cache_local=False,
         )
 
-        return ResultadoDeChamada(
+        resultado = ResultadoDeChamada(
             texto=_texto_de_blocos(blocos),
             blocos=blocos,
             usage_bruto=usage,
@@ -223,6 +228,8 @@ class ClienteAnthropic:
             veio_do_cache_local=False,
             custo_usd=custo.total,
         )
+        _exigir_resposta_completa(resultado)
+        return resultado
 
     def estimar_custo(
         self,
@@ -288,7 +295,7 @@ class ClienteAnthropic:
             indice_na_sequencia=indice_na_sequencia,
             veio_do_cache_local=True,
         )
-        return ResultadoDeChamada(
+        resultado = ResultadoDeChamada(
             texto=_texto_de_blocos(em_cache.texto_blocos),
             blocos=em_cache.texto_blocos,
             usage_bruto=em_cache.usage,
@@ -297,6 +304,8 @@ class ClienteAnthropic:
             veio_do_cache_local=True,
             custo_usd=0.0,
         )
+        _exigir_resposta_completa(resultado)
+        return resultado
 
     def _registrar_ledger(
         self,
@@ -331,6 +340,17 @@ class ClienteAnthropic:
             indice_na_sequencia=indice_na_sequencia,
         )
         self._ledger.registrar(registro)
+
+
+def _exigir_resposta_completa(resultado: ResultadoDeChamada) -> None:
+    """`stop_reason == "max_tokens"` nunca é resultado válido — regra do
+    cliente, não de uma ponte específica [`ErroRespostaTruncada`].
+    Verificada nos dois caminhos de `chamar()` (chamada real e cache
+    local), para que nenhum chamador (`ponte_modelo_p13.py`,
+    `ponte_modelo_p11.py`, ou qualquer ponte futura) precise repetir esta
+    checagem por conta própria."""
+    if resultado.stop_reason == "max_tokens":
+        raise ErroRespostaTruncada(resultado.model)
 
 
 def _usage_para_dict(usage: object) -> dict:

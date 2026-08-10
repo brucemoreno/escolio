@@ -5,7 +5,7 @@ texto literal — mesma disciplina de tests/ingestao/test_parser.py (PDF).
 
 import re
 
-from escolio.ingestao.parser_docx import parse_docx
+from escolio.ingestao.parser_docx import parse_docx, parse_docx_multiplo
 from escolio.ingestao.vocabulario import NivelHierarquia
 
 from .conftest import requer_capitulos_docx
@@ -130,6 +130,46 @@ class TestCitacoesRecuadas:
                 assert c.texto.strip()
                 assert c.pagina_inicio is None
                 assert c.pagina_fim is None
+
+
+@requer_capitulos_docx
+class TestCartografiaGlobalMultiplaArquivo:
+    """A tese completa é a soma dos 3 capítulos [confirmado pelo professor]
+    — `parse_docx_multiplo` combina os 3 arquivos numa única obra."""
+
+    def test_combina_secoes_paragrafos_e_notas_dos_3_arquivos(self, caminhos_capitulos_docx, documentos_capitulos_docx):
+        combinado = parse_docx_multiplo(caminhos_capitulos_docx)
+        assert len(combinado.secoes) == sum(len(d.secoes) for d in documentos_capitulos_docx)
+        assert len(combinado.paragrafos) == sum(len(d.paragrafos) for d in documentos_capitulos_docx)
+        assert len(combinado.notas_de_rodape) == sum(len(d.notas_de_rodape) for d in documentos_capitulos_docx)
+
+    def test_unit_ids_nao_colidem_entre_arquivos(self, caminhos_capitulos_docx):
+        combinado = parse_docx_multiplo(caminhos_capitulos_docx)
+        todos_ids = (
+            [s.unit_id for s in combinado.secoes]
+            + [p.unit_id for p in combinado.paragrafos]
+            + [n.unit_id for n in combinado.notas_de_rodape]
+            + [c.unit_id for c in combinado.citacoes_recuadas]
+        )
+        assert len(todos_ids) == len(set(todos_ids))
+
+    def test_cada_capitulo_tem_exatamente_um_nivel_capitulo_e_secoes_apontam_para_ele(
+        self, caminhos_capitulos_docx, documentos_capitulos_docx
+    ):
+        combinado = parse_docx_multiplo(caminhos_capitulos_docx)
+        capitulos = [s for s in combinado.secoes if s.nivel is NivelHierarquia.CAPITULO]
+        assert len(capitulos) == len(documentos_capitulos_docx)
+        ids_capitulos = {s.unit_id for s in capitulos}
+        for s in combinado.secoes:
+            if s.nivel is NivelHierarquia.SECAO:
+                assert s.secao_pai_id in ids_capitulos
+
+    def test_hash_combinado_e_deterministico_e_muda_com_a_ordem(self, caminhos_capitulos_docx):
+        c1 = parse_docx_multiplo(caminhos_capitulos_docx)
+        c2 = parse_docx_multiplo(caminhos_capitulos_docx)
+        assert c1.hash_documento == c2.hash_documento
+        invertido = parse_docx_multiplo(list(reversed(caminhos_capitulos_docx)))
+        assert invertido.hash_documento != c1.hash_documento
 
 
 @requer_capitulos_docx

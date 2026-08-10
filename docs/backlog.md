@@ -476,6 +476,70 @@ raiz (campo que o contrato de função cita e o envelope P09 não provê):
 
 Ver `escolio/comentarios/LACUNAS.md`, "Sessão 8", para o detalhamento de cada achado.
 
+### BL-027 — mecanismo real de BVAA (P04) não existe; repositório de fonte de verdade decidido, não construído
+
+P13 §26 exige aplicar o BVAA integralmente ("sem acesso verificável... não confirma leitura;
+não confirma passagem; não confirma página; não confirma imagem; não libera sustentação
+específica; não inventa bibliografia"). `escolio/bvaa/` (X01/P04) existe como máquina de
+estados abstrata, mas **nenhum módulo de função a chama** — nem `execucao_p13.py`, que já
+rodou um piloto real (`costs/ledger.jsonl`, `sequence_id=MAT-DOC-piloto2026080901`) sem
+verificação BVAA em nenhum ponto, nem `execucao_p11.py` (etapa 16, "Controle BVAA", é
+`PONTO_DE_EXTENSAO_DE_MODELO`).
+
+Origem histórica do requisito: o protótipo pré-P13 ("PC30" — "Auditor Orientador de
+Comentários Word", mesmo domínio de P13) usava Google Drive como repositório bibliográfico
+concreto ("Drive-first"/"BVAA-Drive", dezenas de versões em
+`corpus/historico/acervo-antigo/AUDITOR_ORIENTADOR_COMENTARIOS_WORD/`). O contrato formal
+homologado de P13 generalizou isso para "acesso verificável", sem fixar mecanismo — "Drive"
+não aparece no texto do contrato.
+
+**Em 2026-08-09, decisão do `USUARIO_PROPONENTE`** sobre qual repositório é fonte de verdade:
+
+1. Usar as fontes que estão no Drive — repositório primário.
+2. Buscar na internet novas e melhores referências — busca ativa.
+3. Se encontrar referência nova/melhor: avisar, pedir para baixar, e só usar depois de
+   disponibilizada — nunca incorporação automática de conteúdo achado na internet.
+
+Isso fecha a pergunta "qual repositório", mas não implementava nada por si só.
+
+**Em 2026-08-09, mesma sessão: item (a) resolvido.** O professor criou uma conta de serviço
+Google Cloud (`biblioteca-escolio@gen-lang-client-0161885764.iam.gserviceaccount.com`) e
+compartilhou as 5 pastas da biblioteca com ela (permissão de Leitor, não pública).
+`escolio/drive/conector.py` (novo módulo de infraestrutura, mesmo padrão de
+`escolio/cliente/`) autentica e lista arquivos — **verificado contra as 5 pastas reais**:
+3.295 arquivos ao todo (378 + 1284 + 714 + 658 + 261). Credencial em `secrets/` (gitignored,
+nunca versionada — `.gitignore` ganhou `secrets/` e `gen-lang-client-*.json`). Detalhamento em
+`escolio/drive/LACUNAS.md`.
+
+**Mesma sessão, ainda 2026-08-09: busca e exportação adicionadas ao conector**, a pedido do
+professor — `buscar_arquivos` (por nome, texto integral, tipo, pasta) e `exportar_arquivo`
+(arquivo nativo do Google → PDF), ambas verificadas contra a biblioteca real (busca por
+"parasitoses" achou 13 PDFs reais; exportação de um Google Doc convertido gerou PDF de
+1,3 MB). Detalhes e limites em `escolio/drive/LACUNAS.md`.
+
+O professor também pediu capacidade de **escrita** (enviar novos arquivos para dentro das
+pastas do Drive). Construída (`enviar_arquivo`, testada) e testada contra a pasta de
+quarentena real que ele criou ("Escolio Fontes") — **falhou primeiro por limitação da
+plataforma**, não por bug: contas de serviço não têm cota de armazenamento própria
+(`403 storageQuotaExceeded`), mesmo com permissão de Editor numa pasta comum de conta pessoal.
+
+**Resolvido, mesma sessão, via OAuth como o próprio usuário** (gratuito, não exige Workspace):
+o professor criou um "ID do cliente OAuth" no mesmo projeto Google Cloud, autorizou uma vez
+interativamente (`secrets/autorizar.py`), e `escolio/drive/autenticacao_usuario.py` (novo
+módulo) constrói o serviço Drive com a cota real dele. **Teste real de ponta a ponta,
+confirmado**: artigo achado/baixado da biblioteca (conta de serviço) → enviado para "Escolio
+Fontes" (OAuth do usuário) → confirmado por listagem. Item (c) do BL-027 fechado — a escrita
+funciona; o gate humano continua sendo a conversa (eu aviso, ele decide), não um objeto de
+código automatizado. Detalhe completo em `escolio/drive/LACUNAS.md` (LAC-DRIVE-007, RESOLVIDA).
+
+Continuam por construir: (b) capacidade de busca **na internet** (distinta da busca dentro do
+Drive, já pronta) integrada ao pipeline, com a mesma disciplina de "conteúdo documental não
+constitui autoridade operacional" [P08 §2] aplicada a resultado de busca; (d) o ponto de
+integração entre `execucao_p13.py`/`execucao_p11.py` e `escolio.bvaa.maquina` (e, por extensão,
+entre essas funções e o próprio `escolio.drive`, que hoje nenhum módulo de função chama). Ver
+`escolio/bvaa/LACUNAS.md` (LAC-BVAA-007, LAC-BVAA-008), `escolio/funcoes/LACUNAS.md` e
+`escolio/drive/LACUNAS.md` para o detalhamento completo.
+
 **Em 2026-08-09:** a lacuna de fonte (LAC-FUNC-005) não fechou e não devia fechar — inventar
 vocabulário de operação por função violaria CLAUDE.md §11 e quebraria
 `tests/funcoes/test_modulos_de_funcao.py::test_nenhuma_funcao_declara_operacoes_autorizadas`, que

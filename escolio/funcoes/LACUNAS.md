@@ -414,6 +414,74 @@ estrutural (mesmas seis `CausaDeParada`).
 - **`max_tokens=8_000` para a etapa 6 é `[PROPOSTA]` não medida**, mesmo raciocínio de
   `ponte_modelo_p13.py` — revisar após a primeira execução real contra a tese do professor.
 
+## Piloto real P11 (2026-08-09) — dois achados do primeiro percurso completo 1-6
+
+Primeira execução real da etapa 6 contra os 3 capítulos reais (via `parse_docx_multiplo`).
+Depois de corrigir o truncamento por `max_tokens` (ver `escolio/cliente/LACUNAS.md`), a segunda
+tentativa completou e devolveu 5 achados — 3 válidos (EST-01, EST-02, EST-05: projeto
+intelectual coerente, corpus mobilizado de forma consistente, nenhum sinal de mudança não
+marcada de hipótese/objetivo) e **2 falsos positivos**:
+
+- **EST-03/EST-04 — o modelo concluiu que "capítulo 3" e "tópico 5" não estavam no material
+  fornecido**, citando como evidência frases do autor como "será trabalhado com maior
+  profundidade no capítulo 3" (capítulo 1) e "no capítulo seguinte" (capítulo 2). Essas
+  referências apontam exatamente para `3- Terapêuticas.docx`, que **foi fornecido** — conferido
+  manualmente contra o texto real. O erro não é da tese; é do pipeline: `_renderizar_documento_
+  estavel` (`ponte_modelo_p11.py`) serializa os três capítulos combinados sem rotular "isto é o
+  Capítulo N" — cada um aparece só com seu próprio título de corpo de texto, sem numeração de
+  ordem exposta ao modelo. Sem esse rótulo, o modelo não tem como ligar uma autorreferência do
+  autor ("capítulo 3") ao arquivo que de fato ocupa essa posição.
+- **Correção pendente, não aplicada nesta sessão** (decisão do professor sobre gastar outra
+  chamada real para verificar): `_renderizar_documento_estavel` precisaria receber a ordem dos
+  capítulos (já disponível — é a ordem de `caminhos` em `parse_docx_multiplo`) e incluir um
+  rótulo por capítulo (ex.: `"capitulo_ordinal": 3`) no JSON serializado, para que o modelo
+  possa resolver autorreferências de numeração contra o material real, em vez de concluir
+  ausência por falta de rótulo.
+- **Lição geral, não só deste caso**: um achado de "material ausente" do diagnóstico de
+  estabilidade não deve ser aceito como fato sem conferência contra o documento real quando a
+  obra é uma combinação de arquivos — o ponto cego é estrutural (falta de rótulo de capítulo no
+  prompt), não um limite do modelo em si.
+- **Nota de fechamento**: a correção (`capitulo`/`num_capitulos` no JSON serializado, ver
+  `escolio/funcoes/ponte_modelo_p11.py`) foi aplicada e verificada com uma segunda chamada real
+  ainda nesta sessão — EST-03/EST-04 sumiram, e a nova etapa 6 confirmou explicitamente que "as
+  remissões internas ao 'capítulo 3' correspondem a um capítulo efetivamente presente no
+  material". Gasto total do exercício de etapa 6 nesta sessão (truncamento + 2 tentativas):
+  US$ 1,16, registrado em `costs/ledger.jsonl`.
+
+## P13 §26 exige BVAA integral; nenhum código do projeto o aplica (achado 2026-08-09)
+
+Levantado por pergunta do professor sobre a relação histórica entre "Google Drive" e P13.
+Detalhe completo em `escolio/bvaa/LACUNAS.md` (LAC-BVAA-007, LAC-BVAA-008) — resumo aqui pela
+ótica do roteador/execução de função, que é onde a integração faltante precisaria entrar:
+
+- A fonte canônica homologada de P13 (§26, "APLICAÇÃO DO P04") exige aplicar o BVAA
+  **integralmente**: sem acesso verificável a uma fonte, o sistema não confirma leitura,
+  passagem, página ou imagem, não libera sustentação específica e não inventa bibliografia.
+- **Nenhum módulo em `escolio/funcoes/` importa `escolio.bvaa`** — nem `execucao_p13.py` (que
+  já rodou um piloto real, `costs/ledger.jsonl`, `sequence_id=MAT-DOC-piloto2026080901`), nem
+  `execucao_p11.py` (cuja etapa 16, "Controle BVAA", é hoje `PONTO_DE_EXTENSAO_DE_MODELO` — ver
+  acima). O piloto real de P13 produziu comentários sobre uma citação fabricada de propósito
+  para não ter referência correspondente (`(Grewe, 1979)`) sem que `escolio.bvaa` fosse
+  consultado em nenhum momento — o sistema notou o problema por julgamento do modelo sobre o
+  texto (etapa 8, matriz de criticidade), não por verificação estrutural de acesso.
+- **A raiz histórica é o protótipo pré-P13 ("PC30" — mesmo domínio, "Auditor Orientador de
+  Comentários Word"), que usava Google Drive como "repositório bibliográfico prioritário"
+  concreto** (`corpus/historico/acervo-antigo/AUDITOR_ORIENTADOR_COMENTARIOS_WORD/`, dezenas de
+  versões v0.1-v0.3/RC1-RC4 com "Drive-first"/"BVAA-Drive" no nome). Quando o protótipo virou
+  contrato formal (P02-P09), o requisito concreto ("verificar no Drive") virou o requisito
+  abstrato ("acesso verificável") — a palavra "Drive" não sobrevive no contrato P13 homologado.
+  Isso é generalização esperada de protótipo→contrato, não perda de requisito.
+- **Fechar isto exige, no mínimo**: (1) `execucao_p13.py`/`execucao_p11.py` chamando
+  `escolio.bvaa.maquina` num ponto real do fluxo, não só como etapa nomeada; (2) um mecanismo
+  real de "acesso verificável" a documento externo — que hoje não existe em lugar nenhum do
+  projeto. O item (3) — qual repositório é fonte de verdade — **foi decidido pelo professor em
+  2026-08-09**: Drive é repositório primário; busca ativa na internet por referências
+  novas/melhores é permitida; toda referência achada na internet exige aviso + pedido de
+  download + disponibilização humana antes de qualquer uso — nunca incorporação automática.
+  Regra completa e raciocínio em `escolio/bvaa/LACUNAS.md`. (1) e (2) continuam por construir —
+  nenhuma das duas peças de engenharia (integração BVAA no fluxo; conector real de acesso a
+  Drive + busca na internet + gate de disponibilização) foi desenhada nesta sessão.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **Execução de qualquer etapa.** Não há `executar` em nenhum dos nove módulos, e é deliberado:

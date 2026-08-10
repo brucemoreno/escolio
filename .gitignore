@@ -7,3 +7,6 @@ __pycache__/
 .pytest_cache/
 saida/
 **/1[45]_ANEXO_*.zip
+secrets/
+*.json.key
+gen-lang-client-*.json

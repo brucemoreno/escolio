@@ -204,6 +204,20 @@ vez de misturadas com as de LAC-ING-001 a 011 (que são do documento de PDF).
 - **Escopo de dados deste parser**: `data/capitulos/`, não `data/dev/` (que é do parser de
   PDF). `data/gold/` continua barrado para os dois. Ver `escolio/ingestao/erros.py`.
 
+- **LAC-ING-019 — `parse_docx_multiplo`: obra cujos capítulos são arquivos `.docx`
+  separados.** O professor confirmou que a soma dos 3 capítulos em `data/capitulos/` é a tese
+  completa — não há um arquivo único de "obra inteira" a ingerir. `parse_docx` sozinho não tem
+  como saber disso (um arquivo = um capítulo = um `DocumentoIngerido`, sem noção de "isto é
+  parte de algo maior"). `parse_docx_multiplo(caminhos)` concatena os resultados de
+  `parse_docx` por arquivo, na ordem que quem chama fornece (ordem dos capítulos é decisão de
+  quem chama — nome de arquivo, mesmo prefixado "1-"/"2-"/"3-", não é tratado como fonte de
+  ordem por este código). Sem colisão de `unit_id` entre arquivos (cada um já embute o hash do
+  seu próprio arquivo). `Secao.secao_pai_id` de toda seção `SECAO` passa a apontar para o
+  `CAPITULO` do mesmo arquivo — vínculo capítulo→seção que só existe depois da combinação.
+  `hash_documento` da obra combinada é derivado dos três `hash_documento` de arquivo (não relê
+  bytes), e muda se a ordem dos capítulos mudar — deliberado, ordem diferente é entendida como
+  obra diferente para fins de identidade.
+
 ## Não estrutural — não bloqueou a implementação
 
 Nenhuma lacuna encontrada exigiu parar e perguntar de forma

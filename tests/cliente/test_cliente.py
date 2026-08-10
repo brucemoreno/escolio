@@ -13,6 +13,7 @@ from escolio.cliente.erros import (
     ErroDeLimiteDeTaxa,
     ErroEffortAusente,
     ErroMaxTokensAusente,
+    ErroRespostaTruncada,
 )
 from escolio.cliente.ledger import Ledger
 
@@ -205,6 +206,68 @@ def test_segunda_chamada_identica_usa_cache_local_sem_tocar_sdk(tmp_path):
     linhas = (tmp_path / "costs" / "ledger.jsonl").read_text().strip().splitlines()
     assert len(linhas) == 2
     assert json.loads(linhas[1])["veio_do_cache_local"] is True
+
+
+# --- regra: stop_reason == "max_tokens" nunca é resultado válido, mesmo sem
+# erro HTTP — achado do piloto real de P11 (2026-08-09): thinking consumiu o
+# teto de max_tokens e a ferramenta voltou com input={} vazio, e o código
+# anterior aceitava isso como EXECUTADA. Checagem é do cliente, não de uma
+# ponte específica, para cobrir ponte_modelo_p13.py e ponte_modelo_p11.py
+# (e qualquer ponte futura) sem duplicar a regra em cada uma.
+
+
+def test_resposta_truncada_por_max_tokens_levanta_erro(tmp_path):
+    sdk = MagicMock()
+    sdk.messages.create.return_value = resposta_fake(stop_reason="max_tokens")
+    cliente = cliente_de_teste(tmp_path, sdk)
+
+    with pytest.raises(ErroRespostaTruncada):
+        cliente.chamar(
+            model="claude-sonnet-5",
+            system_estavel="prefixo",
+            unidades=_UNIDADES_A,
+            max_tokens=1024,
+            effort="medium",
+        )
+
+
+def test_resposta_truncada_cacheada_continua_levantando_erro_sem_tocar_sdk_de_novo(tmp_path):
+    sdk = MagicMock()
+    sdk.messages.create.return_value = resposta_fake(stop_reason="max_tokens")
+    cliente = cliente_de_teste(tmp_path, sdk)
+
+    parametros = {
+        "model": "claude-sonnet-5",
+        "system_estavel": "prefixo",
+        "unidades": _UNIDADES_A,
+        "max_tokens": 1024,
+        "effort": "medium",
+    }
+
+    with pytest.raises(ErroRespostaTruncada):
+        cliente.chamar(**parametros)
+    with pytest.raises(ErroRespostaTruncada):
+        cliente.chamar(**parametros)
+
+    # A resposta truncada foi cacheada na primeira tentativa (mesmo tendo
+    # levantado erro) — a segunda chamada idêntica lê do cache local e
+    # levanta de novo, sem gastar uma segunda chamada real à API.
+    sdk.messages.create.assert_called_once()
+
+
+def test_resposta_completa_com_stop_reason_end_turn_nao_levanta(tmp_path):
+    sdk = MagicMock()
+    sdk.messages.create.return_value = resposta_fake(stop_reason="end_turn")
+    cliente = cliente_de_teste(tmp_path, sdk)
+
+    resultado = cliente.chamar(
+        model="claude-sonnet-5",
+        system_estavel="prefixo",
+        unidades=_UNIDADES_A,
+        max_tokens=1024,
+        effort="medium",
+    )
+    assert resultado.stop_reason == "end_turn"
 
 
 # --- regra: aborta se cache_read_input_tokens vier zerado em prefixo repetido

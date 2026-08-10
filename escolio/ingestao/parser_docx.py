@@ -21,6 +21,7 @@ LACUNAS.md).
 
 from __future__ import annotations
 
+import hashlib
 import re
 import zipfile
 
@@ -302,4 +303,68 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
         referencias=[],
         figuras=[],
         hifens_de_fim_de_linha_preservados=0,
+    )
+
+
+def _hash_combinado(hashes: list[str]) -> str:
+    """Hash curto e determinístico de uma obra cujos capítulos vêm de
+    arquivos `.docx` separados — combina os `hash_documento` de cada
+    arquivo já calculados por `parse_docx`, sem reler bytes. A ordem dos
+    hashes importa (reflete a ordem dos capítulos): trocar a ordem produz
+    um hash diferente, deliberadamente — é uma obra diferente."""
+    h = hashlib.sha256("".join(hashes).encode("utf-8"))
+    return h.hexdigest()[:8]
+
+
+def parse_docx_multiplo(caminhos: list[str]) -> DocumentoIngerido:
+    """Combina vários `.docx` numa única obra — caso real: tese cujos
+    capítulos foram entregues como arquivos separados, e cuja soma é a
+    obra completa [confirmado pelo professor; ver LACUNAS.md]. `.docx`
+    isolado (`parse_docx`) não tem como saber disso — cartografia global
+    de uma obra em vários arquivos só existe combinando os resultados.
+
+    Cada arquivo é parseado por `parse_docx`, sem alteração. Os
+    resultados são concatenados na ordem de `caminhos` — que é a ordem
+    dos capítulos na obra, decisão de quem chama, nunca inferida daqui
+    (nome de arquivo não é fonte confiável de ordem). `unit_id` de cada
+    unidade já embute o hash do SEU arquivo de origem (ver
+    `identificadores.py`), então arquivos diferentes nunca colidem — a
+    concatenação não precisa regerar nenhum ID.
+
+    O primeiro título de cada arquivo já é `NivelHierarquia.CAPITULO`
+    (ver `parse_docx`); esta função só acrescenta o vínculo que um
+    arquivo isolado não tem razão para expressar — `Secao.secao_pai_id`
+    de toda seção de nível `SECAO` passa a apontar para o capítulo do seu
+    próprio arquivo."""
+    if not caminhos:
+        raise ErroDeIngestao("parse_docx_multiplo exige ao menos um caminho")
+
+    documentos = [parse_docx(c) for c in caminhos]
+
+    secoes: list[Secao] = []
+    capitulo_atual_id: str | None = None
+    for doc in documentos:
+        capitulo_atual_id = None
+        for s in doc.secoes:
+            if s.nivel is NivelHierarquia.CAPITULO:
+                capitulo_atual_id = s.unit_id
+            elif s.nivel is NivelHierarquia.SECAO:
+                s.secao_pai_id = capitulo_atual_id
+            secoes.append(s)
+
+    return DocumentoIngerido(
+        hash_documento=_hash_combinado([d.hash_documento for d in documentos]),
+        caminho_original="; ".join(caminhos),
+        num_paginas=None,
+        metadados=Metadados(),
+        secoes=secoes,
+        paragrafos=[p for d in documentos for p in d.paragrafos],
+        notas_de_rodape=[n for d in documentos for n in d.notas_de_rodape],
+        citacoes_recuadas=[c for d in documentos for c in d.citacoes_recuadas],
+        citacoes_no_corpo=[c for d in documentos for c in d.citacoes_no_corpo],
+        referencias=[r for d in documentos for r in d.referencias],
+        figuras=[f for d in documentos for f in d.figuras],
+        hifens_de_fim_de_linha_preservados=sum(
+            d.hifens_de_fim_de_linha_preservados for d in documentos
+        ),
     )
