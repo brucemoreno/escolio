@@ -540,6 +540,32 @@ entre essas funções e o próprio `escolio.drive`, que hoje nenhum módulo de f
 `escolio/bvaa/LACUNAS.md` (LAC-BVAA-007, LAC-BVAA-008), `escolio/funcoes/LACUNAS.md` e
 `escolio/drive/LACUNAS.md` para o detalhamento completo.
 
+**Em 2026-08-12: item (d) recebeu mecanismo desenhado e, na mesma sessão, construído.**
+`docs/spec/bvaa-drive-integracao.md` propõe `[PROPOSTA]` a definição de "acesso verificável"
+(retorno real e bem-sucedido de `escolio.drive.conector` contra repositório já disponibilizado),
+um objeto `EvidenciaDeAcessoDrive` e uma função `transicao_licenciada_por` que mapeia
+localização/download/exportação bem-sucedidos para as transições T04/T05 do BVAA — cobre só
+`OBRA_NAO_IDENTIFICADA → ACESSADA`, nunca leitura/página/validação, que continuam exigindo juízo
+humano ou de modelo. Levantamento confirmou que ligar isso ao fluxo real exigia editar
+`escolio/funcoes/execucao_p13.py` (`_HANDLERS[11]`, `EntradaEtapaP13`, `ContextoExecucaoP13`) —
+registrado e parado primeiro, mesmo padrão de BL-021/BL-022 antes da decisão do professor.
+
+**Depois, mesma sessão: autorizado e construído**, com duas restrições literais do professor —
+`escolio/bvaa/` continua puro (a dependência de `escolio.drive` mora só em
+`escolio/funcoes/bvaa_drive.py`, novo módulo, orquestrador; zero linhas de `escolio/bvaa/`
+tocadas) e o acesso licencia exclusivamente T04/T05. Só a etapa 11 ("verificação de fontes") foi
+ligada — decisão tomada durante a implementação: etapa 12 ("verificação de evidências",
+correspondência afirmação-conteúdo) é julgamento que Drive não comprova, permanece
+`PONTO_DE_EXTENSAO_DE_MODELO` como 13-15. Sem evidência fornecida, comportamento idêntico ao
+anterior a esta sessão — sem regressão. Duas alternativas descartadas registradas no documento:
+verificação binária "existe/não existe" sem passar pela máquina de estados, e usar
+`ArquivoDrive.modificado_em` como prova de leitura. Testes com Drive mockado
+(`tests/funcoes/test_bvaa_drive.py`, novos casos em `tests/funcoes/test_execucao_p13.py`); suíte
+completa em **1027 passando, 16 skipped** (era 784 na sessão de 2026-08-09 citada acima — o
+número subiu com sessões intermediárias não detalhadas aqui). Ver `escolio/bvaa/LACUNAS.md`
+LAC-BVAA-009 e `docs/spec/bvaa-drive-integracao.md` §6. Item (b) (busca na internet) continua
+sem trabalho nesta sessão.
+
 **Em 2026-08-09:** a lacuna de fonte (LAC-FUNC-005) não fechou e não devia fechar — inventar
 vocabulário de operação por função violaria CLAUDE.md §11 e quebraria
 `tests/funcoes/test_modulos_de_funcao.py::test_nenhuma_funcao_declara_operacoes_autorizadas`, que

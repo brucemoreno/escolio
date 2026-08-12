@@ -481,6 +481,14 @@ Detalhe completo em `escolio/bvaa/LACUNAS.md` (LAC-BVAA-007, LAC-BVAA-008) — r
   Regra completa e raciocínio em `escolio/bvaa/LACUNAS.md`. (1) e (2) continuam por construir —
   nenhuma das duas peças de engenharia (integração BVAA no fluxo; conector real de acesso a
   Drive + busca na internet + gate de disponibilização) foi desenhada nesta sessão.
+- **Em 2026-08-12: (1) recebeu mecanismo desenhado e depois construído — `docs/spec/
+  bvaa-drive-integracao.md`.** Levantamento inicial confirmou que ligar `escolio.bvaa` ao
+  fluxo real exigia editar `_HANDLERS` de `execucao_p13.py` mais
+  `EntradaEtapaP13`/`ContextoExecucaoP13` — registrado e parado primeiro. Depois, mesma sessão,
+  o professor autorizou e as duas alterações foram feitas, com `escolio/bvaa/` permanecendo puro
+  (dependência de `escolio.drive` isolada em `escolio/funcoes/bvaa_drive.py`, novo módulo) e o
+  acesso licenciando só T04/T05. Só a etapa 11 ("verificação de fontes") foi ligada; 12-15
+  continuam `PONTO_DE_EXTENSAO_DE_MODELO`. Ver `escolio/bvaa/LACUNAS.md` LAC-BVAA-009.
 
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 

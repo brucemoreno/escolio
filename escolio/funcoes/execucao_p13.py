@@ -69,6 +69,23 @@ Isto não retroage sobre BL-024 (`exige_referencia_valida_a_criticidade`,
 sessão 2), que continua sendo a checagem entre `MatrizSeletividade` e
 `MatrizCriticidade` propriamente dita; este módulo só acrescenta a camada
 que faltava: as duas contra a estrutura do documento.
+
+## Sessão de 2026-08-12 — etapa 11 ligada ao BVAA via `escolio.drive`
+
+Por instrução expressa do professor, autorizando a proposta registrada em
+`docs/spec/bvaa-drive-integracao.md`: a etapa 11 ("verificação de fontes")
+deixa de ser `_etapa_diagnostico_sem_schema` genérica e passa a consumir
+`EntradaEtapaP13.evidencias_de_acesso` — evidência real de
+`escolio.drive.conector`, encapsulada em `EvidenciaDeAcessoDrive`
+(`escolio/funcoes/bvaa_drive.py`). Duas restrições do professor, ambas
+literais no código: (1) `escolio/bvaa/` continua puro — a dependência de
+`escolio.drive` mora só em `escolio/funcoes/bvaa_drive.py`, nunca dentro da
+máquina de estados; (2) a evidência licencia exclusivamente T04/T05 — nunca
+identificação de obra/edição (T01-T03) nem leitura de conteúdo (T06+), que
+seguem `PONTO_DE_EXTENSAO_DE_MODELO` como antes. Sem `evidencias_de_acesso`,
+a etapa 11 se comporta exatamente como antes desta sessão (mesma causa,
+mesma justificativa) — nenhum teste anterior que dependia disso quebra.
+As etapas 12-15 não são tocadas.
 """
 
 from __future__ import annotations
@@ -77,6 +94,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 
 from escolio.adaptadores.ingestao_para_input_item import material_id_de_documento
+from escolio.bvaa.erros import ErroDeTransicaoBibliografica
+from escolio.bvaa.vocabulario import EstadoBibliografico
 from escolio.comentarios.auditoria import LoteDeAuditoria, RelatorioAuditoriaFinal, auditar_lote
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import MatrizCriticidade
@@ -92,6 +111,7 @@ from escolio.comentarios.vocabulario import (
     COMMENT_TYPE_REMISSAO_A_COMENTARIO_MATRIZ,
 )
 from escolio.funcoes import ponte_modelo_p13 as ponte
+from escolio.funcoes.bvaa_drive import EvidenciaDeAcessoDrive, avancar_por_evidencia
 from escolio.funcoes.declaracao import Etapa
 from escolio.funcoes.p13 import DECLARACAO as DECLARACAO_P13
 from escolio.funcoes.roteador import AdmissaoDeMaterial, DecisaoDeRoteamento
@@ -205,6 +225,12 @@ class EntradaEtapaP13:
     candidatos_para_comentarios_individuais: list[MatrizSeletividade] | None = None
     candidatos_para_remissoes: list[MatrizSeletividade] | None = None
     matrix_comment_id_por_remissao: dict[str, str] | None = None
+    evidencias_de_acesso: dict[str, EvidenciaDeAcessoDrive] | None = None
+    """Etapa 11 (verificação de fontes) — evidência real de acesso ao Drive
+    [`escolio/funcoes/bvaa_drive.py`, `docs/spec/bvaa-drive-integracao.md`],
+    por `unit_id` de `ItemDeReferencia`. Licencia só T04/T05 do BVAA — nunca
+    identificação de obra/edição (T01-T03) nem leitura de conteúdo (T06+),
+    que continuam fora do escopo deste campo."""
 
 
 @dataclass
@@ -225,6 +251,13 @@ class ContextoExecucaoP13:
     registro_comentarios: RegistroDeComentarios = field(default_factory=RegistroDeComentarios)
     todos_comentarios: list[P13Comment] = field(default_factory=list)
     relatorio_auditoria: RelatorioAuditoriaFinal | None = None
+    estados_bibliograficos: dict[str, EstadoBibliografico] = field(default_factory=dict)
+    """Estado BVAA corrente por `unit_id` de `ItemDeReferencia` — só
+    populado/avançado pela etapa 11 via evidência de acesso ao Drive.
+    Ausência de entrada para um `unit_id` é o estado inicial da máquina
+    [`EstadoBibliografico.OBRA_NAO_IDENTIFICADA`], não uma inferência: é o
+    ponto de partida literal de P04/03 para qualquer citação ainda não
+    processada."""
 
 
 @dataclass
@@ -280,6 +313,16 @@ def _exige_unit_id_conhecido(unit_id: str, unidades_conhecidas: frozenset[str], 
         raise ErroDeExecucaoP13(
             "BL-022",
             "unit_id não pertence às unidades identificadas na etapa 7 (cartografia/identificação)",
+            detalhe=f"{origem}: unit_id={unit_id!r}",
+        )
+
+
+def _exige_referencia_conhecida(unit_id: str, documento: DocumentoIngerido, origem: str) -> None:
+    conhecidas = {r.unit_id for r in documento.referencias}
+    if unit_id not in conhecidas:
+        raise ErroDeExecucaoP13(
+            "P13-§26",
+            "unit_id de evidência de acesso não corresponde a nenhum ItemDeReferencia do documento",
             detalhe=f"{origem}: unit_id={unit_id!r}",
         )
 
@@ -423,6 +466,44 @@ def _etapa_10_selecao_de_unidades_comentaveis(ctx: ContextoExecucaoP13, _e: Entr
     )
 
 
+def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
+    """Único ramo de 11-15 ligado ao BVAA [P13 §26, `docs/spec/
+    bvaa-drive-integracao.md`] — e só à metade "acesso" dele, por decisão
+    do professor (2026-08-12): licencia exclusivamente T04/T05 via evidência
+    real de `escolio.drive`. "Verificação de evidências" (etapa 12,
+    correspondência afirmação-conteúdo) e as demais etapas 13-15 continuam
+    `PONTO_DE_EXTENSAO_DE_MODELO`, sem tocar aqui."""
+    evidencias = e.evidencias_de_acesso
+    if not evidencias:
+        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+            "verificação de fontes exige juízo diagnóstico (E4) sobre o conteúdo do documento; "
+            "sem evidencias_de_acesso [PROPOSTA, docs/spec/bvaa-drive-integracao.md] nenhuma "
+            "fonte avança no BVAA — identificação de obra/edição (T01-T03) e leitura de "
+            "conteúdo (T06+) continuam fora do escopo desta evidência em qualquer caso"
+        )
+    avancadas: dict[str, object] = {}
+    for unit_id, evidencia in evidencias.items():
+        _exige_referencia_conhecida(unit_id, ctx.documento, "verificação de fontes")
+        estado_atual = ctx.estados_bibliograficos.get(unit_id, EstadoBibliografico.OBRA_NAO_IDENTIFICADA)
+        try:
+            resultado = avancar_por_evidencia(estado_atual, evidencia)
+        except ErroDeTransicaoBibliografica as erro:
+            raise ErroDeExecucaoP13(
+                "P13-§26",
+                "evidência de acesso ao Drive não licencia transição a partir do estado "
+                "bibliográfico atual da fonte [BVAA/P04] — identificação de obra/edição "
+                "(T01-T03) precisa ocorrer antes de T04/T05, por outro caminho que não este",
+                detalhe=f"unit_id={unit_id!r}: {erro}",
+            ) from erro
+        ctx.estados_bibliograficos[unit_id] = resultado.estado_novo
+        avancadas[unit_id] = resultado
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"{len(avancadas)} fonte(s) avançada(s) no BVAA por evidência real de acesso ao Drive "
+        "[P13 §26, PROPOSTA] — só T04/T05; verificação de evidências (etapa 12) e leitura de "
+        "conteúdo permanecem ponto de extensão de modelo"
+    )
+
+
 def _etapa_diagnostico_sem_schema(nome_curto: str):
     def handler(_ctx, _e):
         return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
@@ -523,7 +604,7 @@ _HANDLERS = {
     8: _etapa_8_matriz_de_criticidade,
     9: _etapa_9_matriz_de_seletividade,
     10: _etapa_10_selecao_de_unidades_comentaveis,
-    11: _etapa_diagnostico_sem_schema("verificação de fontes"),
+    11: _etapa_11_verificacao_de_fontes,
     12: _etapa_diagnostico_sem_schema("verificação de evidências"),
     13: _etapa_diagnostico_sem_schema("verificação de voz"),
     14: _etapa_diagnostico_sem_schema("verificação de privacidade"),

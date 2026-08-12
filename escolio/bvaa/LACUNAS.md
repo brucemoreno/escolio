@@ -132,6 +132,33 @@ próprio gate humano de "avisar → pedir download → aguardar disponibilizaç�
 código, não como frase. Nenhuma das três foi desenhada nesta sessão; ver
 `escolio/funcoes/LACUNAS.md` para a mesma lacuna pela ótica do roteador.
 
+## Sessão de 2026-08-12 — mecanismo de "acesso verificável" proposto e depois construído
+
+- **LAC-BVAA-009 — ligação BVAA↔Drive↔fluxo do P13, `docs/spec/bvaa-drive-integracao.md`.**
+  Primeira parte da sessão: propor o mecanismo de "acesso verificável" usando `escolio/drive/`,
+  marcar como `[PROPOSTA]`, registrar alternativa descartada, e — se a ligação exigir mudar
+  `escolio/bvaa/` ou `escolio/funcoes/execucao_p13.py` — registrar e parar antes de alterar.
+  Levantamento confirmou que exige as duas coisas: `escolio.bvaa.maquina.avancar` não recebe
+  evidência como objeto (só `transicao_id` já decidido por quem chama); e
+  `execucao_p13.py::_HANDLERS[11..15]` são handlers genéricos sem campo de entrada para evidência
+  bibliográfica. Parado ali, registrado.
+
+  **Segunda parte, mesma sessão: o professor autorizou** editar `execucao_p13.py` e introduzir
+  a dependência de `escolio.drive`, com duas restrições literais dele: `escolio/bvaa/` continua
+  puro (I/O só no orquestrador) e o acesso licencia exclusivamente T04/T05. **Construído**:
+  `escolio/funcoes/bvaa_drive.py` (novo módulo, fora de `escolio/bvaa/` — este pacote continua
+  com zero linhas alteradas e zero import de `escolio.drive`) implementa `OperacaoDeAcesso`,
+  `EvidenciaDeAcessoDrive` e `transicao_licenciada_por`/`avancar_por_evidencia`
+  (`LOCALIZADO→T04`, `BAIXADO`/`EXPORTADO→T05`, cobrindo só
+  `OBRA_NAO_IDENTIFICADA → ACESSADA` — nunca leitura/página/validação). `execucao_p13.py` ganhou
+  `EntradaEtapaP13.evidencias_de_acesso`, `ContextoExecucaoP13.estados_bibliograficos` e um
+  handler real só para a etapa 11 ("verificação de fontes"); etapa 12 ("verificação de
+  evidências", correspondência afirmação-conteúdo) e 13-15 permanecem
+  `PONTO_DE_EXTENSAO_DE_MODELO`, sem mudança. Sem evidência fornecida, comportamento idêntico ao
+  anterior — nenhuma regressão. Testes com Drive mockado
+  (`tests/funcoes/test_bvaa_drive.py`, `tests/funcoes/test_execucao_p13.py`); suíte completa em
+  1027 passando. Detalhe completo em `docs/spec/bvaa-drive-integracao.md` §6.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **`RegistroDeRelacoes` / agregação com múltiplas evidências por afirmação** — já é lacuna

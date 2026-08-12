@@ -10,6 +10,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from escolio.bvaa.vocabulario import EstadoBibliografico
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import ClasseCriticidade, EixoCriticidade, MatrizCriticidade
 from escolio.comentarios.seletividade import MatrizSeletividade, SelectionDecision
@@ -18,8 +19,10 @@ from escolio.contrato.entrada import Classification, InputItem, Provenance
 from escolio.contrato.referencia import SemanticVersion
 from escolio.contrato.requisicao import Authorization, ExpectedOutput, Request, Requester, Scope
 from escolio.contrato.vocabulario import AuthorizationStatus, InputType
+from escolio.drive.conector import ArquivoDrive
 from escolio.funcoes import ponte_modelo_p13 as ponte
 from escolio.funcoes import roteador
+from escolio.funcoes.bvaa_drive import EvidenciaDeAcessoDrive, OperacaoDeAcesso
 from escolio.funcoes.execucao_p13 import (
     CausaDeParada,
     EntradaEtapaP13,
@@ -29,7 +32,7 @@ from escolio.funcoes.execucao_p13 import (
     construir_estado_inicial,
 )
 from escolio.funcoes.vocabulario import FuncaoId
-from escolio.ingestao.modelos import DocumentoIngerido, Metadados, Paragrafo
+from escolio.ingestao.modelos import DocumentoIngerido, ItemDeReferencia, Metadados, Paragrafo
 
 
 def documento_sintetico() -> DocumentoIngerido:
@@ -294,6 +297,113 @@ def _cliente_fake(blocos: list[dict]) -> MagicMock:
     cliente = MagicMock()
     cliente.chamar.return_value = MagicMock(blocos=blocos)
     return cliente
+
+
+def documento_sintetico_com_referencia() -> DocumentoIngerido:
+    documento = documento_sintetico()
+    documento.referencias.append(
+        ItemDeReferencia(unit_id="UNI-REF-0001", texto="GREWE, R. (1979). Fonte sintética.", pagina=None)
+    )
+    return documento
+
+
+def _avancar_ate_selecao(estado, documento) -> None:
+    paragrafo = documento.paragrafos[0]
+    avancar(estado)  # 1 intake
+    avancar(estado)  # 2 confirmação de autoridade
+    avancar(estado, EntradaEtapaP13(dependencias_obrigatorias_confirmadas=True))  # 3
+    avancar(estado, EntradaEtapaP13(documento=documento))  # 4 ingestão controlada
+    avancar(estado, EntradaEtapaP13(document_version="1.0.0"))  # 5
+    avancar(estado)  # 6 cartografia global
+    avancar(estado)  # 7 identificação das unidades
+    matriz_criticidade = MatrizCriticidade(
+        problem_id="PROB-EXEC-BVAA",
+        unit_id=paragrafo.unit_id,
+        avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+        classe=ClasseCriticidade.CRITICIDADE_BAIXA,
+        justificativa_classe="x",
+    )
+    avancar(estado, EntradaEtapaP13(matrizes_criticidade=[matriz_criticidade]))  # 8
+    matriz_seletividade = MatrizSeletividade(
+        selection_id="SEL-EXEC-BVAA",
+        unit_id=paragrafo.unit_id,
+        candidate_problem_id=matriz_criticidade.problem_id,
+        criticality=matriz_criticidade.classe,
+        material_impact="x", novelty="x", recurrence="x", matrix_comment_coverage="x",
+        actionability="x", evidence_sufficiency="x", human_decision_required="x", privacy_risk="x",
+        selection_decision=SelectionDecision.COMENTAR, selection_rationale="x",
+    )
+    avancar(estado, EntradaEtapaP13(matrizes_seletividade=[matriz_seletividade]))  # 9
+    avancar(estado)  # 10 seleção
+    assert estado.concluidas == 10
+
+
+class TestEtapaOnzeVerificacaoDeFontes:
+    """Etapa 11 ligada ao BVAA via evidência de acesso ao Drive
+    [docs/spec/bvaa-drive-integracao.md] — autorizado e construído em
+    2026-08-12. Licencia só T04/T05; sem evidência, comportamento idêntico
+    ao de antes desta sessão."""
+
+    def test_sem_evidencia_permanece_ponto_de_extensao_de_modelo(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        avancar(estado)  # 11, sem evidencias_de_acesso
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+        assert estado.concluidas == 10
+
+    def test_evidencia_localizado_a_partir_do_estado_inicial_avanca_para_acessivel(self):
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="Grewe1979.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        estado.contexto.estados_bibliograficos[referencia.unit_id] = EstadoBibliografico.LOCALIZADA
+        evidencia = EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+
+        avancar(estado, EntradaEtapaP13(evidencias_de_acesso={referencia.unit_id: evidencia}))
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.concluidas == 11
+        assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.ACESSIVEL
+
+    def test_evidencia_para_referencia_desconhecida_levanta(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="x.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        evidencia = EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+
+        with pytest.raises(ErroDeExecucaoP13) as excinfo:
+            avancar(estado, EntradaEtapaP13(evidencias_de_acesso={"UNI-REF-INEXISTENTE": evidencia}))
+        assert "P13-§26" in str(excinfo.value)
+        assert estado.concluidas == 10
+
+    def test_evidencia_sem_identificacao_previa_da_obra_levanta(self):
+        """Estado inicial (OBRA_NAO_IDENTIFICADA) não licencia T04 — a
+        evidência de Drive não comprova identificação de obra/edição
+        (T01-T03), e este orquestrador não infere isso por conveniência."""
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="x.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        evidencia = EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+
+        with pytest.raises(ErroDeExecucaoP13) as excinfo:
+            avancar(estado, EntradaEtapaP13(evidencias_de_acesso={referencia.unit_id: evidencia}))
+        assert "P13-§26" in str(excinfo.value)
+        assert estado.concluidas == 10
 
 
 def _bloco_criticidade(problem_id="PROB-0001", unit_id="UNI-PAR-0001", classe="CRITICIDADE_MEDIA"):
