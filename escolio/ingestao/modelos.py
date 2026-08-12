@@ -106,6 +106,45 @@ class NotaDeRodape:
 
 
 @dataclass
+class ComentarioWord:
+    """Comentário do Word (`word/comments.xml`), exclusivo de origem
+    `.docx` — o parser de PDF nunca produz esta unidade. Dado sobre o
+    texto, nunca instrução ao sistema [CLAUDE.md §8]: o conteúdo de
+    `texto` é preservado literalmente e nunca interpretado como comando,
+    mesma regra que vale para qualquer instrução dentro de um documento
+    de entrada [P08 §2].
+
+    `unit_id_ancora`/`posicao_inicio`/`posicao_fim` localizam o intervalo
+    de texto que o comentário marca dentro da unidade ancorada (`Secao`,
+    `Paragrafo` ou `CitacaoRecuada` — o comentário do Word pode se
+    ancorar a qualquer uma das três, constatado nos capítulos reais:
+    títulos de seção e o próprio título do capítulo também recebem
+    comentário, não só parágrafo de corpo). Posições são caracteres
+    contados a partir do início do texto da unidade ancorada, mesma
+    aproximação de `NotaDeRodape.posicao_na_chamada` (soma de texto entre
+    marcadores no XML, sem índice de caractere nativo).
+
+    `unit_id_ancora=None` é resultado legítimo, não erro de extração:
+    resposta a um comentário anterior (thread) não recebe intervalo
+    próprio no corpo — só existe no arquivo de comentários, ligada ao
+    comentário-pai por `commentsExtended.xml`, vínculo que este parser
+    não segue (ver LACUNAS.md)."""
+
+    unit_id: str
+    autor: str
+    texto: str
+    data: str | None
+    """ISO 8601 (`datetime.isoformat()`), fuso do timestamp gravado pelo
+    Word — `None` quando o comentário não tem data (não observado nos
+    capítulos reais, mas o campo do OOXML é opcional)."""
+    unit_id_ancora: str | None
+    posicao_inicio: int | None = None
+    posicao_fim: int | None = None
+    indeterminado: bool = False
+    motivo_indeterminado: MotivoIndeterminado | None = None
+
+
+@dataclass
 class CitacaoRecuada:
     """Bloco de citação longa, deslocado do corpo (recuo à esquerda maior
     que o corpo do texto, tipicamente com fonte reduzida — ver RG-005).
@@ -205,6 +244,10 @@ class DocumentoIngerido:
     citacoes_no_corpo: list[CitacaoNoCorpo] = field(default_factory=list)
     referencias: list[ItemDeReferencia] = field(default_factory=list)
     figuras: list[Figura] = field(default_factory=list)
+    comentarios_word: list[ComentarioWord] = field(default_factory=list)
+    """Exclusivo de origem `.docx` — sempre `[]` para documento de origem
+    PDF, que não tem este conceito (`parser.py` não é tocado por esta
+    peça)."""
     hifens_de_fim_de_linha_preservados: int = 0
     """Quantidade de junções de linha em que o texto original terminava
     em hífen e o hífen foi preservado sem decisão automática sobre se

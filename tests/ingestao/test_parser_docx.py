@@ -87,15 +87,40 @@ class TestEstruturaDeSecoes:
             for s in documento.secoes[1:]:
                 assert s.nivel is NivelHierarquia.SECAO or s.indeterminado is True
 
-    def test_nenhuma_secao_indeterminada_nos_3_documentos_reais(self, documentos_capitulos_docx):
-        # Achado empírico desta calibração: os 3 capítulos reais seguem o
-        # padrão 'N- Texto' sem exceção — nenhuma seção cai no ramo
-        # indeterminado. Este teste falha (e deve ser revisado, não
-        # contornado) se um capítulo futuro introduzir um padrão de
-        # título diferente.
+    def test_secao_indeterminada_carrega_motivo_e_nivel_nulo(self, documentos_capitulos_docx):
+        # Correção de premissa (2026-08-12): a versão anterior deste teste
+        # afirmava que NENHUM documento real teria seção indeterminada —
+        # verdade só enquanto a amostra era 3 capítulos com um único
+        # padrão gráfico de título. Os capítulos 4 e 5, chegados nesta
+        # sessão, têm 'PERCURSO DAS FONTES.' (cap. 4): negrito como
+        # qualquer título, mas nem o primeiro parágrafo do documento (esse
+        # já é CAPITULO) nem casa com PADRAO_SECAO_NUMERADA — a heurística
+        # não tem terceira regra para decidir, e não inventa uma (LAC-ING-014,
+        # LACUNAS.md). `indeterminado=True` é o comportamento correto
+        # desse caso, não uma falha a eliminar; o teste errado era afirmar
+        # zero indeterminadas como invariante estrutural, quando é só o
+        # que a amostra de 3 documentos aconteceu a mostrar. O invariante
+        # real é: toda seção indeterminada tem `motivo_indeterminado`
+        # registrado e `nivel is None` — nunca indeterminação muda,
+        # nunca nível é forçado.
         for documento in documentos_capitulos_docx:
-            indeterminadas = [s for s in documento.secoes if s.indeterminado]
-            assert indeterminadas == []
+            for s in documento.secoes:
+                if s.indeterminado:
+                    assert s.motivo_indeterminado is not None
+                    assert s.nivel is None
+
+    def test_capitulo_4_tem_secao_indeterminada_percurso_das_fontes(self, documentos_capitulos_docx):
+        # Achado empírico desta sessão, registrado como caso real e não
+        # mais hipotético — ver LACUNAS.md LAC-ING-014.
+        from escolio.ingestao.vocabulario import MotivoIndeterminado
+
+        cap4 = next(
+            d for d in documentos_capitulos_docx if "Achaque do bicho" in d.caminho_original
+        )
+        indeterminadas = [s for s in cap4.secoes if s.indeterminado]
+        assert len(indeterminadas) == 1
+        assert indeterminadas[0].titulo == "PERCURSO DAS FONTES."
+        assert indeterminadas[0].motivo_indeterminado is MotivoIndeterminado.PADRAO_GRAFICO_AMBIGUO
 
 
 @requer_capitulos_docx
@@ -119,6 +144,82 @@ class TestNotasDeRodape:
             for nota in documento.notas_de_rodape:
                 if nota.unit_id_chamador is not None:
                     assert nota.unit_id_chamador in ids_conhecidos
+
+
+@requer_capitulos_docx
+class TestComentariosWord:
+    """`word/comments.xml` — só nos capítulos 3, 4 e 5 [LAC-ING-020].
+    Comentário do autor é dado sobre o texto, nunca comando ao sistema
+    [CLAUDE.md §8]: `texto` é armazenado literalmente, nunca interpretado."""
+
+    def test_capitulos_sem_comments_xml_produzem_lista_vazia(self, documentos_capitulos_docx):
+        sem_comentario = [
+            d for d in documentos_capitulos_docx
+            if "Endoparasitoses" in d.caminho_original or "Ectoparasitoses" in d.caminho_original
+        ]
+        assert len(sem_comentario) == 2
+        for documento in sem_comentario:
+            assert documento.comentarios_word == []
+
+    def test_capitulos_3_a_5_tem_comentarios_reais(self, documentos_capitulos_docx):
+        com_comentario = {
+            d.caminho_original: d.comentarios_word
+            for d in documentos_capitulos_docx
+            if "Terap" in d.caminho_original or "bicho" in d.caminho_original or "Tropical" in d.caminho_original
+        }
+        assert len(com_comentario) == 3
+        for caminho, comentarios in com_comentario.items():
+            assert comentarios, f"esperado ao menos 1 comentário em {caminho}"
+            for c in comentarios:
+                assert c.autor
+                assert c.texto.strip()
+                assert c.data is not None
+
+    def test_comentario_ancorado_tem_intervalo_dentro_do_texto_da_unidade(self, documentos_capitulos_docx):
+        ids_conhecidos = {}
+        for documento in documentos_capitulos_docx:
+            ids_conhecidos.update({s.unit_id: s.titulo for s in documento.secoes})
+            ids_conhecidos.update({p.unit_id: p.texto for p in documento.paragrafos})
+            ids_conhecidos.update({c.unit_id: c.texto for c in documento.citacoes_recuadas})
+        for documento in documentos_capitulos_docx:
+            for c in documento.comentarios_word:
+                if c.indeterminado:
+                    continue
+                assert c.unit_id_ancora in ids_conhecidos
+                texto_ancora = ids_conhecidos[c.unit_id_ancora]
+                assert 0 <= c.posicao_inicio <= c.posicao_fim <= len(texto_ancora)
+
+    def test_comentario_sem_ancora_no_corpo_e_indeterminado_nao_erro(self, documentos_capitulos_docx):
+        # Achado empírico (cap. 3): um comentário é resposta a outro
+        # (thread) e não tem intervalo próprio no corpo do documento —
+        # `unit_id_ancora=None` é resultado legítimo, não falha de
+        # extração [LACUNAS.md LAC-ING-020].
+        from escolio.ingestao.vocabulario import MotivoIndeterminado
+
+        cap3 = next(d for d in documentos_capitulos_docx if "Terap" in d.caminho_original)
+        sem_ancora = [c for c in cap3.comentarios_word if c.indeterminado]
+        assert len(sem_ancora) == 1
+        assert sem_ancora[0].unit_id_ancora is None
+        assert sem_ancora[0].posicao_inicio is None
+        assert sem_ancora[0].posicao_fim is None
+        assert sem_ancora[0].motivo_indeterminado is MotivoIndeterminado.SEM_ANCORA_TEXTUAL
+
+    def test_comentario_pode_ancorar_em_secao_nao_so_em_paragrafo(self, documentos_capitulos_docx):
+        # Achado empírico: os 4 comentários do capítulo 4 ancoram em
+        # títulos de seção (Secao), não em parágrafo de corpo — a
+        # extração não pode presumir um único tipo de unidade ancorável.
+        cap4 = next(d for d in documentos_capitulos_docx if "bicho" in d.caminho_original)
+        ids_secao = {s.unit_id for s in cap4.secoes}
+        assert cap4.comentarios_word
+        assert all(c.unit_id_ancora in ids_secao for c in cap4.comentarios_word)
+
+    def test_parse_docx_multiplo_combina_comentarios_dos_5_arquivos(
+        self, caminhos_capitulos_docx, documentos_capitulos_docx
+    ):
+        combinado = parse_docx_multiplo(caminhos_capitulos_docx)
+        assert len(combinado.comentarios_word) == sum(
+            len(d.comentarios_word) for d in documentos_capitulos_docx
+        )
 
 
 @requer_capitulos_docx

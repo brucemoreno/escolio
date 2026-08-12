@@ -38,6 +38,7 @@ from escolio.ingestao.identificadores import gerar_id, hash_documento
 from escolio.ingestao.modelos import (
     CitacaoNoCorpo,
     CitacaoRecuada,
+    ComentarioWord,
     DocumentoIngerido,
     Metadados,
     NotaDeRodape,
@@ -138,6 +139,34 @@ def _chamadas_de_nota_no_paragrafo(paragrafo) -> list[tuple[str, int]]:
     return chamadas
 
 
+def _comentarios_do_paragrafo(paragrafo) -> list[tuple[str, int, int]]:
+    """[(comment_id, posicao_inicio, posicao_fim), ...] — só pares cujo
+    início E fim caem dentro deste parágrafo (confirmado nos capítulos
+    reais: nenhum intervalo observado atravessa parágrafo). Diferente de
+    `_chamadas_de_nota_no_paragrafo`: `commentRangeStart`/`commentRangeEnd`
+    não ficam aninhados dentro de `w:r` (nos capítulos reais, exportados
+    do Google Docs, vêm envoltos em `w:sdt`, irmãos dos runs) — por isso
+    percorre a árvore inteira do parágrafo (`.iter()`), não só
+    `paragrafo.runs`. Início sem fim correspondente no mesmo parágrafo
+    (intervalo cruzando parágrafo, ou marcador órfão) não entra no
+    resultado — vira comentário sem âncora resolvida, tratado como tal
+    por quem chama, nunca como posição chutada."""
+    inicios: dict[str, int] = {}
+    pares: list[tuple[str, int, int]] = []
+    offset = 0
+    for el in paragrafo._p.iter():
+        if el.tag == qn("w:t"):
+            offset += len(el.text or "")
+        elif el.tag == qn("w:commentRangeStart"):
+            inicios[el.get(qn("w:id"))] = offset
+        elif el.tag == qn("w:commentRangeEnd"):
+            cid = el.get(qn("w:id"))
+            inicio = inicios.pop(cid, None)
+            if inicio is not None:
+                pares.append((cid, inicio, offset))
+    return pares
+
+
 def parse_docx(caminho_docx: str) -> DocumentoIngerido:
     """Ponto de entrada. `caminho_docx` deve estar em `data/capitulos/` —
     este módulo não impõe essa restrição em tempo de execução, mesma
@@ -162,12 +191,15 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
     secao_atual_id: str | None = None
     titulo_do_capitulo_visto = False
     chamadas_pendentes: dict[str, tuple[str, int]] = {}
+    ancoras_comentarios: dict[str, tuple[str, int, int]] = {}
 
     ordinal_corpo = 0  # ordinal só de parágrafos/citações de corpo, base 0
     for paragrafo in documento.paragraphs:
         texto = paragrafo.text.strip()
         if not texto:
             continue
+
+        comentarios_no_paragrafo = _comentarios_do_paragrafo(paragrafo)
 
         if _paragrafo_e_titulo(paragrafo):
             if not titulo_do_capitulo_visto:
@@ -200,6 +232,8 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
                 )
             )
             secao_atual_id = sec_id
+            for cid, inicio, fim in comentarios_no_paragrafo:
+                ancoras_comentarios[cid] = (sec_id, inicio, fim)
             continue
 
         if _e_citacao_recuada(paragrafo):
@@ -207,6 +241,8 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
             cit_id = gerar_id("CIT", hash_doc, ordinal_corpo, idx)
             for fid, pos in _chamadas_de_nota_no_paragrafo(paragrafo):
                 chamadas_pendentes[fid] = (cit_id, pos)
+            for cid, inicio, fim in comentarios_no_paragrafo:
+                ancoras_comentarios[cid] = (cit_id, inicio, fim)
             citacoes_recuadas.append(
                 CitacaoRecuada(
                     unit_id=cit_id,
@@ -251,6 +287,8 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
 
         for fid, pos in _chamadas_de_nota_no_paragrafo(paragrafo):
             chamadas_pendentes[fid] = (par_id, pos)
+        for cid, inicio, fim in comentarios_no_paragrafo:
+            ancoras_comentarios[cid] = (par_id, inicio, fim)
 
         paragrafos.append(
             Paragrafo(
@@ -290,6 +328,29 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
             if hasattr(unidade, "notas_de_rodape_ids"):
                 unidade.notas_de_rodape_ids.append(nota_id)
 
+    contador_comentarios = _ContadorDePosicao()
+    comentarios_word: list[ComentarioWord] = []
+    for comentario in documento.comments:
+        ancora = ancoras_comentarios.get(str(comentario.comment_id))
+        unit_id_ancora, posicao_inicio, posicao_fim = ancora if ancora is not None else (None, None, None)
+        idx = contador_comentarios.proximo(0)
+        com_id = gerar_id("COM", hash_doc, 0, idx)
+        comentarios_word.append(
+            ComentarioWord(
+                unit_id=com_id,
+                autor=comentario.author,
+                texto=comentario.text,
+                data=comentario.timestamp.isoformat() if comentario.timestamp is not None else None,
+                unit_id_ancora=unit_id_ancora,
+                posicao_inicio=posicao_inicio,
+                posicao_fim=posicao_fim,
+                indeterminado=unit_id_ancora is None,
+                motivo_indeterminado=(
+                    None if unit_id_ancora is not None else MotivoIndeterminado.SEM_ANCORA_TEXTUAL
+                ),
+            )
+        )
+
     return DocumentoIngerido(
         hash_documento=hash_doc,
         caminho_original=caminho_docx,
@@ -302,6 +363,7 @@ def parse_docx(caminho_docx: str) -> DocumentoIngerido:
         citacoes_no_corpo=citacoes_no_corpo,
         referencias=[],
         figuras=[],
+        comentarios_word=comentarios_word,
         hifens_de_fim_de_linha_preservados=0,
     )
 
@@ -364,6 +426,7 @@ def parse_docx_multiplo(caminhos: list[str]) -> DocumentoIngerido:
         citacoes_no_corpo=[c for d in documentos for c in d.citacoes_no_corpo],
         referencias=[r for d in documentos for r in d.referencias],
         figuras=[f for d in documentos for f in d.figuras],
+        comentarios_word=[c for d in documentos for c in d.comentarios_word],
         hifens_de_fim_de_linha_preservados=sum(
             d.hifens_de_fim_de_linha_preservados for d in documentos
         ),

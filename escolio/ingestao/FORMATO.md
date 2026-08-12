@@ -407,3 +407,12 @@ rodapé renderizado. Resultado nos 3 documentos reais: 0 notas indeterminadas (t
 **Sem lista de referências nos 3 documentos reais** — citação é só por nota de rodapé;
 `referencias` e `figuras` ficam sempre vazios para este parser nesta calibração. Ver
 `escolio/ingestao/LACUNAS.md` (LAC-ING-013 a 018) para o raciocínio completo de cada decisão.
+
+**Comentários do Word** (`DocumentoIngerido.comentarios_word`, campo exclusivo de `.docx` — o
+parser de PDF nunca o popula) são lidos de `word/comments.xml` via `Document.comments` do
+`python-docx`, com a âncora no corpo (unidade + posição de caractere) resolvida por leitura
+direta do XML do parágrafo, não pela API pública (que não expõe essa relação). Comentário sem
+intervalo localizável no corpo (resposta em thread a outro comentário, por exemplo) fica
+`indeterminado=True`, nunca descartado nem posicionado por chute. Ver `escolio/ingestao/
+LACUNAS.md` (LAC-ING-020) para o raciocínio completo, incluindo por que a âncora pode ser
+`Secao`, `Paragrafo` ou `CitacaoRecuada` — não só parágrafo de corpo.
