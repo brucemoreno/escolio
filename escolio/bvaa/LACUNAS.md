@@ -159,6 +159,35 @@ código, não como frase. Nenhuma das três foi desenhada nesta sessão; ver
   (`tests/funcoes/test_bvaa_drive.py`, `tests/funcoes/test_execucao_p13.py`); suíte completa em
   1027 passando. Detalhe completo em `docs/spec/bvaa-drive-integracao.md` §6.
 
+## Sessão de 2026-08-12 (segunda peça) — T01-T03 construídos, escolha técnica delegada
+
+`INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §3` confirma a leitura
+de LAC-BVAA-007/008/009 (P04 é deliberadamente agnóstico a mecanismo, "isso não deve ser tratado
+como erro documental nem preenchida retroativamente como se o P04 tivesse escolhido uma
+tecnologia") e delega a escolha técnica de T01-T03 ao `ENGENHEIRO_LLM`, com dez condições
+(reversível, sem lock-in, documentar trade-off, etc. — §3.3).
+
+**Escolha construída**: reaproveitar a mesma fonte de evidência já usada para T04/T05
+(`escolio.drive.conector`) — correspondência textual entre `ItemDeReferencia.texto`/autor-ano e
+o resultado de `buscar_arquivos`/`listar_arquivos_da_pasta`. `escolio/funcoes/bvaa_drive.py`
+(mesmo módulo de T04/T05, não um terceiro arquivo) ganhou `EvidenciaDeIdentificacaoDrive` e
+`avancar_por_identificacao`, que aplica T01→T02→T03 em sequência a partir da mesma evidência.
+`escolio/bvaa/` continua com zero linhas alteradas — a nova função só chama
+`escolio.bvaa.maquina.avancar` três vezes, nenhuma lógica de transição nova.
+
+**Trade-off documentado** (condição 4 da instrução): Drive não distingue "obra" de "edição"
+como conceitos independentes — um arquivo é as duas coisas ao mesmo tempo, então a mesma
+evidência licencia T01 e T02 juntos, não duas evidências separadas. Isso não é uma leitura de
+que P04 trata obra e edição como equivalentes (não trata — `transicoes.py` mantém as duas
+transições distintas); é reconhecer que a única fonte de metadados disponível (nome do arquivo)
+não separa os dois níveis. Reversível: um catálogo bibliográfico estruturado futuro poderia
+licenciar T02 com evidência própria sem mudar T01 nem os chamadores existentes.
+
+Testes de `avancar_por_identificacao` e da cadeia completa identificação+acesso em
+`tests/funcoes/test_execucao_p13.py::TestEtapaOnzeVerificacaoDeFontes` — ver
+`escolio/funcoes/LACUNAS.md` (sessão de 2026-08-12, etapa 11 estendida) para o lado do
+orquestrador.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **`RegistroDeRelacoes` / agregação com múltiplas evidências por afirmação** — já é lacuna

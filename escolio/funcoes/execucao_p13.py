@@ -74,18 +74,38 @@ que faltava: as duas contra a estrutura do documento.
 
 Por instrução expressa do professor, autorizando a proposta registrada em
 `docs/spec/bvaa-drive-integracao.md`: a etapa 11 ("verificação de fontes")
-deixa de ser `_etapa_diagnostico_sem_schema` genérica e passa a consumir
+deixa de ser um ponto de extensão genérico e passa a consumir
 `EntradaEtapaP13.evidencias_de_acesso` — evidência real de
 `escolio.drive.conector`, encapsulada em `EvidenciaDeAcessoDrive`
 (`escolio/funcoes/bvaa_drive.py`). Duas restrições do professor, ambas
 literais no código: (1) `escolio/bvaa/` continua puro — a dependência de
 `escolio.drive` mora só em `escolio/funcoes/bvaa_drive.py`, nunca dentro da
-máquina de estados; (2) a evidência licencia exclusivamente T04/T05 — nunca
-identificação de obra/edição (T01-T03) nem leitura de conteúdo (T06+), que
-seguem `PONTO_DE_EXTENSAO_DE_MODELO` como antes. Sem `evidencias_de_acesso`,
-a etapa 11 se comporta exatamente como antes desta sessão (mesma causa,
-mesma justificativa) — nenhum teste anterior que dependia disso quebra.
-As etapas 12-15 não são tocadas.
+máquina de estados; (2) esta primeira peça licenciava exclusivamente
+T04/T05 — identificação de obra/edição (T01-T03) foi tratada como fora de
+escopo *desta peça*, não como impossível; a segunda peça do mesmo dia
+(abaixo) fecha isso. Sem nenhuma evidência, a etapa 11 se comporta como
+antes: `PONTO_DE_EXTENSAO_DE_MODELO`.
+
+## Sessão de 2026-08-12 (segunda peça) — etapas 12, 13, 14, 15 e T01-T03
+
+Autorizado por `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md`:
+
+- **Etapa 11** passa a encadear T01-T03 (identificação/localização, `EvidenciaDeIdentificacaoDrive`)
+  antes de T04/T05 (acesso, já existente) — escolha técnica delegada ao `ENGENHEIRO_LLM` [§3],
+  não decisão normativa nova.
+- **Etapa 12** (verificação de evidências) aceita `RelacaoAfirmacaoEvidencia` (schema P05,
+  `escolio/relacao.py`) já construída e validada — peça existente, nunca antes cotejada com esta
+  etapa; nenhuma chamada de modelo nova, mesmo padrão de aceitar objeto pronto que as etapas 8/9
+  já usam quando o objeto vem do chamador.
+- **Etapa 13** (verificação de voz) ganha handler real ligado à Camada A (`escolio.voz.deteccao`,
+  `ponte_modelo_p13.gerar_achados_fidelidade`) → Camada B (`escolio.voz.fidelidade.
+  avaliar_a_partir_do_perfil`, que não altera `avaliar()` — Instruções Complementares §1.1).
+- **Etapa 14** (verificação de privacidade) deixa de ser ponto de extensão: `INSTRUCOES_
+  COMPLEMENTARES...§2` resolve CO-012 proibindo gate obrigatório — a etapa agora é sempre
+  `EXECUTADA`, uma salvaguarda residual determinística
+  (`escolio.funcoes.salvaguarda_privacidade_p13`) que nunca bloqueia e nunca aciona por tema.
+- **Etapa 15** (problemas sistêmicos conhecidos) aceita a lista opcional já nomeada em `p13.py`
+  [§6.3] — puro wiring, sem julgamento novo.
 """
 
 from __future__ import annotations
@@ -111,12 +131,25 @@ from escolio.comentarios.vocabulario import (
     COMMENT_TYPE_REMISSAO_A_COMENTARIO_MATRIZ,
 )
 from escolio.funcoes import ponte_modelo_p13 as ponte
-from escolio.funcoes.bvaa_drive import EvidenciaDeAcessoDrive, avancar_por_evidencia
+from escolio.funcoes.bvaa_drive import (
+    EvidenciaDeAcessoDrive,
+    EvidenciaDeIdentificacaoDrive,
+    avancar_por_evidencia,
+    avancar_por_identificacao,
+)
 from escolio.funcoes.declaracao import Etapa
 from escolio.funcoes.p13 import DECLARACAO as DECLARACAO_P13
 from escolio.funcoes.roteador import AdmissaoDeMaterial, DecisaoDeRoteamento
+from escolio.funcoes.salvaguarda_privacidade_p13 import (
+    AlertaDePrivacidade,
+    detectar_exposicao_manifesta,
+)
 from escolio.funcoes.vocabulario import FuncaoId
 from escolio.ingestao.modelos import DocumentoIngerido
+from escolio.relacao import RelacaoAfirmacaoEvidencia
+from escolio.voz.deteccao import AchadoDeFidelidade
+from escolio.voz.fidelidade import AvaliacaoDeFidelidade, avaliar_a_partir_do_perfil
+from escolio.voz.perfil import PerfilDeVoz
 
 ARQUIVO_FONTE = "P13_CONTRATO_FUNCIONAL_COMENTARIOS_WORD_HOMOLOGADO_R01.md"
 
@@ -163,11 +196,11 @@ class CausaDeParada(str, Enum):
 
     PONTO_DE_EXTENSAO_DE_MODELO = "PONTO_DE_EXTENSAO_DE_MODELO"
     """A etapa exige juízo humano ou de modelo sobre o conteúdo do
-    documento (diagnóstico E4: fontes, evidência, voz, privacidade,
-    problemas sistêmicos) para o qual nenhuma sessão anterior definiu um
-    objeto de entrada aceitável por este orquestrador — diferente de
-    `ENTRADA_NAO_FORNECIDA`, não há campo para preencher numa repetição
-    desta chamada; fechar isto é trabalho de sessão futura, não desta."""
+    documento (diagnóstico E4: fontes, evidência, voz, problemas
+    sistêmicos — privacidade não é mais deste grupo, ver etapa 14 abaixo)
+    para o qual, nesta chamada, não veio um objeto de entrada aceitável —
+    diferente de `ENTRADA_NAO_FORNECIDA`, o campo existe mas o que ele
+    aceita é julgamento (humano ou de modelo), nunca um valor mecânico."""
 
     SEM_FONTE_DE_VERIFICACAO = "SEM_FONTE_DE_VERIFICACAO"
     """Nenhuma seção do contrato liga esta etapa nomeada a um critério
@@ -228,9 +261,44 @@ class EntradaEtapaP13:
     evidencias_de_acesso: dict[str, EvidenciaDeAcessoDrive] | None = None
     """Etapa 11 (verificação de fontes) — evidência real de acesso ao Drive
     [`escolio/funcoes/bvaa_drive.py`, `docs/spec/bvaa-drive-integracao.md`],
-    por `unit_id` de `ItemDeReferencia`. Licencia só T04/T05 do BVAA — nunca
-    identificação de obra/edição (T01-T03) nem leitura de conteúdo (T06+),
-    que continuam fora do escopo deste campo."""
+    por `unit_id` de `ItemDeReferencia`. Licencia T04/T05 do BVAA."""
+    evidencias_de_identificacao: dict[str, EvidenciaDeIdentificacaoDrive] | None = None
+    """Etapa 11 — correspondência textual entre referência citada e arquivo
+    do Drive [`escolio/funcoes/bvaa_drive.py`, T01-T03, escolha técnica
+    delegada ao `ENGENHEIRO_LLM` — `INSTRUCOES_COMPLEMENTARES_
+    IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §3`]. Aplicada antes de
+    `evidencias_de_acesso` para o mesmo `unit_id`, na mesma chamada."""
+    relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] | None = None
+    """Etapa 12 (verificação de evidências) — `RelacaoAfirmacaoEvidencia`
+    já construída e validada [P05, `escolio/relacao.py`; P09 §12]. Lista
+    vazia explícita (`[]`) é aceita como "nenhuma relação a verificar
+    nesta chamada", distinto de `None` (não fornecido)."""
+    perfil_de_voz: PerfilDeVoz | None = None
+    """Etapa 13 (verificação de voz) — perfil de voz do autor avaliado
+    [P07, `escolio/voz/perfil.py`]."""
+    achados_fidelidade: dict[str, list[AchadoDeFidelidade]] | None = None
+    """Etapa 13 — achados de fidelidade (Camada A, `escolio/voz/
+    deteccao.py`) já produzidos, por `unit_id`. Fornecer isto tem
+    prioridade sobre chamar o modelo, mesmo padrão de `matrizes_
+    criticidade`/`matrizes_seletividade`."""
+    unidades_para_deteccao_fidelidade: list[str] | None = None
+    """Etapa 13 — `unit_id`s para detecção via modelo
+    [`escolio/funcoes/ponte_modelo_p13.py::gerar_achados_fidelidade`]
+    quando `achados_fidelidade` não vem pronto. Exige `cliente` e
+    `perfil_de_voz`."""
+    amostras_conflitantes: bool = False
+    """Etapa 13 — fato sobre o `perfil_de_voz` que `PerfilDeVoz` não
+    valida por si (exige comparar amostras entre si); nunca assumido
+    `False` por conveniência quando não fornecido explicitamente pelo
+    chamador que de fato comparou as amostras."""
+    exigencia_institucional_em_conflito: bool = False
+    """Etapa 13 — idem, mas sobre conflito entre exigência institucional e
+    preferência autoral; depende de contexto externo ao perfil."""
+    problemas_sistemicos_conhecidos: list[str] | None = None
+    """Etapa 15 — "lista de problemas sistêmicos conhecidos" [P13 §6.3,
+    entrada opcional do professor, já citada em `escolio/funcoes/p13.py`].
+    Lista vazia explícita confirma "nenhum problema sistêmico conhecido
+    para esta chamada", distinto de `None`."""
 
 
 @dataclass
@@ -253,11 +321,21 @@ class ContextoExecucaoP13:
     relatorio_auditoria: RelatorioAuditoriaFinal | None = None
     estados_bibliograficos: dict[str, EstadoBibliografico] = field(default_factory=dict)
     """Estado BVAA corrente por `unit_id` de `ItemDeReferencia` — só
-    populado/avançado pela etapa 11 via evidência de acesso ao Drive.
-    Ausência de entrada para um `unit_id` é o estado inicial da máquina
-    [`EstadoBibliografico.OBRA_NAO_IDENTIFICADA`], não uma inferência: é o
-    ponto de partida literal de P04/03 para qualquer citação ainda não
-    processada."""
+    populado/avançado pela etapa 11 via evidência de identificação/acesso
+    ao Drive. Ausência de entrada para um `unit_id` é o estado inicial da
+    máquina [`EstadoBibliografico.OBRA_NAO_IDENTIFICADA`], não uma
+    inferência: é o ponto de partida literal de P04/03 para qualquer
+    citação ainda não processada."""
+    relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] = field(default_factory=list)
+    """Etapa 12 — `RelacaoAfirmacaoEvidencia` aceitas nesta execução."""
+    avaliacoes_fidelidade: dict[str, AvaliacaoDeFidelidade] = field(default_factory=dict)
+    """Etapa 13 — `AvaliacaoDeFidelidade` (Camada B) por `unit_id`."""
+    alertas_privacidade: list[AlertaDePrivacidade] = field(default_factory=list)
+    """Etapa 14 — achados da salvaguarda residual sobre `ctx.selecionados`.
+    Lista vazia é o resultado normal e esperado para a maioria dos
+    documentos — ausência de achado não é ausência de verificação."""
+    problemas_sistemicos_conhecidos: list[str] = field(default_factory=list)
+    """Etapa 15 — lista declarada pelo professor [§6.3], registrada aqui."""
 
 
 @dataclass
@@ -466,51 +544,156 @@ def _etapa_10_selecao_de_unidades_comentaveis(ctx: ContextoExecucaoP13, _e: Entr
     )
 
 
+def _avancar_bvaa_ou_levanta(
+    ctx: ContextoExecucaoP13, unit_id: str, aplicar, evidencia, origem: str
+) -> None:
+    """Helper comum às duas evidências do BVAA (identificação e acesso) —
+    valida `unit_id`, aplica via `aplicar(estado_atual, evidencia)` e
+    propaga `ErroDeTransicaoBibliografica` como `ErroDeExecucaoP13`, nunca
+    engolida. Evita repetir os mesmos cinco passos duas vezes dentro de
+    `_etapa_11_verificacao_de_fontes`."""
+    _exige_referencia_conhecida(unit_id, ctx.documento, origem)
+    estado_atual = ctx.estados_bibliograficos.get(unit_id, EstadoBibliografico.OBRA_NAO_IDENTIFICADA)
+    try:
+        resultado = aplicar(estado_atual, evidencia)
+    except ErroDeTransicaoBibliografica as erro:
+        raise ErroDeExecucaoP13(
+            "P13-§26",
+            "evidência não licencia transição a partir do estado bibliográfico atual da fonte "
+            "[BVAA/P04]",
+            detalhe=f"{origem}: unit_id={unit_id!r}: {erro}",
+        ) from erro
+    ctx.estados_bibliograficos[unit_id] = resultado.estado_novo
+
+
 def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
-    """Único ramo de 11-15 ligado ao BVAA [P13 §26, `docs/spec/
-    bvaa-drive-integracao.md`] — e só à metade "acesso" dele, por decisão
-    do professor (2026-08-12): licencia exclusivamente T04/T05 via evidência
-    real de `escolio.drive`. "Verificação de evidências" (etapa 12,
-    correspondência afirmação-conteúdo) e as demais etapas 13-15 continuam
-    `PONTO_DE_EXTENSAO_DE_MODELO`, sem tocar aqui."""
-    evidencias = e.evidencias_de_acesso
-    if not evidencias:
+    """Único ramo de 11-15 ligado ao BVAA [P13 §26]. Encadeia, na mesma
+    chamada, identificação/localização (T01-T03, `escolha técnica delegada
+    ao ENGENHEIRO_LLM` — `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_
+    ECOSSISTEMA_REVISAO_LLM_R01.md §3`) e acesso (T04/T05, já existente) —
+    identificação é aplicada primeiro, para que uma fonte que chega em
+    `OBRA_NAO_IDENTIFICADA` possa, na mesma chamada, alcançar `ACESSADA`
+    quando o chamador fornecer as duas evidências para o mesmo `unit_id`.
+    "Verificação de evidências" (etapa 12) e as demais (13-15) têm
+    handlers próprios agora, não tocados aqui."""
+    evidencias_identificacao = e.evidencias_de_identificacao or {}
+    evidencias_acesso = e.evidencias_de_acesso or {}
+    if not evidencias_identificacao and not evidencias_acesso:
         return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            "verificação de fontes exige juízo diagnóstico (E4) sobre o conteúdo do documento; "
-            "sem evidencias_de_acesso [PROPOSTA, docs/spec/bvaa-drive-integracao.md] nenhuma "
-            "fonte avança no BVAA — identificação de obra/edição (T01-T03) e leitura de "
-            "conteúdo (T06+) continuam fora do escopo desta evidência em qualquer caso"
+            "verificação de fontes exige evidência real de identificação (T01-T03) ou de acesso "
+            "(T04/T05) — sem nenhuma das duas, nenhuma fonte avança no BVAA; leitura de conteúdo "
+            "(T06+) continua fora do escopo desta etapa em qualquer caso"
         )
-    avancadas: dict[str, object] = {}
-    for unit_id, evidencia in evidencias.items():
-        _exige_referencia_conhecida(unit_id, ctx.documento, "verificação de fontes")
-        estado_atual = ctx.estados_bibliograficos.get(unit_id, EstadoBibliografico.OBRA_NAO_IDENTIFICADA)
-        try:
-            resultado = avancar_por_evidencia(estado_atual, evidencia)
-        except ErroDeTransicaoBibliografica as erro:
-            raise ErroDeExecucaoP13(
-                "P13-§26",
-                "evidência de acesso ao Drive não licencia transição a partir do estado "
-                "bibliográfico atual da fonte [BVAA/P04] — identificação de obra/edição "
-                "(T01-T03) precisa ocorrer antes de T04/T05, por outro caminho que não este",
-                detalhe=f"unit_id={unit_id!r}: {erro}",
-            ) from erro
-        ctx.estados_bibliograficos[unit_id] = resultado.estado_novo
-        avancadas[unit_id] = resultado
+    for unit_id, evidencia in evidencias_identificacao.items():
+        _avancar_bvaa_ou_levanta(ctx, unit_id, avancar_por_identificacao, evidencia, "verificação de fontes (identificação)")
+    for unit_id, evidencia in evidencias_acesso.items():
+        _avancar_bvaa_ou_levanta(ctx, unit_id, avancar_por_evidencia, evidencia, "verificação de fontes (acesso)")
     return TipoDeResultadoEtapa.EXECUTADA, None, (
-        f"{len(avancadas)} fonte(s) avançada(s) no BVAA por evidência real de acesso ao Drive "
-        "[P13 §26, PROPOSTA] — só T04/T05; verificação de evidências (etapa 12) e leitura de "
-        "conteúdo permanecem ponto de extensão de modelo"
+        f"{len(evidencias_identificacao)} identificação(ões) [T01-T03] + {len(evidencias_acesso)} "
+        "acesso(s) [T04/T05] aplicados no BVAA por evidência real"
     )
 
 
-def _etapa_diagnostico_sem_schema(nome_curto: str):
-    def handler(_ctx, _e):
+def _etapa_12_verificacao_de_evidencias(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
+    """`RelacaoAfirmacaoEvidencia` (P05, `escolio/relacao.py`) já existia
+    pronta e validada (`__post_init__`, RC-001..020) mas nunca tinha sido
+    cotejada com esta etapa — sessão de 2026-08-12. Nenhuma chamada de
+    modelo nova: aceita só o objeto já construído, mesmo padrão de
+    `matrizes_criticidade`/`matrizes_seletividade` quando fornecidas
+    prontas pelo chamador."""
+    relacoes = e.relacoes_afirmacao_evidencia
+    if relacoes is None:
         return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            f"{nome_curto} exige juízo diagnóstico (E4) sobre o conteúdo do documento; nenhuma "
-            "sessão anterior definiu objeto de entrada que ligue candidato a esta verificação"
+            "verificação de evidências [P09 §12] é julgamento sobre correspondência afirmação-"
+            "evidência (sufficiency/confidence); não calculado aqui sem RelacaoAfirmacaoEvidencia "
+            "já avaliada e validada [escolio/relacao.py]"
         )
-    return handler
+    ctx.relacoes_afirmacao_evidencia = list(relacoes)
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"{len(ctx.relacoes_afirmacao_evidencia)} RelacaoAfirmacaoEvidencia aceita(s) [P05, P09 §12]"
+    )
+
+
+def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
+    """Camada A (`escolio.voz.deteccao`, via `ponte.gerar_achados_
+    fidelidade` quando não fornecida pronta) → Camada B
+    (`escolio.voz.fidelidade.avaliar_a_partir_do_perfil`, que não altera
+    `avaliar()` — `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_
+    REVISAO_LLM_R01.md §1.1`)."""
+    perfil = e.perfil_de_voz
+    if perfil is None:
+        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+            "verificação de voz [P07] exige o perfil de voz do autor avaliado; sem "
+            "`perfil_de_voz`, nenhuma detecção nem avaliação de fidelidade é possível"
+        )
+    achados_por_unidade = e.achados_fidelidade
+    if achados_por_unidade is None:
+        if e.cliente is not None and e.unidades_para_deteccao_fidelidade:
+            achados_por_unidade = {
+                unit_id: ponte.gerar_achados_fidelidade(
+                    documento=ctx.documento,
+                    unit_id=unit_id,
+                    perfil=perfil,
+                    cliente=e.cliente,
+                    sequence_id=ctx.document_id,
+                )
+                for unit_id in e.unidades_para_deteccao_fidelidade
+            }
+        else:
+            return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+                "detecção de fidelidade [Camada A, §1.2] não calculada aqui sem `achados_"
+                "fidelidade` já produzidos ou `cliente` + `unidades_para_deteccao_fidelidade` "
+                "[escolio/funcoes/ponte_modelo_p13.py::gerar_achados_fidelidade]"
+            )
+    for unit_id, achados in achados_por_unidade.items():
+        _exige_unit_id_conhecido(unit_id, ctx.unidades_conhecidas, "verificação de voz")
+        ctx.avaliacoes_fidelidade[unit_id] = avaliar_a_partir_do_perfil(
+            perfil,
+            achados,
+            amostras_conflitantes=e.amostras_conflitantes,
+            exigencia_institucional_em_conflito=e.exigencia_institucional_em_conflito,
+        )
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"{len(achados_por_unidade)} unidade(s) avaliada(s) para fidelidade de voz [P07]"
+    )
+
+
+def _etapa_14_verificacao_de_privacidade(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    """Sempre `EXECUTADA` — nunca ponto de extensão, nunca gate. `CO-012`
+    resolvido [`INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_
+    REVISAO_LLM_R01.md §2.2`]: "NÃO IMPLEMENTAR filtro ou gate obrigatório
+    de privacidade sobre cada trecho ou comentário do fluxo normal de
+    revisão". A salvaguarda residual (`escolio.funcoes.
+    salvaguarda_privacidade_p13`) é determinística — não exige `cliente`
+    nem entrada humana para rodar, e nunca aciona por tema [§2.1, §2.6]."""
+    alertas: list[AlertaDePrivacidade] = []
+    for candidato in ctx.selecionados:
+        texto = ctx.documento.texto_da_unidade(candidato.unit_id)
+        alertas.extend(detectar_exposicao_manifesta(candidato.unit_id, texto))
+    ctx.alertas_privacidade = alertas
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"{len(alertas)} alerta(s) residual(is) de privacidade sobre {len(ctx.selecionados)} "
+        "candidato(s) selecionado(s) — salvaguarda não bloqueante [CO-012, §2]"
+    )
+
+
+def _etapa_15_identificacao_de_problemas_sistemicos(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
+    """"Lista de problemas sistêmicos conhecidos" [P13 §6.3, entrada
+    opcional do professor] — o professor identifica, o sistema registra;
+    nenhuma descoberta autônoma de problema sistêmico é tentada aqui
+    (sem fonte que descreva esse mecanismo — mesma disciplina de não
+    inferir o que a fonte não dá)."""
+    if e.problemas_sistemicos_conhecidos is None:
+        return TipoDeResultadoEtapa.PARADA, CausaDeParada.ENTRADA_NAO_FORNECIDA, (
+            "lista de problemas sistêmicos conhecidos [§6.3] não fornecida nesta chamada — "
+            "repetir com `problemas_sistemicos_conhecidos` preenchido (mesmo `[]`, para "
+            "confirmar 'nenhum conhecido') resolve"
+        )
+    ctx.problemas_sistemicos_conhecidos = list(e.problemas_sistemicos_conhecidos)
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"{len(ctx.problemas_sistemicos_conhecidos)} problema(s) sistêmico(s) conhecido(s) "
+        "registrado(s) [§6.3]"
+    )
 
 
 def _etapa_elaboracao(
@@ -605,10 +788,10 @@ _HANDLERS = {
     9: _etapa_9_matriz_de_seletividade,
     10: _etapa_10_selecao_de_unidades_comentaveis,
     11: _etapa_11_verificacao_de_fontes,
-    12: _etapa_diagnostico_sem_schema("verificação de evidências"),
-    13: _etapa_diagnostico_sem_schema("verificação de voz"),
-    14: _etapa_diagnostico_sem_schema("verificação de privacidade"),
-    15: _etapa_diagnostico_sem_schema("identificação de problemas sistêmicos"),
+    12: _etapa_12_verificacao_de_evidencias,
+    13: _etapa_13_verificacao_de_voz,
+    14: _etapa_14_verificacao_de_privacidade,
+    15: _etapa_15_identificacao_de_problemas_sistemicos,
     16: _etapa_elaboracao(
         "comentarios_matriz",
         COMMENT_TYPE_COMENTARIO_MATRIZ,

@@ -28,10 +28,49 @@ transições da matriz (`escolio/bvaa/transicoes.py`):
 Nenhuma chamada a este módulo avança um estado até `LEITURA_*`,
 `PAGINA_CONFIRMADA`, `VALIDADA` ou `RECOMENDADA` — essas continuam exigindo
 juízo humano ou de modelo sobre o conteúdo, ponto de extensão inalterado
-[P13 §26]. Identificação de obra/edição (T01-T03) também não é tratada
-aqui: `aplicar_transicao` (`escolio/bvaa/transicoes.py`) já rejeita T04/T05
-quando o estado atual não é o `estado_entrada` exigido — este módulo não
-amortece essa rejeição, propaga-a.
+[P13 §26].
+
+## T01-T03 — identificação de obra/edição/localização (2026-08-12, segunda peça)
+
+`INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §3`
+delega ao `ENGENHEIRO_LLM` a escolha técnica de mecanismo para T01-T03 — o
+pacote P04 é deliberadamente agnóstico a tecnologia (§13 do protocolo:
+"não escolhe banco, indexador, API, fornecedor ou plataforma"), e isso não
+é lacuna documental a preencher retroativamente, é decisão de escopo do P04
+[LAC-BVAA-007/008].
+
+**Escolha desta sessão**: correspondência textual entre o texto de uma
+`ItemDeReferencia` (ou autor/ano extraído dela) e o resultado de
+`escolio.drive.conector.buscar_arquivos`/`listar_arquivos_da_pasta` — a
+mesma fonte de verdade já usada para T04/T05, sem introduzir um segundo
+mecanismo de busca bibliográfica. Nenhum catálogo estruturado de metadados
+bibliográficos (autor/edição/ano como campos, não texto livre) foi
+contratado ou autorizado; o nome do arquivo no Drive é o único metadado
+disponível.
+
+**Trade-off documentado** (condição 4, §3.3 das Instruções Complementares):
+Drive não distingue "obra" de "edição" como conceitos independentes — um
+arquivo é uma obra e uma edição específicas ao mesmo tempo. T01 (obra) e
+T02 (edição) são, portanto, licenciados **conjuntamente pela mesma
+evidência de correspondência textual** — não há uma segunda fonte de
+metadados que confirme edição/volume/tradução separadamente da obra.
+Isso é aproximação deliberada, não uma leitura de que T01 e T02 sejam a
+mesma coisa na fonte (não são — `escolio/bvaa/transicoes.py` os mantém
+como transições distintas, T01 e T02 continuam sendo aplicadas em
+sequência, nunca fundidas em uma transição nova). Reversível: se um
+catálogo bibliográfico estruturado for contratado depois, licenciar T02
+separadamente com evidência própria não exige mudar T01 nem os chamadores
+deste módulo — só adicionar uma segunda evidência mais específica.
+
+T03 (localizada) é licenciada pelo mesmo achado de busca: o arquivo
+aparecer no resultado de `buscar_arquivos`/`listar_arquivos_da_pasta` já é
+"objeto específico encontrado" [T03, `transicoes.py`] — mesma evidência de
+`OperacaoDeAcesso.LOCALIZADO` acima, reaproveitada, não duplicada.
+
+Nenhuma decisão sobre qual texto da referência corresponde a qual arquivo
+é tomada por este módulo — isso é responsabilidade de quem chama (busca no
+Drive, e julgamento se o resultado corresponde à citação), mesma divisão
+de trabalho que já vale para `EvidenciaDeAcessoDrive`.
 """
 
 from __future__ import annotations
@@ -120,3 +159,53 @@ def avancar_por_evidencia(
     isso como sucesso parcial."""
     transicao_id = transicao_licenciada_por(evidencia)
     return _aplicar_transicao_bvaa(estado_atual, transicao_id)
+
+
+_CADEIA_DE_IDENTIFICACAO: tuple[str, ...] = ("T01", "T02", "T03")
+
+
+@dataclass(frozen=True)
+class EvidenciaDeIdentificacaoDrive:
+    """Correspondência textual entre uma referência citada e um arquivo
+    real do Drive — construída inteiramente a partir do retorno já
+    existente de `escolio.drive.conector` (`buscar_arquivos`/
+    `listar_arquivos_da_pasta`), nenhuma chamada nova ao Drive.
+
+    `referencia_citada` é o texto que fundamentou a correspondência (ex.:
+    `ItemDeReferencia.texto`, ou o autor/ano extraído dela) — preservado
+    para auditoria de por que este arquivo foi considerado o mesmo que a
+    citação, nunca usado por este módulo para decidir a correspondência
+    (isso é julgamento de quem chama)."""
+
+    arquivo: ArquivoDrive
+    referencia_citada: str
+
+    def __post_init__(self) -> None:
+        if not self.referencia_citada.strip():
+            raise ErroDeEvidenciaDeAcesso(
+                "referencia_citada vazia — correspondência sem o texto que a fundamenta não é "
+                "auditável (mesma exigência de evidência localizada de CLAUDE.md)"
+            )
+
+
+def avancar_por_identificacao(
+    estado_atual: EstadoBibliografico, evidencia: EvidenciaDeIdentificacaoDrive
+) -> ResultadoDeTransicao:
+    """Aplica T01, T02 e T03 em sequência a partir da mesma evidência de
+    correspondência textual [PROPOSTA — trade-off documentado no docstring
+    do módulo: Drive não distingue obra de edição, então a mesma evidência
+    licencia as duas]. Exige `estado_atual == OBRA_NAO_IDENTIFICADA` —
+    propaga `ErroDeTransicaoBibliografica` sem capturar quando não for
+    (mesma disciplina de `avancar_por_evidencia`: este módulo não amortece
+    rejeição da máquina de estados).
+
+    `ResultadoDeTransicao.transicao_id` do retorno é `"T01+T02+T03"` — rótulo
+    composto desta função, não um id da matriz de 18; cada transição
+    individual foi de fato aplicada via `escolio.bvaa.maquina.avancar`, em
+    sequência, nunca fundida numa transição nova."""
+    estado = estado_atual
+    for transicao_id in _CADEIA_DE_IDENTIFICACAO:
+        estado = _aplicar_transicao_bvaa(estado, transicao_id).estado_novo
+    return ResultadoDeTransicao(
+        estado_anterior=estado_atual, estado_novo=estado, transicao_id="+".join(_CADEIA_DE_IDENTIFICACAO)
+    )

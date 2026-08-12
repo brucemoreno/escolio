@@ -566,6 +566,20 @@ número subiu com sessões intermediárias não detalhadas aqui). Ver `escolio/b
 LAC-BVAA-009 e `docs/spec/bvaa-drive-integracao.md` §6. Item (b) (busca na internet) continua
 sem trabalho nesta sessão.
 
+**Em 2026-08-12, mesmo dia, sessão seguinte: T01-T03 construídos.**
+`INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §3` delega a escolha
+técnica ao `ENGENHEIRO_LLM` — o P04 continua deliberadamente agnóstico, isso não é lacuna
+documental. Escolha: reaproveitar `escolio.drive.conector` (mesma fonte de T04/T05) via
+correspondência textual entre referência citada e arquivo encontrado —
+`EvidenciaDeIdentificacaoDrive`/`avancar_por_identificacao`, mesmo módulo `bvaa_drive.py`. T01 e
+T02 são licenciados pela mesma evidência (trade-off documentado: Drive não distingue obra de
+edição). Na mesma sessão, as etapas 12 (evidências, `escolio/relacao.py` conectado), 13 (voz,
+camada de detecção nova + `avaliar_a_partir_do_perfil`, Camada B inalterada), 14 (privacidade,
+CO-012 resolvido — sem gate obrigatório, salvaguarda residual determinística só para CPF/e-mail/
+telefone formatado) e 15 (problemas sistêmicos, wiring puro) também foram construídas. Suíte
+completa: 1106 passando. Ver `escolio/funcoes/LACUNAS.md` (sessão de 2026-08-12, segunda peça)
+para o detalhamento completo das cinco peças.
+
 **Em 2026-08-09:** a lacuna de fonte (LAC-FUNC-005) não fechou e não devia fechar — inventar
 vocabulário de operação por função violaria CLAUDE.md §11 e quebraria
 `tests/funcoes/test_modulos_de_funcao.py::test_nenhuma_funcao_declara_operacoes_autorizadas`, que

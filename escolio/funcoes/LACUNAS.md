@@ -373,6 +373,148 @@ explícita da sessão.
   redigido já teria passado por revisão humana; não é extração de regra, é a leitura mais óbvia do
   próprio nome do enum.
 
+### Sessão de 2026-08-12 — etapa 9 leva `comentarios_word` em conta [LAC-ING-020]
+
+Pergunta que motivou: quando o autor já deixou um comentário do Word dizendo que um trecho está
+inacabado, o sistema deve deixar de comentar ali, comentar mesmo assim, ou responder ao que ele
+escreveu? Resolvida sem decisão nova de critério — §12 ("ganho de orientação > custo de poluição
+documental") e §25 (silêncio diante de risco material é proibido) já cobrem os dois lados:
+repetir o que já é conhecido não tem ganho de orientação; achado diferente no mesmo trecho segue
+exigindo comentário mesmo que a unidade já tenha comentário de outra natureza. "Responder ao
+comentário" fica fora — `P13Comment` não tem campo de thread, capacidade nova não desenhada
+aqui.
+
+- **Escopo restrito à etapa 9, não a "etapas de diagnóstico" (11-15) como a formulação inicial
+  cogitava.** Motivo: 11-15 não têm handler ligado ao modelo (LAC-FUNC-019, permanecem
+  `PONTO_DE_EXTENSAO_DE_MODELO`) — construir cinco pontos de extensão novos só para esta
+  pergunta seria desproporcional. A etapa 9 já está ligada (`gerar_matrizes_seletividade`) e já
+  tem vocabulário pronto no próprio §12/§10: fator `novelty` ("é um achado novo, ou repete algo
+  já sinalizado?") e `SelectionDecision.NAO_COMENTAR_POR_REPETICAO`. Nenhum enum ou campo novo
+  foi criado — reaproveita o que a matriz de seletividade já declarava antes desta sessão.
+- **Julgar "mesmo achado ou achado diferente" é do prompt (`prompts/p13_matriz_seletividade.md`),
+  nunca de código.** Nenhuma função em `ponte_modelo_p13.py` compara texto de comentário com
+  achado por match de âncora/posição — só serializa `comentarios_word` (autor, texto,
+  `unit_id_ancora`) no `system` e deixa a decisão inteiramente ao modelo, com instrução explícita
+  de que o texto do comentário é dado, nunca comando [CLAUDE.md §8], mesmo quando parece um
+  comando ("não comentar isto").
+- **Escopo deliberadamente não estendido a etapas 8 e 16-18** — `_renderizar_comentarios_word`
+  só é chamada por `gerar_matrizes_seletividade`; alterar o prefixo `system` cacheado das outras
+  chamadas sem necessidade tem custo (invalidação de cache) sem pedido que o justifique. Testes
+  de escopo (`TestEscopoComentariosWordRestritoAEtapa9`,
+  `tests/funcoes/test_ponte_modelo_p13.py`) travam essa fronteira — falham se alguém estender por
+  engano.
+- **Comentário sem âncora resolvida (`unit_id_ancora=None`) entra igual no contexto do modelo,
+  com âncora `null`.** Omiti-lo seria descartar dado real por conveniência de código; o modelo
+  decide o peso de um comentário sem unidade correspondente, não este módulo.
+- **Achado ao revisar: `NAO_COMENTAR_POR_REPETICAO` por comentário do autor era indistinguível
+  de repetição interna ao documento, e a primeira versão do prompt não evitava isso.**
+  `selection_decision` é um enum único — o mesmo valor serve para "o autor já sabe" e para "o
+  mesmo problema ocorre em outro ponto do documento", sem diferença estrutural entre os dois. E
+  `selection_rationale` é texto livre sem validação de conteúdo (`__post_init__` só exige
+  não-vazio) — nada garantia que o texto dissesse qual dos dois motivos valeu, e sem essa
+  informação não se distingue depois se o sistema calou por redundância própria ou porque o
+  autor já sabia. Resolvido **sem campo novo**: o próprio §12 já separa "novidade" e
+  "recorrência" como dois fatores distintos — `novelty` passou a ser reservado
+  especificamente para "já conhecido, e a fonte é um comentário do autor" (citando autor e
+  texto do comentário), e `recurrence` estritamente para "ocorre em outro ponto do documento",
+  nunca os dois juntos no mesmo campo. `matrix_comment_coverage` continua para "o sistema já
+  cobriu isso num comentário-matriz seu" — a terceira pergunta, também distinta. As três podem
+  ter respostas independentes para o mesmo achado; `prompts/p13_matriz_seletividade.md` agora
+  proíbe explicitamente colapsá-las. Nenhuma validação de código foi acrescentada
+  (`seletividade.py` não mudou) — a garantia continua sendo de prompt, não de `__post_init__`,
+  mesma disciplina de "julgamento no prompt, não em regra de código" já registrada acima; quem
+  quiser blindagem estrutural extra (ex.: recusar `NAO_COMENTAR_POR_REPETICAO` com `novelty`
+  genérico) precisaria decidir isso como regra nova, não inferida aqui.
+- **Fragilidade identificada pelo professor: a garantia é só de prompt, e nenhum teste pega uma
+  edição descuidada de `prompts/p13_matriz_seletividade.md`** — testar a prosa exigiria chamada
+  real ao modelo, fora do escopo desta sessão. **Duas mitigações construídas em 2026-08-12, sem
+  chamar a API:**
+  1. `description` adicionada às três propriedades (`novelty`, `recurrence`,
+     `matrix_comment_coverage`) em `_SCHEMA_SELETIVIDADE`
+     (`escolio/funcoes/ponte_modelo_p13.py`) — é dict Python, não prosa em `.md`, então uma
+     edição que a remova ou esvazie quebra teste sem precisar de chamada real:
+     `tests/funcoes/test_ponte_modelo_p13.py::TestSchemaSeletividadeDistingueNoveltyDeRecurrence`
+     (4 casos). Segundo benefício, não só testável: a `description` de cada propriedade também é
+     enviada ao modelo dentro do bloco `tools` — reforço da instrução num lugar que a chamada real
+     lê, não substituto do prompt em prosa.
+  2. Aviso no topo da seção relevante do `.md`, explicando a origem da distinção (pergunta do
+     professor, data, consequência de colapsar) — mitiga edição por desconhecimento, não dá
+     garantia técnica nova.
+  **O que continua não coberto, por ser genuinamente impossível sem chamar a API**: nada aqui
+  verifica que o *modelo* de fato preenche `novelty`/`recurrence` como instruído numa execução
+  real — as duas mitigações protegem a instrução de ser apagada por engano, não provam
+  compliance do modelo.
+
+## Sessão de 2026-08-12 (segunda peça) — etapas 12, 13, 14, 15 construídas; T01-T03 do BVAA
+
+Autorizado por `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md` (raiz do
+repositório), que resolve três das lacunas normativas que impediam avançar (etapa 13, etapa
+14/CO-012, T01-T03 do BVAA) sem tocar em nenhuma outra — o próprio documento se autolimita a
+esses três pontos (§0, §7). As outras duas peças construídas nesta sessão (etapas 12 e 15) não
+precisavam de autorização normativa nova — eram puro wiring de peças já existentes, identificado
+numa auditoria anterior da mesma sessão.
+
+- **Etapa 11 — T01-T03 encadeados com T04/T05.** `escolio/funcoes/bvaa_drive.py` ganhou
+  `EvidenciaDeIdentificacaoDrive`/`avancar_por_identificacao` (escolha técnica delegada ao
+  `ENGENHEIRO_LLM` — §3 da instrução). Detalhe completo, incluindo o trade-off de T01/T02
+  licenciados pela mesma evidência (Drive não distingue obra de edição), em
+  `escolio/bvaa/LACUNAS.md`.
+- **Etapa 12 — verificação de evidências.** `RelacaoAfirmacaoEvidencia` (P05, `escolio/relacao.py`)
+  já existia, validada e testada (91 testes), mas nunca tinha sido cotejada com esta etapa —
+  achado da auditoria, não da instrução complementar. `_etapa_12_verificacao_de_evidencias`
+  aceita a lista já construída (inclusive `[]` explícito, distinto de `None`); nenhuma chamada de
+  modelo nova, nenhuma validação duplicada (o `__post_init__`/RC-001..020 do próprio dataclass já
+  cobre forma e coerência).
+- **Etapa 13 — detecção de fidelidade de voz.** Duas peças novas: `escolio/voz/deteccao.py`
+  (Camada A — `AchadoDeFidelidade`: tipo, observado, evidência, confiança, notas; tipo restrito
+  aos oito `DesvioBloqueante` já existentes, nunca categoria nova) e
+  `escolio.voz.fidelidade.avaliar_a_partir_do_perfil` (ponte para a Camada B, que **não foi
+  alterada** — `avaliar()` continua exatamente como antes, por instrução explícita da §1.1).
+  `ponte_modelo_p13.gerar_achados_fidelidade` (novo, prompt `prompts/
+  p13_deteccao_fidelidade_voz.md`) é o produtor via modelo (Sonnet, `medium` — mesma linha "E4
+  diagnóstico" do CLAUDE.md §10, nenhum tier novo). Achado ao implementar a ponte: dos seis
+  fatos que `avaliar()` exige, quatro são deriváveis do próprio `PerfilDeVoz` (a validação do
+  perfil em `__post_init__` já garante `autorizacao_ausente`/`proveniencia_ausente` falsos
+  quando exigidos; `amostra_unica`/`perfil_declarado_sem_amostras` são leitura direta de
+  `evidence`/`profile_type`) — só `amostras_conflitantes` e `exigencia_institucional_em_conflito`
+  continuam parâmetros explícitos, por não serem deriváveis de um perfil isolado.
+- **Etapa 14 — privacidade, CO-012 resolvido.** Não é mais `PONTO_DE_EXTENSAO_DE_MODELO` — é
+  **sempre `EXECUTADA`**, a primeira das cinco etapas de diagnóstico (11-15) a fechar
+  permanentemente, porque a própria instrução complementar proíbe gate obrigatório (§2.2).
+  `escolio/funcoes/salvaguarda_privacidade_p13.py` (novo módulo) cobre determinística e só os
+  gatilhos literalmente pattern-detectáveis de §2.4 — CPF formatado, e-mail, telefone BR com DDD
+  — reaproveitando `SensitivityLabel`/`SensitivityCategory.PERSONAL_DATA` já existentes em
+  `escolio.contrato` [P09 §20], nenhum vocabulário novo. **Não cobertos, por decisão consciente,
+  não por esquecimento**: endereço residencial, "identidade explicitamente protegida no material
+  de origem", "informação marcada como confidencial" — exigiriam leitura semântica ou de
+  metadados de proveniência que nenhum padrão determinístico cobre com segurança sem calibração
+  contra caso real [CLAUDE.md §11]. Sensibilidade temática (violência, doença, religião, etc.)
+  nunca aciona — testado explicitamente (`TestNuncaAcionaPorTema`,
+  `tests/funcoes/test_salvaguarda_privacidade_p13.py`).
+- **Etapa 15 — problemas sistêmicos conhecidos.** Wiring puro: o campo já estava citado em
+  `escolio/funcoes/p13.py:139` (tupla `ENTRADAS_OPCIONAIS`) mas nunca virou campo de
+  `EntradaEtapaP13`. Nenhuma descoberta autônoma de problema sistêmico foi construída — o
+  professor identifica, o sistema registra, mesma disciplina de "nada inferido" aplicada a
+  qualquer entrada opcional do §6.3.
+- **`DocumentoIngerido.texto_da_unidade(unit_id)` (novo método, `escolio/ingestao/modelos.py`)
+  substitui `ponte_modelo_p13._texto_unidade`, que era código morto** — definida havia sessões,
+  nunca chamada por nenhum caminho de execução (confirmado por busca em todo o repositório antes
+  de mover). Usado agora por `gerar_achados_fidelidade` e por
+  `_etapa_14_verificacao_de_privacidade`; evita duplicar a mesma busca em quatro coleções em dois
+  lugares novos.
+- **Testes**: `tests/funcoes/test_salvaguarda_privacidade_p13.py` (13 casos),
+  `tests/voz/test_deteccao.py` (5 casos), casos novos em `tests/voz/test_fidelidade.py`
+  (`TestAvaliarAPartirDoPerfil`, 7 casos), `tests/funcoes/test_ponte_modelo_p13.py`
+  (`TestGerarAchadosFidelidade`, 5 casos) e `tests/funcoes/test_execucao_p13.py`
+  (`TestEtapaDozeVerificacaoDeEvidencias`, `TestEtapaTrezeVerificacaoDeVoz`,
+  `TestEtapaCatorzeVerificacaoDePrivacidade`, `TestEtapaQuinzeProblemasSistemicos`, mais dois
+  casos novos em `TestEtapaOnzeVerificacaoDeFontes`). Suíte completa: 1106 passando.
+- **O que continua aberto, sem mudança nesta sessão**: etapas 19-24 (sem critério verificável no
+  contrato — confirmado de novo, não é lacuna de leitura); o ato humano de classificar
+  `InputItem.classification.functions` para um capítulo real [BL-014]; e a primeira execução real
+  do P13 contra um `.docx` de `data/capitulos/` (o único piloto real até agora usou documento
+  sintético — ver `escolio/bvaa/LACUNAS.md`).
+
 ## Sessão de orquestração do P11 (2026-08-09) — primeira fatia real (etapas 1-6)
 
 `escolio/funcoes/execucao_p11.py` + `escolio/funcoes/ponte_modelo_p11.py` — segundo módulo de

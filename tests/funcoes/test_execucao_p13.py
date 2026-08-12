@@ -22,7 +22,11 @@ from escolio.contrato.vocabulario import AuthorizationStatus, InputType
 from escolio.drive.conector import ArquivoDrive
 from escolio.funcoes import ponte_modelo_p13 as ponte
 from escolio.funcoes import roteador
-from escolio.funcoes.bvaa_drive import EvidenciaDeAcessoDrive, OperacaoDeAcesso
+from escolio.funcoes.bvaa_drive import (
+    EvidenciaDeAcessoDrive,
+    EvidenciaDeIdentificacaoDrive,
+    OperacaoDeAcesso,
+)
 from escolio.funcoes.execucao_p13 import (
     CausaDeParada,
     EntradaEtapaP13,
@@ -31,8 +35,32 @@ from escolio.funcoes.execucao_p13 import (
     avancar,
     construir_estado_inicial,
 )
+from escolio.funcoes.salvaguarda_privacidade_p13 import AlertaDePrivacidade
 from escolio.funcoes.vocabulario import FuncaoId
 from escolio.ingestao.modelos import DocumentoIngerido, ItemDeReferencia, Metadados, Paragrafo
+from escolio.relacao import RelacaoAfirmacaoEvidencia
+from escolio.vocabulario import (
+    AccessState,
+    ClaimType,
+    Confidence,
+    EvidenceLevel,
+    LocationType,
+    ReadingState,
+    Reversibility,
+    SourceType,
+    Sufficiency,
+    UsageStatus,
+    ValidationState,
+)
+from escolio.voz.deteccao import AchadoDeFidelidade
+from escolio.voz.perfil import PerfilDeVoz
+from escolio.voz.vocabulario import Confidence as ConfidenceVoz
+from escolio.voz.vocabulario import (
+    DesvioBloqueante,
+    ResultadoDeFidelidade,
+    StatusDePerfil,
+    TipoDePerfil,
+)
 
 
 def documento_sintetico() -> DocumentoIngerido:
@@ -386,6 +414,374 @@ class TestEtapaOnzeVerificacaoDeFontes:
             avancar(estado, EntradaEtapaP13(evidencias_de_acesso={"UNI-REF-INEXISTENTE": evidencia}))
         assert "P13-§26" in str(excinfo.value)
         assert estado.concluidas == 10
+
+    def test_identificacao_e_acesso_na_mesma_chamada_chega_a_acessada(self):
+        # Sessão 2026-08-12 (segunda peça): T01-T03 encadeados com T04/T05
+        # na mesma chamada, a partir do estado inicial OBRA_NAO_IDENTIFICADA.
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="Grewe1979.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        evidencia_id = EvidenciaDeIdentificacaoDrive(arquivo=arquivo, referencia_citada=referencia.texto)
+        evidencia_acesso = EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                evidencias_de_identificacao={referencia.unit_id: evidencia_id},
+                evidencias_de_acesso={referencia.unit_id: evidencia_acesso},
+            ),
+        )
+
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.ACESSIVEL
+
+    def test_so_identificacao_sem_acesso_para_em_localizada(self):
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="Grewe1979.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        evidencia_id = EvidenciaDeIdentificacaoDrive(arquivo=arquivo, referencia_citada=referencia.texto)
+
+        avancar(estado, EntradaEtapaP13(evidencias_de_identificacao={referencia.unit_id: evidencia_id}))
+
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.LOCALIZADA
+
+
+def _avancar_etapa_11_completa(estado, documento) -> None:
+    """T01-T03+T04/T05 em uma única chamada, sobre a única referência de
+    `documento_sintetico_com_referencia` — usado pelos testes das etapas
+    12-15, que exigem `concluidas>=11` para serem alcançáveis."""
+    referencia = documento.referencias[0]
+    arquivo = ArquivoDrive(id="x", nome="Grewe1979.pdf", mime_type="application/pdf",
+                            tamanho_bytes=1, modificado_em=None)
+    avancar(
+        estado,
+        EntradaEtapaP13(
+            evidencias_de_identificacao={
+                referencia.unit_id: EvidenciaDeIdentificacaoDrive(arquivo=arquivo, referencia_citada=referencia.texto)
+            },
+            evidencias_de_acesso={
+                referencia.unit_id: EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+            },
+        ),
+    )
+    assert estado.concluidas == 11
+
+
+class TestEtapaDozeVerificacaoDeEvidencias:
+    def _relacao(self, **overrides) -> RelacaoAfirmacaoEvidencia:
+        campos = {
+            "claim_id": "CLAIM-0001",
+            "claim_text": "Afirmação sintética sobre o parágrafo.",
+            "claim_type": ClaimType.FATUAL,
+            "source_id": "SRC-0001",
+            "source_type": SourceType.DOCUMENTO,
+            "source_reference": "Fonte sintética",
+            "location_type": LocationType.NAO_APLICAVEL,
+            "evidence_level": EvidenceLevel.A_INTERNA_FORNECIDA,
+            "access_state": AccessState.ACESSADA,
+            "reading_state": ReadingState.LIDA_INTEGRALMENTE,
+            "validation_state": ValidationState.VALIDADA,
+            "sufficiency": Sufficiency.EVIDENCIA_SUFICIENTE,
+            "confidence": Confidence.ALTA,
+            "usage_status": UsageStatus.USO_LIBERADO,
+            "provenance": "ingestão sintética de teste",
+            "reversibility": Reversibility.NAO_APLICAVEL,
+            "evidence_excerpt": "trecho sintético que sustenta a afirmação",
+            "validator": "ENGENHEIRO_LLM",
+            "validation_date": "2026-08-12",
+        }
+        campos.update(overrides)
+        return RelacaoAfirmacaoEvidencia(**campos)
+
+    def test_sem_relacoes_e_ponto_de_extensao(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+
+        avancar(estado)  # 12, sem relacoes_afirmacao_evidencia
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+        assert estado.concluidas == 11
+
+    def test_lista_vazia_explicita_e_executada(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.relacoes_afirmacao_evidencia == []
+
+    def test_relacao_fornecida_e_aceita(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+
+        relacao = self._relacao()
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[relacao]))
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.relacoes_afirmacao_evidencia == [relacao]
+
+
+def _perfil_de_voz_sintetico(**overrides) -> PerfilDeVoz:
+    campos = {
+        "profile_id": "PV-EXEC-0001",
+        "profile_type": TipoDePerfil.PERFIL_NEUTRO_ACADEMICO_CONTROLADO,
+        "purpose": "preservar a voz do autor avaliado na revisão",
+        "scope": {"documento": "doc-exec-p13"},
+        "dimensions": {},
+        "evidence": [],
+        "confidence": ConfidenceVoz.NAO_APLICAVEL,
+        "authorization": {},
+        "versioning": {"versao": 1},
+        "provenance": [],
+        "reversibility": {"reversivel": True},
+        "status": StatusDePerfil.VALIDADO,
+    }
+    campos.update(overrides)
+    return PerfilDeVoz(**campos)
+
+
+class TestEtapaTrezeVerificacaoDeVoz:
+    def test_sem_perfil_e_ponto_de_extensao(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+        assert estado.concluidas == 12
+
+        avancar(estado)  # 13, sem perfil_de_voz
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+
+    def test_perfil_sem_achados_nem_cliente_e_ponto_de_extensao(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        avancar(estado, EntradaEtapaP13(perfil_de_voz=_perfil_de_voz_sintetico()))  # 13
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+
+    def test_achados_prontos_produzem_avaliacao_conforme(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        achado = AchadoDeFidelidade(
+            tipo=DesvioBloqueante.INVENCAO_FACTUAL, observado=False, evidencia="", confianca=ConfidenceVoz.ALTA
+        )
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                perfil_de_voz=_perfil_de_voz_sintetico(),
+                achados_fidelidade={paragrafo.unit_id: [achado]},
+            ),
+        )
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        avaliacao = estado.contexto.avaliacoes_fidelidade[paragrafo.unit_id]
+        assert avaliacao.resultado == ResultadoDeFidelidade.CONFORME
+
+    def test_desvio_observado_produz_avaliacao_bloquear(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        achado = AchadoDeFidelidade(
+            tipo=DesvioBloqueante.COPIA_OU_IMITACAO,
+            observado=True,
+            evidencia="trecho copiado de outro autor",
+            confianca=ConfidenceVoz.ALTA,
+        )
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                perfil_de_voz=_perfil_de_voz_sintetico(),
+                achados_fidelidade={paragrafo.unit_id: [achado]},
+            ),
+        )
+        avaliacao = estado.contexto.avaliacoes_fidelidade[paragrafo.unit_id]
+        assert avaliacao.resultado == ResultadoDeFidelidade.BLOQUEAR
+
+    def test_unit_id_desconhecido_levanta(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        with pytest.raises(ErroDeExecucaoP13):
+            avancar(
+                estado,
+                EntradaEtapaP13(
+                    perfil_de_voz=_perfil_de_voz_sintetico(),
+                    achados_fidelidade={"UNI-PAR-INEXISTENTE": []},
+                ),
+            )
+
+    def test_gera_achados_via_modelo_quando_cliente_fornecido(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        cliente = _cliente_fake(
+            [
+                {
+                    "type": "tool_use",
+                    "name": ponte._FERRAMENTA_DETECCAO_FIDELIDADE,
+                    "input": {
+                        "achados": [
+                            {
+                                "tipo": "INVENCAO_FACTUAL",
+                                "observado": False,
+                                "evidencia": "",
+                                "confianca": "ALTA",
+                                "notas": None,
+                            }
+                        ]
+                    },
+                }
+            ]
+        )
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                perfil_de_voz=_perfil_de_voz_sintetico(),
+                cliente=cliente,
+                unidades_para_deteccao_fidelidade=[paragrafo.unit_id],
+            ),
+        )
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert paragrafo.unit_id in estado.contexto.avaliacoes_fidelidade
+
+
+class TestEtapaCatorzeVerificacaoDePrivacidade:
+    """CO-012 resolvido — etapa sempre EXECUTADA, nunca gate
+    [INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §2]."""
+
+    def _ate_etapa_13(self, documento):
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+        achado = AchadoDeFidelidade(
+            tipo=DesvioBloqueante.INVENCAO_FACTUAL, observado=False, evidencia="", confianca=ConfidenceVoz.ALTA
+        )
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                perfil_de_voz=_perfil_de_voz_sintetico(),
+                achados_fidelidade={documento.paragrafos[0].unit_id: [achado]},
+            ),
+        )  # 13
+        assert estado.concluidas == 13
+        return estado
+
+    def test_sempre_executada_sem_entrada_alguma(self):
+        documento = documento_sintetico_com_referencia()
+        estado = self._ate_etapa_13(documento)
+
+        avancar(estado)  # 14, sem EntradaEtapaP13 nenhuma além do default
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.alertas_privacidade == []
+
+    def test_tema_dificil_nao_produz_alerta(self):
+        documento = documento_sintetico_com_referencia()
+        documento.paragrafos[0].texto = "O relato descreve tortura e violência durante a repressão."
+        estado = self._ate_etapa_13(documento)
+
+        avancar(estado)  # 14
+        assert estado.contexto.alertas_privacidade == []
+
+    def test_cpf_no_texto_selecionado_produz_alerta_nao_bloqueante(self):
+        documento = documento_sintetico_com_referencia()
+        documento.paragrafos[0].texto = "Contato do informante: 123.456.789-01."
+        estado = self._ate_etapa_13(documento)
+
+        avancar(estado)  # 14
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA  # nunca bloqueia
+        assert len(estado.contexto.alertas_privacidade) == 1
+        assert isinstance(estado.contexto.alertas_privacidade[0], AlertaDePrivacidade)
+
+
+class TestEtapaQuinzeProblemasSistemicos:
+    def _ate_etapa_14(self, documento):
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+        achado = AchadoDeFidelidade(
+            tipo=DesvioBloqueante.INVENCAO_FACTUAL, observado=False, evidencia="", confianca=ConfidenceVoz.ALTA
+        )
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                perfil_de_voz=_perfil_de_voz_sintetico(),
+                achados_fidelidade={documento.paragrafos[0].unit_id: [achado]},
+            ),
+        )  # 13
+        avancar(estado)  # 14
+        assert estado.concluidas == 14
+        return estado
+
+    def test_sem_lista_e_entrada_nao_fornecida(self):
+        documento = documento_sintetico_com_referencia()
+        estado = self._ate_etapa_14(documento)
+
+        avancar(estado)  # 15, sem problemas_sistemicos_conhecidos
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.ENTRADA_NAO_FORNECIDA
+
+    def test_lista_vazia_explicita_e_executada(self):
+        documento = documento_sintetico_com_referencia()
+        estado = self._ate_etapa_14(documento)
+
+        avancar(estado, EntradaEtapaP13(problemas_sistemicos_conhecidos=[]))
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.problemas_sistemicos_conhecidos == []
+
+    def test_lista_real_e_registrada(self):
+        documento = documento_sintetico_com_referencia()
+        estado = self._ate_etapa_14(documento)
+
+        avancar(
+            estado,
+            EntradaEtapaP13(problemas_sistemicos_conhecidos=["autor confunde datas juliano/gregoriano"]),
+        )
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.problemas_sistemicos_conhecidos == ["autor confunde datas juliano/gregoriano"]
+        assert estado.concluidas == 15
 
     def test_evidencia_sem_identificacao_previa_da_obra_levanta(self):
         """Estado inicial (OBRA_NAO_IDENTIFICADA) não licencia T04 — a

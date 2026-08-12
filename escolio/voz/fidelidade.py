@@ -8,8 +8,10 @@ texto revisado. Nenhuma função aqui aceita ou devolve o texto corrigido.
 
 from dataclasses import dataclass, field
 
+from escolio.voz.deteccao import AchadoDeFidelidade, desvios_observados
 from escolio.voz.erros import ErroDePerfilDeVoz
-from escolio.voz.vocabulario import DesvioBloqueante, ResultadoDeFidelidade
+from escolio.voz.perfil import PerfilDeVoz
+from escolio.voz.vocabulario import DesvioBloqueante, ResultadoDeFidelidade, TipoDePerfil
 
 ARQUIVO_PROTOCOLO = "06_PROTOCOLO_DE_AVALIACAO_DE_FIDELIDADE_AUTORAL_P07_R01.txt"
 
@@ -104,4 +106,63 @@ def avaliar(
 
     return AvaliacaoDeFidelidade(
         ResultadoDeFidelidade.CONFORME, justificativa=justificativa or "conforme ao perfil de voz vigente"
+    )
+
+
+_TIPOS_QUE_EXIGEM_DECLARACAO = (
+    TipoDePerfil.PERFIL_AUTORAL_DECLARADO_PELO_USUARIO,
+    TipoDePerfil.PERFIL_HIBRIDO_DECLARACAO_MAIS_AMOSTRAS,
+)
+_TIPOS_QUE_EXIGEM_AMOSTRAS = (
+    TipoDePerfil.PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS,
+    TipoDePerfil.PERFIL_HIBRIDO_DECLARACAO_MAIS_AMOSTRAS,
+)
+
+
+def avaliar_a_partir_do_perfil(
+    perfil: PerfilDeVoz,
+    achados: list[AchadoDeFidelidade],
+    *,
+    amostras_conflitantes: bool = False,
+    exigencia_institucional_em_conflito: bool = False,
+    justificativa: str = "",
+) -> AvaliacaoDeFidelidade:
+    """Ponte entre a Camada A (`escolio.voz.deteccao`) e `avaliar()`
+    (Camada B, inalterada — §1.1: "a camada B não deve ser alterada para
+    simular a inexistência da camada A") [`INSTRUCOES_COMPLEMENTARES_
+    IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §1.2`, fluxo recomendado].
+
+    Deriva de `perfil` os fatos que sua própria construção já garante —
+    `PerfilDeVoz.__post_init__` (`escolio/voz/perfil.py`) já rejeita um
+    perfil declarado sem `authorization` ou um perfil derivado sem
+    `evidence`/`provenance` suficientes; um `PerfilDeVoz` que existe já
+    não pode estar nesses dois estados, então `autorizacao_ausente` e
+    `proveniencia_ausente` são derivados, nunca duplicados ou chutados.
+    `amostra_unica` e `perfil_declarado_sem_amostras` são lidos
+    diretamente de `perfil.evidence`/`perfil.profile_type`.
+
+    `amostras_conflitantes` e `exigencia_institucional_em_conflito` não
+    são deriváveis de `PerfilDeVoz` isoladamente (a primeira exige
+    comparar amostras entre si; a segunda depende de contexto
+    institucional externo ao perfil) — por isso continuam parâmetros
+    explícitos, nunca assumidos como `False` por conveniência."""
+    autorizacao_ausente = (
+        perfil.profile_type in _TIPOS_QUE_EXIGEM_DECLARACAO and not perfil.authorization
+    )
+    proveniencia_ausente = (
+        perfil.profile_type in _TIPOS_QUE_EXIGEM_AMOSTRAS and not perfil.provenance
+    )
+    perfil_declarado_sem_amostras = (
+        perfil.profile_type == TipoDePerfil.PERFIL_AUTORAL_DECLARADO_PELO_USUARIO
+        and len(perfil.evidence) == 0
+    )
+    return avaliar(
+        desvios_encontrados=desvios_observados(achados),
+        amostra_unica=len(perfil.evidence) == 1,
+        amostras_conflitantes=amostras_conflitantes,
+        proveniencia_ausente=proveniencia_ausente,
+        autorizacao_ausente=autorizacao_ausente,
+        perfil_declarado_sem_amostras=perfil_declarado_sem_amostras,
+        exigencia_institucional_em_conflito=exigencia_institucional_em_conflito,
+        justificativa=justificativa,
     )

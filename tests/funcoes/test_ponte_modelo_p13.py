@@ -16,7 +16,11 @@ from escolio.comentarios.vocabulario import (
     P13CommentStatus,
 )
 from escolio.funcoes import ponte_modelo_p13 as ponte
-from escolio.ingestao.modelos import DocumentoIngerido, Metadados, Paragrafo
+from escolio.ingestao.erros import ErroDeIngestao
+from escolio.ingestao.modelos import ComentarioWord, DocumentoIngerido, Metadados, Paragrafo
+from escolio.voz.perfil import PerfilDeVoz
+from escolio.voz.vocabulario import Confidence as ConfidenceVoz
+from escolio.voz.vocabulario import DesvioBloqueante, StatusDePerfil, TipoDePerfil
 
 
 def documento_sintetico() -> DocumentoIngerido:
@@ -35,6 +39,22 @@ def documento_sintetico() -> DocumentoIngerido:
             )
         ],
     )
+
+
+def documento_com_comentario_word() -> DocumentoIngerido:
+    documento = documento_sintetico()
+    documento.comentarios_word.append(
+        ComentarioWord(
+            unit_id="UNI-COM-0001",
+            autor="Rodrigo Perles Dantas",
+            texto="Falar das pulgas e piolhos.",
+            data="2026-02-16T13:15:02+00:00",
+            unit_id_ancora="UNI-PAR-0001",
+            posicao_inicio=0,
+            posicao_fim=10,
+        )
+    )
+    return documento
 
 
 def cliente_fake(blocos: list[dict]) -> MagicMock:
@@ -120,6 +140,50 @@ class TestGerarMatrizesCriticidade:
         cliente.chamar.assert_not_called()
 
 
+class TestSchemaSeletividadeDistingueNoveltyDeRecurrence:
+    """Trava estrutural (2026-08-12) para a pergunta do professor sobre
+    `NAO_COMENTAR_POR_REPETICAO`: sem isto, nada além do prompt em
+    `prompts/p13_matriz_seletividade.md` garante que 'autor já sabia'
+    (novelty) não se confunda com 'ocorre em outro lugar do documento'
+    (recurrence) ou 'sistema já comentou' (matrix_comment_coverage) — e
+    nenhum teste pode chamar o modelo para verificar isso na prosa. A
+    `description` de cada propriedade no schema É código Python, não
+    prosa em `.md`: uma edição que a remova ou a esvazie quebra este
+    teste, sem precisar de chamada real à API."""
+
+    def _propriedades(self):
+        return ponte._SCHEMA_SELETIVIDADE["input_schema"]["properties"]["matrizes"]["items"][
+            "properties"
+        ]
+
+    def test_novelty_recurrence_e_matrix_comment_coverage_tem_description_nao_vazia(self):
+        props = self._propriedades()
+        for campo in ("novelty", "recurrence", "matrix_comment_coverage"):
+            assert props[campo].get("description", "").strip(), (
+                f"'{campo}' sem description no schema — a distinção volta a depender só do "
+                "prompt em prosa, não verificável sem chamar o modelo"
+            )
+
+    def test_novelty_description_menciona_comentario_do_autor_e_nao_recurrence(self):
+        props = self._propriedades()
+        assert "autor" in props["novelty"]["description"].lower()
+        assert "recurrence" in props["novelty"]["description"] or "'recurrence'" in props["novelty"]["description"]
+
+    def test_recurrence_description_redireciona_caso_de_autor_para_novelty(self):
+        # recurrence é sobre repetição interna ao documento; a menção a
+        # "autor" aqui só é aceitável como exclusão explícita ("isso é
+        # novelty, não aqui") — se a referência a 'novelty' desaparecer,
+        # a exclusão colapsou de volta em ambiguidade.
+        props = self._propriedades()
+        assert "novelty" in props["recurrence"]["description"]
+
+    def test_matrix_comment_coverage_distingue_sistema_de_autor(self):
+        props = self._propriedades()
+        descricao = props["matrix_comment_coverage"]["description"].lower()
+        assert "sistema" in descricao
+        assert "autor" in descricao
+
+
 class TestGerarMatrizesSeletividade:
     def test_tool_use_valido_produz_matrizseletividade(self):
         documento = documento_sintetico()
@@ -177,6 +241,88 @@ class TestGerarMatrizesSeletividade:
         with pytest.raises(ponte.ErroDePonteModeloP13):
             ponte.gerar_matrizes_seletividade(documento=documento, matrizes_criticidade=[], cliente=cliente)
         cliente.chamar.assert_not_called()
+
+    def test_comentarios_word_entram_no_system_estavel(self):
+        # Sessão de 2026-08-12: a etapa 9 passa a receber os comentários
+        # do Word já existentes no documento como contexto — dado, nunca
+        # comando [CLAUDE.md §8]. Julgar "mesmo achado ou outro" é do
+        # prompt, não deste código; aqui só verificamos que o dado chega.
+        documento = documento_com_comentario_word()
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-0001",
+            unit_id="UNI-PAR-0001",
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=ClasseCriticidade.CRITICIDADE_ALTA,
+            justificativa_classe="x",
+        )
+        cliente = cliente_fake([])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            # levanta por falta de tool_use — não é o que este teste
+            # verifica; o que importa é o conteúdo de `system_estavel`
+            # já enviado quando a chamada aconteceu.
+            ponte.gerar_matrizes_seletividade(
+                documento=documento, matrizes_criticidade=[matriz_criticidade], cliente=cliente
+            )
+
+        _, kwargs = cliente.chamar.call_args
+        assert "Rodrigo Perles Dantas" in kwargs["system_estavel"]
+        assert "Falar das pulgas e piolhos." in kwargs["system_estavel"]
+        assert "UNI-PAR-0001" in kwargs["system_estavel"]
+
+    def test_documento_sem_comentario_word_nao_quebra_e_lista_fica_vazia(self):
+        documento = documento_sintetico()
+        assert documento.comentarios_word == []
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-0001",
+            unit_id="UNI-PAR-0001",
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=ClasseCriticidade.CRITICIDADE_ALTA,
+            justificativa_classe="x",
+        )
+        cliente = cliente_fake([])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_matrizes_seletividade(
+                documento=documento, matrizes_criticidade=[matriz_criticidade], cliente=cliente
+            )
+
+        _, kwargs = cliente.chamar.call_args
+        assert "Comentários do Word" in kwargs["system_estavel"]
+        assert "Rodrigo Perles Dantas" not in kwargs["system_estavel"]
+
+
+class TestEscopoComentariosWordRestritoAEtapa9:
+    """Decisão desta sessão (2026-08-12): só a etapa 9 recebe
+    `comentarios_word` no prompt — etapas 8 e 16-18 não, para não alterar
+    o prefixo `system` cacheado dessas chamadas sem necessidade."""
+
+    def test_etapa_8_criticidade_nao_recebe_comentarios_word(self):
+        documento = documento_com_comentario_word()
+        cliente = cliente_fake([])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_matrizes_criticidade(documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente)
+
+        _, kwargs = cliente.chamar.call_args
+        assert "Falar das pulgas e piolhos." not in kwargs["system_estavel"]
+
+    def test_etapas_16_18_elaboracao_nao_recebem_comentarios_word(self):
+        documento = documento_com_comentario_word()
+        cliente = cliente_fake([])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_comentarios(
+                documento=documento,
+                document_id="MAT-DOC-0001",
+                document_version="1.0.0",
+                module_id="P13",
+                candidatos=[candidato_selecionado()],
+                cliente=cliente,
+            )
+
+        _, kwargs = cliente.chamar.call_args
+        assert "Falar das pulgas e piolhos." not in kwargs["system_estavel"]
 
 
 def candidato_selecionado(selection_id="SEL-0001", problem_id="PROB-0001") -> MatrizSeletividade:
@@ -307,3 +453,110 @@ class TestGerarComentarios:
                 cliente=cliente,
             )
         cliente.chamar.assert_not_called()
+
+
+def perfil_de_voz_sintetico(**overrides) -> PerfilDeVoz:
+    campos = {
+        "profile_id": "PV-EXEC-0001",
+        "profile_type": TipoDePerfil.PERFIL_NEUTRO_ACADEMICO_CONTROLADO,
+        "purpose": "preservar a voz do autor avaliado na revisão",
+        "scope": {"documento": "doc-ponte-p13-01"},
+        "dimensions": {},
+        "evidence": [],
+        "confidence": ConfidenceVoz.NAO_APLICAVEL,
+        "authorization": {},
+        "versioning": {"versao": 1},
+        "provenance": [],
+        "reversibility": {"reversivel": True},
+        "status": StatusDePerfil.VALIDADO,
+    }
+    campos.update(overrides)
+    return PerfilDeVoz(**campos)
+
+
+def bloco_achado_fidelidade(
+    *, tipo="INVENCAO_FACTUAL", observado=True, evidencia="trecho X diverge do original", confianca="ALTA"
+):
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_DETECCAO_FIDELIDADE,
+        "input": {
+            "achados": [
+                {
+                    "tipo": tipo,
+                    "observado": observado,
+                    "evidencia": evidencia,
+                    "confianca": confianca,
+                    "notas": None,
+                }
+            ]
+        },
+    }
+
+
+class TestGerarAchadosFidelidade:
+    def test_tool_use_valido_produz_achadodefidelidade(self):
+        documento = documento_sintetico()
+        perfil = perfil_de_voz_sintetico()
+        cliente = cliente_fake([bloco_achado_fidelidade()])
+
+        achados = ponte.gerar_achados_fidelidade(
+            documento=documento, unit_id="UNI-PAR-0001", perfil=perfil, cliente=cliente
+        )
+
+        assert len(achados) == 1
+        assert achados[0].tipo is DesvioBloqueante.INVENCAO_FACTUAL
+        assert achados[0].observado is True
+
+        _, kwargs = cliente.chamar.call_args
+        assert kwargs["model"] == ponte.MODEL_ETAPA_13
+        assert kwargs["effort"] == ponte.EFFORT_ETAPA_13
+        assert "PV-EXEC-0001" in kwargs["system_estavel"]
+        assert "UNI-PAR-0001" in kwargs["unidades"][0]["text"]
+
+    def test_observado_true_sem_evidencia_levanta_erro_de_ponte(self):
+        documento = documento_sintetico()
+        perfil = perfil_de_voz_sintetico()
+        cliente = cliente_fake([bloco_achado_fidelidade(evidencia="")])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_achados_fidelidade(
+                documento=documento, unit_id="UNI-PAR-0001", perfil=perfil, cliente=cliente
+            )
+
+    def test_tipo_fora_do_vocabulario_levanta_erro_de_ponte(self):
+        documento = documento_sintetico()
+        perfil = perfil_de_voz_sintetico()
+        cliente = cliente_fake([bloco_achado_fidelidade(tipo="DESVIO_INVENTADO")])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_achados_fidelidade(
+                documento=documento, unit_id="UNI-PAR-0001", perfil=perfil, cliente=cliente
+            )
+
+    def test_unit_id_desconhecido_levanta_antes_de_chamar_modelo(self):
+        documento = documento_sintetico()
+        perfil = perfil_de_voz_sintetico()
+        cliente = cliente_fake([])
+
+        with pytest.raises(ErroDeIngestao):
+            ponte.gerar_achados_fidelidade(
+                documento=documento, unit_id="UNI-PAR-INEXISTENTE", perfil=perfil, cliente=cliente
+            )
+        cliente.chamar.assert_not_called()
+
+    def test_texto_proposto_opcional_entra_na_mensagem_quando_fornecido(self):
+        documento = documento_sintetico()
+        perfil = perfil_de_voz_sintetico()
+        cliente = cliente_fake([bloco_achado_fidelidade(observado=False, evidencia="")])
+
+        ponte.gerar_achados_fidelidade(
+            documento=documento,
+            unit_id="UNI-PAR-0001",
+            perfil=perfil,
+            cliente=cliente,
+            texto_proposto="Versão revisada do parágrafo.",
+        )
+
+        _, kwargs = cliente.chamar.call_args
+        assert "Versão revisada do parágrafo." in kwargs["unidades"][0]["text"]

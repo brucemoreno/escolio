@@ -140,6 +140,31 @@ Lacunas herdadas do pacote fonte (arquivo 09) e lacunas encontradas durante a im
   a declara para este conflito específico (diferente de P06, onde `AuthorizationStatus` já
   modela isso para `InterventionRecord`).
 
+## Sessão de 2026-08-12 — camada de detecção construída, autorizada por instrução complementar
+
+- **A lacuna registrada acima ("nenhuma detecção automática por análise semântica de texto foi
+  construída, porque isso exigiria inferência fora do escopo desta peça") deixou de ser
+  verdadeira para a Etapa 13 do P13** —
+  `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §1.2` autoriza
+  explicitamente construir essa camada, desde que separada da decisória: "AUTORIZA-SE A
+  CONSTRUÇÃO da camada de detecção necessária à Etapa 13, desde que ela permaneça separada da
+  camada normativa/decisória." `escolio/voz/deteccao.py` (novo módulo) implementa essa Camada
+  A — `AchadoDeFidelidade` (tipo, observado, evidência, confiança, notas) — e
+  `escolio/funcoes/ponte_modelo_p13.py::gerar_achados_fidelidade` liga a chamada real de modelo
+  (Sonnet, `medium`) que produz esses achados a partir de texto real.
+- **`avaliar()` (Camada B) não foi alterado** — confirma o limite explícito da instrução ("a
+  camada B não deve ser alterada para simular a inexistência da camada A"). A ponte entre as
+  duas é `escolio.voz.fidelidade.avaliar_a_partir_do_perfil` (novo, mesmo arquivo), que deriva de
+  `PerfilDeVoz` os quatro fatos que a própria validação do perfil já garante
+  (`autorizacao_ausente`, `proveniencia_ausente`, `amostra_unica`, `perfil_declarado_sem_
+  amostras`) e recebe `amostras_conflitantes`/`exigencia_institucional_em_conflito` como
+  parâmetros explícitos — não deriváveis de um `PerfilDeVoz` isolado.
+- **Ainda não coberto**: "resolução de conflito" e "gate" como estruturas próprias (linha 111
+  acima) continuam sem parâmetro dedicado; reversão/histórico de versões (linha 116 acima)
+  continua não implementada. A camada de detecção não altera nenhuma dessas duas lacunas —
+  resolve só a ausência de mecanismo de detecção sobre texto real.
+- Ver `escolio/funcoes/LACUNAS.md` (sessão de 2026-08-12, etapa 13) para o lado do orquestrador.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **Perfil de voz de quem comenta.** Bloqueado por `CLAUDE.md` §13.1 — não implementado em

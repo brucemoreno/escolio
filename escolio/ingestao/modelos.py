@@ -35,6 +35,7 @@ escolio/ingestao/LACUNAS.md."""
 
 from dataclasses import dataclass, field
 
+from escolio.ingestao.erros import ErroDeIngestao
 from escolio.ingestao.vocabulario import MotivoIndeterminado, NivelHierarquia, TipoUnidade
 
 
@@ -255,3 +256,24 @@ class DocumentoIngerido:
     tipográfica — ver RG-004 revisado em heuristicas_paragrafo.py e
     LACUNAS.md. Não é um erro do parser: é a contagem de pontos que
     exigem revisão humana antes de qualquer normalização de hífen."""
+
+    def texto_da_unidade(self, unit_id: str) -> str:
+        """Busca o texto de qualquer unidade pelo `unit_id`, através das
+        quatro coleções que carregam texto corrido (parágrafo, citação
+        recuada, nota de rodapé, legenda de figura) — um único ponto de
+        busca reaproveitado por quem precisa do texto de uma unidade sem
+        saber de antemão a que coleção ela pertence (ex.: `ponte_modelo_
+        p13.py`, `salvaguarda_privacidade_p13.py`)."""
+        for p in self.paragrafos:
+            if p.unit_id == unit_id:
+                return p.texto
+        for c in self.citacoes_recuadas:
+            if c.unit_id == unit_id:
+                return c.texto
+        for n in self.notas_de_rodape:
+            if n.unit_id == unit_id:
+                return n.texto
+        for f in self.figuras:
+            if f.unit_id == unit_id:
+                return f.legenda or "[figura sem legenda]"
+        raise ErroDeIngestao(f"unit_id {unit_id!r} não encontrado no documento")
