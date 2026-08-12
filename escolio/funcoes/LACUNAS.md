@@ -515,6 +515,106 @@ numa auditoria anterior da mesma sessão.
   do P13 contra um `.docx` de `data/capitulos/` (o único piloto real até agora usou documento
   sintético — ver `escolio/bvaa/LACUNAS.md`).
 
+## Sessão de 2026-08-12 (terceira peça) — primeira execução real contra capítulo real: quebra na etapa 8
+
+Instrução do professor: executar o P13 de ponta a ponta contra o capítulo 5 (o menor de
+`data/capitulos/`, 89 parágrafos/14 citações recuadas/17 notas/120 unidades), com
+`classification.functions=["P13"]` declarado manualmente [BL-014, ato humano de teste — não
+constitui declaração real para material de produção]. "Não conserte nada — o objetivo é ver o
+que quebra."
+
+**Etapas 1-7: `EXECUTADA` sem achado** — intake, autoridade, dependências, ingestão, versão,
+cartografia, identificação das unidades, todas sem custo. `documento.referencias == []`,
+confirmando LAC-ING-017 também para este capítulo (não só os 3 originais): o parser de `.docx`
+nunca popula referências, então a etapa 11 (BVAA/Drive) não teria, mesmo em uma execução mais
+longa, nenhum `ItemDeReferencia` para ancorar evidência — a peça de identificação/acesso
+construída nesta mesma sessão é estruturalmente inaplicável a este tipo de documento, não por
+falta de evidência real disponível, mas por ausência total de candidato.
+
+**Etapa 8 (matriz de criticidade) — chamada real feita, resposta truncada, exceção não
+capturada.** `gerar_matrizes_criticidade` chamado com as 103 unidades de corpo (parágrafos +
+citações recuadas) em uma única chamada — `claude-sonnet-5`, `effort=medium`,
+`max_tokens=MAX_TOKENS_ETAPA_8=8000`. A resposta consumiu os 8000 tokens de saída sem terminar a
+ferramenta (`stop_reason=max_tokens`), e `ClienteAnthropic._exigir_resposta_completa` levantou
+`ErroRespostaTruncada` — comportamento correto do cliente (mesmo defeito já corrigido para P11 em
+2026-08-09, `escolio/cliente/LACUNAS.md`, "Sessão do piloto real P11 — ErroRespostaTruncada"; a
+correção generaliza para P13 também, e generalizou de fato).
+
+**Achado que a correção anterior não previa**: `ErroRespostaTruncada` **não é** uma das seis
+`CausaDeParada` — é uma exceção Python não capturada por `_etapa_8_matriz_de_criticidade` nem por
+`avancar()`. O percurso não produz um `ResultadoDeEtapa` com `tipo=PARADA`; ele **crasha** — o
+chamador recebe uma exceção não estruturada, `estado.historico` não registra a tentativa, e
+`estado.concluidas` permanece 7. Do ponto de vista de quem opera o orquestrador, isso é
+qualitativamente diferente de `PONTO_DE_EXTENSAO_DE_MODELO`/`ENTRADA_NAO_FORNECIDA`: não há causa
+estruturada para inspecionar, só uma exceção de outra camada (`escolio.cliente.erros`) que
+`execucao_p13.py` deixa propagar sem tradução. Não corrigido nesta sessão, por instrução
+expressa ("não conserte nada").
+
+**Causa real, medida a partir do cache local** (`data/cache_cliente/*.json` guarda a resposta
+ANTES da checagem de truncamento rodar — `ClienteAnthropic.chamar` salva no cache, depois checa
+`stop_reason`): a resposta cacheada tinha **um único bloco, `type=thinking`, e nenhum `tool_use`
+— zero matrizes produzidas, não matrizes incompletas**. Não é "12 eixos × 103 unidades produz
+JSON maior que 8000 tokens"; é o raciocínio (`thinking: {"type": "adaptive"}`, ligado por padrão
+em `ClienteAnthropic.chamar`) consumindo o orçamento inteiro de `max_tokens` antes de escrever
+qualquer conteúdo de saída — o mesmo padrão que `ErroRespostaTruncada` já documentava
+("frequentemente porque o raciocínio... consumiu o orçamento... `tool_use.input` vindo `{}`"),
+agora confirmado para P13 com um capítulo real, não hipotético.
+
+**Custo real, registrado em `costs/ledger.jsonl`**: uma chamada,
+`sequence_id=MAT-DOC-7b3e4356` (hash real do capítulo 5), `etapa=P13_ETAPA_8_MATRIZ_CRITICIDADE`,
+`cache_creation_input_tokens=39952`, `input_tokens=2352`, `output_tokens=8000` (o teto — confirma
+a truncagem), `custo_usd_total=US$ 0,2445`. Estimativa prévia via `cliente.estimar_custo` (pior
+caso, sem cache): US$ 0,1646 — a diferença vem do custo real de escrita de cache (`1,25×` o preço
+de input não cacheado), que a estimativa de pior caso já assumia como "sem cache" (mais barato
+que a escrita real). Nenhuma chamada de etapa 9 em diante foi feita — o percurso parou aqui.
+
+## Sessão de 2026-08-12 (quarta peça) — correção: causa estruturada + lotes, não teto maior
+
+Duas correções, por instrução do professor após ver o achado acima — "corrija a arquitetura
+primeiro" (a exceção crua), "depois disso, o dimensionamento" (o lote).
+
+**1. `CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO` — sétima causa.** Antes desta correção,
+`ErroDeCliente` (base de `ErroRespostaTruncada`, `ErroDeLimiteDeTaxa`, `ErroDeTimeout`,
+`ErroDeConexao`, `ErroDeServidor`, etc. — `escolio/cliente/erros.py`) propagava como exceção
+Python crua a partir de `ponte.gerar_matrizes_criticidade`/`gerar_matrizes_seletividade`/
+`gerar_achados_fidelidade`/`gerar_comentarios`, derrubando `avancar()` sem registrar a tentativa
+em `estado.historico` — nenhuma das outras seis causas tinha esse comportamento. Agora as quatro
+etapas que chamam modelo (8, 9, 13, 16-18) capturam `ErroDeCliente` e devolvem
+`PARADA`/`FALHA_NA_CHAMADA_AO_MODELO`, com `_justificativa_falha_cliente` (helper único,
+`execucao_p13.py`) relatando categoria/severidade/código do erro e se `retryable`. A etapa
+reoferece a si mesma na próxima chamada, mesma disciplina de qualquer outra `PARADA`
+[POL-012] — nada de especial-caso.
+
+Escopo desta correção: só `ErroDeCliente` e suas subclasses (erro de transporte/API). Erros de
+tradução do próprio `ponte_modelo_p13.py` (`ErroDePonteModeloP13` — resposta bem-formada mas que
+não corresponde ao dataclass esperado) continuam propagando como exceção — são uma categoria
+diferente (o modelo respondeu, mas o conteúdo não validou), não pedida nesta correção, e
+conflar as duas teria colapsado dois defeitos de natureza diferente na mesma causa.
+
+**2. Lotes, não teto maior — `TAMANHO_LOTE_ETAPA_8`/`TAMANHO_LOTE_ETAPA_9 = 15`
+[`PROPOSTA`, calibrado só por este único dado real].** `gerar_matrizes_criticidade` e
+`gerar_matrizes_seletividade` agora particionam `unit_ids`/candidatos em lotes de até 15,
+chamando `cliente.chamar` uma vez por lote — `system_estavel` (documento inteiro) é idêntico
+entre lotes da mesma chamada de etapa, então a escrita de cache ocorre uma vez, os lotes
+seguintes leem do cache [`ClienteAnthropic`/`hash_prefixo_estavel`]: lotes menores não
+multiplicam o custo de reler o documento, só reduzem quanto o modelo precisa raciocinar por
+chamada. Aumentar `max_tokens` foi descartado deliberadamente — adiaria o mesmo problema para o
+próximo documento maior, sem atacar a causa (volume de raciocínio por chamada). Falha de
+qualquer lote propaga sem capturar (`gerar_matrizes_criticidade`/`_seletividade` não aceitam
+resultado parcial como sucesso [P09 §21.43]) — quem chama (`execucao_p13.py`) decide o que fazer,
+via a `CausaDeParada` nova acima.
+
+**Não recalibrado contra a API real nesta correção** — os 15 por lote não foram testados contra
+o capítulo 5 de novo (evitar novo gasto sem necessidade); a suíte de testes usa cliente mockado
+com múltiplas respostas em sequência para verificar que o particionamento e a agregação
+funcionam, não que 15 é o número certo. Se uma reexecução real mostrar que 15 ainda trunca (ou
+que cabe folga para mais), é achado de sessão futura, não desta.
+
+Testes: `tests/funcoes/test_ponte_modelo_p13.py` (`TestGerarMatrizesCriticidadeEmLotes`,
+`TestGerarMatrizesSeletividadeEmLotes`, 4 casos) e `tests/funcoes/test_execucao_p13.py`
+(`TestFalhaNaChamadaAoModelo`, 4 casos — um por etapa que chama modelo). Suíte completa: 1114
+passando.
+
 ## Sessão de orquestração do P11 (2026-08-09) — primeira fatia real (etapas 1-6)
 
 `escolio/funcoes/execucao_p11.py` + `escolio/funcoes/ponte_modelo_p11.py` — segundo módulo de

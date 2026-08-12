@@ -63,6 +63,77 @@ def cliente_fake(blocos: list[dict]) -> MagicMock:
     return cliente
 
 
+def cliente_fake_sequencia(lista_de_blocos: list[list[dict]]) -> MagicMock:
+    """Um retorno diferente por chamada — para testar lotes (cada lote é
+    uma chamada real distinta a `cliente.chamar`)."""
+    cliente = MagicMock()
+    cliente.chamar.side_effect = [MagicMock(blocos=blocos) for blocos in lista_de_blocos]
+    return cliente
+
+
+def _bloco_criticidade(unit_id: str, problem_id: str) -> dict:
+    avaliacao = {eixo.value: f"avaliação {eixo.value}" for eixo in EixoCriticidade}
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_CRITICIDADE,
+        "input": {
+            "matrizes": [
+                {
+                    "problem_id": problem_id,
+                    "unit_id": unit_id,
+                    "avaliacao_por_eixo": avaliacao,
+                    "classe": "CRITICIDADE_MEDIA",
+                    "justificativa_classe": "x",
+                }
+            ]
+        },
+    }
+
+
+class TestGerarMatrizesCriticidadeEmLotes:
+    def test_unit_ids_acima_do_lote_gera_multiplas_chamadas(self):
+        documento = documento_sintetico()
+        n = ponte.TAMANHO_LOTE_ETAPA_8 + 3
+        unit_ids = [f"UNI-PAR-{i:04d}" for i in range(n)]
+        # Cada "lote" simulado devolve 1 matriz só (suficiente para contar
+        # chamadas e agregação, não para testar o conteúdo completo de
+        # cada lote).
+        cliente = cliente_fake_sequencia(
+            [[_bloco_criticidade(unit_ids[0], "PROB-0")], [_bloco_criticidade(unit_ids[-1], "PROB-1")]]
+        )
+
+        matrizes = ponte.gerar_matrizes_criticidade(documento=documento, unit_ids=unit_ids, cliente=cliente)
+
+        assert cliente.chamar.call_count == 2  # ceil(n / TAMANHO_LOTE_ETAPA_8)
+        assert len(matrizes) == 2
+
+        indices = [kwargs["indice_na_sequencia"] for _, kwargs in cliente.chamar.call_args_list]
+        assert indices == [0, 1]
+
+    def test_unit_ids_dentro_do_lote_gera_uma_chamada_so(self):
+        documento = documento_sintetico()
+        unit_ids = [f"UNI-PAR-{i:04d}" for i in range(ponte.TAMANHO_LOTE_ETAPA_8)]
+        cliente = cliente_fake([_bloco_criticidade(unit_ids[0], "PROB-0")])
+
+        ponte.gerar_matrizes_criticidade(documento=documento, unit_ids=unit_ids, cliente=cliente)
+
+        assert cliente.chamar.call_count == 1
+
+    def test_erro_de_cliente_no_meio_dos_lotes_propaga_sem_capturar(self):
+        from escolio.cliente.erros import ErroDeTimeout
+
+        documento = documento_sintetico()
+        unit_ids = [f"UNI-PAR-{i:04d}" for i in range(ponte.TAMANHO_LOTE_ETAPA_8 + 1)]
+        cliente = MagicMock()
+        cliente.chamar.side_effect = [
+            MagicMock(blocos=[_bloco_criticidade(unit_ids[0], "PROB-0")]),
+            ErroDeTimeout("timeout sintético"),
+        ]
+
+        with pytest.raises(ErroDeTimeout):
+            ponte.gerar_matrizes_criticidade(documento=documento, unit_ids=unit_ids, cliente=cliente)
+
+
 class TestGerarMatrizesCriticidade:
     def test_tool_use_valido_produz_matrizcriticidade(self):
         documento = documento_sintetico()
@@ -182,6 +253,62 @@ class TestSchemaSeletividadeDistingueNoveltyDeRecurrence:
         descricao = props["matrix_comment_coverage"]["description"].lower()
         assert "sistema" in descricao
         assert "autor" in descricao
+
+
+def _bloco_seletividade(selection_id: str, unit_id: str, problem_id: str) -> dict:
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_SELETIVIDADE,
+        "input": {
+            "matrizes": [
+                {
+                    "selection_id": selection_id,
+                    "unit_id": unit_id,
+                    "candidate_problem_id": problem_id,
+                    "criticality": "CRITICIDADE_ALTA",
+                    "material_impact": "x",
+                    "novelty": "x",
+                    "recurrence": "x",
+                    "matrix_comment_coverage": "x",
+                    "actionability": "x",
+                    "evidence_sufficiency": "x",
+                    "human_decision_required": "x",
+                    "privacy_risk": "x",
+                    "selection_decision": "COMENTAR",
+                    "selection_rationale": "x",
+                }
+            ]
+        },
+    }
+
+
+class TestGerarMatrizesSeletividadeEmLotes:
+    def test_candidatos_acima_do_lote_gera_multiplas_chamadas(self):
+        documento = documento_sintetico()
+        n = ponte.TAMANHO_LOTE_ETAPA_9 + 2
+        candidatos = [
+            MatrizCriticidade(
+                problem_id=f"PROB-{i:04d}",
+                unit_id="UNI-PAR-0001",
+                avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+                classe=ClasseCriticidade.CRITICIDADE_ALTA,
+                justificativa_classe="x",
+            )
+            for i in range(n)
+        ]
+        cliente = cliente_fake_sequencia(
+            [
+                [_bloco_seletividade("SEL-0", "UNI-PAR-0001", "PROB-0000")],
+                [_bloco_seletividade("SEL-1", "UNI-PAR-0001", "PROB-0001")],
+            ]
+        )
+
+        matrizes = ponte.gerar_matrizes_seletividade(
+            documento=documento, matrizes_criticidade=candidatos, cliente=cliente
+        )
+
+        assert cliente.chamar.call_count == 2
+        assert len(matrizes) == 2
 
 
 class TestGerarMatrizesSeletividade:

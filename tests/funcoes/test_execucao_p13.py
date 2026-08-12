@@ -11,6 +11,12 @@ from unittest.mock import MagicMock
 import pytest
 
 from escolio.bvaa.vocabulario import EstadoBibliografico
+from escolio.cliente.erros import (
+    ErroDeConexao,
+    ErroDeLimiteDeTaxa,
+    ErroDeTimeout,
+    ErroRespostaTruncada,
+)
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import ClasseCriticidade, EixoCriticidade, MatrizCriticidade
 from escolio.comentarios.seletividade import MatrizSeletividade, SelectionDecision
@@ -364,6 +370,127 @@ def _avancar_ate_selecao(estado, documento) -> None:
     avancar(estado, EntradaEtapaP13(matrizes_seletividade=[matriz_seletividade]))  # 9
     avancar(estado)  # 10 seleção
     assert estado.concluidas == 10
+
+
+def _avancar_ate_etapa_7(estado, documento) -> None:
+    avancar(estado)  # 1 intake
+    avancar(estado)  # 2 confirmação de autoridade
+    avancar(estado, EntradaEtapaP13(dependencias_obrigatorias_confirmadas=True))  # 3
+    avancar(estado, EntradaEtapaP13(documento=documento))  # 4 ingestão controlada
+    avancar(estado, EntradaEtapaP13(document_version="1.0.0"))  # 5
+    avancar(estado)  # 6 cartografia global
+    avancar(estado)  # 7 identificação das unidades
+    assert estado.concluidas == 7
+
+
+class TestFalhaNaChamadaAoModelo:
+    """Sessão de 2026-08-12 (quarta peça) — achado do primeiro piloto real
+    contra um capítulo verdadeiro: `ErroDeCliente` (truncamento, limite de
+    taxa, timeout, conexão) crashava o percurso em vez de virar
+    `ResultadoDeEtapa` com causa estruturada. Um teste por etapa que chama
+    modelo (8, 9, 13, 16) — a mesma disciplina vale para qualquer uma."""
+
+    def test_etapa_8_erro_de_cliente_vira_causa_estruturada_nao_exececao(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_etapa_7(estado, documento)
+
+        cliente = MagicMock()
+        cliente.chamar.side_effect = ErroRespostaTruncada("claude-sonnet-5")
+
+        avancar(estado, EntradaEtapaP13(cliente=cliente, unidades_para_matriz_criticidade=[paragrafo.unit_id]))
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO
+        assert "RESPOSTA_TRUNCADA" in ultimo.justificativa
+        assert estado.concluidas == 7  # não avançou, mas também não crashou
+
+        # POL-012: a tentativa fica registrada; a próxima chamada reoferece
+        # a mesma etapa, não avança para a 9 nem trava para sempre.
+        assert len(estado.historico) == 8
+        assert estado.historico[-1].etapa.ordem == 8
+
+    def test_etapa_9_erro_de_cliente_vira_causa_estruturada(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_etapa_7(estado, documento)
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-FALHA-0001",
+            unit_id=paragrafo.unit_id,
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=ClasseCriticidade.CRITICIDADE_BAIXA,
+            justificativa_classe="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_criticidade=[matriz_criticidade]))  # 8
+
+        cliente = MagicMock()
+        cliente.chamar.side_effect = ErroDeLimiteDeTaxa("limite de taxa sintético")
+        avancar(estado, EntradaEtapaP13(cliente=cliente))  # 9
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO
+        assert "LIMITE_DE_TAXA" in ultimo.justificativa
+        assert "provavelmente vale repetir" in ultimo.justificativa  # retryable=True
+
+    def test_etapa_13_erro_de_cliente_no_meio_do_loop_de_unidades(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        cliente = MagicMock()
+        cliente.chamar.side_effect = ErroDeConexao("conexão sintética perdida")
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                perfil_de_voz=_perfil_de_voz_sintetico(),
+                cliente=cliente,
+                unidades_para_deteccao_fidelidade=[paragrafo.unit_id],
+            ),
+        )  # 13
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO
+        assert "ERRO_DE_CONEXAO" in ultimo.justificativa
+        assert paragrafo.unit_id not in estado.contexto.avaliacoes_fidelidade
+
+    def test_etapa_16_erro_de_cliente_vira_causa_estruturada(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+        achado = AchadoDeFidelidade(
+            tipo=DesvioBloqueante.INVENCAO_FACTUAL, observado=False, evidencia="", confianca=ConfidenceVoz.ALTA
+        )
+        avancar(
+            estado,
+            EntradaEtapaP13(perfil_de_voz=_perfil_de_voz_sintetico(), achados_fidelidade={paragrafo.unit_id: [achado]}),
+        )  # 13
+        avancar(estado)  # 14
+        avancar(estado, EntradaEtapaP13(problemas_sistemicos_conhecidos=[]))  # 15
+        assert estado.concluidas == 15
+
+        candidato = estado.contexto.selecionados[0]
+        cliente = MagicMock()
+        cliente.chamar.side_effect = ErroDeTimeout("timeout sintético na elaboração")
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente, candidatos_para_comentario_matriz=[candidato]),
+        )  # 16
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO
+        assert "TIMEOUT" in ultimo.justificativa
 
 
 class TestEtapaOnzeVerificacaoDeFontes:

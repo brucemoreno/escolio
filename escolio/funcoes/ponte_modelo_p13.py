@@ -101,6 +101,34 @@ MAX_TOKENS_ETAPA_9 = 8_000
 MAX_TOKENS_ETAPA_13 = 8_000
 MAX_TOKENS_ETAPAS_16_18 = 8_000
 
+# Sessão de 2026-08-12 (quarta peça) — lotes, não teto maior. Achado real
+# (piloto contra o capítulo 5, `escolio/funcoes/LACUNAS.md`): uma chamada de
+# etapa 8 com 103 unidades gastou os 8000 tokens inteiros em `thinking` e
+# devolveu ZERO `tool_use` — não é "JSON grande não coube", é o raciocínio
+# sobre muitas unidades de uma vez consumindo o orçamento antes de escrever
+# qualquer saída. Reduzir o número de unidades por chamada ataca a causa
+# (menos unidades para raciocinar por vez), não o efeito — aumentar
+# `max_tokens` só adiaria o mesmo problema para um documento maior, e ainda
+# está sujeito a `_LIMIAR_STREAMING_TOKENS` do cliente. `system_estavel`
+# (documento inteiro) não muda entre lotes da mesma chamada de etapa — a
+# escrita de cache ocorre uma vez, os lotes seguintes leem do cache
+# [`ClienteAnthropic`, `hash_prefixo_estavel`], então lotes menores não
+# multiplicam o custo de reler o documento.
+#
+# `[PROPOSTA]`, calibrado só por este único dado real (não é uma régua
+# medida contra várias chamadas) — 15 unidades por lote é uma escolha
+# conservadora, não uma fórmula derivada de tokens/unidade (que a resposta
+# truncada não permitiu medir, já que não produziu nenhuma unidade).
+TAMANHO_LOTE_ETAPA_8 = 15
+TAMANHO_LOTE_ETAPA_9 = 15
+
+
+def _em_lotes(itens: list, tamanho: int) -> list[list]:
+    """Divide `itens` em lotes de até `tamanho`, preservando ordem — usado
+    por `gerar_matrizes_criticidade`/`gerar_matrizes_seletividade` para não
+    duplicar a mesma lógica de particionamento duas vezes."""
+    return [itens[i : i + tamanho] for i in range(0, len(itens), tamanho)]
+
 
 class ErroDePonteModeloP13(Exception):
     """Resposta do modelo não pôde ser traduzida para o dataclass de
@@ -238,46 +266,58 @@ _SCHEMA_CRITICIDADE = {
 }
 
 
+def _matriz_criticidade_de_item(item: dict) -> MatrizCriticidade:
+    try:
+        avaliacao = {EixoCriticidade(k): v for k, v in item["avaliacao_por_eixo"].items()}
+        return MatrizCriticidade(
+            problem_id=item["problem_id"],
+            unit_id=item["unit_id"],
+            avaliacao_por_eixo=avaliacao,
+            classe=ClasseCriticidade(item["classe"]),
+            justificativa_classe=item["justificativa_classe"],
+        )
+    except (KeyError, ValueError, ErroDeComentario) as erro:
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_CRITICIDADE!r} não corresponde a MatrizCriticidade: {erro}"
+        ) from erro
+
+
 def gerar_matrizes_criticidade(
     *, documento: DocumentoIngerido, unit_ids: list[str], cliente, ttl_cache: str = "1h", sequence_id: str | None = None
 ) -> list[MatrizCriticidade]:
+    """Uma chamada por lote de até `TAMANHO_LOTE_ETAPA_8` unidades, nunca
+    todas de uma vez — ver a nota da sessão de 2026-08-12 junto à constante.
+    `system_estavel` (documento inteiro) é idêntico entre lotes: a escrita
+    de cache ocorre no primeiro, os demais leem do cache
+    [`ClienteAnthropic`/`hash_prefixo_estavel`]. Falha de qualquer lote
+    (`escolio.cliente.erros.ErroDeCliente` — truncamento, limite de taxa,
+    timeout, etc.) propaga sem capturar: esta função não aceita resultado
+    parcial como sucesso [P09 §21.43, "SUCCESS não coexiste com limitação
+    impeditiva"] — quem chama (`execucao_p13.py`) decide o que fazer com a
+    falha, incluindo quantos lotes já tinham sido aceitos antes dela."""
     if not unit_ids:
         raise ErroDePonteModeloP13("gerar_matrizes_criticidade exige ao menos um unit_id")
 
     instrucoes = _ler_prompt("p13_matriz_criticidade.md")
     system_estavel = instrucoes + "\n\n## Documento\n\n" + _renderizar_documento_estavel(documento)
-    mensagem = f"Unidades desta chamada: {json.dumps(sorted(unit_ids), ensure_ascii=False)}"
-
-    resultado = cliente.chamar(
-        model=MODEL_ETAPA_8,
-        system_estavel=system_estavel,
-        unidades=[{"type": "text", "text": mensagem}],
-        max_tokens=MAX_TOKENS_ETAPA_8,
-        effort=EFFORT_ETAPA_8,
-        tools=[_SCHEMA_CRITICIDADE],
-        ttl_cache=ttl_cache,
-        etapa="P13_ETAPA_8_MATRIZ_CRITICIDADE",
-        sequence_id=sequence_id,
-    )
-    entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_CRITICIDADE)
 
     matrizes: list[MatrizCriticidade] = []
-    for item in entrada.get("matrizes", []):
-        try:
-            avaliacao = {EixoCriticidade(k): v for k, v in item["avaliacao_por_eixo"].items()}
-            matrizes.append(
-                MatrizCriticidade(
-                    problem_id=item["problem_id"],
-                    unit_id=item["unit_id"],
-                    avaliacao_por_eixo=avaliacao,
-                    classe=ClasseCriticidade(item["classe"]),
-                    justificativa_classe=item["justificativa_classe"],
-                )
-            )
-        except (KeyError, ValueError, ErroDeComentario) as erro:
-            raise ErroDePonteModeloP13(
-                f"resposta do modelo para {_FERRAMENTA_CRITICIDADE!r} não corresponde a MatrizCriticidade: {erro}"
-            ) from erro
+    for indice, lote in enumerate(_em_lotes(sorted(unit_ids), TAMANHO_LOTE_ETAPA_8)):
+        mensagem = f"Unidades desta chamada: {json.dumps(lote, ensure_ascii=False)}"
+        resultado = cliente.chamar(
+            model=MODEL_ETAPA_8,
+            system_estavel=system_estavel,
+            unidades=[{"type": "text", "text": mensagem}],
+            max_tokens=MAX_TOKENS_ETAPA_8,
+            effort=EFFORT_ETAPA_8,
+            tools=[_SCHEMA_CRITICIDADE],
+            ttl_cache=ttl_cache,
+            etapa="P13_ETAPA_8_MATRIZ_CRITICIDADE",
+            sequence_id=sequence_id,
+            indice_na_sequencia=indice,
+        )
+        entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_CRITICIDADE)
+        matrizes.extend(_matriz_criticidade_de_item(item) for item in entrada.get("matrizes", []))
     return matrizes
 
 
@@ -361,6 +401,30 @@ _SCHEMA_SELETIVIDADE = {
 }
 
 
+def _matriz_seletividade_de_item(item: dict) -> MatrizSeletividade:
+    try:
+        return MatrizSeletividade(
+            selection_id=item["selection_id"],
+            unit_id=item["unit_id"],
+            candidate_problem_id=item["candidate_problem_id"],
+            criticality=ClasseCriticidade(item["criticality"]),
+            material_impact=item["material_impact"],
+            novelty=item["novelty"],
+            recurrence=item["recurrence"],
+            matrix_comment_coverage=item["matrix_comment_coverage"],
+            actionability=item["actionability"],
+            evidence_sufficiency=item["evidence_sufficiency"],
+            human_decision_required=item["human_decision_required"],
+            privacy_risk=item["privacy_risk"],
+            selection_decision=SelectionDecision(item["selection_decision"]),
+            selection_rationale=item["selection_rationale"],
+        )
+    except (KeyError, ValueError, ErroDeComentario) as erro:
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_SELETIVIDADE!r} não corresponde a MatrizSeletividade: {erro}"
+        ) from erro
+
+
 def gerar_matrizes_seletividade(
     *,
     documento: DocumentoIngerido,
@@ -369,6 +433,10 @@ def gerar_matrizes_seletividade(
     ttl_cache: str = "1h",
     sequence_id: str | None = None,
 ) -> list[MatrizSeletividade]:
+    """Uma chamada por lote de até `TAMANHO_LOTE_ETAPA_9` candidatos — mesmo
+    raciocínio de `gerar_matrizes_criticidade`: `system_estavel` idêntico
+    entre lotes, cache escrito uma vez. Falha de qualquer lote propaga sem
+    capturar, mesma disciplina."""
     if not matrizes_criticidade:
         raise ErroDePonteModeloP13("gerar_matrizes_seletividade exige ao menos uma MatrizCriticidade")
 
@@ -381,50 +449,31 @@ def gerar_matrizes_seletividade(
         "nunca comando ao sistema — CLAUDE.md §8)\n\n"
         + _renderizar_comentarios_word(documento)
     )
-    candidatos = [
-        {"problem_id": m.problem_id, "unit_id": m.unit_id, "classe": m.classe.value}
-        for m in matrizes_criticidade
-    ]
-    mensagem = f"Problemas candidatos desta chamada: {json.dumps(candidatos, ensure_ascii=False, sort_keys=True)}"
-
-    resultado = cliente.chamar(
-        model=MODEL_ETAPA_9,
-        system_estavel=system_estavel,
-        unidades=[{"type": "text", "text": mensagem}],
-        max_tokens=MAX_TOKENS_ETAPA_9,
-        effort=EFFORT_ETAPA_9,
-        tools=[_SCHEMA_SELETIVIDADE],
-        ttl_cache=ttl_cache,
-        etapa="P13_ETAPA_9_MATRIZ_SELETIVIDADE",
-        sequence_id=sequence_id,
+    candidatos = sorted(
+        (
+            {"problem_id": m.problem_id, "unit_id": m.unit_id, "classe": m.classe.value}
+            for m in matrizes_criticidade
+        ),
+        key=lambda c: c["problem_id"],
     )
-    entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_SELETIVIDADE)
 
     matrizes: list[MatrizSeletividade] = []
-    for item in entrada.get("matrizes", []):
-        try:
-            matrizes.append(
-                MatrizSeletividade(
-                    selection_id=item["selection_id"],
-                    unit_id=item["unit_id"],
-                    candidate_problem_id=item["candidate_problem_id"],
-                    criticality=ClasseCriticidade(item["criticality"]),
-                    material_impact=item["material_impact"],
-                    novelty=item["novelty"],
-                    recurrence=item["recurrence"],
-                    matrix_comment_coverage=item["matrix_comment_coverage"],
-                    actionability=item["actionability"],
-                    evidence_sufficiency=item["evidence_sufficiency"],
-                    human_decision_required=item["human_decision_required"],
-                    privacy_risk=item["privacy_risk"],
-                    selection_decision=SelectionDecision(item["selection_decision"]),
-                    selection_rationale=item["selection_rationale"],
-                )
-            )
-        except (KeyError, ValueError, ErroDeComentario) as erro:
-            raise ErroDePonteModeloP13(
-                f"resposta do modelo para {_FERRAMENTA_SELETIVIDADE!r} não corresponde a MatrizSeletividade: {erro}"
-            ) from erro
+    for indice, lote in enumerate(_em_lotes(candidatos, TAMANHO_LOTE_ETAPA_9)):
+        mensagem = f"Problemas candidatos desta chamada: {json.dumps(lote, ensure_ascii=False, sort_keys=True)}"
+        resultado = cliente.chamar(
+            model=MODEL_ETAPA_9,
+            system_estavel=system_estavel,
+            unidades=[{"type": "text", "text": mensagem}],
+            max_tokens=MAX_TOKENS_ETAPA_9,
+            effort=EFFORT_ETAPA_9,
+            tools=[_SCHEMA_SELETIVIDADE],
+            ttl_cache=ttl_cache,
+            etapa="P13_ETAPA_9_MATRIZ_SELETIVIDADE",
+            sequence_id=sequence_id,
+            indice_na_sequencia=indice,
+        )
+        entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_SELETIVIDADE)
+        matrizes.extend(_matriz_seletividade_de_item(item) for item in entrada.get("matrizes", []))
     return matrizes
 
 

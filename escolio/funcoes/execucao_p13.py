@@ -116,6 +116,7 @@ from enum import Enum
 from escolio.adaptadores.ingestao_para_input_item import material_id_de_documento
 from escolio.bvaa.erros import ErroDeTransicaoBibliografica
 from escolio.bvaa.vocabulario import EstadoBibliografico
+from escolio.cliente.erros import ErroDeCliente
 from escolio.comentarios.auditoria import LoteDeAuditoria, RelatorioAuditoriaFinal, auditar_lote
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import MatrizCriticidade
@@ -174,7 +175,7 @@ class TipoDeResultadoEtapa(str, Enum):
 
 
 class CausaDeParada(str, Enum):
-    """Seis causas distintas de não-execução — nunca uma genérica "não
+    """Sete causas distintas de não-execução — nunca uma genérica "não
     implementado". Cada uma é uma leitura diferente de por que o código
     para aqui, e cada uma pede uma ação diferente de quem opera o sistema."""
 
@@ -212,6 +213,21 @@ class CausaDeParada(str, Enum):
     documental, piloto Word real, ativação operacional. Atos humanos ou
     pós-homologação; o sistema nunca homologa [CLAUDE.md §1-§2] e este
     orquestrador nunca tenta executá-los, incondicionalmente."""
+
+    FALHA_NA_CHAMADA_AO_MODELO = "FALHA_NA_CHAMADA_AO_MODELO"
+    """Sessão de 2026-08-12 (quarta peça) — achado do primeiro piloto real
+    contra um capítulo verdadeiro: uma chamada real ao modelo pode falhar
+    por um erro do próprio cliente (`escolio.cliente.erros.ErroDeCliente` —
+    resposta truncada por `max_tokens`, limite de taxa, timeout, erro de
+    conexão, erro de servidor) sem que nenhum julgamento tenha sido
+    ausente e sem que nenhuma entrada tenha faltado — a etapa tinha tudo
+    que precisava e a chamada em si não completou. Antes desta sessão,
+    esse erro propagava como exceção Python não capturada, derrubando o
+    percurso sem registrar a tentativa em `estado.historico` — quebra da
+    mesma disciplina que todas as outras seis causas já respeitavam
+    (nunca um crash sem causa estruturada). `retryable` (atributo do
+    próprio `ErroDeCliente`) diz se repetir a mesma chamada pode ajudar —
+    esta causa não decide isso por si, só relata o que o cliente disse."""
 
 
 @dataclass(frozen=True)
@@ -405,6 +421,16 @@ def _exige_referencia_conhecida(unit_id: str, documento: DocumentoIngerido, orig
         )
 
 
+def _justificativa_falha_cliente(erro: ErroDeCliente) -> str:
+    """Mensagem comum para `CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO` — um
+    só lugar formata isso, para as quatro etapas que chamam modelo
+    (8, 9, 13, 16-18) não repetirem a mesma string. `str(erro)` já inclui
+    categoria/severidade/código [`ErroDeCliente.__init__`]; só falta dizer
+    se vale a pena repetir a chamada sem mudar nada."""
+    retentativa = "provavelmente vale repetir a mesma chamada" if erro.retryable else "repetir sem mudar nada não deve resolver"
+    return f"chamada real ao modelo falhou ({retentativa}): {erro}"
+
+
 def _exige_document_id_canonico(document_id: str, esperado: str, origem: str) -> None:
     if document_id != esperado:
         raise ErroDeExecucaoP13(
@@ -493,12 +519,17 @@ def _etapa_8_matriz_de_criticidade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13)
     matrizes = e.matrizes_criticidade
     if matrizes is None:
         if e.cliente is not None and e.unidades_para_matriz_criticidade:
-            matrizes = ponte.gerar_matrizes_criticidade(
-                documento=ctx.documento,
-                unit_ids=e.unidades_para_matriz_criticidade,
-                cliente=e.cliente,
-                sequence_id=ctx.document_id,
-            )
+            try:
+                matrizes = ponte.gerar_matrizes_criticidade(
+                    documento=ctx.documento,
+                    unit_ids=e.unidades_para_matriz_criticidade,
+                    cliente=e.cliente,
+                    sequence_id=ctx.document_id,
+                )
+            except ErroDeCliente as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
+                    _justificativa_falha_cliente(erro)
+                )
         else:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
                 "classe de criticidade é sempre declarada por quem avalia — \"a matriz não pode ser "
@@ -515,12 +546,17 @@ def _etapa_9_matriz_de_seletividade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
     matrizes = e.matrizes_seletividade
     if matrizes is None:
         if e.cliente is not None and ctx.matrizes_criticidade:
-            matrizes = ponte.gerar_matrizes_seletividade(
-                documento=ctx.documento,
-                matrizes_criticidade=ctx.matrizes_criticidade,
-                cliente=e.cliente,
-                sequence_id=ctx.document_id,
-            )
+            try:
+                matrizes = ponte.gerar_matrizes_seletividade(
+                    documento=ctx.documento,
+                    matrizes_criticidade=ctx.matrizes_criticidade,
+                    cliente=e.cliente,
+                    sequence_id=ctx.document_id,
+                )
+            except ErroDeCliente as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
+                    _justificativa_falha_cliente(erro)
+                )
         else:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
                 "os dez fatores de seletividade [§12] são julgamento sobre o candidato; não calculados "
@@ -629,16 +665,20 @@ def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
     achados_por_unidade = e.achados_fidelidade
     if achados_por_unidade is None:
         if e.cliente is not None and e.unidades_para_deteccao_fidelidade:
-            achados_por_unidade = {
-                unit_id: ponte.gerar_achados_fidelidade(
-                    documento=ctx.documento,
-                    unit_id=unit_id,
-                    perfil=perfil,
-                    cliente=e.cliente,
-                    sequence_id=ctx.document_id,
+            achados_por_unidade = {}
+            try:
+                for unit_id in e.unidades_para_deteccao_fidelidade:
+                    achados_por_unidade[unit_id] = ponte.gerar_achados_fidelidade(
+                        documento=ctx.documento,
+                        unit_id=unit_id,
+                        perfil=perfil,
+                        cliente=e.cliente,
+                        sequence_id=ctx.document_id,
+                    )
+            except ErroDeCliente as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
+                    _justificativa_falha_cliente(erro)
                 )
-                for unit_id in e.unidades_para_deteccao_fidelidade
-            }
         else:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
                 "detecção de fidelidade [Camada A, §1.2] não calculada aqui sem `achados_"
@@ -710,17 +750,22 @@ def _etapa_elaboracao(
             candidatos = getattr(e, campo_candidatos)
             if e.cliente is not None and candidatos:
                 mapa = getattr(e, campo_matrix_map) if campo_matrix_map else None
-                comentarios = ponte.gerar_comentarios(
-                    documento=ctx.documento,
-                    document_id=ctx.document_id,
-                    document_version=ctx.document_version,
-                    module_id="P13",
-                    candidatos=candidatos,
-                    cliente=e.cliente,
-                    comment_type_esperado=comment_type_esperado,
-                    matrix_comment_id_por_candidato=mapa,
-                    sequence_id=ctx.document_id,
-                )
+                try:
+                    comentarios = ponte.gerar_comentarios(
+                        documento=ctx.documento,
+                        document_id=ctx.document_id,
+                        document_version=ctx.document_version,
+                        module_id="P13",
+                        candidatos=candidatos,
+                        cliente=e.cliente,
+                        comment_type_esperado=comment_type_esperado,
+                        matrix_comment_id_por_candidato=mapa,
+                        sequence_id=ctx.document_id,
+                    )
+                except ErroDeCliente as erro:
+                    return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
+                        _justificativa_falha_cliente(erro)
+                    )
         if comentarios is None:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
                 f"{destino} é redação — juízo humano ou de modelo, não preenchido nesta sessão "
