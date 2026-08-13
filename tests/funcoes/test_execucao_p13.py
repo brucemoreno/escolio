@@ -825,6 +825,104 @@ class TestEtapaDozeVerificacaoDeEvidencias:
         assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
         assert estado.contexto.relacoes_afirmacao_evidencia == [relacao]
 
+    def test_gera_via_modelo_quando_relacoes_nao_vem_pronta(self):
+        """Decisão do professor, sessão de 2026-08-13: sem objeto pronto,
+        `cliente` + `unidades_para_relacao_afirmacao_evidencia` chamam o
+        modelo em vez de parar — mesma prioridade das etapas 8/9/13/16-18."""
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+
+        cliente = MagicMock()
+        cliente.chamar.return_value = MagicMock(
+            blocos=[
+                {
+                    "type": "tool_use",
+                    "name": ponte._FERRAMENTA_RELACAO,
+                    "input": {
+                        "relacoes": [
+                            {
+                                "claim_id": "CLAIM-GERADA-0001",
+                                "claim_text": "Afirmação candidata gerada pelo modelo.",
+                                "claim_type": "FATUAL",
+                                "source_id": "[INFERIDO]",
+                                "source_type": "DOCUMENTO",
+                                "source_reference": "Autor sintético",
+                                "location_type": "NAO_CONFIRMADO",
+                                "evidence_level": "D_AUSENTE",
+                                "access_state": "NAO_LOCALIZADA",
+                                "reading_state": "LEITURA_NAO_REALIZADA",
+                                "validation_state": "NAO_VERIFICADA",
+                                "sufficiency": "EVIDENCIA_INSUFICIENTE",
+                                "confidence": "BAIXA",
+                                "usage_status": "USO_CONDICIONAL",
+                                "reversibility": "REVERSIVEL_COM_NOVA_EVIDENCIA",
+                            }
+                        ]
+                    },
+                }
+            ]
+        )
+
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente, unidades_para_relacao_afirmacao_evidencia=[paragrafo.unit_id]),
+        )
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert len(estado.contexto.relacoes_afirmacao_evidencia) == 1
+        gerada = estado.contexto.relacoes_afirmacao_evidencia[0]
+        assert gerada.claim_id == "CLAIM-GERADA-0001"
+        assert gerada.provenance == "[INFERIDO]"
+
+    def test_gabarito_registrado_sem_bloquear_nem_ser_lido_pelo_gerador(self):
+        """Julgamento humano prévio vira ORACLE/GABARITO de comparação de
+        piloto, nunca precondição — a etapa continua gerando via modelo
+        mesmo com gabarito presente, e o gabarito não altera o resultado."""
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+
+        gabarito = self._relacao(claim_id="CLAIM-GABARITO-0001")
+
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                relacoes_afirmacao_evidencia=[],
+                gabarito_relacoes_afirmacao_evidencia=[gabarito],
+            ),
+        )
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.relacoes_afirmacao_evidencia == []
+        assert estado.contexto.relacoes_afirmacao_evidencia_gabarito == [gabarito]
+        assert "gabarito" in ultimo.justificativa
+
+    def test_erro_de_cliente_na_geracao_vira_causa_estruturada(self):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+
+        cliente = MagicMock()
+        cliente.chamar.side_effect = ErroRespostaTruncada("claude-sonnet-5")
+
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente, unidades_para_relacao_afirmacao_evidencia=[paragrafo.unit_id]),
+        )
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO
+
 
 def _perfil_de_voz_sintetico(**overrides) -> PerfilDeVoz:
     campos = {

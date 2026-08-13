@@ -2,13 +2,26 @@
 liga os pontos de extensão de modelo das etapas 8, 9, 13, 16, 17 e 18 à
 API.
 
-Etapas 11, 12, 14 e 15 não passam por este módulo — 11 (fontes) e 14
-(privacidade) são deterministas (`bvaa_drive.py`,
-`salvaguarda_privacidade_p13.py`), e 12 (evidências)/15 (problemas
-sistêmicos) aceitam objeto pré-construído sem chamada de modelo própria
-[`escolio/funcoes/execucao_p13.py`]. Etapas 19-24 continuam
-`SEM_FONTE_DE_VERIFICACAO` — nenhuma seção do contrato as liga a critério
-verificável (confirmado de novo em 2026-08-12, não é lacuna de leitura).
+Etapas 11 e 14 não passam por este módulo — são deterministas
+(`bvaa_drive.py`, `salvaguarda_privacidade_p13.py`). 15 (problemas
+sistêmicos) aceita a lista opcional do professor, sem chamada de modelo.
+Etapas 19-24 continuam `SEM_FONTE_DE_VERIFICACAO` — nenhuma seção do
+contrato as liga a critério verificável (confirmado de novo em 2026-08-12,
+não é lacuna de leitura).
+
+**Sessão de 2026-08-13 (decisão do professor) — etapa 12 passa a gerar,
+não só aceitar, `RelacaoAfirmacaoEvidencia`.** Até esta sessão, a etapa 12
+só aceitava o objeto já julgado por humano (`EntradaEtapaP13.
+relacoes_afirmacao_evidencia`); isso exigia trabalho humano completo como
+precondição de runtime, incompatível com a disciplina de E4 (diagnóstico
+por unidade é papel do modelo, com gate humano depois, não antes). Agora
+`gerar_relacoes_afirmacao_evidencia` produz o objeto com `sufficiency`/
+`confidence` preliminares quando `EntradaEtapaP13.
+candidatos_para_relacao_afirmacao_evidencia` + `cliente` vêm fornecidos —
+julgamento humano prévio (quando existir) passa a ORACLE/GABARITO de
+piloto (`EntradaEtapaP13.gabarito_relacoes_afirmacao_evidencia`),
+comparação registrada em `ContextoExecucaoP13`, nunca precondição de
+execução.
 
 Modelo e `effort` por etapa — CLAUDE.md §10, tabela "Modelos e custo":
 
@@ -19,6 +32,9 @@ Modelo e `effort` por etapa — CLAUDE.md §10, tabela "Modelos e custo":
   esta sessão fixa `high`. Opus **propõe**; a etapa 10 (`GATE_DE_SELECAO`)
   continua determinística (`aplicar_selecao`, já implementada) — o modelo
   nunca decide a seleção final por si.
+- Etapa 12 (E4, verificação de evidências — `RelacaoAfirmacaoEvidencia`, P05/P09 §12) — Sonnet,
+  `medium`: mesma linha "E4 diagnóstico por unidade" da tabela; `sufficiency`/`confidence` são
+  julgamento preliminar do modelo, nunca homologação.
 - Etapa 13 (E4, detecção de fidelidade de voz — Camada A,
   `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md
   §1.2`) — Sonnet, `medium`: mesma linha "E4 diagnóstico por unidade" da
@@ -73,12 +89,27 @@ from escolio.comentarios.criticidade import ClasseCriticidade, EixoCriticidade, 
 from escolio.comentarios.erros import ErroDeComentario
 from escolio.comentarios.seletividade import MatrizSeletividade, SelectionDecision
 from escolio.comentarios.vocabulario import P13CommentStatus
+from escolio.erros import ErroDeCoerencia
 from escolio.ingestao.modelos import DocumentoIngerido
+from escolio.relacao import RelacaoAfirmacaoEvidencia
 from escolio.voz.deteccao import AchadoDeFidelidade
 from escolio.voz.erros import ErroDePerfilDeVoz
 from escolio.voz.perfil import PerfilDeVoz
 from escolio.voz.vocabulario import Confidence as ConfidenceVoz
 from escolio.voz.vocabulario import DesvioBloqueante
+from escolio.vocabulario import (
+    AccessState,
+    ClaimType,
+    Confidence,
+    EvidenceLevel,
+    LocationType,
+    ReadingState,
+    Reversibility,
+    SourceType,
+    Sufficiency,
+    UsageStatus,
+    ValidationState,
+)
 
 PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts"
 
@@ -86,6 +117,8 @@ MODEL_ETAPA_8 = "claude-sonnet-5"
 EFFORT_ETAPA_8 = "medium"
 MODEL_ETAPA_9 = "claude-opus-5"
 EFFORT_ETAPA_9 = "high"
+MODEL_ETAPA_12 = "claude-sonnet-5"
+EFFORT_ETAPA_12 = "medium"
 MODEL_ETAPA_13 = "claude-sonnet-5"
 EFFORT_ETAPA_13 = "medium"
 MODEL_ETAPAS_16_18 = "claude-sonnet-5"
@@ -97,6 +130,7 @@ EFFORT_ETAPAS_16_18 = "medium"
 # docs/custos.md para diagnóstico interno; comentário final tende a ser
 # maior que diagnóstico interno, daí a folga).
 MAX_TOKENS_ETAPA_8 = 8_000
+MAX_TOKENS_ETAPA_12 = 8_000
 # 32_000, não 8_000 — correção de 2026-08-13 (continuação): o teto de 8_000
 # era o problema real da etapa 9, não o tamanho do lote (ver nota junto de
 # TAMANHO_LOTE_ETAPA_9). No Opus 5, `thinking=adaptive` é ligado por padrão
@@ -129,6 +163,12 @@ MAX_TOKENS_ETAPAS_16_18 = 8_000
 # conservadora, não uma fórmula derivada de tokens/unidade (que a resposta
 # truncada não permitiu medir, já que não produziu nenhuma unidade).
 TAMANHO_LOTE_ETAPA_8 = 15
+
+# Sessão de 2026-08-13 (etapa 12, verificação de evidências) — mesmo raciocínio
+# conservador da etapa 8: lote pequeno por unidade de raciocínio, nunca calibrado
+# contra dado real ainda (etapa 12 nunca foi exercitada contra a API real nesta
+# linha de trabalho). `[PROPOSTA]`, sujeito a revisão na primeira execução real.
+TAMANHO_LOTE_ETAPA_12 = 15
 
 # Sessão de 2026-08-13 (sétima peça, revertido na mesma sessão): a hipótese
 # inicial foi "mesmo raciocínio da etapa 8 — reduzir o lote" (11→5), mas um
@@ -346,6 +386,160 @@ def gerar_matrizes_criticidade(
         entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_CRITICIDADE)
         matrizes.extend(_matriz_criticidade_de_item(item) for item in entrada.get("matrizes", []))
     return matrizes
+
+
+# --- Etapa 12 — verificação de evidências (RelacaoAfirmacaoEvidencia) --
+
+_FERRAMENTA_RELACAO = "registrar_relacoes_afirmacao_evidencia"
+
+# `VALIDADA`/`INVALIDADA_POSTERIORMENTE` excluídas de propósito — as duas
+# exigem `validator`/`validation_date` humanos [`escolio/relacao.py`], que
+# esta chamada nunca fornece; o julgamento humano prévio, quando existir,
+# entra como ORACLE/GABARITO de piloto, nunca como precondição desta etapa
+# [decisão do professor, sessão de 2026-08-13].
+_VALIDATION_STATES_PERMITIDOS = [
+    ValidationState.NAO_VERIFICADA,
+    ValidationState.PAGINA_NAO_CONFIRMADA,
+    ValidationState.PAGINA_CONFIRMADA,
+    ValidationState.VALIDACAO_PENDENTE,
+]
+
+_SCHEMA_RELACAO = {
+    "name": _FERRAMENTA_RELACAO,
+    "description": (
+        "Registra, para cada afirmação candidata identificada, uma relação afirmação-evidência "
+        "preliminar [P05, P09 §12] — sufficiency e confidence são julgamento do modelo, sujeito a "
+        "revisão humana, nunca homologação."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "relacoes": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "claim_id": {"type": "string"},
+                        "claim_text": {"type": "string"},
+                        "claim_type": {"type": "string", "enum": [c.value for c in ClaimType]},
+                        "source_id": {"type": "string"},
+                        "source_type": {"type": "string", "enum": [s.value for s in SourceType]},
+                        "source_reference": {"type": "string"},
+                        "location_type": {"type": "string", "enum": [t.value for t in LocationType]},
+                        "location_value": {"type": ["string", "null"]},
+                        "page_or_folio": {"type": ["string", "null"]},
+                        "evidence_excerpt": {"type": ["string", "null"]},
+                        "evidence_level": {"type": "string", "enum": [e.value for e in EvidenceLevel]},
+                        "access_state": {"type": "string", "enum": [a.value for a in AccessState]},
+                        "reading_state": {"type": "string", "enum": [r.value for r in ReadingState]},
+                        "validation_state": {
+                            "type": "string",
+                            "enum": [v.value for v in _VALIDATION_STATES_PERMITIDOS],
+                        },
+                        "sufficiency": {"type": "string", "enum": [s.value for s in Sufficiency]},
+                        "confidence": {"type": "string", "enum": [c.value for c in Confidence]},
+                        "usage_status": {"type": "string", "enum": [u.value for u in UsageStatus]},
+                        "reversibility": {"type": "string", "enum": [r.value for r in Reversibility]},
+                        "edition_or_version": {"type": ["string", "null"]},
+                        "notes": {"type": ["string", "null"]},
+                    },
+                    "required": [
+                        "claim_id",
+                        "claim_text",
+                        "claim_type",
+                        "source_id",
+                        "source_type",
+                        "source_reference",
+                        "location_type",
+                        "evidence_level",
+                        "access_state",
+                        "reading_state",
+                        "validation_state",
+                        "sufficiency",
+                        "confidence",
+                        "usage_status",
+                        "reversibility",
+                    ],
+                },
+            }
+        },
+        "required": ["relacoes"],
+    },
+}
+
+
+def _relacao_de_item(item: dict) -> RelacaoAfirmacaoEvidencia:
+    if not isinstance(item, dict):
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_RELACAO!r} trouxe item de 'relacoes' que não "
+            f"é objeto: {item!r} (mesma classe de defeito de _matriz_criticidade_de_item, "
+            "checagem espelhada por simetria)"
+        )
+    try:
+        return RelacaoAfirmacaoEvidencia(
+            claim_id=item["claim_id"],
+            claim_text=item["claim_text"],
+            claim_type=ClaimType(item["claim_type"]),
+            source_id=item["source_id"],
+            source_type=SourceType(item["source_type"]),
+            source_reference=item["source_reference"],
+            location_type=LocationType(item["location_type"]),
+            evidence_level=EvidenceLevel(item["evidence_level"]),
+            access_state=AccessState(item["access_state"]),
+            reading_state=ReadingState(item["reading_state"]),
+            validation_state=ValidationState(item["validation_state"]),
+            sufficiency=Sufficiency(item["sufficiency"]),
+            confidence=Confidence(item["confidence"]),
+            usage_status=UsageStatus(item["usage_status"]),
+            reversibility=Reversibility(item["reversibility"]),
+            provenance="[INFERIDO]",
+            edition_or_version=item.get("edition_or_version"),
+            location_value=item.get("location_value"),
+            page_or_folio=item.get("page_or_folio"),
+            evidence_excerpt=item.get("evidence_excerpt"),
+            notes=item.get("notes"),
+        )
+    except (KeyError, ValueError, TypeError, AttributeError, ErroDeCoerencia) as erro:
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_RELACAO!r} não corresponde a "
+            f"RelacaoAfirmacaoEvidencia: {erro}"
+        ) from erro
+
+
+def gerar_relacoes_afirmacao_evidencia(
+    *, documento: DocumentoIngerido, unit_ids: list[str], cliente, ttl_cache: str = "1h", sequence_id: str | None = None
+) -> list[RelacaoAfirmacaoEvidencia]:
+    """Uma chamada por lote de até `TAMANHO_LOTE_ETAPA_12` unidades — mesmo
+    raciocínio de `gerar_matrizes_criticidade`. `provenance` é sempre
+    `"[INFERIDO]"` [CLAUDE.md §9]: o modelo nunca declara a proveniência de
+    si mesmo, e `validator`/`validation_date` nunca são preenchidos aqui —
+    ambos exigem revisão humana [`escolio/relacao.py`]. Falha de qualquer
+    lote propaga sem capturar, mesma disciplina das demais etapas ligadas ao
+    modelo."""
+    if not unit_ids:
+        raise ErroDePonteModeloP13("gerar_relacoes_afirmacao_evidencia exige ao menos um unit_id")
+
+    instrucoes = _ler_prompt("p13_relacao_afirmacao_evidencia.md")
+    system_estavel = instrucoes + "\n\n## Documento\n\n" + _renderizar_documento_estavel(documento)
+
+    relacoes: list[RelacaoAfirmacaoEvidencia] = []
+    for indice, lote in enumerate(_em_lotes(sorted(unit_ids), TAMANHO_LOTE_ETAPA_12)):
+        mensagem = f"Unidades desta chamada: {json.dumps(lote, ensure_ascii=False)}"
+        resultado = cliente.chamar(
+            model=MODEL_ETAPA_12,
+            system_estavel=system_estavel,
+            unidades=[{"type": "text", "text": mensagem}],
+            max_tokens=MAX_TOKENS_ETAPA_12,
+            effort=EFFORT_ETAPA_12,
+            tools=[_SCHEMA_RELACAO],
+            ttl_cache=ttl_cache,
+            etapa="P13_ETAPA_12_RELACAO_AFIRMACAO_EVIDENCIA",
+            sequence_id=sequence_id,
+            indice_na_sequencia=indice,
+        )
+        entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_RELACAO)
+        relacoes.extend(_relacao_de_item(item) for item in entrada.get("relacoes", []))
+    return relacoes
 
 
 # --- Etapa 9 — matriz de seletividade -----------------------------------

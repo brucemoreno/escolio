@@ -705,3 +705,112 @@ class TestGerarAchadosFidelidade:
 
         _, kwargs = cliente.chamar.call_args
         assert "Versão revisada do parágrafo." in kwargs["unidades"][0]["text"]
+
+
+def _bloco_relacao(**overrides) -> dict:
+    item = {
+        "claim_id": "CLAIM-UNI-PAR-0001-1",
+        "claim_text": "Afirmação sintética candidata.",
+        "claim_type": "FATUAL",
+        "source_id": "[INFERIDO]",
+        "source_type": "DOCUMENTO",
+        "source_reference": "Autor sintético",
+        "location_type": "NAO_CONFIRMADO",
+        "evidence_level": "D_AUSENTE",
+        "access_state": "NAO_LOCALIZADA",
+        "reading_state": "LEITURA_NAO_REALIZADA",
+        "validation_state": "NAO_VERIFICADA",
+        "sufficiency": "EVIDENCIA_INSUFICIENTE",
+        "confidence": "BAIXA",
+        "usage_status": "USO_CONDICIONAL",
+        "reversibility": "REVERSIVEL_COM_NOVA_EVIDENCIA",
+    }
+    item.update(overrides)
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_RELACAO,
+        "input": {"relacoes": [item]},
+    }
+
+
+class TestGerarRelacoesAfirmacaoEvidencia:
+    def test_tool_use_valido_produz_relacao(self):
+        documento = documento_sintetico()
+        cliente = cliente_fake([_bloco_relacao()])
+
+        relacoes = ponte.gerar_relacoes_afirmacao_evidencia(
+            documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente
+        )
+
+        assert len(relacoes) == 1
+        assert relacoes[0].claim_id == "CLAIM-UNI-PAR-0001-1"
+        assert relacoes[0].provenance == "[INFERIDO]"
+        assert relacoes[0].validator is None
+        assert relacoes[0].validation_date is None
+
+        _, kwargs = cliente.chamar.call_args
+        assert kwargs["model"] == ponte.MODEL_ETAPA_12
+        assert kwargs["effort"] == ponte.EFFORT_ETAPA_12
+        assert kwargs["tools"][0]["name"] == ponte._FERRAMENTA_RELACAO
+
+    def test_campo_obrigatorio_ausente_levanta_erro_de_ponte(self):
+        documento = documento_sintetico()
+        item = {
+            "type": "tool_use",
+            "name": ponte._FERRAMENTA_RELACAO,
+            "input": {"relacoes": [{"claim_id": "CLAIM-1"}]},
+        }
+        cliente = cliente_fake([item])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_relacoes_afirmacao_evidencia(
+                documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente
+            )
+
+    def test_item_de_relacoes_nao_objeto_levanta_erro_de_ponte_nao_typeerror_cru(self):
+        documento = documento_sintetico()
+        blocos = [
+            {
+                "type": "tool_use",
+                "name": ponte._FERRAMENTA_RELACAO,
+                "input": {"relacoes": ["isto não é um objeto"]},
+            }
+        ]
+        cliente = cliente_fake(blocos)
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_relacoes_afirmacao_evidencia(
+                documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente
+            )
+
+    def test_outra_controlada_sem_notes_levanta_erro_de_ponte(self):
+        """`escolio/relacao.py`: claim_type=OUTRA_CONTROLADA exige notes —
+        regra de coerência do dataclass, não duplicada aqui; deve virar
+        `ErroDePonteModeloP13`, não `ErroDeCoerencia` cru."""
+        documento = documento_sintetico()
+        cliente = cliente_fake([_bloco_relacao(claim_type="OUTRA_CONTROLADA")])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_relacoes_afirmacao_evidencia(
+                documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente
+            )
+
+    def test_validation_state_validada_fora_do_vocabulario_permitido(self):
+        """`VALIDADA` não está no enum restrito da ferramenta — o schema
+        JSON já rejeitaria; aqui simulamos o modelo devolvendo o valor
+        mesmo assim para confirmar que a construção também recusa."""
+        documento = documento_sintetico()
+        cliente = cliente_fake([_bloco_relacao(validation_state="VALIDADA")])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_relacoes_afirmacao_evidencia(
+                documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente
+            )
+
+    def test_sem_unit_ids_levanta_erro_de_ponte_antes_de_chamar(self):
+        documento = documento_sintetico()
+        cliente = cliente_fake([])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_relacoes_afirmacao_evidencia(documento=documento, unit_ids=[], cliente=cliente)
+        cliente.chamar.assert_not_called()

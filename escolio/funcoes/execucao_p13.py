@@ -332,9 +332,25 @@ class EntradaEtapaP13:
     `servico_drive`, comportamento idêntico ao de antes desta sessão."""
     relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] | None = None
     """Etapa 12 (verificação de evidências) — `RelacaoAfirmacaoEvidencia`
-    já construída e validada [P05, `escolio/relacao.py`; P09 §12]. Lista
-    vazia explícita (`[]`) é aceita como "nenhuma relação a verificar
-    nesta chamada", distinto de `None` (não fornecido)."""
+    já construída e validada [P05, `escolio/relacao.py`; P09 §12], fornecida
+    pronta por quem chama. Lista vazia explícita (`[]`) é aceita como
+    "nenhuma relação a verificar nesta chamada", distinto de `None` (não
+    fornecido). Continua tendo prioridade sobre chamar o modelo — mesmo
+    padrão de `matrizes_criticidade`/`matrizes_seletividade`."""
+    unidades_para_relacao_afirmacao_evidencia: list[str] | None = None
+    """Etapa 12 — `unit_id`s para geração via modelo
+    [`escolio/funcoes/ponte_modelo_p13.py::gerar_relacoes_afirmacao_evidencia`]
+    quando `relacoes_afirmacao_evidencia` não vem pronta. Exige `cliente`.
+    Decisão do professor, sessão de 2026-08-13: a etapa deixa de exigir
+    julgamento humano prévio como precondição de runtime — o sistema
+    produz `sufficiency`/`confidence` preliminares, sujeitas a revisão."""
+    gabarito_relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] | None = None
+    """Etapa 12 — julgamento humano prévio, quando existir, entra aqui como
+    ORACLE/GABARITO de piloto (comparação com o que o modelo produziu),
+    nunca como precondição de execução da etapa. Só registrado em
+    `ContextoExecucaoP13.relacoes_afirmacao_evidencia_gabarito`; nenhuma
+    comparação automática é feita nesta sessão — confronto é trabalho de
+    quem avalia o piloto, não do orquestrador."""
     perfil_de_voz: PerfilDeVoz | None = None
     """Etapa 13 (verificação de voz) — perfil de voz do autor avaliado
     [P07, `escolio/voz/perfil.py`]."""
@@ -389,7 +405,12 @@ class ContextoExecucaoP13:
     inferência: é o ponto de partida literal de P04/03 para qualquer
     citação ainda não processada."""
     relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] = field(default_factory=list)
-    """Etapa 12 — `RelacaoAfirmacaoEvidencia` aceitas nesta execução."""
+    """Etapa 12 — `RelacaoAfirmacaoEvidencia` aceitas nesta execução (prontas
+    ou geradas via modelo)."""
+    relacoes_afirmacao_evidencia_gabarito: list[RelacaoAfirmacaoEvidencia] = field(default_factory=list)
+    """Etapa 12 — ORACLE/GABARITO de piloto, quando fornecido. Registrado
+    para comparação humana posterior; nunca lido por nenhum outro handler
+    desta execução."""
     avaliacoes_fidelidade: dict[str, AvaliacaoDeFidelidade] = field(default_factory=dict)
     """Etapa 13 — `AvaliacaoDeFidelidade` (Camada B) por `unit_id`."""
     alertas_privacidade: list[AlertaDePrivacidade] = field(default_factory=list)
@@ -738,23 +759,52 @@ def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
 
 
 def _etapa_12_verificacao_de_evidencias(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
-    """`RelacaoAfirmacaoEvidencia` (P05, `escolio/relacao.py`) já existia
-    pronta e validada (`__post_init__`, RC-001..020) mas nunca tinha sido
-    cotejada com esta etapa — sessão de 2026-08-12. Nenhuma chamada de
-    modelo nova: aceita só o objeto já construído, mesmo padrão de
-    `matrizes_criticidade`/`matrizes_seletividade` quando fornecidas
-    prontas pelo chamador."""
+    """`RelacaoAfirmacaoEvidencia` (P05, `escolio/relacao.py`) — sessão de
+    2026-08-12: aceitava só o objeto já julgado por humano. Decisão do
+    professor, sessão de 2026-08-13: a etapa passa a **gerar** a relação
+    (via `ponte.gerar_relacoes_afirmacao_evidencia`, `sufficiency`/
+    `confidence` preliminares) quando o objeto pronto não vem — mesma
+    prioridade já estabelecida nas demais etapas de modelo (objeto pronto
+    > chamar modelo > parar). Julgamento humano prévio, quando existir,
+    entra como `gabarito_relacoes_afirmacao_evidencia` — registrado para
+    comparação de piloto, nunca lido como precondição desta etapa."""
+    if e.gabarito_relacoes_afirmacao_evidencia is not None:
+        ctx.relacoes_afirmacao_evidencia_gabarito = list(e.gabarito_relacoes_afirmacao_evidencia)
+
     relacoes = e.relacoes_afirmacao_evidencia
     if relacoes is None:
-        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            "verificação de evidências [P09 §12] é julgamento sobre correspondência afirmação-"
-            "evidência (sufficiency/confidence); não calculado aqui sem RelacaoAfirmacaoEvidencia "
-            "já avaliada e validada [escolio/relacao.py]"
-        )
+        if e.cliente is not None and e.unidades_para_relacao_afirmacao_evidencia:
+            try:
+                relacoes = ponte.gerar_relacoes_afirmacao_evidencia(
+                    documento=ctx.documento,
+                    unit_ids=e.unidades_para_relacao_afirmacao_evidencia,
+                    cliente=e.cliente,
+                    sequence_id=ctx.document_id,
+                )
+            except ErroDeCliente as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
+                    _justificativa_falha_cliente(erro)
+                )
+            except ponte.ErroDePonteModeloP13 as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA, (
+                    _justificativa_falha_ponte(erro)
+                )
+        else:
+            return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+                "verificação de evidências [P09 §12] não calculada aqui sem RelacaoAfirmacaoEvidencia "
+                "já pronta ou `cliente` + `unidades_para_relacao_afirmacao_evidencia` "
+                "[escolio/funcoes/ponte_modelo_p13.py::gerar_relacoes_afirmacao_evidencia]"
+            )
     ctx.relacoes_afirmacao_evidencia = list(relacoes)
-    return TipoDeResultadoEtapa.EXECUTADA, None, (
+    justificativa = (
         f"{len(ctx.relacoes_afirmacao_evidencia)} RelacaoAfirmacaoEvidencia aceita(s) [P05, P09 §12]"
     )
+    if ctx.relacoes_afirmacao_evidencia_gabarito:
+        justificativa += (
+            f"; {len(ctx.relacoes_afirmacao_evidencia_gabarito)} relação(ões) de gabarito "
+            "registrada(s) para comparação de piloto, não usada(s) nesta execução"
+        )
+    return TipoDeResultadoEtapa.EXECUTADA, None, justificativa
 
 
 def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):

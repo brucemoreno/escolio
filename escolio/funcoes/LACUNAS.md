@@ -1,5 +1,61 @@
 # LACUNAS — roteador de função e etapas por função, item 6 do roadmap
 
+## Sessão de 2026-08-13 (oitava peça) — etapa 12 passa a gerar `RelacaoAfirmacaoEvidencia`, não só aceitá-la
+
+Decisão explícita do professor: até esta sessão, `_etapa_12_verificacao_de_evidencias` só
+aceitava `RelacaoAfirmacaoEvidencia` (P05, `escolio/relacao.py`) já construída e julgada por um
+humano — exigia trabalho humano completo *antes* da etapa rodar, incompatível com a disciplina de
+E4 (diagnóstico por unidade é papel do modelo; gate humano vem depois, em E5/E7, não antes).
+
+**Mudança**: `escolio/funcoes/ponte_modelo_p13.py::gerar_relacoes_afirmacao_evidencia` (nova
+função, mesmo padrão de `gerar_matrizes_criticidade` — lotes de `TAMANHO_LOTE_ETAPA_12=15`,
+`MODEL_ETAPA_12=claude-sonnet-5`, `EFFORT_ETAPA_12=medium`, E4 diagnóstico por unidade [CLAUDE.md
+§10]) produz, para cada `unit_id` de um lote, zero ou mais relações afirmação-evidência com
+`sufficiency`/`confidence` **preliminares** — mesmo campo, mesmo enum, já era isso que o schema
+P05 chama; "preliminar" é a leitura correta de um valor ainda não confirmado por
+`validation_state=VALIDADA`. `_etapa_12_verificacao_de_evidencias` mantém a prioridade já
+estabelecida nas demais etapas de modelo: objeto pronto (`relacoes_afirmacao_evidencia`) > chamar
+modelo (`cliente` + `unidades_para_relacao_afirmacao_evidencia`) > `PONTO_DE_EXTENSAO_DE_MODELO`.
+
+**Julgamento humano prévio vira ORACLE/GABARITO, não precondição.** Novo campo
+`EntradaEtapaP13.gabarito_relacoes_afirmacao_evidencia` — quando fornecido, é copiado para
+`ContextoExecucaoP13.relacoes_afirmacao_evidencia_gabarito` e citado na justificativa da etapa,
+mas **nunca lido** por `_etapa_12_verificacao_de_evidencias` nem por nenhum outro handler desta
+execução: nenhuma comparação automática contra o gabarito é feita nesta sessão. Confrontar o que
+o modelo produziu com o que um humano já validou é trabalho de quem avalia o piloto (fora do
+orquestrador), não uma regra de código nova — inventar essa comparação sem uma fonte que descreva
+o critério de "concordância aceitável" seria a mesma inferência proibida que motiva o resto deste
+arquivo.
+
+**`validation_state` restrito na ferramenta do modelo.** `VALIDADA` e `INVALIDADA_POSTERIORMENTE`
+exigem `validator`/`validation_date` humanos [`escolio/relacao.py::__post_init__`] — o `tool_use`
+schema (`_SCHEMA_RELACAO`) só oferece os quatro valores restantes
+(`NAO_VERIFICADA`/`PAGINA_NAO_CONFIRMADA`/`PAGINA_CONFIRMADA`/`VALIDACAO_PENDENTE`) como enum, e o
+prompt (`prompts/p13_relacao_afirmacao_evidencia.md`) reforça isso por extenso. Se o modelo
+devolver `VALIDADA` mesmo assim (contornando o enum do `tool_use`, que a API não garante ser
+impossível), a ausência de `validator`/`validation_date` faz `RelacaoAfirmacaoEvidencia.
+__post_init__` levantar `ErroDeCoerencia`, capturado como `ErroDePonteModeloP13` — nunca aceito
+silenciosamente como validação de fato ocorrida.
+
+**`provenance` nunca vem do modelo.** Fixado em código como `"[INFERIDO]"` [convenção do
+CLAUDE.md §9] — o modelo não declara a proveniência de si mesmo; isso evita um campo do tool_use
+schema inteiro só para um valor sempre igual.
+
+**`unit_id` não existe no schema P05 de `RelacaoAfirmacaoEvidencia`.** Diferente de
+`MatrizCriticidade`/`MatrizSeletividade`/`P13Comment`, o dataclass de `escolio/relacao.py` não tem
+campo de unidade — `_exige_unit_id_conhecido` (BL-022) não se aplica aqui, e nenhuma checagem de
+correspondência unidade↔relação foi adicionada. Lacuna nova, sem fonte que a resolva: não há como
+verificar hoje que uma `RelacaoAfirmacaoEvidencia` gerada realmente se origina da unidade que a
+pediu, além de confiar no prompt.
+
+**Não tocado nesta sessão**: BVAA (etapa 11) e perfil de voz (etapa 13) — instrução explícita do
+professor para escopo estreito.
+
+**Testes novos**: `tests/funcoes/test_ponte_modelo_p13.py::TestGerarRelacoesAfirmacaoEvidencia` (6
+casos) e `tests/funcoes/test_execucao_p13.py::TestEtapaDozeVerificacaoDeEvidencias` (+3 casos:
+geração via modelo, gabarito registrado sem bloquear, falha de cliente estruturada). Suíte
+completa: 1144 passando (1135 + 9).
+
 Lacunas, correções de premissa e decisões de implementação encontradas na leitura integral do
 P02, dos cinco contratos funcionais P10-P14 e do inventário canônico da R03, e na implementação
 de `escolio/funcoes/`. Nenhum item aqui foi resolvido por inferência silenciosa — mesma
