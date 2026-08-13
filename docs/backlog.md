@@ -566,6 +566,36 @@ número subiu com sessões intermediárias não detalhadas aqui). Ver `escolio/b
 LAC-BVAA-009 e `docs/spec/bvaa-drive-integracao.md` §6. Item (b) (busca na internet) continua
 sem trabalho nesta sessão.
 
+**Em 2026-08-13 (décima peça): item (b) — busca na internet — construído.** Novo pacote
+`escolio/busca/` (`conector.py`, `erros.py`), mesmo padrão de `escolio/drive/`: conector puro,
+sem decisão de negócio. Provedor escolhido pelo professor: Serper.dev (espelha resultados reais
+do Google, uma chamada HTTP POST, credencial única). `escolio/funcoes/curador_bvaa.py::
+curar_referencias` ganhou parâmetro opcional `buscar_na_internet` — tentado só quando a busca no
+Drive não encontra nada, nunca substitui o Drive nem licencia T04/T05 por si; produz apenas
+`EscalonamentoDoCurador.sugestoes_externas`, notificação ao professor, "nunca incorporação
+automática de conteúdo achado na internet" [decisão de 2026-08-09, citada acima]. Wiring completo
+até `execucao_p13.py` (`EntradaEtapaP13.buscar_na_internet`, repassado a `curar_referencias` junto
+de `servico_drive`). Testes novos: `tests/busca/test_busca_conector.py` (8 casos, `requests`
+mockado, nenhuma chamada de rede real), `tests/funcoes/test_curador_bvaa.py` (+4 casos). Suíte
+completa: 1166 passando (1154 + 12).
+
+**Mesmo dia, continuação — credencial real criada e verificada contra a API de verdade.** O
+professor criou conta em Serper.dev (plano grátis, 2.500 buscas) e colocou `SERPER_API_KEY` em
+`.env` (mesmo arquivo, mesmo padrão de `ANTHROPIC_API_KEY`, nunca versionado). Chamada real
+confirmada (`buscar("Christian Fausto Moraes dos Santos historia da ciencia", chave)`): 5
+resultados corretos (Google Scholar, página da UEM, ResearchGate). `saida/
+piloto_p13_capitulo5_v2.py` (fora do código versionado) ganhou `_servico_drive_ou_none`/
+`_buscar_na_internet_ou_none` — a etapa 11 do piloto agora passa `servico_drive` real (conta de
+serviço já existente, `secrets/gen-lang-client-...json`) e `buscar_na_internet` real
+(`functools.partial(buscar, api_key=...)`) em vez de rodar sem nenhuma evidência; os dois
+degradam para `None` (mesmo comportamento de antes) se a credencial correspondente faltar, nunca
+interrompem o piloto por isso. Escalonamentos do curador (`ctx.escalonamentos_bibliograficos`),
+incluindo `sugestoes_externas`, agora são impressos pelo script. Wiring verificado (import +
+chamada real de cada conector, fora da suíte de testes — nenhum teste automatizado faz chamada de
+rede real, mesma disciplina de sempre); piloto completo (rodar contra o capítulo 5 de verdade,
+com custo real de Drive+busca+Sonnet) ainda não executado nesta sessão. **Item (b) do BL-027
+fechado de ponta a ponta**: mecanismo, wiring e credencial operacional, todos confirmados.
+
 **Em 2026-08-12, mesmo dia, sessão seguinte: T01-T03 construídos.**
 `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §3` delega a escolha
 técnica ao `ENGENHEIRO_LLM` — o P04 continua deliberadamente agnóstico, isso não é lacuna

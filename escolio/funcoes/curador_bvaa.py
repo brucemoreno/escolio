@@ -29,17 +29,24 @@ lógica de licenciamento de transição.
   `escolio/funcoes/execucao_p13.py::_etapa_11_verificacao_de_fontes`,
   mesma separação de responsabilidade que `bvaa_drive.py` já documenta
   para si mesmo (evidência vs. aplicação).
-- Não busca na internet, não baixa de repositório não configurado, não
-  tenta contornar controle de acesso. Só chama
-  `escolio.drive.conector.buscar_arquivos`/`baixar_arquivo`/
-  `exportar_arquivo` — as únicas três operações reais de acesso a
-  material externo que o projeto tem hoje.
+- Não baixa de repositório não configurado, não tenta contornar controle
+  de acesso. Só chama `escolio.drive.conector.buscar_arquivos`/
+  `baixar_arquivo`/`exportar_arquivo` para acesso real, e
+  `escolio.busca.conector.buscar` (opcional, sessão de 2026-08-13, item
+  (b) do BL-027) só para *sugerir* candidato quando o Drive não achou
+  nada — nunca para baixar ou incorporar.
 - Não decide qual resultado de busca é "o arquivo certo" além de tomar o
   primeiro resultado devolvido pela API — mesma limitação estrutural que
   `bvaa_drive.py` já assume para T01-T03 (Drive não distingue obra de
   edição; aqui, múltiplos resultados de busca não são desambiguados por
   julgamento nenhum, código ou modelo). Ver `escolio/bvaa/LACUNAS.md`,
   sessão 2026-08-13, para o registro completo desta limitação.
+- **Nunca licencia transição do BVAA a partir de um resultado de busca na
+  internet** — só do Drive [`docs/spec/bvaa-drive-integracao.md` §2.1:
+  "acesso verificável" é definido como retorno real de
+  `escolio.drive.conector`, nunca resultado de busca]. Um resultado de
+  `escolio.busca.conector.buscar` vira só `sugestoes_externas` num
+  `EscalonamentoDoCurador` — notificação ao professor, nunca evidência.
 """
 
 from __future__ import annotations
@@ -47,6 +54,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from typing import Callable
+
+from escolio.busca.conector import ResultadoDeBusca
+from escolio.busca.erros import ErroDeBusca
 from escolio.bvaa.abstencao import GatilhoDeAbstencao
 from escolio.bvaa.extracao_metadados_referencia import (
     MetadadosDeReferenciaExtraidos,
@@ -90,6 +101,14 @@ class EscalonamentoDoCurador:
     motivo: GatilhoDeAbstencao
     detalhe: str
     referencia_texto: str
+    sugestoes_externas: tuple[ResultadoDeBusca, ...] = ()
+    """Candidatos de busca na internet (sessão de 2026-08-13, item (b) do
+    BL-027) — só populado quando `curar_referencias` recebeu
+    `buscar_na_internet` e a busca no Drive não achou nada. Nunca
+    incorporados como fonte por si só [BL-027: "avisar, pedir para
+    baixar, e só usar depois de disponibilizada"]. Presença aqui é a
+    notificação ao professor; download e disponibilização continuam ato
+    humano fora deste módulo."""
 
 
 @dataclass
@@ -145,6 +164,7 @@ def curar_referencias(
     *,
     pasta_id: str | None = None,
     diretorio_cache: Path = DIRETORIO_CACHE_CURADOR_PADRAO,
+    buscar_na_internet: Callable[[str], list[ResultadoDeBusca]] | None = None,
 ) -> ResultadoDoCurador:
     """Para cada `ItemDeReferencia`: extrai metadados determinísticos do
     texto, busca no Drive pelo termo resultante, e tenta acesso real ao
@@ -155,7 +175,15 @@ def curar_referencias(
     interromperia as referências seguintes. `servico` já autenticado é
     responsabilidade de quem chama — este módulo não constrói credencial
     nem decide se ela existe [`escolio.drive.conector.construir_servico`,
-    fora deste módulo]."""
+    fora deste módulo].
+
+    `buscar_na_internet` (sessão de 2026-08-13, item (b) do BL-027) é
+    opcional e injetado por quem chama — mesmo padrão de `servico`
+    (`escolio.busca.conector.buscar` fixado a uma `api_key`, tipicamente
+    via `functools.partial`). Só é tentado quando a busca no Drive não
+    encontrou nenhum arquivo; nunca substitui o Drive, nunca licencia
+    T04/T05 por si — só anexa `sugestoes_externas` ao escalonamento
+    resultante, para o professor decidir se disponibiliza a referência."""
     resultado = ResultadoDoCurador()
     for item in referencias:
         metadados = extrair_metadados_deterministicos(item.texto)
@@ -188,12 +216,27 @@ def curar_referencias(
             )
             continue
         if not achados:
+            detalhe = f"nenhum arquivo encontrado no Drive para o termo de busca {termo!r}"
+            sugestoes: tuple[ResultadoDeBusca, ...] = ()
+            if buscar_na_internet is not None:
+                try:
+                    sugestoes = tuple(buscar_na_internet(termo))
+                except ErroDeBusca as erro:
+                    detalhe += f"; busca na internet também falhou: {erro}"
+                else:
+                    if sugestoes:
+                        detalhe += (
+                            f"; {len(sugestoes)} candidato(s) encontrado(s) na internet — "
+                            "nenhum incorporado automaticamente, aguardando decisão humana de "
+                            "disponibilizar [BL-027]"
+                        )
             resultado.escalonamentos.append(
                 EscalonamentoDoCurador(
                     unit_id=item.unit_id,
                     motivo=GatilhoDeAbstencao.ACESSO_NAO_COMPROVADO,
-                    detalhe=f"nenhum arquivo encontrado no Drive para o termo de busca {termo!r}",
+                    detalhe=detalhe,
                     referencia_texto=item.texto,
+                    sugestoes_externas=sugestoes,
                 )
             )
             continue

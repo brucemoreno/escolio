@@ -1,5 +1,38 @@
 # LACUNAS — roteador de função e etapas por função, item 6 do roadmap
 
+## Sessão de 2026-08-13 (nona peça) — etapa 13 passa a derivar `PerfilDeVoz` por amostras, não só aceitá-lo pronto
+
+Decisão do professor: em vez de exigir que ele preencha manualmente as 30 dimensões do schema
+P07, a etapa 13 (`_etapa_13_verificacao_de_voz`) agora tenta derivar `perfil_de_voz` de
+`EntradaEtapaP13.amostras_autorais_de_voz` (+ `cliente` + três campos de metadados obrigatórios
+do schema P07 — `perfil_de_voz_candidato_profile_id`/`_purpose`/`_scope`) via
+`ponte.gerar_perfil_de_voz_candidato`, antes de tratar a ausência de perfil como
+`PONTO_DE_EXTENSAO_DE_MODELO` — mesma prioridade já estabelecida nas outras etapas ligadas a
+modelo (objeto pronto > mecanismo automático > parar). Candidato aceito é registrado em
+`ContextoExecucaoP13.perfil_de_voz_candidato` (novo campo), para calibração humana posterior —
+nunca lido como precondição por nenhum handler desta execução, mesmo padrão do
+`relacoes_afirmacao_evidencia_gabarito` da oitava peça.
+
+Nova causa `CausaDeParada.AMOSTRAS_DE_VOZ_INSUFICIENTES`: quando `gerar_perfil_de_voz_candidato`
+devolve `SolicitacaoDeAmostrasAdicionais` (amostras não bastam para cobrir com evidência as 26
+dimensões obrigatórias do P07), a etapa para com essa causa em vez de inventar valor — distinta
+de `PONTO_DE_EXTENSAO_DE_MODELO` (que significa "nenhum mecanismo automático foi tentado aqui");
+aqui o mecanismo rodou e concluiu, por si, que precisa de mais amostra.
+
+**Qual documento serve de amostra para o capítulo sob revisão não foi decidido nesta sessão —
+perguntei duas vezes ao professor (hipótese: capítulos 1-4 do mesmo livro em `data/capitulos/`,
+distintos do capítulo 5 sob revisão) e não obtive confirmação; a última resposta foi uma
+contra-pergunta sem indicar outra fonte.** Por isso o mecanismo (`AmostraAutoral`,
+`gerar_perfil_de_voz_candidato`, os três campos novos de `EntradaEtapaP13`) é inteiramente
+genérico — nenhum arquivo específico é amostra por padrão em código; a escolha é de quem chama a
+etapa 13, ato humano registrado no momento da chamada, mesma disciplina de
+`classification.functions` (LAC-FUNC-001/BL-014: o roteador nunca elege por si). Ver
+`escolio/voz/LACUNAS.md` (mesma sessão) para o lado do schema P07/derivação.
+
+**Testes novos**: `tests/funcoes/test_ponte_modelo_p13.py::TestGerarPerfilDeVozCandidato` (7
+casos) e `tests/funcoes/test_execucao_p13.py::TestEtapaTrezeVerificacaoDeVoz` (+3 casos). Suíte
+completa: 1154 passando (1144 + 10).
+
 ## Sessão de 2026-08-13 (oitava peça) — etapa 12 passa a gerar `RelacaoAfirmacaoEvidencia`, não só aceitá-la
 
 Decisão explícita do professor: até esta sessão, `_etapa_12_verificacao_de_evidencias` só

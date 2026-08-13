@@ -9,6 +9,8 @@ são sintéticos."""
 
 from unittest.mock import MagicMock
 
+from escolio.busca.conector import ResultadoDeBusca
+from escolio.busca.erros import ErroDeRespostaDeBusca
 from escolio.bvaa.abstencao import GatilhoDeAbstencao
 from escolio.drive.erros import ErroDeAcessoNegado, ErroDeRecursoNaoEncontrado
 from escolio.funcoes.bvaa_drive import OperacaoDeAcesso
@@ -146,6 +148,69 @@ def test_metadados_extraidos_ficam_registrados_por_unit_id_mesmo_sem_evidencia()
 
     assert referencia.unit_id in resultado.metadados_extraidos
     assert resultado.metadados_extraidos[referencia.unit_id].ano == "1979"
+
+
+def test_busca_sem_resultado_no_drive_tenta_internet_e_sugere_sem_incorporar():
+    servico = _servico_de_busca([{"files": []}])
+    referencia = _referencia()
+    sugestoes = [ResultadoDeBusca(titulo="Achado", link="https://x.example/y", trecho="trecho")]
+
+    resultado = curar_referencias([referencia], servico, buscar_na_internet=lambda termo: sugestoes)
+
+    assert resultado.evidencias_de_identificacao == {}
+    assert resultado.evidencias_de_acesso == {}
+    assert len(resultado.escalonamentos) == 1
+    escalonamento = resultado.escalonamentos[0]
+    assert escalonamento.motivo is GatilhoDeAbstencao.ACESSO_NAO_COMPROVADO
+    assert escalonamento.sugestoes_externas == tuple(sugestoes)
+    assert "candidato(s) encontrado(s) na internet" in escalonamento.detalhe
+
+
+def test_busca_sem_resultado_no_drive_sem_buscar_na_internet_nao_tem_sugestoes():
+    servico = _servico_de_busca([{"files": []}])
+    referencia = _referencia()
+
+    resultado = curar_referencias([referencia], servico)
+
+    assert resultado.escalonamentos[0].sugestoes_externas == ()
+
+
+def test_busca_na_internet_tambem_falha_registra_no_detalhe_sem_levantar():
+    servico = _servico_de_busca([{"files": []}])
+    referencia = _referencia()
+
+    def falha(termo):
+        raise ErroDeRespostaDeBusca("busca externa indisponível")
+
+    resultado = curar_referencias([referencia], servico, buscar_na_internet=falha)
+
+    assert resultado.escalonamentos[0].sugestoes_externas == ()
+    assert "busca na internet também falhou" in resultado.escalonamentos[0].detalhe
+
+
+def test_busca_na_internet_nao_e_chamada_quando_drive_ja_encontrou(monkeypatch):
+    servico = _servico_de_busca(
+        [
+            {
+                "files": [
+                    {
+                        "id": "abc123", "name": "Grewe1979.pdf", "mimeType": "application/pdf",
+                        "size": "2048", "modifiedTime": None,
+                    }
+                ]
+            }
+        ]
+    )
+    monkeypatch.setattr(
+        "escolio.drive.conector.MediaIoBaseDownload",
+        lambda *a, **k: MagicMock(next_chunk=MagicMock(return_value=(MagicMock(), True))),
+    )
+    referencia = _referencia()
+    buscar_na_internet = MagicMock()
+
+    curar_referencias([referencia], servico, buscar_na_internet=buscar_na_internet)
+
+    buscar_na_internet.assert_not_called()
 
 
 def test_multiplas_referencias_independentes_uma_falha_nao_bloqueia_outra(monkeypatch):

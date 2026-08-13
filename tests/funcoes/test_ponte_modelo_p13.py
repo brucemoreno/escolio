@@ -18,6 +18,8 @@ from escolio.comentarios.vocabulario import (
 from escolio.funcoes import ponte_modelo_p13 as ponte
 from escolio.ingestao.erros import ErroDeIngestao
 from escolio.ingestao.modelos import ComentarioWord, DocumentoIngerido, Metadados, Paragrafo
+from escolio.voz.amostra import AmostraAutoral, SolicitacaoDeAmostrasAdicionais
+from escolio.voz.dimensoes import DIMENSOES_OBRIGATORIAS, DimensaoDeVoz
 from escolio.voz.perfil import PerfilDeVoz
 from escolio.voz.vocabulario import Confidence as ConfidenceVoz
 from escolio.voz.vocabulario import DesvioBloqueante, StatusDePerfil, TipoDePerfil
@@ -814,3 +816,149 @@ class TestGerarRelacoesAfirmacaoEvidencia:
         with pytest.raises(ponte.ErroDePonteModeloP13):
             ponte.gerar_relacoes_afirmacao_evidencia(documento=documento, unit_ids=[], cliente=cliente)
         cliente.chamar.assert_not_called()
+
+
+def amostras_sinteticas() -> list[AmostraAutoral]:
+    return [
+        AmostraAutoral(amostra_id="AM-1", texto="Texto da amostra 1.", provenance="[acervo:cap1]"),
+        AmostraAutoral(amostra_id="AM-2", texto="Texto da amostra 2.", provenance="[acervo:cap2]"),
+    ]
+
+
+def _todas_as_dimensoes_com_evidencia(excluir: set | None = None) -> list[dict]:
+    excluir = excluir or set()
+    return [
+        {
+            "dimension_id": d.value,
+            "valor": f"valor sintético para {d.value}",
+            "evidencia": [{"amostra_id": "AM-1", "trecho": "trecho sintético"}],
+            "confianca": "MEDIA",
+        }
+        for d in DimensaoDeVoz
+        if d.value not in excluir
+    ]
+
+
+def bloco_derivacao_perfil(com_evidencia: list[dict], sem_evidencia: list[dict] | None = None) -> dict:
+    return {
+        "type": "tool_use",
+        "name": ponte._FERRAMENTA_DERIVACAO_PERFIL,
+        "input": {
+            "dimensoes_com_evidencia": com_evidencia,
+            "dimensoes_sem_evidencia_suficiente": sem_evidencia or [],
+        },
+    }
+
+
+class TestGerarPerfilDeVozCandidato:
+    def test_cobertura_completa_produz_perfilfedevoz_candidato(self):
+        cliente = cliente_fake([bloco_derivacao_perfil(_todas_as_dimensoes_com_evidencia())])
+
+        resultado = ponte.gerar_perfil_de_voz_candidato(
+            amostras=amostras_sinteticas(),
+            cliente=cliente,
+            profile_id="PV-CAND-0001",
+            purpose="preservar a voz do autor avaliado",
+            scope={"documento": "cap5"},
+        )
+
+        assert isinstance(resultado, PerfilDeVoz)
+        assert resultado.profile_type is TipoDePerfil.PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS
+        assert resultado.status is StatusDePerfil.VALIDACAO_PENDENTE
+        assert len(resultado.dimensions) == len(list(DimensaoDeVoz))
+        assert resultado.confidence == ConfidenceVoz.MEDIA
+        assert len(resultado.provenance) == 2
+
+        _, kwargs = cliente.chamar.call_args
+        assert kwargs["model"] == ponte.MODEL_ETAPA_13_DERIVACAO_PERFIL
+        assert kwargs["tools"][0]["name"] == ponte._FERRAMENTA_DERIVACAO_PERFIL
+
+    def test_menos_de_duas_amostras_nao_chama_modelo(self):
+        cliente = cliente_fake([])
+
+        resultado = ponte.gerar_perfil_de_voz_candidato(
+            amostras=[amostras_sinteticas()[0]],
+            cliente=cliente,
+            profile_id="PV-CAND-0001",
+            purpose="preservar a voz do autor avaliado",
+            scope={"documento": "cap5"},
+        )
+
+        assert isinstance(resultado, SolicitacaoDeAmostrasAdicionais)
+        assert resultado.amostras_recebidas == 1
+        assert set(resultado.dimensoes_sem_evidencia) == DIMENSOES_OBRIGATORIAS
+        cliente.chamar.assert_not_called()
+
+    def test_dimensao_obrigatoria_sem_evidencia_produz_solicitacao_de_amostras(self):
+        com_evidencia = _todas_as_dimensoes_com_evidencia(excluir={DimensaoDeVoz.VOZ_D01.value})
+        sem_evidencia = [{"dimension_id": "VOZ-D01", "motivo": "amostras não trazem material suficiente"}]
+        cliente = cliente_fake([bloco_derivacao_perfil(com_evidencia, sem_evidencia)])
+
+        resultado = ponte.gerar_perfil_de_voz_candidato(
+            amostras=amostras_sinteticas(),
+            cliente=cliente,
+            profile_id="PV-CAND-0001",
+            purpose="preservar a voz do autor avaliado",
+            scope={"documento": "cap5"},
+        )
+
+        assert isinstance(resultado, SolicitacaoDeAmostrasAdicionais)
+        assert DimensaoDeVoz.VOZ_D01 in resultado.dimensoes_sem_evidencia
+        assert "VOZ-D01" in resultado.motivos
+
+    def test_dimensao_opcional_sem_evidencia_nao_bloqueia(self):
+        com_evidencia = _todas_as_dimensoes_com_evidencia(excluir={DimensaoDeVoz.VOZ_D16.value})
+        sem_evidencia = [{"dimension_id": "VOZ-D16", "motivo": "amostras não trazem preferências lexicais"}]
+        cliente = cliente_fake([bloco_derivacao_perfil(com_evidencia, sem_evidencia)])
+
+        resultado = ponte.gerar_perfil_de_voz_candidato(
+            amostras=amostras_sinteticas(),
+            cliente=cliente,
+            profile_id="PV-CAND-0001",
+            purpose="preservar a voz do autor avaliado",
+            scope={"documento": "cap5"},
+        )
+
+        assert isinstance(resultado, PerfilDeVoz)
+        assert "VOZ-D16" not in resultado.dimensions
+
+    def test_dimensao_ausente_das_duas_listas_levanta_erro_de_ponte(self):
+        com_evidencia = _todas_as_dimensoes_com_evidencia(excluir={DimensaoDeVoz.VOZ_D01.value})
+        cliente = cliente_fake([bloco_derivacao_perfil(com_evidencia, [])])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_perfil_de_voz_candidato(
+                amostras=amostras_sinteticas(),
+                cliente=cliente,
+                profile_id="PV-CAND-0001",
+                purpose="preservar a voz do autor avaliado",
+                scope={"documento": "cap5"},
+            )
+
+    def test_dimensao_duplicada_nas_duas_listas_levanta_erro_de_ponte(self):
+        com_evidencia = _todas_as_dimensoes_com_evidencia()
+        sem_evidencia = [{"dimension_id": "VOZ-D01", "motivo": "duplicado de propósito"}]
+        cliente = cliente_fake([bloco_derivacao_perfil(com_evidencia, sem_evidencia)])
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_perfil_de_voz_candidato(
+                amostras=amostras_sinteticas(),
+                cliente=cliente,
+                profile_id="PV-CAND-0001",
+                purpose="preservar a voz do autor avaliado",
+                scope={"documento": "cap5"},
+            )
+
+    def test_item_nao_objeto_levanta_erro_de_ponte(self):
+        cliente = cliente_fake(
+            [bloco_derivacao_perfil(["isto não é um objeto"], [])]
+        )
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_perfil_de_voz_candidato(
+                amostras=amostras_sinteticas(),
+                cliente=cliente,
+                profile_id="PV-CAND-0001",
+                purpose="preservar a voz do autor avaliado",
+                scope={"documento": "cap5"},
+            )

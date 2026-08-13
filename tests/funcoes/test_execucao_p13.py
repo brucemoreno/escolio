@@ -61,7 +61,9 @@ from escolio.vocabulario import (
     UsageStatus,
     ValidationState,
 )
+from escolio.voz.amostra import AmostraAutoral
 from escolio.voz.deteccao import AchadoDeFidelidade
+from escolio.voz.dimensoes import DimensaoDeVoz
 from escolio.voz.perfil import PerfilDeVoz
 from escolio.voz.vocabulario import Confidence as ConfidenceVoz
 from escolio.voz.vocabulario import (
@@ -635,7 +637,7 @@ class TestEtapaOnzeVerificacaoDeFontes:
             escalonamentos=[],
         )
         monkeypatch.setattr(
-            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico: resultado_curador
+            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico, **_kw: resultado_curador
         )
 
         avancar(estado, EntradaEtapaP13(servico_drive=object()))
@@ -661,7 +663,7 @@ class TestEtapaOnzeVerificacaoDeFontes:
             evidencias_de_identificacao={}, evidencias_de_acesso={}, escalonamentos=[escalonamento]
         )
         monkeypatch.setattr(
-            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico: resultado_curador
+            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico, **_kw: resultado_curador
         )
 
         avancar(estado, EntradaEtapaP13(servico_drive=object()))
@@ -697,7 +699,7 @@ class TestEtapaOnzeVerificacaoDeFontes:
             escalonamentos=[escalonamento],
         )
         monkeypatch.setattr(
-            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico: resultado_curador
+            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico, **_kw: resultado_curador
         )
 
         avancar(estado, EntradaEtapaP13(servico_drive=object()))
@@ -727,7 +729,7 @@ class TestEtapaOnzeVerificacaoDeFontes:
         chamado = []
         monkeypatch.setattr(
             "escolio.funcoes.execucao_p13.curar_referencias",
-            lambda referencias, servico: chamado.append(1) or SimpleNamespace(
+            lambda referencias, servico, **_kw: chamado.append(1) or SimpleNamespace(
                 evidencias_de_identificacao={}, evidencias_de_acesso={}, escalonamentos=[]
             ),
         )
@@ -1069,6 +1071,95 @@ class TestEtapaTrezeVerificacaoDeVoz:
         )
         assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
         assert paragrafo.unit_id in estado.contexto.avaliacoes_fidelidade
+
+    def _amostras(self):
+        return [
+            AmostraAutoral(amostra_id="AM-1", texto="Texto da amostra 1.", provenance="[acervo:cap1]"),
+            AmostraAutoral(amostra_id="AM-2", texto="Texto da amostra 2.", provenance="[acervo:cap2]"),
+        ]
+
+    def _bloco_derivacao_completa(self):
+        return {
+            "type": "tool_use",
+            "name": ponte._FERRAMENTA_DERIVACAO_PERFIL,
+            "input": {
+                "dimensoes_com_evidencia": [
+                    {
+                        "dimension_id": d.value,
+                        "valor": f"valor sintético {d.value}",
+                        "evidencia": [{"amostra_id": "AM-1", "trecho": "trecho sintético"}],
+                        "confianca": "MEDIA",
+                    }
+                    for d in DimensaoDeVoz
+                ],
+                "dimensoes_sem_evidencia_suficiente": [],
+            },
+        }
+
+    def test_deriva_perfil_via_amostras_e_registra_candidato_no_contexto(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        cliente = _cliente_fake([self._bloco_derivacao_completa()])
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                cliente=cliente,
+                amostras_autorais_de_voz=self._amostras(),
+                perfil_de_voz_candidato_profile_id="PV-CAND-0001",
+                perfil_de_voz_candidato_purpose="preservar a voz do autor avaliado",
+                perfil_de_voz_candidato_scope={"documento": "cap5"},
+            ),
+        )
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+        assert estado.contexto.perfil_de_voz_candidato is not None
+        assert estado.contexto.perfil_de_voz_candidato.profile_id == "PV-CAND-0001"
+
+    def test_amostras_insuficientes_produz_parada_estruturada(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        cliente = _cliente_fake([])
+        avancar(
+            estado,
+            EntradaEtapaP13(
+                cliente=cliente,
+                amostras_autorais_de_voz=[self._amostras()[0]],
+                perfil_de_voz_candidato_profile_id="PV-CAND-0001",
+                perfil_de_voz_candidato_purpose="preservar a voz do autor avaliado",
+                perfil_de_voz_candidato_scope={"documento": "cap5"},
+            ),
+        )
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.AMOSTRAS_DE_VOZ_INSUFICIENTES
+        assert estado.contexto.perfil_de_voz_candidato is None
+        cliente.chamar.assert_not_called()
+
+    def test_amostras_sem_metadados_do_candidato_e_entrada_nao_fornecida(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        cliente = _cliente_fake([])
+        avancar(
+            estado,
+            EntradaEtapaP13(cliente=cliente, amostras_autorais_de_voz=self._amostras()),
+        )
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.ENTRADA_NAO_FORNECIDA
+        cliente.chamar.assert_not_called()
 
 
 class TestEtapaCatorzeVerificacaoDePrivacidade:

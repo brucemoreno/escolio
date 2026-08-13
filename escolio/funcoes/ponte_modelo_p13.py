@@ -2,6 +2,17 @@
 liga os pontos de extensão de modelo das etapas 8, 9, 13, 16, 17 e 18 à
 API.
 
+**Sessão de 2026-08-13 (derivação de perfil de voz por amostras) —
+`gerar_perfil_de_voz_candidato` deixa de exigir que o professor preencha
+manualmente as 30 dimensões do schema P07 antes da etapa 13.** Decisão do
+professor: o sistema propõe um `PerfilDeVoz` candidato
+(`PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS`, `status=VALIDACAO_PENDENTE`) a
+partir de amostras autorais fornecidas por quem chama, com evidência,
+confiança e proveniência por dimensão; se as amostras não bastarem, a
+função devolve `SolicitacaoDeAmostrasAdicionais` em vez de inventar
+dimensão sem base. Qual documento serve de amostra não é decisão deste
+módulo — ver `escolio/voz/amostra.py` e `escolio/voz/LACUNAS.md`.
+
 Etapas 11 e 14 não passam por este módulo — são deterministas
 (`bvaa_drive.py`, `salvaguarda_privacidade_p13.py`). 15 (problemas
 sistêmicos) aceita a lista opcional do professor, sem chamada de modelo.
@@ -92,11 +103,13 @@ from escolio.comentarios.vocabulario import P13CommentStatus
 from escolio.erros import ErroDeCoerencia
 from escolio.ingestao.modelos import DocumentoIngerido
 from escolio.relacao import RelacaoAfirmacaoEvidencia
+from escolio.voz.amostra import AmostraAutoral, SolicitacaoDeAmostrasAdicionais
 from escolio.voz.deteccao import AchadoDeFidelidade
+from escolio.voz.dimensoes import DIMENSOES_OBRIGATORIAS, DimensaoDeVoz
 from escolio.voz.erros import ErroDePerfilDeVoz
-from escolio.voz.perfil import PerfilDeVoz
+from escolio.voz.perfil import _MINIMO_DE_AMOSTRAS_PARA_PERFIL_DERIVADO, PerfilDeVoz
 from escolio.voz.vocabulario import Confidence as ConfidenceVoz
-from escolio.voz.vocabulario import DesvioBloqueante
+from escolio.voz.vocabulario import DesvioBloqueante, StatusDePerfil, TipoDePerfil
 from escolio.vocabulario import (
     AccessState,
     ClaimType,
@@ -121,6 +134,8 @@ MODEL_ETAPA_12 = "claude-sonnet-5"
 EFFORT_ETAPA_12 = "medium"
 MODEL_ETAPA_13 = "claude-sonnet-5"
 EFFORT_ETAPA_13 = "medium"
+MODEL_ETAPA_13_DERIVACAO_PERFIL = "claude-sonnet-5"
+EFFORT_ETAPA_13_DERIVACAO_PERFIL = "medium"
 MODEL_ETAPAS_16_18 = "claude-sonnet-5"
 EFFORT_ETAPAS_16_18 = "medium"
 
@@ -142,6 +157,10 @@ MAX_TOKENS_ETAPA_12 = 8_000
 # usado — só evita cortar a resposta no meio.
 MAX_TOKENS_ETAPA_9 = 32_000
 MAX_TOKENS_ETAPA_13 = 8_000
+# Maior que MAX_TOKENS_ETAPA_13 (detecção por unidade) porque esta chamada
+# julga as 30 dimensões de uma vez, não uma unidade — nunca calibrado
+# contra dado real ainda [PROPOSTA], sujeito a revisão na primeira execução.
+MAX_TOKENS_ETAPA_13_DERIVACAO_PERFIL = 16_000
 MAX_TOKENS_ETAPAS_16_18 = 8_000
 
 # Sessão de 2026-08-12 (quarta peça) — lotes, não teto maior. Achado real
@@ -241,6 +260,16 @@ def _renderizar_perfil_de_voz(perfil: PerfilDeVoz) -> str:
         "confidence": perfil.confidence.value,
         "status": perfil.status.value,
     }
+    return json.dumps(corpo, ensure_ascii=False, sort_keys=True)
+
+
+def _renderizar_amostras_autorais(amostras: list[AmostraAutoral]) -> str:
+    """Mesma disciplina de `_renderizar_documento_estavel` (prefixo `system`
+    cacheável, `sort_keys=True`, nenhum timestamp)."""
+    corpo = [
+        {"amostra_id": a.amostra_id, "provenance": a.provenance, "texto": a.texto}
+        for a in sorted(amostras, key=lambda a: a.amostra_id)
+    ]
     return json.dumps(corpo, ensure_ascii=False, sort_keys=True)
 
 
@@ -703,6 +732,217 @@ def gerar_matrizes_seletividade(
         entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_SELETIVIDADE)
         matrizes.extend(_matriz_seletividade_de_item(item) for item in entrada.get("matrizes", []))
     return matrizes
+
+
+# --- Etapa 13 — derivação de perfil de voz candidato por amostras -------
+
+_FERRAMENTA_DERIVACAO_PERFIL = "registrar_perfil_de_voz_candidato"
+
+_SCHEMA_DERIVACAO_PERFIL = {
+    "name": _FERRAMENTA_DERIVACAO_PERFIL,
+    "description": (
+        "Registra, por dimensão (VOZ-D01...D30), o valor observado nas amostras com evidência, "
+        "ou declara que a evidência disponível não basta [01_CONTRATO_UNIVERSAL_DE_VOZ_AUTORAL_"
+        "P07_R01.md, Gates]."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "dimensoes_com_evidencia": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "dimension_id": {"type": "string", "enum": [d.value for d in DimensaoDeVoz]},
+                        "valor": {"type": "string"},
+                        "evidencia": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "amostra_id": {"type": "string"},
+                                    "trecho": {"type": "string"},
+                                },
+                                "required": ["amostra_id", "trecho"],
+                            },
+                        },
+                        "confianca": {"type": "string", "enum": [c.value for c in ConfidenceVoz]},
+                    },
+                    "required": ["dimension_id", "valor", "evidencia", "confianca"],
+                },
+            },
+            "dimensoes_sem_evidencia_suficiente": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "dimension_id": {"type": "string", "enum": [d.value for d in DimensaoDeVoz]},
+                        "motivo": {"type": "string"},
+                    },
+                    "required": ["dimension_id", "motivo"],
+                },
+            },
+        },
+        "required": ["dimensoes_com_evidencia", "dimensoes_sem_evidencia_suficiente"],
+    },
+}
+
+
+def gerar_perfil_de_voz_candidato(
+    *,
+    amostras: list[AmostraAutoral],
+    cliente,
+    profile_id: str,
+    purpose: str,
+    scope: dict,
+    ttl_cache: str = "1h",
+    sequence_id: str | None = None,
+) -> PerfilDeVoz | SolicitacaoDeAmostrasAdicionais:
+    """Deriva um `PerfilDeVoz` candidato (`PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS`,
+    `status=VALIDACAO_PENDENTE`) a partir de `amostras` — decisão do
+    professor, sessão de 2026-08-13: a etapa 13 deixa de exigir que o
+    professor preencha manualmente as 30 dimensões do schema P07; o
+    sistema propõe o candidato com evidência, confiança e proveniência por
+    dimensão, e o professor calibra depois, de preferência só nos pontos
+    incertos — mesmo padrão já estabelecido para `RelacaoAfirmacaoEvidencia`
+    na etapa 12 (objeto pronto > mecanismo automático > parar; julgamento
+    humano prévio é ORACLE/GABARITO, nunca precondição).
+
+    Nunca inventa valor para dimensão sem base real: menos de
+    `_MINIMO_DE_AMOSTRAS_PARA_PERFIL_DERIVADO` amostras não chega a chamar
+    o modelo (nenhuma avaliação por dimensão é possível com uma amostra só
+    — mesmo gate que `PerfilDeVoz._exige_amostras` aplica depois); e, se o
+    próprio modelo declarar que alguma das 26 dimensões obrigatórias
+    [`escolio.voz.dimensoes.DIMENSOES_OBRIGATORIAS`] não tem evidência
+    suficiente nas amostras recebidas, esta função devolve
+    `SolicitacaoDeAmostrasAdicionais` em vez de um `PerfilDeVoz` — "perfil
+    insuficiente conduz a... pedido de amostras" [01, Gates]. Qual
+    documento conta como amostra é decisão de quem chama; esta função
+    nunca escolhe a amostra por si [escolio/voz/amostra.py]."""
+    if len(amostras) < _MINIMO_DE_AMOSTRAS_PARA_PERFIL_DERIVADO:
+        return SolicitacaoDeAmostrasAdicionais(
+            dimensoes_sem_evidencia=tuple(sorted(DIMENSOES_OBRIGATORIAS, key=lambda d: d.value)),
+            motivos={
+                d.value: (
+                    f"menos de {_MINIMO_DE_AMOSTRAS_PARA_PERFIL_DERIVADO} amostras fornecidas — "
+                    "gate do perfil derivado [01, Gates] exige múltiplas amostras antes de "
+                    "qualquer avaliação por dimensão"
+                )
+                for d in DIMENSOES_OBRIGATORIAS
+            },
+            amostras_recebidas=len(amostras),
+        )
+
+    instrucoes = _ler_prompt("p13_derivacao_perfil_de_voz.md")
+    system_estavel = instrucoes + "\n\n## Amostras autorais\n\n" + _renderizar_amostras_autorais(amostras)
+    mensagem = "Derive o perfil de voz candidato a partir das amostras acima, dimensão a dimensão [VOZ-D01...D30]."
+
+    resultado = cliente.chamar(
+        model=MODEL_ETAPA_13_DERIVACAO_PERFIL,
+        system_estavel=system_estavel,
+        unidades=[{"type": "text", "text": mensagem}],
+        max_tokens=MAX_TOKENS_ETAPA_13_DERIVACAO_PERFIL,
+        effort=EFFORT_ETAPA_13_DERIVACAO_PERFIL,
+        tools=[_SCHEMA_DERIVACAO_PERFIL],
+        ttl_cache=ttl_cache,
+        etapa="P13_ETAPA_13_DERIVACAO_PERFIL_DE_VOZ",
+        sequence_id=sequence_id,
+    )
+    entrada = _extrair_tool_use(resultado.blocos, _FERRAMENTA_DERIVACAO_PERFIL)
+
+    dimensoes: dict[str, dict] = {}
+    cobertas: set[DimensaoDeVoz] = set()
+    confiancas: list[ConfidenceVoz] = []
+    for item in entrada.get("dimensoes_com_evidencia", []):
+        if not isinstance(item, dict):
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} trouxe item de "
+                f"'dimensoes_com_evidencia' que não é objeto: {item!r}"
+            )
+        try:
+            dimensao = DimensaoDeVoz(item["dimension_id"])
+            confianca = ConfidenceVoz(item["confianca"])
+            dimensoes[dimensao.value] = {
+                "valor": item["valor"],
+                "evidencia": item["evidencia"],
+                "confianca": confianca.value,
+            }
+        except (KeyError, ValueError, TypeError) as erro:
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} não corresponde a "
+                f"entrada de dimensão válida: {erro}"
+            ) from erro
+        if dimensao in cobertas:
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} declarou "
+                f"{dimensao.value} mais de uma vez entre as duas listas"
+            )
+        cobertas.add(dimensao)
+        confiancas.append(confianca)
+
+    sem_evidencia: dict[str, str] = {}
+    for item in entrada.get("dimensoes_sem_evidencia_suficiente", []):
+        if not isinstance(item, dict):
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} trouxe item de "
+                f"'dimensoes_sem_evidencia_suficiente' que não é objeto: {item!r}"
+            )
+        try:
+            dimensao = DimensaoDeVoz(item["dimension_id"])
+        except (KeyError, ValueError) as erro:
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} declarou "
+                f"dimension_id inválido em 'dimensoes_sem_evidencia_suficiente': {erro}"
+            ) from erro
+        if dimensao in cobertas:
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} declarou "
+                f"{dimensao.value} mais de uma vez entre as duas listas"
+            )
+        sem_evidencia[dimensao.value] = item.get("motivo", "")
+        cobertas.add(dimensao)
+
+    faltando = set(DimensaoDeVoz) - cobertas
+    if faltando:
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_DERIVACAO_PERFIL!r} não cobriu todas as 30 "
+            "dimensões (nem em 'dimensoes_com_evidencia', nem em 'dimensoes_sem_evidencia_"
+            f"suficiente'): faltam {sorted(d.value for d in faltando)}"
+        )
+
+    obrigatorias_sem_evidencia = {
+        d for d in DIMENSOES_OBRIGATORIAS if d.value in sem_evidencia
+    }
+    if obrigatorias_sem_evidencia:
+        return SolicitacaoDeAmostrasAdicionais(
+            dimensoes_sem_evidencia=tuple(sorted(obrigatorias_sem_evidencia, key=lambda d: d.value)),
+            motivos={d.value: sem_evidencia[d.value] for d in obrigatorias_sem_evidencia},
+            amostras_recebidas=len(amostras),
+        )
+
+    _ORDEM_CONFIANCA = {ConfidenceVoz.BAIXA: 0, ConfidenceVoz.MEDIA: 1, ConfidenceVoz.ALTA: 2}
+    graduadas = [c for c in confiancas if c in _ORDEM_CONFIANCA]
+    confianca_agregada = min(graduadas, key=lambda c: _ORDEM_CONFIANCA[c]) if graduadas else ConfidenceVoz.NAO_APLICAVEL
+
+    try:
+        return PerfilDeVoz(
+            profile_id=profile_id,
+            profile_type=TipoDePerfil.PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS,
+            purpose=purpose,
+            scope=scope,
+            dimensions=dimensoes,
+            evidence=[{"amostra_id": a.amostra_id, "provenance": a.provenance} for a in amostras],
+            confidence=confianca_agregada,
+            authorization={},
+            versioning={},
+            provenance=[a.provenance for a in amostras],
+            reversibility={},
+            status=StatusDePerfil.VALIDACAO_PENDENTE,
+        )
+    except ErroDePerfilDeVoz as erro:
+        raise ErroDePonteModeloP13(
+            f"perfil candidato derivado das amostras não corresponde a PerfilDeVoz: {erro}"
+        ) from erro
 
 
 # --- Etapa 13 — detecção de fidelidade de voz (Camada A) ----------------

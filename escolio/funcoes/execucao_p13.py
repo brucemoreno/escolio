@@ -149,6 +149,7 @@ from escolio.funcoes.salvaguarda_privacidade_p13 import (
 from escolio.funcoes.vocabulario import FuncaoId
 from escolio.ingestao.modelos import DocumentoIngerido
 from escolio.relacao import RelacaoAfirmacaoEvidencia
+from escolio.voz.amostra import AmostraAutoral, SolicitacaoDeAmostrasAdicionais
 from escolio.voz.deteccao import AchadoDeFidelidade
 from escolio.voz.fidelidade import AvaliacaoDeFidelidade, avaliar_a_partir_do_perfil
 from escolio.voz.perfil import PerfilDeVoz
@@ -249,6 +250,18 @@ class CausaDeParada(str, Enum):
     `ErroDeCliente` faz, porque `ErroDePonteModeloP13` não carrega esse
     atributo — decisão de repetir fica com quem opera."""
 
+    AMOSTRAS_DE_VOZ_INSUFICIENTES = "AMOSTRAS_DE_VOZ_INSUFICIENTES"
+    """Sessão de 2026-08-13 (derivação de `PerfilDeVoz` por amostras,
+    decisão do professor) — `ponte.gerar_perfil_de_voz_candidato` recebeu
+    `amostras_autorais_de_voz` e `cliente`, mas as amostras não bastam
+    para cobrir com evidência real as dimensões obrigatórias [P07,
+    `01_CONTRATO_UNIVERSAL_DE_VOZ_AUTORAL_P07_R01.md`, Gates: "perfil
+    insuficiente conduz a... pedido de amostras"]. Categoria distinta de
+    `PONTO_DE_EXTENSAO_DE_MODELO` (que significa "nenhum mecanismo
+    automático foi tentado"): aqui o mecanismo rodou e concluiu, por si,
+    que precisa de mais amostra — nunca preenche a dimensão faltante com
+    um valor plausível."""
+
     ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO = "ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO"
     """Sessão de 2026-08-13 — decisão do professor: a etapa 11 não exige
     mais, por padrão, que um humano já tenha construído evidência de
@@ -330,6 +343,16 @@ class EntradaEtapaP13:
     curar_referencias` em vez de parar — mesma prioridade já estabelecida
     (objeto pronto > chamar mecanismo automático > parar). Sem
     `servico_drive`, comportamento idêntico ao de antes desta sessão."""
+    buscar_na_internet: object | None = None
+    """Etapa 11 (sessão de 2026-08-13, item (b) do BL-027) — função de
+    busca externa já configurada com credencial
+    (`escolio.busca.conector.buscar` fixado a uma `api_key`, tipicamente
+    via `functools.partial`), repassada a `curador_bvaa.curar_referencias`
+    quando `servico_drive` também foi fornecido. Só é tentada quando o
+    Drive não encontrou nada; nunca licencia T04/T05 por si — só produz
+    `sugestoes_externas` num escalonamento, para o professor decidir se
+    disponibiliza a referência [BL-027]. Sem isto, comportamento idêntico
+    ao de antes desta sessão (só Drive)."""
     relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] | None = None
     """Etapa 12 (verificação de evidências) — `RelacaoAfirmacaoEvidencia`
     já construída e validada [P05, `escolio/relacao.py`; P09 §12], fornecida
@@ -353,7 +376,24 @@ class EntradaEtapaP13:
     quem avalia o piloto, não do orquestrador."""
     perfil_de_voz: PerfilDeVoz | None = None
     """Etapa 13 (verificação de voz) — perfil de voz do autor avaliado
-    [P07, `escolio/voz/perfil.py`]."""
+    [P07, `escolio/voz/perfil.py`]. Fornecer isto tem prioridade sobre
+    derivar via `amostras_autorais_de_voz` — mesmo padrão de
+    `matrizes_criticidade`/`matrizes_seletividade`."""
+    amostras_autorais_de_voz: list[AmostraAutoral] | None = None
+    """Etapa 13 (sessão de 2026-08-13, decisão do professor) — amostras
+    autorais para derivar `perfil_de_voz` via modelo
+    [`escolio/funcoes/ponte_modelo_p13.py::gerar_perfil_de_voz_candidato`]
+    quando `perfil_de_voz` não vem pronto. Exige `cliente`. Qual documento
+    conta como amostra é decisão de quem chama esta etapa — nenhum
+    arquivo é tratado como amostra por padrão [CLAUDE.md §11,
+    `escolio/voz/LACUNAS.md`]."""
+    perfil_de_voz_candidato_profile_id: str | None = None
+    perfil_de_voz_candidato_purpose: str | None = None
+    perfil_de_voz_candidato_scope: dict | None = None
+    """Etapa 13 — metadados mínimos exigidos pelo schema P07 (`profile_id`,
+    `purpose`, `scope` não vazio) para o candidato derivado por
+    `gerar_perfil_de_voz_candidato`. Sem valor específico do schema, não
+    inventados por este orquestrador."""
     achados_fidelidade: dict[str, list[AchadoDeFidelidade]] | None = None
     """Etapa 13 — achados de fidelidade (Camada A, `escolio/voz/
     deteccao.py`) já produzidos, por `unit_id`. Fornecer isto tem
@@ -413,6 +453,13 @@ class ContextoExecucaoP13:
     desta execução."""
     avaliacoes_fidelidade: dict[str, AvaliacaoDeFidelidade] = field(default_factory=dict)
     """Etapa 13 — `AvaliacaoDeFidelidade` (Camada B) por `unit_id`."""
+    perfil_de_voz_candidato: PerfilDeVoz | None = None
+    """Etapa 13 (sessão de 2026-08-13) — candidato derivado por amostras
+    via `ponte.gerar_perfil_de_voz_candidato`, quando aplicável. Registrado
+    para calibração humana posterior (decisão do professor: "o professor
+    valida/calibra o perfil candidato, preferencialmente só nos pontos
+    incertos") — nunca lido como precondição por nenhum handler desta
+    execução."""
     alertas_privacidade: list[AlertaDePrivacidade] = field(default_factory=list)
     """Etapa 14 — achados da salvaguarda residual sobre `ctx.selecionados`.
     Lista vazia é o resultado normal e esperado para a maioria dos
@@ -720,7 +767,9 @@ def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
         and ctx.documento.referencias
     )
     if tentar_curador:
-        resultado_curador = curar_referencias(ctx.documento.referencias, e.servico_drive)
+        resultado_curador = curar_referencias(
+            ctx.documento.referencias, e.servico_drive, buscar_na_internet=e.buscar_na_internet
+        )
         evidencias_identificacao = resultado_curador.evidencias_de_identificacao
         evidencias_acesso = resultado_curador.evidencias_de_acesso
         escalonamentos = resultado_curador.escalonamentos
@@ -808,17 +857,67 @@ def _etapa_12_verificacao_de_evidencias(ctx: ContextoExecucaoP13, e: EntradaEtap
 
 
 def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
-    """Camada A (`escolio.voz.deteccao`, via `ponte.gerar_achados_
-    fidelidade` quando não fornecida pronta) → Camada B
+    """Derivação (`ponte.gerar_perfil_de_voz_candidato`, quando `perfil_de_voz`
+    não vem pronto) → Camada A (`escolio.voz.deteccao`, via `ponte.gerar_
+    achados_fidelidade` quando não fornecida pronta) → Camada B
     (`escolio.voz.fidelidade.avaliar_a_partir_do_perfil`, que não altera
     `avaliar()` — `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_
-    REVISAO_LLM_R01.md §1.1`)."""
+    REVISAO_LLM_R01.md §1.1`).
+
+    Sessão de 2026-08-13 (derivação por amostras, decisão do professor):
+    quando `perfil_de_voz` não vem pronto, a etapa tenta derivá-lo de
+    `amostras_autorais_de_voz` via `ponte.gerar_perfil_de_voz_candidato`
+    antes de considerar isto um ponto de extensão — mesma prioridade já
+    estabelecida nas demais etapas de modelo (objeto pronto > mecanismo
+    automático > parar). Amostras insuficientes (fonte: [01, Gates],
+    "perfil insuficiente conduz a... pedido de amostras") produzem
+    `PARADA`/`AMOSTRAS_DE_VOZ_INSUFICIENTES`, nunca um perfil com
+    dimensão inventada."""
     perfil = e.perfil_de_voz
     if perfil is None:
-        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            "verificação de voz [P07] exige o perfil de voz do autor avaliado; sem "
-            "`perfil_de_voz`, nenhuma detecção nem avaliação de fidelidade é possível"
-        )
+        if e.cliente is not None and e.amostras_autorais_de_voz:
+            if not (
+                e.perfil_de_voz_candidato_profile_id
+                and e.perfil_de_voz_candidato_purpose
+                and e.perfil_de_voz_candidato_scope
+            ):
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.ENTRADA_NAO_FORNECIDA, (
+                    "derivação de perfil de voz por amostras exige `perfil_de_voz_candidato_"
+                    "profile_id`, `_purpose` e `_scope` preenchidos — o schema P07 não admite "
+                    "nenhum dos três vazio"
+                )
+            try:
+                resultado_derivacao = ponte.gerar_perfil_de_voz_candidato(
+                    amostras=e.amostras_autorais_de_voz,
+                    cliente=e.cliente,
+                    profile_id=e.perfil_de_voz_candidato_profile_id,
+                    purpose=e.perfil_de_voz_candidato_purpose,
+                    scope=e.perfil_de_voz_candidato_scope,
+                    sequence_id=ctx.document_id,
+                )
+            except ErroDeCliente as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
+                    _justificativa_falha_cliente(erro)
+                )
+            except ponte.ErroDePonteModeloP13 as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA, (
+                    _justificativa_falha_ponte(erro)
+                )
+            if isinstance(resultado_derivacao, SolicitacaoDeAmostrasAdicionais):
+                dims = ", ".join(d.value for d in resultado_derivacao.dimensoes_sem_evidencia)
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.AMOSTRAS_DE_VOZ_INSUFICIENTES, (
+                    f"{resultado_derivacao.amostras_recebidas} amostra(s) não bastam para cobrir "
+                    f"com evidência as dimensões obrigatórias [P07]: {dims} — solicitar mais "
+                    "amostras autorais, nunca inferir o valor [01, Gates]"
+                )
+            perfil = resultado_derivacao
+            ctx.perfil_de_voz_candidato = perfil
+        else:
+            return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
+                "verificação de voz [P07] exige o perfil de voz do autor avaliado; sem "
+                "`perfil_de_voz` nem (`cliente` + `amostras_autorais_de_voz`), nenhuma "
+                "derivação, detecção nem avaliação de fidelidade é possível"
+            )
     achados_por_unidade = e.achados_fidelidade
     if achados_por_unidade is None:
         if e.cliente is not None and e.unidades_para_deteccao_fidelidade:

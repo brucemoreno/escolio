@@ -140,6 +140,57 @@ Lacunas herdadas do pacote fonte (arquivo 09) e lacunas encontradas durante a im
   a declara para este conflito específico (diferente de P06, onde `AuthorizationStatus` já
   modela isso para `InterventionRecord`).
 
+## Sessão de 2026-08-13 (nona peça) — derivação de `PerfilDeVoz` por amostras autorais
+
+Decisão do professor (`USUARIO_PROPONENTE`): a etapa 13 deixa de exigir que o professor preencha
+manualmente as 30 dimensões do schema P07 antes de rodar. `escolio/voz/amostra.py` (novo módulo)
+define `AmostraAutoral` (texto + `provenance`, gate mínimo de forma) e
+`SolicitacaoDeAmostrasAdicionais` (saída explícita quando as amostras não bastam).
+`escolio/funcoes/ponte_modelo_p13.py::gerar_perfil_de_voz_candidato` (novo) chama o modelo
+(Sonnet, `medium`) para avaliar as 30 dimensões contra as amostras recebidas e devolve ou um
+`PerfilDeVoz` candidato (`PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS`, `status=VALIDACAO_PENDENTE`) ou
+`SolicitacaoDeAmostrasAdicionais` — nunca preenche uma dimensão sem evidência apontada pelo
+próprio modelo. Ver `escolio/funcoes/LACUNAS.md` (mesma sessão) para o lado do orquestrador
+(nova causa `AMOSTRAS_DE_VOZ_INSUFICIENTES`, campo `ctx.perfil_de_voz_candidato`).
+
+**Qual documento conta como "amostra autoral" não foi resolvido nesta sessão — deliberadamente.**
+A instrução inicial pedia para eu identificar a fonte antes de codificar; verifiquei `corpus/` e
+não encontrei nenhum arquivo que designe um corpus de amostras para nenhum autor. A hipótese mais
+óbvia — os demais capítulos do mesmo livro em `data/capitulos/` (1-4, distintos do capítulo 5 sob
+revisão) — foi apresentada ao professor duas vezes e não foi confirmada; a resposta final foi
+"por que você está querendo usar o capítulo 1 ao 4 como amostra?", sem indicar outra fonte.
+**Decisão**: `AmostraAutoral`/`gerar_perfil_de_voz_candidato` são inteiramente genéricos — aceitam
+qualquer lista de amostras que quem chama já tenha decidido usar; nenhum arquivo específico
+(capítulo, artigo, ou qualquer outro) é tratado como amostra por padrão em código. Isso não é
+lacuna resolvida por proxy — é a mesma disciplina de LAC-FUNC-001 ("o roteador confere e recusa,
+nunca elege"): a seleção de qual documento é amostra fica inteiramente com quem opera o piloto,
+registrada como decisão humana no momento em que a etapa é chamada, não inferida deste módulo.
+
+**Confiança agregada do perfil (`PerfilDeVoz.confidence`, campo único) é o mínimo entre as
+confianças por dimensão que o modelo devolveu com evidência.** O schema P07 não define como
+compor um único valor de `confidence` a partir de 26+ julgamentos por dimensão — decisão de
+implementação `[PROPOSTA]`: o pior caso entre as dimensões cobertas, não a média nem a moda,
+porque "confiança do perfil" avaliada de forma otimista contradiz o próprio princípio de
+preservar revisão humana em caso ambíguo [P07, arquivo 06/07]. Se nenhuma dimensão graduada
+(`BAIXA/MEDIA/ALTA`) estiver presente — não deveria ocorrer, já que todas as 26 obrigatórias
+precisam de evidência para o candidato existir — cai em `NAO_APLICAVEL` por segurança, nunca por
+inferência de que a ausência significa "não avaliado com confiança".
+
+**`amostras_conflitantes` (parâmetro já existente de `avaliar_a_partir_do_perfil`, etapa 13)
+continua não calculado a partir das amostras em si.** A derivação nova não compara amostras
+entre si para detectar conflito de voz — só extrai o que cada dimensão sustenta isoladamente.
+Comparação de amostras (se a voz do capítulo 3 conflita com a do capítulo 1, por exemplo) é
+julgamento adicional, não pedido nesta sessão; quem chama a etapa 13 continua responsável por
+fornecer `amostras_conflitantes=True/False` como fato já apurado.
+
+**Não construído nesta sessão, por instrução explícita ("sessões separadas")**: BVAA (etapa 11)
+e `RelacaoAfirmacaoEvidencia` fora do que já existia (etapa 12) não foram tocados.
+
+**Testes novos**: `tests/funcoes/test_ponte_modelo_p13.py::TestGerarPerfilDeVozCandidato` (7 casos)
+e `tests/funcoes/test_execucao_p13.py::TestEtapaTrezeVerificacaoDeVoz` (+3 casos: derivação
+completa registra candidato no contexto, amostras insuficientes não chama o modelo, metadados do
+candidato ausentes vira `ENTRADA_NAO_FORNECIDA`). Suíte completa: 1154 passando (1144 + 10).
+
 ## Sessão de 2026-08-12 — camada de detecção construída, autorizada por instrução complementar
 
 - **A lacuna registrada acima ("nenhuma detecção automática por análise semântica de texto foi

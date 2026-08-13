@@ -100,6 +100,16 @@ verbatim:
   notou, na etapa 8/matriz de criticidade, mas por julgamento do modelo sobre o texto, não
   por consulta ao BVAA), mas o requisito estrutural do §26 continua não implementado de
   ponta a ponta.
+- **Atualização 2026-08-13 (décima peça)**: item (b) (busca na internet) construído —
+  `escolio/busca/conector.py` (Serper.dev) + `escolio/funcoes/curador_bvaa.py::curar_referencias`
+  (parâmetro `buscar_na_internet`, opcional, só tentado quando o Drive não acha nada) +
+  `execucao_p13.py::EntradaEtapaP13.buscar_na_internet`. Um resultado de busca **nunca** licencia
+  transição do BVAA — vira só `EscalonamentoDoCurador.sugestoes_externas`, notificação ao
+  professor [BL-027, `docs/backlog.md`]. **Credencial real (`SERPER_API_KEY`) criada e verificada
+  contra a API de verdade na mesma sessão** — busca real trouxe resultados corretos; `saida/
+  piloto_p13_capitulo5_v2.py` já passa `servico_drive`/`buscar_na_internet` reais para a etapa 11.
+  Item (b) do BL-027 fechado de ponta a ponta (mecanismo + credencial); só falta rodar o piloto
+  completo contra o capítulo 5 com essas duas evidências ligadas ao mesmo tempo.
 - **O que falta para fechar isso**: (1) um ponto de integração entre
   `escolio/funcoes/execucao_p13.py` (ou `execucao_p11.py`, que também lista "Controle BVAA"
   como etapa 16 nomeada) e `escolio.bvaa.maquina`; (2) implementar o mecanismo real de "acesso
