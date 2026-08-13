@@ -138,6 +138,7 @@ from escolio.funcoes.bvaa_drive import (
     avancar_por_evidencia,
     avancar_por_identificacao,
 )
+from escolio.funcoes.curador_bvaa import EscalonamentoDoCurador, curar_referencias
 from escolio.funcoes.declaracao import Etapa
 from escolio.funcoes.p13 import DECLARACAO as DECLARACAO_P13
 from escolio.funcoes.roteador import AdmissaoDeMaterial, DecisaoDeRoteamento
@@ -229,6 +230,41 @@ class CausaDeParada(str, Enum):
     próprio `ErroDeCliente`) diz se repetir a mesma chamada pode ajudar —
     esta causa não decide isso por si, só relata o que o cliente disse."""
 
+    RESPOSTA_DO_MODELO_MAL_FORMADA = "RESPOSTA_DO_MODELO_MAL_FORMADA"
+    """Sessão de 2026-08-13 — achado do segundo piloto real contra o capítulo
+    5, depois da correção de lotes de 15 (LACUNAS.md, "quarta peça"): a
+    chamada ao modelo completa (`stop_reason` normal, sem truncamento), mas
+    o `tool_use.input` devolvido não corresponde à forma que o dataclass de
+    destino exige (`ponte_modelo_p13.ErroDePonteModeloP13` — ex.: item de
+    `matrizes`/`achados`/`comentarios` veio como string em vez de objeto).
+    Categoria diferente de `FALHA_NA_CHAMADA_AO_MODELO`: ali a chamada em si
+    não completou; aqui ela completou e respondeu algo que não valida. Antes
+    desta sessão, esse erro propagava cru (`TypeError`/`AttributeError` não
+    capturado dentro do próprio `_matriz_criticidade_de_item`, ou
+    `ErroDePonteModeloP13` não capturado por este módulo) e derrubava o
+    percurso sem registrar tentativa em `estado.historico` — mesma quebra de
+    disciplina que motivou `FALHA_NA_CHAMADA_AO_MODELO`, causa diferente.
+    Repetir a mesma chamada pode ou não ajudar (o modelo não é determinístico
+    mesmo com o mesmo prompt); esta causa não afirma `retryable` como o
+    `ErroDeCliente` faz, porque `ErroDePonteModeloP13` não carrega esse
+    atributo — decisão de repetir fica com quem opera."""
+
+    ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO = "ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO"
+    """Sessão de 2026-08-13 — decisão do professor: a etapa 11 não exige
+    mais, por padrão, que um humano já tenha construído evidência de
+    identificação/acesso. `escolio.funcoes.curador_bvaa.curar_referencias`
+    tenta produzir essa evidência sozinho (extração determinística +
+    busca real no Drive); esta causa só ocorre quando o curador tentou
+    **e nenhuma referência avançou** — cada uma travou por um motivo
+    genuíno (`EscalonamentoDoCurador.motivo`, vocabulário de
+    `GatilhoDeAbstencao`): obra/edição não identificável a partir do
+    texto, busca sem resultado, credencial ausente ou acesso negado.
+    Diferente de `PONTO_DE_EXTENSAO_DE_MODELO` (que significa "nenhuma
+    tentativa automática é possível aqui"): esta causa significa "a
+    tentativa automática ocorreu e travou de verdade" — a distinção
+    importa para quem opera decidir a próxima ação (fornecer evidência
+    manual vs. simplesmente repetir)."""
+
 
 @dataclass(frozen=True)
 class ResultadoDeEtapa:
@@ -284,6 +320,16 @@ class EntradaEtapaP13:
     delegada ao `ENGENHEIRO_LLM` — `INSTRUCOES_COMPLEMENTARES_
     IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_R01.md §3`]. Aplicada antes de
     `evidencias_de_acesso` para o mesmo `unit_id`, na mesma chamada."""
+    servico_drive: object | None = None
+    """Etapa 11 (sessão de 2026-08-13, curador automático) — serviço do
+    Drive já autenticado [`escolio.drive.conector.construir_servico`].
+    Fornecer isto tem o **mesmo papel que `cliente` tem para as etapas 8,
+    9, 13, 16-18**: quando `evidencias_de_identificacao`/
+    `evidencias_de_acesso` não vêm prontas e `documento.referencias` não
+    está vazio, a etapa chama `escolio.funcoes.curador_bvaa.
+    curar_referencias` em vez de parar — mesma prioridade já estabelecida
+    (objeto pronto > chamar mecanismo automático > parar). Sem
+    `servico_drive`, comportamento idêntico ao de antes desta sessão."""
     relacoes_afirmacao_evidencia: list[RelacaoAfirmacaoEvidencia] | None = None
     """Etapa 12 (verificação de evidências) — `RelacaoAfirmacaoEvidencia`
     já construída e validada [P05, `escolio/relacao.py`; P09 §12]. Lista
@@ -352,6 +398,13 @@ class ContextoExecucaoP13:
     documentos — ausência de achado não é ausência de verificação."""
     problemas_sistemicos_conhecidos: list[str] = field(default_factory=list)
     """Etapa 15 — lista declarada pelo professor [§6.3], registrada aqui."""
+    escalonamentos_bibliograficos: list[EscalonamentoDoCurador] = field(default_factory=list)
+    """Etapa 11 (sessão de 2026-08-13) — paradas estruturadas do curador
+    automático, acumuladas entre chamadas. Registrado mesmo quando a
+    etapa como um todo é `EXECUTADA` (algumas referências avançaram,
+    outras travaram) — nunca descartado silenciosamente; é o registro que
+    torna "escalar quando travado" um caminho de código, não uma frase de
+    log [CLAUDE.md §8]."""
 
 
 @dataclass
@@ -429,6 +482,13 @@ def _justificativa_falha_cliente(erro: ErroDeCliente) -> str:
     se vale a pena repetir a chamada sem mudar nada."""
     retentativa = "provavelmente vale repetir a mesma chamada" if erro.retryable else "repetir sem mudar nada não deve resolver"
     return f"chamada real ao modelo falhou ({retentativa}): {erro}"
+
+
+def _justificativa_falha_ponte(erro: ponte.ErroDePonteModeloP13) -> str:
+    """Mensagem comum para `CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA` —
+    mesmo raciocínio de `_justificativa_falha_cliente`, um só lugar formata
+    isso para as quatro etapas que chamam modelo (8, 9, 13, 16-18)."""
+    return f"resposta do modelo não corresponde ao formato esperado: {erro}"
 
 
 def _exige_document_id_canonico(document_id: str, esperado: str, origem: str) -> None:
@@ -530,6 +590,10 @@ def _etapa_8_matriz_de_criticidade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13)
                 return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
                     _justificativa_falha_cliente(erro)
                 )
+            except ponte.ErroDePonteModeloP13 as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA, (
+                    _justificativa_falha_ponte(erro)
+                )
         else:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
                 "classe de criticidade é sempre declarada por quem avalia — \"a matriz não pode ser "
@@ -556,6 +620,10 @@ def _etapa_9_matriz_de_seletividade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
             except ErroDeCliente as erro:
                 return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
                     _justificativa_falha_cliente(erro)
+                )
+            except ponte.ErroDePonteModeloP13 as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA, (
+                    _justificativa_falha_ponte(erro)
                 )
         else:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
@@ -611,10 +679,41 @@ def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
     `OBRA_NAO_IDENTIFICADA` possa, na mesma chamada, alcançar `ACESSADA`
     quando o chamador fornecer as duas evidências para o mesmo `unit_id`.
     "Verificação de evidências" (etapa 12) e as demais (13-15) têm
-    handlers próprios agora, não tocados aqui."""
-    evidencias_identificacao = e.evidencias_de_identificacao or {}
-    evidencias_acesso = e.evidencias_de_acesso or {}
+    handlers próprios agora, não tocados aqui.
+
+    Sessão de 2026-08-13 (curador automático, decisão do professor): se
+    nenhuma evidência pronta veio e `e.servico_drive` foi fornecido, a
+    etapa tenta produzir a evidência sozinha via `escolio.funcoes.
+    curador_bvaa.curar_referencias` antes de considerar isto um ponto de
+    extensão — mesma prioridade de `cliente` nas etapas 8/9/13/16-18:
+    objeto pronto > mecanismo automático > parar."""
+    evidencias_identificacao = dict(e.evidencias_de_identificacao or {})
+    evidencias_acesso = dict(e.evidencias_de_acesso or {})
+    escalonamentos: list[EscalonamentoDoCurador] = []
+
+    tentar_curador = (
+        not evidencias_identificacao
+        and not evidencias_acesso
+        and e.servico_drive is not None
+        and ctx.documento is not None
+        and ctx.documento.referencias
+    )
+    if tentar_curador:
+        resultado_curador = curar_referencias(ctx.documento.referencias, e.servico_drive)
+        evidencias_identificacao = resultado_curador.evidencias_de_identificacao
+        evidencias_acesso = resultado_curador.evidencias_de_acesso
+        escalonamentos = resultado_curador.escalonamentos
+
     if not evidencias_identificacao and not evidencias_acesso:
+        if escalonamentos:
+            ctx.escalonamentos_bibliograficos.extend(escalonamentos)
+            detalhes = "; ".join(
+                f"{esc.unit_id} [{esc.motivo.value}]: {esc.detalhe}" for esc in escalonamentos
+            )
+            return TipoDeResultadoEtapa.PARADA, CausaDeParada.ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO, (
+                f"curador automático tentou {len(escalonamentos)} referência(s) e nenhuma avançou "
+                f"no BVAA sem decisão humana: {detalhes}"
+            )
         return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
             "verificação de fontes exige evidência real de identificação (T01-T03) ou de acesso "
             "(T04/T05) — sem nenhuma das duas, nenhuma fonte avança no BVAA; leitura de conteúdo "
@@ -624,10 +723,18 @@ def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
         _avancar_bvaa_ou_levanta(ctx, unit_id, avancar_por_identificacao, evidencia, "verificação de fontes (identificação)")
     for unit_id, evidencia in evidencias_acesso.items():
         _avancar_bvaa_ou_levanta(ctx, unit_id, avancar_por_evidencia, evidencia, "verificação de fontes (acesso)")
-    return TipoDeResultadoEtapa.EXECUTADA, None, (
+    if escalonamentos:
+        ctx.escalonamentos_bibliograficos.extend(escalonamentos)
+    justificativa = (
         f"{len(evidencias_identificacao)} identificação(ões) [T01-T03] + {len(evidencias_acesso)} "
         "acesso(s) [T04/T05] aplicados no BVAA por evidência real"
     )
+    if escalonamentos:
+        justificativa += (
+            f"; {len(escalonamentos)} referência(s) travada(s) e registrada(s) em "
+            "ctx.escalonamentos_bibliograficos, não bloqueando as demais"
+        )
+    return TipoDeResultadoEtapa.EXECUTADA, None, justificativa
 
 
 def _etapa_12_verificacao_de_evidencias(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
@@ -678,6 +785,10 @@ def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
             except ErroDeCliente as erro:
                 return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
                     _justificativa_falha_cliente(erro)
+                )
+            except ponte.ErroDePonteModeloP13 as erro:
+                return TipoDeResultadoEtapa.PARADA, CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA, (
+                    _justificativa_falha_ponte(erro)
                 )
         else:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
@@ -765,6 +876,10 @@ def _etapa_elaboracao(
                 except ErroDeCliente as erro:
                     return TipoDeResultadoEtapa.PARADA, CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO, (
                         _justificativa_falha_cliente(erro)
+                    )
+                except ponte.ErroDePonteModeloP13 as erro:
+                    return TipoDeResultadoEtapa.PARADA, CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA, (
+                        _justificativa_falha_ponte(erro)
                     )
         if comentarios is None:
             return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (

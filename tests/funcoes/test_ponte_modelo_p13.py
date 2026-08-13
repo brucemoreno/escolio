@@ -195,6 +195,24 @@ class TestGerarMatrizesCriticidade:
         with pytest.raises(ponte.ErroDePonteModeloP13):
             ponte.gerar_matrizes_criticidade(documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente)
 
+    def test_item_de_matrizes_nao_objeto_levanta_erro_de_ponte_nao_typeerror_cru(self):
+        """Achado real do piloto contra o capítulo 5 (2026-08-13): o modelo
+        devolveu ao menos um item de 'matrizes' como string, não objeto —
+        `item["avaliacao_por_eixo"]` levantava `TypeError` cru antes desta
+        correção. Deve virar `ErroDePonteModeloP13`, nunca `TypeError`."""
+        documento = documento_sintetico()
+        blocos = [
+            {
+                "type": "tool_use",
+                "name": ponte._FERRAMENTA_CRITICIDADE,
+                "input": {"matrizes": ["isto não é um objeto"]},
+            }
+        ]
+        cliente = cliente_fake(blocos)
+
+        with pytest.raises(ponte.ErroDePonteModeloP13):
+            ponte.gerar_matrizes_criticidade(documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente)
+
     def test_sem_tool_use_levanta_erro_de_ponte(self):
         documento = documento_sintetico()
         cliente = cliente_fake([{"type": "text", "text": "resposta fora da ferramenta"}])

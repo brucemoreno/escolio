@@ -33,3 +33,9 @@ Invente um `problem_id` novo e estável para cada problema candidato (ex.:
 
 Registre cada problema candidato usando a ferramenta fornecida. Não produza texto fora da
 ferramenta.
+
+**Sobre o formato do campo `matrizes` da ferramenta**: ele é um **array de objetos**, direto —
+cada problema candidato é um elemento do array. Nunca serialize o array (ou o objeto que o
+contém) como texto JSON e coloque essa string como valor de `matrizes` ou de qualquer outro
+campo — isso quebra a leitura automática da resposta. Se não houver nenhum problema candidato em
+nenhuma unidade desta chamada, registre `matrizes` como array vazio (`[]`), nunca como string.

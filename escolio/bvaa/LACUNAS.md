@@ -188,6 +188,79 @@ Testes de `avancar_por_identificacao` e da cadeia completa identificação+acess
 `escolio/funcoes/LACUNAS.md` (sessão de 2026-08-12, etapa 11 estendida) para o lado do
 orquestrador.
 
+## Sessão de 2026-08-13 — curador automático: extração determinística + busca real, escalonamento só quando genuinamente travado
+
+Decisão do `USUARIO_PROPONENTE`: a etapa 11 do P13 não deve exigir, por padrão, que um humano já
+tenha construído `EvidenciaDeIdentificacaoDrive`/`EvidenciaDeAcessoDrive` — o sistema deve tentar
+produzir essa evidência sozinho, por meios já autorizados (`escolio.drive`, único conector real do
+projeto), e só escalar quando acesso está genuinamente ausente, exige credencial, o material é
+privado, ou há decisão humana realmente inescapável — nunca por padrão.
+
+**Construído**: `escolio/bvaa/extracao_metadados_referencia.py` (puro, sem I/O — extrai
+autor/ano/título de `ItemDeReferencia.texto` por regex ABNT determinística, `None` quando não
+extraível, nunca palpite) e `escolio/funcoes/curador_bvaa.py` (I/O, mesma razão de
+`bvaa_drive.py` estar fora de `escolio/bvaa/`: dependência de `escolio.drive.conector`). Wiring em
+`execucao_p13.py::_etapa_11_verificacao_de_fontes`: novo campo `EntradaEtapaP13.servico_drive`,
+mesmo papel que `cliente` já tem para as etapas 8/9/13/16-18 — objeto pronto > mecanismo
+automático > `PONTO_DE_EXTENSAO_DE_MODELO`. Nova causa `CausaDeParada.
+ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO`: o curador tentou e nenhuma referência avançou; motivos
+estruturados (`EscalonamentoDoCurador`, vocabulário de `GatilhoDeAbstencao`) anexados à
+justificativa, nunca uma frase solta. Progresso parcial (algumas referências avançam, outras
+travam) não bloqueia: a etapa continua `EXECUTADA` e os travamentos ficam em
+`ContextoExecucaoP13.escalonamentos_bibliograficos`, visível e cumulativo entre chamadas, nunca
+descartado. Sem `servico_drive`, comportamento idêntico ao de antes desta sessão — nenhuma
+regressão (suíte completa: 1116 → 1135, todos os 1116 anteriores continuam passando).
+
+- **LAC-BVAA-010 — o curador nunca foi exercitado contra uma referência real, porque nenhuma
+  existe.** Os três capítulos reais de `data/capitulos/` têm `DocumentoIngerido.referencias == []`
+  (LAC-ING-017, `escolio/ingestao/LACUNAS.md`) — nenhum tem seção "Referências"/"Bibliografia"; a
+  única forma de citação nos documentos reais é nota de rodapé com citação narrativa "Nome (ano)".
+  `_exige_referencia_conhecida` (`execucao_p13.py`, já existente antes desta sessão) exige que toda
+  evidência bibliográfica corresponda a um `ItemDeReferencia.unit_id` — o curador, por construção,
+  só opera sobre `documento.referencias`, nunca sobre `citacoes_no_corpo`/`notas_de_rodape`. Isso
+  não é uma limitação nova desta sessão: é a mesma restrição estrutural que já valia para evidência
+  manual, agora também para a automática. **Consequência real**: contra qualquer capítulo real de
+  hoje, `ctx.documento.referencias` está vazio, então `tentar_curador` nunca é verdadeiro e a etapa
+  11 continua exatamente como antes — `PONTO_DE_EXTENSAO_DE_MODELO` — mesmo com `servico_drive`
+  fornecido. O curador só tem efeito real quando a ingestão passar a popular `referencias` para
+  `.docx` (não pedido nesta sessão) ou contra um documento de origem PDF com lista de referências
+  real (parser de PDF já popula `referencias` — não testado aqui contra PDF real por não haver um
+  no acervo de trabalho atual).
+- **LAC-BVAA-011 — extração determinística não calibrada contra nenhuma referência real, só
+  exemplos sintéticos ABNT.** Mesma causa do item acima: não há string real para calibrar contra.
+  `_extrair_titulo` em particular é a heurística mais frágil (split por `.`, segundo campo) —
+  funciona para o padrão canônico "SOBRENOME, Nome. Título. Cidade: Editora, Ano." mas não foi
+  testada contra variação real (título com ponto interno, referência em inglês/francês com vírgula
+  decimal, edição/tradução entre parênteses). Nenhum ajuste foi feito por antecipação — calibrar
+  sem dado real repetiria o erro já registrado em `escolio/funcoes/LACUNAS.md` para
+  `FATOR_GAP_NOVO_ITEM` ("um documento com espaçamento diferente exigiria recalibração").
+- **LAC-BVAA-012 — primeiro resultado de busca é aceito sem desambiguação, sempre.** Quando
+  `buscar_arquivos` devolve mais de um arquivo para o mesmo termo, `curar_referencias` usa
+  `achados[0]` — nenhum critério de melhor correspondência (nome mais próximo, data de
+  modificação, tamanho) foi implementado. Isto é o mesmo trade-off que `bvaa_drive.py` já assume
+  para T01/T02 (nenhuma segunda fonte de metadados desambigua obra de edição), estendido aqui para
+  "qual arquivo entre vários resultados" — risco de identificação incorreta não eliminado, só não
+  pior que a alternativa (não tentar automaticamente). Se isto se mostrar um problema real contra
+  dado real, o ponto de correção é `curar_referencias`, sem tocar em `bvaa_drive.py`.
+- **LAC-BVAA-013 — `GatilhoDeAbstencao` não distingue "credencial ausente" de "acesso negado" de
+  "não encontrado no Drive".** Os três casos que `curar_referencias` pode encontrar ao chamar o
+  conector (erro de credencial, `403`, busca vazia) todos caem em `ACESSO_NAO_COMPROVADO` — o
+  único gatilho já existente que descreve, em prosa, "acesso não foi comprovado". A distinção
+  sobrevive só em `EscalonamentoDoCurador.detalhe` (texto de `ErroDeDrive`, que carrega
+  `category`/`severity`/`code` próprios). Nenhum gatilho novo foi criado — o vocabulário de
+  `escolio.bvaa.abstencao.GatilhoDeAbstencao` é fechado pela leitura de duas fontes específicas
+  (LAC-BVAA-006) e não foi ampliado por conveniência desta sessão.
+- **O que este módulo continua não fazendo, por decisão explícita do professor**: busca na
+  internet fora do Drive (a regra de 2026-08-09 sobre "buscar na internet novas e melhores
+  referências" continua sem implementação — item (2) de LAC-BVAA-008/009, não tocado aqui);
+  qualquer tentativa de contornar paywall/DRM; qualquer avanço além de T05 (leitura, página,
+  validação continuam exigindo juízo humano ou de modelo sobre o conteúdo, nunca decidido por
+  metadado de arquivo).
+
+Testes: `tests/bvaa/test_extracao_metadados_referencia.py` (7 casos), `tests/funcoes/
+test_curador_bvaa.py` (7 casos), 5 casos novos em `tests/funcoes/test_execucao_p13.py::
+TestEtapaOnzeVerificacaoDeFontes`. Suíte completa: 1135 passando (1116 + 19).
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **`RegistroDeRelacoes` / agregação com múltiplas evidências por afirmação** — já é lacuna

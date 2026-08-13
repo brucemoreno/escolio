@@ -5,6 +5,256 @@ P02, dos cinco contratos funcionais P10-P14 e do inventário canônico da R03, e
 de `escolio/funcoes/`. Nenhum item aqui foi resolvido por inferência silenciosa — mesma
 disciplina de `escolio/LACUNAS.md`, `escolio/bvaa/LACUNAS.md` e `escolio/contrato/LACUNAS.md`.
 
+## Sessão de 2026-08-13 (sexta peça) — terceiro piloto real, novo defeito na etapa 8: `matrizes` veio como string JSON duplamente serializada, não como array
+
+Sessão 1 de `docs/spec/proximos-passos-x02-drive-citacao.md` — reexecução do piloto contra o
+capítulo 5 (`data/capitulos/`, mesmo `document_id=MAT-DOC-7b3e4356`), agora com a correção
+`isinstance(item, dict)` da quinta peça já aplicada. Estimativa prévia (`cliente.estimar_custo`,
+120 unidades de corpo / 8 lotes de 15): US$ 1,2806 — abaixo do teto de US$ 2, execução autorizada
+pelo professor via `AskUserQuestion` antes da chamada real.
+
+**A correção da quinta peça funcionou para a classe de defeito que corrigia** — nenhum
+`TypeError`/`AttributeError` cru. Mas a checagem `isinstance(item, dict)` **disparou de novo**,
+por uma causa nova: `_matriz_criticidade_de_item` recebeu como item de `matrizes` o caractere
+`'{'` — string de um único caractere, não objeto. Isso não é o mesmo defeito de antes (item de
+array vindo como string curta) — é sintoma de a iteração estar percorrendo os **caracteres de uma
+string longa**, não os itens de um array.
+
+**Causa real** (`data/cache_cliente/*.json`, resposta cacheada ANTES da checagem de forma rodar):
+o `tool_use.input` do lote 0 tem uma única chave, `matrizes`, mas o valor associado a essa chave
+**não é um array — é uma string de 5.870 caracteres contendo JSON válido**, que por sua vez é
+`{"matrizes": [item1, item2]}` — o modelo serializou o objeto inteiro esperado (`{"matrizes":
+[...]}`) como texto e o aninhou como valor de dentro da própria chave `matrizes`, uma camada de
+serialização a mais do que o `tool_use` schema pede. `entrada.get("matrizes", [])` (`ponte_modelo_
+p13.py::gerar_matrizes_criticidade`) devolve essa string; iterar sobre ela em
+`matrizes.extend(_matriz_criticidade_de_item(item) for item in entrada.get("matrizes", []))`
+itera caractere a caractere — o primeiro caractere de um JSON bem-formado é sempre `{`, o que
+explica exatamente o item observado. `json.loads` no valor da string confirma: dentro dela havia
+só **2** problemas candidatos para as 15 unidades desse lote (ambos citações recuadas do mesmo
+autor — Thevet — com risco no eixo AVALIATIVO, classe `CRITICIDADE_BAIXA`), não zero e não muitos
+— o conteúdo do julgamento em si parecia coerente; só a forma do envelope estava errada.
+
+**Terceira categoria de defeito, distinta das duas anteriores** (terceira peça: resposta truncada
+por `max_tokens`; quinta peça: item individual de array vindo como string): aqui a chamada
+completou (`stop_reason` normal, sem truncamento) e o array chegou a existir — só que embrulhado
+uma camada extra dentro de uma string, sob a mesma chave que o schema já reservava para o array
+em si. Nenhuma das causas estruturadas existentes (`FALHA_NA_CHAMADA_AO_MODELO`,
+`RESPOSTA_DO_MODELO_MAL_FORMADA`) precisou de nova variante — `RESPOSTA_DO_MODELO_MAL_FORMADA`
+capturou este caso corretamente, porque a checagem de forma de item já cobria "isto não é um
+dict", mesmo sem prever a causa específica. **A arquitetura de captura não precisou de mudança
+nesta sessão** — só o `ErroDePonteModeloP13` resultante tem mensagem enganosa (fala de "item de
+'matrizes' que não é objeto: `'{'`", que descreve o sintoma — um caractere — sem apontar a causa
+— dupla serialização).
+
+**Não corrigido nesta sessão**, por instrução explícita ("não conserte o que quebrar — só desta
+vez, documentar"). Hipóteses não verificadas, registradas para quem investigar depois: (1) o
+`tool_use` schema atual (`_SCHEMA_CRITICIDADE`) declara `matrizes` como `array` de objetos — a
+dupla serialização pode ser efeito do modelo "hedging" contra um schema que ele interpretou como
+aceitando string também, ou artefato de como o SDK/`thinking: adaptive` formata `tool_use.input`
+quando o conteúdo gerado internamente já passou por uma etapa de serialização própria; (2) não
+foi testado se pedir explicitamente, no prompt de `p13_matriz_criticidade.md`, para nunca
+serializar a resposta como string resolveria — mudança de prompt, não de código, então mais barata
+de testar antes de qualquer mudança de parsing; (3) uma correção de parsing só no código
+(`_matriz_criticidade_de_item` ou `entrada.get("matrizes")`: tentar `json.loads` quando o valor é
+`str`) trataria o sintoma sem saber se o modelo repete o padrão de forma estável — decisão de
+código sem confirmar recorrência seria o mesmo erro de "consertar sem calibrar" já evitado nas
+sessões anteriores.
+
+**Custo real desta chamada**: `sequence_id=MAT-DOC-7b3e4356`, `cache_creation_input_tokens=39952`,
+`input_tokens=417`, `output_tokens=5830`, `custo_usd_total=US$ 0,2189`. Só o lote 0 rodou (crash
+no processamento da resposta, antes do lote 1); etapas 9 em diante não foram alcançadas de novo.
+**Custo total acumulado nos três pilotos reais do P13**: US$ 0,9589 — abaixo do teto de US$ 2
+combinado com o professor, com margem para uma quarta tentativa depois de decidir (1) ou (2)
+acima.
+
+**Etapas 1-7 desta sessão**: `EXECUTADA` sem achado, mesmo `document_id=MAT-DOC-7b3e4356` e 120
+unidades de corpo (89 parágrafos + 14 citações recuadas + 17 notas, sem figuras — `referencias=0`,
+mesma leitura de LAC-ING-017 já registrada na terceira peça) — ingestão determinística, sem custo,
+idêntica entre as três sessões que já rodaram contra este capítulo.
+
+Script do piloto: `saida/piloto_p13_capitulo5_v2.py` (fora do código versionado, mesma convenção
+de `saida/piloto_p11.py`), com gate por variável de ambiente (`PILOTO_P13_EXECUTAR_REAL`) para
+separar a estimativa de custo (sempre executada) da chamada real (só depois de aprovação humana
+explícita nesta sessão).
+
+### Correção de prompt confirmada; novo achado na etapa 9; TETO DE US$ 2 EXCEDIDO (US$ 2,1199)
+
+Mesma sessão, continuação imediata depois do achado acima. Hipótese (2) do achado anterior — "não
+foi testado se pedir explicitamente, no prompt, para nunca serializar a resposta como string
+resolveria" — foi testada antes de qualquer mudança de código, por ser a mais barata.
+
+**Correção aplicada**: `prompts/p13_matriz_criticidade.md` ganhou uma seção final explícita:
+`matrizes` é array de objetos direto; nunca serializar o array (ou o objeto que o contém) como
+string JSON dentro de um campo; lista vazia (`[]`), nunca string, quando não há problema
+candidato. Nenhuma mudança de código em `ponte_modelo_p13.py`/`execucao_p13.py`.
+
+**Resultado, reexecutando a etapa 8 do zero (novo `system_estavel`, nova escrita de cache)**: os
+8 lotes completaram sem nenhum erro de forma — **a correção de prompt resolveu o defeito da string
+duplamente serializada**, sem precisar de mudança de parsing. 11 `MatrizCriticidade` aceitas
+(4 notas de rodapé + 7 parágrafos), classes de `SEM_CRITICIDADE_MATERIAL` a `CRITICIDADE_ALTA`
+(uma só). Evidência de que a correção resolveu a causa raiz, não só mascarou o sintoma: nenhum
+`isinstance(item, dict)` disparou em nenhum dos 8 lotes.
+
+**Etapa 9 (seletividade, Opus 5), primeira execução real desta etapa contra qualquer documento**:
+parou com `CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO` / `ErroRespostaTruncada` —
+`stop_reason=max_tokens`, 8.000 tokens de saída gerados e a resposta ainda incompleta, para
+**11 candidatos em um único lote** (`TAMANHO_LOTE_ETAPA_9=15` não particiona, porque 11 < 15).
+Mesma categoria de defeito já registrada na terceira peça (2026-08-12) para a etapa 8 antes do
+particionamento em lotes existir — agora confirmada também na etapa 9, que nunca tinha sido
+exercitada contra dado real. Correção estrutural análoga à da etapa 8 (reduzir
+`TAMANHO_LOTE_ETAPA_9` para menos de 11, ou aumentar `MAX_TOKENS_ETAPA_9`) **não aplicada nesta
+sessão** — decisão de código sem calibração, mesmo erro já evitado antes.
+
+**Correção aplicada, não verificada contra a API real ainda** (decisão do professor: reduzir o
+lote, não subir `MAX_TOKENS_ETAPA_9` — mesmo raciocínio já registrado para a etapa 8, rejeitando
+explicitamente aumentar `max_tokens` como solução que só adiaria o problema). `TAMANHO_LOTE_ETAPA_9`
+de 15 para **5** [`PROPOSTA`, calibrado só por este único dado real — 11 truncou, 5 é escolha
+conservadora, não fórmula]. Suíte completa passa com cliente mockado
+(`tests/funcoes/test_ponte_modelo_p13.py` referencia a constante dinamicamente, não um valor
+fixo). **Não reexecutado contra a API real nesta sessão** — o teto já estava excedido quando a
+correção foi decidida; nova chamada real exige nova aprovação de custo antes de rodar.
+
+**TETO DE CUSTO EXCEDIDO.** A chamada truncada da etapa 9 sozinha custou US$ 0,6274 (Opus 5,
+`effort=high`, escrita de cache de 42.228 tokens + 8.000 tokens de saída — o teto — sem produzir
+nenhuma `MatrizSeletividade` utilizável, porque resposta truncada nunca é aceita como resultado
+parcial [P09 §21.43]). Somando os quatro pilotos reais do P13 até agora (`costs/ledger.jsonl`,
+etapas com prefixo `P13_`): **US$ 2,1199**, US$ 0,12 acima do teto de US$ 2 combinado com o
+professor no início desta linha de trabalho. Reportado ao professor ao vivo, na mesma sessão em
+que ocorreu — não descoberto depois. Nenhuma chamada adicional foi feita após constatar o
+estouro; decisão sobre corrigir a etapa 9 e/ou renegociar o teto fica com o professor.
+
+## Sessão de 2026-08-13 (quinta peça) — segundo piloto real, novo crash na etapa 8, corrigido
+
+Retomada do piloto contra o capítulo 5 (`data/capitulos/`) depois da correção de lotes de 15 da
+sessão de 2026-08-12 ("quarta peça") nunca ter sido verificada contra a API real. Estimativa
+prévia (`cliente.estimar_custo`, 7 lotes): US$ 1,1251 — abaixo do teto de US$ 2 combinado com o
+professor, execução autorizada a prosseguir.
+
+**Etapas 1-7: `EXECUTADA`, sem custo**, mesmo `document_id=MAT-DOC-7b3e4356` do piloto anterior.
+
+**Etapa 8, lote 0 (15 unidades, chamada real): a correção de lotes funcionou** — `stop_reason`
+normal, sem truncamento (o defeito de 2026-08-12, "quarta peça", está resolvido para este
+tamanho de lote). **Mas apareceu um segundo defeito, de categoria diferente**: pelo menos um
+item de `matrizes` na resposta do modelo veio como string, não como objeto —
+`item["avaliacao_por_eixo"]` (uma indexação de string por string) levantou
+`TypeError: string indices must be integers, not 'str'`, cru, dentro de
+`_matriz_criticidade_de_item`. Esse `TypeError` não estava no `except (KeyError, ValueError,
+ErroDeComentario)` da função — propagava sem virar `ErroDePonteModeloP13`, e mesmo se virasse,
+`execucao_p13.py` não capturava essa classe de erro nas quatro etapas que chamam modelo (só
+`ErroDeCliente`, do piloto anterior). Resultado: crash cru de novo, `estado.historico` sem
+registrar a tentativa, `estado.concluidas` parado em 7 — mesma classe de falha que motivou
+`FALHA_NA_CHAMADA_AO_MODELO`, causa raiz diferente (ali a chamada não completava; aqui completa e
+responde fora do formato).
+
+**Custo real desta chamada** (`costs/ledger.jsonl`): `sequence_id=MAT-DOC-7b3e4356`,
+`cache_creation_input_tokens=39952`, `input_tokens=416`, `output_tokens=6529`,
+`custo_usd_total=US$ 0,22593`. Lotes 1-6 nunca rodaram (o crash aconteceu processando a resposta
+do lote 0); etapa 9 em diante nunca foi alcançada.
+
+**Correção aplicada na mesma sessão** (instrução do professor mudou de "não conserte nada" para
+"construa fluxo completo" — a correção deste crash específico é a peça escolhida por ter contexto
+mais recente e preciso):
+
+1. `escolio/funcoes/ponte_modelo_p13.py` — `_matriz_criticidade_de_item`,
+   `_matriz_seletividade_de_item`, o loop de `gerar_achados_fidelidade` e o loop de
+   `gerar_comentarios` agora checam `isinstance(item, dict)` explicitamente antes de indexar, com
+   mensagem que nomeia o item recebido — e os quatro `except` correspondentes passam a capturar
+   também `TypeError`/`AttributeError`, não só `KeyError`/`ValueError`/erro de domínio. Item
+   fora de forma sempre vira `ErroDePonteModeloP13`, nunca exceção crua de tipo.
+2. `escolio/funcoes/execucao_p13.py` — oitava causa em `CausaDeParada`:
+   `RESPOSTA_DO_MODELO_MAL_FORMADA`, nova, ao lado de `FALHA_NA_CHAMADA_AO_MODELO`. As quatro
+   etapas que chamam modelo (8, 9, 13, 16-18) agora capturam também
+   `ponte.ErroDePonteModeloP13`, via `_justificativa_falha_ponte` (mesmo padrão de
+   `_justificativa_falha_cliente`), e devolvem `PARADA` estruturada em vez de crashar.
+3. Só a etapa 8 teve o defeito confirmado por dado real; etapas 9, 13 e 16-18 têm a mesma forma
+   de parsing (indexação de `item[...]` sem checar tipo antes) e foram corrigidas por simetria,
+   não por falha real observada nelas.
+
+**Testes novos**: `tests/funcoes/test_ponte_modelo_p13.py::TestGerarMatrizesCriticidade::
+test_item_de_matrizes_nao_objeto_levanta_erro_de_ponte_nao_typeerror_cru` e
+`tests/funcoes/test_execucao_p13.py::TestFalhaNaChamadaAoModelo::
+test_etapa_8_resposta_mal_formada_vira_causa_estruturada_nao_crash`. Suíte completa: 1116
+passando (1114 + 2).
+
+**Não recalibrado contra a API real nesta correção** — mesma ressalva já registrada para a
+correção de lotes: a suíte usa cliente mockado; não houve nova chamada real para confirmar que a
+etapa 8 completa os 7 lotes inteiros sem outro modo de falha ainda não observado (lotes 1-6 nunca
+rodaram em nenhum dos dois pilotos reais até agora). Reexecução real fica para sessão futura, se
+o orçamento (US$ 0,45 já gastos dos dois pilotos, dentro do teto de US$ 2 combinado) permitir.
+
+## Sessão de 2026-08-13 (continuação) — redução de lote da etapa 9 NÃO resolveu a truncagem; novo teto combinado
+
+Retomada depois do estouro de teto registrado acima (US$ 2,1199 de US$ 2). Professor combinou
+novo teto de US$ 3,20 para esta sequência antes de qualquer chamada nova. Estimativa prévia
+(`cliente.estimar_custo`, `TAMANHO_LOTE_ETAPA_9=5`, 11 candidatos → 3 lotes): pior caso
+US$ 1,2348, somado ao já gasto (US$ 1,8503 real, sem contar hits de cache local) dava
+US$ 3,0851 — dentro do novo teto por ~US$ 0,11. Etapa 8 reexecutada neste piloto veio inteira do
+cache local em disco (`data/cache_cliente/`, mesmo hash de input do piloto anterior),
+`custo_usd_total=0` nos 8 lotes — confirma a garantia de `cache_local.py`, "reexecutar o mesmo
+input não custa nada".
+
+**Etapa 9, lote 0 (5 candidatos, `TAMANHO_LOTE_ETAPA_9=5` já aplicado): truncou de novo.**
+`CausaDeParada.FALHA_NA_CHAMADA_AO_MODELO` / `RESPOSTA_TRUNCADA`, `stop_reason=max_tokens`,
+Opus 5, 8.000 tokens de saída, resposta ainda incompleta — **para 5 candidatos, não 11.** A
+correção de 2026-08-13 (reduzir `TAMANHO_LOTE_ETAPA_9` de 15 para 5, decisão do professor
+"reduzir o lote, não subir `MAX_TOKENS_ETAPA_9`") não eliminou o defeito; só adiou de "trunca com
+11" para "trunca com 5". `MAX_TOKENS_ETAPA_9` continua no mesmo valor de antes da correção — não
+foi tocado nesta linha de trabalho em nenhuma sessão.
+
+**Custo real desta chamada** (`costs/ledger.jsonl`, `msg_011Ce1JDhwKdRkeJidgV3zY9`): cache lido
+(42.228 tokens, sem nova escrita — mesmo documento do piloto anterior), `input_tokens=513`,
+`output_tokens=8000`, `custo_usd_total=US$ 0,2237` — bem abaixo do pior caso estimado
+(US$ 0,4116/lote) porque a leitura de cache é mais barata que a escrita, mas ainda sem produzir
+nenhuma `MatrizSeletividade` utilizável, resposta truncada nunca aceita como resultado parcial
+[P09 §21.43].
+
+**Gasto acumulado real na sequência após esta chamada: US$ 2,0740** (US$ 1,8503 + US$ 0,2237) —
+dentro do novo teto de US$ 3,20, com margem de ~US$ 1,13 ainda não usada.
+
+**Causa raiz corrigida e verificada contra a API real, mesma sessão.** O diagnóstico anterior
+("reduzir o lote") estava errado: o lote de 5 truncou nos mesmos 8000 tokens que o lote de 11 —
+se fosse volume de raciocínio por candidato, menos candidatos deveriam ter gastado menos. Causa
+real: no Opus 5, `thinking={"type": "adaptive"}` [`ClienteAnthropic.chamar`] está ligado por
+padrão, e `max_tokens` é teto de thinking + resposta somados — havia um piso de raciocínio fixo
+por chamada acima dos 8000 tokens antigos, independente do tamanho do lote.
+
+**Correção**: `TAMANHO_LOTE_ETAPA_9` revertido de 5 para **15** (sem particionar os 11 candidatos
+reais — 1 chamada em vez de 3) e `MAX_TOKENS_ETAPA_9` subido de 8.000 para **32.000**
+[`escolio/funcoes/ponte_modelo_p13.py`]. `max_tokens` alto não é pago se não for usado — só evita
+cortar a resposta no meio; o cliente já liga streaming automaticamente acima de 16.000
+[`_LIMIAR_STREAMING_TOKENS`].
+
+**Verificado contra a API real na mesma sessão**: etapa 9 completou em 1 única chamada (11
+candidatos, lote de 15, sem particionar), `EXECUTADA`, 11 `MatrizSeletividade` aceitas — nenhuma
+truncagem. `output_tokens=17181` (mais que os 8000 antigos, confirmando que o teto era baixo
+demais) — `custo_usd_total=US$ 0,4558` (`costs/ledger.jsonl`,
+`msg_011Ce1JwVCXc1KoLXxirHuuk`), abaixo do pior caso estimado (US$ 1,0116) porque o documento veio
+do cache (`cache_read_input_tokens=42228`, sem nova escrita). Etapa 10 (seleção determinística)
+também `EXECUTADA`: 11 candidatos ordenados por criticidade, sem quota [§34.3-34.4].
+
+**Gasto acumulado real na sequência `MAT-DOC-7b3e4356` após esta correção: US$ 2,3061**
+(US$ 1,8503 anteriores + US$ 0,4558 desta chamada), dentro do novo teto de US$ 3,20 combinado com
+o professor, margem de ~US$ 0,89.
+
+Suíte mockada revalidada após a mudança de constantes (`tests/funcoes/test_ponte_modelo_p13.py`,
+28 testes, referencia as constantes dinamicamente — nenhuma alteração de teste necessária).
+
+**Reexecução do piloto completo (mesmo `document_id=MAT-DOC-7b3e4356`) veio inteira do cache
+local, custo US$ 0** — confirma de novo a garantia "reexecutar o mesmo input não custa nada"
+[`cache_local.py`]. Teto acumulado permanece US$ 2,3061 de US$ 3,20.
+
+**Avançado até a etapa 11 (verificação de fontes/BVAA) nesta sessão — parada estruturada e
+esperada**, não falha: `PONTO_DE_EXTENSAO_DE_MODELO`, "sem evidência de identificação (T01-T03)
+ou de acesso (T04/T05) fornecida, nenhuma fonte avança no BVAA". Nenhuma evidência bibliográfica
+real existe para o capítulo 5 nesta sessão, e o sistema não infere isso [CLAUDE.md §11]. Etapa 12
+(verificação de evidências) e etapa 13 (verificação de voz) têm o mesmo formato de bloqueio —
+exigem `RelacaoAfirmacaoEvidencia` já avaliada e `perfil_de_voz` do autor avaliado,
+respectivamente; nenhum dos dois foi fornecido nesta sessão. Etapa 14 (privacidade) é sempre
+`EXECUTADA` (determinística, sem gate [CO-012]) e etapa 15 (problemas sistêmicos) só precisa da
+lista opcional do professor (mesmo vazia). **Nenhuma dessas cinco etapas foi tentada além da 11**
+nesta sessão — parar na primeira parada estruturada, não pular a sequência para chegar a 16-18,
+é a mesma disciplina de "sem núcleo publicável não há redação" aplicada a gates intermediários.
+
 ## Sobre a fonte em si
 
 - **Os cinco contratos foram lidos integralmente** — P10 (1421 linhas), P11 (2298), P12 (2232),

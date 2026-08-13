@@ -6,10 +6,12 @@ módulo substitui em parte: o que aquele teste fazia escrevendo Python solto
 entre as peças, `avancar()` agora faz por uma função de orquestração.
 """
 
+from types import SimpleNamespace
 from unittest.mock import MagicMock
 
 import pytest
 
+from escolio.bvaa.abstencao import GatilhoDeAbstencao
 from escolio.bvaa.vocabulario import EstadoBibliografico
 from escolio.cliente.erros import (
     ErroDeConexao,
@@ -33,6 +35,7 @@ from escolio.funcoes.bvaa_drive import (
     EvidenciaDeIdentificacaoDrive,
     OperacaoDeAcesso,
 )
+from escolio.funcoes.curador_bvaa import EscalonamentoDoCurador
 from escolio.funcoes.execucao_p13 import (
     CausaDeParada,
     EntradaEtapaP13,
@@ -412,6 +415,37 @@ class TestFalhaNaChamadaAoModelo:
         assert len(estado.historico) == 8
         assert estado.historico[-1].etapa.ordem == 8
 
+    def test_etapa_8_resposta_mal_formada_vira_causa_estruturada_nao_crash(self):
+        """Sessão de 2026-08-13 — segundo piloto real contra o capítulo 5,
+        depois da correção de lotes: a chamada completa, mas o item de
+        'matrizes' veio como string, não objeto. Antes desta correção,
+        `TypeError` propagava cru; agora vira `ResultadoDeEtapa` com causa
+        estruturada, mesma disciplina de `FALHA_NA_CHAMADA_AO_MODELO`."""
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_etapa_7(estado, documento)
+
+        cliente = MagicMock()
+        cliente.chamar.return_value = MagicMock(
+            blocos=[
+                {
+                    "type": "tool_use",
+                    "name": ponte._FERRAMENTA_CRITICIDADE,
+                    "input": {"matrizes": ["isto não é um objeto"]},
+                }
+            ]
+        )
+
+        avancar(estado, EntradaEtapaP13(cliente=cliente, unidades_para_matriz_criticidade=[paragrafo.unit_id]))
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.RESPOSTA_DO_MODELO_MAL_FORMADA
+        assert estado.concluidas == 7  # não avançou, mas também não crashou
+        assert len(estado.historico) == 8
+        assert estado.historico[-1].etapa.ordem == 8
+
     def test_etapa_9_erro_de_cliente_vira_causa_estruturada(self):
         documento = documento_sintetico_com_referencia()
         paragrafo = documento.paragrafos[0]
@@ -580,6 +614,135 @@ class TestEtapaOnzeVerificacaoDeFontes:
 
         assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
         assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.LOCALIZADA
+
+    # --- Curador automático (sessão de 2026-08-13) ----------------------
+
+    def test_com_servico_drive_e_sem_evidencia_pronta_curador_avanca_sozinho(self, monkeypatch):
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="Grewe1979.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        resultado_curador = SimpleNamespace(
+            evidencias_de_identificacao={
+                referencia.unit_id: EvidenciaDeIdentificacaoDrive(arquivo=arquivo, referencia_citada=referencia.texto)
+            },
+            evidencias_de_acesso={
+                referencia.unit_id: EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+            },
+            escalonamentos=[],
+        )
+        monkeypatch.setattr(
+            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico: resultado_curador
+        )
+
+        avancar(estado, EntradaEtapaP13(servico_drive=object()))
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.ACESSIVEL
+        assert estado.contexto.escalonamentos_bibliograficos == []
+
+    def test_curador_travado_em_todas_as_referencias_para_com_causa_estruturada(self, monkeypatch):
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        escalonamento = EscalonamentoDoCurador(
+            unit_id=referencia.unit_id,
+            motivo=GatilhoDeAbstencao.ACESSO_NAO_COMPROVADO,
+            detalhe="nenhum arquivo encontrado no Drive para o termo de busca 'GREWE 1979'",
+            referencia_texto=referencia.texto,
+        )
+        resultado_curador = SimpleNamespace(
+            evidencias_de_identificacao={}, evidencias_de_acesso={}, escalonamentos=[escalonamento]
+        )
+        monkeypatch.setattr(
+            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico: resultado_curador
+        )
+
+        avancar(estado, EntradaEtapaP13(servico_drive=object()))
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO
+        assert referencia.unit_id in ultimo.justificativa
+        assert estado.contexto.escalonamentos_bibliograficos == [escalonamento]
+        assert estado.concluidas == 10
+
+    def test_curador_parcial_avanca_o_que_pode_e_registra_escalonamento_sem_bloquear(self, monkeypatch):
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        arquivo = ArquivoDrive(id="x", nome="Grewe1979.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        escalonamento = EscalonamentoDoCurador(
+            unit_id=referencia.unit_id,
+            motivo=GatilhoDeAbstencao.ACESSO_NAO_COMPROVADO,
+            detalhe="arquivo localizado, mas download/exportação falhou: erro simulado",
+            referencia_texto=referencia.texto,
+        )
+        resultado_curador = SimpleNamespace(
+            evidencias_de_identificacao={
+                referencia.unit_id: EvidenciaDeIdentificacaoDrive(arquivo=arquivo, referencia_citada=referencia.texto)
+            },
+            evidencias_de_acesso={
+                referencia.unit_id: EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+            },
+            escalonamentos=[escalonamento],
+        )
+        monkeypatch.setattr(
+            "escolio.funcoes.execucao_p13.curar_referencias", lambda referencias, servico: resultado_curador
+        )
+
+        avancar(estado, EntradaEtapaP13(servico_drive=object()))
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.ACESSIVEL
+        assert estado.contexto.escalonamentos_bibliograficos == [escalonamento]
+
+    def test_sem_servico_drive_curador_nao_e_acionado_comportamento_inalterado(self):
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        avancar(estado, EntradaEtapaP13())  # sem evidência nem servico_drive
+
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+
+    def test_evidencia_pronta_tem_prioridade_sobre_curador_mesmo_com_servico_drive(self, monkeypatch):
+        documento = documento_sintetico_com_referencia()
+        referencia = documento.referencias[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+
+        chamado = []
+        monkeypatch.setattr(
+            "escolio.funcoes.execucao_p13.curar_referencias",
+            lambda referencias, servico: chamado.append(1) or SimpleNamespace(
+                evidencias_de_identificacao={}, evidencias_de_acesso={}, escalonamentos=[]
+            ),
+        )
+        arquivo = ArquivoDrive(id="x", nome="x.pdf", mime_type="application/pdf",
+                                tamanho_bytes=1, modificado_em=None)
+        evidencia = EvidenciaDeAcessoDrive(arquivo=arquivo, operacao=OperacaoDeAcesso.LOCALIZADO)
+        estado.contexto.estados_bibliograficos[referencia.unit_id] = EstadoBibliografico.LOCALIZADA
+
+        avancar(
+            estado,
+            EntradaEtapaP13(evidencias_de_acesso={referencia.unit_id: evidencia}, servico_drive=object()),
+        )
+
+        assert chamado == []
+        assert estado.historico[-1].tipo is TipoDeResultadoEtapa.EXECUTADA
 
 
 def _avancar_etapa_11_completa(estado, documento) -> None:

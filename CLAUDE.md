@@ -52,8 +52,11 @@ Catálogo **fechado** em seis unidades; ampliar exige nova fonte e decisão auto
 | P13 | Comentários Word humanos e seletivos |
 | P14 | Incorporação de pareceres em artigo |
 | **X01** | **Gestão transversal de fontes, citações e suficiência de evidência** [R03 CAMADA B, item 6] |
+| **X02** | **Revisão editorial de capítulo de livro autônomo** — `[PROPOSTA]` autoral, 2026-08-13, ver `docs/spec/funcao-x02-capitulo-livro.md` |
 
 X01 é função, não camada de apoio. É a que `escolio/` (schema P05 + 20 regras RC) implementa.
+X02 formaliza a lacuna de capítulo de livro sem abrir camada numérica nova, mesmo precedente de
+X01 fora da sequência P10-P14; ainda sem pipeline de etapas nem módulo em `escolio/funcoes/`.
 
 ### Tipos de documento → função — `[PROPOSTA]`
 
@@ -69,7 +72,7 @@ orientar quem lê, não é regra executável e nada em código a consulta.
 | Dissertação · tese | P11 | coberto |
 | Artigo (Qualis A1/A2) | P10 · P14 | **parcial** — P10 *produz* artigo por derivação; P14 incorpora pareceres em artigo já submetido. "Revisão de artigo antes da submissão" é candidata **não incorporada** [R03 CAMADA B] |
 | Relatório de pós-doutorado | **nenhuma** | P12 é IC e proíbe densidade de tese [P12 §3.1]; P11 é tese/dissertação |
-| Capítulo de livro | **nenhuma** | P10 recebe capítulo como *entrada* para extrair artigos |
+| Capítulo de livro | **X02** (2026-08-13) | função formalizada, sem pipeline/módulo ainda — ver `docs/spec/funcao-x02-capitulo-livro.md`; P10 continua recebendo capítulo só como *entrada* para extrair artigos, escopo diferente |
 
 **O que governa o roteamento é `InputItem.classification.functions`** [P09 §6] — lista declarada
 por autoridade competente, nunca derivada do conteúdo. O sistema não classifica documento.
@@ -339,14 +342,26 @@ Inconsistência a resolver: `handoff/` está em JavaScript enquanto o resto é P
    abstratos"; os contratos usam P07 para a voz do *autor avaliado*. Duas leituras registradas em
    `docs/spec/divergencias.md`. Enquanto não resolver, `style/style_card.md` não tem destino.
 2. **Aplicação de texto:** substituído ou lado a lado, e quem assina.
-3. **Capítulo de livro e relatório de pós-doutorado** não têm função nem candidatura:
-   generalização autorizada de P11, ou fora de escopo? A terceira alternativa que constava aqui
-   — "P15+" — **caiu**: no inventário canônico da R03, P15 é `PROFILES`, P16
-   `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18 `INTERSECOES`. A camada `FUNCAO`
-   termina em P14 — não há vaga numerada para uma sexta macrofunção. O argumento não depende
-   do estado de homologação da R03, que é ele próprio divergência aberta
-   [`docs/spec/divergencias.md` §4.5]: a R03 se declara `NAO_HOMOLOGADA` três vezes e o termo
-   externo de homologação alegado pelo P00 não foi encontrado no acervo.
+3. **Capítulo de livro — resolvido e formalizado (2026-08-13, `[PROPOSTA]` autoral do
+   `USUARIO_PROPONENTE`): função nova `X02`, não generalização implícita de P11.** Ver
+   `docs/spec/funcao-x02-capitulo-livro.md` (ID, nome, escopo, distinção de P10, entradas
+   mínimas, teto de intervenção `PROPOSTA`/INT-05, precondições de aplicação material) e
+   `docs/spec/conversao-citacao-bibliografica.md` (fronteira referência-bibliográfica/
+   fonte-documental, critério de "referência melhor", gate por classe para conversão
+   citação-direta→paráfrase). P11 permanece restrito a dissertação/tese; reuso técnico do
+   motor/schemas/validadores de P11 é autorizável para X02, mas não transfere autoridade
+   funcional — "executor técnico equivalente" não é fonte autônoma de autoridade. **Formalização
+   normativa apenas** — nenhum módulo em `escolio/funcoes/`, sem pipeline de etapas ainda;
+   aplicação material continua condicionada às precondições/gates já existentes, não por falta
+   de função (isso está resolvido), mas por falta de código (isso não foi pedido nesta rodada).
+   **Relatório de pós-doutorado permanece sem função nem candidatura, não tratado nesta
+   decisão** — mesma pergunta em aberto de antes: generalização de P11, ou fora de escopo? A
+   terceira alternativa que constava aqui — "P15+" — **caiu**: no inventário canônico da R03,
+   P15 é `PROFILES`, P16 `CONTEXTOS_GEOGRAFICOS`, P17 `CONTEXTOS_TEMPORAIS`, P18
+   `INTERSECOES`. A camada `FUNCAO` termina em P14 — não há vaga numerada para uma sexta
+   macrofunção. O argumento não depende do estado de homologação da R03, que é ele próprio
+   divergência aberta [`docs/spec/divergencias.md` §4.5]: a R03 se declara `NAO_HOMOLOGADA` três
+   vezes e o termo externo de homologação alegado pelo P00 não foi encontrado no acervo.
 4. **Revisão de artigo antes da submissão** — candidata não incorporada [R03 CAMADA B].
 5. **Forma da carta branca:** ato coletivo vs. itemizado, contra `P01/05` (§2).
 6. **Armazenar `histórico de resolução` e `exemplos de comentários aceitos`** é livre sob o P19?

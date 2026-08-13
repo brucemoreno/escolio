@@ -97,7 +97,16 @@ EFFORT_ETAPAS_16_18 = "medium"
 # docs/custos.md para diagnóstico interno; comentário final tende a ser
 # maior que diagnóstico interno, daí a folga).
 MAX_TOKENS_ETAPA_8 = 8_000
-MAX_TOKENS_ETAPA_9 = 8_000
+# 32_000, não 8_000 — correção de 2026-08-13 (continuação): o teto de 8_000
+# era o problema real da etapa 9, não o tamanho do lote (ver nota junto de
+# TAMANHO_LOTE_ETAPA_9). No Opus 5, `thinking=adaptive` é ligado por padrão
+# e `max_tokens` é teto de thinking + resposta somados — os dois lotes reais
+# truncaram em exatamente 8000 tokens de output tanto com 11 candidatos
+# quanto com 5, o que descarta "conteúdo grande demais" (o gasto não
+# escalou com o conteúdo) e aponta para um piso de raciocínio fixo por
+# chamada acima do teto antigo. `max_tokens` alto não é pago se não for
+# usado — só evita cortar a resposta no meio.
+MAX_TOKENS_ETAPA_9 = 32_000
 MAX_TOKENS_ETAPA_13 = 8_000
 MAX_TOKENS_ETAPAS_16_18 = 8_000
 
@@ -120,6 +129,16 @@ MAX_TOKENS_ETAPAS_16_18 = 8_000
 # conservadora, não uma fórmula derivada de tokens/unidade (que a resposta
 # truncada não permitiu medir, já que não produziu nenhuma unidade).
 TAMANHO_LOTE_ETAPA_8 = 15
+
+# Sessão de 2026-08-13 (sétima peça, revertido na mesma sessão): a hipótese
+# inicial foi "mesmo raciocínio da etapa 8 — reduzir o lote" (11→5), mas um
+# segundo dado real refutou: o lote de 5 truncou nos mesmos 8000 tokens que
+# o lote de 11 truncara. Se fosse volume de raciocínio por candidato, menos
+# candidatos deveriam ter gastado menos e completado. Não completaram — a
+# causa era o teto (`MAX_TOKENS_ETAPA_9`), não o tamanho do lote. Revertido
+# para 15 (sem particionar os 11 candidatos reais) e corrigido o teto acima.
+# Lote pequeno com esse teto era estritamente pior: paga o piso fixo de
+# thinking por chamada 3× (uma por lote) em vez de 1×.
 TAMANHO_LOTE_ETAPA_9 = 15
 
 
@@ -267,6 +286,14 @@ _SCHEMA_CRITICIDADE = {
 
 
 def _matriz_criticidade_de_item(item: dict) -> MatrizCriticidade:
+    if not isinstance(item, dict):
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_CRITICIDADE!r} trouxe item de 'matrizes' que "
+            f"não é objeto: {item!r} (achado real, piloto capítulo 5, 2026-08-13 — item vindo "
+            "como string faz `item['avaliacao_por_eixo']` levantar TypeError cru em vez de "
+            "KeyError/ValueError, por isso a checagem explícita aqui em vez de confiar só no "
+            "except abaixo)"
+        )
     try:
         avaliacao = {EixoCriticidade(k): v for k, v in item["avaliacao_por_eixo"].items()}
         return MatrizCriticidade(
@@ -276,7 +303,7 @@ def _matriz_criticidade_de_item(item: dict) -> MatrizCriticidade:
             classe=ClasseCriticidade(item["classe"]),
             justificativa_classe=item["justificativa_classe"],
         )
-    except (KeyError, ValueError, ErroDeComentario) as erro:
+    except (KeyError, ValueError, TypeError, AttributeError, ErroDeComentario) as erro:
         raise ErroDePonteModeloP13(
             f"resposta do modelo para {_FERRAMENTA_CRITICIDADE!r} não corresponde a MatrizCriticidade: {erro}"
         ) from erro
@@ -402,6 +429,13 @@ _SCHEMA_SELETIVIDADE = {
 
 
 def _matriz_seletividade_de_item(item: dict) -> MatrizSeletividade:
+    if not isinstance(item, dict):
+        raise ErroDePonteModeloP13(
+            f"resposta do modelo para {_FERRAMENTA_SELETIVIDADE!r} trouxe item de 'matrizes' que "
+            f"não é objeto: {item!r} (mesma classe de defeito achada em "
+            "_matriz_criticidade_de_item, 2026-08-13 — checagem espelhada por simetria, sem caso "
+            "real observado aqui ainda)"
+        )
     try:
         return MatrizSeletividade(
             selection_id=item["selection_id"],
@@ -419,7 +453,7 @@ def _matriz_seletividade_de_item(item: dict) -> MatrizSeletividade:
             selection_decision=SelectionDecision(item["selection_decision"]),
             selection_rationale=item["selection_rationale"],
         )
-    except (KeyError, ValueError, ErroDeComentario) as erro:
+    except (KeyError, ValueError, TypeError, AttributeError, ErroDeComentario) as erro:
         raise ErroDePonteModeloP13(
             f"resposta do modelo para {_FERRAMENTA_SELETIVIDADE!r} não corresponde a MatrizSeletividade: {erro}"
         ) from erro
@@ -580,6 +614,12 @@ def gerar_achados_fidelidade(
 
     achados: list[AchadoDeFidelidade] = []
     for item in entrada.get("achados", []):
+        if not isinstance(item, dict):
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_DETECCAO_FIDELIDADE!r} trouxe item de "
+                f"'achados' que não é objeto: {item!r} (mesma classe de defeito de "
+                "_matriz_criticidade_de_item, 2026-08-13 — checagem espelhada por simetria)"
+            )
         try:
             achados.append(
                 AchadoDeFidelidade(
@@ -590,7 +630,7 @@ def gerar_achados_fidelidade(
                     notas=item.get("notas"),
                 )
             )
-        except (KeyError, ValueError, ErroDePerfilDeVoz) as erro:
+        except (KeyError, ValueError, TypeError, AttributeError, ErroDePerfilDeVoz) as erro:
             raise ErroDePonteModeloP13(
                 f"resposta do modelo para {_FERRAMENTA_DETECCAO_FIDELIDADE!r} não corresponde a "
                 f"AchadoDeFidelidade: {erro}"
@@ -726,6 +766,12 @@ def gerar_comentarios(
     matrix_comment_id_por_candidato = matrix_comment_id_por_candidato or {}
     comentarios: list[P13Comment] = []
     for item in entrada.get("comentarios", []):
+        if not isinstance(item, dict):
+            raise ErroDePonteModeloP13(
+                f"resposta do modelo para {_FERRAMENTA_COMENTARIOS!r} trouxe item de 'comentarios' "
+                f"que não é objeto: {item!r} (mesma classe de defeito de "
+                "_matriz_criticidade_de_item, 2026-08-13 — checagem espelhada por simetria)"
+            )
         try:
             if comment_type_esperado is not None and item["comment_type"] != comment_type_esperado:
                 raise ErroDePonteModeloP13(
@@ -763,7 +809,7 @@ def gerar_comentarios(
                     matrix_comment_id=matrix_comment_id,
                 )
             )
-        except (KeyError, ValueError, ErroDeComentario) as erro:
+        except (KeyError, ValueError, TypeError, AttributeError, ErroDeComentario) as erro:
             raise ErroDePonteModeloP13(
                 f"resposta do modelo para {_FERRAMENTA_COMENTARIOS!r} não corresponde a P13Comment: {erro}"
             ) from erro
