@@ -433,6 +433,40 @@ Consequência enquanto não decidido: o passo 5 de `[P08 §12]` fica especificad
 por conversão silenciosa. Nenhum código converte `str` em `SensitivityLabel` nem o inverso,
 mesma disciplina de `CON-P05-001` (§4.3).
 
+### 4.7 §13.1 resolvida por decisão expressa do `USUARIO_PROPONENTE` (2026-08-14) — P07 também cobre a voz de quem comenta
+
+Acrescentado em 2026-08-14, por instrução direta do professor nesta sessão, em resposta à
+pergunta de confirmação feita antes de construir qualquer conversor.
+
+**Contexto.** §4.1 (acima) registrava duas leituras não resolvidas sobre o alcance do P07:
+Leitura A ("imitação de pessoa real é substituída por atributos abstratos" [P07/01] é universal,
+cobre também quem comenta) e Leitura B (a finalidade declarada do P07 — "preservar, avaliar e
+controlar a voz autoral em textos acadêmicos" — e o uso em P13 §6.2/§11 tratam só da voz do autor
+avaliado). Até esta sessão, a questão ficava aberta e `style/style_card.md` sem destino.
+
+**Decisão.** O professor confirmou explicitamente, quando questionado, que quer resolver agora:
+o schema P07 (30 dimensões `VOZ-D01…D30`) passa a ser usado também para modelar a voz de correção
+do próprio professor, derivada de amostras reais — dois PDFs em `data/voz/` com correções feitas
+diretamente por ele (`Demonst_204_204001_0001_003609_06082026_173958.pdf`,
+`Os doces frutos da Colonia - modelo de escrita autoral.pdf`). Caminho adotado, dos dois previstos
+em §4.1: `PERFIL_AUTORAL_DERIVADO_DE_AMOSTRAS` [P07/04] — perfil derivado de amostras reais, sem
+nome de pessoa, nas 30 dimensões do contrato.
+
+**O que isso não decide.** Não resolve nada além do alcance do P07. Continua não decidido:
+se/quando o sistema deve *aplicar* essa voz em algum nível de intervenção (§6 do CLAUDE.md —
+"se o sistema deve imitar a voz de correção do professor é questão em aberto" — essa frase do
+CLAUDE.md descreve a ativação/uso na função, não a modelagem do perfil, e continua sem resposta
+até decisão específica); qual função consumiria esse perfil (P13 declara `perfil de voz` como
+entrada obrigatória [§6.2] para a voz do *autor avaliado* — usar o mesmo campo para a voz de quem
+comenta seria confundir os dois objetos que a Leitura B distinguia; precisa de campo próprio ou
+função própria, não decidido aqui); e a licença/uso de dado dos dois PDFs sob P19 permanece
+condição independente desta decisão.
+
+**Consequência operacional.** `style/style_card.md` deixa de estar sem destino — pode ser
+formalizado como `PerfilDeVoz` (schema `escolio/voz/perfil.py`) via conversor PDF→perfil,
+construído nesta sessão. `docs/spec/funcoes-P10-P14.md` e o roteador de função não mudam — este
+perfil ainda não tem consumidor funcional declarado.
+
 ---
 
 ## Fechamento

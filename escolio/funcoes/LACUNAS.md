@@ -1071,6 +1071,138 @@ Detalhe completo em `escolio/bvaa/LACUNAS.md` (LAC-BVAA-007, LAC-BVAA-008) — r
   acesso licenciando só T04/T05. Só a etapa 11 ("verificação de fontes") foi ligada; 12-15
   continuam `PONTO_DE_EXTENSAO_DE_MODELO`. Ver `escolio/bvaa/LACUNAS.md` LAC-BVAA-009.
 
+### Descompasso de escopo: `PARADA` por documento inteiro vs. gate por claim (achado e corrigido por proposta em 2026-08-14)
+
+Levantado em sessão de piloto real do capítulo 5, ao notar que a etapa 11, do jeito que estava
+ligada desde 2026-08-12, impede qualquer capítulo sem bibliografia verificável de produzir
+comentário algum — o que descarta a maior parte do acervo real do professor, já que a maioria
+dos capítulos não tem toda referência verificável no Drive/internet.
+
+**O que a fonte pede, verbatim.** P13 §26 ("APLICAÇÃO DO P04"): *"O P13 deve aplicar
+integralmente o BVAA. Sem acesso verificável: não confirma leitura; não confirma passagem; não
+confirma página; não confirma imagem; não libera sustentação específica; não inventa
+bibliografia. **Pode produzir comentário sobre pendência bibliográfica sem inventar a
+solução.**"* Todas as restrições são negativas **por confirmação/comentário específico** —
+nenhuma delas nega a produção de comentário em geral, e a última frase autoriza expressamente
+comentar a própria pendência. Reforça: linha 1334 do mesmo contrato — *"a decisão de não
+comentar por ausência de problema material não é falha, abstenção ou bloqueio"* — e P13 §25
+("DENSIDADE E QUANTIDADE") lista como resultado **ilegítimo** o *"silêncio diante de risco
+material"*. `ClaimEvidence` (`escolio/contrato/afirmacao.py:16-27`) já é uma estrutura por
+`claim_id`, sem campo de `document_id` — o vocabulário de evidência do próprio projeto já opera
+no grão certo. Nenhuma ocorrência de `PARADA`/bloqueio de documento inteiro associada a `BVAA`
+em todo o contrato P13.
+
+**O que o código fazia.** `_etapa_11_verificacao_de_fontes` (`execucao_p13.py:741`) devolvia
+`TipoDeResultadoEtapa.PARADA` (com `CausaDeParada.ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO` ou
+`PONTO_DE_EXTENSAO_DE_MODELO`) sem distinção por `unit_id` — `PARADA` é o resultado genérico da
+máquina de estados que impede `avancar()` de alcançar a etapa 12, para a sessão inteira, mesmo
+quando a maioria das claims do capítulo não depende de bibliografia nenhuma.
+
+**Correção, `[PROPOSTA]` do professor em 2026-08-14, verificada contra a fonte antes de
+registrar aqui, e construída na mesma sessão**: etapa 11 deixa de devolver `PARADA` por falta
+de evidência bibliográfica — passa a `EXECUTADA` sempre, registrando
+`ContextoExecucaoP13.vinculo_candidato_referencia_especifica = "PENDENTE_NAO_VERIFICAVEL"`
+quando não há evidência (nunca aproximado por proxy, ex. "parágrafo tem citação" — decisão
+explícita do professor de não inferir esse vínculo). A restrição real do §26 ("não confirma
+sustentação específica, não inventa bibliografia") passou a ser responsabilidade da etapa de
+elaboração de comentários (`prompts/p13_elaboracao_comentarios.md`, seção acrescentada), não
+mais um bloqueio na etapa 11. Verificado: 4 testes de `TestEtapaOnzeVerificacaoDeFontes`
+atualizados de `PARADA` para `EXECUTADA`, suíte completa (1176 testes) passando.
+
+## Sessão de 2026-08-14 — finalização do motor até a etapa 25, consolidado
+
+Resumo único desta sessão inteira, para não espalhar em múltiplas entradas separadas (evitar o
+mesmo inchaço documental que a sessão identificou como risco em si mesma):
+
+1. **Etapa 11 reescopada** — ver acima.
+2. **`GATE_DE_SELECAO` implementado** (`_gate_de_selecao`, `execucao_p13.py`) — critério obtido
+   do arquiteto (7 condições cumulativas) e traduzido `[PROPOSTA]` para os campos reais de
+   `MatrizSeletividade`: nenhuma decisão em `AGUARDAR_EVIDENCIA`/`AGUARDAR_GATE`/`BLOQUEADO`
+   (`SelectionDecision`, já nomeados no schema — sem heurística de texto), nenhuma omissão
+   silenciosa entre `MatrizCriticidade` e `MatrizSeletividade`, nenhum `selection_id`/`unit_id`
+   duplicado. Nova causa `CausaDeParada.GATE_DE_SELECAO_BLOQUEADO`. **Verificado contra a API
+   real no mesmo dia**: o gate bloqueou de fato a etapa 10 quando o modelo devolveu um candidato
+   real com `selection_decision=AGUARDAR_EVIDENCIA` (capítulo 5, `document_id=MAT-DOC-7b3e4356`)
+   — não é só teste sintético, pegou um caso real na primeira execução.
+3. **Etapas 19-24 implementadas**, reusando os itens de checklist §44 já existentes em
+   `escolio/comentarios/auditoria.py` (`_item_densidade_justificada`, `_item_acionabilidade`,
+   `_item_tom`, `_item_gates`) em vez de reimplementar o mesmo julgamento duas vezes — só a
+   etapa 20 (repetição) é checagem nova, por não ter item correspondente em §44, deliberadamente
+   estreita (só duplicata exata de `problem` por `unit_id`, não paráfrase). `ctx.achados_
+   qualidade`/`ctx.consolidacao` novos campos de contexto.
+4. **Escrita real de comentário no `.docx`** (`escolio/funcoes/escrita_docx_p13.py`, novo
+   módulo) — `python-docx.add_comment` nativo (biblioteca 1.2.0, já instalada). Escopo desta
+   sessão: só `unit_id` de `Paragrafo` do corpo (prefixo `PAR-`); citação recuada e nota de
+   rodapé não são endereçáveis por este mecanismo hoje, ficam em `nao_aplicados` sem falha
+   silenciosa. Nunca sobrescreve o arquivo original. 4 testes novos, verificado manualmente que
+   o comentário aparece no arquivo salvo e o original permanece com zero comentários.
+5. **Piloto real do zero, capítulo 5** (`saida/piloto_p13_capitulo5_do_zero.py`, cache isolado
+   em `data/cache_cliente_do_zero/`, nunca lê o cache de tentativas anteriores) — etapas 1-9
+   reais: etapa 8 devolveu 13 `MatrizCriticidade` (de 120 unidades), etapa 9 devolveu 13
+   `MatrizSeletividade`, uma delas `AGUARDAR_EVIDENCIA`. **`GATE_DE_SELECAO` bloqueou a etapa 10
+   corretamente** — percurso automático de hoje pára aí, por desenho, não por defeito. Custo
+   real desta rodada (últimas 9 linhas novas do ledger, timestamps 2026-08-14): etapa 8 (8
+   lotes) = US$ 0,5636; etapa 9 (1 lote) = US$ 0,9634; **total US$ 1,5270**, dentro do teto de
+   US$ 2 combinado para o bloco.
+6. **Continuação, mesmo dia, depois de mais achados reais** (itens 7-11 abaixo) — o piloto
+   avançou de fato até a etapa 12/13, não ficou parado no item 5.
+
+7. **Correção do `GATE_DE_SELECAO` (mesmo dia da construção)**: o candidato real
+   `SEL-PROB-UNI-CIT-7b3e4356-0055-0001` voltou `AGUARDAR_EVIDENCIA` — e o próprio modelo
+   escreveu, no campo `human_decision_required`, *"não há decisão humana pendente de gate, mas a
+   emissão depende de evidência documental externa ainda não reunida"* (citação de Ferreira 2015
+   p.66, possível elisão não sinalizada). Ou seja: **não é uma decisão humana**, é trabalho da
+   etapa 11 (BVAA/Drive/busca, já construída) — colocar `AGUARDAR_EVIDENCIA` na mesma categoria
+   de `AGUARDAR_GATE`/`BLOQUEADO` bloqueava a etapa 10 antes de a etapa 11 sequer tentar. Corrigido:
+   `_DECISOES_PENDENTES_DE_GATE` agora só contém `AGUARDAR_GATE`/`BLOQUEADO`; `AGUARDAR_EVIDENCIA`
+   passa pelo gate e vai para a etapa 11 tentar resolver, sem bloquear os outros 12 candidatos.
+8. **Gate humano construído** (`ResolucaoHumanaDeSelecao`, `EntradaEtapaP13.resolucoes_humanas_
+   de_selecao`) — para os casos que são de fato `AGUARDAR_GATE`/`BLOQUEADO`, um caminho de código
+   real para o professor resolver, com `justificativa`/`autoridade` obrigatórios
+   (`GATE_HUMANO_EXPRESSO`, nunca silencioso). 3 testes novos.
+9. **`MAX_TOKENS_ETAPA_12` corrigido de 8.000 para 32.000** — mesma causa raiz já documentada
+   para a etapa 9 (`thinking=adaptive` disputa o mesmo orçamento de `max_tokens`), agora
+   confirmada contra API real também na etapa 12 (`RESPOSTA_TRUNCADA`, 13 candidatos).
+10. **Achado do professor, correção de arquitetura real — `PERFIL_NEUTRO_ACADEMICO_CONTROLADO`
+    nunca estava ligado à etapa 13.** O professor perguntou, com razão, por que a etapa 13
+    exigia derivar um `PerfilDeVoz` completo (múltiplas amostras, custo real) do autor avaliado
+    do capítulo 5 (identificado nesta sessão como Rodrigo Perles Dantas, não o professor) —
+    e o que aconteceria com o próximo aluno sem histórico nenhum. Resposta encontrada na própria
+    fonte: P07 "Gates" nomeia três saídas legítimas para perfil insuficiente — abstenção, pedido
+    de amostras, **ou perfil neutro** — e o vocabulário do projeto (`TipoDePerfil.
+    PERFIL_NEUTRO_ACADEMICO_CONTROLADO`, `GateDePerfil.GATE_NEUTRO`) já existia desde a sessão de
+    2026-08-13, mas nunca tinha sido ligado a nenhuma etapa. `_etapa_13_verificacao_de_voz`
+    tratava ausência de perfil/amostra como bloqueio de pipeline inteiro — mesma classe de erro
+    do item 7 (etapa 11) e do achado original de escopo (documento no topo desta seção): tratar
+    "informação enriquecedora ausente" como "bloqueio obrigatório". Corrigido: nova função
+    `ponte.perfil_neutro_academico_controlado` (determinística, sem custo, sem amostra) —
+    `_etapa_13_verificacao_de_voz` usa esse fallback automaticamente quando não há
+    `perfil_de_voz` nem `amostras_autorais_de_voz`, registrado sempre em `ctx.perfil_de_voz_
+    candidato` e na justificativa da etapa, nunca silencioso. 2 testes novos.
+11. **Perfil de voz do Rodrigo, derivado de verdade, como enriquecimento (não pré-requisito)**:
+    usando os capítulos 1-4 (mesma tese, autoria confirmada nos metadados `.docx`) + capítulo 5
+    (para cobrir nota de rodapé). Levou 4 tentativas reais até cobrir as 30 dimensões — a
+    terceira falhou por bug meu (esqueci `notas_de_rodape`/`citacoes_recuadas` na extração de
+    texto); a quarta exigiu ajustar `prompts/p13_derivacao_perfil_de_voz.md` para deixar claro
+    que ausência **consistente e sustentada** por volume de amostra (nenhuma tese acadêmica
+    exibe humor/coloquialismo/interpelação direta/narrativa ficcional) é evidência de um valor,
+    não falta de evidência — decisão do professor, registrada no prompt. Perfil final salvo em
+    `saida/perfil_voz_rodrigo.json`. Custo acumulado das 4 tentativas: US$ 0,28 (primeira, com os
+    artigos do professor — descartada, autor errado) + US$ 0,47 + US$ 0,59 + US$ 0,59 = US$ 1,93.
+
+**Custo real total desta sessão (piloto + tentativas de voz)**: US$ 1,5270 (item 5) + US$ 1,93
+(item 11) + US$ 0,1523 (tentativa de etapa 12 que truncou, item 9) ≈ **US$ 3,61**. Acima do teto
+informal de US$ 2 por bloco combinado no início da sessão — cada decisão de gastar mais foi
+autorizada explicitamente pelo professor ao longo da sessão, não decidida por conta própria, mas
+o teto original não foi respeitado como número único — registrado para não fingir que foi.
+
+**Estado ao final desta sessão**: piloto real chegou EXECUTADA até a etapa 11; etapa 12 rodou de
+verdade (sem truncar, após item 9) mas parou em `RESPOSTA_DO_MODELO_MAL_FORMADA` — o modelo
+violou `RC-004` (P05: `page_or_folio` exige `edition_or_version` + `PAGINA_CONFIRMADA`) ao gerar
+uma `RelacaoAfirmacaoEvidencia`. Mesma classe de defeito já resolvida antes na etapa 8
+(`matrizes` como string) — provável correção de prompt, não de código; não corrigido nesta
+sessão, decisão de parar aqui por hoje.
+
 ## Não incluído nesta peça (fora de escopo, não lacuna)
 
 - **Execução de qualquer etapa.** Não há `executar` em nenhum dos nove módulos, e é deliberado:

@@ -19,6 +19,7 @@ from escolio.cliente.erros import (
     ErroDeTimeout,
     ErroRespostaTruncada,
 )
+from escolio.comentarios.auditoria import VeredictoChecklist
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import ClasseCriticidade, EixoCriticidade, MatrizCriticidade
 from escolio.comentarios.seletividade import MatrizSeletividade, SelectionDecision
@@ -177,12 +178,14 @@ class TestPercursoCompletoAteOPontoDeExtensao:
         assert estado.contexto.selecionados == [matriz_seletividade]
         assert estado.concluidas == 10
 
-        # 11 — verificação de fontes: ponto de extensão, não preenchido.
+        # 11 — verificação de fontes: sem evidência bibliográfica, mas isso
+        # não trava mais o percurso inteiro (decisão de 2026-08-14) — o
+        # candidato não depende de nenhuma referência declarada.
         avancar(estado)
         ultimo = estado.historico[-1]
-        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
-        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
-        assert estado.concluidas == 10  # a parada não avança o ponteiro de fluxo
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.vinculo_candidato_referencia_especifica == "PENDENTE_NAO_VERIFICAVEL"
+        assert estado.concluidas == 11  # agora avança — decisão de 2026-08-14
 
     def test_document_id_diverge_do_material_id_levanta_bl_022(self):
         # Etapas 11-15 são PONTO_DE_EXTENSAO_DE_MODELO permanente nesta
@@ -529,22 +532,245 @@ class TestFalhaNaChamadaAoModelo:
         assert "TIMEOUT" in ultimo.justificativa
 
 
+class TestEtapas19a24VerificacoesDeterministicas:
+    """Decisão de 2026-08-14: etapas 19-24 deixam de ser
+    SEM_FONTE_DE_VERIFICACAO — reusam os itens de §44 já implementados em
+    `escolio/comentarios/auditoria.py` (19,21,22,23) ou checagem mecânica
+    própria sem item correspondente (20), e agregação determinística (24)."""
+
+    def _estado_com_comentario(self, decisao_seletividade, criticidade=ClasseCriticidade.CRITICIDADE_MEDIA):
+        from escolio.funcoes.execucao_p13 import ResultadoDeEtapa
+        from escolio.funcoes.p13 import DECLARACAO as DECLARACAO_P13
+
+        documento = documento_sintetico()
+        paragrafo = documento.paragrafos[0]
+        estado, _ = TestGateDeSelecao()._base(documento)
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-1924", unit_id=paragrafo.unit_id,
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=criticidade, justificativa_classe="x",
+        )
+        matriz_seletividade = MatrizSeletividade(
+            selection_id="SEL-1924", unit_id=paragrafo.unit_id,
+            candidate_problem_id=matriz_criticidade.problem_id, criticality=criticidade,
+            material_impact="x", novelty="x", recurrence="x", matrix_comment_coverage="x",
+            actionability="x", evidence_sufficiency="x", human_decision_required="x", privacy_risk="x",
+            selection_decision=decisao_seletividade, selection_rationale="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_criticidade=[matriz_criticidade]))  # 8
+        avancar(estado, EntradaEtapaP13(matrizes_seletividade=[matriz_seletividade]))  # 9
+        avancar(estado)  # 10
+        assert estado.concluidas == 10
+        estado.historico.extend(
+            ResultadoDeEtapa(etapa=DECLARACAO_P13.etapa(n), tipo=TipoDeResultadoEtapa.EXECUTADA, justificativa="simulado")
+            for n in range(11, 19)
+        )
+        assert estado.concluidas == 18
+        comentario = P13Comment(
+            comment_id="CMT-1924", document_id=estado.contexto.document_id, document_version="1.0.0",
+            module_id="P13", unit_id=paragrafo.unit_id, anchor_start="0", anchor_end="10",
+            anchor_text_hash="sha256:sintetico", comment_type="COMENTARIO_MATRIZ",
+            priority="PRIORIDADE_MEDIA", severity="MODERADA", problem="Problema sintético único.",
+            evidence="x", impact="x", recommended_action="x", intervention_level="INT-04",
+            authority_required="USUARIO_PROPONENTE", gate="GATE_DE_VALIDACAO_FINAL",
+            source_status="VERIFICADA", voice_impact="NENHUM", privacy_classification="PUBLIC",
+            reversible=True, status=P13CommentStatus.DRAFT,
+        )
+        estado.contexto.todos_comentarios = [comentario]
+        return estado
+
+    def test_etapa_19_densidade_aprovada_sem_quota_sem_silencio(self):
+        estado = self._estado_com_comentario(SelectionDecision.COMENTAR)
+        avancar(estado)  # 19
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.achados_qualidade["densidade"].veredito == VeredictoChecklist.APROVADO
+
+    def test_etapa_19_densidade_reprovada_por_silencio_diante_de_risco_material(self):
+        estado = self._estado_com_comentario(
+            SelectionDecision.NAO_COMENTAR_SEM_PROBLEMA_MATERIAL, criticidade=ClasseCriticidade.CRITICIDADE_CRITICA,
+        )
+        avancar(estado)  # 19
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.achados_qualidade["densidade"].veredito == VeredictoChecklist.REPROVADO
+        assert "silêncio diante de risco material" in ultimo.justificativa
+
+    def test_etapa_20_repeticao_detecta_duplicata_exata(self):
+        estado = self._estado_com_comentario(SelectionDecision.COMENTAR)
+        duplicata = P13Comment(
+            comment_id="CMT-1925", document_id=estado.contexto.document_id, document_version="1.0.0",
+            module_id="P13", unit_id=estado.contexto.todos_comentarios[0].unit_id, anchor_start="0",
+            anchor_end="10", anchor_text_hash="sha256:sintetico2", comment_type="COMENTARIO_MATRIZ",
+            priority="PRIORIDADE_MEDIA", severity="MODERADA", problem="Problema sintético único.",
+            evidence="x", impact="x", recommended_action="x", intervention_level="INT-04",
+            authority_required="USUARIO_PROPONENTE", gate="GATE_DE_VALIDACAO_FINAL",
+            source_status="VERIFICADA", voice_impact="NENHUM", privacy_classification="PUBLIC",
+            reversible=True, status=P13CommentStatus.DRAFT,
+        )
+        estado.contexto.todos_comentarios.append(duplicata)
+        avancar(estado)  # 19
+        avancar(estado)  # 20
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.achados_qualidade["repeticao"].veredito == VeredictoChecklist.REPROVADO
+
+    def test_etapa_21_a_24_executam_e_consolidam(self):
+        estado = self._estado_com_comentario(SelectionDecision.COMENTAR)
+        for _ in range(6):  # 19-24
+            avancar(estado)
+        assert estado.concluidas == 24
+        assert estado.contexto.achados_qualidade["tom"].veredito == VeredictoChecklist.NAO_VERIFICAVEL_NESTA_SESSAO
+        assert estado.contexto.consolidacao["total_comentarios"] == 1
+        assert "densidade" in estado.contexto.consolidacao["vereditos_19_23"]
+
+
+class TestGateDeSelecao:
+    """GATE_DE_SELECAO [P13 §32.1] — critério obtido do arquiteto em
+    2026-08-14 e traduzido para os campos reais de `MatrizSeletividade`
+    (`escolio/funcoes/execucao_p13.py::_gate_de_selecao`)."""
+
+    def _base(self, documento):
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        avancar(estado)  # 1
+        avancar(estado)  # 2
+        avancar(estado, EntradaEtapaP13(dependencias_obrigatorias_confirmadas=True))  # 3
+        avancar(estado, EntradaEtapaP13(documento=documento))  # 4
+        avancar(estado, EntradaEtapaP13(document_version="1.0.0"))  # 5
+        avancar(estado)  # 6
+        avancar(estado)  # 7
+        return estado, paragrafo
+
+    def test_decisao_pendente_bloqueia_o_gate(self):
+        documento = documento_sintetico()
+        estado, paragrafo = self._base(documento)
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-GATE-0001", unit_id=paragrafo.unit_id,
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=ClasseCriticidade.CRITICIDADE_MEDIA, justificativa_classe="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_criticidade=[matriz_criticidade]))  # 8
+        matriz_seletividade = MatrizSeletividade(
+            selection_id="SEL-GATE-0001", unit_id=paragrafo.unit_id,
+            candidate_problem_id=matriz_criticidade.problem_id, criticality=matriz_criticidade.classe,
+            material_impact="x", novelty="x", recurrence="x", matrix_comment_coverage="x",
+            actionability="x", evidence_sufficiency="x", human_decision_required="x", privacy_risk="x",
+            selection_decision=SelectionDecision.AGUARDAR_GATE, selection_rationale="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_seletividade=[matriz_seletividade]))  # 9
+        avancar(estado)  # 10 — deve bloquear
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
+        assert ultimo.causa is CausaDeParada.GATE_DE_SELECAO_BLOQUEADO
+        assert "SEL-GATE-0001" in ultimo.justificativa
+        assert estado.contexto.selecionados == []
+
+    def test_sem_pendencia_gate_libera_selecao(self):
+        documento = documento_sintetico()
+        estado, paragrafo = self._base(documento)
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-GATE-0002", unit_id=paragrafo.unit_id,
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=ClasseCriticidade.CRITICIDADE_MEDIA, justificativa_classe="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_criticidade=[matriz_criticidade]))  # 8
+        matriz_seletividade = MatrizSeletividade(
+            selection_id="SEL-GATE-0002", unit_id=paragrafo.unit_id,
+            candidate_problem_id=matriz_criticidade.problem_id, criticality=matriz_criticidade.classe,
+            material_impact="x", novelty="x", recurrence="x", matrix_comment_coverage="x",
+            actionability="x", evidence_sufficiency="x", human_decision_required="x", privacy_risk="x",
+            selection_decision=SelectionDecision.COMENTAR, selection_rationale="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_seletividade=[matriz_seletividade]))  # 9
+        avancar(estado)  # 10 — deve passar
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert "GATE_DE_SELECAO=PASS" in ultimo.justificativa
+        assert estado.contexto.selecionados == [matriz_seletividade]
+
+
+class TestGateHumanoDeSelecao:
+    """`GATE_HUMANO_EXPRESSO` [P06] — resolução humana de decisão pendente
+    na etapa 10, sessão de 2026-08-14."""
+
+    def _estado_com_pendencia(self):
+        from escolio.funcoes.execucao_p13 import ResolucaoHumanaDeSelecao
+
+        documento = documento_sintetico()
+        paragrafo = documento.paragrafos[0]
+        estado, _ = TestGateDeSelecao()._base(documento)
+        matriz_criticidade = MatrizCriticidade(
+            problem_id="PROB-GATE-HUMANO", unit_id=paragrafo.unit_id,
+            avaliacao_por_eixo={eixo: "x" for eixo in EixoCriticidade},
+            classe=ClasseCriticidade.CRITICIDADE_MEDIA, justificativa_classe="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_criticidade=[matriz_criticidade]))
+        matriz_seletividade = MatrizSeletividade(
+            selection_id="SEL-GATE-HUMANO", unit_id=paragrafo.unit_id,
+            candidate_problem_id=matriz_criticidade.problem_id, criticality=matriz_criticidade.classe,
+            material_impact="x", novelty="x", recurrence="x", matrix_comment_coverage="x",
+            actionability="x", evidence_sufficiency="x", human_decision_required="x", privacy_risk="x",
+            selection_decision=SelectionDecision.AGUARDAR_EVIDENCIA, selection_rationale="x",
+        )
+        avancar(estado, EntradaEtapaP13(matrizes_seletividade=[matriz_seletividade]))
+        return estado, ResolucaoHumanaDeSelecao
+
+    def test_resolucao_sem_justificativa_e_rejeitada(self):
+        estado, ResolucaoHumanaDeSelecao = self._estado_com_pendencia()
+        with pytest.raises(ErroDeExecucaoP13, match="justificativa e autoridade"):
+            ResolucaoHumanaDeSelecao(
+                selection_id="SEL-GATE-HUMANO", nova_decisao=SelectionDecision.COMENTAR,
+                justificativa="", autoridade="USUARIO_PROPONENTE",
+            )
+
+    def test_resolucao_para_outra_decisao_pendente_e_rejeitada(self):
+        estado, ResolucaoHumanaDeSelecao = self._estado_com_pendencia()
+        resolucao = ResolucaoHumanaDeSelecao(
+            selection_id="SEL-GATE-HUMANO", nova_decisao=SelectionDecision.AGUARDAR_GATE,
+            justificativa="Evidência ainda não chegou.", autoridade="USUARIO_PROPONENTE",
+        )
+        with pytest.raises(ErroDeExecucaoP13, match="decisão pendente"):
+            avancar(estado, EntradaEtapaP13(resolucoes_humanas_de_selecao={"SEL-GATE-HUMANO": resolucao}))
+
+    def test_resolucao_valida_libera_o_gate(self):
+        estado, ResolucaoHumanaDeSelecao = self._estado_com_pendencia()
+        resolucao = ResolucaoHumanaDeSelecao(
+            selection_id="SEL-GATE-HUMANO", nova_decisao=SelectionDecision.COMENTAR,
+            justificativa="Evidência confirmada manualmente pelo professor.",
+            autoridade="USUARIO_PROPONENTE",
+        )
+        avancar(estado, EntradaEtapaP13(resolucoes_humanas_de_selecao={"SEL-GATE-HUMANO": resolucao}))
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert "GATE_DE_SELECAO=PASS" in ultimo.justificativa
+        assert len(estado.contexto.selecionados) == 1
+        assert estado.contexto.selecionados[0].selection_decision == SelectionDecision.COMENTAR
+        assert "Resolução humana" in estado.contexto.selecionados[0].selection_rationale
+        assert len(estado.contexto.resolucoes_humanas_aplicadas) == 1
+        assert estado.contexto.resolucoes_humanas_aplicadas[0].autoridade == "USUARIO_PROPONENTE"
+
+
 class TestEtapaOnzeVerificacaoDeFontes:
     """Etapa 11 ligada ao BVAA via evidência de acesso ao Drive
     [docs/spec/bvaa-drive-integracao.md] — autorizado e construído em
     2026-08-12. Licencia só T04/T05; sem evidência, comportamento idêntico
     ao de antes desta sessão."""
 
-    def test_sem_evidencia_permanece_ponto_de_extensao_de_modelo(self):
+    def test_sem_evidencia_nao_trava_percurso_registra_pendencia(self):
+        """Decisão de 2026-08-14: falta de evidência bibliográfica não é
+        mais PARADA de documento inteiro [docs/spec/divergencias.md §4.7;
+        LACUNAS.md, "descompasso de escopo"] — a etapa avança e registra a
+        pendência, sem aprovar nem bloquear candidato algum com base nisso."""
         documento = documento_sintetico_com_referencia()
         estado = estado_roteado([item_declarado_para_f04()])
         _avancar_ate_selecao(estado, documento)
 
         avancar(estado)  # 11, sem evidencias_de_acesso
         ultimo = estado.historico[-1]
-        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
-        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
-        assert estado.concluidas == 10
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.vinculo_candidato_referencia_especifica == "PENDENTE_NAO_VERIFICAVEL"
+        assert estado.concluidas == 11
 
     def test_evidencia_localizado_a_partir_do_estado_inicial_avanca_para_acessivel(self):
         documento = documento_sintetico_com_referencia()
@@ -647,7 +873,10 @@ class TestEtapaOnzeVerificacaoDeFontes:
         assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.ACESSIVEL
         assert estado.contexto.escalonamentos_bibliograficos == []
 
-    def test_curador_travado_em_todas_as_referencias_para_com_causa_estruturada(self, monkeypatch):
+    def test_curador_travado_em_todas_as_referencias_registra_e_nao_bloqueia(self, monkeypatch):
+        """Decisão de 2026-08-14: curador travado em toda referência não é
+        mais PARADA — o escalonamento é registrado (nada é descartado
+        silenciosamente) e a etapa avança."""
         documento = documento_sintetico_com_referencia()
         referencia = documento.referencias[0]
         estado = estado_roteado([item_declarado_para_f04()])
@@ -669,11 +898,11 @@ class TestEtapaOnzeVerificacaoDeFontes:
         avancar(estado, EntradaEtapaP13(servico_drive=object()))
 
         ultimo = estado.historico[-1]
-        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
-        assert ultimo.causa is CausaDeParada.ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
         assert referencia.unit_id in ultimo.justificativa
         assert estado.contexto.escalonamentos_bibliograficos == [escalonamento]
-        assert estado.concluidas == 10
+        assert estado.contexto.vinculo_candidato_referencia_especifica == "PENDENTE_NAO_VERIFICAVEL"
+        assert estado.concluidas == 11
 
     def test_curador_parcial_avanca_o_que_pode_e_registra_escalonamento_sem_bloquear(self, monkeypatch):
         documento = documento_sintetico_com_referencia()
@@ -709,7 +938,7 @@ class TestEtapaOnzeVerificacaoDeFontes:
         assert estado.contexto.estados_bibliograficos[referencia.unit_id] is EstadoBibliografico.ACESSIVEL
         assert estado.contexto.escalonamentos_bibliograficos == [escalonamento]
 
-    def test_sem_servico_drive_curador_nao_e_acionado_comportamento_inalterado(self):
+    def test_sem_servico_drive_curador_nao_e_acionado_nao_bloqueia(self):
         documento = documento_sintetico_com_referencia()
         estado = estado_roteado([item_declarado_para_f04()])
         _avancar_ate_selecao(estado, documento)
@@ -717,8 +946,8 @@ class TestEtapaOnzeVerificacaoDeFontes:
         avancar(estado, EntradaEtapaP13())  # sem evidência nem servico_drive
 
         ultimo = estado.historico[-1]
-        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
-        assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert estado.contexto.vinculo_candidato_referencia_especifica == "PENDENTE_NAO_VERIFICAVEL"
 
     def test_evidencia_pronta_tem_prioridade_sobre_curador_mesmo_com_servico_drive(self, monkeypatch):
         documento = documento_sintetico_com_referencia()
@@ -958,6 +1187,42 @@ class TestEtapaTrezeVerificacaoDeVoz:
         ultimo = estado.historico[-1]
         assert ultimo.tipo is TipoDeResultadoEtapa.PARADA
         assert ultimo.causa is CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO
+
+    def test_sem_perfil_gera_fallback_neutro_registrado_no_contexto(self):
+        """Correção de 2026-08-14: ausência de perfil/amostra não trava
+        mais por si só — `ctx.perfil_de_voz_candidato` recebe
+        PERFIL_NEUTRO_ACADEMICO_CONTROLADO como efeito colateral, mesmo
+        quando a etapa como um todo ainda para por falta de `cliente`
+        para a detecção de fidelidade (dois requisitos independentes)."""
+        documento = documento_sintetico_com_referencia()
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        avancar(estado)  # 13, sem perfil_de_voz nem cliente
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.PARADA  # falta cliente p/ detecção, causa distinta
+        assert estado.contexto.perfil_de_voz_candidato is not None
+        assert estado.contexto.perfil_de_voz_candidato.profile_type == TipoDePerfil.PERFIL_NEUTRO_ACADEMICO_CONTROLADO
+        assert len(estado.contexto.perfil_de_voz_candidato.dimensions) == 30
+
+    def test_perfil_neutro_completa_deteccao_com_cliente_mockado(self, monkeypatch):
+        documento = documento_sintetico_com_referencia()
+        paragrafo = documento.paragrafos[0]
+        estado = estado_roteado([item_declarado_para_f04()])
+        _avancar_ate_selecao(estado, documento)
+        _avancar_etapa_11_completa(estado, documento)
+        avancar(estado, EntradaEtapaP13(relacoes_afirmacao_evidencia=[]))  # 12
+
+        monkeypatch.setattr(ponte, "gerar_achados_fidelidade", lambda **_kw: [])
+        avancar(estado, EntradaEtapaP13(
+            cliente=MagicMock(), unidades_para_deteccao_fidelidade=[paragrafo.unit_id],
+        ))
+        ultimo = estado.historico[-1]
+        assert ultimo.tipo is TipoDeResultadoEtapa.EXECUTADA
+        assert "PERFIL_NEUTRO_ACADEMICO_CONTROLADO" in ultimo.justificativa
+        assert estado.contexto.perfil_de_voz_candidato.profile_type == TipoDePerfil.PERFIL_NEUTRO_ACADEMICO_CONTROLADO
 
     def test_perfil_sem_achados_nem_cliente_e_ponto_de_extensao(self):
         documento = documento_sintetico_com_referencia()

@@ -145,7 +145,7 @@ EFFORT_ETAPAS_16_18 = "medium"
 # docs/custos.md para diagnóstico interno; comentário final tende a ser
 # maior que diagnóstico interno, daí a folga).
 MAX_TOKENS_ETAPA_8 = 8_000
-MAX_TOKENS_ETAPA_12 = 8_000
+MAX_TOKENS_ETAPA_12 = 32_000
 # 32_000, não 8_000 — correção de 2026-08-13 (continuação): o teto de 8_000
 # era o problema real da etapa 9, não o tamanho do lote (ver nota junto de
 # TAMANHO_LOTE_ETAPA_9). No Opus 5, `thinking=adaptive` é ligado por padrão
@@ -156,12 +156,23 @@ MAX_TOKENS_ETAPA_12 = 8_000
 # chamada acima do teto antigo. `max_tokens` alto não é pago se não for
 # usado — só evita cortar a resposta no meio.
 MAX_TOKENS_ETAPA_9 = 32_000
+# Etapa 12 elevada de 8_000 para 32_000 em 2026-08-14, mesma causa raiz —
+# `ClienteAnthropic.chamar` liga `thinking=adaptive` por padrão em toda
+# chamada, não só nas de Opus [escolio/cliente/cliente.py] — confirmado
+# contra a API real: 13 candidatos, `RESPOSTA_TRUNCADA` em exatamente 8000
+# tokens, piloto capítulo 5, `document_id=MAT-DOC-7b3e4356`. Não recalibrado
+# por teoria; por achado real do mesmo tipo já visto na etapa 9.
 MAX_TOKENS_ETAPA_13 = 8_000
-# Maior que MAX_TOKENS_ETAPA_13 (detecção por unidade) porque esta chamada
-# julga as 30 dimensões de uma vez, não uma unidade — nunca calibrado
-# contra dado real ainda [PROPOSTA], sujeito a revisão na primeira execução.
+# Exercitada contra a API real em 2026-08-14 (13 chamadas, uma por unidade,
+# capítulo 5) — nenhum truncamento; 8_000 é suficiente para o tamanho de
+# resposta por unidade desta etapa. Mantido.
 MAX_TOKENS_ETAPA_13_DERIVACAO_PERFIL = 16_000
-MAX_TOKENS_ETAPAS_16_18 = 8_000
+MAX_TOKENS_ETAPAS_16_18 = 32_000
+# Elevado de 8_000 para 32_000 em 2026-08-14 — mesma causa raiz das etapas
+# 9/12 (thinking=adaptive disputa o orçamento de max_tokens), confirmada
+# contra API real: etapa 17 (10 candidatos) truncou em exatamente 8000
+# tokens; etapa 16 (2 candidatos) não truncou — escala com o número de
+# candidatos por chamada, mesmo padrão já visto.
 
 # Sessão de 2026-08-12 (quarta peça) — lotes, não teto maior. Achado real
 # (piloto contra o capítulo 5, `escolio/funcoes/LACUNAS.md`): uma chamada de
@@ -505,6 +516,28 @@ def _relacao_de_item(item: dict) -> RelacaoAfirmacaoEvidencia:
             "checagem espelhada por simetria)"
         )
     try:
+        reading_state = ReadingState(item["reading_state"])
+        # RC-010 (achado real, piloto capítulo 5, 2026-08-14): LEITURA_INDIRETA
+        # exige que `provenance` nomeie a fonte intermediária — aqui é sempre o
+        # próprio documento avaliado, já que LEITURA_INDIRETA significa
+        # exatamente "julgamento vem só do que o texto avaliado relata sobre a
+        # fonte" [prompts/p13_relacao_afirmacao_evidencia.md]. `provenance`
+        # continua "[INFERIDO]" nos demais casos — o modelo nunca declara sua
+        # própria proveniência [CLAUDE.md §9].
+        #
+        # Achado técnico, mesma sessão: `regras_coerencia.rc_010` faz
+        # `"intermediari" not in r.provenance.lower()` — substring SEM
+        # acento. "intermediária"/"intermediário" (grafia correta em
+        # português) têm "á" na posição, então nunca batem com a checagem
+        # literal. Grafado aqui sem acento de propósito, para casar com a
+        # regra mecânica — não é erro de digitação.
+        provenance = (
+            "[INFERIDO] fonte intermediaria (grafia sem acento por exigência de RC-010): o "
+            "próprio documento avaliado, que relata a fonte citada sem que o modelo tenha "
+            "acesso direto a ela"
+            if reading_state == ReadingState.LEITURA_INDIRETA
+            else "[INFERIDO]"
+        )
         return RelacaoAfirmacaoEvidencia(
             claim_id=item["claim_id"],
             claim_text=item["claim_text"],
@@ -515,13 +548,13 @@ def _relacao_de_item(item: dict) -> RelacaoAfirmacaoEvidencia:
             location_type=LocationType(item["location_type"]),
             evidence_level=EvidenceLevel(item["evidence_level"]),
             access_state=AccessState(item["access_state"]),
-            reading_state=ReadingState(item["reading_state"]),
+            reading_state=reading_state,
             validation_state=ValidationState(item["validation_state"]),
             sufficiency=Sufficiency(item["sufficiency"]),
             confidence=Confidence(item["confidence"]),
             usage_status=UsageStatus(item["usage_status"]),
             reversibility=Reversibility(item["reversibility"]),
-            provenance="[INFERIDO]",
+            provenance=provenance,
             edition_or_version=item.get("edition_or_version"),
             location_value=item.get("location_value"),
             page_or_folio=item.get("page_or_folio"),
@@ -540,11 +573,13 @@ def gerar_relacoes_afirmacao_evidencia(
 ) -> list[RelacaoAfirmacaoEvidencia]:
     """Uma chamada por lote de até `TAMANHO_LOTE_ETAPA_12` unidades — mesmo
     raciocínio de `gerar_matrizes_criticidade`. `provenance` é sempre
-    `"[INFERIDO]"` [CLAUDE.md §9]: o modelo nunca declara a proveniência de
-    si mesmo, e `validator`/`validation_date` nunca são preenchidos aqui —
-    ambos exigem revisão humana [`escolio/relacao.py`]. Falha de qualquer
-    lote propaga sem capturar, mesma disciplina das demais etapas ligadas ao
-    modelo."""
+    `"[INFERIDO]"` [CLAUDE.md §9] — o modelo nunca declara a proveniência de
+    si mesmo — exceto quando `reading_state=LEITURA_INDIRETA`, caso em que
+    `provenance` nomeia o documento avaliado como fonte intermediária
+    [RC-010, correção de 2026-08-14, achado real no piloto do capítulo 5].
+    `validator`/`validation_date` nunca são preenchidos aqui — ambos exigem
+    revisão humana [`escolio/relacao.py`]. Falha de qualquer lote propaga
+    sem capturar, mesma disciplina das demais etapas ligadas ao modelo."""
     if not unit_ids:
         raise ErroDePonteModeloP13("gerar_relacoes_afirmacao_evidencia exige ao menos um unit_id")
 
@@ -786,6 +821,50 @@ _SCHEMA_DERIVACAO_PERFIL = {
         "required": ["dimensoes_com_evidencia", "dimensoes_sem_evidencia_suficiente"],
     },
 }
+
+
+def perfil_neutro_academico_controlado(*, profile_id: str, purpose: str, scope: dict) -> PerfilDeVoz:
+    """`PERFIL_NEUTRO_ACADEMICO_CONTROLADO` — terceira saída que o próprio
+    contrato do P07 já nomeia para perfil insuficiente ("perfil insuficiente
+    conduz a... pedido de amostras **ou perfil neutro**" [01, Gates]), nunca
+    ligada a nenhuma etapa até 2026-08-14. Corrige achado do professor no
+    piloto real: a etapa 13 só implementava dois dos três caminhos (derivar
+    de amostras, ou travar) — tratando a ausência de amostra autoral como
+    bloqueio de pipeline inteiro para todo autor sem histórico prévio (o
+    caso comum — primeira submissão de um aluno), quando o próprio
+    vocabulário do projeto já previa este fallback sem custo.
+
+    Sem chamada de API — determinístico, `GATE_NEUTRO` [vocabulario.py],
+    sem exigir amostra nenhuma. Cada dimensão registra o mesmo valor
+    controlado, `confianca=NAO_APLICAVEL`: a avaliação de fidelidade que a
+    etapa 13 fizer a partir daqui usa registro acadêmico formal padrão, não
+    a voz individual do autor — granularidade menor, nunca bloqueio."""
+    dimensoes = {
+        d.value: {
+            "valor": (
+                "perfil neutro — nenhuma amostra autoral do autor avaliado disponível nesta "
+                "execução; avaliação de fidelidade usa registro acadêmico formal padrão, não a "
+                "voz individual deste autor"
+            ),
+            "evidencia": [],
+            "confianca": ConfidenceVoz.NAO_APLICAVEL.value,
+        }
+        for d in DimensaoDeVoz
+    }
+    return PerfilDeVoz(
+        profile_id=profile_id,
+        profile_type=TipoDePerfil.PERFIL_NEUTRO_ACADEMICO_CONTROLADO,
+        purpose=purpose,
+        scope=scope,
+        dimensions=dimensoes,
+        evidence=[],
+        confidence=ConfidenceVoz.NAO_APLICAVEL,
+        authorization={},
+        versioning={},
+        provenance=["[INFERIDO] perfil neutro — nenhuma amostra autoral fornecida nesta execução"],
+        reversibility={},
+        status=StatusDePerfil.VALIDACAO_PENDENTE,
+    )
 
 
 def gerar_perfil_de_voz_candidato(
@@ -1182,7 +1261,31 @@ def gerar_comentarios(
         }
         for c in candidatos
     ]
-    mensagem = f"Candidatos selecionados desta chamada: {json.dumps(candidatos_json, ensure_ascii=False, sort_keys=True)}"
+    # Achado real, piloto capítulo 5, 2026-08-14: o prompt compartilhado
+    # descreve os três ramos condicionais (matriz/individual/remissão), mas
+    # nada no texto por chamada dizia qual ramo está ativo — o modelo
+    # devolveu `comment_type='COMENTARIO_ARGUMENTATIVO'` (ramo individual)
+    # numa chamada de comentário-matriz. `comment_type_esperado` já existia
+    # só para validação Python pós-hoc; agora também vira lembrete explícito
+    # na mensagem, não só no prompt estático compartilhado.
+    if comment_type_esperado is not None:
+        lembrete_tipo = (
+            f"Nesta chamada, `comment_type` deve ser exatamente {comment_type_esperado!r} "
+            "para todos os itens — não escolha uma categoria de conteúdo (ex.: "
+            "COMENTARIO_ARGUMENTATIVO/COMENTARIO_FACTUAL); essas categorias descritivas só "
+            "se aplicam a comentários individuais, que não é o caso desta chamada."
+        )
+    else:
+        lembrete_tipo = (
+            "Nesta chamada, `comment_type` é comentário individual — escolha uma categoria "
+            "de conteúdo descritiva e consistente (ex.: COMENTARIO_FACTUAL, "
+            "COMENTARIO_METODOLOGICO), nunca `COMENTARIO_MATRIZ` nem "
+            "`REMISSAO_A_COMENTARIO_MATRIZ`."
+        )
+    mensagem = (
+        f"{lembrete_tipo}\n\n"
+        f"Candidatos selecionados desta chamada: {json.dumps(candidatos_json, ensure_ascii=False, sort_keys=True)}"
+    )
 
     resultado = cliente.chamar(
         model=MODEL_ETAPAS_16_18,

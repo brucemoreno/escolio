@@ -755,6 +755,21 @@ class TestGerarRelacoesAfirmacaoEvidencia:
         assert kwargs["effort"] == ponte.EFFORT_ETAPA_12
         assert kwargs["tools"][0]["name"] == ponte._FERRAMENTA_RELACAO
 
+    def test_leitura_indireta_produz_provenance_com_fonte_intermediaria(self):
+        """RC-010 (achado real, piloto capítulo 5, 2026-08-14): LEITURA_INDIRETA
+        exige que `provenance` nomeie a fonte intermediária — antes desta
+        correção, `provenance` era sempre `"[INFERIDO]"`, o que violava RC-010
+        incondicionalmente neste caso."""
+        documento = documento_sintetico()
+        cliente = cliente_fake([_bloco_relacao(reading_state="LEITURA_INDIRETA")])
+
+        relacoes = ponte.gerar_relacoes_afirmacao_evidencia(
+            documento=documento, unit_ids=["UNI-PAR-0001"], cliente=cliente
+        )
+
+        assert len(relacoes) == 1
+        assert "intermediari" in relacoes[0].provenance.lower()
+
     def test_campo_obrigatorio_ausente_levanta_erro_de_ponte(self):
         documento = documento_sintetico()
         item = {

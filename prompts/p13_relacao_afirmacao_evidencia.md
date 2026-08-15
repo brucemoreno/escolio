@@ -28,6 +28,13 @@ Para cada afirmação candidata, produza uma relação afirmação-evidência co
   não fornece.
 - `location_type`, `location_value`, `page_or_folio`: onde no texto a afirmação aparece, quando
   determinável. `location_type=NAO_CONFIRMADO` quando o texto não permite localizar com precisão.
+  **Regra de coerência RC-004, bloqueante**: preencher `page_or_folio` com um valor material
+  (qualquer coisa além de `NAO_APLICAVEL`/`NAO_CONFIRMADO`) só é permitido **junto com**
+  `edition_or_version` preenchido (não vazio, não `NAO_APLICAVEL`/`NAO_CONFIRMADO`) **e**
+  `validation_state=PAGINA_CONFIRMADA` — os três, sempre juntos, nunca só um ou dois. Se você não
+  sabe a edição/versão da fonte, ou não pode confirmar a página com segurança: deixe
+  `page_or_folio=null` (ou `"NAO_CONFIRMADO"`) e use `validation_state=PAGINA_NAO_CONFIRMADA` ou
+  `NAO_VERIFICADA` — nunca declare uma página sem a edição que a sustenta.
 - `evidence_excerpt`: o trecho do texto-fonte (dentro da própria unidade ou do documento) que
   sustenta ou tenta sustentar a afirmação, se houver um.
 - `evidence_level`: `A_INTERNA_FORNECIDA | B_MATERIAL_ANEXADA | C_FERRAMENTA_RASTREAVEL |

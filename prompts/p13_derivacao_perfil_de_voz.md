@@ -36,6 +36,18 @@ possíveis — nunca as duas ao mesmo tempo, e nunca nenhuma:
    é preferível declarar ausência de evidência do que produzir uma dimensão plausível, mas sem
    base real.
 
+**Distinção decidida pelo professor em 2026-08-14, entre "faltou material para julgar" e
+"o julgamento é a própria ausência"**: se as amostras são extensas e numerosas o bastante para
+que o traço, se existisse no estilo do autor, teria aparecido — e ele consistentemente não
+aparece — **isso é evidência de um valor, não falta de evidência**. Registre em
+`dimensoes_com_evidencia`, com `valor` descrevendo a ausência observada (ex.: "registro formal
+e expositivo em todas as amostras; nenhum traço de humor, ironia ou comicidade identificado"),
+`evidencia` citando que o padrão se mantém across as amostras fornecidas, e `confianca` conforme
+a robustez do volume observado. Só use `dimensoes_sem_evidencia_suficiente` quando o **gênero das
+amostras** não permite julgar de forma alguma (ex.: nenhuma amostra é longa o bastante, ou o
+material é conversacional e nunca teria oportunidade de exibir aparato crítico formal) — não
+quando o traço simplesmente não ocorre num corpus substantivo o bastante para tê-lo revelado.
+
 Toda dimensão (as 30) precisa aparecer em exatamente uma das duas listas. Não omita nenhuma.
 
 ## Disciplina

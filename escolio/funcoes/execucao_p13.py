@@ -110,20 +110,33 @@ Autorizado por `INSTRUCOES_COMPLEMENTARES_IMPLEMENTACAO_ECOSSISTEMA_REVISAO_LLM_
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import Enum
 
 from escolio.adaptadores.ingestao_para_input_item import material_id_de_documento
 from escolio.bvaa.erros import ErroDeTransicaoBibliografica
 from escolio.bvaa.vocabulario import EstadoBibliografico
 from escolio.cliente.erros import ErroDeCliente
-from escolio.comentarios.auditoria import LoteDeAuditoria, RelatorioAuditoriaFinal, auditar_lote
+from escolio.comentarios.auditoria import (
+    LoteDeAuditoria,
+    RelatorioAuditoriaFinal,
+    ResultadoChecklist,
+    VeredictoChecklist,
+    _item_acionabilidade,
+    _item_ausencia_de_quota,
+    _item_densidade_justificada,
+    _item_gates,
+    _item_problemas_materiais_nao_silenciados,
+    _item_tom,
+    auditar_lote,
+)
 from escolio.comentarios.comentario import P13Comment
 from escolio.comentarios.criticidade import MatrizCriticidade
 from escolio.comentarios.erros import ErroDeComentario
 from escolio.comentarios.registro import RegistroDeComentarios
 from escolio.comentarios.seletividade import (
     MatrizSeletividade,
+    SelectionDecision,
     aplicar_selecao,
     exige_referencia_valida_a_criticidade,
 )
@@ -153,6 +166,7 @@ from escolio.voz.amostra import AmostraAutoral, SolicitacaoDeAmostrasAdicionais
 from escolio.voz.deteccao import AchadoDeFidelidade
 from escolio.voz.fidelidade import AvaliacaoDeFidelidade, avaliar_a_partir_do_perfil
 from escolio.voz.perfil import PerfilDeVoz
+from escolio.voz.vocabulario import TipoDePerfil
 
 ARQUIVO_FONTE = "P13_CONTRATO_FUNCIONAL_COMENTARIOS_WORD_HOMOLOGADO_R01.md"
 
@@ -261,6 +275,17 @@ class CausaDeParada(str, Enum):
     automático foi tentado"): aqui o mecanismo rodou e concluiu, por si,
     que precisa de mais amostra — nunca preenche a dimensão faltante com
     um valor plausível."""
+
+    GATE_DE_SELECAO_BLOQUEADO = "GATE_DE_SELECAO_BLOQUEADO"
+    """Sessão de 2026-08-14 — critério do gate obtido do arquiteto sob
+    pergunta explícita (P13 §32.1 nomeia o gate mas nunca declara critério
+    de passagem, `LAC-FUNC-011`). Traduzido para os campos reais de P13:
+    decisão de seleção ainda `AGUARDAR_EVIDENCIA`/`AGUARDAR_GATE`/
+    `BLOQUEADO`, `unit_id` com `MatrizCriticidade` sem `MatrizSeletividade`
+    correspondente, ou `selection_id`/`unit_id` duplicado entre matrizes —
+    ver `_gate_de_selecao` para o mapeamento completo dos 7 critérios
+    originais. Repetir a chamada depois de resolver a pendência apontada
+    na justificativa é o caminho normal."""
 
     ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO = "ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO"
     """Sessão de 2026-08-13 — decisão do professor: a etapa 11 não exige
@@ -417,6 +442,17 @@ class EntradaEtapaP13:
     entrada opcional do professor, já citada em `escolio/funcoes/p13.py`].
     Lista vazia explícita confirma "nenhum problema sistêmico conhecido
     para esta chamada", distinto de `None`."""
+    resolucoes_humanas_de_selecao: dict[str, "ResolucaoHumanaDeSelecao"] | None = None
+    """`GATE_HUMANO_EXPRESSO` [P06] para a etapa 10 — sessão de 2026-08-14.
+    `GATE_DE_SELECAO` bloqueia quando alguma `MatrizSeletividade` tem
+    decisão pendente (`AGUARDAR_EVIDENCIA`/`AGUARDAR_GATE`/`BLOQUEADO`); sem
+    isto, uma pendência real trava a etapa 10 para sempre, sem caminho de
+    código para o professor resolvê-la. Chave = `selection_id`. Cada
+    resolução precisa de `nova_decisao` que não seja ela mesma pendente,
+    `justificativa` e `autoridade` não vazias — nunca um valor plausível
+    sem decisão humana registrada [CLAUDE.md §11]. Aplicada nesta chamada,
+    antes do gate reavaliar; `unit_id` sem resolução mantém a decisão
+    original do modelo."""
 
 
 @dataclass
@@ -473,6 +509,36 @@ class ContextoExecucaoP13:
     outras travaram) — nunca descartado silenciosamente; é o registro que
     torna "escalar quando travado" um caminho de código, não uma frase de
     log [CLAUDE.md §8]."""
+    achados_qualidade: dict[str, object] = field(default_factory=dict)
+    """Etapas 19-23 (sessão de 2026-08-14) — um `ResultadoChecklist`
+    (ou `_AchadoDeQualidade`, só para a etapa 20) por chave
+    'densidade'/'repeticao'/'acionabilidade'/'tom'/'gates'. Reusa os itens
+    de §44 já implementados em `escolio/comentarios/auditoria.py` na
+    posição nominal onde a espinha os nomeia, em vez de reimplementar o
+    mesmo julgamento duas vezes."""
+    consolidacao: dict | None = None
+    """Etapa 24 — agregação determinística de `achados_qualidade` e
+    contagens de `todos_comentarios`, sem julgamento novo."""
+    resolucoes_humanas_aplicadas: list["ResolucaoHumanaDeSelecao"] = field(default_factory=list)
+    """`GATE_HUMANO_EXPRESSO` (sessão de 2026-08-14) — todo override humano
+    de decisão pendente na etapa 10, acumulado entre chamadas. Nunca
+    aplicado silenciosamente: cada item carrega `selection_id`,
+    `nova_decisao`, `justificativa` e `autoridade`."""
+    vinculo_candidato_referencia_especifica: str = "NAO_DISPONIVEL"
+    """Decisão de 2026-08-14, sessão de reescopo da etapa 11: não existe em
+    nenhum lugar do projeto vínculo entre o `unit_id` de um candidato a
+    comentário (`MatrizSeletividade.unit_id`) e a referência bibliográfica
+    específica que ele citaria — `ItemDeReferencia.unit_id` e
+    `CitacaoNoCorpo` nunca são casados um contra o outro; são espaços de id
+    disjuntos. Por instrução explícita do professor: não aproximar esse
+    vínculo por proxy (ex.: "parágrafo tem alguma citação" não implica
+    "depende desta referência não verificada") — o subcritério que exigiria
+    identificar a referência específica de um candidato fica
+    `PENDENTE_NAO_VERIFICAVEL`, permanentemente, até autorização explícita
+    para construir o casamento citação↔referência. Este campo nunca é usado
+    para bloquear nem para aprovar um candidato; é só o registro de que a
+    pergunta não pode ser respondida com os dados atuais [P13 §26; CLAUDE.md
+    §11, "nada inferido"]."""
 
 
 @dataclass
@@ -709,11 +775,157 @@ def _etapa_9_matriz_de_seletividade(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
     return TipoDeResultadoEtapa.EXECUTADA, None, f"{len(ctx.matrizes_seletividade)} MatrizSeletividade aceita(s) [§12, BL-024]"
 
 
-def _etapa_10_selecao_de_unidades_comentaveis(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+@dataclass(frozen=True)
+class ResolucaoHumanaDeSelecao:
+    """`GATE_HUMANO_EXPRESSO` [P06] — resolução registrada de uma decisão
+    de seleção pendente. `selection_id` identifica a `MatrizSeletividade`
+    resolvida; ver `EntradaEtapaP13.resolucoes_humanas_de_selecao`."""
+
+    selection_id: str
+    nova_decisao: "SelectionDecision"
+    justificativa: str
+    autoridade: str
+
+    def __post_init__(self) -> None:
+        if not self.selection_id.strip():
+            raise ErroDeExecucaoP13("P13-§32.1", "selection_id vazio em ResolucaoHumanaDeSelecao")
+        if not self.justificativa.strip() or not self.autoridade.strip():
+            raise ErroDeExecucaoP13(
+                "P13-§32.1",
+                "resolução humana de seleção exige justificativa e autoridade não vazias "
+                "[GATE_HUMANO_EXPRESSO, P06] — decisão pendente não se resolve em silêncio",
+                detalhe=f"selection_id={self.selection_id!r}",
+            )
+        if not isinstance(self.nova_decisao, SelectionDecision):
+            raise ErroDeExecucaoP13(
+                "P13-§32.1", "nova_decisao deve ser um membro de SelectionDecision",
+                detalhe=repr(self.nova_decisao),
+            )
+
+
+_DECISOES_PENDENTES_DE_GATE = frozenset({
+    SelectionDecision.AGUARDAR_GATE,
+    SelectionDecision.BLOQUEADO,
+})
+"""Decisão de 2026-08-14 (`GATE_DE_SELECAO`, P13 §32.1), corrigida no mesmo
+dia após achado no piloto real do capítulo 5: `AGUARDAR_GATE`/`BLOQUEADO`
+são as únicas decisões que pedem `GATE_HUMANO_EXPRESSO` de verdade — o
+próprio modelo, no piloto real, registrou `AGUARDAR_EVIDENCIA` com
+`human_decision_required="Não há decisão humana pendente de gate, mas a
+emissão depende de evidência documental externa ainda não reunida"`
+(candidato `SEL-PROB-UNI-CIT-7b3e4356-0055-0001`, citação de Ferreira 2015
+p.66) — isso é trabalho da etapa 11 (BVAA/Drive/busca externa, já
+construída), não uma decisão para o professor tomar às cegas. Colocar
+`AGUARDAR_EVIDENCIA` na mesma categoria de `BLOQUEADO` bloqueava a etapa 10
+antes de a etapa 11 sequer tentar resolver — corrigido aqui."""
+
+_DECISOES_QUE_PEDEM_BUSCA_DE_EVIDENCIA = frozenset({SelectionDecision.AGUARDAR_EVIDENCIA})
+"""Passam pelo `GATE_DE_SELECAO` normalmente — a pendência é resolvida (ou
+não) pela etapa 11, nunca por decisão humana às cegas neste ponto."""
+
+
+def _gate_de_selecao(ctx: ContextoExecucaoP13) -> list[str]:
+    """Tradução `[PROPOSTA]` dos 7 critérios cumulativos do gate (resposta
+    do arquiteto, 2026-08-14) para os campos reais de P13 — a linguagem
+    original ("arquitetura soberana", "selação") não é de P13, então cada
+    critério abstrato é ancorado num campo verificável que já existe, nunca
+    inventado para a ocasião. Devolve a lista de violações; vazia = PASS.
+
+    1/7 (adjudicação explícita / nenhuma escolha criativa nova depois) →
+        nenhuma `MatrizSeletividade` com decisão pendente (`AGUARDAR_*`,
+        `BLOQUEADO`).
+    2   (incorporações/rejeições/omissões com decisão registrada) → todo
+        `unit_id` com `MatrizCriticidade` tem `MatrizSeletividade`
+        correspondente — nenhuma omissão silenciosa.
+    3/6 (decisão substantiva/humana pendente) → mesma checagem do item 1;
+        `SelectionDecision` já é o registro dessa decisão.
+    4/5 (incompatibilidade sem tratamento / objeto exato identificado) →
+        nenhum `selection_id` ou `unit_id` duplicado entre as matrizes."""
+    violacoes: list[str] = []
+
+    pendentes = [m.selection_id for m in ctx.matrizes_seletividade if m.selection_decision in _DECISOES_PENDENTES_DE_GATE]
+    if pendentes:
+        violacoes.append(
+            f"decisão substantiva pendente [itens 1,3,6; AGUARDAR_GATE/BLOQUEADO] em "
+            f"{len(pendentes)} matriz(es): {sorted(pendentes)}"
+        )
+
+    unidades_com_criticidade = {m.unit_id for m in ctx.matrizes_criticidade}
+    unidades_com_seletividade = {m.unit_id for m in ctx.matrizes_seletividade}
+    omitidas = sorted(unidades_com_criticidade - unidades_com_seletividade)
+    if omitidas:
+        violacoes.append(f"omissão silenciosa [item 2] — sem MatrizSeletividade para: {omitidas}")
+
+    ids = [m.selection_id for m in ctx.matrizes_seletividade]
+    duplicados_id = sorted({i for i in ids if ids.count(i) > 1})
+    if duplicados_id:
+        violacoes.append(f"selection_id duplicado [itens 4,5] — objeto não identificado inequivocamente: {duplicados_id}")
+
+    unit_ids = [m.unit_id for m in ctx.matrizes_seletividade]
+    duplicados_unit = sorted({u for u in unit_ids if unit_ids.count(u) > 1})
+    if duplicados_unit:
+        violacoes.append(f"unit_id com mais de uma decisão de seleção [item 4] — incompatibilidade sem tratamento: {duplicados_unit}")
+
+    return violacoes
+
+
+def _aplicar_resolucoes_humanas_de_selecao(ctx: ContextoExecucaoP13, e: EntradaEtapaP13) -> None:
+    """`GATE_HUMANO_EXPRESSO` — substitui a decisão pendente de cada
+    `MatrizSeletividade` cujo `selection_id` tenha resolução registrada,
+    antes do `_gate_de_selecao` reavaliar. Nunca aceita uma resolução cuja
+    `nova_decisao` seja ela mesma pendente — `ResolucaoHumanaDeSelecao.
+    __post_init__` já valida justificativa/autoridade não vazias."""
+    if not e.resolucoes_humanas_de_selecao:
+        return
+    for resolucao in e.resolucoes_humanas_de_selecao.values():
+        if resolucao.nova_decisao in _DECISOES_PENDENTES_DE_GATE:
+            raise ErroDeExecucaoP13(
+                "P13-§32.1",
+                "resolução humana não pode substituir uma decisão pendente por outra decisão "
+                "pendente — GATE_HUMANO_EXPRESSO exige decisão final [P06]",
+                detalhe=f"selection_id={resolucao.selection_id!r} nova_decisao={resolucao.nova_decisao.value}",
+            )
+    matrizes_atualizadas = []
+    for m in ctx.matrizes_seletividade:
+        resolucao = e.resolucoes_humanas_de_selecao.get(m.selection_id)
+        if resolucao is None:
+            matrizes_atualizadas.append(m)
+            continue
+        matrizes_atualizadas.append(
+            replace(
+                m,
+                selection_decision=resolucao.nova_decisao,
+                selection_rationale=(
+                    f"{m.selection_rationale} | Resolução humana ({resolucao.autoridade}): "
+                    f"{resolucao.justificativa}"
+                ),
+            )
+        )
+        ctx.resolucoes_humanas_aplicadas.append(resolucao)
+    ctx.matrizes_seletividade = matrizes_atualizadas
+
+
+def _etapa_10_selecao_de_unidades_comentaveis(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
+    _aplicar_resolucoes_humanas_de_selecao(ctx, e)
+    violacoes_do_gate = _gate_de_selecao(ctx)
+    if violacoes_do_gate:
+        return TipoDeResultadoEtapa.PARADA, CausaDeParada.GATE_DE_SELECAO_BLOQUEADO, (
+            "GATE_DE_SELECAO=BLOQUEADO [P13 §32.1] — " + "; ".join(violacoes_do_gate)
+        )
     ctx.selecionados = aplicar_selecao(ctx.matrizes_seletividade)
-    return TipoDeResultadoEtapa.EXECUTADA, None, (
-        f"{len(ctx.selecionados)} candidato(s) ordenado(s) por criticidade, sem quota [§34.3-34.4]"
+    aguardando_evidencia = [
+        m.selection_id for m in ctx.selecionados if m.selection_decision in _DECISOES_QUE_PEDEM_BUSCA_DE_EVIDENCIA
+    ]
+    justificativa = (
+        f"GATE_DE_SELECAO=PASS; {len(ctx.selecionados)} candidato(s) ordenado(s) por criticidade, "
+        "sem quota [§34.3-34.4]"
     )
+    if aguardando_evidencia:
+        justificativa += (
+            f"; {len(aguardando_evidencia)} aguardando evidência documental externa (etapa 11 "
+            f"tenta resolver, não bloqueia aqui): {aguardando_evidencia}"
+        )
+    return TipoDeResultadoEtapa.EXECUTADA, None, justificativa
 
 
 def _avancar_bvaa_ou_levanta(
@@ -775,19 +987,35 @@ def _etapa_11_verificacao_de_fontes(ctx: ContextoExecucaoP13, e: EntradaEtapaP13
         escalonamentos = resultado_curador.escalonamentos
 
     if not evidencias_identificacao and not evidencias_acesso:
+        # Decisão de 2026-08-14: falta de evidência bibliográfica não é mais
+        # PARADA de documento inteiro. P13 §26 só nega confirmações
+        # específicas ("não confirma leitura/passagem/página/imagem", "não
+        # libera sustentação específica") e §25 proíbe "silêncio diante de
+        # risco material" como resultado — nada ali autoriza travar as
+        # etapas 12+ para candidatos que não dependem de nenhuma fonte.
+        # Sem o vínculo candidato↔referência específica (ver
+        # `ContextoExecucaoP13.vinculo_candidato_referencia_especifica`),
+        # o código não decide QUAL candidato depende de bibliografia — só
+        # registra que a pergunta fica pendente, e segue.
+        ctx.vinculo_candidato_referencia_especifica = "PENDENTE_NAO_VERIFICAVEL"
         if escalonamentos:
             ctx.escalonamentos_bibliograficos.extend(escalonamentos)
             detalhes = "; ".join(
                 f"{esc.unit_id} [{esc.motivo.value}]: {esc.detalhe}" for esc in escalonamentos
             )
-            return TipoDeResultadoEtapa.PARADA, CausaDeParada.ESCALONAMENTO_BIBLIOGRAFICO_NECESSARIO, (
+            return TipoDeResultadoEtapa.EXECUTADA, None, (
                 f"curador automático tentou {len(escalonamentos)} referência(s) e nenhuma avançou "
-                f"no BVAA sem decisão humana: {detalhes}"
+                f"no BVAA sem decisão humana ({detalhes}) — não bloqueia etapas 12+ [decisão de "
+                "2026-08-14]; vínculo candidato↔referência específica PENDENTE_NAO_VERIFICAVEL, "
+                "nenhum candidato aprovado ou bloqueado com base nisto"
             )
-        return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-            "verificação de fontes exige evidência real de identificação (T01-T03) ou de acesso "
-            "(T04/T05) — sem nenhuma das duas, nenhuma fonte avança no BVAA; leitura de conteúdo "
-            "(T06+) continua fora do escopo desta etapa em qualquer caso"
+        return TipoDeResultadoEtapa.EXECUTADA, None, (
+            "nenhuma evidência de identificação (T01-T03) ou de acesso (T04/T05) resolvida nesta "
+            "chamada — estados bibliográficos permanecem OBRA_NAO_IDENTIFICADA [P04/03]; não "
+            "bloqueia etapas 12+ [decisão de 2026-08-14]; vínculo candidato↔referência específica "
+            "PENDENTE_NAO_VERIFICAVEL — comentário que vier a citar fonte não verificada segue "
+            "sujeito às restrições de §26 (não confirma sustentação específica, não inventa "
+            "bibliografia), aplicadas na elaboração do comentário (etapas 16-18), não aqui"
         )
     for unit_id, evidencia in evidencias_identificacao.items():
         _avancar_bvaa_ou_levanta(ctx, unit_id, avancar_por_identificacao, evidencia, "verificação de fontes (identificação)")
@@ -913,11 +1141,26 @@ def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
             perfil = resultado_derivacao
             ctx.perfil_de_voz_candidato = perfil
         else:
-            return TipoDeResultadoEtapa.PARADA, CausaDeParada.PONTO_DE_EXTENSAO_DE_MODELO, (
-                "verificação de voz [P07] exige o perfil de voz do autor avaliado; sem "
-                "`perfil_de_voz` nem (`cliente` + `amostras_autorais_de_voz`), nenhuma "
-                "derivação, detecção nem avaliação de fidelidade é possível"
+            # Correção de 2026-08-14, achado do professor no piloto real:
+            # ausência de amostra autoral não trava mais a etapa inteira.
+            # O próprio contrato P07 nomeia "perfil neutro" como terceira
+            # saída legítima para perfil insuficiente [01, Gates] — caso
+            # comum (primeira submissão de um autor sem histórico), não
+            # exceção. Nunca silencioso: `ctx.perfil_de_voz_candidato`
+            # registra o fallback, e toda dimensão do perfil neutro
+            # declara `confianca=NAO_APLICAVEL`.
+            perfil = ponte.perfil_neutro_academico_controlado(
+                profile_id=f"PERFIL-NEUTRO-{ctx.document_id or 'SEM-DOCUMENT-ID'}",
+                purpose=(
+                    "Perfil neutro acadêmico controlado — nenhuma amostra autoral do autor "
+                    "avaliado deste documento foi fornecida nesta execução [P07, 'Gates']."
+                ),
+                scope={
+                    "document_id": ctx.document_id,
+                    "motivo": "ausência de amostra autoral no momento desta execução",
+                },
             )
+            ctx.perfil_de_voz_candidato = perfil
     achados_por_unidade = e.achados_fidelidade
     if achados_por_unidade is None:
         if e.cliente is not None and e.unidades_para_deteccao_fidelidade:
@@ -953,9 +1196,14 @@ def _etapa_13_verificacao_de_voz(ctx: ContextoExecucaoP13, e: EntradaEtapaP13):
             amostras_conflitantes=e.amostras_conflitantes,
             exigencia_institucional_em_conflito=e.exigencia_institucional_em_conflito,
         )
-    return TipoDeResultadoEtapa.EXECUTADA, None, (
-        f"{len(achados_por_unidade)} unidade(s) avaliada(s) para fidelidade de voz [P07]"
-    )
+    justificativa = f"{len(achados_por_unidade)} unidade(s) avaliada(s) para fidelidade de voz [P07]"
+    if perfil.profile_type == TipoDePerfil.PERFIL_NEUTRO_ACADEMICO_CONTROLADO:
+        justificativa += (
+            " — usando PERFIL_NEUTRO_ACADEMICO_CONTROLADO (sem amostra autoral do autor "
+            "avaliado nesta execução); avaliação de fidelidade em granularidade reduzida, "
+            "não bloqueada [correção de 2026-08-14]"
+        )
+    return TipoDeResultadoEtapa.EXECUTADA, None, justificativa
 
 
 def _etapa_14_verificacao_de_privacidade(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
@@ -1053,14 +1301,107 @@ def _etapa_elaboracao(
     return handler
 
 
-def _etapa_verificacao_sem_correspondencia(nome_curto: str):
-    def handler(_ctx, _e):
-        return TipoDeResultadoEtapa.PARADA, CausaDeParada.SEM_FONTE_DE_VERIFICACAO, (
-            f"nenhuma seção do contrato liga a etapa '{nome_curto}' a um critério verificável "
-            "distinto do checklist de §44, que só corresponde nominalmente à etapa 25 "
-            "[LAC-FUNC-007, mesma disciplina]"
-        )
-    return handler
+def _lote_para_checklist(ctx: ContextoExecucaoP13) -> LoteDeAuditoria:
+    """Mesma construção de `_etapa_25_auditoria_final` — decisão de
+    2026-08-14: etapas 19-24 reusam os itens de §44 já implementados em
+    `escolio/comentarios/auditoria.py`, na posição nominal onde a espinha
+    de etapas os nomeia, em vez de reimplementar o mesmo julgamento duas
+    vezes (dois juízes do mesmo critério podendo divergir)."""
+    return LoteDeAuditoria(
+        comentarios=list(ctx.todos_comentarios),
+        matrizes_criticidade=list(ctx.matrizes_criticidade),
+        matrizes_seletividade=list(ctx.matrizes_seletividade),
+        quota_declarada=False,
+    )
+
+
+@dataclass(frozen=True)
+class _AchadoDeQualidade:
+    """Mesma forma de `ResultadoChecklist` (veredito + justificativa), sem
+    exigir `ItemChecklist` — usado só pela etapa 20 (repetição), que não
+    tem item correspondente em §44."""
+
+    veredito: VeredictoChecklist
+    justificativa: str
+
+
+def _registrar_e_justificar(ctx: ContextoExecucaoP13, chave: str, resultado):
+    ctx.achados_qualidade[chave] = resultado
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"[{chave}] {resultado.veredito.value} — {resultado.justificativa}"
+    )
+
+
+def _etapa_19_verificacao_de_densidade(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    lote = _lote_para_checklist(ctx)
+    resultado_quota = _item_ausencia_de_quota(lote)
+    resultado_silencio = _item_problemas_materiais_nao_silenciados(lote)
+    resultado = _item_densidade_justificada(resultado_quota, resultado_silencio)
+    return _registrar_e_justificar(ctx, "densidade", resultado)
+
+
+def _etapa_20_verificacao_de_repeticao(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    """Sem item correspondente em §44 [achado desta sessão] — checagem
+    mecânica própria, deliberadamente estreita: só duplicata exata de
+    `problem` para o mesmo `unit_id`. Não cobre paráfrase/repetição
+    semântica, que exigiria julgamento — registrado como limite, não
+    escondido."""
+    vistos: dict[tuple[str, str], str] = {}
+    duplicados: list[str] = []
+    for c in ctx.todos_comentarios:
+        chave = (c.unit_id, c.problem)
+        anterior = vistos.get(chave)
+        if anterior is not None:
+            duplicados.append(f"{c.comment_id} repete texto de {anterior} em unit_id={c.unit_id}")
+        else:
+            vistos[chave] = c.comment_id
+    resultado = _AchadoDeQualidade(
+        veredito=VeredictoChecklist.REPROVADO if duplicados else VeredictoChecklist.APROVADO,
+        justificativa=(
+            "; ".join(duplicados) if duplicados
+            else "nenhuma duplicata exata de texto de problema encontrada (checagem mecânica; "
+            "não cobre paráfrase)"
+        ),
+    )
+    return _registrar_e_justificar(ctx, "repeticao", resultado)
+
+
+def _etapa_21_verificacao_de_acionabilidade(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    resultado = _item_acionabilidade(_lote_para_checklist(ctx))
+    return _registrar_e_justificar(ctx, "acionabilidade", resultado)
+
+
+def _etapa_22_verificacao_de_tom(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    resultado = _item_tom(_lote_para_checklist(ctx))
+    return _registrar_e_justificar(ctx, "tom", resultado)
+
+
+def _etapa_23_verificacao_de_gates(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    resultado = _item_gates(_lote_para_checklist(ctx))
+    return _registrar_e_justificar(ctx, "gates", resultado)
+
+
+def _etapa_24_consolidacao(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
+    """Agregação determinística, sem julgamento novo — soma o que as
+    etapas 19-23 (`ctx.achados_qualidade`) e as matrizes já registraram."""
+    def _contar(campo: str) -> dict[str, int]:
+        contagem: dict[str, int] = {}
+        for c in ctx.todos_comentarios:
+            valor = getattr(c, campo)
+            contagem[valor] = contagem.get(valor, 0) + 1
+        return contagem
+
+    ctx.consolidacao = {
+        "total_comentarios": len(ctx.todos_comentarios),
+        "por_severity": _contar("severity"),
+        "por_priority": _contar("priority"),
+        "por_comment_type": _contar("comment_type"),
+        "vereditos_19_23": {chave: r.veredito.value for chave, r in ctx.achados_qualidade.items()},
+    }
+    return TipoDeResultadoEtapa.EXECUTADA, None, (
+        f"consolidado: {ctx.consolidacao['total_comentarios']} comentário(s); "
+        f"vereditos 19-23: {ctx.consolidacao['vereditos_19_23']}"
+    )
 
 
 def _etapa_25_auditoria_final(ctx: ContextoExecucaoP13, _e: EntradaEtapaP13):
@@ -1120,12 +1461,12 @@ _HANDLERS = {
         campo_candidatos="candidatos_para_remissoes",
         campo_matrix_map="matrix_comment_id_por_remissao",
     ),
-    19: _etapa_verificacao_sem_correspondencia("verificação de densidade"),
-    20: _etapa_verificacao_sem_correspondencia("verificação de repetição"),
-    21: _etapa_verificacao_sem_correspondencia("verificação de acionabilidade"),
-    22: _etapa_verificacao_sem_correspondencia("verificação de tom"),
-    23: _etapa_verificacao_sem_correspondencia("verificação de gates"),
-    24: _etapa_verificacao_sem_correspondencia("consolidação"),
+    19: _etapa_19_verificacao_de_densidade,
+    20: _etapa_20_verificacao_de_repeticao,
+    21: _etapa_21_verificacao_de_acionabilidade,
+    22: _etapa_22_verificacao_de_tom,
+    23: _etapa_23_verificacao_de_gates,
+    24: _etapa_24_consolidacao,
     25: _etapa_25_auditoria_final,
     26: _etapa_fora_do_fluxo("decisão autoral"),
     27: _etapa_fora_do_fluxo("homologação documental"),

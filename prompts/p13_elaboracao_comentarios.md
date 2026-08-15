@@ -27,6 +27,17 @@ Campos obrigatórios de cada comentário [§31.5]:
   fornecer material suficiente para decidir com segurança, prefira o valor mais conservador e
   registre a incerteza em `evidence` — nunca declare uma fonte não aberta como conferida [§35].
 
+**Verificação bibliográfica [§26], responsabilidade movida para esta etapa em 2026-08-14:** o
+sistema não tem, hoje, vínculo entre um candidato e a referência bibliográfica específica que
+ele citaria — essa pergunta fica sem resposta automática (`PENDENTE_NAO_VERIFICAVEL`). Por isso,
+se o `problem`/`evidence` de um comentário depender de uma citação ou referência do texto: não
+confirme leitura, passagem, página ou imagem que você mesmo não pode verificar contra o
+documento fornecido; não libere sustentação bibliográfica específica; nunca invente ou complete
+uma referência. Você pode produzir o comentário mesmo assim, comentando a própria pendência
+bibliográfica quando for o caso [§26, "pode produzir comentário sobre pendência bibliográfica
+sem inventar a solução"] — a pendência não impede o comentário, só limita o que ele pode afirmar
+como verificado.
+
 **Catálogo completo dos 15 tipos de `comment_type` [§13] não está disponível neste código**
 [`escolio/comentarios/LACUNAS.md`] — para comentário individual, escolha um `comment_type`
 descritivo e consistente (ex.: `COMENTARIO_FACTUAL`, `COMENTARIO_METODOLOGICO`); para
